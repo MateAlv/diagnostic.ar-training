@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diagnostic-ar-training"
+version = "0.1.0"
+description = "Training, re-ranking and evaluation for diagnostic.ar: sex, age and negated symptoms on top of GenPhenia"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "pydantic>=2.6",
+    "pyyaml>=6.0",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+baseline = ["onnxruntime>=1.18"]
+gnn = ["torch>=2.4", "onnx>=1.16"]
+
+[project.scripts]
+dxt = "diagnostic_ar_training.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+# Typer declares CLI arguments as call defaults.
+ignore = ["B008"]

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Raw sources are fetched and sha256-verified from data/sources.yaml; never committed.
+data/raw/
+# Derived artifacts are rebuilt from manifests or published as release assets.
+data/interim/
+data/processed/
+runs/
+results/**/*.npz
+results/**/*.pt
+results/**/*.onnx
+*.ckpt

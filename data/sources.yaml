@@ -1,0 +1,111 @@
+# Registry of every external input. Nothing enters a dataset, KB, model or
+# evaluation unless it is listed here with an immutable URL and its sha256.
+# `dxt sources fetch` materialises them into data/raw/<name>/<filename>,
+# preferring a verified local copy and falling back to the URL.
+#
+# role — what the source may feed (enforced by lineage.registry.require_role):
+#   knowledge  annotations/ontologies: may feed the simulator, KBs and training
+#   cohort     patients; access only through a frozen split (data/splits/),
+#              whose per-split purpose rules apply (see docs/EVAL_PROTOCOL.md)
+#   eval       patients that may only ever be evaluated on, never trained or tuned on
+#   baseline   a released model used as E0 / warm start
+#
+# See docs/DATA_LINEAGE.md for how to add a source.
+
+hpo_ontology:
+  role: knowledge
+  version: "2026-02-16"
+  filename: hp.json
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-02-16/hp.json
+  sha256: cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243
+  license: HPO license (free use with attribution)
+  local_candidates:
+    - ../diagnostic.ar-model/data/raw/hpo/hp.json
+
+hpo_annotations:
+  role: knowledge
+  version: "2026-02-16"
+  filename: phenotype.hpoa
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-02-16/phenotype.hpoa
+  sha256: 5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb
+  license: HPO license (free use with attribution)
+  notes: Rows cite PMIDs; rows citing held-out cohort publications must be masked (EVAL_PROTOCOL §4).
+  local_candidates:
+    - ../diagnostic.ar-model/data/raw/hpo/phenotype.hpoa
+
+hpo_genes_to_disease:
+  role: knowledge
+  version: "2026-02-16"
+  filename: genes_to_disease.txt
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-02-16/genes_to_disease.txt
+  sha256: 364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60
+  license: HPO license (free use with attribution)
+  local_candidates:
+    - ../diagnostic.ar-model/data/raw/hpo/genes_to_disease.txt
+
+hpo_genes_to_phenotype:
+  role: knowledge
+  version: "2026-02-16"
+  filename: genes_to_phenotype.txt
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-02-16/genes_to_phenotype.txt
+  sha256: 25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d
+  license: HPO license (free use with attribution)
+  local_candidates:
+    - ../diagnostic.ar-model/data/raw/hpo/genes_to_phenotype.txt
+
+orphanet_ages:
+  role: knowledge
+  version: "2025-12-09"
+  filename: en_product9_ages.xml
+  # Orphadata's own URL is overwritten on every release, so the pinned copy is
+  # a snapshot published as a release asset of this repo.
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-28/en_product9_ages.xml
+  upstream_url: https://www.orphadata.com/data/xml/en_product9_ages.xml
+  sha256: c8dba4d4a424527a3bda9e0d0e6701451afb372b693d1f19b507879d6bf155b8
+  license: CC-BY-4.0 (Orphanet)
+  local_candidates:
+    - /home/mate/diagnostic.ar/diagnosticar-question-agent/data/en_product9_ages.xml
+
+phenopacket_store:
+  role: cohort
+  version: "0.1.27"
+  filename: all_phenopackets.zip
+  url: https://github.com/monarch-initiative/phenopacket-store/releases/download/0.1.27/all_phenopackets.zip
+  sha256: d0c70005bb09b87035087516252b6b539fbc0415be7c664b73c9cde7eedf205a
+  license: CC-BY-4.0
+  notes: 10,377 published patients with sex, age, onset and excluded features. Split by publication (data/splits/r1-v1.json).
+  local_candidates:
+    - /home/mate/diagnostic.ar/qa-agente-claude/data/phenopacket-store/0.1.27/all_phenopackets.zip
+
+mcrd:
+  role: eval
+  version: GraPhens@7d861ff
+  filename: MCRD.dataset.tsv
+  url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/validation_arena/MCRD.dataset.tsv
+  sha256: 19e7228346408151858e03a803f9c10365d908d9931856850fb4fabf42aa6687
+  license: as distributed by GraPhens (original source to be cited in the informe)
+  notes: 229 cases, present phenotypes only. The anteproyecto's final benchmark.
+  local_candidates:
+    - ../GenPhenAI/GraPhens/validation_arena/MCRD.dataset.tsv
+
+ddd:
+  role: eval
+  version: GraPhens@7d861ff
+  filename: DDD.dataset.tsv
+  url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/validation_arena/DDD.dataset.tsv
+  sha256: 1f1074c8c5dd25a614ea16e98bab9fb788bca8f02051c4c64ea76b99891f54af
+  license: as distributed by GraPhens (original source to be cited in the informe)
+  notes: 1,048 cases, present phenotypes only. GraPhens fine-tuned an experimental model on it (validation_arena/finetune_ddd_model.py); v3.0 is not known to have seen it.
+  local_candidates:
+    - ../GenPhenAI/GraPhens/validation_arena/DDD.dataset.tsv
+
+genphenia_v3:
+  role: baseline
+  version: model-v3.0.0
+  filename: genphenia-v3.0.tar.gz
+  url: https://github.com/MateAlv/diagnostic.ar-model/releases/download/model-v3.0.0/genphenia-v3.0.tar.gz
+  sha256: 2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8
+  license: GenPhenAI authors; used with permission for diagnostic.ar
+  notes: Production model (E0). Its training data (simulated from genes_to_phenotype, HPO ~2025-11) is not available; see DATA_LINEAGE §5.
+  local_candidates:
+    - ../diagnostic.ar-model/dist/genphenia-v3.0.tar.gz
