@@ -1,12 +1,16 @@
 PY := .venv/bin/python
 DXT := .venv/bin/dxt
 
-.PHONY: setup setup-gnn lint test sources verify check
+.PHONY: setup setup-gnn hooks lint test sources verify check
 
 setup:            ## venv + package + dev tools
 	python3.12 -m venv .venv
 	.venv/bin/pip install -q --upgrade pip
 	.venv/bin/pip install -q -e ".[dev,baseline]"
+	git config core.hooksPath scripts/hooks
+
+hooks:            ## run `make check` before every push
+	git config core.hooksPath scripts/hooks
 
 setup-gnn: setup  ## + torch for Front A
 	.venv/bin/pip install -q -e ".[gnn]"

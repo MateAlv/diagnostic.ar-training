@@ -49,7 +49,8 @@ flowchart LR
    release asset of this repo and pin that.
 2. **Raw bytes are never edited.** `data/raw/` is populated only by
    `dxt sources fetch`, which verifies the sha256 whatever the origin (a local
-   copy or the URL). Code gets paths only through `registry.open_source(name,
+   copy or the URL). GitHub release URLs are downloaded with `gh`, so private
+   release assets (the Orphanet snapshot, the v3.0 bundle) work too. Code gets paths only through `registry.open_source(name,
    purpose)`, which also checks the role **[code]**.
 3. **Roles limit flow [code].**
    - `knowledge` may feed anything.

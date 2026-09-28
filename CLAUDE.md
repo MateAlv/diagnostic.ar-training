@@ -52,7 +52,7 @@ master plan.
 ## Commands
 
 ```bash
-make setup | make sources | make check
+make setup | make sources | make check   # setup also installs the pre-push hook (make hooks)
 .venv/bin/dxt sources list|fetch|verify
 .venv/bin/dxt split freeze|show|heldout-pmids r1-v1
 .venv/bin/dxt lineage verify

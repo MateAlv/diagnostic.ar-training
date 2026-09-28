@@ -1,0 +1,4 @@
+#!/bin/sh
+# Installed by `make hooks`. Runs the same checks as CI, so a push is gated
+# even when GitHub Actions is unavailable.
+exec make -s check

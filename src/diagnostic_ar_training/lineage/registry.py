@@ -1,6 +1,8 @@
 """Pinned external sources (data/sources.yaml) and the rules on what each may feed."""
 
+import re
 import shutil
+import subprocess
 import urllib.request
 from dataclasses import dataclass, field
 from enum import StrEnum
@@ -12,6 +14,7 @@ from diagnostic_ar_training import DATA_DIR, RAW_DIR, REPO_ROOT
 from diagnostic_ar_training.lineage.hashing import sha256_file
 
 SOURCES_FILE = DATA_DIR / "sources.yaml"
+GITHUB_RELEASE = re.compile(r"^https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^/]+)$")
 
 
 class Role(StrEnum):
@@ -100,13 +103,29 @@ def fetch(source: Source, allow_download: bool = True) -> Path:
 
     if not allow_download:
         raise LineageError(f"{source.name}: no verified local copy and downloads are disabled")
-    urllib.request.urlretrieve(source.url, tmp)
+    _download(source.url, tmp)
     actual = sha256_file(tmp)
     if actual != source.sha256:
         tmp.unlink()
         raise LineageError(f"{source.name}: sha256 {actual} != pinned {source.sha256}")
     tmp.replace(source.path)
     return source.path
+
+
+def _download(url: str, dest: Path) -> None:
+    """Release assets go through `gh`, which also reaches our private repos."""
+    release = GITHUB_RELEASE.match(url)
+    if release and shutil.which("gh"):
+        repo, tag, asset = release.groups()
+        with dest.parent.joinpath(asset).open("wb") as handle:
+            subprocess.run(
+                ["gh", "release", "download", tag, "-R", repo, "-p", asset, "-O", "-"],
+                check=True,
+                stdout=handle,
+            )
+        dest.parent.joinpath(asset).replace(dest)
+        return
+    urllib.request.urlretrieve(url, dest)
 
 
 def open_source(name: str, purpose: Purpose) -> Path:

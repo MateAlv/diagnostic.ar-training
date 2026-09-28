@@ -143,6 +143,16 @@ What they tell us:
   | R1-train PMIDs cited by HPOA | 10,995 rows | Allowed |
   | MCRD vs R1 | 0 exact (gene, present) overlaps; 44 genes shared | — |
   | DDD vs R1 | 0 exact overlaps; 140 genes shared | — |
+- **Follow-ups the same day:**
+  - Published the `data-snapshot-2026-09-28` release with the Orphanet ages
+    file.
+  - Checked that fetching from URL works for both the private release (via
+    `gh`) and the raw GitHub URL (MCRD). Both were sha256-verified.
+  - **GitHub Actions did not run.** The job was refused because of account
+    billing / spending limit; it was not a code failure. Mitigation:
+    `scripts/hooks/pre-push` runs `make check` (lint, tests, lineage verify)
+    before every push, installed by `make setup` / `make hooks`. CI will
+    resume if billing is fixed.
 - **Verdict:** ✅ the foundation is in place. Every future number can be
   traced to pinned bytes, a SHA and params.
 - **Next (Phase 0 remainder):**
