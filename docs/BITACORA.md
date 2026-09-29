@@ -239,3 +239,68 @@ What they tell us:
   - §14 / §16: the CI redesign after the first measurement. This is exactly
     criterion 4's "measurements that drove redesigns".
   - §16: the DDD provenance finding, and the wrong expectation about MCRD.
+
+### 2026-09-29 — sesión — Decision on the vocabulary; Front B knowledge base `kb-v1`
+- **Front / versions:** B. Code `d3a2e3e`; artifact `kb-v1` (release
+  `kb-v1`, manifest `data/manifests/kb-v1.json`).
+- **Decision (Mateo):** the gene vocabulary stays v3.0's 5,229 genes
+  (ADR-0006). A-008 is rejected; vocabulary expansion goes to future work.
+- **Done:**
+  - `ontology.py`: hp.json loader with alt-id and obsolete→replacement
+    resolution, ancestors and descendants.
+  - `rerank/kb.py`: the KB builder, with 8 fixture tests covering:
+    - merging, alt ids, obsolete terms;
+    - NOT and Excluded as negation;
+    - sex restriction, HPO onset → age intervals, Orphanet fallback,
+      inheritance;
+    - masking, polygenic exclusion, determinism.
+  - `dxt kb build --publish` and `dxt artifacts fetch`. Published artifacts
+    missing locally no longer fail `lineage verify`.
+  - The simulator's HPOA backbone (Phase 1A) runs in parallel on
+    `rare-disease-simulator` branch `feat/hpoa-backbone`, done by a subagent.
+- **Result (`kb-v1`):**
+
+  | Measure | Value |
+  |---|---|
+  | Diseases / genes | 12,802 / 5,148 |
+  | Phenotype annotations | 249,434 |
+  | Negations | 720 |
+  | Sex-restricted annotations | 496 |
+  | HPOA rows masked (held-out PMIDs) | 15,412 (matches the Phase 0 measurement) |
+  | Unresolvable or renamed terms | 0 (HPOA 2026 already uses current ids) |
+  | Diseases with onset | 4,303 from HPO + 3,795 from the Orphanet fallback |
+  | Diseases with inheritance | 8,175 |
+  | Size / build time | 1.4 MB gz, 4 s |
+
+  | Coverage of v3.0's 5,228 real genes | Count | Share |
+  |---|---|---|
+  | in the KB | 5,053 | 97% |
+  | with onset | 4,286 | 82% |
+  | X-linked | 256 | 5% |
+  | with sex-restricted phenotypes | 213 | 4% |
+  | with NOT annotations | 374 | 7% |
+
+  **Masking audit** (share of cases whose present terms are all annotated to
+  the gene in the KB):
+
+  | Cohort | Unmasked KB | kb-v1 (masked) |
+  |---|---|---|
+  | R1-dev | 78.1% | **16.1%** |
+  | R1-train | 68.2% | 41.2% (train genes also lose held-out-paper annotations) |
+
+  - Median verbatim-term share on dev: 1.00 → 0.50.
+  - 203 dev patients' genes have no remaining annotations; for them the
+    re-ranker will be the identity.
+- **Verdict:** ✅ `kb-v1` adopted as Front B's knowledge base.
+- **What it implies for Front B:**
+  - **Age is the broadest new signal:** 82% of genes have onset data.
+  - **Sex and explicit negation reach only 4–7% of genes.** Negated symptoms
+    will mostly act through frequencies (a typical feature reported absent),
+    not through NOT annotations. This agrees with the qa-agent's
+    near-zero result for NOT-only negation.
+- **Next:** B2 features (negation penalty, sex and age compatibility) and
+  pre-registration of EXP-B-001 (rr-v1 grid on R1-dev).
+- **Evidence for the informe:**
+  - §11: the KB design and what each source contributes.
+  - §14 / §16: the masking audit table, which quantifies the leakage path and
+    its removal.
