@@ -35,3 +35,12 @@ def test_run_outputs_do_not_count_as_dirty_code(monkeypatch):
     assert gitinfo.code_state().dirty is False
     status += "\n M src/diagnostic_ar_training/splits.py"
     assert gitinfo.code_state().dirty is True
+
+
+def test_a_published_output_missing_locally_is_not_a_lineage_problem(tmp_path, clean_tree):
+    out = tmp_path / "kb.json.gz"
+    out.write_text("x")
+    m = manifest.build_manifest("kb-test", "rerank-kb", [], {}, [out])
+    out.unlink()
+    assert manifest.verify_outputs(m) == [f"{out}: missing"]
+    assert manifest.verify_outputs(m.model_copy(update={"release": "kb-test"})) == []

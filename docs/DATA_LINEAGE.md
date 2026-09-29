@@ -142,6 +142,7 @@ model's ontology or zero-embedded.
 |---|---|---|
 | 2026-09-28 | Sources registered | 9 sources; all verified from local copies (`dxt sources fetch --no-download`) |
 | 2026-09-28 | Split `r1-v1` frozen | content sha256 `b007aa17741c2309a2fce9e36aaa77608d3d2b1311630e96c77be9d39e462ccf`, before any model was run on the cohort |
+| 2026-09-29 | Artifact `kb-v1` built and published | Front B KB from commit `d3a2e3e`, release `kb-v1`: 12,802 diseases, 5,148 genes, 249,434 phenotype annotations; 15,412 held-out-PMID rows masked. Masking audit: R1-dev cases fully covered by KB annotations fell from 78.1% (unmasked) to 16.1% |
 | 2026-09-29 | Source added | `graphens_sim_20251202` (S2, role eval) from GraPhens@7d861ff; MCRD and DDD marked `sealed` |
 | 2026-09-29 | E0 measured (EXP-000) | Production parity: bit-identical to the vendored engine on 300 cases. Sealed reads of r1-v1/test, MCRD and DDD ledgered |
 | 2026-09-28 | Leakage measured | 15,412 of 282,723 HPOA rows (5.45%, 457 diseases) cite R1 held-out PMIDs; MCRD/DDD have 0 exact (gene, present) overlaps with R1 |

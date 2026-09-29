@@ -5,7 +5,7 @@ from pathlib import Path
 
 import typer
 
-from diagnostic_ar_training import MANIFESTS_DIR, SPLITS_DIR
+from diagnostic_ar_training import DATA_DIR, MANIFESTS_DIR, SPLITS_DIR
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
 from diagnostic_ar_training.lineage.registry import LineageError
@@ -15,10 +15,78 @@ sources_app = typer.Typer(no_args_is_help=True, help="Pinned external inputs (da
 split_app = typer.Typer(no_args_is_help=True, help="Frozen, publication-grouped cohort splits.")
 lineage_app = typer.Typer(no_args_is_help=True, help="Integrity of everything recorded.")
 eval_app = typer.Typer(no_args_is_help=True, help="Run systems on cohorts; results + manifest.")
+kb_app = typer.Typer(no_args_is_help=True, help="Front B knowledge base.")
+artifacts_app = typer.Typer(no_args_is_help=True, help="Derived artifacts published as releases.")
 app.add_typer(sources_app, name="sources")
 app.add_typer(split_app, name="split")
 app.add_typer(lineage_app, name="lineage")
 app.add_typer(eval_app, name="eval")
+app.add_typer(kb_app, name="kb")
+app.add_typer(artifacts_app, name="artifacts")
+
+
+@kb_app.command("build")
+def kb_build(
+    kb_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. kb-v1"),
+    mask_split: str = typer.Option("r1-v1", help="Split whose held-out PMIDs are masked"),
+    publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
+) -> None:
+    """Build the knowledge base from pinned sources with held-out publications masked."""
+    from diagnostic_ar_training import INTERIM_DIR, splits
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import publish as publish_release
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+
+    names = [
+        "hpo_ontology",
+        "hpo_annotations",
+        "hpo_genes_to_disease",
+        "hpo_genes_to_phenotype",
+        "orphanet_ages",
+    ]
+    paths = {n: open_source(n, Purpose.KB) for n in names}
+    splits.write_heldout_pmids(mask_split)  # refuses if the committed list drifted from the split
+    mask_path = splits.heldout_pmids_path(mask_split)
+    masked = set(mask_path.read_text().split())
+    built, stats = kb.build(
+        Ontology.from_json(paths["hpo_ontology"]),
+        paths["hpo_annotations"],
+        paths["hpo_genes_to_disease"],
+        paths["hpo_genes_to_phenotype"],
+        paths["orphanet_ages"],
+        masked,
+    )
+    out_dir = INTERIM_DIR / "kb" / kb_id
+    kb_path = out_dir / "kb.json.gz"
+    kb.write(built, kb_path)
+    stats_path = DATA_DIR / "kb" / f"{kb_id}.stats.json"
+    stats_path.parent.mkdir(parents=True, exist_ok=True)
+    stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
+    sources = registry.load_sources()
+    inputs = [sources[n].as_input() for n in names]
+    inputs.append({"id": f"heldout-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
+    params = {
+        "mask_split": mask_split,
+        "excluded_associations": sorted(kb.EXCLUDED_ASSOCIATIONS),
+        "schema": 1,
+    }
+    manifest = build_manifest(kb_id, "rerank-kb", inputs, params, [kb_path, stats_path])
+    if publish:
+        manifest = publish_release(manifest, kb_id)
+    write_manifest(manifest)
+    typer.echo(json.dumps(stats, indent=1))
+
+
+@artifacts_app.command("fetch")
+def artifacts_fetch(artifact_id: str) -> None:
+    """Download a published artifact's files and verify them against its manifest."""
+    from diagnostic_ar_training.lineage.manifest import fetch_outputs, load_manifest
+
+    for path in fetch_outputs(load_manifest(artifact_id)):
+        typer.echo(path)
 
 
 def _system(name: str):

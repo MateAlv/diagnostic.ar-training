@@ -239,3 +239,132 @@ What they tell us:
   - §14 / §16: the CI redesign after the first measurement. This is exactly
     criterion 4's "measurements that drove redesigns".
   - §16: the DDD provenance finding, and the wrong expectation about MCRD.
+
+### 2026-09-29 — sesión — Decision on the vocabulary; Front B knowledge base `kb-v1`
+- **Front / versions:** B. Code `d3a2e3e`; artifact `kb-v1` (release
+  `kb-v1`, manifest `data/manifests/kb-v1.json`).
+- **Decision (Mateo):** the gene vocabulary stays v3.0's 5,229 genes
+  (ADR-0006). A-008 is rejected; vocabulary expansion goes to future work.
+- **Done:**
+  - `ontology.py`: hp.json loader with alt-id and obsolete→replacement
+    resolution, ancestors and descendants.
+  - `rerank/kb.py`: the KB builder, with 8 fixture tests covering:
+    - merging, alt ids, obsolete terms;
+    - NOT and Excluded as negation;
+    - sex restriction, HPO onset → age intervals, Orphanet fallback,
+      inheritance;
+    - masking, polygenic exclusion, determinism.
+  - `dxt kb build --publish` and `dxt artifacts fetch`. Published artifacts
+    missing locally no longer fail `lineage verify`.
+  - The simulator's HPOA backbone (Phase 1A) runs in parallel on
+    `rare-disease-simulator` branch `feat/hpoa-backbone`, done by a subagent.
+- **Result (`kb-v1`):**
+
+  | Measure | Value |
+  |---|---|
+  | Diseases / genes | 12,802 / 5,148 |
+  | Phenotype annotations | 249,434 |
+  | Negations | 720 |
+  | Sex-restricted annotations | 496 |
+  | HPOA rows masked (held-out PMIDs) | 15,412 (matches the Phase 0 measurement) |
+  | Unresolvable or renamed terms | 0 (HPOA 2026 already uses current ids) |
+  | Diseases with onset | 4,303 from HPO + 3,795 from the Orphanet fallback |
+  | Diseases with inheritance | 8,175 |
+  | Size / build time | 1.4 MB gz, 4 s |
+
+  | Coverage of v3.0's 5,228 real genes | Count | Share |
+  |---|---|---|
+  | in the KB | 5,053 | 97% |
+  | with onset | 4,286 | 82% |
+  | X-linked | 256 | 5% |
+  | with sex-restricted phenotypes | 213 | 4% |
+  | with NOT annotations | 374 | 7% |
+
+  **Masking audit** (share of cases whose present terms are all annotated to
+  the gene in the KB):
+
+  | Cohort | Unmasked KB | kb-v1 (masked) |
+  |---|---|---|
+  | R1-dev | 78.1% | **16.1%** |
+  | R1-train | 68.2% | 41.2% (train genes also lose held-out-paper annotations) |
+
+  - Median verbatim-term share on dev: 1.00 → 0.50.
+  - 203 dev patients' genes have no remaining annotations; for them the
+    re-ranker will be the identity.
+- **Verdict:** ✅ `kb-v1` adopted as Front B's knowledge base.
+- **What it implies for Front B:**
+  - **Age is the broadest new signal:** 82% of genes have onset data.
+  - **Sex and explicit negation reach only 4–7% of genes.** Negated symptoms
+    will mostly act through frequencies (a typical feature reported absent),
+    not through NOT annotations. This agrees with the qa-agent's
+    near-zero result for NOT-only negation.
+- **Next:** B2 features (negation penalty, sex and age compatibility) and
+  pre-registration of EXP-B-001 (rr-v1 grid on R1-dev).
+- **Evidence for the informe:**
+  - §11: the KB design and what each source contributes.
+  - §14 / §16: the masking audit table, which quantifies the leakage path and
+    its removal.
+
+### 2026-09-29 — sesión — Front A: simulator HPOA backbone (`rare-disease-simulator` PR #1)
+- **Front / versions:** A. `rare-disease-simulator` branch
+  `feat/hpoa-backbone` (7 commits, `1c13e90..425106f`), PR #1, open and not
+  merged. Built by a subagent; I spot-checked it (authorship, tests, output
+  hash).
+- **Done:**
+  - `HpoOntology.from_json`, with alt-id and replaced-by resolution.
+  - `build-profiles --from-hpoa` with `--exclude-pmids`.
+  - Profiles now carry:
+    - per-phenotype sex restriction and onset;
+    - disease onset (HPO, with the Orphanet fallback by ORPHA id);
+    - inheritance, and sex bias derived from inheritance;
+    - progression;
+    - input sha256s and the simulator git SHA.
+  - `simulate` now passes the ontology, noise vocabulary and labels.
+  - 97 tests (57 old + 40 new) and a CHANGELOG.
+- **Result** (real build on the pinned inputs + `r1-v1.heldout-pmids.txt`;
+  5.2 s; output sha256 `fc64d0cd…`, identical on a rerun):
+
+  | Measure | Value |
+  |---|---|
+  | Profiles | 8,904 (6,462 OMIM, 2,442 ORPHA) |
+  | Profiles dropped for having no positive phenotype | 212, of which 197 were emptied by the mask |
+  | Genes | 5,136; covers 5,050 of the GNN's classes (5,102 without the mask; the mask removes 52 GNN genes entirely) |
+  | Phenotype annotations | 187,948 (40,671 with unknown frequency) |
+  | Negatives | 2,389 (471 `NOT` + 1,918 pooled `0/m`) |
+  | Rows masked | 15,412, across 457 diseases (same as `kb-v1` and Phase 0) |
+  | Diseases with onset | 72.9% (82.9% with an OMIM↔ORPHA map, which is **not pinned**) |
+  | Sex-restricted phenotypes | 430 (311 male, 119 female) |
+  | Sex bias | male 215, female 1, none 5,832, unset 2,856 |
+- **Problems found (to fix in Phase 1A part 2):**
+  1. **16% of phenotypes become "obligate" (frequency 1.0) from `n/n`
+     counts**, 13,263 of them from `1/1`. The simulator would emit them in
+     every case. Frequencies from small counts need shrinkage (e.g. a Beta
+     prior on n/m). This affects Front B's KB too: `kb-v1` uses the same
+     point estimates.
+  2. **The KB and the simulator disagree on `0/m` counts.** The simulator
+     makes them negatives; `kb-v1` keeps them as frequency 0. Front B
+     features will treat frequency 0 as neutral ("supports nothing and
+     excludes nothing"). The convention has to be unified before comparing
+     fronts.
+  3. **964 multi-gene diseases** fall back to the alphabetically first gene
+     as the case label. The gene-label sampling rule must be decided before
+     generating a dataset.
+  4. **676 thin profiles** (fewer than 3 phenotypes), and **1,872 gene-linked
+     diseases with no HPOA rows**.
+  5. **HPO's "Excluded" frequency term never appears** in the 2026-02-16
+     release.
+- **Pending decision:** whether to pin the Orphanet OMIM↔ORPHA alignment. The
+  only local copy is a 2022 file inside `GenPhenAI/`; we would need a fresh,
+  pinned snapshot. It raises onset coverage from 72.9% to 82.9%.
+- **Verdict:** ✅ backbone adopted, pending merge of the simulator PR. Not yet
+  used to generate cases.
+- **Next (Phase 1A part 2):**
+  - frequency shrinkage;
+  - sex-conditioned sampling;
+  - age gating;
+  - negatives from confounder diseases;
+  - noise vocabulary from R1-train;
+  - export v2 with manifest.
+- **Evidence for the informe:**
+  - §11: the simulator design (structured backbone + masking).
+  - §16: the `1/1 → obligate` issue as a data-quality lesson.
