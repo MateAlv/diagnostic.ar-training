@@ -760,3 +760,23 @@ What they tell us:
   - Cleared Stremio's cache (flatpak `cache/`, 66 MB); its `data/` and
     `config/` were kept.
   - Disk: **43 GB free (81%)**.
+
+### 2026-09-29 — sesión — Decisions: GinV3 accepted; ADR-0009 accepted for Front A only; Front A overfitting rules
+- **Mateo:**
+  - "I'm ok with rebuilding if we proved it's the same" → GinV3 accepted as
+    v3.0 (EXP-A-000 addendum). The missed absolute gate stays on record;
+    future parity gates use relative ≤ 1e-5 + identical ranks.
+  - "starting point in the same weights is perfect … only for the front that
+    retrains; the other should just work with the model's normal output" →
+    ADR-0009 accepted, **scoped to Front A**. Front B keeps consuming the
+    production ONNX distribution.
+  - "make sure we are not overfitting" → **EVAL_PROTOCOL §9**, written
+    before any training run:
+    - four data roles that never mix;
+    - a budget of ≤ 8 configurations per experiment;
+    - required curves: train, sim-val, R1-dev with and without the new
+      inputs, and S2 for forgetting;
+    - a "present-only" no-regression anchor;
+    - ≥ 3 seeds;
+    - learning-rate limits;
+    - a contamination check before every run.

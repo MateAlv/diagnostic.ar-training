@@ -11,7 +11,7 @@ at each checkpoint; the history lives in `BITACORA.md`.
 |---|---|---|
 | Shared | E0 measured on every cohort (EXP-000). R1 CIs resample publications | `docs/experiments/EXP-000.md` |
 | B (re-ranker) | rr-v1 (EXP-B-001): null. rr-v2 learned on R1-train (EXP-B-002): dev +0.056 but **no candidate** (harmed 10%), and the whole gain is R1's negation reporting pattern, not deployable. Sex, age and onset add ≤ 0.002 | `EXP-B-001.md`, `EXP-B-002.md` |
-| A (retrain) | GinV3 = v3.0 in PyTorch; ranks identical, absolute logit gate missed from float32 rounding (EXP-A-000 ⚠️). Zero-init extension ready (ADR-0009, Proposed). **No training run yet** | `EXP-A-000.md`, ADR-0009 |
+| A (retrain) | GinV3 = v3.0 in PyTorch; ranks identical, absolute logit gate missed from float32 rounding (EXP-A-000 ⚠️). Zero-init extension ready (ADR-0009, accepted for Front A only). Overfitting rules fixed in EVAL_PROTOCOL §9. **No training run yet** | `EXP-A-000.md`, ADR-0009 |
 | A (simulator) | v0.2 merged. Gene-first sampling + export v2 + calibration hook + `true_present` + `--drop-annotations`: **a subagent is working on it** (simulator branch `feat/gene-first-export-v2`) | simulator repo PRs |
 | S3 (simulated question-agent evaluation) | Design in EVAL_PROTOCOL §8. `annot-split-v1` (30% held out) and `kb-v5` (half A) built. Questioner and answerer coded and tested. **Waiting on the simulator's export v2** to generate S3 cases | branch `phase1c/s3-eval` (pushed; no PR yet) |
 
@@ -32,9 +32,10 @@ Everything is listed in `data/manifests/`; `dxt artifacts fetch <id>`
 restores any published artifact.
 
 ## Open decisions for Mateo
-1. Accept GinV3 as v3.0 despite the missed absolute logit gate, and switch
-   future parity gates to "relative ≤ 1e-5 + identical ranks" (EXP-A-000).
-2. Approve ADR-0009 (Proposed).
+1. ~~GinV3 as v3.0~~: accepted (EXP-A-000 addendum); parity gates are now
+   relative ≤ 1e-5 + identical ranks.
+2. ~~ADR-0009~~: accepted, Front A only. Front B stays on production's ONNX
+   output.
 3. Disk: resolved (43 GB free). Further optional wins are listed in
    BITACORA 2026-09-29 (disk cleanup).
 4. Optional: the GeneCards permission request (`docs/TODO.md`).

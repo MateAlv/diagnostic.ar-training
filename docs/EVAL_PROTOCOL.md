@@ -236,3 +236,46 @@ file).**
 - The simulator's structural assumptions (frequency sampling, onset gating)
   are shared by S3 and Front A's training data. S3 can therefore overstate
   Front A relative to real patients; R1 remains the check against that.
+
+## 9. Front A (retraining): rules against overfitting, fixed before any training run
+
+Warm-starting from v3.0 (ADR-0009) means every run starts at E0. These rules
+make sure any movement away from it is real improvement, not fitting to the
+simulator or to dev.
+
+1. **Four roles of data, never mixed:**
+
+   | Role | Data |
+   |---|---|
+   | Gradients | Simulated training cases (profiles without half B, their own seed range) + R1-train patients (A-005 only) |
+   | Early stopping | Sim-val (held-out simulated cases from the same generator), never R1 |
+   | Selection between runs | R1-dev + S3-dev, with the declared budget |
+   | Claims | R1-test, S3-test, MCRD/DDD, sealed and read once per candidate; the R1 vault once at the end |
+2. **Budget per experiment**, declared in its pre-registration: at most 8
+   training configurations (learning rate × epochs × feature set). Every
+   configuration is logged with its curves, including failures.
+3. **Required curves in every run:**
+   - training loss;
+   - sim-val loss/MRR;
+   - R1-dev MRR, both "present only" and "all inputs";
+   - S2 MRR, the upstream-style simulation v3.0 was trained on.
+
+   Two warning signs are flagged in the experiment file:
+   - sim-val keeps improving while R1-dev falls: overfitting to the
+     simulator;
+   - S2 falls more than 0.02 below E0: forgetting what v3.0 knew.
+4. **No-regression anchor.** R1-dev "present only", i.e. without the new
+   inputs, must stay within the non-regression margin of E0 (CI lower bound
+   ≥ −0.01), or the run is rejected whatever its "all inputs" gain.
+5. **Seeds.** A selected configuration is reported as the mean ± sd of ≥ 3
+   seeds. The best seed is never picked.
+6. **Learning-rate discipline.** Fine-tuning starts from v3.0 weights with a
+   learning rate ≤ the original 5e-4, and new (zero-initialised) parameters
+   may use a higher one. Both are declared up front.
+7. **Contamination check** before each run, logged: no training case shares
+   a (gene, present, excluded) signature with any R1 or S3 evaluation case.
+   R1-train patients (A-005) never share a publication with dev/test/vault;
+   the split guarantees this.
+8. **Front B stays on production's output.** Front B systems consume the
+   `genphenia_v3` ONNX distribution; they never use GinV3 or retrained
+   weights (Mateo, 2026-09-29).
