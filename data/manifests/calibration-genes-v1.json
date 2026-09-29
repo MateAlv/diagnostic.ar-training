@@ -1,0 +1,33 @@
+{
+  "artifact_id": "calibration-genes-v1",
+  "kind": "gene-calibration",
+  "created_at": "2026-09-29T14:10:45+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "77cf14a584c67da116be1f4adce940d3ed960867",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "part": "train"
+  },
+  "params_hash": "3da6cd320afbf4cb640a4ea680dc9ec0c594220ed3d826442280d8aeec0a4c5c",
+  "outputs": [
+    {
+      "path": "results/genes-v1/calibration-r1-train.json",
+      "sha256": "f68ff0301147588757469af754afb3c10eb63e01f25f2151d3e7cedfe2663638",
+      "bytes": 847
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -132,6 +132,10 @@ model's ontology or zero-embedded.
   performance of any model trained on HPO annotations.
 - **R1 terms are often verbatim HPO annotations** (78% of dev cases are fully
   annotated, vs 3.5% for MCRD). This quantifies the E0-optimism caveat above.
+- **ClinVar and ClinGen evidence** (gene profiles, ADR-0008) cites
+  publications that may include R1 papers. These sources contribute no
+  phenotype terms; they only shift a disease's weight within its gene. Not
+  masked; declared.
 - **Bitgenia cases** (`GraPhens/validation_arena/Casos_Bitgenia*.json`) are
   not registered. Their origin and consent status are unknown, so they are
   not used (G10).
@@ -142,6 +146,8 @@ model's ontology or zero-embedded.
 |---|---|---|
 | 2026-09-28 | Sources registered | 9 sources; all verified from local copies (`dxt sources fetch --no-download`) |
 | 2026-09-28 | Split `r1-v1` frozen | content sha256 `b007aa17741c2309a2fce9e36aaa77608d3d2b1311630e96c77be9d39e462ccf`, before any model was run on the cohort |
+| 2026-09-29 | Sources added | Orphanet 2026-06-23 alignments + ages (release `data-snapshot-2026-09-29`); HGNC, Orphanet genes + prevalence, ClinGen (release `data-snapshot-2026-09-29-genes`); MONDO v2026-09-01 and ClinVar 2026-09 by immutable URL |
+| 2026-09-29 | Artifact `genes-v1` built and published | Gene profiles (ADR-0008): 5,568 genes, 13,960 disease entities (11,125 simulable); 5,050 of v3.0's 5,228 genes are simulable. Weights calibrated on R1-train only |
 | 2026-09-29 | Artifact `kb-v1` built and published | Front B KB from commit `d3a2e3e`, release `kb-v1`: 12,802 diseases, 5,148 genes, 249,434 phenotype annotations; 15,412 held-out-PMID rows masked. Masking audit: R1-dev cases fully covered by KB annotations fell from 78.1% (unmasked) to 16.1% |
 | 2026-09-29 | Source added | `graphens_sim_20251202` (S2, role eval) from GraPhens@7d861ff; MCRD and DDD marked `sealed` |
 | 2026-09-29 | E0 measured (EXP-000) | Production parity: bit-identical to the vendored engine on 300 cases. Sealed reads of r1-v1/test, MCRD and DDD ledgered |

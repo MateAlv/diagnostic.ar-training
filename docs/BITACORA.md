@@ -414,3 +414,72 @@ What they tell us:
   - §13 (tools and sources) and §10 (ethics): a data source discarded for
     licensing reasons, with the quoted terms. This is the "fundamentación"
     that criterion 10 rewards.
+
+### 2026-09-29 — sesión — PRs merged; frequency convention; gene profiles `genes-v1`
+- **Front / versions:** shared knowledge (both fronts).
+  - Training repo: branch `phase1/gene-profiles`; the artifact `genes-v1` was
+    built from the commit before this log entry.
+  - `rare-disease-simulator`: part 2 runs in parallel (subagent, branch
+    `feat/simulation-v0.2`).
+- **Decisions (Mateo):**
+  - Build gene profiles from open sources now (option b).
+  - GeneCards permission may be requested later; it is `docs/TODO.md` item 1,
+    with a draft email.
+  - Merge PRs #2 and #3 (training) and #1 (simulator). Done; plain merge
+    commits with no attribution.
+- **Done:**
+  - **ADR-0007:** one frequency convention for both fronts.
+    - Pooled counts use the Jeffreys mean `(n+0.5)/(m+1)`, so `1/1` becomes
+      0.75, not "obligate".
+    - Category midpoints.
+    - Only `NOT` means absent; `0/m` is a low frequency.
+  - **ADR-0008:** gene profiles and disease weighting.
+  - **Six sources pinned:** HGNC, Orphanet genes and prevalence, ClinGen
+    (snapshot release), MONDO v2026-09-01 and ClinVar 2026-09 (immutable
+    URLs).
+  - **`knowledge/genes.py` + `dxt genes build|calibrate`:** 8 fixture tests
+    (74 in total).
+- **Result (`genes-v1`, 49 s build):**
+
+  | Measure | Value |
+  |---|---|
+  | Genes | 5,568 |
+  | Disease entities | 13,960 (11,125 simulable, i.e. with masked HPOA phenotypes) |
+  | Genes with ≥ 2 simulable diseases | 2,713 |
+  | Validity basis | 2,686 ClinGen, 7,255 Orphanet, 4,019 HPO-only |
+  | Zero-validity entities (refuted / somatic) | 603 |
+  | v3.0 genes | 5,050 of 5,228 simulable; 8 renamed in HGNC (e.g. BVES→POPDC1); 6 unresolved |
+
+  Examples of the top-weighted disease:
+
+  | Gene | Top disease | Weight |
+  |---|---|---|
+  | NF1 | NF1 (OMIM:162200) | 0.72 |
+  | FBN1 | Marfan | 0.53 |
+  | SCN1A | Dravet | 0.37 |
+
+  **Calibration on R1-train only** (2,544 patients whose gene has ≥ 2
+  diseases):
+
+  | Scheme | Patient's own disease ranked first | Mean p (true disease) |
+  |---|---|---|
+  | Uniform | — | 0.346 |
+  | ADR-0008 weight | 64.2% | 0.574 |
+
+  - γ = 0.5 maximises log-likelihood (−0.777 vs −0.825 linear, −1.060
+    validity-only).
+  - It is stable across 2 publication folds within train.
+  - Weights and the selection rule are frozen as pre-specified.
+- **Verdict:** ✅ `genes-v1` adopted as the source of gene → disease choice
+  and inheritance for the simulator. It can also replace the uniform
+  gene → disease mixing in Front B's KB (`kb-v2`).
+- **Next:**
+  - Simulator: gene-first sampling from `genes-v1` + export v2, after part 2
+    lands.
+  - Front B: `kb-v2` (ADR-0007 frequencies + mapping + `genes-v1` weights),
+    then B2 features and EXP-B-001.
+- **Evidence for the informe:**
+  - §11 / §13: the source table with licenses, and the GeneCards licensing
+    decision (criterion 10).
+  - §14: the calibration table (a quality measure of synthetic-data
+    realism).

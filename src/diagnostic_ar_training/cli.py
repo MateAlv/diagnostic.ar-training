@@ -80,6 +80,91 @@ def kb_build(
     typer.echo(json.dumps(stats, indent=1))
 
 
+genes_app = typer.Typer(no_args_is_help=True, help="Gene profiles (ADR-0008).")
+app.add_typer(genes_app, name="genes")
+
+GENE_SOURCES = [
+    "hpo_ontology", "hgnc", "hpo_annotations", "hpo_genes_to_disease", "hpo_genes_to_phenotype",
+    "orphanet_genes", "orphanet_alignments", "orphanet_prevalence", "clingen_validity", "mondo",
+    "clinvar_variants",
+]  # fmt: skip
+
+
+@genes_app.command("build")
+def genes_build(
+    genes_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. genes-v1"),
+    mask_split: str = typer.Option("r1-v1", help="Split whose held-out PMIDs are masked"),
+    publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
+) -> None:
+    """Per-gene disease entities, validity, ClinVar evidence, inheritance and weights."""
+    from diagnostic_ar_training import INTERIM_DIR, splits
+    from diagnostic_ar_training.knowledge import genes
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import publish as publish_release
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.systems.genphenia_v3 import CHECKPOINT, unpack_bundle
+
+    paths = {n: open_source(n, Purpose.SIMULATE) for n in GENE_SOURCES}
+    splits.write_heldout_pmids(mask_split)
+    mask_path = splits.heldout_pmids_path(mask_split)
+    vocab_path = unpack_bundle() / "checkpoints" / CHECKPOINT / "genes.json"
+    built, stats = genes.build(
+        Ontology.from_json(paths.pop("hpo_ontology")),
+        *paths.values(),
+        masked_pmids=set(mask_path.read_text().split()),
+        vocabulary=json.loads(vocab_path.read_text()),
+    )
+    out_path = INTERIM_DIR / "genes" / genes_id / "genes.json.gz"
+    kb.write(built, out_path)
+    stats_path = DATA_DIR / "genes" / f"{genes_id}.stats.json"
+    stats_path.parent.mkdir(parents=True, exist_ok=True)
+    stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
+    sources = registry.load_sources()
+    inputs = [sources[n].as_input() for n in GENE_SOURCES]
+    inputs += [
+        {"id": f"heldout-pmids:{mask_split}", "sha256": sha256_file(mask_path)},
+        sources["genphenia_v3"].as_input(),
+    ]
+    params = {"mask_split": mask_split, "adr": "0008", "weight": "validity * sqrt(1 + clinvar_plp_alleles)"}
+    manifest = build_manifest(genes_id, "gene-profiles", inputs, params, [out_path, stats_path])
+    if publish:
+        manifest = publish_release(manifest, genes_id)
+    write_manifest(manifest)
+    typer.echo(json.dumps(stats, indent=1))
+
+
+@genes_app.command("calibrate")
+def genes_calibrate(genes_id: str = typer.Option(..., "--id"), split_id: str = "r1-v1") -> None:
+    """Score disease weights against R1-train patients' own diseases (never dev/test/vault)."""
+    from diagnostic_ar_training import INTERIM_DIR, RESULTS_DIR, splits
+    from diagnostic_ar_training.knowledge import genes
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, load_manifest, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose
+    from diagnostic_ar_training.rerank import kb
+
+    manifest = load_manifest(genes_id)
+    built = kb.read(INTERIM_DIR / "genes" / genes_id / "genes.json.gz")
+    cases = splits.load_part(split_id, splits.Part.TRAIN, Purpose.TRAIN)
+    report = genes.calibration(
+        built["genes"], built["vocabulary"], cases, splits.publication_groups(split_id)
+    )
+    out = RESULTS_DIR / genes_id / "calibration-r1-train.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    inputs = [
+        {"id": f"artifact:{genes_id}", "sha256": manifest.outputs[0].sha256},
+        {"id": f"split:{split_id}", "sha256": sha256_file(SPLITS_DIR / f"{split_id}.json")},
+    ]
+    write_manifest(
+        build_manifest(f"calibration-{genes_id}", "gene-calibration", inputs, {"part": "train"}, [out])
+    )
+    typer.echo(json.dumps(report, indent=1))
+
+
 @artifacts_app.command("fetch")
 def artifacts_fetch(artifact_id: str) -> None:
     """Download a published artifact's files and verify them against its manifest."""

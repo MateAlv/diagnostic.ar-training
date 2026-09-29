@@ -144,3 +144,62 @@ orphanet_ages_2026_06:
   sha256: 38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab
   license: CC-BY-4.0 (Orphanet)
   notes: Same Orphanet release as orphanet_alignments; supersedes orphanet_ages (2025-12-09) for new artifacts. The old entry stays so kb-v1 remains reproducible.
+
+# Gene profiles (genes-v1): open primary sources, chosen over GeneCards, whose
+# terms forbid AI training without written permission (BITACORA 2026-09-29).
+hgnc:
+  role: knowledge
+  version: "2026-09-25"
+  filename: hgnc_complete_set.txt
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-29-genes/hgnc_complete_set.txt
+  upstream_url: https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt
+  sha256: 3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec
+  license: CC0 (HGNC)
+  notes: Approved symbols, aliases, previous symbols, chromosome location, locus type.
+
+orphanet_genes:
+  role: knowledge
+  version: "2026-06-23"
+  filename: en_product6.xml
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-29-genes/en_product6.xml
+  upstream_url: https://www.orphadata.com/data/xml/en_product6.xml
+  sha256: f1c039f78683beea7ca5b34d1c01c4ec98f80e8ca488eee69770074db1020e39
+  license: CC-BY-4.0 (Orphanet)
+  notes: Gene-disorder associations with association type and status.
+
+orphanet_prevalence:
+  role: knowledge
+  version: "2026-06-23"
+  filename: en_product9_prev.xml
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-29-genes/en_product9_prev.xml
+  upstream_url: https://www.orphadata.com/data/xml/en_product9_prev.xml
+  sha256: 6b492b3cc61e5a0327de12f59386a07a071760a938d0bbd8f525bc4a5f71b7f0
+  license: CC-BY-4.0 (Orphanet)
+
+clingen_validity:
+  role: knowledge
+  version: "2026-09-29"
+  filename: clingen_gene_validity.csv
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-29-genes/clingen_gene_validity.csv
+  upstream_url: https://search.clinicalgenome.org/kb/gene-validity/download
+  sha256: f7df196f67638c536918c5147170a01e2770d4d7149422da008b3b7a42c2525c
+  license: CC0 (ClinGen)
+  notes: Curated gene-disease validity (Definitive..Refuted) and mode of inheritance; diseases keyed by MONDO.
+
+mondo:
+  role: knowledge
+  version: "2026-09-01"
+  filename: mondo.obo
+  url: https://github.com/monarch-initiative/mondo/releases/download/v2026-09-01/mondo.obo
+  sha256: 50c8367f9bd9978321eedf84d4e2e79cb757efbed514c81effb00b9ad2e49994
+  license: CC-BY-4.0 (Monarch Initiative)
+  notes: MONDO to OMIM/ORPHA equivalences, used to join ClinGen curations.
+
+clinvar_variants:
+  role: knowledge
+  version: "2026-09"
+  filename: variant_summary_2026-09.txt.gz
+  url: https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/archive/variant_summary_2026-09.txt.gz
+  sha256: 186ad2838a138f0bc7a79b1b7b6dde5533b105175d293e1131652889529804c9
+  license: Public domain (NCBI ClinVar)
+  notes: Pathogenic/likely pathogenic germline variant counts per (gene, condition), to weight a gene's diseases. Submissions may come from R1 publications; the weight carries no phenotype terms (declared in DATA_LINEAGE §5).
