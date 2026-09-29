@@ -128,7 +128,11 @@ addendum below the original text [discipline].
 - **Every comparison with E0 reports:**
   - both systems' metrics;
   - Δ with a **paired bootstrap 95% CI** (2,000 resamples, fixed seed) on the
-    same cases in the same order;
+    same cases in the same order. **On R1 the bootstrap resamples
+    publications, not patients**: patients of one paper are correlated, and
+    the case bootstrap understates R1 uncertainty 3–7× (EXP-000 Addendum 2).
+    `eval.harness.compare` does this automatically when records carry their
+    publication group;
   - the **harmed and helped rates**;
   - n, and the number of unrankable cases.
 - **Ablation views** on the same cases:
@@ -147,6 +151,8 @@ addendum below the original text [discipline].
 - **Release gate** (both fronts; the details are in `PLAN.md` §6 A4 and §7 B3):
   1. R1-test primary metric Δ > 0, with the CI lower bound > 0.
   2. Present-only view: Δ CI lower bound ≥ −0.01 on R1-test, R2 and R3.
+     R3 (DDD) is annotation-derived (EXP-000 Addendum 1): it counts only as a
+     no-regression check, never as evidence of accuracy.
   3. Harmed rate ≤ 5% (Front B).
   4. The identity (B) or near-identity (A) holds when no new inputs are given.
 - **Multiple comparisons.** Only the primary metric of the pre-registered

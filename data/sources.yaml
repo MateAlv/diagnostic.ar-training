@@ -99,7 +99,7 @@ ddd:
   url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/validation_arena/DDD.dataset.tsv
   sha256: 1f1074c8c5dd25a614ea16e98bab9fb788bca8f02051c4c64ea76b99891f54af
   license: as distributed by GraPhens (original source to be cited in the informe)
-  notes: 1,048 cases, present phenotypes only. GraPhens fine-tuned an experimental model on it (validation_arena/finetune_ddd_model.py); v3.0 is not known to have seen it.
+  notes: 1,048 cases, present phenotypes only. Cases look derived from HPO annotation profiles (97% carry an inheritance-mode term; EXP-000 Addendum 1), so it overstates real-patient performance; no-regression check only. GraPhens fine-tuned an experimental model on it (validation_arena/finetune_ddd_model.py).
   local_candidates:
     - ../GenPhenAI/GraPhens/validation_arena/DDD.dataset.tsv
 

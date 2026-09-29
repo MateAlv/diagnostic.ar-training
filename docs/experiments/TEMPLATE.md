@@ -1,8 +1,10 @@
 # EXP-X-000: <title>
 
-Copy to `docs/experiments/<EXP-id>.md` and fill in **before** running. The
-file must exist before any sealed read (`EVAL_PROTOCOL.md` §3). After a
-sealed read, only add dated addenda at the bottom.
+Copy to `docs/experiments/<EXP-id>.md` and fill in **before** running.
+**Commit it** before any sealed read (`EVAL_PROTOCOL.md` §2–3). After
+registration, Hypothesis, Systems, Data, Primary metric and gate, and
+expectations are frozen. Results, Verdict and dated Addenda are filled in
+later.
 
 - **Front:** A | B | shared
 - **Registered:** YYYY-MM-DD, by <name>

@@ -168,3 +168,74 @@ What they tell us:
   - §16: the risk "leakage between HPO annotations and the evaluation
     cohort", with the measured 5.45%.
   - §13: the choice of artifact storage (ADR-0005).
+
+### 2026-09-29 — EXP-000 — E0: the production model, measured (Phase 0 closed)
+- **Front / versions:** shared.
+  - Code: `17f1392` for the runs; publication-clustered CIs from the next
+    commit.
+  - Model: `genphenia_v3` (model-v3.0.0), split `r1-v1`.
+  - Pre-registration: `docs/experiments/EXP-000.md` (committed before any
+    sealed read).
+- **Question:** how does production v3.0 do on every cohort, measured by our
+  harness, as the reference for both fronts?
+- **Setup:**
+  - `systems/genphenia_v3.py` rebuilds production's graph construction from
+    the pinned bundle.
+  - **Parity:**
+    - top-10 genes and scores match the production-captured
+      `reference_rankings.json` to ≤ 5e-7;
+    - **bit-identical** to the vendored engine on 300 R1-train patients
+      (max |Δp| = 0, 0 top-1 mismatches);
+    - term order has no effect.
+  - The harness writes per-case ranks, a summary and a lineage manifest per
+    (cohort, view).
+  - Sealed reads: r1-v1/test, MCRD and DDD, one each, all ledgered. The vault
+    is untouched.
+  - Hardware: CPU, 1 thread. About 8 s for 1,883 cases.
+- **Result:**
+
+  | Cohort | n | MRR [95% CI] | top-1 | top-10 | Gene not in vocab | MRR, in-vocab |
+  |---|---|---|---|---|---|---|
+  | R1-train | 4103 | 0.440 [0.387, 0.494] | 0.370 | 0.579 | 14.2% | 0.512 |
+  | R1-dev | 1883 | 0.448 [0.399, 0.504] | 0.339 | 0.669 | 10.8% | 0.503 |
+  | R1-test | 2548 | 0.370 [0.266, 0.480] | 0.296 | 0.504 | 10.6% | 0.414 |
+  | MCRD | 229 | 0.747 [0.699, 0.794] | 0.677 | 0.882 | 0% | 0.747 |
+  | DDD | 1048 | 0.757 [0.736, 0.782] | 0.689 | 0.877 | 0.2% | 0.759 |
+  | S2 (sim) | 5228 | 0.812 [0.803, 0.821] | 0.751 | 0.926 | 0% | 0.812 |
+
+  R1 CIs are publication-clustered; the others are case bootstraps.
+- **Findings, with what changed because of each:**
+  1. **Case-level CIs on R1 were 3–7× too narrow.** Patients cluster by
+     publication; one paper is 18% of R1-test.
+     - *Changed:* the paired bootstrap now resamples publications on R1
+       (`metrics.paired_bootstrap(groups=…)`), R1 runs record groups, and the
+       protocol was updated.
+     - The dev → test drop (0.448 → 0.370) lies within publication-level
+       variability.
+  2. **DDD cases look annotation-derived.** 97% carry an inheritance-mode
+     term, and the median case's terms are all verbatim annotations.
+     - *Changed:* DDD is demoted to a no-regression check (sources notes,
+       protocol, lineage gaps).
+  3. **My MCRD expectation was wrong** (pre-registered as "low, possibly
+     < 0.2"; measured 0.747). The old 0.070 most likely came from a broken
+     upstream evaluation (a `genes.json.bak_wrong_order` exists upstream).
+     - *Lesson:* never carry forward numbers from an unpinned checkpoint.
+  4. **10.6–14.2% of R1 patients have a gene outside v3.0's 5,229 classes**
+     (86 genes and 784 patients in train+dev; 70 of those genes are in HPO
+     2026). This is a hard ceiling for Front B, and a lever only Front A can
+     pull. Proposed as A-008; it needs a decision because it changes the
+     frozen vocabulary.
+  5. **R1 terms are verbatim HPO annotations far more often than MCRD's**
+     (78% vs 3.5% of cases fully annotated). This is consistent with HPOA
+     being curated from R1 papers, and it quantifies the declared E0 optimism.
+- **Verdict:** ✅ E0 accepted as the reference. Phase 0 is closed, 4 days
+  ahead of plan.
+- **Next:**
+  - **Decision for Mateo:** A-008 (vocabulary expansion) in or out of scope.
+  - Phase 1B: the re-ranker KB, masked with `r1-v1.heldout-pmids.txt`.
+  - Phase 1A: the simulator's HPOA backbone.
+- **Evidence for the informe:**
+  - §14: the E0 table, and parity as a quality measure (criterion 4).
+  - §14 / §16: the CI redesign after the first measurement. This is exactly
+    criterion 4's "measurements that drove redesigns".
+  - §16: the DDD provenance finding, and the wrong expectation about MCRD.
