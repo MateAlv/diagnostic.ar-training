@@ -7,6 +7,7 @@
 | How data may flow; sources, manifests, known gaps | [DATA_LINEAGE.md](DATA_LINEAGE.md) |
 | Splits, sealing, pre-registration, gates, reporting | [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md) |
 | Every read of a sealed split | [TEST_LEDGER.md](TEST_LEDGER.md) |
+| Actions only Mateo or the team can take (licenses, billing) | [TODO.md](TODO.md) |
 | Why things are the way they are | [decisions/](decisions/README.md) |
 | An experiment's hypothesis, gate, configs tried, results | `experiments/<EXP-id>.md` ([template](experiments/TEMPLATE.md)) |
 | Agent rules (Claude, Codex, …) | [../CLAUDE.md](../CLAUDE.md) (`AGENTS.md` is a symlink to it) |
