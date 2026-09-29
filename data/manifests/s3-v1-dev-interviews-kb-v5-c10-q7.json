@@ -1,0 +1,49 @@
+{
+  "artifact_id": "s3-v1-dev-interviews-kb-v5-c10-q7",
+  "kind": "s3-interviews",
+  "created_at": "2026-09-29T18:57:00+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "4d51b63da7063181086a9e48d937149b03a016f5",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "split:s3-v1",
+      "sha256": "c0e7bef492133fa5a37f172e7753aaa22483e03c26b9770925e0f5632fd46665"
+    }
+  ],
+  "params": {
+    "part": "dev",
+    "kb": "kb-v5",
+    "n_candidates": 10,
+    "n_questions": 7,
+    "cases": 10210,
+    "questions_per_case": 6.877473065621939,
+    "yes_per_case": 0.7476983349657199,
+    "no_per_case": 6.129774730656219,
+    "e0_ranks_identical_to_EXP-S3-001": 10210
+  },
+  "params_hash": "70059ce639eb23f61eac1a49d4ba97a3f1be532e89cfd21c503029657f400644",
+  "outputs": [
+    {
+      "path": "data/interim/s3-interviews/s3-v1-dev-interviews-kb-v5-c10-q7.jsonl.gz",
+      "sha256": "c4dccbcb9c2541cb5061173f162d89fa5ebfa6fd3f567d3df9af536b22facdc9",
+      "bytes": 703922
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
