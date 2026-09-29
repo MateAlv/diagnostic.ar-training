@@ -43,3 +43,24 @@ def test_contamination_checks():
     assert contamination.signature_overlap([a], [b]) == []
     assert contamination.present_set_overlap([a], [b]) == ["b"]
     assert contamination.pmid_overlap({"PMID:1"}, [a, b]) == ["a"]
+
+
+def test_cluster_bootstrap_is_wider_when_clusters_are_correlated():
+    rng = np.random.default_rng(1)
+    # 20 publications of 50 patients; the effect differs by publication.
+    groups = np.repeat(np.arange(20), 50).astype(str)
+    effect = np.repeat(rng.integers(0, 2, 20), 50)
+    base = np.full(1000, 2.0)
+    new = np.where(effect == 1, 1.0, 3.0)
+    case = metrics.paired_bootstrap(base, new)
+    clustered = metrics.paired_bootstrap(base, new, groups=groups)
+    assert clustered["delta"] == case["delta"]
+    assert clustered["resample_unit"] == "group" and clustered["n_units"] == 20
+    width = lambda o: o["ci95"][1] - o["ci95"][0]  # noqa: E731
+    assert width(clustered) > 3 * width(case)
+
+
+def test_bootstrap_ci_brackets_the_point_estimate():
+    ranks = [1, 2, 3, 4, 10, 20, 1, 1]
+    lo, hi = metrics.bootstrap_ci(ranks)
+    assert lo <= metrics.summarize(ranks)["mrr"] <= hi

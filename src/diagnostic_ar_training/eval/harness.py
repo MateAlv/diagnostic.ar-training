@@ -35,7 +35,10 @@ def apply_view(case: Case, view: str) -> Case:
     )
 
 
-def run(system: System, cases: list[Case], view: str = "all") -> list[dict]:
+def run(
+    system: System, cases: list[Case], view: str = "all", groups: dict[str, str] | None = None
+) -> list[dict]:
+    """`groups` (case_id -> cluster) is recorded so CIs can resample clusters."""
     lookup = {g.upper(): i for i, g in enumerate(system.genes)}
     records = []
     for case in cases:
@@ -51,6 +54,7 @@ def run(system: System, cases: list[Case], view: str = "all") -> list[dict]:
         records.append(
             {
                 "case_id": case.case_id,
+                "group": (groups or {}).get(case.case_id),
                 "gene": case.gene,
                 "gene_in_vocab": idx is not None,
                 "scorable": scored.probs is not None,
@@ -69,6 +73,10 @@ def run(system: System, cases: list[Case], view: str = "all") -> list[dict]:
 def summarize(records: list[dict]) -> dict:
     ranks = [r["rank"] for r in records]
     out = {"all": metrics.summarize(ranks)}
+    groups = [r.get("group") for r in records]
+    grouped = all(g is not None for g in groups)
+    out["all"]["mrr_ci95"] = metrics.bootstrap_ci(ranks, "mrr", groups if grouped else None)
+    out["all"]["ci_resample_unit"] = "publication" if grouped else "case"
     subsets = {
         "gene_in_vocab": [r for r in records if r["gene_in_vocab"]],
         "with_excluded": [r for r in records if r["has_excluded"]],
@@ -94,13 +102,18 @@ def summarize(records: list[dict]) -> dict:
 
 
 def compare(base: list[dict], new: list[dict], metric: str = "mrr") -> dict:
-    """Paired Δ new − base; both runs must cover the same cases."""
+    """Paired Δ new − base; both runs must cover the same cases.
+
+    Resamples publication groups when the records carry them (R1).
+    """
     new_by_id = {r["case_id"]: r["rank"] for r in new}
     if set(new_by_id) != {r["case_id"] for r in base}:
         raise ValueError("runs cover different cases")
     a = [r["rank"] for r in base]
     b = [new_by_id[r["case_id"]] for r in base]
-    return {**metrics.paired_bootstrap(a, b, metric), **metrics.harmed_helped(a, b)}
+    groups = [r.get("group") for r in base]
+    groups = groups if all(g is not None for g in groups) else None
+    return {**metrics.paired_bootstrap(a, b, metric, groups=groups), **metrics.harmed_helped(a, b)}
 
 
 def _encode(value):
