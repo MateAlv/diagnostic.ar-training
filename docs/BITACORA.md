@@ -829,3 +829,35 @@ What they tell us:
   - §14: the S3 table. The most direct evidence about negation in the
     product's own interaction pattern.
   - §16: the circularity limitation, plus the two process incidents.
+
+### 2026-09-29 — sesión — Front A training set `ds-sim0.3.1-A-n100-s1001`
+- **Generator:** rare-disease-simulator@8ba7430, profiles without half B,
+  `simcal-train-v1`, seed 1001, 100 cases per gene.
+- **Result:**
+  - 501,100 cases for 5,011 genes. Hiding half B left 39 genes that S3 has
+    with no simulable disease.
+  - 37 MB gz; simulator splits 450,877 train / 25,300 val / 24,923 test
+    (S1).
+  - **0 invariant violations**, on the second attempt.
+- **Invariant incident:** the first full run had 4 of 505,000 cases where
+  ontology generalization moved a term to a parent the profile restricts to
+  the other sex. `validate` refused the export. Fixed in simulator PR #4,
+  with a regression test proven to fail without the fix; regenerated.
+- **Contamination:**
+
+  | Against | Same full signature | Same (gene, present set) |
+  |---|---|---|
+  | S3 | 7 | 101 |
+  | R1 | 0 | 22 |
+
+  These are chance coincidences on small presentations. **143 cases** are
+  excluded by artifact `ds-sim0.3.1-A-n100-s1001-excl-v1` (the stricter
+  gene-insensitive key catches more than the pairwise counts); the residual
+  overlap is 0.
+- **My errors, corrected:**
+  - A commit message claimed "no overlap" before I had read the check. It
+    was amended before being pushed.
+  - A pushed commit and the protocol said 130 excluded cases instead of 143.
+    Corrected in a follow-up commit.
+  - *Rule adopted:* no numbers in messages or docs until the output has been
+    read.

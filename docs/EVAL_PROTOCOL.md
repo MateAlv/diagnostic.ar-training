@@ -278,7 +278,7 @@ simulator or to dev.
    - Chance coincidences on small presentations happen, since independent
      generators can draw the same two common terms. They are removed by a
      manifest-tracked exclusion artifact that the training loader must
-     apply (e.g. `ds-sim0.3.1-A-n100-s1001-excl-v1`: 130 cases).
+     apply (e.g. `ds-sim0.3.1-A-n100-s1001-excl-v1`: 143 cases).
    - The residual overlap after exclusion must be 0.
    R1-train patients (A-005) never share a publication with dev/test/vault;
    the split guarantees this.
