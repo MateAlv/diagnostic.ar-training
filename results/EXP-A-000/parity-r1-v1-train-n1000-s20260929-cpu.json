@@ -1,0 +1,41 @@
+{
+ "batch": {
+  "cases_per_s": 486.16355597105223,
+  "ms_per_batch": {
+   "mean": 257.115117874946,
+   "p50": 253.49845200071286,
+   "p95": 280.90282439843577
+  },
+  "size": 128
+ },
+ "batched_vs_single_max_abs_dlogit": 0.00048828125,
+ "cases_over_1e-4": 671,
+ "cases_over_1e-5": 999,
+ "cases_torch_closer_to_float64_than_onnx": 920,
+ "device": "cpu",
+ "max_abs_dlogit": 0.00048828125,
+ "max_abs_dprob": 2.610582449563692e-05,
+ "max_onnx_vs_float64": 0.00044663185303761566,
+ "max_rel_dlogit": 1.1762223707202966e-06,
+ "max_torch_vs_float64": 0.000258822959040117,
+ "n": 1000,
+ "network_ms_per_case": {
+  "onnx_cpu_1thread": {
+   "mean": 1.843078747002437,
+   "p50": 1.5493585015065037,
+   "p95": 3.8671294509185814
+  },
+  "torch": {
+   "mean": 2.6784550189913716,
+   "p50": 2.3902259999886155,
+   "p95": 4.341508551260629
+  }
+ },
+ "rank_identical": 1000,
+ "reexport_vs_onnx_max_abs_dlogit": 0.0,
+ "sample": "r1-v1/train",
+ "seed": 20260929,
+ "top10_same_order": 1000,
+ "top10_same_set": 1000,
+ "torch": "2.14.0+cu130"
+}

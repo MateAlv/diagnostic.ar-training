@@ -1,0 +1,42 @@
+{
+ "batch": {
+  "cases_per_s": 15350.066634988616,
+  "ms_per_batch": {
+   "mean": 8.143287125221832,
+   "p50": 5.119060000652098,
+   "p95": 22.311945098772398
+  },
+  "size": 128
+ },
+ "batched_vs_single_max_abs_dlogit": 0.00054931640625,
+ "cases_over_1e-4": 631,
+ "cases_over_1e-5": 997,
+ "cases_torch_closer_to_float64_than_onnx": 956,
+ "device": "cuda",
+ "gpu": "NVIDIA GeForce RTX 4070 Ti",
+ "max_abs_dlogit": 0.00042724609375,
+ "max_abs_dprob": 2.4382261741395794e-05,
+ "max_onnx_vs_float64": 0.00044663185303761566,
+ "max_rel_dlogit": 1.1719308498295622e-06,
+ "max_torch_vs_float64": 0.0001928776541717525,
+ "n": 1000,
+ "network_ms_per_case": {
+  "onnx_cpu_1thread": {
+   "mean": 1.8578290779769304,
+   "p50": 1.5531534991168883,
+   "p95": 3.9173714467324317
+  },
+  "torch": {
+   "mean": 0.710404258021299,
+   "p50": 0.6376005003403407,
+   "p95": 0.8352774992090415
+  }
+ },
+ "rank_identical": 999,
+ "reexport_vs_onnx_max_abs_dlogit": 0.0,
+ "sample": "r1-v1/train",
+ "seed": 20260929,
+ "top10_same_order": 1000,
+ "top10_same_set": 1000,
+ "torch": "2.14.0+cu130"
+}
