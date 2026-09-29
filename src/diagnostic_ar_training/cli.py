@@ -28,7 +28,8 @@ app.add_typer(artifacts_app, name="artifacts")
 @kb_app.command("build")
 def kb_build(
     kb_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. kb-v1"),
-    mask_split: str = typer.Option("r1-v1", help="Split whose held-out PMIDs are masked"),
+    mask_split: str = typer.Option("r1-v1", help="Split whose PMIDs are masked"),
+    mask_scope: str = typer.Option("heldout", help="heldout (dev/test/vault) or all R1 publications"),
     gene_profiles: str = typer.Option("genes-v1", help="Gene profiles artifact for gene -> disease weights"),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
@@ -60,8 +61,8 @@ def kb_build(
     paths = {n: open_source(n, Purpose.KB) for n in names}
     profiles_manifest = load_manifest(gene_profiles)
     profiles_path = fetch_outputs(profiles_manifest)[0]
-    splits.write_heldout_pmids(mask_split)  # refuses if the committed list drifted from the split
-    mask_path = splits.heldout_pmids_path(mask_split)
+    splits.write_mask(mask_split, mask_scope)  # refuses if the committed list drifted from the split
+    mask_path = splits.mask_path(mask_split, mask_scope)
     masked = set(mask_path.read_text().split())
     built, stats = kb.build(
         Ontology.from_json(paths["hpo_ontology"]),
@@ -81,10 +82,11 @@ def kb_build(
     stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in names]
-    inputs.append({"id": f"heldout-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
+    inputs.append({"id": f"{mask_scope}-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
     inputs.append({"id": f"artifact:{gene_profiles}", "sha256": profiles_manifest.outputs[0].sha256})
     params = {
         "mask_split": mask_split,
+        "mask_scope": mask_scope,
         "schema": built["schema"],
         "frequency": "ADR-0007",
         "gene_weights": gene_profiles,
