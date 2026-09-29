@@ -158,3 +158,19 @@ Evidence for a decision (Mateo's, by a dated addendum):
   device.
 
 ## Addenda
+
+### 2026-09-29, Addendum (decision): GinV3 accepted as v3.0
+Mateo accepted GinV3 as production v3.0 for Front A: "I'm ok with rebuilding
+if we proved it's the same."
+
+What was proved:
+- identical top-10 on 1,000 R1-train cases;
+- identical ranks on all 1,883 R1-dev cases;
+- relative logit error ≤ 1.2e-6;
+- our ONNX export equals production's exactly.
+
+The pre-registered absolute bound (1e-4) stays recorded as **missed**; it is
+not rewritten. From now on, parity gates are "relative |Δlogit| ≤ 1e-5 **and**
+identical ranks". The reason is that an absolute bound is below float32
+resolution at these logit magnitudes (EXP-A-000 Verdict).
+

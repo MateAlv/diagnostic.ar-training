@@ -31,6 +31,9 @@ def kb_build(
     mask_split: str = typer.Option("r1-v1", help="Split whose PMIDs are masked"),
     mask_scope: str = typer.Option("heldout", help="heldout (dev/test/vault) or all R1 publications"),
     gene_profiles: str = typer.Option("genes-v1", help="Gene profiles artifact for gene -> disease weights"),
+    holdout_annotations: str = typer.Option(
+        "", help="Annotation split artifact whose half B is dropped (S3)"
+    ),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Build the knowledge base (schema 2) from pinned sources with held-out publications masked."""
@@ -61,6 +64,12 @@ def kb_build(
     paths = {n: open_source(n, Purpose.KB) for n in names}
     profiles_manifest = load_manifest(gene_profiles)
     profiles_path = fetch_outputs(profiles_manifest)[0]
+    dropped, holdout_manifest = None, None
+    if holdout_annotations:
+        from diagnostic_ar_training.knowledge import annotation_split
+
+        holdout_manifest = load_manifest(holdout_annotations)
+        dropped = annotation_split.read(fetch_outputs(holdout_manifest)[0])
     splits.write_mask(mask_split, mask_scope)  # refuses if the committed list drifted from the split
     mask_path = splits.mask_path(mask_split, mask_scope)
     masked = set(mask_path.read_text().split())
@@ -73,6 +82,7 @@ def kb_build(
         masked,
         orphanet_alignments=paths["orphanet_alignments"],
         gene_profiles=kb.read(profiles_path),
+        drop_annotations=dropped,
     )
     out_dir = INTERIM_DIR / "kb" / kb_id
     kb_path = out_dir / "kb.json.gz"
@@ -84,12 +94,15 @@ def kb_build(
     inputs = [sources[n].as_input() for n in names]
     inputs.append({"id": f"{mask_scope}-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
     inputs.append({"id": f"artifact:{gene_profiles}", "sha256": profiles_manifest.outputs[0].sha256})
+    if holdout_manifest:
+        inputs.append({"id": f"artifact:{holdout_annotations}", "sha256": holdout_manifest.outputs[0].sha256})
     params = {
         "mask_split": mask_split,
         "mask_scope": mask_scope,
         "schema": built["schema"],
         "frequency": "ADR-0007",
         "gene_weights": gene_profiles,
+        "heldout_annotations_dropped": holdout_annotations or None,
     }
     manifest = build_manifest(kb_id, "rerank-kb", inputs, params, [kb_path, stats_path])
     if publish:
@@ -459,6 +472,40 @@ def calib_build(
     )
     write_manifest(manifest)
     typer.echo(json.dumps(targets, indent=1))
+
+
+annotations_app = typer.Typer(no_args_is_help=True, help="Known/held-out annotation splits (S3).")
+app.add_typer(annotations_app, name="annotations")
+
+
+@annotations_app.command("split")
+def annotations_split(
+    split_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. annot-split-v1"),
+    fraction: float = typer.Option(..., help="Share of positive annotations held out (half B)"),
+    publish: bool = typer.Option(False),
+) -> None:
+    """Freeze which HPOA annotations systems under S3 may not know (EVAL_PROTOCOL §8)."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    ensure_new(split_id)
+    from diagnostic_ar_training import INTERIM_DIR
+    from diagnostic_ar_training.knowledge import annotation_split
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import publish as publish_release
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
+
+    salt = f"diagnostic.ar-training/{split_id}"
+    pairs = annotation_split.split(open_source("hpo_annotations", Purpose.KB), fraction, salt)
+    path = INTERIM_DIR / "annotations" / split_id / "heldout.tsv"
+    annotation_split.write(pairs, path)
+    params = {"fraction": fraction, "salt": salt, "unit": "(disease_id, hpo_id) positive aspect-P annotation"}
+    manifest = build_manifest(
+        split_id, "annotation-split", [load_sources()["hpo_annotations"].as_input()], params, [path]
+    )
+    if publish:
+        manifest = publish_release(manifest, split_id)
+    write_manifest(manifest)
+    typer.echo(f"{split_id}: {len(pairs)} held-out annotations -> {path}")
 
 
 @artifacts_app.command("fetch")

@@ -1,6 +1,9 @@
 # ADR-0009: How new inputs enter the GNN so that the untrained extension is exactly v3.0
 
-- **Status:** Proposed, 2026-09-29 (for Mateo's review).
+- **Status:** Accepted, 2026-09-29 (Mateo). **Scope: Front A only.**
+  Front B does not use GinV3 or this extension; it works on the production
+  model's normal output (the `genphenia_v3` ONNX distribution), as it
+  always has.
 - **Refines:** ADR-0001 ("zero-initialised new inputs, so that the extended
   model equals v3.0 at step 0") and PLAN §6 A3 (A-neg, A-neg2, A-cov).
 

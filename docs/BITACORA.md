@@ -678,3 +678,105 @@ What they tell us:
 - **Evidence for the informe:**
   - §14: the EXP-B-002 tables, with the pre-registered rule applied.
   - §16: the reporting-pattern finding, and the manifest-refusal incident.
+
+### 2026-09-29 — EXP-A-000 — GinV3: v3.0 in PyTorch (merged PR #8); S3 building blocks
+- **Front / versions:** A. PR #8 (`aacbb91..ec43c95`), built by a subagent in
+  an isolated worktree. I reviewed it and ran its suite on its own code.
+  torch 2.14.0+cu130.
+- **Done (agent):**
+  - `gnn/model.py` `GinV3`: pure torch, strict load of `best_model.pt`.
+  - `GinV3Extended`: negated nodes + covariates, all zero-initialised.
+    ADR-0009 (Proposed): the untrained model equals v3.0 exactly, with and
+    without new inputs.
+  - ONNX export (our export == production ONNX, 0.0 difference on 1,000
+    cases).
+  - `--system ginv3-torch`, `dxt gnn parity`, `dxt eval compare`.
+- **EXP-A-000 result (pre-registered):**
+
+  | Criterion | Result |
+  |---|---|
+  | Top-10 on 1,000 R1-train cases | identical 1,000/1,000 ✅ |
+  | R1-dev ranks vs EXP-000 | identical 1,883/1,883 ✅ |
+  | max \|Δlogit\| ≤ 1e-4 | **4.9e-4 (CPU) ❌** |
+
+  - The miss is float32 rounding at logits of magnitude in the hundreds:
+    relative error ≤ 1.2e-6.
+  - Torch is closer to a float64 reference than production's own ONNX
+    Runtime in 92% of cases.
+
+  **Verdict:** ⚠️ gate not met as written. Accepting GinV3 as v3.0, and
+  switching future parity gates to "relative ≤ 1e-5 + identical ranks", is
+  Mateo's call.
+
+  | Speed | Value |
+  |---|---|
+  | Torch GPU | 0.64 ms/case; 15,350 cases/s in batches of 128 |
+  | Torch CPU | 2.4 ms/case |
+- **Found by the agent:** a naive ONNX export of v3.0 is silently wrong. The
+  TorchScript exporter turns `index_add` into a last-write-wins scatter.
+  `diagnostic.ar-model`'s vendored adapter has that form. Production is
+  unaffected (it ships the prebuilt ONNX), but any re-export must use the
+  one-hot aggregation.
+- **S3 building blocks (me, branch `phase1c/s3-eval`):**
+  - the annotation split;
+  - KB builds that drop half B;
+  - `PublicCase` + information-gain questioner + truth-based answerer;
+  - the protocol, in EVAL_PROTOCOL §8.
+- **Resource alert:** 4.7 GB of disk free (98%). Torch took about 6 GB.
+- **Evidence for the informe:**
+  - §11 / §14: ADR-0009's step-zero identity and the parity table.
+  - §16: the silent ONNX export bug, a lesson on why the parity gates
+    exist.
+
+### 2026-09-29 — sesión — Disk cleanup on TARS (local Docker only)
+- **Why:** disk at 99%. It fell to 2.8 GB free while the simulator agent
+  wrote its dataset; torch had taken about 6 GB.
+- **Safety:**
+  - the host is `TARS`;
+  - `DOCKER_HOST` / `DOCKER_CONTEXT` are unset, and the only context is the
+    local socket (daemon `TARS`);
+  - no remote or production server was contacted (Mateo: "NEVER IN PROD
+    SERVER").
+- **Done (reversible or cache-only):**
+  - pruned the one stopped container (`qa-eval-model`);
+  - pruned all unused build cache (27.35 GB), which also released 63
+    dangling images; images went from 106 to 43.
+  - The running `nodo0-*` containers were untouched and stay healthy.
+- **Result:** 2.8 GB → **26 GB free** (99% → 89%).
+- **Left for Mateo to decide:**
+  - the `trivy-cache` volume (1.45 GB, re-downloadable);
+  - about 70 anonymous volumes of ~65 MB each (about 4 GB, possibly old test
+    databases; keep `lucai_v2_devdb`);
+  - unused tagged images (5.8 GB, mostly the `lucai-agent-bioeutectics`
+    staging images);
+  - user caches: Chrome 4.2 GB, Flatpak 3.4 GB, Steam 3.2 GB;
+  - one disabled `cups` snap revision.
+- **Context snapshot:** `docs/STATE.md` was added before the detour, and is
+  also the resume point in memory.
+- **Follow-up (Mateo's instruction), same day:**
+  - Deleted every tagged image not used by a container (`docker image prune
+    -a`, local TARS daemon re-verified): **18.43 GB** reclaimed. Only the 4
+    images used by containers remain.
+  - Cleared Stremio's cache (flatpak `cache/`, 66 MB); its `data/` and
+    `config/` were kept.
+  - Disk: **43 GB free (81%)**.
+
+### 2026-09-29 — sesión — Decisions: GinV3 accepted; ADR-0009 accepted for Front A only; Front A overfitting rules
+- **Mateo:**
+  - "I'm ok with rebuilding if we proved it's the same" → GinV3 accepted as
+    v3.0 (EXP-A-000 addendum). The missed absolute gate stays on record;
+    future parity gates use relative ≤ 1e-5 + identical ranks.
+  - "starting point in the same weights is perfect … only for the front that
+    retrains; the other should just work with the model's normal output" →
+    ADR-0009 accepted, **scoped to Front A**. Front B keeps consuming the
+    production ONNX distribution.
+  - "make sure we are not overfitting" → **EVAL_PROTOCOL §9**, written
+    before any training run:
+    - four data roles that never mix;
+    - a budget of ≤ 8 configurations per experiment;
+    - required curves: train, sim-val, R1-dev with and without the new
+      inputs, and S2 for forgetting;
+    - a "present-only" no-regression anchor;
+    - ≥ 3 seeds;
+    - learning-rate limits;
+    - a contamination check before every run.

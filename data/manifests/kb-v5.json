@@ -1,0 +1,71 @@
+{
+  "artifact_id": "kb-v5",
+  "kind": "rerank-kb",
+  "created_at": "2026-09-29T17:44:59+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "56df588c65999772e51b6c988218dfec953874e0",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    },
+    {
+      "id": "artifact:annot-split-v1",
+      "sha256": "029922458e57a0d02a2a66bf9305b28340e1af56bb4b5d3fbe55849d06e46b18"
+    }
+  ],
+  "params": {
+    "mask_split": "r1-v1",
+    "mask_scope": "heldout",
+    "schema": 2,
+    "frequency": "ADR-0007",
+    "gene_weights": "genes-v1",
+    "heldout_annotations_dropped": "annot-split-v1"
+  },
+  "params_hash": "1ce49e69a57da9fb275a3950167b0df25922fa12782843cc7d10dd1a3ba049b1",
+  "outputs": [
+    {
+      "path": "data/interim/kb/kb-v5/kb.json.gz",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7",
+      "bytes": 1178295
+    },
+    {
+      "path": "data/kb/kb-v5.stats.json",
+      "sha256": "eb2057687ae004da99b3a3d5ddf6a40c98ba98b8aa12b4fab4adf5bdc880c3df",
+      "bytes": 768
+    }
+  ],
+  "notes": "",
+  "release": "kb-v5"
+}

@@ -186,6 +186,7 @@ def build(
     masked_pmids: set[str],
     orphanet_alignments: Path | None = None,
     gene_profiles: dict | None = None,
+    drop_annotations: set[tuple[str, str]] | None = None,
 ) -> tuple[dict, dict]:
     """Returns (kb, stats). The kb is plain JSON-serialisable data, deterministic.
 
@@ -218,6 +219,10 @@ def build(
             continue
         if term != row["hpo_id"]:
             stats["rows_term_resolved_to_current_id"] += 1
+        if drop_annotations and (row["database_id"], row["hpo_id"]) in drop_annotations:
+            if row["aspect"] == "P" and row["qualifier"] != "NOT":
+                stats["rows_dropped_heldout_annotation"] += 1
+                continue
         disease = diseases[row["database_id"]]
         disease.name = disease.name or row["disease_name"]
         aspect = row["aspect"]

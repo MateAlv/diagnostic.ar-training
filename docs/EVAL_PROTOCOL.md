@@ -167,3 +167,115 @@ A result is citable in the informe only if all of these hold:
 - the manifests are committed;
 - the ledger row exists (if sealed);
 - the `BITACORA.md` entry has the numbers and a verdict.
+
+## 8. S3: simulated question-agent evaluation (negated symptoms as the app produces them)
+
+**Why.** R1 cannot validate negation for deployment (EXP-B-001 Addendum 1,
+EXP-B-002). Its absent findings are the ones authors chose to report because
+they are typical of the syndrome. In the web app, a negation is a patient's
+"no" to a question the question agent asked about the candidates' features.
+S3 reproduces that process on simulated patients whose true phenotype is
+known. The design goal is that **nothing a system under test uses can have
+been derived from the test patients' truth**.
+
+**Protocol (sketch; the parameters are pre-registered in the S3 experiment
+file).**
+1. **Knowledge split.** Every positive HPOA annotation (disease, term) goes
+   to half **A** (known) or half **B** (held out) by a salted hash, fraction
+   `h` held out. The split is a frozen artifact (`annot-split-vN`). `h` is
+   chosen, from R1-train only, so that S3 patients' share of present terms
+   their gene does not explain matches R1-train's (46%, `calib-v1`).
+2. **Test patients** are generated from the **full** profiles (A ∪ B) by the
+   simulator: gene-first, `calib-v1` noise and missingness, a fixed seed
+   range. Each case carries its `true_present` set.
+3. **Systems under test** only ever see **A**:
+   - the KB (`kb` built with B dropped);
+   - the re-rankers' features;
+   - the questioner;
+   - Front A's training data (simulator profiles with B dropped, a
+     disjoint seed range).
+
+   E0 is the exception: v3.0 was trained on full `genes_to_phenotype` and
+   cannot be masked. That favours E0, so comparisons against it are
+   conservative. This is declared.
+4. **Questioner** (fixed, identical for every system).
+   - **Sees:** only the initial presentation (the reported present terms
+     plus sex and age when reported), E0's distribution over genes for that
+     presentation, and KB-A. It never sees the gene, the disease or the
+     truth. This is enforced by type: it receives a `PublicCase` that has no
+     such fields.
+   - **Asks:** Q terms chosen by expected information gain over E0's top-N
+     candidates, with P(t | gene) from KB-A. It never asks a term already
+     reported, or an ancestor or descendant of one.
+5. **Answers** come only from the truth. "Yes" if the asked term is a true
+   term or an ancestor of one; otherwise "no". Answers are recorded per case
+   and are identical for every system.
+6. **Inputs per system**, the same for all of them, so Δs isolate what each
+   system does with them:
+
+   | System | Receives |
+   |---|---|
+   | E0 | reported present + "yes" answers |
+   | Any other system | the same + "no" answers as excluded terms + sex/age as reported |
+
+   "E0 without questions" is also reported, to measure the questions
+   themselves.
+7. **Splits and sealing.** S3 cases are assigned to **S3-dev** (selection)
+   or **S3-test** (sealed, ledgered, pre-registered reads only) by a salted
+   hash of the case id. The split is frozen before any system is run on it.
+8. **Contamination checks, all enforced and logged:**
+   - no Front A training case shares a (gene, present, excluded) signature
+     with an S3 case;
+   - training and test seed ranges are disjoint;
+   - every system input artifact's manifest must list the annotation split
+     with "B dropped".
+
+**Declared residual dependencies.**
+- `genes-v1` weights (which of a gene's diseases) and inheritance are shared
+  by the generator and the systems. They carry no phenotype terms.
+- The simulator's structural assumptions (frequency sampling, onset gating)
+  are shared by S3 and Front A's training data. S3 can therefore overstate
+  Front A relative to real patients; R1 remains the check against that.
+
+## 9. Front A (retraining): rules against overfitting, fixed before any training run
+
+Warm-starting from v3.0 (ADR-0009) means every run starts at E0. These rules
+make sure any movement away from it is real improvement, not fitting to the
+simulator or to dev.
+
+1. **Four roles of data, never mixed:**
+
+   | Role | Data |
+   |---|---|
+   | Gradients | Simulated training cases (profiles without half B, their own seed range) + R1-train patients (A-005 only) |
+   | Early stopping | Sim-val (held-out simulated cases from the same generator), never R1 |
+   | Selection between runs | R1-dev + S3-dev, with the declared budget |
+   | Claims | R1-test, S3-test, MCRD/DDD, sealed and read once per candidate; the R1 vault once at the end |
+2. **Budget per experiment**, declared in its pre-registration: at most 8
+   training configurations (learning rate × epochs × feature set). Every
+   configuration is logged with its curves, including failures.
+3. **Required curves in every run:**
+   - training loss;
+   - sim-val loss/MRR;
+   - R1-dev MRR, both "present only" and "all inputs";
+   - S2 MRR, the upstream-style simulation v3.0 was trained on.
+
+   Two warning signs are flagged in the experiment file:
+   - sim-val keeps improving while R1-dev falls: overfitting to the
+     simulator;
+   - S2 falls more than 0.02 below E0: forgetting what v3.0 knew.
+4. **No-regression anchor.** R1-dev "present only", i.e. without the new
+   inputs, must stay within the non-regression margin of E0 (CI lower bound
+   ≥ −0.01), or the run is rejected whatever its "all inputs" gain.
+5. **Seeds.** A selected configuration is reported as the mean ± sd of ≥ 3
+   seeds. The best seed is never picked.
+6. **Learning-rate discipline.** Fine-tuning starts from v3.0 weights with a
+   learning rate ≤ the original 5e-4, and new (zero-initialised) parameters
+   may use a higher one. Both are declared up front.
+7. **Contamination check** before each run, logged: no training case shares
+   a (gene, present, excluded) signature with any R1 or S3 evaluation case.
+   R1-train patients (A-005) never share a publication with dev/test/vault;
+   the split guarantees this.
+8. **Front B stays on production's output.** Front B systems consume the
+   `genphenia_v3` ONNX distribution; they never use GinV3 or retrained
+   weights (Mateo, 2026-09-29).
