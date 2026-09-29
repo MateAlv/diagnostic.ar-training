@@ -11,3 +11,4 @@ with a new one and link both ways.
 | [0003](0003-publication-grouped-sealed-split.md) | Publication-grouped R1 split with sealed test and vault | Accepted 2026-09-28 |
 | [0004](0004-two-fronts-one-harness.md) | Two fronts (retrain, re-rank) judged by one harness | Accepted 2026-09-28 |
 | [0005](0005-release-assets-not-dvc.md) | Manifests in git + GitHub release assets instead of DVC | Accepted 2026-09-28 |
+| [0006](0006-gene-vocabulary-stays-frozen.md) | The gene vocabulary stays v3.0's 5,229 genes | Accepted 2026-09-29 |

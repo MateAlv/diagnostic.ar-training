@@ -33,6 +33,8 @@ class Manifest(BaseModel):
     params_hash: str
     outputs: list[OutputRef]
     notes: str = ""
+    release: str = ""
+    """GitHub release tag of this repo holding the output files, if published (ADR-0005)."""
 
     @property
     def path(self) -> Path:
@@ -70,6 +72,51 @@ def build_manifest(
     )
 
 
+def publish(manifest: Manifest, tag: str) -> Manifest:
+    """Upload the outputs as a release of this repo and record the tag."""
+    import subprocess
+
+    files = [str(output_path(o)) for o in manifest.outputs]
+    subprocess.run(
+        [
+            "gh",
+            "release",
+            "create",
+            tag,
+            *files,
+            "--title",
+            tag,
+            "--notes",
+            f"Artifact {manifest.artifact_id}; lineage in data/manifests/{manifest.artifact_id}.json",
+        ],
+        check=True,
+        cwd=REPO_ROOT,
+    )
+    return manifest.model_copy(update={"release": tag})
+
+
+def fetch_outputs(manifest: Manifest) -> list[Path]:
+    """Download a published artifact's files and check them against the manifest."""
+    import subprocess
+
+    if not manifest.release:
+        raise LineageError(f"{manifest.artifact_id} was never published")
+    paths = []
+    for out in manifest.outputs:
+        path = output_path(out)
+        if not path.is_file():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            subprocess.run(
+                ["gh", "release", "download", manifest.release, "-p", path.name, "-D", str(path.parent)],
+                check=True,
+                cwd=REPO_ROOT,
+            )
+        paths.append(path)
+    if problems := verify_outputs(manifest):
+        raise LineageError("; ".join(problems))
+    return paths
+
+
 def write_manifest(manifest: Manifest, overwrite: bool = False) -> Path:
     if manifest.path.exists() and not overwrite:
         raise LineageError(f"{manifest.path.name} exists; artifact ids are immutable, pick a new one")
@@ -82,13 +129,18 @@ def load_manifest(artifact_id: str) -> Manifest:
     return Manifest.model_validate_json((MANIFESTS_DIR / f"{artifact_id}.json").read_text())
 
 
+def output_path(out: OutputRef) -> Path:
+    return Path(out.path) if Path(out.path).is_absolute() else REPO_ROOT / out.path
+
+
 def verify_outputs(manifest: Manifest) -> list[str]:
-    """Outputs that are missing or whose bytes no longer match the manifest."""
+    """Outputs whose bytes no longer match, or missing ones that were never published."""
     problems = []
     for out in manifest.outputs:
-        path = Path(out.path) if Path(out.path).is_absolute() else REPO_ROOT / out.path
+        path = output_path(out)
         if not path.is_file():
-            problems.append(f"{out.path}: missing")
+            if not manifest.release:
+                problems.append(f"{out.path}: missing")
         elif sha256_file(path) != out.sha256:
             problems.append(f"{out.path}: sha256 mismatch")
     return problems
