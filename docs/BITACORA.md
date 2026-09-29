@@ -678,3 +678,52 @@ What they tell us:
 - **Evidence for the informe:**
   - §14: the EXP-B-002 tables, with the pre-registered rule applied.
   - §16: the reporting-pattern finding, and the manifest-refusal incident.
+
+### 2026-09-29 — EXP-A-000 — GinV3: v3.0 in PyTorch (merged PR #8); S3 building blocks
+- **Front / versions:** A. PR #8 (`aacbb91..ec43c95`), built by a subagent in
+  an isolated worktree. I reviewed it and ran its suite on its own code.
+  torch 2.14.0+cu130.
+- **Done (agent):**
+  - `gnn/model.py` `GinV3`: pure torch, strict load of `best_model.pt`.
+  - `GinV3Extended`: negated nodes + covariates, all zero-initialised.
+    ADR-0009 (Proposed): the untrained model equals v3.0 exactly, with and
+    without new inputs.
+  - ONNX export (our export == production ONNX, 0.0 difference on 1,000
+    cases).
+  - `--system ginv3-torch`, `dxt gnn parity`, `dxt eval compare`.
+- **EXP-A-000 result (pre-registered):**
+
+  | Criterion | Result |
+  |---|---|
+  | Top-10 on 1,000 R1-train cases | identical 1,000/1,000 ✅ |
+  | R1-dev ranks vs EXP-000 | identical 1,883/1,883 ✅ |
+  | max \|Δlogit\| ≤ 1e-4 | **4.9e-4 (CPU) ❌** |
+
+  - The miss is float32 rounding at logits of magnitude in the hundreds:
+    relative error ≤ 1.2e-6.
+  - Torch is closer to a float64 reference than production's own ONNX
+    Runtime in 92% of cases.
+
+  **Verdict:** ⚠️ gate not met as written. Accepting GinV3 as v3.0, and
+  switching future parity gates to "relative ≤ 1e-5 + identical ranks", is
+  Mateo's call.
+
+  | Speed | Value |
+  |---|---|
+  | Torch GPU | 0.64 ms/case; 15,350 cases/s in batches of 128 |
+  | Torch CPU | 2.4 ms/case |
+- **Found by the agent:** a naive ONNX export of v3.0 is silently wrong. The
+  TorchScript exporter turns `index_add` into a last-write-wins scatter.
+  `diagnostic.ar-model`'s vendored adapter has that form. Production is
+  unaffected (it ships the prebuilt ONNX), but any re-export must use the
+  one-hot aggregation.
+- **S3 building blocks (me, branch `phase1c/s3-eval`):**
+  - the annotation split;
+  - KB builds that drop half B;
+  - `PublicCase` + information-gain questioner + truth-based answerer;
+  - the protocol, in EVAL_PROTOCOL §8.
+- **Resource alert:** 4.7 GB of disk free (98%). Torch took about 6 GB.
+- **Evidence for the informe:**
+  - §11 / §14: ADR-0009's step-zero identity and the parity table.
+  - §16: the silent ONNX export bug, a lesson on why the parity gates
+    exist.
