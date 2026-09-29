@@ -182,3 +182,12 @@ def test_untrained_extended_export_fed_neutral_inputs_is_production(e0, extended
         ours = session.run(None, feeds | {"covariates": graphs.NEUTRAL_COVARIATES[None]})[0]
         production, _ = e0.logits(list(c.present))
         assert np.abs(ours.reshape(-1) - production).max() <= 1e-6
+
+
+def test_parity_report_on_the_reference_cases(e0, system):
+    from diagnostic_ar_training.gnn import parity
+
+    report, rows = parity.run(e0, system, cases(), batch_size=4)
+    assert report["n"] == len(rows) == len(cases())
+    assert report["top10_same_order"] == report["rank_identical"] == report["n"]
+    assert report["max_abs_dlogit"] < 1e-3 and report["batched_vs_single_max_abs_dlogit"] < 1e-3
