@@ -483,3 +483,40 @@ What they tell us:
     decision (criterion 10).
   - §14: the calibration table (a quality measure of synthetic-data
     realism).
+
+### 2026-09-29 — sesión — `kb-v3`, the Front B knowledge base on ADR-0007 + gene weights (and a void `kb-v2`)
+- **Front / versions:** B. Branch `phase1b/kb-v2` (stacked on
+  `phase1/gene-profiles`); artifact `kb-v3`.
+- **Done:**
+  - `rerank/kb.py` schema 2, with 3 new tests (84 in total):
+    - ADR-0007 frequency estimation;
+    - onset carried to OMIM diseases through exact, validated Orphanet
+      alignments of the same 2026-06 release;
+    - gene → disease weights from `genes-v1`, split evenly over an entity's
+      profiles;
+    - a `vocabulary` map from v3.0 symbols to current ones.
+- **Result:**
+
+  | Measure | kb-v1 | kb-v3 |
+  |---|---|---|
+  | Phenotypes at frequency 1.0 | 32,615 | 649 (only HPO "Obligate" categories remain) |
+  | Diseases with onset | 8,098 | 9,487 (4,303 HPO + 3,789 Orphanet direct + 1,395 via exact alignment) |
+  | v3.0 genes with onset | 4,286 | 4,529 |
+  | Genes | uniform over diseases | 5,192 with calibrated weights |
+- **Failure (logged, not hidden):** `kb-v2` was published by mistake.
+  - What happened: a scripted CLI edit failed on a mismatched anchor, and
+    because the commands were chained with `;` instead of `&&`, the build
+    still ran on the old schema-1 command path and published `kb-v2`.
+  - It is kept as a **void** artifact: manifest committed, id burnt, listed in
+    `DATA_LINEAGE.md`. It was not deleted or reused.
+  - *Changed:*
+    - `lineage.manifest.ensure_new` makes the build commands refuse an
+      existing id before any work or publishing;
+    - scripted edits now run under `set -e` / `&&`.
+- **Verdict:** ✅ `kb-v3` is Front B's KB. ❌ `kb-v2` is void.
+- **Next:**
+  - B2 features: negation penalty, sex and age compatibility, onset.
+  - rr-v1, and the pre-registration of EXP-B-001 on R1-dev.
+- **Evidence for the informe:**
+  - §14: the before/after table (a measurement that drove a redesign).
+  - §16: the void-artifact incident, and the guard it produced.

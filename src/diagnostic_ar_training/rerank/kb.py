@@ -1,10 +1,11 @@
 """Front B knowledge base: what HPO and Orphanet say about each disease and gene.
 
 Built only from sources with role `knowledge`, with every HPOA row that cites a
-held-out R1 publication removed (EVAL_PROTOCOL §4.1). The frequency notation
-follows qa-agente-claude@53a4107 kb/frequency.py (HPO category midpoints,
-n/m, x%), whose semantics we keep: an empty frequency is "unknown", never
-"always".
+held-out R1 publication removed (EVAL_PROTOCOL §4.1). Frequencies follow
+ADR-0007 (schema 2): pooled counts with a Jeffreys prior, then percentages,
+then category midpoints; an empty frequency is "unknown", never "always", and
+only NOT marks an absence. Gene -> disease weights come from the gene profiles
+(ADR-0008).
 """
 
 import csv
@@ -65,18 +66,33 @@ ORPHANET_ONSET_YEARS: dict[str, tuple[float, float]] = {
 EXCLUDED_ASSOCIATIONS = frozenset({"POLYGENIC"})
 
 
-def parse_frequency(raw: str) -> float | None:
+def parse_frequency(raw: str) -> tuple[str, object] | None:
+    """("count", (n, m)) | ("percent", p) | ("category", midpoint) | None."""
     text = raw.strip()
     if not text or text == "-":
         return None
     if text in FREQUENCY_CATEGORIES:
-        return FREQUENCY_CATEGORIES[text]
+        return "category", FREQUENCY_CATEGORIES[text]
     if m := _FRACTION.match(text):
         num, den = int(m[1]), int(m[2])
-        return num / den if 0 < den and num <= den else None
+        return ("count", (num, den)) if 0 < den and num <= den else None
     if m := _PERCENT.match(text):
         value = float(m[1]) / 100
-        return value if value <= 1 else None
+        return ("percent", value) if value <= 1 else None
+    return None
+
+
+def estimate_frequency(
+    counts: tuple[int, int], percents: list[float], categories: list[float]
+) -> float | None:
+    """ADR-0007: pooled counts (Jeffreys mean), else mean percentage, else mean category midpoint."""
+    n, m = counts
+    if m:
+        return (n + 0.5) / (m + 1)
+    if percents:
+        return fmean(percents)
+    if categories:
+        return fmean(categories)
     return None
 
 
@@ -91,7 +107,10 @@ def _rows(path: Path, first_field: str):
 
 @dataclass
 class _Phenotype:
-    frequencies: list[float] = field(default_factory=list)
+    n: int = 0
+    m: int = 0
+    percents: list[float] = field(default_factory=list)
+    categories: list[float] = field(default_factory=list)
     onsets: set[str] = field(default_factory=set)
     sexes: set[str] = field(default_factory=set)
     unrestricted: bool = False
@@ -130,6 +149,34 @@ def parse_orphanet_onsets(path: Path) -> dict[str, list[str]]:
     return out
 
 
+def parse_exact_alignments(path: Path) -> dict[str, set[str]]:
+    """OMIM id -> ORPHA ids it is exactly (and validatedly) equivalent to."""
+    out: dict[str, set[str]] = defaultdict(set)
+    for disorder in ET.parse(path).getroot().find("DisorderList"):
+        for ref in disorder.iter("ExternalReference"):
+            if (
+                ref.findtext("Source") == "OMIM"
+                and (ref.findtext("DisorderMappingRelation/Name") or "").startswith("E (Exact mapping")
+                and ref.findtext("DisorderMappingValidationStatus/Name") == "Validated"
+            ):
+                out[f"OMIM:{ref.findtext('Reference')}"].add(f"ORPHA:{disorder.findtext('OrphaCode')}")
+    return out
+
+
+def gene_weights_from_profiles(profiles: dict) -> tuple[dict[str, dict[str, float]], dict[str, str]]:
+    """symbol -> {HPOA disease id: weight}, splitting each entity's weight over its profiles."""
+    out = {}
+    for symbol, gene in profiles["genes"].items():
+        weights = {}
+        for entity in gene["entities"]:
+            if entity["sim_weight"] > 0:
+                for pid in entity["profile_ids"]:
+                    weights[pid] = weights.get(pid, 0.0) + entity["sim_weight"] / len(entity["profile_ids"])
+        if weights:
+            out[symbol] = {k: round(v, 6) for k, v in sorted(weights.items())}
+    return out, {k: v for k, v in profiles["vocabulary"].items() if v}
+
+
 def build(
     ontology: Ontology,
     hpoa: Path,
@@ -137,8 +184,14 @@ def build(
     genes_to_phenotype: Path,
     orphanet_ages: Path,
     masked_pmids: set[str],
+    orphanet_alignments: Path | None = None,
+    gene_profiles: dict | None = None,
 ) -> tuple[dict, dict]:
-    """Returns (kb, stats). The kb is plain JSON-serialisable data, deterministic."""
+    """Returns (kb, stats). The kb is plain JSON-serialisable data, deterministic.
+
+    With `gene_profiles` (schema 2) genes map to weighted diseases; without, to
+    their association types as in kb-v1.
+    """
     stats: Counter = Counter(
         {
             k: 0
@@ -174,10 +227,16 @@ def build(
                 stats["rows_negated"] += 1
                 continue
             pheno = disease.phenotypes.setdefault(term, _Phenotype())
-            if (freq := parse_frequency(row["frequency"])) is not None:
-                pheno.frequencies.append(freq)
-            elif row["frequency"].strip():
-                stats["rows_unparsed_frequency"] += 1
+            parsed = parse_frequency(row["frequency"])
+            if parsed is None:
+                stats["rows_unparsed_frequency"] += bool(row["frequency"].strip())
+            elif parsed[0] == "count":
+                pheno.n += parsed[1][0]
+                pheno.m += parsed[1][1]
+            elif parsed[0] == "percent":
+                pheno.percents.append(parsed[1])
+            else:
+                pheno.categories.append(parsed[1])
             if row["onset"].strip() and (onset := ontology.resolve(row["onset"].strip())):
                 pheno.onsets.add(onset)
             sex = row["sex"].strip().lower()
@@ -191,6 +250,7 @@ def build(
             disease.inheritance.add(term)
 
     orphanet = parse_orphanet_onsets(orphanet_ages)
+    alignments = parse_exact_alignments(orphanet_alignments) if orphanet_alignments else {}
     kb_diseases = {}
     for disease_id in sorted(diseases):
         d = diseases[disease_id]
@@ -200,8 +260,9 @@ def build(
         phenotypes = {}
         for term in sorted(d.phenotypes):
             p = d.phenotypes[term]
+            freq = estimate_frequency((p.n, p.m), p.percents, p.categories)
             phenotypes[term] = {
-                "freq": round(fmean(p.frequencies), 6) if p.frequencies else None,
+                "freq": None if freq is None else round(freq, 6),
                 "onset": sorted(p.onsets),
                 # Restricted only if every row naming the phenotype names one sex.
                 "sex": next(iter(p.sexes)) if len(p.sexes) == 1 and not p.unrestricted else None,
@@ -211,6 +272,11 @@ def build(
         if not intervals and disease_id in orphanet:
             intervals = sorted({ORPHANET_ONSET_YEARS[n] for n in orphanet[disease_id]})
             onset_source = "orphanet"
+        if not intervals:
+            names = {n for orpha in alignments.get(disease_id, ()) for n in orphanet.get(orpha, ())}
+            if names:
+                intervals = sorted({ORPHANET_ONSET_YEARS[n] for n in names})
+                onset_source = "orphanet_exact_alignment"
         kb_diseases[disease_id] = {
             "name": d.name,
             "phenotypes": phenotypes,
@@ -243,7 +309,14 @@ def build(
         if linked:
             kb_genes[symbol] = linked
 
-    kb = {"diseases": kb_diseases, "genes": kb_genes}
+    kb = {"schema": 1, "diseases": kb_diseases, "genes": kb_genes}
+    if gene_profiles is not None:
+        weights, vocabulary = gene_weights_from_profiles(gene_profiles)
+        kb_genes = {
+            symbol: {d: w for d, w in ws.items() if d in kb_diseases} for symbol, ws in weights.items()
+        }
+        kb_genes = {k: v for k, v in kb_genes.items() if v}
+        kb = {"schema": 2, "diseases": kb_diseases, "genes": kb_genes, "vocabulary": vocabulary}
     stats.update(
         diseases=len(kb_diseases),
         genes=len(kb_genes),
@@ -254,6 +327,12 @@ def build(
         ),
         diseases_with_onset_hpoa=sum(d["onset_source"] == "hpoa" for d in kb_diseases.values()),
         diseases_with_onset_orphanet=sum(d["onset_source"] == "orphanet" for d in kb_diseases.values()),
+        diseases_with_onset_orphanet_via_alignment=sum(
+            d["onset_source"] == "orphanet_exact_alignment" for d in kb_diseases.values()
+        ),
+        phenotypes_with_frequency_one=sum(
+            1 for d in kb_diseases.values() for p in d["phenotypes"].values() if p["freq"] == 1.0
+        ),
         diseases_with_inheritance=sum(bool(d["inheritance"]) for d in kb_diseases.values()),
     )
     return kb, dict(sorted(stats.items()))

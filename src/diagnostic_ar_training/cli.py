@@ -29,12 +29,21 @@ app.add_typer(artifacts_app, name="artifacts")
 def kb_build(
     kb_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. kb-v1"),
     mask_split: str = typer.Option("r1-v1", help="Split whose held-out PMIDs are masked"),
+    gene_profiles: str = typer.Option("genes-v1", help="Gene profiles artifact for gene -> disease weights"),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
-    """Build the knowledge base from pinned sources with held-out publications masked."""
+    """Build the knowledge base (schema 2) from pinned sources with held-out publications masked."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    ensure_new(kb_id)
     from diagnostic_ar_training import INTERIM_DIR, splits
     from diagnostic_ar_training.lineage.hashing import sha256_file
-    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
     from diagnostic_ar_training.lineage.manifest import publish as publish_release
     from diagnostic_ar_training.lineage.registry import Purpose, open_source
     from diagnostic_ar_training.ontology import Ontology
@@ -45,9 +54,12 @@ def kb_build(
         "hpo_annotations",
         "hpo_genes_to_disease",
         "hpo_genes_to_phenotype",
-        "orphanet_ages",
+        "orphanet_ages_2026_06",
+        "orphanet_alignments",
     ]
     paths = {n: open_source(n, Purpose.KB) for n in names}
+    profiles_manifest = load_manifest(gene_profiles)
+    profiles_path = fetch_outputs(profiles_manifest)[0]
     splits.write_heldout_pmids(mask_split)  # refuses if the committed list drifted from the split
     mask_path = splits.heldout_pmids_path(mask_split)
     masked = set(mask_path.read_text().split())
@@ -56,8 +68,10 @@ def kb_build(
         paths["hpo_annotations"],
         paths["hpo_genes_to_disease"],
         paths["hpo_genes_to_phenotype"],
-        paths["orphanet_ages"],
+        paths["orphanet_ages_2026_06"],
         masked,
+        orphanet_alignments=paths["orphanet_alignments"],
+        gene_profiles=kb.read(profiles_path),
     )
     out_dir = INTERIM_DIR / "kb" / kb_id
     kb_path = out_dir / "kb.json.gz"
@@ -68,10 +82,12 @@ def kb_build(
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in names]
     inputs.append({"id": f"heldout-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
+    inputs.append({"id": f"artifact:{gene_profiles}", "sha256": profiles_manifest.outputs[0].sha256})
     params = {
         "mask_split": mask_split,
-        "excluded_associations": sorted(kb.EXCLUDED_ASSOCIATIONS),
-        "schema": 1,
+        "schema": built["schema"],
+        "frequency": "ADR-0007",
+        "gene_weights": gene_profiles,
     }
     manifest = build_manifest(kb_id, "rerank-kb", inputs, params, [kb_path, stats_path])
     if publish:
@@ -97,6 +113,9 @@ def genes_build(
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Per-gene disease entities, validity, ClinVar evidence, inheritance and weights."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    ensure_new(genes_id)
     from diagnostic_ar_training import INTERIM_DIR, splits
     from diagnostic_ar_training.knowledge import genes
     from diagnostic_ar_training.lineage.hashing import sha256_file

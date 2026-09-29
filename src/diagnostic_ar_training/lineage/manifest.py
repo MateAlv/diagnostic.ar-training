@@ -72,6 +72,12 @@ def build_manifest(
     )
 
 
+def ensure_new(artifact_id: str) -> None:
+    """Call before building: an id that already has a manifest is never rebuilt or republished."""
+    if (MANIFESTS_DIR / f"{artifact_id}.json").exists():
+        raise LineageError(f"{artifact_id} already exists; artifact ids are immutable, pick a new one")
+
+
 def publish(manifest: Manifest, tag: str) -> Manifest:
     """Upload the outputs as a release of this repo and record the tag."""
     import subprocess
