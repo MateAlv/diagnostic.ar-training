@@ -1,0 +1,20 @@
+{
+ "base": "results/EXP-000/r1-v1-dev__genphenia-v3.0__all.ranks.jsonl",
+ "changed_cases": [],
+ "identical_ranks": 1883,
+ "mrr": {
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "delta": 0.0,
+  "harmed": 0.0,
+  "helped": 0.0,
+  "metric": "mrr",
+  "n": 1883,
+  "n_units": 1883,
+  "resample_unit": "case"
+ },
+ "n": 1883,
+ "new": "results/EXP-A-000/r1-v1-dev__ginv3-torch__all.ranks.jsonl"
+}
