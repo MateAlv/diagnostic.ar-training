@@ -83,6 +83,28 @@ whose gene has ≥ 2 simulable entities, we measure how often the patient's own
 disease is the gene's top-weighted entity, compared with uniform weighting.
 Dev, test and vault are never used here (`EVAL_PROTOCOL.md` §4.3).
 
+**Result** (`dxt genes calibrate --id genes-v1`,
+`results/genes-v1/calibration-r1-train.json`). 2,544 train patients from 418
+publications, with 4.18 candidate diseases per gene on average. Weight
+`v × (1 + c)^γ`:
+
+| γ | Mean log p(true disease) | Top-1 | Mean p |
+|---|---|---|---|
+| uniform | — | — | 0.346 |
+| 0 (validity only) | −1.060 | 0.264 | 0.417 |
+| 0.25 | −0.849 | 0.642 | 0.514 |
+| **0.5 (ADR)** | **−0.777** | 0.642 | 0.574 |
+| 0.75 | −0.781 | 0.642 | 0.607 |
+| 1.0 (linear) | −0.825 | 0.642 | 0.626 |
+| 1.5 | −0.964 | 0.643 | 0.643 |
+
+- γ = 0.5 maximises log-likelihood, so the pre-specified weight is kept.
+- It was also best or tied on held-out halves in a 2-fold split by
+  publication *within train* (A→B: best 0.5; B→A: fitted 0.75 but 0.5
+  scored higher on the held-out half).
+- Linear weights look better on mean p but are overconfident, and they lose
+  on log-likelihood.
+
 ## Leakage note
 ClinVar and ClinGen evidence cites publications, some of which may be R1
 papers. Neither contributes phenotype terms: they only shift a disease's
