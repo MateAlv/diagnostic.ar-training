@@ -4,6 +4,7 @@ import re
 from datetime import UTC, datetime
 
 from diagnostic_ar_training import DOCS_DIR
+from diagnostic_ar_training.lineage import gitinfo
 from diagnostic_ar_training.lineage.gitinfo import code_state
 from diagnostic_ar_training.lineage.registry import LineageError
 
@@ -20,14 +21,24 @@ def entries(split_id: str, part: str) -> list[str]:
     return [line for line in LEDGER.read_text().splitlines() if tag in line]
 
 
+def is_preregistered(path) -> bool:
+    return gitinfo.is_committed_unchanged(path)
+
+
 def record_access(split_id: str, part: str, exp_id: str, reason: str) -> None:
     """Refuses unless the experiment is pre-registered and the code is committed."""
     if not EXP_ID.match(exp_id):
         raise LineageError(f"{exp_id!r} is not an experiment id (EXP-000, EXP-A-001, EXP-B-001, ...)")
-    if not (EXPERIMENTS_DIR / f"{exp_id}.md").exists():
+    registration = EXPERIMENTS_DIR / f"{exp_id}.md"
+    if not registration.exists():
         raise LineageError(
             f"docs/experiments/{exp_id}.md missing: pre-register the hypothesis and gate "
             "before opening a sealed split"
+        )
+    if not is_preregistered(registration):
+        raise LineageError(
+            f"docs/experiments/{exp_id}.md must be committed, unmodified, before a sealed read: "
+            "the commit is the proof it was written first"
         )
     state = code_state()
     if state.dirty:

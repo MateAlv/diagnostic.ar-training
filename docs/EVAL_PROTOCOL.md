@@ -20,7 +20,7 @@ We claim an improvement only when we can show all three:
 | **R1-dev** | 20% | **no [code]** | yes | free |
 | **R1-test** | 20% | no | **no**, gates only | **sealed [code]** |
 | **R1-vault** | 20% | no | no | **sealed, opens once [code]** |
-| **R2 MCRD, R3 DDD** | external benchmarks | **no [code: role `eval`]** | no | gate reads only, logged [discipline] |
+| **R2 MCRD, R3 DDD** | external benchmarks | **no [code: role `eval`]** | no | **sealed [code]**: same rules as R1-test, ledgered |
 | **S1** | our simulator's own held-out cases | yes (its train part) | early stopping only | free, never a headline number |
 | **S2** | upstream-style simulated patients | no | no | free; overfitting-to-our-generator check |
 
@@ -38,9 +38,12 @@ We claim an improvement only when we can show all three:
 ## 2. Sealed parts: test and vault
 
 - **Opening a sealed part requires three things [code]:**
-  - a **pre-registered** experiment file `docs/experiments/<EXP-id>.md` that
-    already exists;
-  - a **clean git tree**, so the numbers are reproducible from the SHA;
+  - a **pre-registered** experiment file `docs/experiments/<EXP-id>.md`,
+    **committed and unmodified**. The commit is timestamped proof that the
+    gate was written before the read;
+  - a **clean git tree**, so the numbers are reproducible from the SHA. Files
+    that runs write (`docs/TEST_LEDGER.md`, `docs/BITACORA.md`, `results/`,
+    `data/manifests/`) don't count as dirty;
   - a reason.
 - Every read appends a row to `docs/TEST_LEDGER.md` **[code]**. Commit the
   ledger together with the results.
@@ -125,7 +128,11 @@ addendum below the original text [discipline].
 - **Every comparison with E0 reports:**
   - both systems' metrics;
   - Δ with a **paired bootstrap 95% CI** (2,000 resamples, fixed seed) on the
-    same cases in the same order;
+    same cases in the same order. **On R1 the bootstrap resamples
+    publications, not patients**: patients of one paper are correlated, and
+    the case bootstrap understates R1 uncertainty 3–7× (EXP-000 Addendum 2).
+    `eval.harness.compare` does this automatically when records carry their
+    publication group;
   - the **harmed and helped rates**;
   - n, and the number of unrankable cases.
 - **Ablation views** on the same cases:
@@ -144,6 +151,8 @@ addendum below the original text [discipline].
 - **Release gate** (both fronts; the details are in `PLAN.md` §6 A4 and §7 B3):
   1. R1-test primary metric Δ > 0, with the CI lower bound > 0.
   2. Present-only view: Δ CI lower bound ≥ −0.01 on R1-test, R2 and R3.
+     R3 (DDD) is annotation-derived (EXP-000 Addendum 1): it counts only as a
+     no-regression check, never as evidence of accuracy.
   3. Harmed rate ≤ 5% (Front B).
   4. The identity (B) or near-identity (A) holds when no new inputs are given.
 - **Multiple comparisons.** Only the primary metric of the pre-registered

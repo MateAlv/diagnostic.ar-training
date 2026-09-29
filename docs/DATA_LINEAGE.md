@@ -126,6 +126,12 @@ model's ontology or zero-embedded.
   they must be cited in the informe once found. GraPhens also fine-tuned an
   experimental model on DDD (`validation_arena/finetune_ddd_model.py`). There
   is no evidence that v3.0 did.
+- **DDD looks annotation-derived.** 97.1% of its cases carry an
+  inheritance-mode term, and the median case's terms are all verbatim
+  annotations of the gene (EXP-000 Addendum 1). It overstates real-patient
+  performance of any model trained on HPO annotations.
+- **R1 terms are often verbatim HPO annotations** (78% of dev cases are fully
+  annotated, vs 3.5% for MCRD). This quantifies the E0-optimism caveat above.
 - **Bitgenia cases** (`GraPhens/validation_arena/Casos_Bitgenia*.json`) are
   not registered. Their origin and consent status are unknown, so they are
   not used (G10).
@@ -136,4 +142,6 @@ model's ontology or zero-embedded.
 |---|---|---|
 | 2026-09-28 | Sources registered | 9 sources; all verified from local copies (`dxt sources fetch --no-download`) |
 | 2026-09-28 | Split `r1-v1` frozen | content sha256 `b007aa17741c2309a2fce9e36aaa77608d3d2b1311630e96c77be9d39e462ccf`, before any model was run on the cohort |
+| 2026-09-29 | Source added | `graphens_sim_20251202` (S2, role eval) from GraPhens@7d861ff; MCRD and DDD marked `sealed` |
+| 2026-09-29 | E0 measured (EXP-000) | Production parity: bit-identical to the vendored engine on 300 cases. Sealed reads of r1-v1/test, MCRD and DDD ledgered |
 | 2026-09-28 | Leakage measured | 15,412 of 282,723 HPOA rows (5.45%, 457 diseases) cite R1 held-out PMIDs; MCRD/DDD have 0 exact (gene, present) overlaps with R1 |

@@ -7,3 +7,6 @@ Rules: `docs/EVAL_PROTOCOL.md` §2.
 
 | UTC time | split/part | experiment | code SHA | reason |
 |---|---|---|---|---|
+| 2026-09-29T00:28:28+00:00 | r1-v1/test | EXP-000 | 17f1392281d3 | E0 reference (pre-registered in EXP-000) |
+| 2026-09-29T00:28:34+00:00 | mcrd/all | EXP-000 | 17f1392281d3 | E0 reference (pre-registered in EXP-000) |
+| 2026-09-29T00:28:34+00:00 | ddd/all | EXP-000 | 17f1392281d3 | E0 reference (pre-registered in EXP-000) |

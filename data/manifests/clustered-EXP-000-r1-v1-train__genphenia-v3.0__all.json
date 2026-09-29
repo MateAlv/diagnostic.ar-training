@@ -1,0 +1,32 @@
+{
+  "artifact_id": "clustered-EXP-000-r1-v1-train__genphenia-v3.0__all",
+  "kind": "eval-summary",
+  "created_at": "2026-09-29T00:30:20+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "fb9b523b625cfc3ef3c2f601b1ea98cbb3de3cbe",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "results:EXP-000/r1-v1-train__genphenia-v3.0__all.ranks.jsonl",
+      "sha256": "05d6ae9bda8dbd1fbb881d155cd6c26c9ca2bf9cd82e63dc0e0542e1439e804b"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "split": "r1-v1"
+  },
+  "params_hash": "9bcaad13ed7551df15f82e8bc9a99f2320f1358e63bfe900ffa4e848a29a379c",
+  "outputs": [
+    {
+      "path": "results/EXP-000/r1-v1-train__genphenia-v3.0__all.clustered-summary.json",
+      "sha256": "7c5af964b2f4d5b391f944065aed978aa46c2e59ceaf8b90721fe308de6230f4",
+      "bytes": 2548
+    }
+  ],
+  "notes": ""
+}

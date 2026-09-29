@@ -1,0 +1,39 @@
+{
+  "artifact_id": "results-EXP-000-s2-genphenia-v3.0-all",
+  "kind": "eval-results",
+  "created_at": "2026-09-29T00:27:57+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "17f1392281d38c4d88e25b4af970ddd7c8c353fc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "source:graphens_sim_20251202@GraPhens@7d861ff",
+      "sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e"
+    }
+  ],
+  "params": {
+    "system": "genphenia-v3",
+    "cohort": "s2",
+    "view": "all"
+  },
+  "params_hash": "250625ee5da11c3c0302a2fedaa225cbd6dc117a736d5c0b4e7f5d250d4d073a",
+  "outputs": [
+    {
+      "path": "results/EXP-000/s2__genphenia-v3.0__all.ranks.jsonl",
+      "sha256": "c220b86e1cfb9eb2c81ad833892e4b90136a6595179958c322dab6e837a0b720",
+      "bytes": 1654083
+    },
+    {
+      "path": "results/EXP-000/s2__genphenia-v3.0__all.summary.json",
+      "sha256": "adab849765eda525881dbaa1b15d3e497f791680301f1250d9dec5655216cfd3",
+      "bytes": 785
+    }
+  ],
+  "notes": ""
+}

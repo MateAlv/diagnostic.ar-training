@@ -14,9 +14,65 @@ app = typer.Typer(no_args_is_help=True, help=__doc__)
 sources_app = typer.Typer(no_args_is_help=True, help="Pinned external inputs (data/sources.yaml).")
 split_app = typer.Typer(no_args_is_help=True, help="Frozen, publication-grouped cohort splits.")
 lineage_app = typer.Typer(no_args_is_help=True, help="Integrity of everything recorded.")
+eval_app = typer.Typer(no_args_is_help=True, help="Run systems on cohorts; results + manifest.")
 app.add_typer(sources_app, name="sources")
 app.add_typer(split_app, name="split")
 app.add_typer(lineage_app, name="lineage")
+app.add_typer(eval_app, name="eval")
+
+
+def _system(name: str):
+    if name == "genphenia-v3":
+        from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+        return GenPheniaV3()
+    raise typer.BadParameter(f"unknown system {name!r}")
+
+
+@eval_app.command("run")
+def eval_run(
+    system: str = typer.Option(..., help="genphenia-v3"),
+    cohort: str = typer.Option(..., help="r1-v1/<part>, mcrd, ddd or s2"),
+    exp: str = typer.Option(..., help="Experiment id, e.g. EXP-000"),
+    view: list[str] = typer.Option(["all"], help="Input views (repeatable)"),
+    reason: str = typer.Option("", help="Required for sealed cohorts"),
+) -> None:
+    """Score every case; write ranks, summary and a lineage manifest under results/<exp>/."""
+    from diagnostic_ar_training import SPLITS_DIR
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+
+    if code_state().dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    runner = _system(system)
+    cases = access.load(cohort, exp_id=exp, reason=reason)
+    inputs = runner.lineage_inputs()
+    if cohort.startswith("r1-v1/"):
+        inputs.append({"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")})
+    else:
+        source = {"s2": access.S2_SOURCE}.get(cohort, cohort)
+        inputs.append(registry.load_sources()[source].as_input())
+    groups = None
+    if cohort.startswith("r1-v1/"):
+        from diagnostic_ar_training import splits
+
+        groups = splits.publication_groups("r1-v1")
+    for v in view:
+        records = harness.run(runner, cases, view=v, groups=groups)
+        outputs = harness.write(exp, cohort, runner.name, v, records)
+        artifact = f"results-{exp}-{cohort.replace('/', '-')}-{runner.name}-{v}"
+        manifest = build_manifest(
+            artifact, "eval-results", inputs, {"system": system, "cohort": cohort, "view": v}, list(outputs)
+        )
+        write_manifest(manifest)
+        summary = harness.summarize(records)["all"]
+        typer.echo(
+            f"{cohort} {v}: n={summary['n']} mrr={summary['mrr']:.4f} top1={summary['top1']:.4f} "
+            f"top10={summary['top10']:.4f} -> {outputs[1]}"
+        )
 
 
 @sources_app.command("list")
@@ -70,6 +126,35 @@ def split_heldout_pmids(split_id: str) -> None:
 
     digest = splits.write_heldout_pmids(split_id)
     typer.echo(f"{splits.heldout_pmids_path(split_id)} sha256={digest}")
+
+
+@eval_app.command("cluster-summaries")
+def eval_cluster_summaries(exp: str, split_id: str = "r1-v1") -> None:
+    """Publication-clustered summaries for rank files written without groups.
+
+    Reads existing ranks (no new read of any cohort) and writes
+    <stem>.clustered-summary.json as a new artifact; the originals stay untouched.
+    """
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+
+    groups = splits.publication_groups(split_id)
+    for ranks_path in sorted((RESULTS_DIR / exp).glob(f"{split_id}-*.ranks.jsonl")):
+        records = [{**r, "group": groups[r["case_id"]]} for r in harness.read(ranks_path)]
+        stem = ranks_path.name.removesuffix(".ranks.jsonl")
+        out = ranks_path.with_name(f"{stem}.clustered-summary.json")
+        out.write_text(json.dumps(harness.summarize(records), indent=1, sort_keys=True) + "\n")
+        inputs = [
+            {"id": f"results:{exp}/{ranks_path.name}", "sha256": sha256_file(ranks_path)},
+            {"id": f"split:{split_id}", "sha256": sha256_file(SPLITS_DIR / f"{split_id}.json")},
+        ]
+        write_manifest(
+            build_manifest(f"clustered-{exp}-{stem}", "eval-summary", inputs, {"split": split_id}, [out])
+        )
+        s = harness.summarize(records)["all"]
+        typer.echo(f"{stem}: mrr={s['mrr']:.4f} publication-CI={[round(x, 3) for x in s['mrr_ci95']]}")
 
 
 @lineage_app.command("verify")

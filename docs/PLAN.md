@@ -85,7 +85,8 @@ and notes**; the team writes the informe prose (G9).
 | **Production model**: GenPhenia v3.0 | `diagnostic.ar-model` tag `model-v3.0.0`; registered here as source `genphenia_v3` | See notes below |
 | Inference engine | `diagnostic.ar-model/vendor/genphenia_inference_engine/`; byte-identical copy in `diagnostic.ar-api/services/genphenai/inference_engine/` | `predict(hpo_ids)` takes present HPO ids only. The files import `inference_engine.*`, which doesn't match the directory name |
 | v3.0 metrics | `GenPhenAI/GENPHENAI_RN_ARQUITECTURA_ENTRENAMIENTO.md:195-213` | Validation on its own simulated data: MRR 0.781, top-1 0.711, top-10 0.911 |
-| GNN on real phenopackets | `qa-agente-claude/docs/EVALUACION.md` | v3.0 alone: top-1 43.1%, MRR 0.508 on 501 patients. In 23% of cases the true gene is outside the top 50 |
+| **E0 (EXP-000, 2026-09-29)** | `docs/experiments/EXP-000.md`, `results/EXP-000/` | R1 MRR: dev 0.448 [0.399, 0.504], test 0.370 [0.266, 0.480] (publication-clustered CIs). MCRD 0.747. DDD 0.757 (annotation-derived, so inflated). S2 0.812. **10.6–14.2% of R1 patients have a gene outside v3.0's vocabulary.** Median latency 1–1.6 ms |
+| GNN on real phenopackets (earlier) | `qa-agente-claude/docs/EVALUACION.md` | v3.0 alone: top-1 43.1%, MRR 0.508 on 501 patients (one per gene). In 23% of cases the true gene is outside the top 50 |
 | Older real-case numbers | `GenPhenAI/GraPhens/validation_arena/*.csv` (checkpoint unknown, 2025-06) | MCRD MRR 0.070; Bitgenia MRR 0.128 |
 | Upstream trainer | `GenPhenAI/GraPhens/training/` (Keras 3 + JAX) | Builds only v2.0 (4×GCN); cannot build v3.0 GIN. No trained Keras GNN exists. The 26M-sample training LMDB is not available |
 | Upstream simulator | `GraPhens/src/simulation/phenotype_simulation/` | Uniform choice over annotated terms and ancestors; no frequencies, sex, age or negatives |
@@ -251,8 +252,10 @@ Reuse rules:
   - Frozen in `data/splits/r1-v1.json`, content sha256 `b007aa17…`.
   - 72 packets were dropped: 69 were not single-gene and 3 had no present
     terms.
-- **R2 = MCRD and R3 = DDD.** Eval-only. They are touched only at gates, with
-  the same ledger discipline as test.
+- **R2 = MCRD and R3 = DDD.** Eval-only and sealed in code, with the same
+  ledger discipline as test. DDD is annotation-derived (EXP-000 Addendum 1),
+  so it serves only as a no-regression check.
+- **CIs on R1 resample publications** (EXP-000 Addendum 2).
 - **S1 = our simulator's held-out split.** S2 = upstream-style simulated
   patients. Both are sanity checks, never headline numbers.
 
@@ -412,6 +415,7 @@ in the same case.
 | A-005 | + R1-train real patients mixed into training | Value of real data vs simulated |
 | A-006 | Simulator ablations: remove negative source a/b/c, age gating, etc. | Which simulator mechanisms matter |
 | A-007 | Train from scratch vs warm start (if local compute allows) | Is the warm start limiting? |
+| A-008 *(proposed, pending Mateo's decision)* | Expand the gene vocabulary to HPO 2026 genes (145 new classes, warm-started rows) | How much of the 10–14% out-of-vocabulary loss on R1 is recoverable? This changes G5's frozen vocabulary, so it needs an ADR |
 
 **Release gate for `model-v4.0.0`** (evaluated once on R1-test, R2 and R3; see
 `EVAL_PROTOCOL.md` §6):
@@ -592,7 +596,7 @@ for Front A. This is tested.
 
 | Phase | Dates | Content | Exit criterion |
 |---|---|---|---|
-| **0. Foundation** | 09-28 → 10-02 | ✅ repo, lineage, registry, split r1-v1, protocol, CI. Then: the v3.0 ONNX adapter in the harness, the held-out PMID export, the EXP-000 pre-registration and run | E0 table in `BITACORA.md` |
+| **0. Foundation** | 09-28 → 09-29 ✅ | Repo, lineage, registry, split r1-v1, protocol, CI; the v3.0 adapter (production parity); the harness; the held-out PMID export; EXP-000 run | ✅ E0 table in `EXP-000.md` / `BITACORA.md` |
 | **1B. Re-ranker v1** | 10-01 → 10-08 | KB (masked), B2 features, rr-v1 grid on R1-dev, per-feature ablation | EXP-B-001: Δ vs E0 on dev; decide whether B has signal |
 | **1A. Simulator v0.2** | 10-01 → 10-14 | A1 + A2 + `validate` + tests; tag `sim-v0.2.0`; masked dataset + manifest | `validate` report + dataset card |
 | **2A. GNN stack** | 10-09 → 10-16 | `GinV3` + parity (A-000), dataloader, training loop, ONNX export | A-000 == E0 |

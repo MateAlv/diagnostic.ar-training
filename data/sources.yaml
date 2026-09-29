@@ -9,6 +9,8 @@
 #              whose per-split purpose rules apply (see docs/EVAL_PROTOCOL.md)
 #   eval       patients that may only ever be evaluated on, never trained or tuned on
 #   baseline   a released model used as E0 / warm start
+# sealed: true — patients readable only under a pre-registered experiment,
+#   from a clean tree, with a row in docs/TEST_LEDGER.md (EVAL_PROTOCOL §2)
 #
 # See docs/DATA_LINEAGE.md for how to add a source.
 
@@ -79,6 +81,7 @@ phenopacket_store:
 
 mcrd:
   role: eval
+  sealed: true
   version: GraPhens@7d861ff
   filename: MCRD.dataset.tsv
   url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/validation_arena/MCRD.dataset.tsv
@@ -90,12 +93,13 @@ mcrd:
 
 ddd:
   role: eval
+  sealed: true
   version: GraPhens@7d861ff
   filename: DDD.dataset.tsv
   url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/validation_arena/DDD.dataset.tsv
   sha256: 1f1074c8c5dd25a614ea16e98bab9fb788bca8f02051c4c64ea76b99891f54af
   license: as distributed by GraPhens (original source to be cited in the informe)
-  notes: 1,048 cases, present phenotypes only. GraPhens fine-tuned an experimental model on it (validation_arena/finetune_ddd_model.py); v3.0 is not known to have seen it.
+  notes: 1,048 cases, present phenotypes only. Cases look derived from HPO annotation profiles (97% carry an inheritance-mode term; EXP-000 Addendum 1), so it overstates real-patient performance; no-regression check only. GraPhens fine-tuned an experimental model on it (validation_arena/finetune_ddd_model.py).
   local_candidates:
     - ../GenPhenAI/GraPhens/validation_arena/DDD.dataset.tsv
 
@@ -109,3 +113,14 @@ genphenia_v3:
   notes: Production model (E0). Its training data (simulated from genes_to_phenotype, HPO ~2025-11) is not available; see DATA_LINEAGE §5.
   local_candidates:
     - ../diagnostic.ar-model/dist/genphenia-v3.0.tar.gz
+
+graphens_sim_20251202:
+  role: eval
+  version: GraPhens@7d861ff
+  filename: simulated_patients_all_20251202_152831.json
+  url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7d861ff/data/simulation/output/simulated_patients_all_20251202_152831.json
+  sha256: d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e
+  license: as distributed by GraPhens
+  notes: S2. Upstream-style simulated patients (10 per gene, 1-12 terms), the generator family v3.0 was trained on; an in-distribution sanity check, never a headline number.
+  local_candidates:
+    - ../GenPhenAI/GraPhens/data/simulation/output/simulated_patients_all_20251202_152831.json

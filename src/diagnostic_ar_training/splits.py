@@ -194,3 +194,9 @@ def write_heldout_pmids(split_id: str) -> str:
         raise LineageError(f"{path.name} differs from what {split_id} implies")
     path.write_text(text)
     return hashlib.sha256(text.encode()).hexdigest()
+
+
+def publication_groups(split_id: str) -> dict[str, str]:
+    """case_id -> publication group; the resampling unit for R1 confidence intervals."""
+    cases, _ = _all_cases(SPECS[split_id])
+    return _components(cases)
