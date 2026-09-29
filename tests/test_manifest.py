@@ -25,3 +25,13 @@ def test_artifacts_cannot_be_built_from_uncommitted_code(tmp_path, dirty_tree):
     out.write_text("x")
     with pytest.raises(LineageError):
         manifest.build_manifest("x", "dataset", [], {}, [out])
+
+
+def test_run_outputs_do_not_count_as_dirty_code(monkeypatch):
+    from diagnostic_ar_training.lineage import gitinfo
+
+    status = " M docs/TEST_LEDGER.md\n M results/EXP-000/x.json\n M data/manifests/a.json"
+    monkeypatch.setattr(gitinfo, "_run_git", lambda args, cwd: status if args[0] == "status" else "sha\n")
+    assert gitinfo.code_state().dirty is False
+    status += "\n M src/diagnostic_ar_training/splits.py"
+    assert gitinfo.code_state().dirty is True

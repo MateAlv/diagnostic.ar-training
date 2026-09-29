@@ -27,4 +27,5 @@ def docs(tmp_path, monkeypatch):
     exp_dir.mkdir()
     monkeypatch.setattr(ledger, "LEDGER", tmp_path / "TEST_LEDGER.md")
     monkeypatch.setattr(ledger, "EXPERIMENTS_DIR", exp_dir)
+    monkeypatch.setattr(ledger, "is_preregistered", lambda path: path.read_text() != "draft")
     return tmp_path

@@ -57,6 +57,7 @@ class Source:
     license: str = ""
     notes: str = ""
     upstream_url: str = ""
+    sealed: bool = False
     local_candidates: tuple[str, ...] = field(default_factory=tuple)
 
     @property

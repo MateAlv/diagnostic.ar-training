@@ -68,6 +68,13 @@ def test_sealed_parts_need_a_preregistered_experiment(cohort, clean_tree):
     assert "r1-v1/test | EXP-B-001" in (cohort / "TEST_LEDGER.md").read_text()
 
 
+def test_sealed_parts_refuse_an_uncommitted_registration(cohort, clean_tree):
+    splits.freeze("r1-v1")
+    (cohort / "experiments" / "EXP-B-001.md").write_text("draft")
+    with pytest.raises(LineageError):
+        splits.load_part("r1-v1", Part.TEST, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
+
+
 def test_sealed_parts_refuse_uncommitted_code(cohort, dirty_tree):
     splits.freeze("r1-v1")
     (cohort / "experiments" / "EXP-B-001.md").write_text("# pre-registered")

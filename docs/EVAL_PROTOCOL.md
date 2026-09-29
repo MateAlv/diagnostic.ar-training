@@ -20,7 +20,7 @@ We claim an improvement only when we can show all three:
 | **R1-dev** | 20% | **no [code]** | yes | free |
 | **R1-test** | 20% | no | **no**, gates only | **sealed [code]** |
 | **R1-vault** | 20% | no | no | **sealed, opens once [code]** |
-| **R2 MCRD, R3 DDD** | external benchmarks | **no [code: role `eval`]** | no | gate reads only, logged [discipline] |
+| **R2 MCRD, R3 DDD** | external benchmarks | **no [code: role `eval`]** | no | **sealed [code]**: same rules as R1-test, ledgered |
 | **S1** | our simulator's own held-out cases | yes (its train part) | early stopping only | free, never a headline number |
 | **S2** | upstream-style simulated patients | no | no | free; overfitting-to-our-generator check |
 
@@ -38,9 +38,12 @@ We claim an improvement only when we can show all three:
 ## 2. Sealed parts: test and vault
 
 - **Opening a sealed part requires three things [code]:**
-  - a **pre-registered** experiment file `docs/experiments/<EXP-id>.md` that
-    already exists;
-  - a **clean git tree**, so the numbers are reproducible from the SHA;
+  - a **pre-registered** experiment file `docs/experiments/<EXP-id>.md`,
+    **committed and unmodified**. The commit is timestamped proof that the
+    gate was written before the read;
+  - a **clean git tree**, so the numbers are reproducible from the SHA. Files
+    that runs write (`docs/TEST_LEDGER.md`, `docs/BITACORA.md`, `results/`,
+    `data/manifests/`) don't count as dirty;
   - a reason.
 - Every read appends a row to `docs/TEST_LEDGER.md` **[code]**. Commit the
   ledger together with the results.
