@@ -1157,6 +1157,44 @@ def harness_write(out_dir: Path, cohort: str, view: str, records: list[dict]) ->
     return harness.write(f"{out_dir.parent.name}/{out_dir.name}", cohort, "model", view, records)
 
 
+@gnn_app.command("report")
+def gnn_report(exp: str = typer.Option("EXP-A-001", help="Experiment whose runs to tabulate")) -> None:
+    """The experiment table from the committed run files: every run, and mean ± sd per configuration."""
+    import re
+
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.gnn import experiment
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+
+    training_data = experiment.load_training_data()
+    trained_genes = {c.gene.upper() for c in training_data.splits["train"]}
+    exp_dir = RESULTS_DIR / exp
+    run_dirs = sorted(p for p in exp_dir.iterdir() if (p / "summary.json").is_file())
+    rows = [experiment.run_row(p, trained_genes) for p in run_dirs]
+    by_config: dict[str, list[dict]] = {}
+    for row in rows:
+        by_config.setdefault(re.sub(r"-s\d+$", "", row["run_id"]), []).append(row)
+    report = {
+        "runs": rows,
+        "configurations": {k: experiment.seed_aggregate(v) for k, v in by_config.items()},
+        "inputs": {
+            str(p.relative_to(RESULTS_DIR)): sha256_file(p)
+            for d in run_dirs
+            for p in sorted(d.glob("*.json"))
+        },
+    }
+    out = exp_dir / "report.json"
+    out.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
+    for r in rows:
+        d, s3 = r["r1_dev"], r["s3_dev"] or {}
+        typer.echo(
+            f"{r['run_id']:32} ep {r['best_epoch']}/{r['epochs_run']} simval {r['sim_val_mrr']['best']:.4f} "
+            f"R1 {d['mrr']:.4f} d {d['delta']:+.4f} [{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] "
+            f"h {d['harmed']:.3f} S2 {r['s2']['mrr']:.4f} S3 d {s3.get('delta', float('nan')):+.4f}"
+        )
+    typer.echo(f"-> {out}")
+
+
 @gnn_app.command("s1")
 def gnn_s1(
     exp: str = typer.Option(..., help="Pre-registered experiment id"),
