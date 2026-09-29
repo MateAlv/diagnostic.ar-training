@@ -120,3 +120,29 @@ def test_s3_split_is_frozen_hash_checked_and_its_test_part_sealed(tmp_path, monk
     _write_dataset(data, n=41)
     with pytest.raises(LineageError):
         s3.load_part("s3-t", "dev", data)
+
+
+def test_interviewed_cases_round_trip_without_truth(tmp_path):
+    import gzip
+    import json
+
+    from diagnostic_ar_training.eval import s3_run
+    from diagnostic_ar_training.systems import Scored
+
+    class E0:
+        genes = ("XLR", "ADULT", "NOONSET")
+
+        def score(self, case):
+            return Scored(np.array([0.5, 0.3, 0.2]), {})
+
+    case = Case(case_id="s3-v1:c", cohort="s3-v1", gene="XLR", present=("HP:0001263",), sex=Sex.MALE)
+    truth = frozenset({"HP:0002373"})
+    [interview] = s3_run.interview_cases([(case, truth)], E0(), K, ONTO, n_candidates=3, n_questions=3)
+    expected = interactive.interview(case, truth, interview.questions, ONTO)
+    assert interview.questions and interview.after == expected
+    assert interview.yes == len(set(expected.present) - set(case.present))
+    path = tmp_path / "interviews.jsonl.gz"
+    s3_run.write_interviews(path, [interview])
+    assert s3_run.read_interviews(path) == [expected]
+    with gzip.open(path, "rt") as handle:
+        assert set(json.loads(handle.readline())) == {"questions", "case"}

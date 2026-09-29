@@ -1,0 +1,37 @@
+{
+  "artifact_id": "results-EXP-A-001-a001-c1-lr1e-5-bntrain-s1-s1",
+  "kind": "gnn-s1-eval",
+  "created_at": "2026-09-29T19:58:02+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "66c6ff604090e972c5cbb1534098d50bc7995446",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001-excl-v1",
+      "sha256": "9755152a50ed55adc688e8231c7e7026ac52b5dc3d0995db0fa104b9353b065d"
+    },
+    {
+      "id": "checkpoint:a001-c1-lr1e-5-bntrain-s1/best.pt",
+      "sha256": "f70207bfef854a4cb27207f8276b5cae2207d059554faa727621188d01870930"
+    }
+  ],
+  "params": {
+    "run_id": "a001-c1-lr1e-5-bntrain-s1"
+  },
+  "params_hash": "c4afb386e546a33aabdfe8f386e5c66bf85f281dd120e67fc3e18930de49afff",
+  "outputs": [
+    {
+      "path": "results/EXP-A-001/a001-c1-lr1e-5-bntrain-s1/s1.json",
+      "sha256": "a9e1932cb8ca660c83d00ed36ec65b0a191c53d6e8982ba5f23aa42b4b9cd18c",
+      "bytes": 408
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

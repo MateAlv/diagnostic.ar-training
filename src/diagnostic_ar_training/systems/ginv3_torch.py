@@ -56,3 +56,38 @@ class GinV3Torch:
         if graph is None:
             return Scored(None, info)
         return Scored(softmax64(self.logits(graph)), info)
+
+
+class GinModelSystem:
+    """A (fine-tuned) GinV3Extended as a System: E0's graphs and coverage rules, one case per forward.
+
+    Negated terms and covariates reach the model only when it was trained to use them.
+    """
+
+    def __init__(self, model, inputs: V3Inputs, name: str, negated: bool = False) -> None:
+        import torch
+
+        self.torch = torch
+        self.model, self.inputs, self.name, self.negated = model, inputs, name, negated
+        self.genes = inputs.genes
+        self.device = next(model.parameters()).device
+
+    def lineage_inputs(self) -> list[dict]:
+        return [load_sources()[SOURCE].as_input()]
+
+    def score(self, case: Case) -> Scored:
+        graph, info = case_graph(self.inputs, case, negated=self.negated)
+        if graph is None:
+            return Scored(None, info)
+        t = self.torch
+        covariates = None
+        if self.model.cov_mlp is not None:
+            covariates = t.from_numpy(graph.covariates).unsqueeze(0).to(self.device)
+        with t.inference_mode():
+            out = self.model(
+                t.from_numpy(graph.x).to(self.device),
+                t.from_numpy(graph.edge_index).to(self.device),
+                t.from_numpy(graph.node_type).to(self.device),
+                covariates,
+            )
+        return Scored(softmax64(out.cpu().numpy().reshape(-1)), info)

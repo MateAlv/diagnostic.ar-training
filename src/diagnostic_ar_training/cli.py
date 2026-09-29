@@ -815,6 +815,424 @@ def gnn_parity(
     typer.echo(json.dumps(summary, indent=1, default=str))
 
 
+S3_INTERVIEWS_DIR = DATA_DIR / "interim" / "s3-interviews"
+
+
+@s3_app.command("interviews")
+def s3_interviews(
+    kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner"),
+    n_candidates: int = typer.Option(10),
+    n_questions: int = typer.Option(7),
+) -> None:
+    """Interview S3-dev once, as `dxt s3 run` does, and keep the interviewed cases for Front A runs.
+
+    Writes the cases systems receive (present + "yes", "no" as excluded) with a manifest, and checks that
+    E0 on them reproduces EXP-S3-001's E0+answers ranks. S3-test is never read here.
+    """
+    import numpy as np
+
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import harness, s3_run
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    artifact = f"s3-v1-dev-interviews-{kb_id}-c{n_candidates}-q{n_questions}"
+    ensure_new(artifact)
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    kb_manifest = load_manifest(kb_id)
+    if kb_manifest.params.get("heldout_annotations_dropped") != "annot-split-v1":
+        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v1 (EVAL_PROTOCOL §8)")
+    data_manifest = load_manifest("s3-data-v1")
+    dataset = next(p for p in fetch_outputs(data_manifest) if p.name.endswith(".jsonl.gz"))
+    pairs = s3.load_part("s3-v1", "dev", dataset)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    e0 = GenPheniaV3()
+    interviews = s3_run.interview_cases(pairs, e0, knowledge, ontology, n_candidates, n_questions)
+    path = S3_INTERVIEWS_DIR / f"{artifact}.jsonl.gz"
+    s3_run.write_interviews(path, interviews)
+
+    reference = {r["case_id"]: r["rank"] for r in harness.read(
+        RESULTS_DIR / "EXP-S3-001" / "s3-v1-dev__E0+answers__interviewed.ranks.jsonl")}  # fmt: skip
+    after = s3_run.read_interviews(path)
+    ranks = {c.case_id: s3_run.rank(e0.score(c).probs, e0.genes, c.gene) for c in after}
+    if set(ranks) != set(reference):
+        raise LineageError("the interviewed cases are not EXP-S3-001's S3-dev cases")
+    identical = sum(ranks[k] == reference[k] for k in ranks)
+    params = {
+        "part": "dev",
+        "kb": kb_id,
+        "n_candidates": n_candidates,
+        "n_questions": n_questions,
+        "cases": len(after),
+        "questions_per_case": float(np.mean([len(i.questions) for i in interviews])),
+        "yes_per_case": float(np.mean([i.yes for i in interviews])),
+        "no_per_case": float(np.mean([len(i.after.excluded) for i in interviews])),
+        "e0_ranks_identical_to_EXP-S3-001": identical,
+    }
+    inputs = e0.lineage_inputs() + [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "artifact:s3-data-v1", "sha256": sha256_file(dataset)},
+        {"id": "split:s3-v1", "sha256": sha256_file(SPLITS_DIR / "s3-v1.json")},
+    ]
+    write_manifest(build_manifest(artifact, "s3-interviews", inputs, params, [path], state=state))
+    typer.echo(json.dumps(params, indent=1))
+    if identical != len(after):
+        raise typer.Exit(1)
+
+
+def _gnn_setup(device_name: str, workers: int):
+    import torch
+
+    from diagnostic_ar_training.gnn import data
+    from diagnostic_ar_training.gnn.model import load_v3
+    from diagnostic_ar_training.systems.genphenia_v3 import V3Inputs, unpack_bundle
+
+    device = torch.device(device_name)
+    inputs = V3Inputs(unpack_bundle())
+    table = torch.from_numpy(data.embedding_table(inputs)).to(device)
+    base = load_v3(inputs.root, map_location=device)
+    torch.set_num_threads(max(1, (torch.get_num_threads() - workers) or 1))
+    return torch, device, inputs, table, base
+
+
+@gnn_app.command("throughput")
+def gnn_throughput(
+    batches: int = typer.Option(60, help="Batches per measurement"),
+    batch_size: int = typer.Option(256),
+    workers: list[int] = typer.Option([0, 4, 10], help="Loader worker counts to measure"),
+    device: str = typer.Option("cuda"),
+) -> None:
+    """Loader and training-step throughput on the simulated training split. Reads no evaluation cohort."""
+    import time
+
+    from diagnostic_ar_training.gnn import data, experiment
+    from diagnostic_ar_training.gnn import train as training
+
+    torch, dev, inputs, table, base = _gnn_setup(device, max(workers))
+    training_data = experiment.load_training_data()
+    dataset = data.SimGraphs(inputs, training_data.splits["train"])
+    report = {"batch_size": batch_size, "loader_cases_per_s": {}}
+    for k in workers:
+        loader = iter(data.loader(dataset, batch_size, 0, k))
+        next(loader)
+        start, n = time.perf_counter(), 0
+        for _ in range(batches):
+            n += int(next(loader)["target"].numel())
+        report["loader_cases_per_s"][k] = n / (time.perf_counter() - start)
+    batch = data.to_device(data.collate([dataset[i] for i in range(batch_size)]), table, dev)
+    for amp in (False, True):
+        cfg = training.TrainConfig(amp=amp)
+        model = training.build_model(base, cfg)
+        training.set_train_mode(model, cfg.bn)
+        optimizer = torch.optim.AdamW(training.param_groups(model, cfg), weight_decay=cfg.weight_decay)
+        for i in range(batches + 5):
+            if i == 5:
+                torch.cuda.synchronize(dev) if dev.type == "cuda" else None
+                start = time.perf_counter()
+            with torch.autocast(dev.type, dtype=torch.bfloat16, enabled=amp and dev.type == "cuda"):
+                logits = training.forward(model, batch)
+            loss = torch.nn.functional.cross_entropy(logits.float(), batch["target"])
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        torch.cuda.synchronize(dev) if dev.type == "cuda" else None
+        report[f"train_step_cases_per_s_amp_{amp}"] = batches * batch_size / (time.perf_counter() - start)
+    if dev.type == "cuda":
+        report["gpu"] = torch.cuda.get_device_name(dev)
+        report["max_memory_gb"] = torch.cuda.max_memory_allocated(dev) / 1e9
+    typer.echo(json.dumps(report, indent=1))
+
+
+@gnn_app.command("train")
+def gnn_train(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-A-001"),
+    run_id: str = typer.Option(..., help="Unique run id, e.g. a001-lr5e-5-bntrain-s0"),
+    lr_base: float = typer.Option(..., help="Learning rate of v3.0's tensors (≤ 5e-4)"),
+    lr_new: float = typer.Option(0.0, help="Learning rate of the new zero-init tensors; 0 freezes them"),
+    bn: str = typer.Option("train", help="BatchNorm: train (batch stats) or frozen (v3.0's running stats)"),
+    seed: int = typer.Option(0),
+    max_epochs: int = typer.Option(6),
+    patience: int = typer.Option(2),
+    batch_size: int = typer.Option(256),
+    warmup_steps: int = typer.Option(200),
+    amp: bool = typer.Option(False, help="bf16 autocast on CUDA"),
+    workers: int = typer.Option(10),
+    s3_interviews: str = typer.Option(
+        "s3-v1-dev-interviews-kb-v5-c10-q7", help="Artifact of interviewed S3-dev cases ('' to skip S3-dev)"
+    ),
+    max_train_cases: int = typer.Option(0, help="Debug only: cap the training cases (0 = all)"),
+    device: str = typer.Option("cuda"),
+) -> None:
+    """Fine-tune v3.0 on the simulated training split; curves each epoch; best/last checkpoints; manifest."""
+    import time
+
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import s3_run
+    from diagnostic_ar_training.gnn import data, experiment
+    from diagnostic_ar_training.gnn import train as training
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        load_manifest,
+        output_path,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose
+    from diagnostic_ar_training.systems.ginv3_torch import GinModelSystem
+
+    wall_start = time.perf_counter()
+    artifact = f"results-{exp}-{run_id}"
+    ensure_new(artifact)
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the run")
+    out_dir = RESULTS_DIR / exp / run_id
+    ckpt_dir = DATA_DIR / "interim" / "models" / run_id
+    if out_dir.exists() or ckpt_dir.exists():
+        raise typer.BadParameter(f"{out_dir} or {ckpt_dir} exists; run ids are never reused")
+    cfg = training.TrainConfig(
+        lr_base=lr_base,
+        lr_new=lr_new,
+        bn=bn,
+        seed=seed,
+        max_epochs=max_epochs,
+        patience=patience,
+        batch_size=batch_size,
+        warmup_steps=warmup_steps,
+        amp=amp,
+        num_workers=workers,
+        max_train_cases=max_train_cases or None,
+    )
+    torch, dev, inputs, table, base = _gnn_setup(device, workers)
+
+    training_data = experiment.load_training_data()
+    train_cases = training_data.splits["train"]
+    if cfg.max_train_cases:
+        train_cases = train_cases[: cfg.max_train_cases]
+    r1_dev = splits.load_part("r1-v1", "dev", Purpose.EVAL)
+    s3_dev, s3_lineage = None, []
+    if s3_interviews:
+        s3_manifest = load_manifest(s3_interviews)
+        s3_path = output_path(s3_manifest.outputs[0])
+        if sha256_file(s3_path) != s3_manifest.outputs[0].sha256:
+            raise LineageError(f"{s3_path} does not match {s3_interviews}'s manifest")
+        s3_dev = s3_run.read_interviews(s3_path)
+        s3_lineage = [{"id": f"artifact:{s3_interviews}", "sha256": s3_manifest.outputs[0].sha256}]
+    sets = experiment.EvalSets(
+        sim_val=data.SimGraphs(inputs, training_data.splits["val"], negated=cfg.negated),
+        r1_dev=r1_dev,
+        r1_groups=splits.publication_groups("r1-v1"),
+        s2=access.load("s2"),
+        s3_dev=s3_dev,
+    )
+    contamination = experiment.check_contamination(
+        training_data.splits["train"] + training_data.splits["val"],
+        {
+            "r1-v1/train": splits.load_part("r1-v1", "train", Purpose.EVAL),
+            "r1-v1/dev": r1_dev,
+            **({"s3-v1/dev": s3_dev} if s3_dev else {}),
+        },
+    )
+    if any(v["present_set_overlap"] for v in contamination.values()):
+        raise LineageError(f"training cases overlap evaluation cases after the exclusion: {contamination}")
+    contamination["sealed_cohorts"] = "certified 0 by the exclusion artifact's manifest (not read here)"
+    contamination["s2 (reported, not required 0)"] = experiment.check_contamination(
+        training_data.splits["train"], {"s2": sets.s2}
+    )["s2"]
+    baselines = sets.baselines()
+    name = f"{exp}-{run_id}"
+
+    def evaluate(model, epoch: int) -> dict:
+        sim = training.evaluate_sim(model, sets.sim_val, table, dev, cfg)
+        metrics, _ = experiment.score_cohorts(
+            GinModelSystem(model, inputs, name, cfg.negated), sets, baselines, s3=False
+        )
+        typer.echo(
+            f"[{run_id}] epoch {epoch}: sim-val loss {sim['loss']:.4f} mrr {sim['mrr']:.4f} | "
+            f"R1-dev {metrics['r1_dev_present']['mrr']:.4f} (Δ {metrics['r1_dev_present']['delta']:+.4f}) | "
+            f"S2 {metrics['s2']['mrr']:.4f}"
+        )
+        return {"sim_val": sim, **metrics}
+
+    out_dir.mkdir(parents=True)
+    run_info = {
+        "exp": exp,
+        "run_id": run_id,
+        "config": cfg.__dict__,
+        "code": state.as_dict(),
+        "device": torch.cuda.get_device_name(dev) if dev.type == "cuda" else "cpu",
+        "torch": torch.__version__,
+        "data_counts": training_data.counts,
+        "train_cases": len(train_cases),
+        "contamination": contamination,
+    }
+    training.write_json(out_dir / "run.json", run_info)
+    curves_path = out_dir / "curves.json"
+    if dev.type == "cuda":
+        torch.cuda.reset_peak_memory_stats(dev)
+    model = training.build_model(base, cfg)
+    result = training.train(
+        model,
+        cfg,
+        data.SimGraphs(inputs, train_cases, negated=cfg.negated),
+        table,
+        dev,
+        evaluate,
+        ckpt_dir,
+        on_epoch=lambda history: training.write_json(curves_path, history),
+    )
+    best_epoch = training.load_checkpoint(model, ckpt_dir / "best.pt")
+    model.eval()
+    final, records = experiment.score_cohorts(
+        GinModelSystem(model, inputs, name, cfg.negated), sets, baselines, s3=True
+    )
+    outputs = [curves_path, out_dir / "run.json"]
+    outputs += list(harness_write(out_dir, "r1-v1-dev", "present", records["r1_dev_present"]))
+    outputs.append(experiment.write_compact_ranks(out_dir / "s2.ranks.jsonl", records["s2"]))
+    if "s3_dev_present" in records:
+        s3_path = out_dir / "s3-v1-dev.ranks.jsonl"
+        outputs.append(experiment.write_compact_ranks(s3_path, records["s3_dev_present"]))
+    summary = {
+        **{k: v for k, v in result.items() if k != "history"},
+        "best_epoch_reloaded": best_epoch,
+        "at_best": final,
+        "sim_val_at_best": next(h for h in result["history"] if h["epoch"] == best_epoch)["sim_val"],
+        "flags": experiment.flags(result["history"], best_epoch),
+        "wall_seconds": time.perf_counter() - wall_start,
+        "max_gpu_memory_gb": torch.cuda.max_memory_allocated(dev) / 1e9 if dev.type == "cuda" else None,
+        "checkpoints": {p.name: p.stat().st_size for p in sorted(ckpt_dir.glob("*.pt"))},
+    }
+    summary_path = out_dir / "summary.json"
+    training.write_json(summary_path, summary)
+    outputs.append(summary_path)
+    inputs_refs = GinModelSystem(model, inputs, name).lineage_inputs() + training_data.lineage
+    inputs_refs += sets.lineage() + s3_lineage
+    params = {**cfg.__dict__, "exp": exp, "run_id": run_id, "device": device}
+    checkpoints = [ckpt_dir / "best.pt", ckpt_dir / "last.pt"]
+    write_manifest(
+        build_manifest(
+            artifact,
+            "gnn-training-run",
+            inputs_refs,
+            params,
+            outputs + [p for p in checkpoints if p.exists()],
+            notes="Checkpoints stay local (data/interim/models); results are committed.",
+            state=state,
+        )
+    )
+    r1, s2 = final["r1_dev_present"], final["s2"]
+    typer.echo(
+        f"[{run_id}] best epoch {best_epoch}/{result['epochs_run']}: "
+        f"R1-dev {r1['mrr']:.4f} Δ {r1['delta']:+.4f} "
+        f"[{r1['ci95'][0]:+.4f},{r1['ci95'][1]:+.4f}] harmed {r1['harmed']:.3f} | S2 {s2['mrr']:.4f} | "
+        f"flags {summary['flags']} | {summary['wall_seconds'] / 60:.1f} min"
+    )
+
+
+def harness_write(out_dir: Path, cohort: str, view: str, records: list[dict]) -> tuple[Path, Path]:
+    from diagnostic_ar_training.eval import harness
+
+    return harness.write(f"{out_dir.parent.name}/{out_dir.name}", cohort, "model", view, records)
+
+
+@gnn_app.command("report")
+def gnn_report(exp: str = typer.Option("EXP-A-001", help="Experiment whose runs to tabulate")) -> None:
+    """The experiment table from the committed run files: every run, and mean ± sd per configuration."""
+    import re
+
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.gnn import experiment
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+
+    training_data = experiment.load_training_data()
+    trained_genes = {c.gene.upper() for c in training_data.splits["train"]}
+    exp_dir = RESULTS_DIR / exp
+    run_dirs = sorted(p for p in exp_dir.iterdir() if (p / "summary.json").is_file())
+    rows = [experiment.run_row(p, trained_genes) for p in run_dirs]
+    by_config: dict[str, list[dict]] = {}
+    for row in rows:
+        by_config.setdefault(re.sub(r"-s\d+$", "", row["run_id"]), []).append(row)
+    report = {
+        "runs": rows,
+        "configurations": {k: experiment.seed_aggregate(v) for k, v in by_config.items()},
+        "inputs": {
+            str(p.relative_to(RESULTS_DIR)): sha256_file(p)
+            for d in run_dirs
+            for p in sorted(d.glob("*.json"))
+        },
+    }
+    out = exp_dir / "report.json"
+    out.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
+    for r in rows:
+        d, s3 = r["r1_dev"], r["s3_dev"] or {}
+        typer.echo(
+            f"{r['run_id']:32} ep {r['best_epoch']}/{r['epochs_run']} simval {r['sim_val_mrr']['best']:.4f} "
+            f"R1 {d['mrr']:.4f} d {d['delta']:+.4f} [{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] "
+            f"h {d['harmed']:.3f} S2 {r['s2']['mrr']:.4f} S3 d {s3.get('delta', float('nan')):+.4f}"
+        )
+    typer.echo(f"-> {out}")
+
+
+@gnn_app.command("s1")
+def gnn_s1(
+    exp: str = typer.Option(..., help="Pre-registered experiment id"),
+    run_id: str = typer.Option(..., help="The selected run"),
+    workers: int = typer.Option(10),
+    device: str = typer.Option("cuda"),
+) -> None:
+    """S1 (the simulator's own test split), once, for the selected run: v3.0 and the run's best checkpoint."""
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.gnn import data, experiment
+    from diagnostic_ar_training.gnn import train as training
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+
+    artifact = f"results-{exp}-{run_id}-s1"
+    ensure_new(artifact)
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    torch, dev, inputs, table, base = _gnn_setup(device, workers)
+    run = json.loads((RESULTS_DIR / exp / run_id / "run.json").read_text())
+    cfg = training.TrainConfig(**{**run["config"], "num_workers": workers})
+    training_data = experiment.load_training_data()
+    s1 = data.SimGraphs(inputs, training_data.splits["test"], negated=cfg.negated)
+    model = training.build_model(base, cfg).eval()
+    report = {"cases": len(s1), "e0": training.evaluate_sim(model, s1, table, dev, cfg)}
+    ckpt = DATA_DIR / "interim" / "models" / run_id / "best.pt"
+    report["best_epoch"] = training.load_checkpoint(model, ckpt)
+    report["model"] = training.evaluate_sim(model, s1, table, dev, cfg)
+    report["delta_mrr"] = report["model"]["mrr"] - report["e0"]["mrr"]
+    out = RESULTS_DIR / exp / run_id / "s1.json"
+    training.write_json(out, report)
+    refs = training_data.lineage + [{"id": f"checkpoint:{run_id}/best.pt", "sha256": sha256_file(ckpt)}]
+    write_manifest(build_manifest(artifact, "gnn-s1-eval", refs, {"run_id": run_id}, [out], state=state))
+    typer.echo(json.dumps(report, indent=1))
+
+
 @sources_app.command("list")
 def sources_list() -> None:
     for s in registry.load_sources().values():
