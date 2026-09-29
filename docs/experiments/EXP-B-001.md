@@ -150,8 +150,22 @@ Consequences (to act on, not tuned here):
   An evaluation scenario reproducing the question-agent flow is needed before
   any claim about negation in production.
 
-### 2026-09-29, Addendum 2: age hurts slightly (hypothesis, not yet checked)
+### 2026-09-29, Addendum 2: age hurts slightly (first hypotheses; see Addendum 3)
 `age` penalises genes whose annotated onset is later than the patient's age
 at last encounter. Likely causes, to check on dev before any rr-v2:
 - HPO "Adult onset" annotated for diseases with variable onset;
 - presymptomatic diagnoses reported in phenopackets.
+
+### 2026-09-29, Addendum 3: why age hurts (checked on dev, kb-v4)
+- **Not presymptomatic diagnosis.** 128 of the 132 flagged patients with a
+  reported onset had that onset before their age at last encounter.
+- **Scale.** 1,335 dev patients have age and onset knowledge for their gene.
+  For 177 of them (13.3%), P(onset ≤ age | true gene) < 0.5; their median age
+  is 5.75 years.
+- **Cause.** The feature *averages* over a disease's listed onset classes, and
+  gives partial credit within an interval. Orphanet often lists several
+  classes for one disease (e.g. Childhood 2–11 and Adult 18–65), so a
+  6-year-old with such a disease scores about 0.5 instead of "compatible".
+- **Implication for rr-v2.** Add an "any listed onset class fits" variant,
+  P = max over intervals, alongside the mean, and let the learned model
+  weigh them.

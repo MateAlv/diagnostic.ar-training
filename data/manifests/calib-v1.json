@@ -1,0 +1,40 @@
+{
+  "artifact_id": "calib-v1",
+  "kind": "simulator-calibration",
+  "created_at": "2026-09-29T17:31:29+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "6eacff68f268747e0c66425d6f5fe2ba911888fe",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "part": "train",
+    "kb": "kb-v4",
+    "min_noise_count": 2
+  },
+  "params_hash": "39afd757c0a7693670d35c8bf60e62062639b6834cfdfdbe308a98dadfd71bde",
+  "outputs": [
+    {
+      "path": "data/calib/calib-v1.targets.json",
+      "sha256": "f737606c2e091b6e4a79dd6c8b5eb68af296325b9031912961cfd700d6b5795a",
+      "bytes": 951
+    },
+    {
+      "path": "data/calib/calib-v1.noise_vocabulary.tsv",
+      "sha256": "1babf91cd2bbaf0c7c286732da408596423fdc19d3628498bb46882d35ebed28",
+      "bytes": 27941
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

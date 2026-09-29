@@ -119,6 +119,22 @@ class GeneKnowledge:
                 out[b] += w * ((1 - a) * dist[b] + a / N_BINS)
         return out
 
+    def onset_before_any(self, gene: str, age: float) -> float | None:
+        """Like onset_before, but a disease fits if ANY listed onset class fits (EXP-B-001 Add. 3)."""
+        ds = self.diseases(gene)
+        if not any(self.kb["diseases"][d]["onset_years"] for d in ds):
+            return None
+        total = 0.0
+        for d, w in ds.items():
+            intervals = self.kb["diseases"][d]["onset_years"]
+            if not intervals:
+                total += w
+                continue
+            total += w * max(
+                1.0 if age >= hi else (0.0 if age < lo else (age - lo) / (hi - lo)) for lo, hi in intervals
+            )
+        return total
+
     def onset_before(self, gene: str, age: float) -> float | None:
         """P(onset <= age | gene); diseases without onset data are taken as compatible."""
         ds = self.diseases(gene)
@@ -146,31 +162,41 @@ def case_onset_years(case: Case) -> float | None:
     return None
 
 
-def features(knowledge: GeneKnowledge, case: Case, gene: str) -> dict[str, float]:
+COMPONENTS = ("neg_llr", "neg_annotated_share", "sex_prior", "sex_restricted", "age_mean", "age_any", "onset")
+
+
+def components(knowledge: GeneKnowledge, case: Case, gene: str) -> dict[str, float]:
+    """The pieces rr-v1 sums and rr-v2 weighs separately; each is 0 without its input."""
     p = knowledge.params
-    out = {"neg": 0.0, "sex": 0.0, "age": 0.0, "onset": 0.0}
+    out = dict.fromkeys(COMPONENTS, 0.0)
     if not knowledge.diseases(gene):
         return out
 
-    for term in case.excluded:
-        out["neg"] += math.log(1.0 - p.neg_strength * knowledge.term_probability(gene, term))
+    if case.excluded:
+        annotated = 0
+        for term in case.excluded:
+            prob = knowledge.term_probability(gene, term)
+            out["neg_llr"] += math.log(1.0 - p.neg_strength * prob)
+            annotated += prob > 0
+        out["neg_annotated_share"] = annotated / len(case.excluded)
 
     if case.sex != Sex.UNKNOWN:
         sex = case.sex.value
         share = knowledge.male_share(gene)
         prior = share if case.sex == Sex.MALE else 1.0 - share
-        out["sex"] += math.log(max(p.epsilon, prior) / 0.5)
+        out["sex_prior"] = math.log(max(p.epsilon, prior) / 0.5)
         # A present finding the gene explains only through annotations restricted to the other sex.
         for term in case.present:
             any_sex = knowledge.term_probability(gene, term)
             if any_sex > 0:
                 same_sex = knowledge.term_probability(gene, term, sex)
-                out["sex"] += math.log(max(p.epsilon, same_sex / any_sex))
+                out["sex_restricted"] += math.log(max(p.epsilon, same_sex / any_sex))
 
     if case.age_years is not None:
         before = knowledge.onset_before(gene, case.age_years)
         if before is not None:
-            out["age"] = math.log(max(p.epsilon, before))
+            out["age_mean"] = math.log(max(p.epsilon, before))
+            out["age_any"] = math.log(max(p.epsilon, knowledge.onset_before_any(gene, case.age_years)))
 
     onset = case_onset_years(case)
     if onset is not None:
@@ -180,3 +206,14 @@ def features(knowledge: GeneKnowledge, case: Case, gene: str) -> dict[str, float
             background = (1 - p.onset_smoothing) * knowledge.onset_background[b] + p.onset_smoothing / N_BINS
             out["onset"] = math.log(dist[b] / background)
     return out
+
+
+def features(knowledge: GeneKnowledge, case: Case, gene: str) -> dict[str, float]:
+    """rr-v1's four features (EXP-B-001), as sums of the components."""
+    c = components(knowledge, case, gene)
+    return {
+        "neg": c["neg_llr"],
+        "sex": c["sex_prior"] + c["sex_restricted"],
+        "age": c["age_mean"],
+        "onset": c["onset"],
+    }

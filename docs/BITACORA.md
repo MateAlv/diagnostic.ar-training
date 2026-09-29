@@ -623,3 +623,58 @@ What they tell us:
   - Gene-first sampling from `genes-v1`.
   - Export v2 + dataset manifest.
   - `GinV3` parity (A-000).
+
+### 2026-09-29 — EXP-B-002 + calib-v1 + kb-v4 — a learned re-ranker; the "gain" is R1's negation reporting pattern
+- **Front / versions:** B (+ A calibration). Branch `phase1b/rr-v2`.
+  - `kb-v4`: KB with ALL R1 publications masked, for anything fitted on
+    R1-train.
+  - rr-v2 run from `6eacff6`; `calib-v1` from `6eacff6`.
+- **Age diagnosis (EXP-B-001 Addendum 3):** not presymptomatic patients.
+  The feature averaged a disease's listed onset classes, e.g. Orphanet
+  "Childhood + Adult".
+- **EXP-B-002 (pre-registered):** a conditional-logit re-ranker with 7
+  components, fitted on R1-train, penalty chosen on dev.
+  - **Dev Δ MRR +0.0565 [+0.009, +0.118]**, the first CI above 0. But the
+    harmed rate is 10% > 5%, so the rule gives **no candidate**.
+  - **Ablation:** without the negation components, Δ = +0.0014 [−0.002,
+    +0.005]. The gain is entirely the model learning that "absent findings
+    belong to the true disease" in case reports.
+  - In the web app, negations are answers to questions about candidates'
+    features, so this would push toward the candidates the patient ruled
+    out. Not deployable.
+  - Sex, age and onset add ≤ +0.002 each.
+- **Process incident:** the first fit run was refused its manifest because
+  I edited files during the run. That is the lineage guard working. The
+  outputs were deleted, and the rerun from a clean tree reproduced them
+  exactly.
+  - *Changed:* long commands now capture the code state when they start.
+- **calib-v1** (R1-train, `kb-v4`):
+
+  | Target | R1-train | Simulator v0.2 |
+  |---|---|---|
+  | Present terms per case | 8.7 (median 7) | 6.4 |
+  | Negated terms per case | 11.0 (median 7; 9.5% have none) | 3.2 (29% have none) |
+  | Negated terms annotated to own gene | 43% | 67% |
+  | Present terms unexplained by the gene | **3.7 per case (46%)** | 0 |
+  | Missing sex / age / onset | 7.7% / 25.1% / 40.4% | — |
+
+  The noise vocabulary has 1,254 terms seen in ≥ 2 patients; the top ones
+  are developmental delay, motor delay and facial features. The simulator's
+  patients are much cleaner than real ones. It needs noise and more
+  negatives, with a lower own-disease share. (My earlier instruction to make
+  own-disease negatives dominant overshot: the real share is 43%, not a
+  majority.)
+- **Verdict:**
+  - ❌ Front B, as knowledge-based features over v3.0 evaluated on R1, gives
+    no deployable improvement.
+  - ✅ Two findings worth the informe: R1's negation reporting pattern, and
+    the redundancy of sex, age and onset given phenotypes on R1.
+- **Next / decisions for Mateo:**
+  1. A deployment-like negation evaluation: negatives from question-agent
+     style questions answered from the patient's record.
+  2. Apply `calib-v1` to the simulator once its calibration hook lands.
+  3. Front A is now the main hope for sex, age and onset: a network that
+     learns them jointly with phenotypes.
+- **Evidence for the informe:**
+  - §14: the EXP-B-002 tables, with the pre-registered rule applied.
+  - §16: the reporting-pattern finding, and the manifest-refusal incident.

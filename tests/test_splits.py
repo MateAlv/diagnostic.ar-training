@@ -95,3 +95,11 @@ def test_heldout_pmids_never_include_train_publications(cohort):
     train_ids = set(body["case_ids"]["train"])
     train_pmids = {p for c in CASES if c.case_id in train_ids for p in c.pmids}
     assert not train_pmids & splits.heldout_pmids("r1-v1")
+
+
+def test_all_scope_masks_train_publications_too(cohort):
+    body = splits.freeze("r1-v1")
+    train_ids = set(body["case_ids"]["train"])
+    train_pmids = {p for c in CASES if c.case_id in train_ids for p in c.pmids}
+    held, every = splits.mask_pmids("r1-v1", "heldout"), splits.mask_pmids("r1-v1", "all")
+    assert every == held | train_pmids and not held & train_pmids

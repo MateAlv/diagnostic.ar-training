@@ -49,9 +49,14 @@ def build_manifest(
     outputs: list[Path],
     notes: str = "",
     allow_dirty: bool = False,
+    state=None,
 ) -> Manifest:
-    """Describe an artifact. Refuses a dirty tree: the code SHA must reproduce it."""
-    state = code_state()
+    """Describe an artifact. Refuses a dirty tree: the code SHA must reproduce it.
+
+    Long runs pass the `state` captured when they started, so a commit made while
+    they run cannot end up credited with their outputs.
+    """
+    state = state or code_state()
     if state.dirty and not allow_dirty:
         raise LineageError("working tree has uncommitted changes; commit before producing artifacts")
     refs = []

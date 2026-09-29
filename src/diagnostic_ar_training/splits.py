@@ -174,26 +174,43 @@ def load_part(
     return [c for c in cases if c.case_id in wanted]
 
 
-def heldout_pmids(split_id: str) -> set[str]:
-    """PMIDs of every non-train part: KBs and simulator profiles must mask them."""
+# heldout: dev/test/vault publications, which every KB and simulator profile must mask.
+# all: every R1 publication, for anything fitted on R1-train patients, so that a train
+#      patient's features never come from annotations curated from their own paper.
+MASK_SCOPES = {"heldout": (Part.DEV, Part.TEST, Part.VAULT), "all": tuple(Part)}
+
+
+def mask_pmids(split_id: str, scope: str = "heldout") -> set[str]:
     frozen = load_frozen(split_id)
-    heldout = {i for part in (Part.DEV, Part.TEST, Part.VAULT) for i in frozen["case_ids"][part.value]}
+    wanted = {i for part in MASK_SCOPES[scope] for i in frozen["case_ids"][part.value]}
     cases, _ = _all_cases(SPECS[split_id])
-    return {pmid for c in cases if c.case_id in heldout for pmid in c.pmids}
+    return {pmid for c in cases if c.case_id in wanted for pmid in c.pmids}
 
 
-def heldout_pmids_path(split_id: str):
-    return SPLITS_DIR / f"{split_id}.heldout-pmids.txt"
+def mask_path(split_id: str, scope: str = "heldout"):
+    return SPLITS_DIR / f"{split_id}.{scope}-pmids.txt"
 
 
-def write_heldout_pmids(split_id: str) -> str:
-    """Export the masking list consumers outside this repo (the simulator) must apply."""
-    text = "".join(f"{p}\n" for p in sorted(heldout_pmids(split_id)))
-    path = heldout_pmids_path(split_id)
+def write_mask(split_id: str, scope: str = "heldout") -> str:
+    """Export a masking list; refuses if a committed list drifted from what the split implies."""
+    text = "".join(f"{p}\n" for p in sorted(mask_pmids(split_id, scope)))
+    path = mask_path(split_id, scope)
     if path.exists() and path.read_text() != text:
         raise LineageError(f"{path.name} differs from what {split_id} implies")
     path.write_text(text)
     return hashlib.sha256(text.encode()).hexdigest()
+
+
+def heldout_pmids(split_id: str) -> set[str]:
+    return mask_pmids(split_id, "heldout")
+
+
+def heldout_pmids_path(split_id: str):
+    return mask_path(split_id, "heldout")
+
+
+def write_heldout_pmids(split_id: str) -> str:
+    return write_mask(split_id, "heldout")
 
 
 def publication_groups(split_id: str) -> dict[str, str]:

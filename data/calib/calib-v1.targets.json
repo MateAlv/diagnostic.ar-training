@@ -1,0 +1,50 @@
+{
+ "cases": 4103,
+ "cases_with_gene_in_kb": 3265,
+ "excluded_annotated_to_own_gene_share": 0.4318834248627059,
+ "excluded_per_case": {
+  "mean": 10.989032415305873,
+  "percentiles": {
+   "10": 1.0,
+   "25": 2.0,
+   "50": 7.0,
+   "75": 15.0,
+   "90": 26.0
+  },
+  "share_zero": 0.0950524006824275
+ },
+ "missing": {
+  "age": 0.2512795515476481,
+  "excluded": 0.0950524006824275,
+  "onset": 0.4043382890567877,
+  "sex": 0.07726054106751158
+ },
+ "noise_vocabulary": {
+  "dropped_singletons": 735,
+  "min_patients": 2,
+  "terms": 1254
+ },
+ "present_per_case": {
+  "mean": 8.69948817938094,
+  "percentiles": {
+   "10": 2.0,
+   "25": 4.0,
+   "50": 7.0,
+   "75": 11.0,
+   "90": 17.0
+  },
+  "share_zero": 0.0
+ },
+ "unexplained_present_per_case": {
+  "mean": 3.7075038284839206,
+  "percentiles": {
+   "10": 0.0,
+   "25": 1.0,
+   "50": 2.0,
+   "75": 5.0,
+   "90": 9.0
+  },
+  "share_zero": 0.22358346094946402
+ },
+ "unexplained_present_share": 0.462499522408589
+}
