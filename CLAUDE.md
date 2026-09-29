@@ -66,9 +66,11 @@ make setup | make sources | make check   # setup also installs the pre-push hook
   - `splits.py`
   - `eval/`
   - `rerank/` (Front B)
-  - `gnn/` (Front A)
+  - `gnn/` (Front A: `GinV3` in PyTorch, graph batching, zero-init extension, ONNX export)
 - **Tests:** `tests/`. They are mocked, with no raw data needed, except
-  `test_committed_splits.py`, which hash-checks the committed splits.
+  `test_committed_splits.py`, which hash-checks the committed splits, and
+  the production-parity tests (`test_genphenia_v3.py`, `test_gnn_model.py`),
+  which skip without the `genphenia_v3` bundle, onnxruntime or torch.
 - **Decisions:** `docs/decisions/`.
 - **Experiments:** `docs/experiments/` (copy `TEMPLATE.md`).
 - **Current phase and next steps:** the last entry of `docs/BITACORA.md`.
