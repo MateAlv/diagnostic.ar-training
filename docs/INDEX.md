@@ -2,6 +2,7 @@
 
 | If you need… | Read |
 |---|---|
+| **Where things stand right now; open decisions; next steps** | [STATE.md](STATE.md) |
 | The goal, the two fronts, phases and dates, guardrails | [PLAN.md](PLAN.md) |
 | What was done, when, with which numbers, and what worked or didn't | [BITACORA.md](BITACORA.md) (newest entry at the bottom) |
 | How data may flow; sources, manifests, known gaps | [DATA_LINEAGE.md](DATA_LINEAGE.md) |
