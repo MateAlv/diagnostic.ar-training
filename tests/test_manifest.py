@@ -44,3 +44,11 @@ def test_a_published_output_missing_locally_is_not_a_lineage_problem(tmp_path, c
     out.unlink()
     assert manifest.verify_outputs(m) == [f"{out}: missing"]
     assert manifest.verify_outputs(m.model_copy(update={"release": "kb-test"})) == []
+
+
+def test_an_existing_artifact_id_is_refused_before_any_work(tmp_path, monkeypatch):
+    monkeypatch.setattr(manifest, "MANIFESTS_DIR", tmp_path)
+    manifest.ensure_new("kb-v9")
+    (tmp_path / "kb-v9.json").write_text("{}")
+    with pytest.raises(LineageError):
+        manifest.ensure_new("kb-v9")
