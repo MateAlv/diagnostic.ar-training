@@ -1,0 +1,17 @@
+{
+ "_note": "simcal-s3-v1: S3 test generator (full profiles). Same knobs as simcal-train-v1 except noise_mean = 3.708 (R1-train unexplained present per case) - 1.307 (unexplained contributed by half B, measured on a zero-noise pilot, seed 92002) = 2.4.",
+ "missingness.age_unknown": 0.251,
+ "missingness.no_negatives": 0.075,
+ "missingness.onset_unknown": 0.404,
+ "missingness.sex_unknown": 0.077,
+ "negatives.max_per_case": 40,
+ "negatives.source_weights.confounder": 0.53,
+ "negatives.source_weights.not_annotation": 0.0,
+ "negatives.source_weights.own_disease": 0.44,
+ "negatives.source_weights.own_gene_other_disease": 0.03,
+ "negatives.unfilled_slots": "redistribute",
+ "noise.vocabulary_path": "calib-v1.noise_vocabulary.tsv",
+ "presets.medium.negatives_mean": 13,
+ "presets.medium.noise_mean": 2.4,
+ "presets.medium.positive_observation_rate": 0.59
+}

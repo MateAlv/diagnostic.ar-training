@@ -1,0 +1,43 @@
+{
+  "artifact_id": "simcal-train-v1",
+  "kind": "simulator-calibration-file",
+  "created_at": "2026-09-29T18:08:11+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "c82ce181a1d77e06363233c7711022fc49f09784",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:calib-v1",
+      "sha256": "f737606c2e091b6e4a79dd6c8b5eb68af296325b9031912961cfd700d6b5795a"
+    },
+    {
+      "id": "artifact:calib-v1:noise",
+      "sha256": "1babf91cd2bbaf0c7c286732da408596423fdc19d3628498bb46882d35ebed28"
+    },
+    {
+      "id": "artifact:annot-split-v1",
+      "sha256": "029922458e57a0d02a2a66bf9305b28340e1af56bb4b5d3fbe55849d06e46b18"
+    }
+  ],
+  "params": {
+    "pilots": "2 rounds, 505 genes, seed 91001, profiles without half B",
+    "simulator": "rare-disease-simulator@b592224"
+  },
+  "params_hash": "52b55b5bf36bb376fd65354cc34b4cee52002289283b2eec2c46ec8bc2772701",
+  "outputs": [
+    {
+      "path": "data/calib/simcal-train-v1.json",
+      "sha256": "26242e6bb7e79295eb7e7f0421de2a638c8bfc4f06c7161efa4392a76fda8f6c",
+      "bytes": 851
+    },
+    {
+      "path": "data/calib/calib-v1.noise_vocabulary.tsv",
+      "sha256": "1babf91cd2bbaf0c7c286732da408596423fdc19d3628498bb46882d35ebed28",
+      "bytes": 27941
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
