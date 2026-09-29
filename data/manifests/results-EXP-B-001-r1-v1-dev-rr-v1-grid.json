@@ -1,0 +1,119 @@
+{
+  "artifact_id": "results-EXP-B-001-r1-v1-dev-rr-v1-grid",
+  "kind": "rerank-grid",
+  "created_at": "2026-09-29T14:19:31+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "863fa3d4ac4d913d2ff54359e9f9bf90bace4822",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "cohort": "r1-v1/dev",
+    "kb": "kb-v3",
+    "stage1": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "top_k": 200
+  },
+  "params_hash": "2748056b3cd0fd8f4da42491523cdabeff1c1f86b9e13f7a14c9665c4ea08e4f",
+  "outputs": [
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[identity]__all.ranks.jsonl",
+      "sha256": "b38f7c27dcebae62227582894b4b3b0b6b2f91661c5de4395517336e7f1322b8",
+      "bytes": 403149
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[neg=0.5]__all.ranks.jsonl",
+      "sha256": "1b3ab9abab0e809dfdf0989d5e7a46d4e03d87a37d3f62e156dc26d768c6f3bb",
+      "bytes": 403189
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[neg=1.0]__all.ranks.jsonl",
+      "sha256": "5da6a47d1c4141fcc1c128faaa1df9ee553805156e333c28aeccc3fa092aae1c",
+      "bytes": 403192
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[neg=2.0]__all.ranks.jsonl",
+      "sha256": "b2be17d87b55c89091b489e061e8695f2e3b979875ed8469f2eee2a4155e2ac0",
+      "bytes": 403233
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[sex=0.5]__all.ranks.jsonl",
+      "sha256": "fa2697494ce06fe2883cbe9133192b8778d19ae91aec657ae9643e9ffc95f0e6",
+      "bytes": 403150
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[sex=1.0]__all.ranks.jsonl",
+      "sha256": "fbca383e3e24e664c1e28e456415ff3e54d3190ef45e0b1eb3957ad25c5dbbf9",
+      "bytes": 403150
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[sex=2.0]__all.ranks.jsonl",
+      "sha256": "5388590051819b4fa26e88a49b9352d009551e597c0cf8ecc6a64c74e6a2da7f",
+      "bytes": 403150
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[age=0.5]__all.ranks.jsonl",
+      "sha256": "71af75c4e548ddfd16834b2abdcaee0436bc748cdf79d5e7b3c2326f0db0388e",
+      "bytes": 403151
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[age=1.0]__all.ranks.jsonl",
+      "sha256": "31cc04c6b4e6b0dac39bbb564e22f32f7523c7668837346e483874adebf46e04",
+      "bytes": 403157
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[age=2.0]__all.ranks.jsonl",
+      "sha256": "e191c4ab73515f1be4aed7c1159546746c4b8ceb9e79d1b20e8f5af697e4f07a",
+      "bytes": 403175
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[onset=0.5]__all.ranks.jsonl",
+      "sha256": "97b35737a52540060bc591746660b3a0cef2618e98ebd4a3341ebd0320024129",
+      "bytes": 403146
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[onset=1.0]__all.ranks.jsonl",
+      "sha256": "01fc01b54629706c9b4ce0d7605aa9b8b0d64b8e34bad6d28e441c98093bf467",
+      "bytes": 403149
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[onset=2.0]__all.ranks.jsonl",
+      "sha256": "7cf8f0f31b7b7d489f21c804582007530a07ea7059f90350596dd800a6898ad4",
+      "bytes": 403160
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[stage2-combined]__all.ranks.jsonl",
+      "sha256": "5149a8af1fe2c3c3ddd5b9e45f0c6251e76275be10311edfa31aeec198b3dbf0",
+      "bytes": 403145
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1[stage2-combined-half]__all.ranks.jsonl",
+      "sha256": "d06ef8d7ad2403e634b91e32adecbea021718bd3f68d94d98899b1e3b69555b5",
+      "bytes": 403146
+    },
+    {
+      "path": "results/EXP-B-001/r1-v1-dev__rr-v1-grid.json",
+      "sha256": "2dbbcd375a0ab31cf294c7343860e7f2df57ec4e291fc0746062ee1c3527e500",
+      "bytes": 12127
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

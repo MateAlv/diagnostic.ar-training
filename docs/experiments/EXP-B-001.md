@@ -2,7 +2,7 @@
 
 - **Front:** B
 - **Registered:** 2026-09-29, by Mateo Alvarez
-- **Status:** planned
+- **Status:** done (2026-09-29)
 
 ## Hypothesis
 Re-scoring v3.0's top-200 genes with knowledge-based compatibility features
@@ -67,8 +67,91 @@ exactly the identity then (tested).
 | Combined | Δ in [0, +0.04]; harmed rate < 5% |
 
 ## Results
-(filled after running)
+Run from commit `863fa3d` (the pre-registration was committed first).
+Everything is in `results/EXP-B-001/` (a ranks file per configuration and
+`r1-v1-dev__rr-v1-grid.json`); manifest
+`results-EXP-B-001-r1-v1-dev-rr-v1-grid`. The run took 52 s.
+
+R1-dev, n = 1,883. Δ is vs E0 with a paired publication-clustered 95% CI:
+
+| Config | MRR | Δ MRR | 95% CI | Harmed | Helped |
+|---|---|---|---|---|---|
+| identity | 0.4485 | +0.0000 | [+0.0000, +0.0000] | 0.000 | 0.000 |
+| neg=0.5 | 0.4418 | −0.0067 | [−0.0235, +0.0051] | 0.116 | 0.079 |
+| neg=1.0 | 0.4350 | −0.0135 | [−0.0425, +0.0059] | 0.147 | 0.098 |
+| neg=2.0 | 0.4266 | −0.0219 | [−0.0611, +0.0060] | 0.186 | 0.112 |
+| sex=0.5 | 0.4485 | +0.0000 | [−0.0008, +0.0008] | 0.011 | 0.018 |
+| sex=1.0 | 0.4488 | +0.0003 | [−0.0006, +0.0014] | 0.019 | 0.033 |
+| sex=2.0 | 0.4486 | +0.0001 | [−0.0009, +0.0013] | 0.032 | 0.040 |
+| age=0.5 | 0.4470 | −0.0015 | [−0.0047, +0.0018] | 0.052 | 0.056 |
+| age=1.0 | 0.4454 | −0.0031 | [−0.0084, +0.0024] | 0.071 | 0.081 |
+| age=2.0 | 0.4406 | −0.0079 | [−0.0154, −0.0005] | 0.114 | 0.107 |
+| onset=0.5 | 0.4502 | +0.0017 | [−0.0012, +0.0051] | 0.061 | 0.090 |
+| onset=1.0 | 0.4462 | −0.0022 | [−0.0071, +0.0021] | 0.083 | 0.095 |
+| onset=2.0 | 0.4394 | −0.0091 | [−0.0177, −0.0013] | 0.113 | 0.105 |
+| stage2-combined (sex=1, onset=0.5) | 0.4504 | +0.0020 | [−0.0012, +0.0053] | 0.070 | 0.104 |
+| stage2-combined-half | 0.4498 | +0.0014 | [−0.0005, +0.0037] | 0.047 | 0.077 |
+
+**Identity check:** ranks equal to EXP-000 dev, case by case (1,883 of
+1,883).
+
+**Applying the pre-registered selection rule:**
+- `stage2-combined` has Δ > 0 but a harmed rate of 7.0% > 5%, so it is
+  rejected.
+- The best single-feature configuration with Δ > 0 and harmed ≤ 5% is
+  `sex=1.0` (Δ +0.0003).
+- **So the rule yields rr-v1 = `sex=1.0`, an effect indistinguishable from
+  zero.**
+
+**Expectations vs outcome:**
+
+| Component | Expected | Measured | Met? |
+|---|---|---|---|
+| identity | exact | exact | ✅ |
+| neg | ≈ 0 | negative | ❌ worse than expected |
+| sex | ≈ 0 | ≈ 0 | ✅ |
+| age | small positive | negative | ❌ |
+| onset | small positive | +0.0017 at w = 0.5 only, CI crosses 0 | weak |
+| combined | [0, +0.04] | +0.002, but harmed > 5% | not met |
 
 ## Verdict
+❌ **No useful rr-v1 on this data.** The pre-registered rule selects a
+negligible configuration (`sex=1.0`); it does not advance to a Phase 4 gate
+as an improvement. Knowledge-based compatibility features over v3.0 do not
+improve R1-dev. For negation they hurt, for a reason diagnosed in Addendum 1.
 
 ## Addenda
+
+### 2026-09-29, Addendum 1: why negation hurts on R1 (post-hoc, exploratory, dev only)
+- Dev patients with excluded terms and a gene in the KB: 1,511.
+- Excluded terms: 17,832, about 12 per patient.
+
+| Excluded term is annotated to (kb-v3) | Share | Mean P(t\|gene) |
+|---|---|---|
+| the **true** gene | **45.1%** | 0.072 |
+| the GNN's top-5 **wrong** candidates | 32.0% | 0.067 |
+
+In phenopacket-store, absent findings are disproportionately the true
+disease's own features. Publications tabulate which of the syndrome's typical
+signs each patient lacks. A penalty on genes that annotate an absent finding
+therefore works against the true gene.
+
+Consequences (to act on, not tuned here):
+- **Front B:** a negation feature must not assume that "absent" means "not
+  this disease". Any learned re-ranker (rr-v2) should learn the sign from
+  R1-train, not from priors.
+- **Front A:** the simulator's negatives must reproduce this reporting
+  process: mostly the true disease's own annotated terms that the patient
+  lacks, which is the simulator's negative source (a). Otherwise the GNN
+  learns the opposite of what real records show.
+- **Validity:** negations in the web app come from the question agent asking
+  about candidates' distinguishing features, a different process from a
+  paper's cohort table. R1 may not measure deployment-time negation well.
+  An evaluation scenario reproducing the question-agent flow is needed before
+  any claim about negation in production.
+
+### 2026-09-29, Addendum 2: age hurts slightly (hypothesis, not yet checked)
+`age` penalises genes whose annotated onset is later than the patient's age
+at last encounter. Likely causes, to check on dev before any rr-v2:
+- HPO "Adult onset" annotated for diseases with variable onset;
+- presymptomatic diagnoses reported in phenopackets.

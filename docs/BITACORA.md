@@ -520,3 +520,46 @@ What they tell us:
 - **Evidence for the informe:**
   - §14: the before/after table (a measurement that drove a redesign).
   - §16: the void-artifact incident, and the guard it produced.
+
+### 2026-09-29 — EXP-B-001 — rr-v1 on R1-dev: no useful re-ranker; negation works against the true gene
+- **Front / versions:** B. Branch `phase1b/rr-v1`; code `863fa3d`
+  (pre-registration committed first); KB `kb-v3`; base E0.
+- **Question:** do knowledge-based compatibility features (negation, sex,
+  age, onset) over v3.0's top 200 genes improve R1-dev MRR?
+- **Setup:**
+  - 15 configurations within the pre-registered budget of 16: identity, each
+    feature alone at w ∈ {0.5, 1, 2}, and 2 combinations chosen by a fixed
+    rule.
+  - Paired publication-clustered bootstrap. 52 s.
+- **Result (R1-dev, n = 1,883, Δ MRR vs E0):**
+
+  | Feature | Δ MRR | Harmed |
+  |---|---|---|
+  | neg | −0.007 / −0.013 / −0.022 | 12–19% |
+  | sex | +0.000 / +0.0003 / +0.0001 | — |
+  | age | −0.002 / −0.003 / −0.008 (w = 2: CI < 0) | — |
+  | onset | +0.0017 / −0.002 / −0.009 | — |
+  | stage2-combined (sex=1, onset=0.5) | +0.0020, CI [−0.0012, +0.0053] | 7.0% |
+
+  - The identity configuration reproduced EXP-000 exactly.
+  - The pre-registered rule selects `sex=1.0` (+0.0003): negligible.
+- **Diagnosis (dev, exploratory).** Excluded terms are annotated to the
+  *true* gene 45.1% of the time, vs 32.0% for the GNN's top wrong
+  candidates. Case reports list the typical signs a patient *lacks*.
+- **Verdict:** ❌ no useful rr-v1. Nothing advances to a gate.
+- **What changes because of it:**
+  1. Front B's next step is a **learned** re-ranker (rr-v2) fitted on
+     R1-train, so the sign and size of each feature come from data. The
+     no-regression and harmed rules stay the same.
+  2. The simulator's negatives must reproduce the reporting process (source
+     (a) dominant). Front A would otherwise learn the opposite of real
+     records.
+  3. A deployment-like negation scenario (question-agent flow) is needed
+     before claiming anything about negation in production. R1 measures
+     "negation as papers report it".
+  4. Age: check the adult-onset and presymptomatic hypotheses on dev.
+- **Evidence for the informe:**
+  - §14: the full configuration table, a measured null result, with the
+    pre-registration showing it wasn't tuned away.
+  - §16: the negation reporting-bias finding. It's also a lesson on how
+    evaluation data encodes its collection process.
