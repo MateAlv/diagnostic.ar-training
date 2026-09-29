@@ -405,6 +405,13 @@ in the same case.
 
 ### A4. Experiment ladder: each step changes one thing
 
+> **Revised 2026-09-29 (ADR-0010).** A-001 showed that updating v3.0's
+> weights on simulated data harms real patients. From A-002 on, v3.0 is
+> frozen and only the new inputs' parameters train (A-002f/A-003f/A-004f),
+> on interviewed training cases. The table below is the original plan, kept
+> for the planned-vs-actual record.
+
+
 | Exp | Change | Question |
 |---|---|---|
 | A-000 | v3.0 through our PyTorch re-implementation | Parity with production (must equal E0) |
