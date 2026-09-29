@@ -903,3 +903,17 @@ What they tell us:
     curves.
   - §16: "synthetic data can hurt a pre-trained model even when it is
     calibrated to real statistics".
+
+### 2026-09-29 — decision — Front A redesign: v3.0 frozen (ADR-0010)
+- **Mateo chose:** "Freeze v3.0, train only new parts".
+- **ADR-0010:**
+  - only ADR-0009's zero-initialised parameters train, so the present-only
+    view equals E0 by construction;
+  - training negatives come from interviewing simulated training cases the
+    way S3 does (E0 top-10 questioner on `kb-v5`, answers from the truth),
+    not from the simulator's R1-like reporting mix;
+  - sex, age and onset come from the simulated patient.
+- **Evaluation:** R1-dev is decisive for covariates; S3-dev for negation,
+  with the same-simulator caveat.
+- **The ladder becomes** A-002f (negation), A-003f (covariates), A-004f
+  (both). The PLAN keeps the original table for planned vs actual.
