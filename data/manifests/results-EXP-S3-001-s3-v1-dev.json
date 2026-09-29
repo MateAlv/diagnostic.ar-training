@@ -1,0 +1,89 @@
+{
+  "artifact_id": "results-EXP-S3-001-s3-v1-dev",
+  "kind": "s3-run",
+  "created_at": "2026-09-29T18:23:07+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "da1e3d761587483a446e4f92d8579fc5b01df8b4",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "split:s3-v1",
+      "sha256": "c0e7bef492133fa5a37f172e7753aaa22483e03c26b9770925e0f5632fd46665"
+    },
+    {
+      "id": "results/EXP-B-002/rr-v2-fits.json",
+      "sha256": "5041c0e1b4cadaf58cfe9f593138ca9c050252d818ca5c58d20f60fe416fb46d"
+    }
+  ],
+  "params": {
+    "part": "dev",
+    "kb": "kb-v5",
+    "n_candidates": 10,
+    "n_questions": 7,
+    "top_k": 200
+  },
+  "params_hash": "fd6bd4425a60f3a5eeb2f86c91958528d54ff29c3580d06f6148d56921a59195",
+  "outputs": [
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__E0-initial__interviewed.ranks.jsonl",
+      "sha256": "9cd1109a66d0b33077168691496481c1329f12c4e14a58ef1c9bc739ce3adcdf",
+      "bytes": 2281203
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__E0+answers__interviewed.ranks.jsonl",
+      "sha256": "bd444dae128675b77376b4bf5a9aa05c19c088e8ef725a3dad87d2d28b0417ad",
+      "bytes": 2281050
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v1[neg=0.5]__interviewed.ranks.jsonl",
+      "sha256": "b694375cce44f8825301c5ee0ea0fb1de88ff8d25008ac0ff68806d3aa1339fe",
+      "bytes": 2280981
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v1[neg=1]__interviewed.ranks.jsonl",
+      "sha256": "90f67ee2a5f655b1aa3509534502306b0fe8674a0040b92f4f71f645f1ef4088",
+      "bytes": 2280941
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v1[neg=2]__interviewed.ranks.jsonl",
+      "sha256": "c5342ad9f390731f5e47dc81350e865b6d669734e43891266f718f092977dda5",
+      "bytes": 2280839
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v1[all=1]__interviewed.ranks.jsonl",
+      "sha256": "4a247dafea210852016bddd1cd0202989e2c470582c8358cdac46181feb0d726",
+      "bytes": 2280792
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v2[EXP-B-002 l2=0.1]__interviewed.ranks.jsonl",
+      "sha256": "9c517c03fb19a58abcb9eafb3b31dafe4fe2678dc981ff54c407dddf99ce7fb3",
+      "bytes": 2281463
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__rr-v2[without negation]__interviewed.ranks.jsonl",
+      "sha256": "7bef8bceae3e7b9d09ca07394ebd9c9abef7f1fb3c1b435a6ccc1fe516c6ec4d",
+      "bytes": 2281050
+    },
+    {
+      "path": "results/EXP-S3-001/s3-v1-dev__report.json",
+      "sha256": "98f73a7d58fd525f29e765c3b6a62e8cd15bcda003d59320d431e68b099a1226",
+      "bytes": 7319
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
