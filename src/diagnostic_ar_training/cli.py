@@ -1327,6 +1327,283 @@ def harness_write(out_dir: Path, cohort: str, view: str, records: list[dict]) ->
     return harness.write(f"{out_dir.parent.name}/{out_dir.name}", cohort, "model", view, records)
 
 
+@gnn_app.command("train-frozen")
+def gnn_train_frozen(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-A-002f"),
+    run_id: str = typer.Option(..., help="Unique run id"),
+    design: str = typer.Option(..., help="neg, neg2, cov, neg+cov or neg2+cov (gnn.frozen.DESIGNS)"),
+    lr_new: float = typer.Option(..., help="Learning rate of the new parameters (v3.0 stays frozen)"),
+    cov_hidden: int = typer.Option(32, help="Width of the covariate MLP"),
+    seed: int = typer.Option(0),
+    max_epochs: int = typer.Option(15),
+    patience: int = typer.Option(3),
+    batch_size: int = typer.Option(256),
+    warmup_steps: int = typer.Option(200),
+    workers: int = typer.Option(10),
+    dataset: str = typer.Option("ds-sim0.3.1-A-iv-v1", help="Interviewed training artifact"),
+    s3_interviews: str = typer.Option("s3-v1-dev-interviews-kb-v5-c10-q7", help="Interviewed S3-dev cases"),
+    max_train_cases: int = typer.Option(0, help="Pipeline check only: cap the training cases (0 = all)"),
+    device: str = typer.Option("cuda"),
+) -> None:
+    """ADR-0010: train only the new inputs' parameters on interviewed simulated cases; v3.0 frozen.
+
+    Curves every epoch (train loss, sim-val, the design's R1-dev views, S2); at the checkpoint selected by
+    sim-val: every R1-dev view, S2 and S3-dev; then the identity checks (present-only logits bit-identical
+    to v3.0 on CPU, R1-dev present-view ranks equal to EXP-000's, v3.0 tensors untouched).
+    """
+    import time
+
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import s3_run
+    from diagnostic_ar_training.gnn import data, experiment, frozen
+    from diagnostic_ar_training.gnn import train as training
+    from diagnostic_ar_training.gnn.model import load_v3
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        load_manifest,
+        output_path,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose
+    from diagnostic_ar_training.systems.ginv3_torch import GinModelSystem
+
+    wall_start = time.perf_counter()
+    if design not in frozen.DESIGNS:
+        raise typer.BadParameter(f"design must be one of {sorted(frozen.DESIGNS)}")
+    artifact = f"results-{exp}-{run_id}"
+    ensure_new(artifact)
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the run")
+    out_dir = RESULTS_DIR / exp / run_id
+    ckpt_dir = DATA_DIR / "interim" / "models" / run_id
+    if out_dir.exists() or ckpt_dir.exists():
+        raise typer.BadParameter(f"{out_dir} or {ckpt_dir} exists; run ids are never reused")
+    cfg = training.TrainConfig(
+        lr_base=0.0,
+        lr_new=lr_new,
+        frozen_base=True,
+        cov_hidden=cov_hidden,
+        seed=seed,
+        max_epochs=max_epochs,
+        patience=patience,
+        batch_size=batch_size,
+        warmup_steps=warmup_steps,
+        num_workers=workers,
+        max_train_cases=max_train_cases or None,
+        **frozen.DESIGNS[design],
+    )
+    torch, dev, inputs, table, base = _gnn_setup(device, workers)
+
+    training_data = experiment.load_interviewed(dataset)
+    train_cases = training_data.splits["train"]
+    if cfg.max_train_cases:
+        train_cases = train_cases[: cfg.max_train_cases]
+    r1_dev = splits.load_part("r1-v1", "dev", Purpose.EVAL)
+    r1_groups = splits.publication_groups("r1-v1")
+    s3_manifest = load_manifest(s3_interviews)
+    s3_path = output_path(s3_manifest.outputs[0])
+    if sha256_file(s3_path) != s3_manifest.outputs[0].sha256:
+        raise LineageError(f"{s3_path} does not match {s3_interviews}'s manifest")
+    s3_dev = s3_run.read_interviews(s3_path)
+    s2 = access.load("s2")
+    contamination = experiment.check_contamination(
+        training_data.splits["train"] + training_data.splits["val"],
+        {
+            "r1-v1/train": splits.load_part("r1-v1", "train", Purpose.EVAL),
+            "r1-v1/dev": r1_dev,
+            "s3-v1/dev": s3_dev,
+        },
+    )
+    if any(v["present_set_overlap"] for v in contamination.values()):
+        raise LineageError(f"training cases overlap evaluation cases: {contamination}")
+    contamination["certified_by_artifact"] = load_manifest(dataset).params["contamination"]["residual"]
+    baselines = frozen.e0_baselines(r1_groups, s3=True)
+    views = frozen.epoch_views(cfg)
+    sim_val = data.SimGraphs(inputs, training_data.splits["val"], negated=cfg.negated)
+    name = f"{exp}-{run_id}"
+
+    def evaluate(model, epoch: int) -> dict:
+        sim = training.evaluate_sim(model, sim_val, table, dev, cfg)
+        system = GinModelSystem(model, inputs, name, cfg.negated)
+        metrics, _ = frozen.score(system, r1_dev, r1_groups, s2, None, baselines, views)
+        shown = " ".join(f"{v} {metrics[f'r1_dev_{v}']['delta']:+.4f}" for v in views)
+        typer.echo(
+            f"[{run_id}] epoch {epoch}: sim-val loss {sim['loss']:.4f} mrr {sim['mrr']:.4f} | "
+            f"R1-dev Δ {shown} | S2 {metrics['s2']['mrr']:.4f}"
+        )
+        return {"sim_val": sim, **metrics}
+
+    out_dir.mkdir(parents=True)
+    run_info = {
+        "exp": exp,
+        "run_id": run_id,
+        "design": design,
+        "config": cfg.__dict__,
+        "code": state.as_dict(),
+        "device": torch.cuda.get_device_name(dev) if dev.type == "cuda" else "cpu",
+        "torch": torch.__version__,
+        "dataset": dataset,
+        "data_counts": training_data.counts,
+        "train_cases": len(train_cases),
+        "contamination": contamination,
+    }
+    training.write_json(out_dir / "run.json", run_info)
+    curves_path = out_dir / "curves.json"
+    if dev.type == "cuda":
+        torch.cuda.reset_peak_memory_stats(dev)
+    model = training.build_model(base, cfg)
+    result = training.train(
+        model,
+        cfg,
+        data.SimGraphs(inputs, train_cases, negated=cfg.negated),
+        table,
+        dev,
+        evaluate,
+        ckpt_dir,
+        on_epoch=lambda history: training.write_json(curves_path, history),
+    )
+    last_state = {
+        "base_unchanged": training.base_unchanged(model, base),
+        "positive_types_closed": training.positive_types_closed(model),
+    }
+    best_epoch = training.load_checkpoint(model, ckpt_dir / "best.pt")
+    model.eval()
+    final, records = frozen.score(
+        GinModelSystem(model, inputs, name, cfg.negated),
+        r1_dev,
+        r1_groups,
+        s2,
+        s3_dev,
+        baselines,
+        frozen.ALL_VIEWS,
+        frozen.S3_VIEWS,
+    )
+    epoch0 = frozen.score(
+        GinModelSystem(training.build_model(base, cfg).eval(), inputs, name, cfg.negated),
+        r1_dev,
+        r1_groups,
+        s2,
+        None,
+        baselines,
+        ("present",),
+    )[1]
+    v3_cpu = load_v3(inputs.root, map_location="cpu")
+    model_cpu = training.build_model(v3_cpu, cfg).eval()
+    training.load_checkpoint(model_cpu, ckpt_dir / "best.pt")
+    identity = {
+        "r1_dev": frozen.present_only_identity(model_cpu, v3_cpu, inputs, r1_dev),
+        "s2": frozen.present_only_identity(model_cpu, v3_cpu, inputs, s2),
+    }
+    checks = {
+        "present_only_logits_bit_identical_cpu": identity,
+        "r1_dev_present_ranks_changed_vs_exp000": frozen.same_ranks(
+            records["r1_dev_present"], baselines["r1_dev_present"]
+        ),
+        "s2_ranks_changed_vs_untrained": frozen.same_ranks(records["s2"], epoch0["s2"]),
+        "s2_ranks_changed_vs_exp000_onnx": frozen.same_ranks(records["s2"], baselines["s2"]),
+        **last_state,
+        "best_base_unchanged": training.base_unchanged(model, base),
+        "best_positive_types_closed": training.positive_types_closed(model),
+    }
+    checks["pass"] = (
+        all(v["identical"] == v["scorable"] for v in identity.values())
+        and checks["r1_dev_present_ranks_changed_vs_exp000"] == 0
+        and checks["s2_ranks_changed_vs_untrained"] == 0
+        and all(last_state.values())
+        and checks["best_base_unchanged"]
+        and checks["best_positive_types_closed"]
+    )
+    outputs = [curves_path, out_dir / "run.json", *frozen.write_ranks(out_dir, records)]
+    summary = {
+        **{k: v for k, v in result.items() if k != "history"},
+        "best_epoch_reloaded": best_epoch,
+        "epoch_views": views,
+        "at_best": final,
+        "sim_val_at_best": next(h for h in result["history"] if h["epoch"] == best_epoch)["sim_val"],
+        "flags": frozen.flags(result["history"], best_epoch, frozen.primary_r1_view(cfg)),
+        "checks": checks,
+        "wall_seconds": time.perf_counter() - wall_start,
+        "max_gpu_memory_gb": torch.cuda.max_memory_allocated(dev) / 1e9 if dev.type == "cuda" else None,
+        "checkpoints": {p.name: p.stat().st_size for p in sorted(ckpt_dir.glob("*.pt"))},
+    }
+    summary_path = out_dir / "summary.json"
+    training.write_json(summary_path, summary)
+    outputs.append(summary_path)
+    refs = GinModelSystem(model, inputs, name).lineage_inputs() + training_data.lineage
+    refs += [
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+        {"id": f"artifact:{s3_interviews}", "sha256": s3_manifest.outputs[0].sha256},
+    ]
+    refs += [
+        {"id": f"results:{p.parent.name}/{p.name}", "sha256": sha256_file(p)}
+        for p in (experiment.E0_R1_DEV["present"], experiment.E0_S2, experiment.E0_S3_DEV)
+    ]
+    params = {**cfg.__dict__, "exp": exp, "run_id": run_id, "design": design, "device": device}
+    checkpoints = [ckpt_dir / "best.pt", ckpt_dir / "last.pt"]
+    write_manifest(
+        build_manifest(
+            artifact,
+            "gnn-frozen-base-run",
+            refs,
+            params,
+            outputs + [p for p in checkpoints if p.exists()],
+            notes="v3.0 frozen (ADR-0010); checkpoints hold the new tensors only and stay local.",
+            state=state,
+        )
+    )
+    primary = final[f"r1_dev_{frozen.primary_r1_view(cfg)}"]
+    s3 = final["s3_dev_all"]
+    typer.echo(
+        f"[{run_id}] best epoch {best_epoch}/{result['epochs_run']}: "
+        f"R1-dev {frozen.primary_r1_view(cfg)} Δ {primary['delta']:+.4f} "
+        f"[{primary['ci95'][0]:+.4f},{primary['ci95'][1]:+.4f}] harmed {primary['harmed']:.3f} | "
+        f"S3-dev all Δ {s3['delta']:+.4f} [{s3['ci95'][0]:+.4f},{s3['ci95'][1]:+.4f}] "
+        f"harmed {s3['harmed']:.3f} | checks {'pass' if checks['pass'] else 'FAIL'} | "
+        f"{summary['wall_seconds'] / 60:.1f} min"
+    )
+    if not checks["pass"]:
+        raise typer.Exit(1)
+
+
+@gnn_app.command("report-frozen")
+def gnn_report_frozen(
+    exp: str = typer.Option(..., help="Experiment whose frozen-base runs to tabulate"),
+) -> None:
+    """The frozen-base experiment table from the committed run files, and mean ± sd per configuration."""
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.gnn import frozen
+
+    exp_dir = RESULTS_DIR / exp
+    report = frozen.report(exp_dir)
+    out = exp_dir / "report.json"
+    out.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
+
+    def cell(m):
+        if not m:
+            return "-"
+        return f"{m['delta']:+.4f} [{m['ci95'][0]:+.4f},{m['ci95'][1]:+.4f}] h{m['harmed']:.3f}"
+
+    for r in report["runs"]:
+        typer.echo(
+            f"{r['run_id']:34} ep {r['best_epoch']}/{r['epochs_run']} "
+            f"simval {r['sim_val']['best']['mrr']:.4f} "
+            f"checks {'ok' if r['checks']['pass'] else 'FAIL'}"
+        )
+        for v in frozen.ALL_VIEWS:
+            typer.echo(f"    R1 {v:9} {cell(r['r1_dev'][v])}")
+        for v in frozen.S3_VIEWS:
+            typer.echo(f"    S3 {v:9} {cell(r['s3_dev'][v])}")
+    typer.echo(f"-> {out}")
+
+
 @gnn_app.command("report")
 def gnn_report(exp: str = typer.Option("EXP-A-001", help="Experiment whose runs to tabulate")) -> None:
     """The experiment table from the committed run files: every run, and mean ± sd per configuration."""

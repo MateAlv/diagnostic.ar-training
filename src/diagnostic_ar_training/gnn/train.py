@@ -6,6 +6,11 @@
 - Warmup then cosine decay to `min_lr_ratio`, gradient clipping, optional bf16 autocast on CUDA.
 - BatchNorm `train` (batch statistics, running stats updated) or `frozen` (v3.0's running stats kept;
   affine parameters still trained).
+- `frozen_base` (ADR-0010): every v3.0 tensor is frozen and the whole model runs in eval mode (BatchNorm
+  running statistics, no dropout); only the new inputs' parameters train, at `lr_new`. `type_proj` keeps
+  its observed/ancestor columns at 0 and the covariate path is exactly 0 when nothing is known
+  (`cov_neutral_zero`), so the "present only" view stays bit-identical to v3.0 after training.
+  Checkpoints then hold the new tensors only; the v3.0 ones come from the pinned bundle.
 - Epoch 0 is evaluated before any step: it is v3.0, so every curve starts at E0.
 - After each epoch: `evaluate(model, epoch)` (the §9.3 curves), `last.pt`, and `best.pt` when sim-val
   MRR improved by more than `min_delta`. Stops after `patience` epochs without improvement.
@@ -23,6 +28,7 @@ import torch
 import torch.nn.functional as F
 
 from diagnostic_ar_training.gnn import data
+from diagnostic_ar_training.gnn.graphs import NODE_NEGATED
 from diagnostic_ar_training.gnn.model import GinV3Extended, is_new_parameter
 
 MAX_LR_BASE = 5e-4
@@ -46,29 +52,77 @@ class TrainConfig:
     negated: bool = False
     covariates: bool = False
     neg_readout: bool = False
+    cov_hidden: int = 32
+    frozen_base: bool = False
     num_workers: int = 10
     eval_batch_size: int = 1024
     max_train_cases: int | None = None
 
     def __post_init__(self) -> None:
-        if not 0 < self.lr_base <= MAX_LR_BASE:
+        if self.frozen_base:
+            if self.lr_base != 0 or self.lr_new <= 0:
+                raise ValueError("a frozen base trains only the new parameters: lr_base = 0 and lr_new > 0")
+            if not (self.negated or self.covariates):
+                raise ValueError("a frozen base needs a new input to train (negated terms or covariates)")
+        elif not 0 < self.lr_base <= MAX_LR_BASE:
             raise ValueError(f"lr_base must be in (0, {MAX_LR_BASE}] for v3.0 weights (EVAL_PROTOCOL §9.6)")
         if self.bn not in ("train", "frozen"):
             raise ValueError("bn must be 'train' or 'frozen'")
 
 
 def build_model(base, cfg: TrainConfig) -> GinV3Extended:
-    model = GinV3Extended.from_v3(base, covariates=cfg.covariates, neg_readout=cfg.neg_readout)
+    if cfg.frozen_base:
+        return _frozen_base_model(base, cfg)
+    model = GinV3Extended.from_v3(
+        base, covariates=cfg.covariates, neg_readout=cfg.neg_readout, cov_hidden=cfg.cov_hidden
+    )
     for name, p in model.named_parameters():
         if is_new_parameter(name) and cfg.lr_new == 0:
             p.requires_grad_(False)
     return model
 
 
+def _positive_type_mask(weight: torch.Tensor) -> torch.Tensor:
+    mask = torch.zeros_like(weight)
+    mask[:, NODE_NEGATED] = 1
+    return mask
+
+
+def _frozen_base_model(base, cfg: TrainConfig) -> GinV3Extended:
+    """ADR-0010: v3.0 frozen; only the parameters of the inputs this design uses can train."""
+    model = GinV3Extended.from_v3(
+        base,
+        covariates=cfg.covariates,
+        neg_readout=cfg.neg_readout,
+        cov_hidden=cfg.cov_hidden,
+        cov_neutral_zero=True,
+    )
+    for name, p in model.named_parameters():
+        negation_part = name.startswith(("type_proj.", "neg_gates.", "neg_"))
+        p.requires_grad_(is_new_parameter(name) and (cfg.negated or not negation_part))
+    if cfg.negated:
+        # Only the negated column of type_proj may move: the observed/ancestor columns would be a new input
+        # of the "present only" view.
+        mask = _positive_type_mask(model.type_proj.weight)
+        model.type_proj.weight.register_hook(lambda grad: grad * mask)
+    return model
+
+
+def base_unchanged(model: GinV3Extended, base) -> bool:
+    """Every v3.0 tensor (weights and BatchNorm statistics) still equals the bundle's, bit for bit."""
+    state = model.state_dict()
+    return all(torch.equal(state[k], v.to(state[k].device)) for k, v in base.state_dict().items())
+
+
+def positive_types_closed(model: GinV3Extended) -> bool:
+    w = model.type_proj.weight
+    return not (w * (1 - _positive_type_mask(w))).any()
+
+
 def param_groups(model: torch.nn.Module, cfg: TrainConfig) -> list[dict]:
     base = [p for n, p in model.named_parameters() if not is_new_parameter(n) and p.requires_grad]
     new = [p for n, p in model.named_parameters() if is_new_parameter(n) and p.requires_grad]
-    groups = [{"params": base, "lr": cfg.lr_base, "name": "v3"}]
+    groups = [] if cfg.frozen_base else [{"params": base, "lr": cfg.lr_base, "name": "v3"}]
     if new:
         groups.append({"params": new, "lr": cfg.lr_new, "name": "new"})
     return groups
@@ -164,7 +218,10 @@ def train(
     trainable = [p for g in optimizer.param_groups for p in g["params"]]
 
     def checkpoint(name: str, epoch: int, with_optimizer: bool) -> None:
-        state = {"model": model.state_dict(), "epoch": epoch, "config": asdict(cfg)}
+        weights = model.state_dict()
+        if cfg.frozen_base:
+            weights = {k: v for k, v in weights.items() if is_new_parameter(k)}
+        state = {"model": weights, "epoch": epoch, "config": asdict(cfg)}
         if with_optimizer:
             state |= {"optimizer": optimizer.state_dict(), "step": step}
         _save(ckpt_dir / name, **state)
@@ -177,7 +234,10 @@ def train(
     on_epoch(history)
     stopped_early = False
     for epoch in range(1, cfg.max_epochs + 1):
-        set_train_mode(model, cfg.bn)
+        if cfg.frozen_base:
+            model.eval()
+        else:
+            set_train_mode(model, cfg.bn)
         start = time.perf_counter()
         loss_sum, n_cases, n_unscorable, grad_norms, data_wait = 0.0, 0, 0, [], 0.0
         tick = time.perf_counter()
@@ -225,7 +285,7 @@ def train(
                 "grad_norm_mean": float(np.mean(grad_norms)) if grad_norms else None,
                 "grad_norm_max": float(np.max(grad_norms)) if grad_norms else None,
                 "clipped_share": float(np.mean(np.array(grad_norms) > cfg.clip_norm)) if grad_norms else None,
-                "lr_base_end": optimizer.param_groups[0]["lr"],
+                "lr_end": {g["name"]: g["lr"] for g in optimizer.param_groups},
             },
             "eval_seconds": time.perf_counter() - eval_start,
             **metrics,
@@ -253,8 +313,14 @@ def train(
 
 
 def load_checkpoint(model: GinV3Extended, path: Path) -> int:
+    """A frozen-base checkpoint holds the new tensors only; the model must already carry v3.0's."""
     state = torch.load(path, map_location=next(model.parameters()).device, weights_only=True)
-    model.load_state_dict(state["model"])
+    if state["config"].get("frozen_base"):
+        result = model.load_state_dict(state["model"], strict=False)
+        if result.unexpected_keys or any(is_new_parameter(k) for k in result.missing_keys):
+            raise RuntimeError(f"frozen-base checkpoint mismatch: {result}")
+    else:
+        model.load_state_dict(state["model"])
     return int(state["epoch"])
 
 

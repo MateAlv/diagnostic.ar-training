@@ -143,6 +143,30 @@ def test_negated_nodes_only_matter_once_their_gates_open(system):
     assert np.abs(with_neg - plain).max() > 1e-3
 
 
+def test_frozen_base_present_only_is_v3_bit_for_bit_whatever_the_new_weights(system):
+    from diagnostic_ar_training.gnn import train as training
+
+    cfg = training.TrainConfig(
+        lr_base=0.0, lr_new=1e-3, frozen_base=True, negated=True, neg_readout=True, covariates=True
+    )
+    model = training.build_model(system.model, cfg).eval()
+    generator = torch.Generator().manual_seed(0)
+    with torch.no_grad():
+        for p in (p for p in model.parameters() if p.requires_grad):
+            p.copy_(torch.randn(p.shape, generator=generator) * 0.1)
+        model.type_proj.weight[:, : graphs.NODE_NEGATED] = 0
+    for c in cases(excluded=NEGATED, sex=Sex.FEMALE, age_years=7.0):
+        plain, _ = graphs.case_graph(system.inputs, c.model_copy(update={"excluded": (), "sex": Sex.UNKNOWN,
+                                                                         "age_years": None}))  # fmt: skip
+        full, _ = graphs.case_graph(system.inputs, c, negated=True)
+        with torch.inference_mode():
+            reference = system.model(torch.from_numpy(plain.x), torch.from_numpy(plain.edge_index))
+            out = model(**as_torch(plain), covariates=torch.from_numpy(plain.covariates)[None])
+            moved = model(**as_torch(full), covariates=torch.from_numpy(full.covariates)[None])
+        assert torch.equal(out, reference)
+        assert not torch.equal(moved, reference)
+
+
 def test_exported_v3_is_the_production_onnx(e0, system, tmp_path):
     session = ort.InferenceSession(str(export.export_v3(system.model, tmp_path / "v3.onnx")))
     assert [i.name for i in session.get_inputs()] == ["x", "edge_index"]

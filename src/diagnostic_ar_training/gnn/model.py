@@ -23,7 +23,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from diagnostic_ar_training.gnn.graphs import N_COVARIATES, N_NODE_TYPES, NODE_NEGATED
+from diagnostic_ar_training.gnn.graphs import COVARIATE_NAMES, N_COVARIATES, N_NODE_TYPES, NODE_NEGATED
 from diagnostic_ar_training.systems.genphenia_v3 import CHECKPOINT
 
 
@@ -160,6 +160,7 @@ def load_v3(bundle_dir: Path, map_location: str | torch.device = "cpu") -> GinV3
 
 
 NEW_PARAMETER_PREFIXES = ("type_proj.", "neg_gates.", "cov_", "neg_")
+SEX_UNKNOWN_COLUMN = COVARIATE_NAMES.index("sex_unknown")
 
 
 def is_new_parameter(name: str) -> bool:
@@ -179,6 +180,9 @@ class GinV3Extended(GinV3):
       `neg_classifier` (starts at 0, no bias, so a case without negated terms adds exactly 0).
     - `covariates` [G, 7] (graphs.covariates) -> `cov_mlp` -> `cov_classifier` (starts at 0). Same as
       concatenating the covariate features to the pooled vector with zero classifier columns.
+    - `cov_neutral_zero` (ADR-0010's frozen base): `cov_mlp` has no biases and does not read the
+      `sex_unknown` flag, so a patient with no known sex, age or onset gets exactly 0 from the covariate
+      path at any weights, and the "present only" view stays v3.0 after training too.
 
     Identity holds in eval mode. In train mode BatchNorm batch statistics also see negated nodes.
     """
@@ -192,15 +196,25 @@ class GinV3Extended(GinV3):
         covariates: bool = True,
         neg_readout: bool = False,
         cov_hidden: int = 32,
+        cov_neutral_zero: bool = False,
     ) -> None:
         super().__init__(in_channels, hidden_channels, out_channels, dropout)
+        self.cov_neutral_zero = cov_neutral_zero
         self.type_proj = nn.Linear(N_NODE_TYPES, hidden_channels, bias=False)
         nn.init.zeros_(self.type_proj.weight)
         widths = (in_channels + N_NODE_TYPES, hidden_channels, hidden_channels)
         self.neg_gates = nn.ParameterList([nn.Parameter(torch.zeros(w)) for w in widths])
         self.cov_mlp = self.cov_classifier = None
-        if covariates:
+        if covariates and cov_neutral_zero:
+            self.cov_mlp = nn.Sequential(
+                nn.Linear(N_COVARIATES - 1, cov_hidden, bias=False),
+                nn.ReLU(),
+                nn.Linear(cov_hidden, cov_hidden, bias=False),
+                nn.ReLU(),
+            )
+        elif covariates:
             self.cov_mlp = nn.Sequential(_mlp(N_COVARIATES, cov_hidden, cov_hidden), nn.ReLU())
+        if covariates:
             self.cov_classifier = nn.Linear(cov_hidden, out_channels, bias=False)
             nn.init.zeros_(self.cov_classifier.weight)
         self.neg_pool = self.neg_classifier = None
@@ -255,5 +269,9 @@ class GinV3Extended(GinV3):
         if self.cov_mlp is not None:
             if covariates is None:
                 raise ValueError("this model was built with covariates; pass graphs.NEUTRAL_COVARIATES")
+            if self.cov_neutral_zero:
+                covariates = torch.cat(
+                    (covariates[:, :SEX_UNKNOWN_COLUMN], covariates[:, SEX_UNKNOWN_COLUMN + 1 :]), dim=1
+                )
             logits = logits + self.cov_classifier(self.cov_mlp(covariates))
         return logits
