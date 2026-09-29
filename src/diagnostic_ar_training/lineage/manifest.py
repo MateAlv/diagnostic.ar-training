@@ -61,7 +61,10 @@ def build_manifest(
         raise LineageError("working tree has uncommitted changes; commit before producing artifacts")
     refs = []
     for out in outputs:
-        out = Path(out).resolve()
+        # Relative to the repo before symlinks are resolved: in a worktree, data/interim links elsewhere.
+        out = Path(out).absolute()
+        if not out.is_relative_to(REPO_ROOT):
+            out = out.resolve()
         rel = out.relative_to(REPO_ROOT) if out.is_relative_to(REPO_ROOT) else out
         refs.append(OutputRef(path=str(rel), sha256=sha256_file(out), bytes=out.stat().st_size))
     return Manifest(

@@ -49,7 +49,7 @@ class GinConv(nn.Module):
     ) -> torch.Tensor:
         messages = x.index_select(0, edge_index[0])
         if message_scale is not None:
-            messages = messages * message_scale
+            messages = messages * message_scale.to(messages.dtype)
         if torch.onnx.is_in_onnx_export():
             # The TorchScript exporter turns index_add into a ScatterElements without reduction (last write
             # wins). The production export sums through a dense [N, E] incidence matmul instead.
@@ -94,8 +94,8 @@ class AttentionalAggregation(nn.Module):
         peak = score.new_full((num_graphs,), float("-inf")).scatter_reduce(0, batch, score, "amax")
         exp = (score - peak[batch]).exp()
         total = exp.new_zeros(num_graphs).index_add(0, batch, exp)
-        weights = (exp / total[batch]).unsqueeze(-1)
-        return x.new_zeros(num_graphs, x.size(1)).index_add(0, batch, weights * x)
+        weighted = (exp / total[batch]).unsqueeze(-1) * x
+        return weighted.new_zeros(num_graphs, x.size(1)).index_add(0, batch, weighted)
 
 
 def _num_graphs(batch: torch.Tensor | None, num_graphs: int | None) -> int:
@@ -159,6 +159,14 @@ def load_v3(bundle_dir: Path, map_location: str | torch.device = "cpu") -> GinV3
     return model.to(map_location).eval()
 
 
+NEW_PARAMETER_PREFIXES = ("type_proj.", "neg_gates.", "cov_", "neg_")
+
+
+def is_new_parameter(name: str) -> bool:
+    """Parameters GinV3Extended adds on top of v3.0 (zero-initialised or behind a zero output)."""
+    return name.startswith(NEW_PARAMETER_PREFIXES)
+
+
 class GinV3Extended(GinV3):
     """v3.0 plus node types, negated terms and patient covariates; equal to v3.0 until trained.
 
@@ -206,7 +214,7 @@ class GinV3Extended(GinV3):
         """Warm start: every v3.0 tensor copied, every new one at its step-0 value."""
         model = cls(base.in_channels, base.hidden_channels, base.out_channels, base.dropout.p, **options)
         result = model.load_state_dict(base.state_dict(), strict=False)
-        new = {k for k in model.state_dict() if k.startswith(("type_proj.", "neg_gates.", "cov_", "neg_"))}
+        new = {k for k in model.state_dict() if is_new_parameter(k)}
         if result.unexpected_keys or set(result.missing_keys) != new:
             raise RuntimeError(f"warm start mismatch: {result}")
         if model.neg_pool is not None:
