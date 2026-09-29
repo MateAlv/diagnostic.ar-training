@@ -753,3 +753,10 @@ What they tell us:
   - one disabled `cups` snap revision.
 - **Context snapshot:** `docs/STATE.md` was added before the detour, and is
   also the resume point in memory.
+- **Follow-up (Mateo's instruction), same day:**
+  - Deleted every tagged image not used by a container (`docker image prune
+    -a`, local TARS daemon re-verified): **18.43 GB** reclaimed. Only the 4
+    images used by containers remain.
+  - Cleared Stremio's cache (flatpak `cache/`, 66 MB); its `data/` and
+    `config/` were kept.
+  - Disk: **43 GB free (81%)**.
