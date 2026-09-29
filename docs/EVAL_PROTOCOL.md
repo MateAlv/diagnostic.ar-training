@@ -273,7 +273,13 @@ simulator or to dev.
    learning rate ≤ the original 5e-4, and new (zero-initialised) parameters
    may use a higher one. Both are declared up front.
 7. **Contamination check** before each run, logged: no training case shares
-   a (gene, present, excluded) signature with any R1 or S3 evaluation case.
+   a (gene, present, excluded) signature, or even a (gene, present set),
+   with any R1 or S3 evaluation case.
+   - Chance coincidences on small presentations happen, since independent
+     generators can draw the same two common terms. They are removed by a
+     manifest-tracked exclusion artifact that the training loader must
+     apply (e.g. `ds-sim0.3.1-A-n100-s1001-excl-v1`: 130 cases).
+   - The residual overlap after exclusion must be 0.
    R1-train patients (A-005) never share a publication with dev/test/vault;
    the split guarantees this.
 8. **Front B stays on production's output.** Front B systems consume the
