@@ -38,8 +38,10 @@ class TrainingData:
     lineage: list[dict]
 
 
-def load_training_data(dataset_id: str = DATASET, exclusion_id: str = EXCLUSION) -> TrainingData:
-    """The dataset via its manifest (sha-verified), minus the exclusion artifact's case ids."""
+def source_with_exclusion(
+    dataset_id: str = DATASET, exclusion_id: str = EXCLUSION
+) -> tuple[Path, frozenset[str], list[dict]]:
+    """The dataset file (sha-verified), the exclusion artifact's case ids, and both lineage refs."""
     dataset = load_manifest(dataset_id)
     path = next(p for p in fetch_outputs(dataset) if p.name.endswith(".jsonl.gz"))
     exclusion = load_manifest(exclusion_id)
@@ -50,17 +52,45 @@ def load_training_data(dataset_id: str = DATASET, exclusion_id: str = EXCLUSION)
     if not excl_path.is_file() or sha256_file(excl_path) != excl_out.sha256:
         raise LineageError(f"{excl_path} is missing or does not match {exclusion_id}'s manifest")
     exclude = data.read_exclusion(excl_path)
-    splits, counts = data.read_export(path, exclude=exclude)
-    dropped = sum(counts["excluded"].values())
-    if dropped != len(exclude) or exclusion.params.get("excluded") != len(exclude):
-        raise LineageError(f"exclusion dropped {dropped} cases; {exclusion_id} lists {len(exclude)}")
+    if exclusion.params.get("excluded") != len(exclude):
+        raise LineageError(f"{exclusion_id} lists {len(exclude)} ids; its manifest says otherwise")
     if exclusion.params.get("residual_overlap") != 0:
         raise LineageError(f"{exclusion_id} does not certify a residual overlap of 0")
     lineage = [
         {"id": f"artifact:{dataset_id}", "sha256": sha256_file(path)},
         {"id": f"artifact:{exclusion_id}", "sha256": excl_out.sha256},
     ]
+    return path, exclude, lineage
+
+
+def load_training_data(dataset_id: str = DATASET, exclusion_id: str = EXCLUSION) -> TrainingData:
+    """The dataset via its manifest (sha-verified), minus the exclusion artifact's case ids."""
+    path, exclude, lineage = source_with_exclusion(dataset_id, exclusion_id)
+    splits, counts = data.read_export(path, exclude=exclude)
+    dropped = sum(counts["excluded"].values())
+    if dropped != len(exclude):
+        raise LineageError(f"exclusion dropped {dropped} cases; {exclusion_id} lists {len(exclude)}")
     return TrainingData(splits, counts, lineage)
+
+
+INTERVIEWED = "ds-sim0.3.1-A-iv-v1"
+
+
+def load_interviewed(artifact_id: str = INTERVIEWED) -> TrainingData:
+    """The interviewed training cases (ADR-0010 §2), sha-verified, with a certified residual overlap of 0."""
+    manifest = load_manifest(artifact_id)
+    out = next(o for o in manifest.outputs if o.path.endswith(".jsonl.gz"))
+    path = output_path(out)
+    if not path.is_file() or sha256_file(path) != out.sha256:
+        raise LineageError(f"{path} is missing or does not match {artifact_id}'s manifest")
+    if manifest.params.get("kb_heldout_annotations_dropped") != "annot-split-v1":
+        raise LineageError(f"{artifact_id}'s questioner KB must be built without half B (EVAL_PROTOCOL §8)")
+    if manifest.params.get("residual_overlap") != 0:
+        raise LineageError(f"{artifact_id} does not certify a residual overlap of 0")
+    splits, counts = data.read_export(path, splits=("train", "val"))
+    if counts["kept"] != manifest.params["cases"]:
+        raise LineageError(f"{artifact_id}: read {counts['kept']}, manifest says {manifest.params['cases']}")
+    return TrainingData(splits, counts, [{"id": f"artifact:{artifact_id}", "sha256": out.sha256}])
 
 
 def check_contamination(training: list[data.SimCase], cohorts: dict[str, list[Case]]) -> dict:

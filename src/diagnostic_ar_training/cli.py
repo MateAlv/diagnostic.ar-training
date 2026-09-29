@@ -896,6 +896,176 @@ def s3_interviews(
         raise typer.Exit(1)
 
 
+@gnn_app.command("interview-sim")
+def gnn_interview_sim(
+    artifact: str = typer.Option("ds-sim0.3.1-A-iv-v1", help="Immutable id of the interviewed dataset"),
+    per_gene_train: int = typer.Option(20, help="Cases per gene from the simulator's train split"),
+    per_gene_val: int = typer.Option(5, help="Cases per gene from the simulator's val split"),
+    kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner"),
+    n_candidates: int = typer.Option(10),
+    n_questions: int = typer.Option(7),
+    workers: int = typer.Option(14),
+    limit: int = typer.Option(0, help="Debug only: interview the first N selected cases, write nothing"),
+) -> None:
+    """Interview a declared subsample of the simulated training data like S3 (ADR-0010 §2).
+
+    Checks the result against R1 (every part, keys only) and S3 (raw presentations, and the interviewed
+    S3-dev cases): an interviewed case whose (gene, present set) equals one of theirs is dropped and listed
+    in the manifest, and the residual overlap must be 0. S3-test is never interviewed.
+    """
+    import time
+
+    import numpy as np
+
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import s3_run
+    from diagnostic_ar_training.gnn import experiment, interviewed
+    from diagnostic_ar_training.gnn.data import overlap_key
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        fetch_outputs,
+        load_manifest,
+        output_path,
+        write_manifest,
+    )
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    ensure_new(artifact)
+    state = code_state()
+    if state.dirty and not limit:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    kb_manifest = load_manifest(kb_id)
+    if kb_manifest.params.get("heldout_annotations_dropped") != "annot-split-v1":
+        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v1 (EVAL_PROTOCOL §8)")
+    kb_path = fetch_outputs(kb_manifest)[0]
+    source, exclude, source_lineage = experiment.source_with_exclusion()
+    salt = f"diagnostic.ar-training/{artifact}"
+    per_gene = {"train": per_gene_train, "val": per_gene_val}
+
+    start = time.perf_counter()
+    chosen = interviewed.select(
+        ((r["split"], r["gene"], r["case_id"]) for r in interviewed.iter_source(source, exclude)),
+        per_gene,
+        salt,
+    )
+    wanted = {i: s for s, ids in chosen.items() for i in ids}
+    keep = (
+        "case_id",
+        "gene",
+        "gene_index",
+        "split",
+        "present",
+        "true_present",
+        "sex",
+        "age_years",
+        "onset_years",
+    )
+    records = [
+        {k: r[k] for k in keep} for r in interviewed.iter_source(source, exclude) if r["case_id"] in wanted
+    ]
+    order = {s: i for i, s in enumerate(interviewed.SPLIT_ORDER)}
+    records.sort(key=lambda r: (order[r["split"]], r["case_id"]))
+    if limit:
+        records = records[:limit]
+    select_seconds = time.perf_counter() - start
+
+    start = time.perf_counter()
+    results = interviewed.interview_parallel(records, kb_path, n_candidates, n_questions, workers)
+    interview_seconds = time.perf_counter() - start
+    rows = [row for row, _ in results]
+    ranks = {row["case_id"]: rk for row, rk in results}
+
+    s3_data = next(p for p in fetch_outputs(load_manifest("s3-data-v1")) if p.name.endswith(".jsonl.gz"))
+    s3_dev_iv = load_manifest("s3-v1-dev-interviews-kb-v5-c10-q7")
+    s3_dev_path = output_path(s3_dev_iv.outputs[0])
+    if sha256_file(s3_dev_path) != s3_dev_iv.outputs[0].sha256:
+        raise LineageError(f"{s3_dev_path} does not match its manifest")
+    cohorts = {
+        "r1-v1 (all parts, keys only)": splits.presentation_keys("r1-v1"),
+        "s3-data-v1 (raw presentations, all cases)": {
+            overlap_key(c.gene, c.present) for c, _ in s3.read_dataset(s3_data, "s3-v1")
+        },
+        "s3-v1/dev interviewed": {
+            overlap_key(c.gene, c.present) for c in s3_run.read_interviews(s3_dev_path)
+        },
+    }
+    overlap = interviewed.contamination(rows, cohorts)
+    dropped = sorted({i for ids in overlap.values() for i in ids})
+    rows = [r for r in rows if r["case_id"] not in set(dropped)]
+    residual = interviewed.contamination(rows, cohorts)
+    if any(residual.values()):
+        raise LineageError(f"residual overlap after dropping: {residual}")
+
+    def stats(split: str) -> dict:
+        part = [r for r in rows if r["split"] == split]
+        return {
+            "cases": len(part),
+            "genes": len({r["gene"] for r in part}),
+            "questions_per_case": float(np.mean([len(r["questions"]) for r in part])),
+            "yes_per_case": float(np.mean([r["yes"] for r in part])),
+            "no_per_case": float(np.mean([r["no"] for r in part])),
+            "cases_without_questions": sum(not r["questions"] for r in part),
+            "cases_with_excluded": sum(r["no"] > 0 for r in part),
+            "present_per_case": float(np.mean([len(r["present"]) for r in part])),
+            "e0_mrr_initial": interviewed.mrr(ranks[r["case_id"]]["initial"] for r in part),
+            "e0_mrr_answers": interviewed.mrr(ranks[r["case_id"]]["answers"] for r in part),
+        }
+
+    params = {
+        "source": experiment.DATASET,
+        "exclusion": experiment.EXCLUSION,
+        "selection": "per (split, gene): the k smallest sha256(salt:case_id), after the exclusion",
+        "salt": salt,
+        "per_gene": per_gene,
+        "kb": kb_id,
+        "kb_heldout_annotations_dropped": kb_manifest.params["heldout_annotations_dropped"],
+        "questioner": "eval.s3_run.interview_cases (E0 = production ONNX, as S3)",
+        "initial_presentation": "reported present + sex/age/onset; the simulator's excluded terms dropped",
+        "n_candidates": n_candidates,
+        "n_questions": n_questions,
+        "cases": {s: sum(r["split"] == s for r in rows) for s in interviewed.SPLIT_ORDER},
+        "stats": {s: stats(s) for s in interviewed.SPLIT_ORDER},
+        "contamination": {
+            "key": "(gene upper-cased, present set after the interview)",
+            "overlap_before_drop": {k: len(v) for k, v in overlap.items()},
+            "dropped_case_ids": dropped,
+            "residual": {k: len(v) for k, v in residual.items()},
+        },
+        "residual_overlap": sum(len(v) for v in residual.values()),
+        "timing": {
+            "workers": workers,
+            "select_seconds": select_seconds,
+            "interview_seconds": interview_seconds,
+        },
+    }
+    if limit:
+        typer.echo(json.dumps(params, indent=1))
+        return
+    out_dir = DATA_DIR / "interim" / "datasets" / artifact
+    path = out_dir / f"{artifact}.jsonl.gz"
+    interviewed.write_rows(path, rows)
+    params["sha256"] = sha256_file(path)
+    inputs = (
+        source_lineage
+        + GenPheniaV3.__new__(GenPheniaV3).lineage_inputs()
+        + [
+            {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+            {"id": "split:r1-v1 (all parts, keys only)", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+            {"id": "artifact:s3-data-v1", "sha256": sha256_file(s3_data)},
+            {"id": "artifact:s3-v1-dev-interviews-kb-v5-c10-q7", "sha256": s3_dev_iv.outputs[0].sha256},
+        ]
+    )
+    write_manifest(
+        build_manifest(artifact, "interviewed-training-dataset", inputs, params, [path], state=state)
+    )
+    shown = {**params["contamination"], "dropped_case_ids": len(dropped)}
+    typer.echo(json.dumps(params | {"contamination": shown}, indent=1))
+
+
 def _gnn_setup(device_name: str, workers: int):
     import torch
 

@@ -213,6 +213,16 @@ def write_heldout_pmids(split_id: str) -> str:
     return write_mask(split_id, "heldout")
 
 
+def presentation_keys(split_id: str) -> set[tuple[str, frozenset[str]]]:
+    """(gene upper-cased, present set) of every patient in every part, for contamination checks only.
+
+    Like `mask_pmids`, it returns keys, never cases: training material is checked against the sealed
+    parts without evaluating anything on them (EVAL_PROTOCOL §4.2, §9.7).
+    """
+    cases, _ = _all_cases(SPECS[split_id])
+    return {(c.gene.upper(), frozenset(c.present)) for c in cases}
+
+
 def publication_groups(split_id: str) -> dict[str, str]:
     """case_id -> publication group; the resampling unit for R1 confidence intervals."""
     cases, _ = _all_cases(SPECS[split_id])
