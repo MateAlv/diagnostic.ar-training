@@ -1,0 +1,57 @@
+{
+  "artifact_id": "s3-data-v1",
+  "kind": "simulated-eval-dataset",
+  "created_at": "2026-09-29T18:10:57+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "209ddcec9aaffc251b67afef4ac44c7179e530d6",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:simcal-s3-v1",
+      "sha256": "ee92638b99c2969b9b8531880ef2e5f21e2b0f98e7efd10bbe96b1a551686b78"
+    },
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    },
+    {
+      "id": "simulator-profiles:full (build summary)",
+      "sha256": "22ded8e917d50a3db4f94daa5487cb84afb9d9e1e01ebfd0ce9612cea619c7a5"
+    },
+    {
+      "id": "simulator-profiles:full",
+      "sha256": "a133f1cef89e562be1ff1beb9dfc274aabeb544e5a9b9142e9432214382f313a"
+    },
+    {
+      "id": "simulator-run-summary",
+      "sha256": "770b892050dc596d35a5fbe198cb01be32515f683645f2615ef85c64e1612bca"
+    }
+  ],
+  "params": {
+    "generator": "rare-disease-simulator@b592224",
+    "profiles": "full (A+B), r1-v1 heldout mask",
+    "mode": "gene-first",
+    "cases_per_gene": 4,
+    "difficulty": "medium",
+    "seed": 2002,
+    "simulator_split_ignored": true,
+    "role": "S3 evaluation only; never trained on"
+  },
+  "params_hash": "8227bffbd77be0d6048ad7b1f71ea54e79fc22d7e0435936456627880cabd526",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/s3-data-v1/s3-sim0.3.0-full-n4-s2002.card.json",
+      "sha256": "0654e67c4f1dd030ef799846659a8fa583c72749f7281e2e96f8fa444c5e046b",
+      "bytes": 109906
+    },
+    {
+      "path": "data/interim/datasets/s3-data-v1/s3-sim0.3.0-full-n4-s2002.jsonl.gz",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15",
+      "bytes": 2041864
+    }
+  ],
+  "notes": "",
+  "release": "s3-data-v1"
+}
