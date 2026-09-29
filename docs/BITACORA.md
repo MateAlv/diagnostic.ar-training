@@ -780,3 +780,84 @@ What they tell us:
     - ≥ 3 seeds;
     - learning-rate limits;
     - a contamination check before every run.
+
+### 2026-09-29 — EXP-S3-001 — Negation as the app produces it: penalising denied findings helps; R1-learned weights hurt
+- **Front / versions:** B + the S3 harness. Code `da1e3d7`; `s3-data-v1`
+  (20,200 simulated patients, full profiles, `simcal-s3-v1`, seed 2002);
+  split `s3-v1` frozen before any system ran; KB `kb-v5` (half B dropped).
+- **Calibration done before it** (R1-train targets only, in 2 declared pilot
+  rounds):
+
+  | Artifact | For |
+  |---|---|
+  | `simcal-train-v1` | Front A generator; matches R1-train within a few percent on counts, negated terms, own-gene share and missingness |
+  | `simcal-s3-v1` | S3 generator; noise 2.4 = 3.7 − the 1.3 unexplained terms half B already contributes |
+
+  Residual gaps: unexplained share 41.8% vs 46%; the negated-count
+  distribution is less skewed than real.
+- **Result on S3-dev** (10,210 patients; 6.9 questions per case, 0.75
+  "yes", 6.1 "no"; Δ vs E0+answers, CI by gene):
+
+  | System | Δ MRR | Harmed |
+  |---|---|---|
+  | Questions themselves (E0+answers vs E0-initial) | +0.012 | — |
+  | rr-v1 negation, w = 0.5 | **+0.0045 [+0.0034, +0.0056]** (selected by the pre-registered rule) | 4.0% |
+  | rr-v1 negation, w = 1 / w = 2 | +0.0078 / +0.0095 | 5.3% / 7.2% |
+  | **rr-v2 (R1-learned)** | **−0.030 [−0.033, −0.027]** | **28%** |
+  | rr-v2 without negation | ≈ 0 | — |
+- **Verdict:** ✅ H1, H2 (modest), H3 (strong). The clinically-signed
+  negation penalty helps when negations come from questions about
+  candidates. The R1-learned inverse weighting would have hurt a deployment.
+- **Limitation found:** S3 v1 is fair for negation only. Onset and
+  inheritance knowledge is shared between the generator and the KB, so the
+  sex/age/onset gain in rr-v1[all=1] (+0.006) is partly circular and not
+  claimed.
+- **Process incidents (both fixed):**
+  1. `set -e && …` doesn't stop on failures inside `&&` lists; scripted
+     blocks now use `set -euo pipefail` on its own line.
+  2. The first Front A training export failed silently: I had piped it
+     through `grep`, so the pipeline's status was grep's, and the next step
+     deleted the intermediate cases. It is regenerating (deterministic),
+     with full logs and delete-only-if-the-output-exists.
+- **Next:**
+  - Register the Front A training set, and add the contamination check
+    against S3 and R1.
+  - Pre-register the Phase-4 gate for rr-v1[neg=0.5] (S3-test + R1-test
+    no-regression).
+  - Front A ladder A-001….
+- **Evidence for the informe:**
+  - §14: the S3 table. The most direct evidence about negation in the
+    product's own interaction pattern.
+  - §16: the circularity limitation, plus the two process incidents.
+
+### 2026-09-29 — sesión — Front A training set `ds-sim0.3.1-A-n100-s1001`
+- **Generator:** rare-disease-simulator@8ba7430, profiles without half B,
+  `simcal-train-v1`, seed 1001, 100 cases per gene.
+- **Result:**
+  - 501,100 cases for 5,011 genes. Hiding half B left 39 genes that S3 has
+    with no simulable disease.
+  - 37 MB gz; simulator splits 450,877 train / 25,300 val / 24,923 test
+    (S1).
+  - **0 invariant violations**, on the second attempt.
+- **Invariant incident:** the first full run had 4 of 505,000 cases where
+  ontology generalization moved a term to a parent the profile restricts to
+  the other sex. `validate` refused the export. Fixed in simulator PR #4,
+  with a regression test proven to fail without the fix; regenerated.
+- **Contamination:**
+
+  | Against | Same full signature | Same (gene, present set) |
+  |---|---|---|
+  | S3 | 7 | 101 |
+  | R1 | 0 | 22 |
+
+  These are chance coincidences on small presentations. **143 cases** are
+  excluded by artifact `ds-sim0.3.1-A-n100-s1001-excl-v1` (the stricter
+  gene-insensitive key catches more than the pairwise counts); the residual
+  overlap is 0.
+- **My errors, corrected:**
+  - A commit message claimed "no overlap" before I had read the check. It
+    was amended before being pushed.
+  - A pushed commit and the protocol said 130 excluded cases instead of 143.
+    Corrected in a follow-up commit.
+  - *Rule adopted:* no numbers in messages or docs until the output has been
+    read.

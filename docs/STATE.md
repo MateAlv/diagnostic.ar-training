@@ -3,59 +3,60 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-29, after a disk cleanup on TARS (43 GB free, 81%).
+**Snapshot:** 2026-09-29, evening. Disk: 43 GB free on TARS.
 
 ## Where each front stands
 
-| Front | Status | Last evidence |
+| Front | Status | Evidence |
 |---|---|---|
-| Shared | E0 measured on every cohort (EXP-000). R1 CIs resample publications | `docs/experiments/EXP-000.md` |
-| B (re-ranker) | rr-v1 (EXP-B-001): null. rr-v2 learned on R1-train (EXP-B-002): dev +0.056 but **no candidate** (harmed 10%), and the whole gain is R1's negation reporting pattern, not deployable. Sex, age and onset add ≤ 0.002 | `EXP-B-001.md`, `EXP-B-002.md` |
-| A (retrain) | GinV3 = v3.0 in PyTorch; ranks identical, absolute logit gate missed from float32 rounding (EXP-A-000 ⚠️). Zero-init extension ready (ADR-0009, accepted for Front A only). Overfitting rules fixed in EVAL_PROTOCOL §9. **No training run yet** | `EXP-A-000.md`, ADR-0009 |
-| A (simulator) | v0.2 merged. Gene-first sampling + export v2 + calibration hook + `true_present` + `--drop-annotations`: **a subagent is working on it** (simulator branch `feat/gene-first-export-v2`) | simulator repo PRs |
-| S3 (simulated question-agent evaluation) | Design in EVAL_PROTOCOL §8. `annot-split-v1` (30% held out) and `kb-v5` (half A) built. Questioner and answerer coded and tested. **Waiting on the simulator's export v2** to generate S3 cases | branch `phase1c/s3-eval` (pushed; no PR yet) |
+| Shared | E0 measured on every cohort. R1 CIs resample publications | `EXP-000.md` |
+| B on R1 | rr-v1: null. rr-v2 (learned on R1-train): +0.056 dev but no candidate (harmed 10%); the gain is R1's negation reporting pattern. Sex, age and onset ≈ 0 | `EXP-B-001.md`, `EXP-B-002.md` |
+| B on S3 | **Clinically-signed negation helps**: rr-v1[neg=0.5] +0.0045 [+0.0034, +0.0056], harmed 4%. The R1-learned rr-v2 **hurts** (−0.030, harmed 28%). S3 v1 is fair for negation only; sex, age and onset are circular there | `EXP-S3-001.md` |
+| A | GinV3 accepted as v3.0 (EXP-A-000 addendum). Zero-init extension accepted (ADR-0009, Front A only). Anti-overfitting rules in EVAL_PROTOCOL §9. Simulator calibrated (`simcal-train-v1`). **Training set `ds-sim0.3.1-A-n100-s1001` being (re)generated**: the first run found 4 sex-restriction violations, fixed in simulator PR #4. **No training run yet** | `EXP-A-000.md`, ADR-0009 |
 
 ## Artifacts, newest first
 
 | Artifact | What it is |
 |---|---|
-| `kb-v5` | KB without half B of `annot-split-v1`, held-out R1 masked (for S3 systems and the questioner) |
-| `annot-split-v1` | 78,917 held-out (disease, term) pairs |
-| `calib-v1` | R1-train targets: present 8.7, negated 11.0, unexplained 3.7 per case; noise vocabulary of 1,254 terms |
-| `kb-v4` | All R1 publications masked (for anything fitted on R1-train) |
-| `kb-v3` | ADR-0007 frequencies + genes-v1 weights (held-out masked) |
-| `kb-v2` | **VOID**, never use |
-| `genes-v1` | Gene profiles (ADR-0008) |
-| `kb-v1` | First KB |
+| `s3-data-v1` + split `s3-v1` | 20,200 S3 patients; dev 10,210 / test 9,990 (sealed) |
+| `simcal-train-v1`, `simcal-s3-v1` | Simulator calibration files (from `calib-v1` only) |
+| `kb-v5` | KB without half B of `annot-split-v1` (the systems' knowledge in S3) |
+| `annot-split-v1` | 78,917 held-out annotation pairs (30%) |
+| `calib-v1` | R1-train targets + noise vocabulary |
+| `kb-v4` | All R1 publications masked |
+| `kb-v3` | Held-out-masked KB for R1 evaluation |
+| `genes-v1` | Gene profiles |
+| `kb-v2` | **VOID** |
 
-Everything is listed in `data/manifests/`; `dxt artifacts fetch <id>`
-restores any published artifact.
-
-## Open decisions for Mateo
-1. ~~GinV3 as v3.0~~: accepted (EXP-A-000 addendum); parity gates are now
-   relative ≤ 1e-5 + identical ranks.
-2. ~~ADR-0009~~: accepted, Front A only. Front B stays on production's ONNX
-   output.
-3. Disk: resolved (43 GB free). Further optional wins are listed in
-   BITACORA 2026-09-29 (disk cleanup).
-4. Optional: the GeneCards permission request (`docs/TODO.md`).
+## Open items for Mateo
+- None blocking.
+- Optional: the GeneCards request (`docs/TODO.md`), and the remaining disk
+  wins (BITACORA, disk cleanup).
 
 ## Next steps, in order
-1. The simulator agent reports → review → merge its PR.
-2. Adjust the simulator knobs for S3 and training from `calib-v1`: the noise
-   count, jointly with the 30% holdout, so the unexplained share ≈ 46%;
-   negative count and source mix (own ≈ 43%); missingness.
-3. Generate S3 (full profiles, disjoint seeds), freeze its dev/test split,
-   pre-register EXP-S3-000 (E0 with and without questions; rr variants),
-   run it on S3-dev.
-4. Front A training data: profiles without half B, disjoint seeds,
-   `calib-v1` → `ds-sim…` + manifest.
-5. Front A ladder A-001… (fine-tune GinV3), evaluated on R1-dev and S3-dev.
+1. Register the training set (manifest + release) and run the contamination
+   check: its signatures vs S3 and vs R1 (EVAL_PROTOCOL §9.7).
+2. Front A training loop:
+   - export-v2 dataloader → GinV3Extended;
+   - two learning rates;
+   - early stopping on sim-val;
+   - curves (train, sim-val, R1-dev with and without inputs, S2);
+   - manifests.
+3. Pre-register and run **A-001** (fine-tune with positives only) → A-002
+   (+negated) → A-003 (+covariates) → A-004 (all). Each at ≤ 8
+   configurations, ≥ 3 seeds for the selected one.
+4. Phase-4 gates, each with its own pre-registration:
+   - rr-v1[neg=0.5] on S3-test + R1-test no-regression;
+   - the best Front A candidate.
+5. Optional: an S3 v2 split that also holds out onset and inheritance, to
+   evaluate sex and age fairly.
 
 ## Invariants to keep in mind
-- Never touch `GenPhenAI/`. The guard hook enforces it.
+- Never touch `GenPhenAI/`.
 - Commit before any run that writes a manifest, and don't edit tracked files
   while a long run is going.
-- Sealed data (R1 test/vault, MCRD, DDD, S3-test) is only read under a
+- Scripted shell blocks use `set -euo pipefail` on its own line. Never pipe
+  a step's output through `grep` when the next step depends on its success.
+- Sealed data (R1 test/vault, MCRD, DDD, S3-test) is read only under a
   committed pre-registration.
 - No AI mention in commits or PRs.

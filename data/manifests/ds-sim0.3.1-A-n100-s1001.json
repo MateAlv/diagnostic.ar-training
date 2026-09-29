@@ -1,0 +1,66 @@
+{
+  "artifact_id": "ds-sim0.3.1-A-n100-s1001",
+  "kind": "simulated-training-dataset",
+  "created_at": "2026-09-29T18:36:07+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "511a8900ec1e58a735124d28c38f29e63983ae8c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:simcal-train-v1",
+      "sha256": "26242e6bb7e79295eb7e7f0421de2a638c8bfc4f06c7161efa4392a76fda8f6c"
+    },
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    },
+    {
+      "id": "artifact:annot-split-v1",
+      "sha256": "029922458e57a0d02a2a66bf9305b28340e1af56bb4b5d3fbe55849d06e46b18"
+    },
+    {
+      "id": "simulator-profiles:A (build summary)",
+      "sha256": "09d3a25b372696d03224d4cc1a3bbaab9e09b1282fb0c17a4b095307a6242154"
+    },
+    {
+      "id": "simulator-profiles:A",
+      "sha256": "4822a74eb30d62bc18c5e962db74f32cb86ef2b38e0263cb90852bfa4296d060"
+    },
+    {
+      "id": "simulator-run-summary",
+      "sha256": "9573e493f23afa4a3181425357fcd6cd776c8e50da8b96fac8c71ca7518b27dc"
+    }
+  ],
+  "params": {
+    "generator": "rare-disease-simulator@8ba7430",
+    "profiles": "half A of annot-split-v1 (B dropped), r1-v1 heldout mask",
+    "mode": "gene-first",
+    "cases_per_gene": 100,
+    "difficulty": "medium",
+    "seed": 1001,
+    "splits": "simulator's own 90/5/5 by case seed: train=gradients, val=early stopping, test=S1 sanity",
+    "role": "Front A training data (EVAL_PROTOCOL §9)"
+  },
+  "params_hash": "85dc0a864414ceaa96a22443583662fde868d406d7f220ce308cbae16158c83b",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/ds-sim0.3.1-A-n100-s1001/contamination.json",
+      "sha256": "68dde0963c40c4a00717f018a3b2afdc08dadf6a6a4e885eb06bc8625cfce93a",
+      "bytes": 214
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.3.1-A-n100-s1001/ds-sim0.3.1-A-n100-s1001.card.json",
+      "sha256": "c62fb75ea28210fe5df2cd1bddb24556564d74517f612771998b64228fed54d2",
+      "bytes": 120443
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.3.1-A-n100-s1001/ds-sim0.3.1-A-n100-s1001.jsonl.gz",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744",
+      "bytes": 37181994
+    }
+  ],
+  "notes": "",
+  "release": "ds-sim0.3.1-A-n100-s1001"
+}

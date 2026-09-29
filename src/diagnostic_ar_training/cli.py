@@ -508,6 +508,154 @@ def annotations_split(
     typer.echo(f"{split_id}: {len(pairs)} held-out annotations -> {path}")
 
 
+s3_app = typer.Typer(no_args_is_help=True, help="S3: simulated question-agent evaluation (EVAL_PROTOCOL §8).")
+app.add_typer(s3_app, name="s3")
+
+
+@s3_app.command("run")
+def s3_run_cmd(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-S3-001"),
+    part: str = typer.Option("dev", help="dev, or test (sealed)"),
+    reason: str = typer.Option("", help="Required for the sealed part"),
+    kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner and the features"),
+    rr2_fits: str = typer.Option(
+        "results/EXP-B-002/rr-v2-fits.json", help="rr-v2 fitted weights (EXP-B-002)"
+    ),
+    n_candidates: int = typer.Option(10),
+    n_questions: int = typer.Option(7),
+    top_k: int = typer.Option(200),
+) -> None:
+    """Interview every S3 case once, score every pre-registered system on the same answers."""
+    import numpy as np
+
+    from diagnostic_ar_training import REPO_ROOT, RESULTS_DIR
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import harness, s3_run
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import COMPONENTS, GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before S3 runs")
+    kb_manifest = load_manifest(kb_id)
+    if kb_manifest.params.get("heldout_annotations_dropped") != "annot-split-v1":
+        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v1 (EVAL_PROTOCOL §8)")
+    data_manifest = load_manifest("s3-data-v1")
+    data = next(p for p in fetch_outputs(data_manifest) if p.name.endswith(".jsonl.gz"))
+    pairs = s3.load_part("s3-v1", part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    e0 = GenPheniaV3()
+    interviewed = s3_run.interview_all(pairs, e0, knowledge, ontology, n_candidates, n_questions, top_k)
+
+    fits = json.loads((REPO_ROOT / rr2_fits).read_text())
+    chosen = next(f for f in fits["fits"] if f["l2"] == 0.1)
+    no_neg = next(a for a in fits["ablations_exploratory"]["results"] if a["without"] == "negation")
+    as_vec = lambda d: np.array([d[c] for c in COMPONENTS])  # noqa: E731
+    systems = {
+        "E0+answers": np.zeros(len(COMPONENTS)),
+        "rr-v1[neg=0.5]": s3_run.rr_v1_beta(neg=0.5),
+        "rr-v1[neg=1]": s3_run.rr_v1_beta(neg=1.0),
+        "rr-v1[neg=2]": s3_run.rr_v1_beta(neg=2.0),
+        "rr-v1[all=1]": s3_run.rr_v1_beta(1.0, 1.0, 1.0, 1.0),
+        "rr-v2[EXP-B-002 l2=0.1]": as_vec(chosen["beta"]),
+        "rr-v2[without negation]": as_vec(no_neg["refit_beta"]),
+    }
+
+    def records(probs_of) -> list[dict]:
+        return [
+            {
+                "case_id": i.case_id,
+                "group": i.gene,
+                "gene": i.gene,
+                "rank": s3_run.rank(probs_of(i), e0.genes, i.gene),
+                "has_excluded": i.no > 0,
+                "has_sex": False,
+                "has_age": False,
+                "gene_in_vocab": True,
+                "scorable": True,
+                "latency_ms": 0.0,
+            }  # fmt: skip
+            for i in interviewed
+        ]
+
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    base = records(lambda i: i.table.combine(np.zeros(len(COMPONENTS))))
+    initial = records(lambda i: i.initial_probs)
+    report = {
+        "part": part,
+        "cases": len(interviewed),
+        "kb": kb_id,
+        "n_candidates": n_candidates,
+        "n_questions": n_questions,
+        "questions_per_case": float(np.mean([len(i.questions) for i in interviewed])),
+        "yes_per_case": float(np.mean([i.yes for i in interviewed])),
+        "no_per_case": float(np.mean([i.no for i in interviewed])),
+        "E0-initial": {
+            "summary": harness.summarize(initial)["all"],
+            "vs_E0+answers": harness.compare(base, initial),
+        },
+        "systems": {},
+    }  # fmt: skip
+    outputs = [harness.write(exp, f"s3-v1/{part}", "E0-initial", "interviewed", initial)[0]]
+    for name, beta in systems.items():
+        recs = records(lambda i, b=beta: i.table.combine(b))
+        report["systems"][name] = {
+            "beta": dict(zip(COMPONENTS, map(float, beta), strict=True)),
+            "summary": harness.summarize(recs)["all"],
+            "vs_E0+answers": harness.compare(base, recs),
+        }
+        outputs.append(harness.write(exp, f"s3-v1/{part}", name, "interviewed", recs)[0])
+    report_path = out_dir / f"s3-v1-{part}__report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = e0.lineage_inputs() + [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "artifact:s3-data-v1", "sha256": sha256_file(data)},
+        {"id": "split:s3-v1", "sha256": sha256_file(SPLITS_DIR / "s3-v1.json")},
+        {"id": rr2_fits, "sha256": sha256_file(REPO_ROOT / rr2_fits)},
+    ]
+    params = {
+        "part": part,
+        "kb": kb_id,
+        "n_candidates": n_candidates,
+        "n_questions": n_questions,
+        "top_k": top_k,
+    }
+    write_manifest(
+        build_manifest(f"results-{exp}-s3-v1-{part}", "s3-run", inputs, params, outputs, state=state)
+    )
+    typer.echo(f"cases={len(interviewed)} questions/case={report['questions_per_case']:.2f} "
+               f"yes/case={report['yes_per_case']:.2f} no/case={report['no_per_case']:.2f}")  # fmt: skip
+    ini = report["E0-initial"]
+    typer.echo(
+        f"{'E0-initial':28} MRR={ini['summary']['mrr']:.4f} "
+        f"(vs E0+answers {ini['vs_E0+answers']['delta']:+.4f})"
+    )
+    typer.echo(f"{'E0+answers':28} MRR={harness.summarize(base)['all']['mrr']:.4f}")
+    for name, r in report["systems"].items():
+        d = r["vs_E0+answers"]
+        typer.echo(
+            f"{name:28} MRR={r['summary']['mrr']:.4f} d={d['delta']:+.4f} "
+            f"[{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] harmed={d['harmed']:.3f} helped={d['helped']:.3f}"
+        )
+
+
 @artifacts_app.command("fetch")
 def artifacts_fetch(artifact_id: str) -> None:
     """Download a published artifact's files and verify them against its manifest."""
