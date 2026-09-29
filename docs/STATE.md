@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-29, evening. Disk: 43 GB free on TARS.
+**Snapshot:** 2026-09-29, night. Disk: 43 GB free on TARS.
 
 ## Where each front stands
 
@@ -12,7 +12,7 @@ at each checkpoint; the history lives in `BITACORA.md`.
 | Shared | E0 measured on every cohort. R1 CIs resample publications | `EXP-000.md` |
 | B on R1 | rr-v1: null. rr-v2 (learned on R1-train): +0.056 dev but no candidate (harmed 10%); the gain is R1's negation reporting pattern. Sex, age and onset ≈ 0 | `EXP-B-001.md`, `EXP-B-002.md` |
 | B on S3 | **Clinically-signed negation helps**: rr-v1[neg=0.5] +0.0045 [+0.0034, +0.0056], harmed 4%. The R1-learned rr-v2 **hurts** (−0.030, harmed 28%). S3 v1 is fair for negation only; sex, age and onset are circular there | `EXP-S3-001.md` |
-| A | GinV3 accepted as v3.0 (EXP-A-000 addendum). Zero-init extension accepted (ADR-0009, Front A only). Anti-overfitting rules in EVAL_PROTOCOL §9. Simulator calibrated (`simcal-train-v1`). **Training set `ds-sim0.3.1-A-n100-s1001` being (re)generated**: the first run found 4 sex-restriction violations, fixed in simulator PR #4. **No training run yet** | `EXP-A-000.md`, ADR-0009 |
+| A | GinV3 accepted. Training set `ds-sim0.3.1-A-n100-s1001` (+ exclusion `-excl-v1`). **EXP-A-001: fine-tuning on simulated positives HURTS R1 (−0.09 to −0.21 MRR, harmed 46–61%); no candidate.** Cause: distribution shift from an over-confident start, not unlearning half B. **Awaiting Mateo's decision on the Front A redesign** (frozen base; questioner-style training negatives) | `EXP-A-001.md` |
 
 ## Artifacts, newest first
 

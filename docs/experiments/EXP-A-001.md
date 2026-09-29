@@ -305,3 +305,20 @@ Evidence for the next rungs (Mateo's call; nothing here was tried):
   check's 10 near-zero-lr steps already moved R1-dev by −0.0035.
 
 ## Addenda
+
+### 2026-09-29, Addendum (lead, exploratory, R1-dev only): is the harm "unlearning half B"?
+Hypothesis: the training data comes from profiles without half B, so
+fine-tuning might teach the model to forget the held-out associations v3.0
+knew.
+
+**Rejected.**
+- Only 7.5% of R1-dev present terms are explained by half B alone (in the
+  held-out-masked KB); 56 of 1,611 cases (3.5%) rely on half B entirely.
+- A-001 c1's damage is *smaller* on cases with ≥ 30% half-B-only terms
+  (Δ −0.057, n = 86) than on the rest (Δ −0.107, n = 1,525).
+
+The harm is distribution shift. v3.0 scores MRR 0.166 on our simulated
+patients (0.81 on the upstream-style S2) with a loss of 24.6: it is highly
+overconfident on noisier, less complete presentations. Gradient clipping was
+active on every step, and the model moves away from what makes it strong on R1
+within one epoch.
