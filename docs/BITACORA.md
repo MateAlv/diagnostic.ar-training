@@ -861,3 +861,45 @@ What they tell us:
     Corrected in a follow-up commit.
   - *Rule adopted:* no numbers in messages or docs until the output has been
     read.
+
+### 2026-09-29 — EXP-A-001 — Fine-tuning v3.0 on simulated positives hurts real patients (no candidate)
+- **Front / versions:** A. PR #11, built and run by a subagent in a
+  worktree; I verified the pre-registration order, authorship and the
+  branch's own tests. Training set `ds-sim0.3.1-A-n100-s1001` with its
+  exclusion applied (residual overlap 0).
+  - Throughput: 14,300 cases/s; 7.3 min per 10-epoch run; 1.6 GB of GPU
+    memory.
+- **Result:** 6 configurations: lr ∈ {1e-5, 5e-5, 2e-4} × BatchNorm
+  train/frozen.
+  - **R1-dev Δ MRR from −0.091 [−0.122, −0.059] to −0.208**, harmed
+    46–61%.
+  - S2 (forgetting) 0.68–0.75 vs E0 0.81.
+  - Every warning flag fired ("sim-val up while R1-dev down", S2 < E0 −
+    0.02) from epoch 1.
+  - S3-dev *rose* (+0.11 to +0.27): the declared same-generator dependency
+    at work, and a warning never to read S3 as evidence for Front A models
+    trained on the same simulator.
+  - c1 (the least harmful) over 3 seeds: Δ −0.0917 ± 0.0011.
+  - The epoch-0 identity held exactly (Δ 0).
+- **Verdict:** ❌ **no candidate.** Simulated positives alone push v3.0 off
+  what makes it good on real patients.
+- **Diagnosis (addendum):** not "unlearning half B" (that hypothesis was
+  rejected; the damage is larger on cases that don't rely on it). It is a
+  distribution shift with an extremely overconfident starting point (loss
+  24.6, sim-val MRR 0.166).
+- **Implications:**
+  1. Any Front A variant that updates v3.0's weights on this data inherits
+     this harm, so A-002–A-004 as planned would build on it.
+  2. The S3 numbers of Front A models are not comparable with Front B's:
+     same generator family.
+  3. A sounder Front A design keeps v3.0's weights frozen and trains only
+     the new zero-initialised parts, for negation and covariates.
+     No-regression then holds by construction on the "present only" view.
+     The training negatives should be produced the way the app produces
+     them (questions about candidates), not the R1-like reporting mix.
+     This is a proposal to Mateo.
+- **Evidence for the informe:**
+  - §14: the A-001 table, a clean, pre-registered negative result with
+    curves.
+  - §16: "synthetic data can hurt a pre-trained model even when it is
+    calibrated to real statistics".
