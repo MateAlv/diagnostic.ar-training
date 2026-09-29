@@ -1,0 +1,65 @@
+{
+  "artifact_id": "kb-v3",
+  "kind": "rerank-kb",
+  "created_at": "2026-09-29T14:14:44+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "dbdf7edcbc84a796e8492b7cfdfa42cd6273c565",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    }
+  ],
+  "params": {
+    "mask_split": "r1-v1",
+    "schema": 2,
+    "frequency": "ADR-0007",
+    "gene_weights": "genes-v1"
+  },
+  "params_hash": "cca19fbf53bed1fa1f9c3bbed0c3081ba24f5121ff213923e3005aa35f0f903c",
+  "outputs": [
+    {
+      "path": "data/interim/kb/kb-v3/kb.json.gz",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8",
+      "bytes": 1466833
+    },
+    {
+      "path": "data/kb/kb-v3.stats.json",
+      "sha256": "90ec2c2a08a5518316195f39a2463aaca9a3fce04d4ffc68048bd9fffffbe559",
+      "bytes": 725
+    }
+  ],
+  "notes": "",
+  "release": "kb-v3"
+}
