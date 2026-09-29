@@ -91,15 +91,23 @@ ORPHANET = """<?xml version="1.0"?><JDBOR><DisorderList count="2">
 </DisorderList></JDBOR>"""
 
 
-@pytest.fixture
-def built(tmp_path):
+def _write_fixtures(tmp_path):
     (tmp_path / "hp.json").write_text(json.dumps(hp_json()))
     (tmp_path / "phenotype.hpoa").write_text("#version: test\n" + HEADER + "\n" + "\n".join(ROWS) + "\n")
     (tmp_path / "g2d.txt").write_text("\n".join(G2D) + "\n")
     (tmp_path / "g2p.txt").write_text("\n".join(G2P) + "\n")
     (tmp_path / "ages.xml").write_text(ORPHANET)
-    onto = Ontology.from_json(tmp_path / "hp.json")
-    args = [tmp_path / n for n in ("phenotype.hpoa", "g2d.txt", "g2p.txt", "ages.xml")]
+    return tmp_path / "hp.json"
+
+
+def _args(tmp_path):
+    return [tmp_path / n for n in ("phenotype.hpoa", "g2d.txt", "g2p.txt", "ages.xml")]
+
+
+@pytest.fixture
+def built(tmp_path):
+    onto = Ontology.from_json(_write_fixtures(tmp_path))
+    args = _args(tmp_path)
     return onto, args, kb.build(onto, *args, masked_pmids={"PMID:666"})
 
 
@@ -115,7 +123,8 @@ def test_ontology_resolves_alternative_and_obsolete_ids(built):
 def test_duplicate_rows_merge_and_alternative_ids_fold_in(built):
     _, _, (k, _) = built
     seizure = k["diseases"]["OMIM:1"]["phenotypes"]["HP:0001250"]
-    assert seizure["freq"] == pytest.approx(((0.80 + 0.99) / 2 + 0.5) / 2)
+    # ADR-0007: the 1/2 count takes precedence over the category row.
+    assert seizure["freq"] == pytest.approx((1 + 0.5) / (2 + 1))
     assert seizure["onset"] == ["HP:0011463"] and seizure["sex"] is None
 
 
@@ -164,3 +173,71 @@ def test_build_and_write_are_byte_deterministic(built, tmp_path):
     kb.write(again, tmp_path / "b.json.gz")
     assert (tmp_path / "a.json.gz").read_bytes() == (tmp_path / "b.json.gz").read_bytes()
     assert kb.read(tmp_path / "a.json.gz") == k
+
+
+@pytest.mark.parametrize(
+    "counts,percents,categories,expected",
+    [
+        ((1, 1), [], [], 0.75),
+        ((10, 10), [], [], 10.5 / 11),
+        ((0, 3), [], [], 0.125),
+        ((3, 4), [0.9], [1.0], 3.5 / 5),  # counts win
+        ((0, 0), [0.2, 0.4], [1.0], 0.3),  # then percentages
+        ((0, 0), [], [0.17, 0.545], (0.17 + 0.545) / 2),  # then categories
+        ((0, 0), [], [], None),  # unknown stays unknown
+    ],
+)
+def test_adr_0007_frequency_estimates(counts, percents, categories, expected):
+    got = kb.estimate_frequency(counts, percents, categories)
+    assert got == (pytest.approx(expected) if expected is not None else None)
+
+
+def test_counts_pool_across_rows_and_zero_counts_are_low_frequencies_not_negations(tmp_path):
+    onto = Ontology.from_json(_write_fixtures(tmp_path))
+    rows = ROWS + [
+        hpoa_row("OMIM:5", "HP:0000028", freq="1/2"),
+        hpoa_row("OMIM:5", "HP:0000028", ref="PMID:3", freq="2/3"),
+        hpoa_row("OMIM:5", "HP:0001250", freq="0/4"),
+    ]
+    (tmp_path / "phenotype.hpoa").write_text("#version: test\n" + HEADER + "\n" + "\n".join(rows) + "\n")
+    k, _ = kb.build(onto, *_args(tmp_path), masked_pmids=set())
+    d = k["diseases"]["OMIM:5"]
+    assert d["phenotypes"]["HP:0000028"]["freq"] == pytest.approx(3.5 / 6)
+    assert d["phenotypes"]["HP:0001250"]["freq"] == pytest.approx(0.5 / 5)
+    assert d["excluded"] == []
+
+
+ALIGNMENTS = """<?xml version="1.0"?><JDBOR><DisorderList>
+<Disorder><OrphaCode>1</OrphaCode><ExternalReferenceList>
+<ExternalReference><Source>OMIM</Source><Reference>4</Reference>
+<DisorderMappingRelation><Name>E (Exact mapping: equivalent)</Name></DisorderMappingRelation>
+<DisorderMappingValidationStatus><Name>Validated</Name></DisorderMappingValidationStatus></ExternalReference>
+<ExternalReference><Source>OMIM</Source><Reference>2</Reference>
+<DisorderMappingRelation><Name>NTBT (narrower)</Name></DisorderMappingRelation>
+<DisorderMappingValidationStatus><Name>Validated</Name></DisorderMappingValidationStatus></ExternalReference>
+</ExternalReferenceList></Disorder></DisorderList></JDBOR>"""
+
+
+def test_onset_crosses_only_exact_alignments_and_genes_carry_profile_weights(tmp_path):
+    onto = Ontology.from_json(_write_fixtures(tmp_path))
+    (tmp_path / "align.xml").write_text(ALIGNMENTS)
+    profiles = {
+        "genes": {
+            "GENEA": {
+                "entities": [
+                    {"sim_weight": 0.75, "profile_ids": ["OMIM:1", "ORPHA:3"]},
+                    {"sim_weight": 0.25, "profile_ids": ["OMIM:4"]},
+                    {"sim_weight": 0.0, "profile_ids": ["OMIM:2"]},
+                ]
+            }
+        },
+        "vocabulary": {"OLDA": "GENEA", "GONE": None},
+    }
+    k, stats = kb.build(
+        onto, *_args(tmp_path), masked_pmids={"PMID:666"}, orphanet_alignments=tmp_path / "align.xml",
+        gene_profiles=profiles,
+    )  # fmt: skip
+    assert k["diseases"]["OMIM:4"]["onset_source"] == "orphanet_exact_alignment"  # ORPHA:1 Infancy
+    assert k["diseases"]["OMIM:2"]["onset_source"] is None  # NTBT does not transfer
+    assert k["schema"] == 2 and k["vocabulary"] == {"OLDA": "GENEA"}
+    assert k["genes"]["GENEA"] == {"OMIM:1": 0.375, "OMIM:4": 0.25, "ORPHA:3": 0.375}
