@@ -727,3 +727,29 @@ What they tell us:
   - §11 / §14: ADR-0009's step-zero identity and the parity table.
   - §16: the silent ONNX export bug, a lesson on why the parity gates
     exist.
+
+### 2026-09-29 — sesión — Disk cleanup on TARS (local Docker only)
+- **Why:** disk at 99%. It fell to 2.8 GB free while the simulator agent
+  wrote its dataset; torch had taken about 6 GB.
+- **Safety:**
+  - the host is `TARS`;
+  - `DOCKER_HOST` / `DOCKER_CONTEXT` are unset, and the only context is the
+    local socket (daemon `TARS`);
+  - no remote or production server was contacted (Mateo: "NEVER IN PROD
+    SERVER").
+- **Done (reversible or cache-only):**
+  - pruned the one stopped container (`qa-eval-model`);
+  - pruned all unused build cache (27.35 GB), which also released 63
+    dangling images; images went from 106 to 43.
+  - The running `nodo0-*` containers were untouched and stay healthy.
+- **Result:** 2.8 GB → **26 GB free** (99% → 89%).
+- **Left for Mateo to decide:**
+  - the `trivy-cache` volume (1.45 GB, re-downloadable);
+  - about 70 anonymous volumes of ~65 MB each (about 4 GB, possibly old test
+    databases; keep `lucai_v2_devdb`);
+  - unused tagged images (5.8 GB, mostly the `lucai-agent-bioeutectics`
+    staging images);
+  - user caches: Chrome 4.2 GB, Flatpak 3.4 GB, Steam 3.2 GB;
+  - one disabled `cups` snap revision.
+- **Context snapshot:** `docs/STATE.md` was added before the detour, and is
+  also the resume point in memory.

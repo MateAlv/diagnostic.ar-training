@@ -3,8 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-29, taken before a disk-cleanup detour (disk at 99%,
-4.3 GB free).
+**Snapshot:** 2026-09-29, after a disk cleanup on TARS (26 GB free, 89%).
 
 ## Where each front stands
 
@@ -36,7 +35,8 @@ restores any published artifact.
 1. Accept GinV3 as v3.0 despite the missed absolute logit gate, and switch
    future parity gates to "relative ≤ 1e-5 + identical ranks" (EXP-A-000).
 2. Approve ADR-0009 (Proposed).
-3. Disk space: about 10 GB more needed for datasets and checkpoints.
+3. Disk: resolved for now (26 GB free). Further optional wins are listed in
+   BITACORA 2026-09-29 (disk cleanup).
 4. Optional: the GeneCards permission request (`docs/TODO.md`).
 
 ## Next steps, in order
