@@ -563,3 +563,63 @@ What they tell us:
     pre-registration showing it wasn't tuned away.
   - §16: the negation reporting-bias finding. It's also a lesson on how
     evaluation data encodes its collection process.
+
+### 2026-09-29 — sesión — Front A: simulator v0.2 (`rare-disease-simulator` PR #2)
+- **Front / versions:** A. `rare-disease-simulator` branch
+  `feat/simulation-v0.2` (8 commits `cfb670c..acfe67e`), PR #2, open and not
+  merged. Built by a subagent; I spot-checked it (authorship with no
+  trailers, 143 tests, `validate` report).
+- **Done:**
+  - ADR-0007 frequencies.
+  - OMIM↔ORPHA onset through Orphanet 2026-06 `en_product1` (exact +
+    validated).
+  - Sex prior from inheritance, with sex-specific anatomy never emitted for
+    the other sex.
+  - Onset → age gating, and a progression boost.
+  - Negatives from own-disease absent terms, confounders (IC-weighted index)
+    and NOT rows, with slots allotted to sources before drawing.
+  - At least one observed positive per case.
+  - Covariate missingness.
+  - Per-case input sha256s, and no timestamps, so reruns are byte-identical.
+  - `validate` with invariant checks.
+- **Result** (real build on the pinned inputs + r1-v1 mask; profiles
+  `d783c2aa…`; a 6,000-case sample of 300 stratified diseases × 20):
+
+  | Measure | Part 1 → v0.2 |
+  |---|---|
+  | Obligate annotations | 31,240 → 416 |
+  | Negative annotations in profiles | 2,389 → 471 (only NOT now) |
+  | Onset coverage | 72.9% → 83.3% via exact alignments |
+
+  Per case (mean):
+
+  | Measure | Value |
+  |---|---|
+  | Present terms | 6.42 (22% of cases have only 1) |
+  | Negated terms | 3.16 (median 2, max 15; 29% of cases have none) |
+  | Missing / unknown | 1.22 / 0.82 |
+  | Noise | 0 (no vocabulary yet) |
+
+  | Negatives by source | Share |
+  |---|---|
+  | Own disease | 67.2% |
+  | Confounders | 32.7% |
+  | NOT rows | 0.1% |
+
+  - Sex matches its priors (XLR 0.909 vs 0.9).
+  - Calibration error: 0.0027.
+  - **0 invariant violations.**
+- **Gaps vs real R1 patients** (to calibrate from R1-train only, in this
+  repo):
+  - negatives average 3 per case vs about 12 in R1, capped by how many
+    terms each disease annotates;
+  - no noise vocabulary yet;
+  - 22% of cases have a single present term.
+- **Verdict:** ✅ simulator v0.2 accepted for review. Not yet used to build a
+  training dataset. Gene-first sampling from `genes-v1` and export v2 are
+  still pending.
+- **Next (Front A):**
+  - R1-train calibration pass: negative count and noise vocabulary.
+  - Gene-first sampling from `genes-v1`.
+  - Export v2 + dataset manifest.
+  - `GinV3` parity (A-000).
