@@ -1,6 +1,7 @@
 import dataclasses
 
 import numpy as np
+import pytest
 from test_rerank import KB, ONTO, K, disease
 
 from diagnostic_ar_training.cohorts.schema import Case, Sex
@@ -76,3 +77,46 @@ def test_interview_is_the_only_path_from_truth_to_system_inputs():
 
     src = inspect.getsource(interactive.choose_questions)
     assert "true_present" not in src and ".gene" not in src.replace("genes", "")
+
+
+def _write_dataset(path, n=40):
+    import gzip as gz
+    import json as js
+
+    with gz.open(path, "wt") as f:
+        for i in range(n):
+            f.write(js.dumps({"case_id": f"c{i}", "gene": "XLR", "present": ["HP:0001263"],
+                              "true_present": ["HP:0001263", "HP:0002373"], "excluded": ["HP:0000028"],
+                              "sex": "male", "age_years": 3.0, "onset_years": None}) + "\n")  # fmt: skip
+
+
+def test_s3_cases_carry_no_truth_and_drop_the_simulators_own_negatives(tmp_path):
+    from diagnostic_ar_training.cohorts import s3
+
+    _write_dataset(tmp_path / "d.jsonl.gz")
+    case, truth = s3.read_dataset(tmp_path / "d.jsonl.gz", "s3-t")[0]
+    assert case.excluded == () and case.present == ("HP:0001263",)
+    assert truth == {"HP:0001263", "HP:0002373"} and "HP:0002373" not in case.present
+    assert case.case_id == "s3-t:c0"
+
+
+def test_s3_split_is_frozen_hash_checked_and_its_test_part_sealed(tmp_path, monkeypatch, docs, clean_tree):
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.lineage.registry import LineageError
+
+    monkeypatch.setattr(s3, "SPLITS_DIR", tmp_path)
+    data = tmp_path / "d.jsonl.gz"
+    _write_dataset(data)
+    body = s3.freeze("s3-t", data, "0" * 64)
+    assert sum(body["counts"].values()) == 40 and min(body["counts"].values()) > 5
+    assert s3.freeze("s3-t", data, "0" * 64)["content_sha256"] == body["content_sha256"]
+    assert len(s3.load_part("s3-t", "dev", data)) == body["counts"]["dev"]
+    with pytest.raises(LineageError):
+        s3.load_part("s3-t", "test", data)
+    (docs / "experiments" / "EXP-S3-001.md").write_text("# pre-registered")
+    assert (
+        len(s3.load_part("s3-t", "test", data, exp_id="EXP-S3-001", reason="gate")) == body["counts"]["test"]
+    )
+    _write_dataset(data, n=41)
+    with pytest.raises(LineageError):
+        s3.load_part("s3-t", "dev", data)

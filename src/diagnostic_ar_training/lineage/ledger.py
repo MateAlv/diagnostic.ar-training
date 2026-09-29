@@ -10,7 +10,7 @@ from diagnostic_ar_training.lineage.registry import LineageError
 
 LEDGER = DOCS_DIR / "TEST_LEDGER.md"
 EXPERIMENTS_DIR = DOCS_DIR / "experiments"
-EXP_ID = re.compile(r"^EXP-(000|[AB]-\d{3})$")
+EXP_ID = re.compile(r"^EXP-(000|[AB]-\d{3}|S3-\d{3})$")
 ROW = "| {when} | {split}/{part} | {exp} | {sha} | {reason} |\n"
 
 
