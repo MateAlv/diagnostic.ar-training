@@ -1,0 +1,31 @@
+{
+  "artifact_id": "compare-EXP-A-000-r1-v1-dev__ginv3-torch__all__vs__r1-v1-dev__genphenia-v3.0__all",
+  "kind": "eval-compare",
+  "created_at": "2026-09-29T17:40:52+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "26760d396096517b8c1fc52c6c23c95c829361ff",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "results:EXP-000/r1-v1-dev__genphenia-v3.0__all.ranks.jsonl",
+      "sha256": "0b5430f2eb73aea6000a609bd1a013c49c8afeb004b98e7f6429c27036fa81ce"
+    },
+    {
+      "id": "results:EXP-A-000/r1-v1-dev__ginv3-torch__all.ranks.jsonl",
+      "sha256": "26e166f242371fd7a5bd8101a0555ccf0cccfa4d416b807277079d0037bdc3f0"
+    }
+  ],
+  "params": {},
+  "params_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "outputs": [
+    {
+      "path": "results/EXP-A-000/r1-v1-dev__ginv3-torch__all__vs__r1-v1-dev__genphenia-v3.0__all.compare.json",
+      "sha256": "e4c4c08666024be75dd28344dcded95a1d5dbde3c08d6c67e8dbd4f76e9f64ab",
+      "bytes": 376
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -517,21 +517,26 @@ def artifacts_fetch(artifact_id: str) -> None:
         typer.echo(path)
 
 
-def _system(name: str):
+def _system(name: str, device: str = "cpu"):
     if name == "genphenia-v3":
         from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
         return GenPheniaV3()
+    if name == "ginv3-torch":
+        from diagnostic_ar_training.systems.ginv3_torch import GinV3Torch
+
+        return GinV3Torch(device=device)
     raise typer.BadParameter(f"unknown system {name!r}")
 
 
 @eval_app.command("run")
 def eval_run(
-    system: str = typer.Option(..., help="genphenia-v3"),
+    system: str = typer.Option(..., help="genphenia-v3 | ginv3-torch"),
     cohort: str = typer.Option(..., help="r1-v1/<part>, mcrd, ddd or s2"),
     exp: str = typer.Option(..., help="Experiment id, e.g. EXP-000"),
     view: list[str] = typer.Option(["all"], help="Input views (repeatable)"),
     reason: str = typer.Option("", help="Required for sealed cohorts"),
+    device: str = typer.Option("cpu", help="Torch systems only: cpu or cuda"),
 ) -> None:
     """Score every case; write ranks, summary and a lineage manifest under results/<exp>/."""
     from diagnostic_ar_training import SPLITS_DIR
@@ -543,7 +548,7 @@ def eval_run(
 
     if code_state().dirty:
         raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
-    runner = _system(system)
+    runner = _system(system, device)
     cases = access.load(cohort, exp_id=exp, reason=reason)
     inputs = runner.lineage_inputs()
     if cohort.startswith("r1-v1/"):
@@ -561,7 +566,11 @@ def eval_run(
         outputs = harness.write(exp, cohort, runner.name, v, records)
         artifact = f"results-{exp}-{cohort.replace('/', '-')}-{runner.name}-{v}"
         manifest = build_manifest(
-            artifact, "eval-results", inputs, {"system": system, "cohort": cohort, "view": v}, list(outputs)
+            artifact,
+            "eval-results",
+            inputs,
+            {"system": system, "cohort": cohort, "view": v, "device": device},
+            list(outputs),
         )
         write_manifest(manifest)
         summary = harness.summarize(records)["all"]
@@ -569,6 +578,93 @@ def eval_run(
             f"{cohort} {v}: n={summary['n']} mrr={summary['mrr']:.4f} top1={summary['top1']:.4f} "
             f"top10={summary['top10']:.4f} -> {outputs[1]}"
         )
+
+
+@eval_app.command("compare")
+def eval_compare(
+    base: Path = typer.Option(..., help="E0 ranks file, e.g. results/EXP-000/<stem>.ranks.jsonl"),
+    new: Path = typer.Option(..., help="Candidate ranks file on the same cases"),
+    exp: str = typer.Option(..., help="Experiment the comparison belongs to"),
+) -> None:
+    """Paired Δ MRR (publication bootstrap on R1), harmed/helped and identical ranks; no cohort is read."""
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+
+    a, b = harness.read(base), harness.read(new)
+    delta = harness.compare(a, b)
+    rank_b = {r["case_id"]: r["rank"] for r in b}
+    changed = [r["case_id"] for r in a if r["rank"] != rank_b[r["case_id"]]]
+    report = {"base": str(base), "new": str(new), "n": len(a), "identical_ranks": len(a) - len(changed)}
+    report |= {"changed_cases": changed, "mrr": delta}
+    stem = f"{new.name.removesuffix('.ranks.jsonl')}__vs__{base.name.removesuffix('.ranks.jsonl')}"
+    out = RESULTS_DIR / exp / f"{stem}.compare.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
+    inputs = [{"id": f"results:{p.parent.name}/{p.name}", "sha256": sha256_file(p)} for p in (base, new)]
+    write_manifest(build_manifest(f"compare-{exp}-{stem}", "eval-compare", inputs, {}, [out]))
+    typer.echo(
+        f"identical ranks {report['identical_ranks']}/{report['n']}; dMRR {delta['delta']:+.6f} {delta}"
+    )
+
+
+gnn_app = typer.Typer(no_args_is_help=True, help="Front A GNN (PyTorch).")
+app.add_typer(gnn_app, name="gnn")
+
+
+@gnn_app.command("parity")
+def gnn_parity(
+    exp: str = typer.Option("EXP-A-000", help="Pre-registered experiment id"),
+    n: int = typer.Option(1000, help="R1-train cases to sample"),
+    seed: int = typer.Option(20260929),
+    device: str = typer.Option("cpu"),
+    batch_size: int = typer.Option(128),
+) -> None:
+    """Torch GinV3 vs the production ONNX on a seeded R1-train sample: logits, top-10, ranks, timings."""
+    import tempfile
+
+    import onnxruntime as ort
+
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.gnn import export, parity
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+    from diagnostic_ar_training.systems.ginv3_torch import GinV3Torch
+
+    if code_state().dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the run")
+    e0, system = GenPheniaV3(), GinV3Torch(device=device)
+    cases = parity.sample_scorable(splits.load_part("r1-v1", "train", Purpose.EVAL), e0, n, seed)
+    with tempfile.TemporaryDirectory() as tmp:
+        onnx_path = export.export_v3(system.model, Path(tmp) / "ginv3.onnx")
+        options = ort.SessionOptions()
+        options.intra_op_num_threads = 1
+        reexport = ort.InferenceSession(str(onnx_path), options, providers=["CPUExecutionProvider"])
+    summary, rows = parity.run(e0, system, cases, batch_size, reexport=reexport)
+    summary |= {"seed": seed, "sample": "r1-v1/train", "torch": system.torch.__version__}
+    if system.device.type == "cuda":
+        summary["gpu"] = system.torch.cuda.get_device_name(system.device)
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"parity-r1-v1-train-n{n}-s{seed}-{system.device.type}"
+    summary_path, rows_path = out_dir / f"{stem}.json", out_dir / f"{stem}.cases.jsonl"
+    summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True, default=str) + "\n")
+    rows_path.write_text("".join(json.dumps(r, sort_keys=True, default=str) + "\n" for r in rows))
+    inputs = system.lineage_inputs() + [
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")}
+    ]
+    params = {"n": n, "seed": seed, "device": device, "batch_size": batch_size}
+    write_manifest(
+        build_manifest(f"results-{exp}-{stem}", "gnn-parity", inputs, params, [summary_path, rows_path])
+    )
+    typer.echo(json.dumps(summary, indent=1, default=str))
 
 
 @sources_app.command("list")

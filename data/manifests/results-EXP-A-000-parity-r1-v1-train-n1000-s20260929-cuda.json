@@ -1,0 +1,41 @@
+{
+  "artifact_id": "results-EXP-A-000-parity-r1-v1-train-n1000-s20260929-cuda",
+  "kind": "gnn-parity",
+  "created_at": "2026-09-29T17:40:09+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "26760d396096517b8c1fc52c6c23c95c829361ff",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "n": 1000,
+    "seed": 20260929,
+    "device": "cuda",
+    "batch_size": 128
+  },
+  "params_hash": "fef4d48ceb85b245eab52a95badd15e89f9abb888a4889f05ec3bdea41cc69c2",
+  "outputs": [
+    {
+      "path": "results/EXP-A-000/parity-r1-v1-train-n1000-s20260929-cuda.json",
+      "sha256": "2f37adb0ecde0119fb004f0d698ec579ff56cd457ebf21b67a96f77bcf219f63",
+      "bytes": 1067
+    },
+    {
+      "path": "results/EXP-A-000/parity-r1-v1-train-n1000-s20260929-cuda.cases.jsonl",
+      "sha256": "3a31137a40973fe0c40282891cc67eb9b9de9f29e6bc32761afac533073b00af",
+      "bytes": 376314
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -70,17 +70,18 @@ class HpoDag:
         return result
 
 
-class GenPheniaV3:
-    name = "genphenia-v3.0"
+class V3Inputs:
+    """What v3.0 sees of a case: bundle spec, gene vocabulary, HPO DAG, embeddings, graph.
 
-    def __init__(self, bundle_dir: Path | None = None) -> None:
-        import onnxruntime as ort
+    Shared by every system built on the v3.0 bundle, so graph construction cannot drift.
+    """
 
-        root = bundle_dir or unpack_bundle()
+    def __init__(self, root: Path) -> None:
         ckpt = root / "checkpoints" / CHECKPOINT
         spec = json.loads((ckpt / "spec.json").read_text())
         if spec["include_reverse_edges"] or not spec["include_ancestors"]:
             raise LineageError("bundle spec differs from the v3.0 production settings")
+        self.root = root
         self.spec = spec
         self.genes = tuple(json.loads((ckpt / spec["genes_path"]).read_text()))
         artifacts = root / "artifacts" / CHECKPOINT
@@ -92,15 +93,14 @@ class GenPheniaV3:
         self.dim = spec["in_channels"]
         self.vectors = raw.reshape(max(self.emb_index.values()) + 1, self.dim)
 
-        options = ort.SessionOptions()
-        options.intra_op_num_threads = 1
-        self.session = ort.InferenceSession(
-            str(ckpt / spec["onnx_path"]), options, providers=["CPUExecutionProvider"]
-        )
-        self.input_names = {i.name for i in self.session.get_inputs()}
-
-    def lineage_inputs(self) -> list[dict]:
-        return [load_sources()[SOURCE].as_input()]
+    def embed(self, node_ids: tuple[str, ...]) -> np.ndarray:
+        """Terms without an embedding get a zero vector."""
+        x = np.zeros((len(node_ids), self.dim), dtype=np.float32)
+        for i, n in enumerate(node_ids):
+            row = self.emb_index.get(n)
+            if row is not None:
+                x[i] = self.vectors[row]
+        return x
 
     def graph(self, observed: list[str]) -> tuple[tuple[str, ...], np.ndarray, np.ndarray]:
         expanded = set(observed)
@@ -112,23 +112,10 @@ class GenPheniaV3:
             (i, position[p]) for i, n in enumerate(node_ids) for p in self.dag.parents(n) if p in position
         ]
         edge_index = np.asarray(edges, dtype=np.int64).T if edges else np.zeros((2, 0), dtype=np.int64)
-        x = np.zeros((len(node_ids), self.dim), dtype=np.float32)
-        for i, n in enumerate(node_ids):
-            row = self.emb_index.get(n)
-            if row is not None:
-                x[i] = self.vectors[row]
-        return node_ids, x, edge_index
+        return node_ids, self.embed(node_ids), edge_index
 
-    def probabilities(self, observed: list[str]) -> tuple[np.ndarray, int, int]:
-        node_ids, x, edge_index = self.graph(observed)
-        feeds = {"x": x, "edge_index": edge_index, "batch": np.zeros(len(node_ids), dtype=np.int64)}
-        logits = self.session.run(None, {k: v for k, v in feeds.items() if k in self.input_names})[0]
-        logits = np.asarray(logits, dtype=np.float64).reshape(-1)
-        exp = np.exp(logits - logits.max())
-        zero_embedded = sum(1 for n in node_ids if n not in self.emb_index)
-        return exp / exp.sum(), len(node_ids), zero_embedded
-
-    def score(self, case: Case) -> Scored:
+    def known_present(self, case: Case) -> tuple[list[str], dict]:
+        """Present terms the DAG knows, in first-seen order, and the coverage counts reported per case."""
         observed = list(dict.fromkeys(case.present))
         known = [t for t in observed if t in self.dag.index]
         info = {
@@ -136,6 +123,51 @@ class GenPheniaV3:
             "n_unknown": len(observed) - len(known),
             "n_zero_embedded_observed": sum(1 for t in known if t not in self.emb_index),
         }
+        return known, info
+
+
+def softmax64(logits: np.ndarray) -> np.ndarray:
+    logits = np.asarray(logits, dtype=np.float64).reshape(-1)
+    exp = np.exp(logits - logits.max())
+    return exp / exp.sum()
+
+
+class GenPheniaV3:
+    name = "genphenia-v3.0"
+
+    def __init__(self, bundle_dir: Path | None = None) -> None:
+        import onnxruntime as ort
+
+        self.inputs = V3Inputs(bundle_dir or unpack_bundle())
+        self.spec = self.inputs.spec
+        self.genes = self.inputs.genes
+        ckpt = self.inputs.root / "checkpoints" / CHECKPOINT
+        options = ort.SessionOptions()
+        options.intra_op_num_threads = 1
+        self.session = ort.InferenceSession(
+            str(ckpt / self.spec["onnx_path"]), options, providers=["CPUExecutionProvider"]
+        )
+        self.input_names = {i.name for i in self.session.get_inputs()}
+
+    def lineage_inputs(self) -> list[dict]:
+        return [load_sources()[SOURCE].as_input()]
+
+    def graph(self, observed: list[str]) -> tuple[tuple[str, ...], np.ndarray, np.ndarray]:
+        return self.inputs.graph(observed)
+
+    def logits(self, observed: list[str]) -> tuple[np.ndarray, tuple[str, ...]]:
+        node_ids, x, edge_index = self.graph(observed)
+        feeds = {"x": x, "edge_index": edge_index, "batch": np.zeros(len(node_ids), dtype=np.int64)}
+        out = self.session.run(None, {k: v for k, v in feeds.items() if k in self.input_names})[0]
+        return np.asarray(out).reshape(-1), node_ids
+
+    def probabilities(self, observed: list[str]) -> tuple[np.ndarray, int, int]:
+        logits, node_ids = self.logits(observed)
+        zero_embedded = sum(1 for n in node_ids if n not in self.inputs.emb_index)
+        return softmax64(logits), len(node_ids), zero_embedded
+
+    def score(self, case: Case) -> Scored:
+        known, info = self.inputs.known_present(case)
         if not known:
             return Scored(None, info)
         probs, n_nodes, zero_nodes = self.probabilities(known)

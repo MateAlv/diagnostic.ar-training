@@ -38,7 +38,7 @@ make check          # lint, tests, lineage verification
 | `src/diagnostic_ar_training/splits.py` | Split computation, freezing, sealed access |
 | `src/diagnostic_ar_training/eval/` | Metrics, paired bootstrap, contamination checks |
 | `src/diagnostic_ar_training/rerank/` | Front B |
-| `src/diagnostic_ar_training/gnn/` | Front A |
+| `src/diagnostic_ar_training/gnn/` | Front A: v3.0 in PyTorch (`GinV3`), graph batching, zero-initialised extension (ADR-0009), ONNX export |
 | `docs/` | Plan, log, protocol, lineage, decisions, experiments |
 
 ## Related repos
