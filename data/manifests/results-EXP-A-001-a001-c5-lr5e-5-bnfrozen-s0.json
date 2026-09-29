@@ -1,0 +1,122 @@
+{
+  "artifact_id": "results-EXP-A-001-a001-c5-lr5e-5-bnfrozen-s0",
+  "kind": "gnn-training-run",
+  "created_at": "2026-09-29T19:34:53+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "66c6ff604090e972c5cbb1534098d50bc7995446",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001-excl-v1",
+      "sha256": "9755152a50ed55adc688e8231c7e7026ac52b5dc3d0995db0fa104b9353b065d"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:graphens_sim_20251202@GraPhens@7d861ff",
+      "sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e"
+    },
+    {
+      "id": "results:EXP-000/r1-v1-dev__genphenia-v3.0__present.ranks.jsonl",
+      "sha256": "4702d7cf7d7bccca4e17a3201b943321b76f51c60b6af3189e997255b5f6e417"
+    },
+    {
+      "id": "results:EXP-000/s2__genphenia-v3.0__all.ranks.jsonl",
+      "sha256": "c220b86e1cfb9eb2c81ad833892e4b90136a6595179958c322dab6e837a0b720"
+    },
+    {
+      "id": "results:EXP-S3-001/s3-v1-dev__E0+answers__interviewed.ranks.jsonl",
+      "sha256": "bd444dae128675b77376b4bf5a9aa05c19c088e8ef725a3dad87d2d28b0417ad"
+    },
+    {
+      "id": "artifact:s3-v1-dev-interviews-kb-v5-c10-q7",
+      "sha256": "c4dccbcb9c2541cb5061173f162d89fa5ebfa6fd3f567d3df9af536b22facdc9"
+    }
+  ],
+  "params": {
+    "lr_base": 0.00005,
+    "lr_new": 0.0,
+    "weight_decay": 0.0005,
+    "batch_size": 256,
+    "max_epochs": 10,
+    "patience": 2,
+    "min_delta": 0.0001,
+    "warmup_steps": 200,
+    "min_lr_ratio": 0.1,
+    "clip_norm": 1.0,
+    "bn": "frozen",
+    "amp": false,
+    "seed": 0,
+    "negated": false,
+    "covariates": false,
+    "neg_readout": false,
+    "num_workers": 10,
+    "eval_batch_size": 1024,
+    "max_train_cases": null,
+    "exp": "EXP-A-001",
+    "run_id": "a001-c5-lr5e-5-bnfrozen-s0",
+    "device": "cuda"
+  },
+  "params_hash": "d5ee08e2455d8d36722b6936d392b8e24ca8b3fd2913492aeee6c5e102b281f1",
+  "outputs": [
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/curves.json",
+      "sha256": "5efdfc8a2117d6c0451cdfc7b1052695fce4b484e544f9bc27122cf492ff8dc2",
+      "bytes": 14400
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/run.json",
+      "sha256": "0cd1b5214a6c93570894285c5f204583273ce19cdf56c557a2388e1cf28f09d0",
+      "bytes": 1470
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/r1-v1-dev__model__present.ranks.jsonl",
+      "sha256": "6897586774bb89c93ee3a8ddf1f424a6aa5e52e386b3a00d2f4040df2786fef2",
+      "bytes": 670129
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/r1-v1-dev__model__present.summary.json",
+      "sha256": "99b741dbc7df79938710cb8e8ee36a1d820c1bbe2e9fe2560da0eac1c64928aa",
+      "bytes": 2033
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/s2.ranks.jsonl",
+      "sha256": "41029f83f638d665e9a08b5ea2b69439ac2f66b31a98518cb538db477bd6b624",
+      "bytes": 283806
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/s3-v1-dev.ranks.jsonl",
+      "sha256": "81775b871da0b3373e2ef3f96291f383019d64efc67d50f49a3cab8aeb8f548d",
+      "bytes": 894069
+    },
+    {
+      "path": "results/EXP-A-001/a001-c5-lr5e-5-bnfrozen-s0/summary.json",
+      "sha256": "c125df0404e8327add562baf7fd7a03aecf6008ef0a2ccf6dbdd93880ffd5bee",
+      "bytes": 1992
+    },
+    {
+      "path": "data/interim/models/a001-c5-lr5e-5-bnfrozen-s0/best.pt",
+      "sha256": "5eeff40417be6ff0528e1fb167dc5e2a3e5e4328eeb0ae854ccbd6e22a68e50a",
+      "bytes": 18134369
+    },
+    {
+      "path": "data/interim/models/a001-c5-lr5e-5-bnfrozen-s0/last.pt",
+      "sha256": "49290df9ed365d9bccb6c26825c53414bc3f40f5ef2e23b060753844e30cb24a",
+      "bytes": 54347344
+    }
+  ],
+  "notes": "Checkpoints stay local (data/interim/models); results are committed.",
+  "release": ""
+}
