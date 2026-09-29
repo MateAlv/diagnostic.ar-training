@@ -415,7 +415,7 @@ in the same case.
 | A-005 | + R1-train real patients mixed into training | Value of real data vs simulated |
 | A-006 | Simulator ablations: remove negative source a/b/c, age gating, etc. | Which simulator mechanisms matter |
 | A-007 | Train from scratch vs warm start (if local compute allows) | Is the warm start limiting? |
-| A-008 *(proposed, pending Mateo's decision)* | Expand the gene vocabulary to HPO 2026 genes (145 new classes, warm-started rows) | How much of the 10–14% out-of-vocabulary loss on R1 is recoverable? This changes G5's frozen vocabulary, so it needs an ADR |
+| ~~A-008~~ | ~~Expand the gene vocabulary~~: **rejected** (ADR-0006); the vocabulary stays v3.0's 5,229 genes | Future work |
 
 **Release gate for `model-v4.0.0`** (evaluated once on R1-test, R2 and R3; see
 `EVAL_PROTOCOL.md` §6):
@@ -597,7 +597,7 @@ for Front A. This is tested.
 | Phase | Dates | Content | Exit criterion |
 |---|---|---|---|
 | **0. Foundation** | 09-28 → 09-29 ✅ | Repo, lineage, registry, split r1-v1, protocol, CI; the v3.0 adapter (production parity); the harness; the held-out PMID export; EXP-000 run | ✅ E0 table in `EXP-000.md` / `BITACORA.md` |
-| **1B. Re-ranker v1** | 10-01 → 10-08 | KB (masked), B2 features, rr-v1 grid on R1-dev, per-feature ablation | EXP-B-001: Δ vs E0 on dev; decide whether B has signal |
+| **1B. Re-ranker v1** | 09-29 → 10-08 | ✅ KB `kb-v1` (masked, published, 09-29). Next: B2 features, rr-v1 grid on R1-dev, per-feature ablation | EXP-B-001: Δ vs E0 on dev; decide whether B has signal |
 | **1A. Simulator v0.2** | 10-01 → 10-14 | A1 + A2 + `validate` + tests; tag `sim-v0.2.0`; masked dataset + manifest | `validate` report + dataset card |
 | **2A. GNN stack** | 10-09 → 10-16 | `GinV3` + parity (A-000), dataloader, training loop, ONNX export | A-000 == E0 |
 | **2B. Re-ranker v2** | 10-09 → 10-18 | Learned re-ranker on R1-train + sim; selection on dev | EXP-B-00x |

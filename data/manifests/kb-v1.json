@@ -1,0 +1,58 @@
+{
+  "artifact_id": "kb-v1",
+  "kind": "rerank-kb",
+  "created_at": "2026-09-29T00:40:17+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "d3a2e3eeedfa23b778eb3e24ce76f73813de2bbb",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:orphanet_ages@2025-12-09",
+      "sha256": "c8dba4d4a424527a3bda9e0d0e6701451afb372b693d1f19b507879d6bf155b8"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    }
+  ],
+  "params": {
+    "mask_split": "r1-v1",
+    "excluded_associations": [
+      "POLYGENIC"
+    ],
+    "schema": 1
+  },
+  "params_hash": "e88789ca5259e56f6b365729c794eb3c8911578eff8afe70ed3407806c0b14b5",
+  "outputs": [
+    {
+      "path": "data/interim/kb/kb-v1/kb.json.gz",
+      "sha256": "d7db4f837f0ffa23012c682ba3eccd9c33e661ed2c0e93b3030c25d27486d1d5",
+      "bytes": 1360947
+    },
+    {
+      "path": "data/kb/kb-v1.stats.json",
+      "sha256": "8d3207c2c4dbb57b1d093726a0b0c9ab54c3f177e99c622966f539b114534093",
+      "bytes": 633
+    }
+  ],
+  "notes": "",
+  "release": "kb-v1"
+}
