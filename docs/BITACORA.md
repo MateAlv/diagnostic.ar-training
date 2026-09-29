@@ -368,3 +368,49 @@ What they tell us:
 - **Evidence for the informe:**
   - §11: the simulator design (structured backbone + masking).
   - §16: the `1/1 → obligate` issue as a data-quality lesson.
+
+### 2026-09-29 — sesión — OMIM↔ORPHA mapping pinned; GeneCards ruled out as a data source
+- **Front / versions:** shared sources. Branch `data/orphanet-2026-06`;
+  release `data-snapshot-2026-09-29`.
+- **Decision (Mateo):** approve the OMIM↔ORPHA mapping. It raises the
+  simulator's onset coverage from 72.9% to 82.9%.
+- **Done:**
+  - The local `en_product1.xml` turned out to be a mislabelled copy of
+    `en_product6.xml` (byte-identical, gene associations only), so it could
+    not serve as the mapping.
+  - Downloaded the current Orphanet release instead (**2026-06-23**,
+    CC-BY-4.0).
+  - Published a snapshot and registered two sources:
+
+    | Source | Contents |
+    |---|---|
+    | `orphanet_alignments` (`en_product1.xml`) | OMIM mappings: 3,781 exact, 4,138 BTNT, 797 NTBT, 29 ND |
+    | `orphanet_ages_2026_06` | the same release's ages, so new artifacts don't mix Orphanet releases |
+
+    The old `orphanet_ages` (2025-12-09) stays registered, so `kb-v1`
+    remains reproducible.
+  - **Rule:** only **exact, validated** mappings (E) carry facts from ORPHA
+    to OMIM diseases.
+- **GeneCards: requested by Mateo as the gene-profile source; not used.**
+  The GeneCards Suite terms of use
+  (https://www.lifemapsc.com/genecards-suite-terms-of-use/, read 2026-09-29)
+  say:
+  - "The use of GeneCards data for training of AI models is strictly
+    prohibited without the express written permission of the LifeMap
+    Sciences."
+  - "Automated scraping of GeneCards data is also strictly prohibited for any
+    purpose."
+  - Academic access is "internal use … solely for the benefit of the
+    Registered User and not for use for any third party."
+
+  Training and validating our models, and serving a public web app, fall
+  outside that. Options were put to Mateo:
+  - (a) request written permission from LifeMap Sciences;
+  - (b) build gene profiles from the open primary sources GeneCards itself
+    aggregates.
+- **Found while doing it:** disk at 96% (11 GB free).
+- **Next:** Mateo's choice on the gene-profile sources.
+- **Evidence for the informe:**
+  - §13 (tools and sources) and §10 (ethics): a data source discarded for
+    licensing reasons, with the quoted terms. This is the "fundamentación"
+    that criterion 10 rewards.
