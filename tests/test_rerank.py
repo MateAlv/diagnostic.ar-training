@@ -113,3 +113,47 @@ def test_feature_table_combines_many_weights_from_one_base_call():
     table = feature_table(Base(), K, case(age_years=2.0, sex=Sex.FEMALE), top_k=4)
     assert np.array_equal(table.combine(Weights()), Base().score(None).probs)
     assert table.combine(Weights(age=1)).tolist() != table.combine(Weights(sex=1)).tolist()
+
+
+def test_rr_v1_features_are_unchanged_sums_of_components():
+    from diagnostic_ar_training.rerank.features import components
+
+    c = case(
+        sex=Sex.FEMALE, present=("HP:0000028",), excluded=("HP:0001250",), age_years=2.0, onset_years=0.0
+    )
+    comp, feat = components(K, c, "XLR"), features(K, c, "XLR")
+    assert feat["sex"] == pytest.approx(comp["sex_prior"] + comp["sex_restricted"])
+    assert feat["neg"] == comp["neg_llr"] and comp["neg_annotated_share"] == 1.0
+
+
+def test_age_any_accepts_a_disease_if_one_listed_onset_fits():
+    kb = dict(KB, diseases=dict(KB["diseases"], **{"OMIM:9": disease({"HP:0001263": (0.5, None)},
+                                                                     onset=[(2.0, 11.0), (18.0, 65.0)])}),
+              genes=dict(KB["genes"], MIXED={"OMIM:9": 1.0}))  # fmt: skip
+    k = GeneKnowledge(kb, ONTO, FeatureParams())
+    assert k.onset_before("MIXED", 11.0) == pytest.approx(0.5)
+    assert k.onset_before_any("MIXED", 11.0) == pytest.approx(1.0)
+
+
+def test_learned_reranker_recovers_a_planted_weight_and_is_the_identity_without_inputs():
+    from diagnostic_ar_training.rerank.features import COMPONENTS
+    from diagnostic_ar_training.rerank.learned import Table, fit
+
+    rng = np.random.default_rng(0)
+    true_beta = np.zeros(len(COMPONENTS))
+    true_beta[COMPONENTS.index("age_any")] = 2.0
+    tables = []
+    for _ in range(400):
+        probs = rng.dirichlet(np.ones(20))
+        x = np.zeros((20, len(COMPONENTS)))
+        x[:, COMPONENTS.index("age_any")] = rng.normal(size=20)
+        s = np.log(probs) + x @ true_beta
+        p = np.exp(s - s.max())
+        p /= p.sum()
+        tables.append(Table(probs, np.arange(20), x, int(rng.choice(20, p=p)), {}))
+    beta, info = fit(tables, l2=1e-3)
+    assert info["converged"] and info["loss"] < info["loss_at_zero"]
+    assert beta[COMPONENTS.index("age_any")] == pytest.approx(2.0, abs=0.4)
+    assert np.abs(np.delete(beta, COMPONENTS.index("age_any"))).max() < 0.3
+    no_input = Table(tables[0].probs, np.arange(20), np.zeros((20, len(COMPONENTS))), 0, {})
+    assert no_input.combine(beta) is tables[0].probs

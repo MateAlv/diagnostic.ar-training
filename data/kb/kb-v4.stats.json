@@ -1,0 +1,22 @@
+{
+ "diseases": 12578,
+ "diseases_with_inheritance": 7949,
+ "diseases_with_onset_hpoa": 4083,
+ "diseases_with_onset_orphanet": 3789,
+ "diseases_with_onset_orphanet_via_alignment": 1420,
+ "gene_disease_links_excluded_polygenic": 581,
+ "gene_disease_links_from_genes_to_phenotype_only": 402,
+ "gene_disease_links_without_annotations": 3519,
+ "genes": 5085,
+ "hpoa_rows": 282723,
+ "negated_annotations": 720,
+ "negations_dropped_conflicting_with_positive": 0,
+ "phenotype_annotations": 241543,
+ "phenotypes_with_frequency_one": 649,
+ "rows_masked_heldout_pmid": 23979,
+ "rows_negated": 720,
+ "rows_term_resolved_to_current_id": 0,
+ "rows_unparsed_frequency": 0,
+ "rows_unresolvable_term": 0,
+ "sex_restricted_annotations": 491
+}

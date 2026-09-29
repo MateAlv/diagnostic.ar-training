@@ -262,6 +262,112 @@ def rerank_grid(
         )
 
 
+@rerank_app.command("fit")
+def rerank_fit(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-B-002"),
+    kb_id: str = typer.Option("kb-v4", "--kb"),
+    l2: list[float] = typer.Option([0.01, 0.1, 1.0, 10.0], help="Penalty values, selected on R1-dev"),
+    top_k: int = typer.Option(200),
+) -> None:
+    """Fit rr-v2 on R1-train for each penalty, evaluate on R1-dev; write everything."""
+    import numpy as np
+
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb, learned
+    from diagnostic_ar_training.rerank.features import COMPONENTS, GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    if code_state().dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before fitting")
+    kb_manifest = load_manifest(kb_id)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    base = GenPheniaV3()
+    groups = splits.publication_groups("r1-v1")
+    parts = {
+        "train": splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.TRAIN),
+        "dev": splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL),
+    }
+    tables = {k: [learned.table(base, knowledge, c, top_k) for c in v] for k, v in parts.items()}
+
+    def records(part: str, beta) -> list[dict]:
+        lookup = {g.upper(): i for i, g in enumerate(base.genes)}
+        out = []
+        for case, t in zip(parts[part], tables[part], strict=True):
+            probs = t.combine(beta)
+            idx = lookup.get(case.gene.upper())
+            rank = float("inf")
+            if probs is not None and idx is not None:
+                rank = float(1 + (probs > probs[idx]).sum() + ((probs == probs[idx]).sum() - 1))
+            out.append(
+                {
+                    "case_id": case.case_id,
+                    "group": groups[case.case_id],
+                    "gene": case.gene,
+                    "rank": rank,
+                    "has_excluded": bool(case.excluded),
+                    "has_sex": case.sex != "unknown",
+                    "has_age": case.age_years is not None,
+                    "gene_in_vocab": idx is not None,
+                    "scorable": probs is not None,
+                    "latency_ms": 0.0,
+                }
+            )
+        return out
+
+    zero = np.zeros(len(COMPONENTS))
+    e0 = {part: records(part, zero) for part in parts}
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    report, outputs = {"kb": kb_id, "top_k": top_k, "components": list(COMPONENTS), "fits": []}, []
+    for penalty in l2:
+        beta, info = learned.fit(tables["train"], penalty)
+        entry = {"l2": penalty, "beta": dict(zip(COMPONENTS, map(float, beta), strict=True)), "fit": info}
+        for part in parts:
+            recs = records(part, beta)
+            entry[part] = {
+                "summary": harness.summarize(recs)["all"],
+                "vs_e0": harness.compare(e0[part], recs),
+            }
+            if part == "dev":
+                path, _ = harness.write(exp, "r1-v1/dev", f"rr-v2[l2={penalty}]", "all", recs)
+                outputs.append(path)
+        beta_path = out_dir / f"rr-v2-l2={penalty}.beta.json"
+        learned.save_beta(beta, beta_path)
+        outputs.append(beta_path)
+        report["fits"].append(entry)
+        d = entry["dev"]["vs_e0"]
+        typer.echo(
+            f"l2={penalty:<6} train dMRR={entry['train']['vs_e0']['delta']:+.4f} "
+            f"dev dMRR={d['delta']:+.4f} [{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] "
+            f"harmed={d['harmed']:.3f} helped={d['helped']:.3f}"
+        )
+        typer.echo(f"  beta={np.round(beta, 3).tolist()}")
+    report_path = out_dir / "rr-v2-fits.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = base.lineage_inputs() + [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+    ]
+    params = {"kb": kb_id, "l2": l2, "top_k": top_k, "fit_on": "r1-v1/train", "selected_on": "r1-v1/dev"}
+    write_manifest(build_manifest(f"results-{exp}-rr-v2-fits", "rerank-fit", inputs, params, outputs))
+
+
 @artifacts_app.command("fetch")
 def artifacts_fetch(artifact_id: str) -> None:
     """Download a published artifact's files and verify them against its manifest."""
