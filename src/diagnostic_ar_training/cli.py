@@ -184,6 +184,82 @@ def genes_calibrate(genes_id: str = typer.Option(..., "--id"), split_id: str = "
     typer.echo(json.dumps(report, indent=1))
 
 
+rerank_app = typer.Typer(no_args_is_help=True, help="Front B re-ranker (rr-v1).")
+app.add_typer(rerank_app, name="rerank")
+
+
+@rerank_app.command("grid")
+def rerank_grid(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-B-001"),
+    cohort: str = typer.Option("r1-v1/dev"),
+    kb_id: str = typer.Option("kb-v3", "--kb"),
+    stage1: list[float] = typer.Option([0.5, 1.0, 2.0], help="Stage-1 weights per feature"),
+    top_k: int = typer.Option(200),
+) -> None:
+    """Run the pre-registered rr-v1 weight search; write every configuration's result."""
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import grid, kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    if code_state().dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the search runs")
+    kb_manifest = load_manifest(kb_id)
+    knowledge = GeneKnowledge(
+        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    )
+    base = GenPheniaV3()
+    cases = access.load(cohort)
+    groups = splits.publication_groups("r1-v1") if cohort.startswith("r1-v1/") else None
+    result = grid.run(cases, base, knowledge, stage1, top_k, groups)
+
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = cohort.replace("/", "-")
+    outputs = []
+    for config in result["configs"]:
+        path, _ = harness.write(exp, cohort, f"rr-v1[{config['name']}]", "all", config.pop("records"))
+        outputs.append(path)
+    report = {
+        "cohort": cohort,
+        "kb": kb_id,
+        "top_k": top_k,
+        "stage1_values": stage1,
+        "stage2_weights": result["stage2_weights"],
+        "configs": result["configs"],
+    }
+    report_path = out_dir / f"{stem}__rr-v1-grid.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = base.lineage_inputs() + [{"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256}]
+    if cohort.startswith("r1-v1/"):
+        inputs.append({"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")})
+    params = {"cohort": cohort, "kb": kb_id, "stage1": stage1, "top_k": top_k}
+    write_manifest(build_manifest(f"results-{exp}-{stem}-rr-v1-grid", "rerank-grid", inputs, params, outputs))
+    typer.echo(f"{'config':24} {'MRR':>7} {'dMRR':>8} {'CI95':>18} {'harmed':>7} {'helped':>7}")
+    for c in result["configs"]:
+        d = c["vs_e0"]
+        typer.echo(
+            f"{c['name']:24} {c['all']['mrr']:7.4f} {d['delta']:+8.4f} "
+            f"[{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] {d['harmed']:7.3f} {d['helped']:7.3f}"
+        )
+
+
 @artifacts_app.command("fetch")
 def artifacts_fetch(artifact_id: str) -> None:
     """Download a published artifact's files and verify them against its manifest."""
