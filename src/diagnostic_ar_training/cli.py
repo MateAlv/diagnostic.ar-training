@@ -289,7 +289,8 @@ def rerank_fit(
     from diagnostic_ar_training.rerank.features import COMPONENTS, GeneKnowledge
     from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
-    if code_state().dirty:
+    state = code_state()
+    if state.dirty:
         raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
     if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
         raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before fitting")
@@ -357,6 +358,40 @@ def rerank_fit(
             f"harmed={d['harmed']:.3f} helped={d['helped']:.3f}"
         )
         typer.echo(f"  beta={np.round(beta, 3).tolist()}")
+    # Exploratory (EXP-B-002): ablations of the best-dev penalty. "zeroed" keeps the fitted
+    # weights and drops a group at evaluation; "refit" fits again without that group.
+    best = max(report["fits"], key=lambda f: f["dev"]["vs_e0"]["delta"])
+    best_beta = np.array([best["beta"][c] for c in COMPONENTS])
+    groups_of = {
+        "negation": ("neg_llr", "neg_annotated_share"),
+        "sex": ("sex_prior", "sex_restricted"),
+        "age": ("age_mean", "age_any"),
+        "onset": ("onset",),
+    }
+    ablations = []
+    for name, members in groups_of.items():
+        mask = np.array([c not in members for c in COMPONENTS], dtype=float)
+        zeroed = records("dev", best_beta * mask)
+        refit_tables = [
+            learned.Table(t.probs, t.top, t.x * mask, t.true_pos, t.info) for t in tables["train"]
+        ]
+        refit_beta, _ = learned.fit(refit_tables, best["l2"])
+        refit = records("dev", refit_beta * mask)
+        ablations.append(
+            {
+                "without": name,
+                "zeroed": harness.compare(e0["dev"], zeroed),
+                "refit": harness.compare(e0["dev"], refit),
+                "refit_beta": dict(zip(COMPONENTS, map(float, refit_beta * mask), strict=True)),
+            }
+        )
+        typer.echo(
+            f"without {name:9} zeroed dMRR={ablations[-1]['zeroed']['delta']:+.4f} "
+            f"refit dMRR={ablations[-1]['refit']['delta']:+.4f} "
+            f"[{ablations[-1]['refit']['ci95'][0]:+.4f},{ablations[-1]['refit']['ci95'][1]:+.4f}] "
+            f"harmed={ablations[-1]['refit']['harmed']:.3f}"
+        )
+    report["ablations_exploratory"] = {"l2": best["l2"], "results": ablations}
     report_path = out_dir / "rr-v2-fits.json"
     report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
     outputs.append(report_path)
@@ -365,7 +400,65 @@ def rerank_fit(
         {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
     ]
     params = {"kb": kb_id, "l2": l2, "top_k": top_k, "fit_on": "r1-v1/train", "selected_on": "r1-v1/dev"}
-    write_manifest(build_manifest(f"results-{exp}-rr-v2-fits", "rerank-fit", inputs, params, outputs))
+    write_manifest(
+        build_manifest(f"results-{exp}-rr-v2-fits", "rerank-fit", inputs, params, outputs, state=state)
+    )
+
+
+calib_app = typer.Typer(no_args_is_help=True, help="Simulator calibration targets from R1-train.")
+app.add_typer(calib_app, name="calib")
+
+
+@calib_app.command("build")
+def calib_build(
+    calib_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. calib-v1"),
+    kb_id: str = typer.Option("kb-v4", "--kb", help="KB masking every R1 publication"),
+    min_noise_count: int = typer.Option(2),
+) -> None:
+    """Measure R1-train patients: term counts, missingness, negation sources, noise vocabulary."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    ensure_new(calib_id)
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.knowledge import calibration
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+
+    state = code_state()
+    kb_manifest = load_manifest(kb_id)
+    if kb_manifest.params.get("mask_scope") != "all":
+        raise typer.BadParameter(f"{kb_id} must mask every R1 publication (mask_scope=all)")
+    knowledge = GeneKnowledge(
+        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    )
+    cases = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.TRAIN)
+    targets, rows = calibration.measure(cases, knowledge, min_noise_count)
+    out_dir = DATA_DIR / "calib"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    targets_path = out_dir / f"{calib_id}.targets.json"
+    targets_path.write_text(json.dumps(targets, indent=1, sort_keys=True) + "\n")
+    vocab_path = out_dir / f"{calib_id}.noise_vocabulary.tsv"
+    vocab_path.write_text("hpo_id\tpatients\tweight\n" + "".join(f"{t}\t{k}\t{w:.6f}\n" for t, k, w in rows))
+    inputs = [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+    ]
+    params = {"part": "train", "kb": kb_id, "min_noise_count": min_noise_count}
+    manifest = build_manifest(
+        calib_id, "simulator-calibration", inputs, params, [targets_path, vocab_path], state=state
+    )
+    write_manifest(manifest)
+    typer.echo(json.dumps(targets, indent=1))
 
 
 @artifacts_app.command("fetch")

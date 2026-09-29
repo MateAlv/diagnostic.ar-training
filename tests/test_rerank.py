@@ -157,3 +157,22 @@ def test_learned_reranker_recovers_a_planted_weight_and_is_the_identity_without_
     assert np.abs(np.delete(beta, COMPONENTS.index("age_any"))).max() < 0.3
     no_input = Table(tables[0].probs, np.arange(20), np.zeros((20, len(COMPONENTS))), 0, {})
     assert no_input.combine(beta) is tables[0].probs
+
+
+def test_calibration_counts_real_patient_structure_against_the_kb():
+    from diagnostic_ar_training.knowledge.calibration import measure
+
+    cases = [
+        case(present=("HP:0002373", "HP:0001263"), excluded=("HP:0000028", "HP:0001263"), sex=Sex.MALE),
+        case(present=("HP:0001263",), age_years=3.0),
+        Case(case_id="x", cohort="t", gene="NOT_IN_KB", present=("HP:0001263",)),
+    ]
+    targets, rows = measure(cases, K, min_noise_count=1)
+    # XLR annotates febrile seizure and cryptorchidism, not developmental delay.
+    assert targets["excluded_annotated_to_own_gene_share"] == pytest.approx(0.5)
+    assert targets["unexplained_present_per_case"]["mean"] == pytest.approx(1.0)
+    assert rows == [("HP:0001263", 2, 1.0)]
+    assert targets["missing"]["sex"] == pytest.approx(2 / 3) and targets["missing"][
+        "excluded"
+    ] == pytest.approx(2 / 3)
+    assert measure(cases, K, min_noise_count=3)[1] == []
