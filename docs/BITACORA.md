@@ -1094,3 +1094,47 @@ What they tell us:
   `litpanel-split-v3` is now the evaluation/construction boundary. All 120
   listed units are evaluation-only, whether or not they survive
   extraction.
+
+### 2026-09-30 — ADR-0012 G4 — `literature-panel-v2` built: 56 units, 531 rows, cross-check 52/54
+- **Built at commit `9e7f13d`** by `dxt litpanel build --id
+  literature-panel-v2 --split litpanel-split-v3`, at code `d9d08ff`,
+  clean tree, `lineage verify` ok. Full write-up:
+  `docs/analyses/LITPANEL-v2.md`.
+- **Panel:**
+  - 56 evaluation units, 531 rows, 5–12 rows per unit;
+  - 164 GeneReviews rows, 367 cohort-paper rows, 0 Orphanet rows;
+  - 497 rows independent of construction, and 52 units have ≥ 5 of them;
+  - all 8 `literature-panel-v1` diseases, and 9 of the 10 ANALYSIS-001
+    genes (SPTAN1 dropped: closed-access cohorts).
+- **Extraction:**
+  - 17 Claude subagent batches under one written spec. Each quote was
+    machine-checked as verbatim in its source text.
+  - The 37-row draft was re-verified row by row. Rows resting on vague
+    quantifiers or penetrance were dropped or replaced.
+  - I excluded 10 more rows in review (a complement, a pooled symptom
+    sentence, hospital-admission shares, an "up to"). NHLRC1 and F8 then
+    fell below 5 rows and were dropped.
+- **Units dropped:** 64 of 120 (51 without stated numbers, 11 not
+  monogenic, 2 after review). This led to the two reserve extensions
+  logged above.
+- **Cross-check:**
+  - 54 rows (10%, seed 20260930) re-extracted by Codex CLI 0.155.1 from
+    gene, disease, feature and citation, with the cited text on stdin
+    (Codex's sandbox cannot read local files here).
+  - 52/54 agree (96.3%).
+  - Both disagreements were re-read, and the source supports the panel in
+    each: RPS19 (Codex declined a DBA-wide figure) and TNFRSF13B (Codex
+    took the total column instead of the biallelic column).
+- **Access:**
+  - Blocked: NCBI Bookshelf/PMC pages (reCAPTCHA), orpha.net (bot check),
+    `efetch db=books`.
+  - Used instead: the GeneReviews litarch bulk archive (sha256 recorded in
+    the manifest), Europe PMC REST, and E-utilities `db=pmc`/`db=pubmed`.
+  - Europe PMC returned intermittent 503s.
+- **Gaps:**
+  - no ear/hearing unit survived;
+  - several units carry disease-level rather than gene-level figures
+    (MELAS, PCD, FA, AP-4, DBA), flagged in `population`.
+- **Evidence for the informe:** the G4 row of the data-quality gate, and
+  the dropped-unit statistics (most vocabulary units have no published
+  frequencies).
