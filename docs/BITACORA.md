@@ -1158,3 +1158,14 @@ What they tell us:
   `v0.4-cand1`. Open question for Mateo before that run: noise takes half of
   the shown terms and the term-count spread is narrower than R1-train's
   (the W1 above).
+
+### 2026-09-30 — decision — Candidate 1 revised before its R1-dev read (ADR-0011 amendment 2)
+- **Simulator 0.4.1** (rare-disease-simulator PR #6): refills report slots
+  absorbed by a generalized child, the cause of the 622 G1 violations;
+  regression test added. Adds `budget_share` noise.
+- **Noise:** each budget slot is noise with probability 0.4625 (R1-train
+  unexplained share, calib-v1), at most k − 1. This replaces
+  Poisson(3.7) drawn independently of the budget, which left 41.6% of
+  cases with one profile term.
+- **New calibration file:** `simcal-v04-v3`.
+- **Status:** R1-dev still unread; candidate 1 remains read 1 of 3.
