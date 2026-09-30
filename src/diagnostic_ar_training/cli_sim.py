@@ -263,7 +263,10 @@ def knowledge_report_model(
     base_rate = float(y.mean())
     base_logit = np.full(len(y), np.log(base_rate / (1 - base_rate)))
     knowledge = GeneKnowledge(kb, ontology)
-    models = {"full": (full, full_cols), "frequency_only": (freq_only, freq_cols)}
+    scorers = {
+        "full": R.internal_scorer(featurizer, full, full_cols),
+        "frequency_only": R.internal_scorer(featurizer, freq_only, freq_cols),
+    }
     fit_report = {
         **row_stats,
         "positive_rate": base_rate,
@@ -277,22 +280,27 @@ def knowledge_report_model(
             "full": R.auc(y, R.logit(full, X, full_cols)),
         },
         "within_gene_rho_r1_train_in_sample": R.gene_level_rho(
-            cases, knowledge.diseases, kb, featurizer, models, min_patients=5
+            cases, knowledge.diseases, kb, ontology, usable, scorers, min_patients=5
         ),
         "note": "log loss and AUC use leave-publication-out reportability; the within-gene rho uses "
-        "full R1-train reportability, so it is in-sample and optimistic. Out-of-sample: dxt sim realism.",
+        "full R1-train reportability, so it is in-sample and optimistic. Out-of-sample: "
+        "dxt sim report-model-check (R1-dev).",
     }
-    terms = sorted(set(reportability) | set(annotations))
-    body = {
-        "artifact": model_id,
+    sources = load_sources()
+    provenance = {
         "adr": "0011 §3",
-        "hpo_version": load_sources()["hpo_ontology"].version,
+        "fitted_on": f"{split_id} train ({len(cases)} patients)",
+        "kb": kb_id,
+        "cardinal": cardinal_id,
+        "hpo_version": sources["hpo_ontology"].version,
+        "code_sha": state.sha,
         "unit": "(R1-train patient, phenotypic-abnormality term of the patient's disease profile in "
-        f"{kb_id}); label 1 if the patient reports the term or a descendant of it",
-        "score": "logit = intercept + sum(coefficients[f] * x[f]); "
-        "P(report | true term) = 1 / (1 + exp(-logit))",
-        "features": [{"name": f, "definition": R.DEFINITIONS[f]} for f in R.FEATURES],
-        "coefficients": {"intercept": full["intercept"], **dict(zip(R.FEATURES, full["coef"], strict=True))},
+        f"{kb_id}, OMIM and exactly aligned ORPHA ids merged); label 1 if the patient reports the term "
+        "or a descendant of it",
+        "internal_coefficients": {
+            "intercept": full["intercept"],
+            **dict(zip(R.FEATURES, full["coef"], strict=True)),
+        },
         "reference_models": {
             "frequency_only": {
                 "intercept": freq_only["intercept"],
@@ -301,28 +309,33 @@ def knowledge_report_model(
         },
         "fit": fit_report,
         "cardinal_flag": {
-            "artifact": cardinal_id,
             "rows_in_artifact": len(card_rows),
             "rows_used_for_fit": len(usable),
             "fit_rule": "rows resting on any R1 publication or on R1-train recounts are left out while "
             "fitting, so the flag carries no information from the scored patients' papers",
         },
-        "reportability_patients": len(cases),
-        "annotation_diseases": n_diseases,
-        "terms": {
-            t: {
-                "reportability": reportability.get(t, 0),
-                "annotated_diseases": annotations.get(t, 0),
-                "ancestors": len(ontology.ancestors(t)),
-            }
-            for t in terms
-        },
-        "term_budget": R.term_budget(cases),
+        "term_budget": {k: v for k, v in R.term_budget(cases).items() if k != "histogram"},
     }
+    notes = (
+        "Fitted with ADR-0007 frequencies from the masked KB; the simulator scores its own merged, "
+        "shrunk frequencies. Ancestor counts assume HPO " + sources["hpo_ontology"].version + "."
+    )
+    body = R.to_simulator_format(
+        model_id, full, annotations, n_diseases, reportability, len(cases), R.term_budget(cases),
+        provenance, notes,
+    )  # fmt: skip
+    exported = R.simulator_scorer(body, ontology)
+    for term in sorted(set(reportability) | set(annotations))[::97]:
+        for freq in (None, 0.3):
+            for flag in (False, True):
+                gap = abs(exported(term, freq, flag) - scorers["full"](term, freq, flag))
+                if gap > 1e-9:
+                    raise LineageError(f"exported model disagrees with the fit on {term}: {gap}")
     out_path = INTERIM_DIR / "report-model" / model_id / "report-model.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(body, indent=1, sort_keys=True) + "\n")
-    summary = {k: v for k, v in body.items() if k != "terms"}
+    summary = {k: v for k, v in body.items() if k not in ("tables", "reportability")}
+    summary["reportability"] = {k: v for k, v in body["reportability"].items() if k != "counts"}
     summary_path = DATA_DIR / "report-model" / f"{model_id}.summary.json"
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
@@ -331,15 +344,69 @@ def knowledge_report_model(
         {"id": f"artifact:{cardinal_id}", "sha256": card_manifest.outputs[0].sha256},
         {"id": f"split:{split_id}", "sha256": sha256_file(SPLITS_DIR / f"{split_id}.json")},
         {"id": f"all-pmids:{split_id}", "sha256": sha256_file(splits.mask_path(split_id, "all"))},
-        load_sources()["hpo_ontology"].as_input(),
-        load_sources()["orphanet_alignments"].as_input(),
+        sources["hpo_ontology"].as_input(),
+        sources["orphanet_alignments"].as_input(),
     ]
-    params = {"adr": "0011 §3", "kb": kb_id, "cardinal": cardinal_id, "part": "train", "l2": R.L2}
+    params = {
+        "adr": "0011 §3",
+        "kb": kb_id,
+        "cardinal": cardinal_id,
+        "part": "train",
+        "l2": R.L2,
+        "format": "rare-disease-simulator report-model v1",
+    }
     manifest = build_manifest(model_id, "report-model", inputs, params, [out_path, summary_path], state=state)
     if publish:
         manifest = publish_release(manifest, model_id)
     write_manifest(manifest)
-    typer.echo(json.dumps({"coefficients": body["coefficients"], "fit": fit_report}, indent=1))
+    typer.echo(
+        json.dumps(
+            {"features": body["features"], "intercept": body["intercept"], "fit": fit_report}, indent=1
+        )
+    )
+
+
+@knowledge_app.command("shrinkage-prior")
+def knowledge_shrinkage_prior(
+    calib_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. simcal-v04-v1"),
+    recount_id: str = typer.Option("hpoa-recount-v1", "--recount"),
+) -> None:
+    """Simulator calibration file with frequency.shrinkage_mean: the median count-based frequency
+    of an hpoa-recount artifact (ADR-0011, simulator v0.4 step 2)."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    ensure_new(calib_id)
+    state = _require_clean()
+    import statistics
+
+    from diagnostic_ar_training.knowledge import recount
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    hpoa_path, hpoa_sha = _artifact_file(recount_id, "phenotype.hpoa")
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.SIMULATE))
+    freqs = recount.count_frequencies(recount.read_hpoa(hpoa_path)[1], ontology)
+    median = statistics.median(freqs)
+    body = {
+        "frequency.shrinkage_mean": round(median, 6),
+        "_provenance": {
+            "artifact": calib_id,
+            "source": f"{recount_id} ({hpoa_sha})",
+            "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive "
+            "phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+            "pairs": len(freqs),
+            "mean": round(statistics.fmean(freqs), 6),
+            "code_sha": state.sha,
+        },
+    }
+    out = DATA_DIR / "calib" / f"{calib_id}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(body, indent=1, sort_keys=True) + "\n")
+    inputs = [{"id": f"artifact:{recount_id}", "sha256": hpoa_sha}, load_sources()["hpo_ontology"].as_input()]
+    params = {"statistic": "median pooled count-based frequency", "recount": recount_id}
+    write_manifest(build_manifest(calib_id, "simulator-calibration-file", inputs, params, [out], state=state))
+    typer.echo(json.dumps(body, indent=1))
 
 
 @knowledge_app.command("panel")
@@ -449,25 +516,14 @@ def _dataset(spec: str):
 
 
 def _gene_terms_factory(kb: dict, knowledge, ontology):
-    """Gene -> {term: P(term | gene)}: the disease-weight mixture of the known frequencies.
-
-    A term only minor diseases of the gene annotate gets a small probability. It is None
-    when no annotating disease gives a frequency.
-    """
-    from diagnostic_ar_training.knowledge.report_model import profile
+    """Gene -> {term: P(term | gene)} (`report_model.gene_frequencies`), cached."""
+    from diagnostic_ar_training.knowledge.report_model import gene_frequencies
 
     cache = {}
 
     def gene_terms(gene: str) -> dict[str, float | None]:
         if gene not in cache:
-            mix, known, terms = defaultdict(float), set(), set()
-            for d, w in knowledge.diseases(gene).items():
-                for term, freq in profile(kb, [d], ontology).items():
-                    terms.add(term)
-                    if freq is not None:
-                        mix[term] += w * freq
-                        known.add(term)
-            cache[gene] = {t: (mix[t] if t in known else None) for t in terms}
+            cache[gene] = gene_frequencies(kb, knowledge.diseases(gene), ontology)
         return cache[gene]
 
     return gene_terms
@@ -484,7 +540,6 @@ def sim_realism(
     freq_kb_id: str = typer.Option("kb-v4", "--freq-kb", help="KB masking all R1, for frequency calibration"),
     e0_cases: int = typer.Option(5000, help="Fixed-seed subsample scored by E0 (G2e); 0 skips"),
     seed: int = typer.Option(20260930),
-    report_model: str = typer.Option("", help="Also report this report model's R1-dev within-gene rho"),
 ) -> None:
     """ANALYSIS-001 + ADR-0012 G2 metrics of one dataset: results/realism/<label>.json, manifest, ledger."""
     from diagnostic_ar_training.lineage.manifest import ensure_new
@@ -612,35 +667,6 @@ def sim_realism(
             "view": "present",
         }
 
-    if report_model:
-        model_path, model_sha = _artifact_file(report_model, "report-model.json")
-        body = json.loads(model_path.read_text())
-        card = {
-            (r["disease_id"], r["hpo_id"])
-            for r in _read_tsv(DATA_DIR / "cardinal" / f"{body['cardinal_flag']['artifact']}.tsv")
-        }
-        reportability = {t: v["reportability"] for t, v in body["terms"].items()}
-        featurizer = R.Featurizer(
-            ontology, annotations_from(body), body["annotation_diseases"], reportability,
-            body["reportability_patients"], card,
-        )  # fmt: skip
-        full = {
-            "intercept": body["coefficients"]["intercept"],
-            "coef": [body["coefficients"][f] for f in R.FEATURES],
-        }
-        ref = body["reference_models"]["frequency_only"]
-        freq_only = {"intercept": ref["intercept"], "coef": [ref[f] for f in R.FREQUENCY_ONLY]}
-        full_cols = tuple(range(len(R.FEATURES)))
-        freq_cols = tuple(R.FEATURES.index(f) for f in R.FREQUENCY_ONLY)
-        report["report_model_dev"] = {
-            "artifact": report_model,
-            "sha256": model_sha,
-            **R.gene_level_rho(
-                dev, freq_knowledge.diseases, freq_kb, featurizer,
-                {"full": (full, full_cols), "frequency_only": (freq_only, freq_cols)}, min_patients=5,
-            ),
-        }  # fmt: skip
-
     REALISM_DIR.mkdir(parents=True, exist_ok=True)
     out = REALISM_DIR / f"{label}.json"
     out.write_text(json.dumps(report, indent=1, sort_keys=True, default=float) + "\n")
@@ -663,7 +689,6 @@ def sim_realism(
         "e0_cases": e0_cases,
         "seed": seed,
         "min_dev_patients_rho": RZ.MIN_DEV_PATIENTS,
-        "report_model": report_model or None,
     }
     write_manifest(build_manifest(f"realism-{label}", "realism-report", inputs, params, [out], state=state))
     _append_ledger(
@@ -672,15 +697,75 @@ def sim_realism(
     typer.echo(json.dumps(RZ.g2_values(report), indent=1))
 
 
-def annotations_from(body: dict):
-    from collections import Counter
-
-    return Counter({t: v["annotated_diseases"] for t, v in body["terms"].items()})
-
-
 def _read_tsv(path: Path) -> list[dict]:
     with Path(path).open(encoding="utf-8", newline="") as handle:
         return list(csv.DictReader(handle, delimiter="\t"))
+
+
+@sim_app.command("report-model-check")
+def sim_report_model_check(
+    model_id: str = typer.Option(..., "--id", help="Report model artifact, e.g. report-model-v2"),
+    min_patients: int = typer.Option(5),
+) -> None:
+    """Out-of-sample check of a report model: within-gene rho on R1-dev vs frequency alone (ledgered)."""
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+
+    check_id = f"realism-{model_id}-dev"
+    ensure_new(check_id)
+    state = _require_clean()
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.knowledge import report_model as R
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, load_manifest, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb as kb_mod
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+
+    manifest = load_manifest(model_id)
+    model_path, model_sha = _artifact_file(model_id, "report-model.json")
+    body = json.loads(model_path.read_text())
+    kb_id, cardinal_id = manifest.params["kb"], manifest.params["cardinal"]
+    kb_path, kb_sha = _artifact_file(kb_id, "kb.json.gz")
+    kb = kb_mod.read(kb_path)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
+    cardinal = {
+        (r["disease_id"], r["hpo_id"]) for r in _read_tsv(DATA_DIR / "cardinal" / f"{cardinal_id}.tsv")
+    }
+    ref = body["provenance"]["reference_models"]["frequency_only"]
+    freq_only = {
+        **body,
+        "intercept": ref["intercept"],
+        "features": [{**body["features"][0], "coefficient": ref["frequency"],
+                      "unknown_value": ref["frequency_unknown"] / ref["frequency"]}],
+    }  # fmt: skip
+    scorers = {
+        "full": R.simulator_scorer(body, ontology),
+        "frequency_only": R.simulator_scorer(freq_only, ontology),
+    }
+    dev = splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL)
+    result = {
+        "artifact": model_id,
+        "sha256": model_sha,
+        "part": "r1-v1 dev",
+        "cardinal": cardinal_id,
+        **R.gene_level_rho(
+            dev, GeneKnowledge(kb, ontology).diseases, kb, ontology, cardinal, scorers, min_patients
+        ),
+    }
+    REALISM_DIR.mkdir(parents=True, exist_ok=True)
+    out = REALISM_DIR / f"{model_id}-dev.json"
+    out.write_text(json.dumps(result, indent=1, sort_keys=True) + "\n")
+    inputs = [
+        {"id": f"artifact:{model_id}", "sha256": model_sha},
+        {"id": f"artifact:{kb_id}", "sha256": kb_sha},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+        load_sources()["hpo_ontology"].as_input(),
+    ]
+    params = {"min_patients": min_patients, "check": "within-gene rho on R1-dev"}
+    write_manifest(build_manifest(check_id, "report-model-check", inputs, params, [out], state=state))
+    _append_ledger(check_id, f"artifact:{model_id}", model_sha, state.sha, "check", "—")
+    typer.echo(json.dumps(result, indent=1))
 
 
 @sim_app.command("gate")

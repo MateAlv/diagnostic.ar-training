@@ -1,5 +1,6 @@
 import json
 import math
+from collections import Counter
 
 import numpy as np
 import pytest
@@ -94,3 +95,44 @@ def test_fit_recovers_a_monotone_effect_and_auc_handles_ties():
 def test_term_budget_histogram():
     budget = R.term_budget([case(1, ["HP:0000505"]), case(2, ["HP:0000505", "HP:0001250"])])
     assert budget["histogram"] == {"1": 1, "2": 1} and budget["mean"] == 1.5
+
+
+def test_gene_frequencies_mix_by_disease_weight(onto):
+    freqs = R.gene_frequencies(KB, {"OMIM:1": 0.75, "OMIM:2": 0.25}, onto)
+    assert freqs["HP:0001250"] == pytest.approx(0.75 * 0.9)
+    assert freqs["HP:0000505"] == pytest.approx(0.25 * 0.5)  # OMIM:1 gives it no frequency
+
+
+SIMULATOR_KEYS = {
+    "format", "format_version", "artifact_id", "link", "intercept", "features", "tables",
+    "reportability", "term_budget", "provenance", "notes",
+}  # fmt: skip
+
+
+def test_simulator_format_scores_like_the_fitted_model(onto):
+    annotations, n = R.annotation_counts(KB, onto)
+    reportability = R.reportability_counts([case(1, ["HP:0002069"]), case(2, ["HP:0000505"])], onto)
+    featurizer = R.Featurizer(onto, annotations, n, reportability, 2, set())
+    model = {"intercept": -1.5, "coef": [2.0, 0.5, 0.1, -0.05, 0.4, 0.7]}
+    budget = R.term_budget([case(1, ["HP:0000505"])])
+    body = R.to_simulator_format("rm", model, annotations, n, reportability, 2, budget, {}, "n")
+    assert set(body) == SIMULATOR_KEYS and body["format"] == "report-model"
+    assert [f["kind"] for f in body["features"]] == [
+        "frequency", "information_content", "ancestor_count", "log_reportability", "cardinal_flag",
+    ]  # fmt: skip
+    assert body["features"][0]["unknown_value"] == pytest.approx(0.25)
+    internal = R.internal_scorer(featurizer, model, tuple(range(6)))
+    exported = R.simulator_scorer(json.loads(json.dumps(body)), onto)
+    for term in ("HP:0001250", "HP:0000505", "HP:0000118", "HP:0000006"):
+        for freq in (None, 0.0, 0.7):
+            for flag in (False, True):
+                assert exported(term, freq, flag) == pytest.approx(internal(term, freq, flag), abs=1e-12)
+
+
+def test_an_unknown_frequency_that_cannot_be_folded_is_refused(onto):
+    annotations, n = R.annotation_counts(KB, onto)
+    model = {"intercept": 0.0, "coef": [1.0, 2.0, 0.0, 0.0, 0.0, 0.0]}
+    with pytest.raises(ValueError):
+        R.to_simulator_format(
+            "rm", model, annotations, n, Counter(), 1, {"histogram": {}, "definition": ""}, {}, ""
+        )

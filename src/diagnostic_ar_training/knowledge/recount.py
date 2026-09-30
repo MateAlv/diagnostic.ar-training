@@ -231,3 +231,20 @@ def write_onsets(path: Path, rows: list[tuple]) -> None:
     header = "disease_id\thpo_id\tpatients\tonset_years_q25\tonset_years_median\tonset_years_q75\n"
     body = "".join(f"{d}\t{t}\t{k}\t{a:.4f}\t{b:.4f}\t{c:.4f}\n" for d, t, k, a, b, c in rows)
     path.write_text(header + body)
+
+
+def count_frequencies(rows: list[dict], ontology: Ontology) -> list[float]:
+    """Pooled raw n/m of every (disease, term) with count-notation positive phenotype rows."""
+    from diagnostic_ar_training.rerank.kb import parse_frequency
+
+    pooled: dict[tuple[str, str], list[int]] = defaultdict(lambda: [0, 0])
+    for row in rows:
+        if row["aspect"] != "P" or row["qualifier"] == "NOT":
+            continue
+        parsed = parse_frequency(row["frequency"])
+        if parsed is None or parsed[0] != "count" or not (term := ontology.resolve(row["hpo_id"])):
+            continue
+        acc = pooled[(row["database_id"], term)]
+        acc[0] += parsed[1][0]
+        acc[1] += parsed[1][1]
+    return [n / m for n, m in pooled.values()]

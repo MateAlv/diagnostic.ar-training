@@ -8,6 +8,7 @@ frequency it is scored with (ANALYSIS-001 §3.2).
 
 import math
 from collections import Counter, defaultdict
+from collections.abc import Callable
 
 import numpy as np
 from scipy.optimize import minimize
@@ -209,54 +210,165 @@ def spearman(a, b) -> float:
     return float(spearmanr(a, b).statistic)
 
 
+def gene_frequencies(kb: dict, diseases: dict[str, float], ontology: Ontology) -> dict[str, float | None]:
+    """{term: P(term | gene)}: the disease-weight mixture of known frequencies; None if none is known."""
+    mix: dict[str, float] = defaultdict(float)
+    known, terms = set(), set()
+    for d, w in diseases.items():
+        for term, freq in profile(kb, [d], ontology).items():
+            terms.add(term)
+            if freq is not None:
+                mix[term] += w * freq
+                known.add(term)
+    return {t: (mix[t] if t in known else None) for t in terms}
+
+
+Scorer = Callable[[str, float | None, bool], float]
+
+
 def gene_level_rho(
     cases: list[Case],
     knowledge_genes,
     kb: dict,
-    featurizer: Featurizer,
-    models: dict[str, tuple[dict, tuple[int, ...]]],
+    ontology: Ontology,
+    cardinal: set[tuple[str, str]],
+    scorers: dict[str, Scorer],
     min_patients: int = 5,
 ) -> dict:
     """Mean within-gene Spearman(score, real reporting rate) over genes with >= min_patients patients.
 
-    Per gene the terms are its diseases' profile terms (masked KB); a term's frequency is the
-    weight-averaged known frequency over the diseases annotating it, and its reportability is the
-    full R1-train count. `knowledge_genes` maps a patient's gene to {disease id: weight}.
+    Per gene the terms are its diseases' profile terms (masked KB), with P(term | gene) as the
+    frequency (`gene_frequencies`); a term is cardinal if it is for any of the gene's diseases.
+    `knowledge_genes` maps a patient's gene to {disease id: weight}; a scorer maps
+    (term, frequency, cardinal) to a logit.
     """
-    ontology = featurizer.ontology
     by_gene: dict[str, list[set[str]]] = defaultdict(list)
     for case in cases:
         by_gene[case.gene].append(closure(case.present, ontology))
-    per_model: dict[str, list[float]] = {name: [] for name in models}
+    per_model: dict[str, list[float]] = {name: [] for name in scorers}
     genes_used = 0
     for gene, closures in sorted(by_gene.items()):
         diseases = knowledge_genes(gene)
         if len(closures) < min_patients or not diseases:
             continue
-        num: dict[str, float] = defaultdict(float)
-        den: dict[str, float] = defaultdict(float)
-        terms: set[str] = set()
-        for d, w in diseases.items():
-            for term, freq in profile(kb, [d], ontology).items():
-                terms.add(term)
-                if freq is not None:
-                    num[term] += w * freq
-                    den[term] += w
-        if len(terms) < 3:
+        freqs = gene_frequencies(kb, diseases, ontology)
+        if len(freqs) < 3:
             continue
-        ordered = sorted(terms)
-        X = np.asarray(
-            [featurizer.row(t, num[t] / den[t] if den[t] else None, list(diseases)) for t in ordered]
-        )
+        ordered = sorted(freqs)
         rate = [sum(t in c for c in closures) / len(closures) for t in ordered]
+        flags = [any((d, t) in cardinal for d in diseases) for t in ordered]
         genes_used += 1
-        for name, (model, columns) in models.items():
-            per_model[name].append(spearman(logit(model, X, columns), rate))
+        for name, score in scorers.items():
+            values = [score(t, freqs[t], flag) for t, flag in zip(ordered, flags, strict=True)]
+            per_model[name].append(spearman(values, rate))
     return {
         "genes": genes_used,
         "min_patients": min_patients,
+        "frequency": "P(term | gene): disease-weight mixture of the masked KB's known frequencies",
         "mean_rho": {name: float(np.nanmean(v)) if v else None for name, v in per_model.items()},
     }
+
+
+def internal_scorer(featurizer: "Featurizer", model: dict, columns: tuple[int, ...]) -> Scorer:
+    def score(term: str, freq: float | None, cardinal: bool) -> float:
+        row = featurizer.row(term, freq, [])
+        row[FEATURES.index("cardinal")] = float(cardinal)
+        return float(logit(model, np.asarray([row]), columns)[0])
+
+    return score
+
+
+def to_simulator_format(
+    artifact_id: str,
+    model: dict,
+    annotations: Counter,
+    n_diseases: int,
+    reportability: Counter,
+    n_patients: int,
+    budget: dict,
+    provenance: dict,
+    notes: str,
+) -> dict:
+    """The fitted model in rare-disease-simulator's `report-model` format, version 1.
+
+    The simulator's `frequency` feature has one value for unknown frequencies; this model's
+    `frequency_unknown` indicator is folded into it as `unknown_value = c_unknown / c_frequency`,
+    which gives the same logit.
+    """
+    coef = dict(zip(FEATURES, model["coef"], strict=True))
+    unknown_value = coef["frequency_unknown"] / coef["frequency"] if coef["frequency"] else math.nan
+    if not 0.0 <= unknown_value <= 1.0:
+        raise ValueError(f"frequency_unknown cannot be folded into [0, 1]: {unknown_value}")
+    missing_ic = -math.log(1 / (n_diseases + 1))
+    return {
+        "format": "report-model",
+        "format_version": 1,
+        "artifact_id": artifact_id,
+        "link": "logistic",
+        "intercept": model["intercept"],
+        "features": [
+            {"name": "frequency", "kind": "frequency", "coefficient": coef["frequency"],
+             "unknown_value": unknown_value, "description": DEFINITIONS["frequency"]
+             + "; unknown_value folds in the frequency_unknown indicator"},
+            {"name": "information_content", "kind": "information_content",
+             "coefficient": coef["information_content"], "source": "table", "missing_value": missing_ic,
+             "description": DEFINITIONS["information_content"]},
+            {"name": "ancestor_count", "kind": "ancestor_count", "coefficient": coef["ancestor_count"],
+             "include_self": False, "description": DEFINITIONS["ancestor_count"]},
+            {"name": "log_reportability", "kind": "log_reportability",
+             "coefficient": coef["log_reportability"], "pseudocount": 1.0, "normalize": True,
+             "description": DEFINITIONS["log_reportability"]},
+            {"name": "cardinal", "kind": "cardinal_flag", "coefficient": coef["cardinal"],
+             "description": DEFINITIONS["cardinal"]},
+        ],
+        "tables": {
+            "information_content": {
+                t: -math.log((a + 1) / (n_diseases + 1)) for t, a in sorted(annotations.items()) if a
+            }
+        },
+        "reportability": {
+            "closure": "ancestors",
+            "patients": n_patients,
+            "counts": {t: c for t, c in sorted(reportability.items()) if c},
+        },
+        "term_budget": {"histogram": budget["histogram"], "description": budget["definition"]},
+        "provenance": provenance,
+        "notes": notes,
+    }  # fmt: skip
+
+
+def simulator_scorer(body: dict, ontology: Ontology) -> Scorer:
+    """A term's logit under a `report-model` file, as rare-disease-simulator computes it."""
+    ic_table = body["tables"].get("information_content", {})
+    counts = body["reportability"]["counts"]
+    patients = body["reportability"]["patients"]
+
+    def value(f: dict, term: str, freq: float | None, cardinal: bool) -> float:
+        kind = f["kind"]
+        if kind == "frequency":
+            return freq if freq is not None else f["unknown_value"]
+        if kind == "information_content":
+            return ic_table.get(term, f["missing_value"])
+        if kind == "ancestor_count":
+            return len(ontology.ancestors(term)) + (1 if f["include_self"] else 0)
+        if kind == "log_reportability":
+            v = math.log(counts.get(term, 0) + f["pseudocount"])
+            return v - math.log(patients + f["pseudocount"]) if f["normalize"] else v
+        if kind == "cardinal_flag":
+            return float(cardinal)
+        raise ValueError(f"unknown feature kind {kind!r}")
+
+    def score(term: str, freq: float | None, cardinal: bool) -> float:
+        total = body["intercept"]
+        for f in body["features"]:
+            total += (
+                f["coefficient"]
+                * (value(f, term, freq, cardinal) - f.get("center", 0.0))
+                / f.get("scale", 1.0)
+            )
+        return total
+
+    return score
 
 
 def term_budget(cases: list[Case]) -> dict:

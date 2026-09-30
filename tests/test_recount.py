@@ -119,3 +119,14 @@ def test_hpoa_round_trip_keeps_comments_and_header(tmp_path):
     RC.write_hpoa(path, ["#version: x\n"], rows)
     comments, back = RC.read_hpoa(path)
     assert comments == ["#version: x\n"] and back == rows
+
+
+def test_count_frequencies_pool_count_rows_only(onto):
+    rows = [
+        row("OMIM:1", "HP:0001250", freq="1/4"),
+        row("OMIM:1", "HP:0001250", freq="3/4"),  # pooled with the row above: 4/8
+        row("OMIM:1", "HP:0000505", freq="HP:0040281"),  # a category, not a count
+        row("OMIM:2", "HP:0000505", freq="9/10", qualifier="NOT"),
+        row("OMIM:2", "HP:0001250", freq="1/1"),
+    ]
+    assert sorted(RC.count_frequencies(rows, onto)) == [0.5, 1.0]
