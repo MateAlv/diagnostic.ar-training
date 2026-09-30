@@ -1789,3 +1789,68 @@ Written and committed before the first candidate 4 pilot run.
   - `forced_min_one`;
   - the q-calibration error.
 - **Not used:** R1-dev.
+
+### 2026-09-30 — build + pilot — report-model-v3, age-durations-v1, candidate 4 pilots; `simcal-v05-v2` frozen
+- **`report-model-v3`** (`dxt knowledge report-model --population uncited
+  --kb kb-v3`; R1-train only, published). It loads with simulator 0.5.0's
+  strict loader.
+  - Data: 1,193 uncited patients, 1,054 with a profile; 54,305 (patient,
+    profile term) rows; positive rate 0.093.
+  - Coefficients (raw scale): intercept −1.655; frequency 2.347 (unknown
+    value 0.454); information content 0.022; ancestor count −0.045; log
+    reportability 0.413; cardinal flag 0.494.
+  - In-sample fit:
+
+    | | Base rate | Frequency only | Full |
+    |---|---|---|---|
+    | Log loss | 0.309 | 0.291 | 0.267 |
+    | AUC | | 0.686 | 0.765 |
+
+  - Within-gene ρ on R1-train (32 genes with ≥ 5 patients):
+    - in-sample: full 0.509, frequency only 0.267;
+    - each gene's publications left out of reportability: full 0.406,
+      frequency only 0.267.
+- **`age-durations-v1`** (`dxt calib age-durations`): 891 R1-train patients
+  with age and onset, mapped with simulator 0.5.0's windows (the narrowest
+  window holding the onset).
+
+  | Onset category | Patients | Mean (age − onset), years | Median | Used |
+  |---|---|---|---|---|
+  | antenatal | 24 | 2.41 | 0.14 | 2.41 |
+  | neonatal | 49 | 4.71 | 1.46 | 4.71 |
+  | infantile | 338 | 7.56 | 5.04 | 7.56 |
+  | childhood | 153 | 10.35 | 8.0 | 10.35 |
+  | juvenile | 124 | 14.60 | 9.5 | 14.60 |
+  | adult | 203 | 12.38 | 9.0 | 12.38 |
+  | childhood_or_adolescent, variable | 0 | | | 9.82 (overall) |
+
+  Left out: 3,205 without age or onset, 3 with age below onset, 4 with
+  onset past every window.
+- **`simcal-v05-v1`:**
+  - base simcal-v04-v5 + age-durations-v1;
+  - `reporting.mode` independent, `noise_count` proportional,
+    `noise_share` 0.207, `force_cardinal` false;
+  - r = 0.195, s = 0.5.
+- **Pilots** (as pre-registered above; simulator 0.5.0 from the 020e41d
+  tarball, profiles byte-identical to candidate 2's; 4,890 cases for 489
+  genes; 0 invariant violations in both rounds):
+
+  | Round | r | s | More specific (0.0929) | Related | Weak | Explained | Noise-only E0 MRR (0.026) | Vocabulary / related noise MRR | Related share of noise | Reported terms per case (profile + noise) | `forced_min_one` | q-calibration error | Selection score |
+  |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.195 | 0.5 | 0.1003 | 0.0688 | 0.1191 | 0.7118 | 0.0098 | 0.001 / 0.020 | 0.422 | 2.97 (2.35 + 0.63) | 1,579 | 0.0024 | 0.703 |
+  | 2 | 0.1806 | 1.0 | 0.0918 | 0.1128 | 0.0798 | 0.7157 | 0.0181 | 0.0011 / 0.0211 | 0.870 | 2.97 (2.35 + 0.62) | 1,579 | 0.0024 | **0.316** |
+
+  Round 2 applies the declared rules:
+  - r₂ = 0.195 × 0.0929 / 0.1003;
+  - s₂ = (0.026 − 0.001) / (0.020 − 0.001) = 1.32, clipped to 1.
+- **Selected:** round 2, frozen as `simcal-v05-v2` (r 0.1806, s 1.0).
+- **What the pilots show** (R1-train comparisons only):
+  - **The noise target is out of reach.** Even with every noise slot
+    related (s = 1), noise-only MRR is 0.018 against 0.026; related noise
+    alone gives 0.021.
+  - **Records are much shorter than real ones.** Independent reporting
+    with report-model-v3 reports 16.9% of true profile terms: 2.97 shown
+    terms per case against R1-train's 8.70.
+  - **Many cases hit the fallback.** `forced_min_one` fires in 1,579 of
+    4,890 cases (32%), where no roll succeeds.
+  - Nothing here is tuned. r and s are the only pilot knobs.
