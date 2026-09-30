@@ -130,3 +130,11 @@ def test_count_frequencies_pool_count_rows_only(onto):
         row("OMIM:2", "HP:0001250", freq="1/1"),
     ]
     assert sorted(RC.count_frequencies(rows, onto)) == [0.5, 1.0]
+
+
+def test_count_frequencies_min_denominator(onto):
+    rows = [
+        row("OMIM:1", "HP:0001250", freq="1/1"),
+        row("OMIM:1", "HP:0000505", freq="3/10"),
+    ]
+    assert RC.count_frequencies(rows, onto, min_denominator=10) == [0.3]

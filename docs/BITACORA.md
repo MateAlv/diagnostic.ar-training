@@ -1056,3 +1056,34 @@ What they tell us:
 - **Onset coverage is thin:** 1.2% of positive HPOA rows carry an onset
   (HPO 2026-02-16), so most terms are not age-gated.
 - **Not tagged or frozen.** Freezing waits for the ADR-0012 gate.
+
+### 2026-09-30 — build + decision — v0.4 artifacts merged (PR #22); ADR-0011 amendment 1
+- **Merged the training-repo artifacts:** `hpoa-recount-v1`, `genes-v2`,
+  `report-model-v2` (v1 superseded by the format change), `cardinal-v1`
+  (new source: Orphadata product 4), `simcal-v04-v1`,
+  `literature-panel-v1`, plus `dxt sim realism|gate`.
+- **Recount restores masked profiles.** Diseases gutted by whole-row
+  masking get their rows back: UMOD 3 → 20 rows, Holt-Oram 21 → 46,
+  FBXL4 26 → 82.
+- **report-model-v2 on R1-dev:** within-gene ρ 0.367, vs 0.185 for HPOA
+  frequency alone (68 genes; ledgered as a check).
+- **G2 baselines** (`results/realism/gate-baselines.md`):
+
+  | Metric | UP | V03 |
+  |---|---|---|
+  | panel-v1 MAE | 0.504 | 0.556 |
+  | dev ρ | 0.231 | 0.086 |
+  | W1 terms per case | 3.717 | 1.382 |
+  | C2ST AUC | 0.840 | 0.778 |
+  | E0 gap to 0.512 | 0.307 | 0.344 |
+
+  The UP ρ is lower than ANALYSIS-001's 0.39: this one covers 42 genes and
+  averages tied ranks.
+- **Amendment 1, fixed before any candidate number:**
+  - μ₀ = median of count pairs with m ≥ 10 (0.30); the all-pairs median of
+    0.667 is inflated by single case reports;
+  - cardinal terms are not forced, since report-model-v2's fitted cardinal
+    coefficient already covers them;
+  - one merged calibration file, `simcal-v04-v2`;
+  - the candidate uses the Front A training shape;
+  - 159 genes lose coverage, which is accepted.

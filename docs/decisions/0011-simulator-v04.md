@@ -119,3 +119,56 @@ them. All of them use R1-train only, never dev, test or vault.
 - Front B's KB can adopt `hpoa-recount-v1` later (a separate decision).
 - S3 v1 stays frozen as it is: its data came from simulator v0.3, which
   slightly reduces the same-generator bias for v0.4-trained models.
+
+## Amendment 1 (2026-09-30): settings for candidate 1
+
+Fixed before any R1-dev realism number exists for a v0.4 candidate. They
+follow from the artifacts built in PR #22.
+
+1. **Shrinkage prior mean μ₀:** the median over count pairs pooled over
+   at least 10 patients (it was the median over all pairs).
+   - **Why:** 18% of HPOA count pairs are 1/1, mostly single case reports.
+     A case report lists what its patient had, so these pairs are biased
+     upward. The all-pairs median (0.667) would shrink a 1/1 to 0.78, above
+     Jeffreys' 0.75, which is the opposite of the intent.
+   - **Evidence the median stabilises:**
+
+     | Pairs with m ≥ | Median |
+     |---|---|
+     | 1 | 0.667 |
+     | 3 | 0.400 |
+     | 5 | 0.364 |
+     | 10 | 0.300 |
+     | 20 | 0.323 |
+
+   - **Rejected alternatives:**
+     - An empirical-Bayes beta-binomial fit on all pairs gave μ₀ 0.59; it
+       has the same bias.
+     - A fit that corrects for HPOA rarely listing unobserved features
+       (zero-truncated) degenerated to α → 0.
+   - **Strength:** stays at 2. With μ₀ = 0.30, 1/1 → 0.53, 2/2 → 0.65 and
+     10/10 → 0.88.
+2. **Cardinal terms are not forced** (`reporting.force_cardinal: false`).
+   - `report-model-v2` already carries a `cardinal_flag` coefficient
+     (+0.447), fitted on R1-train reporting without forcing. Forcing on top
+     would count that effect twice.
+   - Orphadata product 4 lists up to 34 criteria for some diseases (Marfan
+     ORPHA:558), and forcing reports every true one beyond the budget.
+   - Cardinal terms still enter the reporting score. G2a and the G3 cards
+     check whether they end up under-emitted.
+3. **One calibration file:** `simcal-v04-v2` = `simcal-train-v1`'s knobs
+   (negatives, noise, missingness; R1-train only) + μ₀ from rule 1 +
+   `reporting.force_cardinal: false`.
+   - `presets.medium.noise_mean` stays at 3.7. That is R1-train's mean
+     count of present terms per case not explained by the knowledge base,
+     and noise now takes budget slots.
+   - `positive_observation_rate` only acts in observation mode, so it is
+     inert here.
+4. **The candidate dataset is the Front A training shape** (half A of
+   `annot-split-v1`, 100 cases per gene, seed 1001), the same shape as the
+   V03 baseline, so G2 compares like with like.
+5. **Coverage loss is accepted and recorded.** 159 v3.0-vocabulary genes
+   have no simulable entity under `genes-v2`, because all their links lack
+   supporting evidence. With the frozen base (ADR-0010), those genes keep
+   v3.0's behaviour; Front A's new parameters just see no positives for
+   them.
