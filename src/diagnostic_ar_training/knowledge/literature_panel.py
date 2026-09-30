@@ -368,13 +368,12 @@ def r1_pmid_parts(all_pmids: set[str], heldout_pmids: set[str]) -> dict[str, str
 
 
 CROSSCHECK_PROMPT = """You are checking one number in a medical source.
-Read the source file and answer from it only.
+The full plain text of the cited document is given in the <stdin> block; answer from it only.
 
 Gene: {gene}
 Disease: {disease_name} ({disease_id})
 Clinical feature: {feature_label}
 Citation: {citation}; {section}
-Source file (plain text of the cited document): {source_path}
 
 Question: according to this source, what proportion of affected individuals (people with this disease) have
 this feature? Use only a number the source states (a percentage, a count such as 14/29, a range, or a bound).
@@ -387,9 +386,9 @@ Answer with one JSON object on the last line and nothing after it:
 PROMPT_FIELDS = ("gene", "disease_name", "disease_id", "feature_label", "citation", "section")
 
 
-def crosscheck_prompt(row: dict, source_path: str) -> str:
+def crosscheck_prompt(row: dict) -> str:
     """The prompt for an independent re-extraction: it never contains our extracted values."""
-    return CROSSCHECK_PROMPT.format(source_path=source_path, **{k: row.get(k, "") for k in PROMPT_FIELDS})
+    return CROSSCHECK_PROMPT.format(**{k: row.get(k, "") for k in PROMPT_FIELDS})
 
 
 def parse_answer(text: str) -> dict:

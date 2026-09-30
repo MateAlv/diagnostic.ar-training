@@ -763,11 +763,19 @@ def litpanel_crosscheck(
     results = []
     for i in lp.crosscheck_sample(rows, fraction, seed):
         row = rows[i]
-        prompt = lp.crosscheck_prompt(row, row["source_text_file"])
+        prompt = lp.crosscheck_prompt(row)
+        source = Path(row["source_text_file"])
         answer = subprocess.run(
-            [*shlex.split(command), prompt], capture_output=True, text=True, timeout=900, check=False
+            [*shlex.split(command), prompt],
+            input=source.read_text(encoding="utf-8"),
+            capture_output=True,
+            text=True,
+            timeout=900,
+            check=False,
         ).stdout
-        (log_dir / f"row{i:04d}.txt").write_text(prompt + "\n\n=== ANSWER ===\n" + answer)
+        (log_dir / f"row{i:04d}.txt").write_text(
+            f"{prompt}\n\n=== STDIN: {source} ===\n\n=== ANSWER ===\n{answer}"
+        )
         try:
             other = lp.parse_answer(answer)
         except (ValueError, json.JSONDecodeError):

@@ -275,8 +275,8 @@ def test_r1_pmid_parts():
 
 def test_crosscheck_prompt_never_leaks_our_values():
     row = curated(prevalence="0.4321", prevalence_low="0.1234", prevalence_high="0.9876")
-    prompt = lp.crosscheck_prompt(row, "/tmp/source.txt")
-    assert all(s in prompt for s in ("NF1", "Seizure", "PMID:111", "Table 2", "/tmp/source.txt"))
+    prompt = lp.crosscheck_prompt(row)
+    assert all(s in prompt for s in ("NF1", "Seizure", "PMID:111", "Table 2", "<stdin>"))
     assert not any(v in prompt for v in ("0.4321", "0.1234", "0.9876", "6% of patients"))
 
 
@@ -321,7 +321,9 @@ def test_crosscheck_and_build_commands(tmp_path, monkeypatch, clean_tree):
     from diagnostic_ar_training.lineage import manifest as manifest_mod
 
     working = tmp_path / "working.tsv"
-    rows = [curated(hpo_id=h, source_text_file="/tmp/src.txt") for h in ("HP:0001250", "HP:0001251")]
+    source = tmp_path / "src.txt"
+    source.write_text("Seizures occurred in 6% of patients.")
+    rows = [curated(hpo_id=h, source_text_file=str(source)) for h in ("HP:0001250", "HP:0001251")]
     lp.write_tsv(rows, (*lp.CURATED_COLUMNS, "source_text_file"), working)
     answers = iter(
         [
@@ -332,6 +334,7 @@ def test_crosscheck_and_build_commands(tmp_path, monkeypatch, clean_tree):
     seen = []
 
     def fake_run(args, **kwargs):
+        assert kwargs["input"] == "Seizures occurred in 6% of patients."
         seen.append(args)
         return type("R", (), {"stdout": next(answers)})()
 
