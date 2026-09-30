@@ -11,7 +11,7 @@ at each checkpoint; the history lives in `BITACORA.md`.
 |---|---|---|
 | Shared | E0 measured on every cohort; R1 CIs resample publications | `EXP-000.md` |
 | B on R1 | rr-v1 null; rr-v2 (learned on R1-train) +0.056 dev but harmed 10%, and its gain is R1's negation reporting pattern; sex/age/onset ≈ 0 | `EXP-B-001.md`, `EXP-B-002.md` |
-| B on S3 | **The only method that passes the harm cap:** rr-v1[neg=0.5] +0.0045 [+0.0034, +0.0056], harmed 4% (knowledge-based, no simulator training). rr-v2 hurts (−0.030) | `EXP-S3-001.md` |
+| B on S3 | **rr-v1[neg=0.5] passed its sealed Phase-4 gate (EXP-B-003):** S3-test +0.0044 [+0.0032, +0.0057], harmed 3.9%; R1-test no regression (−0.0025 [−0.0070, +0.0013]). It is a release candidate; deploying is Mateo's call | `EXP-S3-001.md`, `EXP-B-003.md` |
 | A | **All three trained designs fail on real patients:** A-001 (full fine-tune), A-002f (negation, frozen), A-003f (sex/age, frozen). Each gains on S3, which is the same simulator. A-004f not run (nothing to combine) | `EXP-A-001.md`, `EXP-A-002f.md`, `EXP-A-003f.md`, `EXP-A-004f.md` |
 
 ## In progress: simulator v0.4 data-quality gate (ADR-0011, ADR-0012)
@@ -48,8 +48,9 @@ proposed fixes.
    or revert to the original criteria.
 2. **GeneReviews email** (`docs/TODO.md`): request written confirmation
    for fact extraction.
-3. **Phase-4 gate for rr-v1[neg=0.5]** (Front B): pre-register one sealed
-   S3-test read plus an R1-test no-regression check.
+3. **Deploy rr-v1[neg=0.5]?** It passed EXP-B-003. A release goes through
+   `diagnostic.ar-model`, with the negation input as an optional API
+   field.
 4. **Later:** review the G3 disease cards (30) when they are ready.
 
 ## Artifacts, newest first

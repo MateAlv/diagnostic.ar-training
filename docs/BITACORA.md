@@ -1395,3 +1395,14 @@ What they tell us:
   - `dxt rerank eval`: one fixed configuration, "all" and "present"
     views, sealed-aware;
   - `dxt s3 run --system`: scores only the named systems.
+
+### 2026-09-30 — result — EXP-B-003: rr-v1[neg=0.5] passes its Phase-4 gate
+- **Step 0 (dev reproduction):** exact.
+- **S3-test** (sealed, read once): Δ +0.0044 [+0.0032, +0.0057], harmed
+  0.039.
+- **R1-test** (sealed, read once):
+  - present view: exactly 0;
+  - all view: −0.0025 [−0.0070, +0.0013], harmed 0.090.
+- **Verdict:** P1, N1 and N2 all pass. rr-v1[neg=0.5] is a release
+  candidate. Deployment through `diagnostic.ar-model` is Mateo's decision.
+- **Vault:** untouched.
