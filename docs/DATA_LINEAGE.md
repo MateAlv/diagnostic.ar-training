@@ -144,6 +144,9 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-09-30 | Source added | `orphanet_phenotypes`: Orphadata product 4 (2026-06-23), release `data-snapshot-2026-09-30-product4` |
+| 2026-09-30 | Simulator v0.4 artifacts built and published | `hpoa-recount-v1`, `cardinal-v1`, `report-model-v1` (superseded by `report-model-v2`, same fit in the simulator's format), `genes-v2`, `simcal-v04-v1`, `literature-panel-v1` (§7) |
+| 2026-09-30 | Realism baselines | `dxt sim realism` on UP (`graphens_sim_20251202`) and V03 (`ds-sim0.3.1-A-n100-s1001`), plus a smoke run on the ANALYSIS-001 10-gene sample; ledgered as baselines |
 | 2026-09-28 | Sources registered | 9 sources; all verified from local copies (`dxt sources fetch --no-download`) |
 | 2026-09-28 | Split `r1-v1` frozen | content sha256 `b007aa17741c2309a2fce9e36aaa77608d3d2b1311630e96c77be9d39e462ccf`, before any model was run on the cohort |
 | 2026-09-29 | Sources added | Orphanet 2026-06-23 alignments + ages (release `data-snapshot-2026-09-29`); HGNC, Orphanet genes + prevalence, ClinGen (release `data-snapshot-2026-09-29-genes`); MONDO v2026-09-01 and ClinVar 2026-09 by immutable URL |
@@ -154,3 +157,25 @@ model's ontology or zero-embedded.
 | 2026-09-29 | Source added | `graphens_sim_20251202` (S2, role eval) from GraPhens@7d861ff; MCRD and DDD marked `sealed` |
 | 2026-09-29 | E0 measured (EXP-000) | Production parity: bit-identical to the vendored engine on 300 cases. Sealed reads of r1-v1/test, MCRD and DDD ledgered |
 | 2026-09-28 | Leakage measured | 15,412 of 282,723 HPOA rows (5.45%, 457 diseases) cite R1 held-out PMIDs; MCRD/DDD have 0 exact (gene, present) overlaps with R1 |
+
+## 7. Simulator v0.4 artifacts (ADR-0011, ADR-0012)
+
+All are fitted or counted on R1-train only. Each has a manifest in
+`data/manifests/` and, when large, a release of the same tag.
+
+| Artifact | What | File the simulator reads |
+|---|---|---|
+| `hpoa-recount-v1` | `phenotype.hpoa` with rows citing held-out PMIDs recounted as `n/m` over R1-train phenopackets (`reference R1-TRAIN:r1-v1`), dropped when `m < 3` | `phenotype.hpoa` (`build-profiles --hpoa`); also `feature-onsets.tsv` (per-feature onset quartiles, ≥ 3 patients) and `data/hpoa-recount/hpoa-recount-v1.stats.json` (kept/recounted/dropped per disease) |
+| `cardinal-v1` | Hallmark features: Orphadata product 4 diagnostic criteria and pathognomonic signs (new source `orphanet_phenotypes`), plus count proxies (`m ≥ 10`, `n/m ≥ 0.8`) | `data/cardinal/cardinal-v1.tsv` (`disease_id, hpo_id, kind, source`) |
+| `report-model-v1` | Reporting model, first layout (superseded, kept for lineage) | — |
+| `report-model-v2` | The same fit, in the simulator's `report-model` v1 format | `report-model.json` (release `report-model-v2`) |
+| `genes-v2` | Gene profiles with R1-train patient counts in the weight and zero weight for somatic-only and unsupported links; profiles from `hpoa-recount-v1` | `genes.json.gz` (release `genes-v2`) |
+| `simcal-v04-v1` | `frequency.shrinkage_mean`: median pooled count-based frequency of `hpoa-recount-v1` | `data/calib/simcal-v04-v1.json` |
+| `literature-panel-v1` | Literature prevalence of 37 features of 8 diseases, with citations | `data/realism/literature-panel-v1.tsv` (read by `dxt sim realism`) |
+
+**Realism reports** (`dxt sim realism`, `dxt sim report-model-check`) go to
+`results/realism/`, each with a manifest `realism-<label>`. Every run reads
+R1-dev and appends a row to `results/realism/LEDGER.md`; baselines (UP,
+V03) and checks do not count against the 3-candidate budget, and the
+command refuses a fourth candidate version. `dxt sim gate` writes the G2
+comparison table (`gate-<name>.json`, `.md`).
