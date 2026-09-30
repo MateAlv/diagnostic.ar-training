@@ -97,6 +97,27 @@ def test_panel_primary_error_leaves_out_orphanet_rows_and_filters_sex(tmp_path, 
     assert "no source_kind column" in capsys.readouterr().err
 
 
+def test_panel_v2_primary_is_the_independent_rows_and_reads_sex_restriction(tmp_path, onto):
+    sim = {
+        "G": [
+            RZ.SimCase("1", "G", ("HP:0002069",), (), "male"),
+            RZ.SimCase("2", "G", ("HP:0000505",), (), "female"),
+        ]
+    }
+    head = "gene\tfeature_label\thpo_id\tprevalence\tsex_restriction\tsource_kind\tindependent"
+    rows = [
+        "G\tseizure\tHP:0001250\t0.9\t\tgenereviews\ttrue",
+        "G\teye\tHP:0000505\t0.5\tmale\tcohort_paper\tfalse",
+    ]
+    (tmp_path / "p.tsv").write_text("\n".join([head, *rows]) + "\n")
+    panel, has_kind = RZ.read_panel(tmp_path / "p.tsv")
+    out = RZ.panel_errors(panel, sim, RZ.Closure(onto), has_kind)
+    per_row = {r["hpo_id"]: r for r in out["per_row"]}
+    assert per_row["HP:0000505"]["sim_cases"] == 1  # sex_restriction filters like sex
+    assert out["primary"]["rule"] == 'independent == "true"' and out["primary"]["rows_scored"] == 1
+    assert out["primary"]["mae"] == pytest.approx(0.4) and out["all_rows"]["mae"] == pytest.approx(0.45)
+
+
 def test_matched_pairs_use_same_gene_first_then_any_unused_case():
     real = [("r1", "A"), ("r2", "A"), ("r3", "B")]
     pairs = RZ.matched_pairs(real, {"A": [0], "C": [1, 2]}, 3, seed=1)
@@ -169,6 +190,22 @@ def test_gate_requires_beating_every_baseline_and_the_absolute_caps():
     near = table["candidates"]["near"]["pass"]
     assert near == {"a": True, "b": False, "c": True, "d": False, "e": False}
     assert "FAIL" in RZ.gate_markdown(table) and "baseline" in RZ.gate_markdown(table)
+
+
+def test_gate_recomputes_the_e0_gap_and_takes_g2a_and_secondary_rows_from_outside():
+    old = report(0.3, 0.4, 3.0, 0.95, 0.30)
+    old["g2e_e0"] = {"gap": 0.30, "mrr_in_vocab": 0.812}  # written under the 0.512 target
+    assert RZ.g2_values(old)["e"] == pytest.approx(0.812 - RZ.E0_TARGET_MRR)
+    cand = report(0.9, 0.5, 2.0, 0.70, 0.05)
+    table = RZ.gate(
+        {"up": old},
+        {"cand": cand},
+        secondary={"v03a": report(0.0, 0.9, 0.1, 0.10, 0.01)},
+        panels={"cand": {"primary": {"mae": 0.1}}},
+    )
+    assert table["candidates"]["cand"]["values"]["a"] == 0.1
+    assert table["candidates"]["cand"]["all_pass"]  # the secondary row is never judged against
+    assert "| v03a | secondary |" in RZ.gate_markdown(table)
 
 
 def test_r1_dev_budget_allows_three_candidate_versions():
