@@ -181,3 +181,71 @@ def measure(
         "rule": vocabulary,
     }
     return targets, rows
+
+
+# rare-disease-simulator 0.5.0 (020e41d), AgeSettings.onset_years: uniform onset window per category, years.
+ONSET_WINDOWS = {
+    "antenatal": (0.0, 0.0),
+    "neonatal": (0.0, 0.0767),
+    "infantile": (0.0767, 1.0),
+    "childhood": (1.0, 5.0),
+    "juvenile": (5.0, 16.0),
+    "childhood_or_adolescent": (1.0, 16.0),
+    "adult": (16.0, 60.0),
+    "variable": (0.0, 60.0),
+}
+MIN_DURATION_PATIENTS = 20
+
+
+def onset_category(onset: float, windows: dict[str, tuple[float, float]] = ONSET_WINDOWS) -> str | None:
+    """The narrowest window holding the onset (closed ends; ties to the first listed), None past them all."""
+    holding = [(hi - lo, i, c) for i, (c, (lo, hi)) in enumerate(windows.items()) if lo <= onset <= hi]
+    return min(holding)[2] if holding else None
+
+
+def duration_means(
+    cases: Iterable[Case],
+    windows: dict[str, tuple[float, float]] = ONSET_WINDOWS,
+    min_patients: int = MIN_DURATION_PATIENTS,
+) -> dict:
+    """Mean (age - onset) per onset category over patients with both, for `age.duration_mean_by_onset`.
+
+    A category with fewer than `min_patients` patients takes the overall mean. Patients whose onset lies
+    past every window, or whose age is below their onset, are counted and left out.
+    """
+    durations: dict[str, list[float]] = {c: [] for c in windows}
+    skipped: Counter = Counter()
+    for case in cases:
+        if case.age_years is None or case.onset_years is None:
+            skipped["age_or_onset_missing"] += 1
+            continue
+        if case.age_years < case.onset_years:
+            skipped["age_below_onset"] += 1
+            continue
+        category = onset_category(case.onset_years, windows)
+        if category is None:
+            skipped["onset_past_every_window"] += 1
+            continue
+        durations[category].append(case.age_years - case.onset_years)
+    pooled = [d for ds in durations.values() for d in ds]
+    overall = float(np.mean(pooled))
+    per_category = {}
+    for category, ds in durations.items():
+        own = len(ds) >= min_patients
+        per_category[category] = {
+            "patients": len(ds),
+            "mean_duration": float(np.mean(ds)) if ds else None,
+            "median_duration": float(np.median(ds)) if ds else None,
+            "used": float(np.mean(ds)) if own else overall,
+            "source": "category" if own else f"overall mean (fewer than {min_patients} patients)",
+        }
+    return {
+        "patients": len(pooled),
+        "overall_mean_duration": overall,
+        "skipped": dict(skipped),
+        "min_patients": min_patients,
+        "windows": {c: list(w) for c, w in windows.items()},
+        "category_rule": "the narrowest window holding the onset, closed ends, ties to the first listed",
+        "per_category": per_category,
+        "keys": {f"age.duration_mean_by_onset.{c}": round(v["used"], 4) for c, v in per_category.items()},
+    }

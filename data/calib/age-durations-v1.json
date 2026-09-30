@@ -1,0 +1,116 @@
+{
+ "_provenance": {
+  "artifact": "age-durations-v1",
+  "category_rule": "the narrowest window holding the onset, closed ends, ties to the first listed",
+  "code_sha": "674e10550a2026da3719bfa13d79269fea6ee1b4",
+  "min_patients": 20,
+  "overall_mean_duration": 9.821140909436599,
+  "patients": 891,
+  "per_category": {
+   "adult": {
+    "mean_duration": 12.379310344827585,
+    "median_duration": 9.0,
+    "patients": 203,
+    "source": "category",
+    "used": 12.379310344827585
+   },
+   "antenatal": {
+    "mean_duration": 2.4078470796258267,
+    "median_duration": 0.1441649555099247,
+    "patients": 24,
+    "source": "category",
+    "used": 2.4078470796258267
+   },
+   "childhood": {
+    "mean_duration": 10.345065381845187,
+    "median_duration": 8.0,
+    "patients": 153,
+    "source": "category",
+    "used": 10.345065381845187
+   },
+   "childhood_or_adolescent": {
+    "mean_duration": null,
+    "median_duration": null,
+    "patients": 0,
+    "source": "overall mean (fewer than 20 patients)",
+    "used": 9.821140909436599
+   },
+   "infantile": {
+    "mean_duration": 7.559474340749022,
+    "median_duration": 5.041666666666666,
+    "patients": 338,
+    "source": "category",
+    "used": 7.559474340749022
+   },
+   "juvenile": {
+    "mean_duration": 14.60483870967742,
+    "median_duration": 9.5,
+    "patients": 124,
+    "source": "category",
+    "used": 14.60483870967742
+   },
+   "neonatal": {
+    "mean_duration": 4.713283465336853,
+    "median_duration": 1.4616700889801506,
+    "patients": 49,
+    "source": "category",
+    "used": 4.713283465336853
+   },
+   "variable": {
+    "mean_duration": null,
+    "median_duration": null,
+    "patients": 0,
+    "source": "overall mean (fewer than 20 patients)",
+    "used": 9.821140909436599
+   }
+  },
+  "population": "R1-train patients with age and onset (891 of 4103)",
+  "skipped": {
+   "age_below_onset": 3,
+   "age_or_onset_missing": 3205,
+   "onset_past_every_window": 4
+  },
+  "windows": {
+   "adult": [
+    16.0,
+    60.0
+   ],
+   "antenatal": [
+    0.0,
+    0.0
+   ],
+   "childhood": [
+    1.0,
+    5.0
+   ],
+   "childhood_or_adolescent": [
+    1.0,
+    16.0
+   ],
+   "infantile": [
+    0.0767,
+    1.0
+   ],
+   "juvenile": [
+    5.0,
+    16.0
+   ],
+   "neonatal": [
+    0.0,
+    0.0767
+   ],
+   "variable": [
+    0.0,
+    60.0
+   ]
+  }
+ },
+ "age.duration_mean_by_onset.adult": 12.3793,
+ "age.duration_mean_by_onset.antenatal": 2.4078,
+ "age.duration_mean_by_onset.childhood": 10.3451,
+ "age.duration_mean_by_onset.childhood_or_adolescent": 9.8211,
+ "age.duration_mean_by_onset.infantile": 7.5595,
+ "age.duration_mean_by_onset.juvenile": 14.6048,
+ "age.duration_mean_by_onset.neonatal": 4.7133,
+ "age.duration_mean_by_onset.variable": 9.8211
+}

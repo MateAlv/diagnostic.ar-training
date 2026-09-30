@@ -1,0 +1,16 @@
+{
+ "cases_read": 4890,
+ "keep_one_in": 1,
+ "vocabulary": {
+  "cases_with_terms": 1295,
+  "mrr_in_vocab": 0.001
+ },
+ "related": {
+  "cases_with_terms": 1063,
+  "mrr_in_vocab": 0.02
+ },
+ "all_noise": {
+  "cases_with_terms": 1944,
+  "mrr_in_vocab": 0.0098
+ }
+}

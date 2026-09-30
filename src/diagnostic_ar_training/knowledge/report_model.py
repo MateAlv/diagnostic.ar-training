@@ -269,6 +269,64 @@ def gene_level_rho(
     }
 
 
+def gene_level_rho_publications_out(
+    cases: list[Case],
+    groups: dict[str, str],
+    knowledge_genes,
+    kb: dict,
+    ontology: Ontology,
+    cardinal: set[tuple[str, str]],
+    featurizer: "Featurizer",
+    models: dict[str, tuple[dict, tuple[int, ...]]],
+    min_patients: int = 5,
+) -> dict:
+    """`gene_level_rho` with each gene's publications left out of the reportability feature.
+
+    For every gene, `log_reportability` is recomputed without every publication group that contributes a
+    patient of that gene, so the scored patients' own reports never feed their scores. The coefficients
+    are the ones fitted on all the cases (with leave-publication-out reportability rows).
+    """
+    closures = {c.case_id: closure(c.present, ontology) for c in cases}
+    by_group: dict[str, Counter] = defaultdict(Counter)
+    group_size: Counter = Counter()
+    by_gene: dict[str, list[str]] = defaultdict(list)
+    for case in cases:
+        by_group[groups[case.case_id]].update(closures[case.case_id])
+        group_size[groups[case.case_id]] += 1
+        by_gene[case.gene].append(case.case_id)
+    per_model: dict[str, list[float]] = {name: [] for name in models}
+    genes_used = 0
+    for gene, ids in sorted(by_gene.items()):
+        diseases = knowledge_genes(gene)
+        if len(ids) < min_patients or not diseases:
+            continue
+        freqs = gene_frequencies(kb, diseases, ontology)
+        if len(freqs) < 3:
+            continue
+        left_out = {groups[i] for i in ids}
+        minus: Counter = Counter()
+        for g in left_out:
+            minus.update(by_group[g])
+        patients_minus = sum(group_size[g] for g in left_out)
+        ordered = sorted(freqs)
+        rate = [sum(t in closures[i] for i in ids) / len(ids) for t in ordered]
+        rows = []
+        for t in ordered:
+            row = featurizer.row(t, freqs[t], [], minus.get(t, 0), patients_minus)
+            row[FEATURES.index("cardinal")] = float(any((d, t) in cardinal for d in diseases))
+            rows.append(row)
+        X = np.asarray(rows)
+        genes_used += 1
+        for name, (model, columns) in models.items():
+            per_model[name].append(spearman(list(logit(model, X, columns)), rate))
+    return {
+        "genes": genes_used,
+        "min_patients": min_patients,
+        "reportability": "each gene's publication groups left out",
+        "mean_rho": {name: float(np.nanmean(v)) if v else None for name, v in per_model.items()},
+    }
+
+
 def internal_scorer(featurizer: "Featurizer", model: dict, columns: tuple[int, ...]) -> Scorer:
     def score(term: str, freq: float | None, cardinal: bool) -> float:
         row = featurizer.row(term, freq, [])

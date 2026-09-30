@@ -1,0 +1,66 @@
+{
+  "artifact_id": "report-model-v3",
+  "kind": "report-model",
+  "created_at": "2026-09-30T19:31:13+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "129c33edf595b1228a34944d968ac870c7c9b3c9",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "artifact:cardinal-v1",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    }
+  ],
+  "params": {
+    "adr": "0011 §3 + amendment 5",
+    "kb": "kb-v3",
+    "kb_mask_scope": "heldout",
+    "population": "uncited",
+    "population_rule": "R1-train patients none of whose PMIDs the pinned hpo_annotations cites",
+    "cardinal": "cardinal-v1",
+    "part": "train",
+    "l2": 0.0001,
+    "format": "rare-disease-simulator report-model v1"
+  },
+  "params_hash": "a877abf3f39ceaa20701534bc81ad6252c86735a9a6f0f97b2da72cf93926f9f",
+  "outputs": [
+    {
+      "path": "data/interim/report-model/report-model-v3/report-model.json",
+      "sha256": "78ece0e9bdd8d7f41f2d7085f28bb48f975496982534d765f7d7890bbf74737e",
+      "bytes": 506504
+    },
+    {
+      "path": "data/report-model/report-model-v3.summary.json",
+      "sha256": "899f2c4f1e87fc8b09b74f31762784f165ff1860b6e1968acbcd8322f8687759",
+      "bytes": 5191
+    }
+  ],
+  "notes": "",
+  "release": "report-model-v3"
+}

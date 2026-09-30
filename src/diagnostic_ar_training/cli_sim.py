@@ -216,6 +216,11 @@ def knowledge_report_model(
     cardinal_id: str = typer.Option("cardinal-v1", "--cardinal"),
     split_id: str = typer.Option("r1-v1"),
     publish: bool = typer.Option(False),
+    population: str = typer.Option(
+        "all",
+        help="R1-train patients fitted: all (KB must mask every R1 publication), or uncited (publications "
+        "the pinned HPOA does not cite; the KB may mask only held-out PMIDs, e.g. kb-v3; ADR-0011 am. 5)",
+    ),
 ) -> None:
     """Fit how clinicians report true features, on R1-train (ADR-0011 §3)."""
     from diagnostic_ar_training.lineage.manifest import ensure_new
@@ -225,7 +230,7 @@ def knowledge_report_model(
     import numpy as np
 
     from diagnostic_ar_training import splits
-    from diagnostic_ar_training.knowledge import cardinal, genes
+    from diagnostic_ar_training.knowledge import calibration, cardinal, genes
     from diagnostic_ar_training.knowledge import report_model as R
     from diagnostic_ar_training.lineage.hashing import sha256_file
     from diagnostic_ar_training.lineage.manifest import build_manifest, load_manifest, write_manifest
@@ -235,9 +240,14 @@ def knowledge_report_model(
     from diagnostic_ar_training.rerank import kb as kb_mod
     from diagnostic_ar_training.rerank.features import GeneKnowledge
 
+    if population not in calibration.POPULATIONS:
+        raise typer.BadParameter(f"population must be one of {calibration.POPULATIONS}")
     kb_manifest = load_manifest(kb_id)
-    if kb_manifest.params.get("mask_scope") != "all":
-        raise typer.BadParameter(f"{kb_id} must mask every R1 publication (mask_scope=all)")
+    mask_scope = kb_manifest.params.get("mask_scope", "heldout")
+    if kb_manifest.params.get("mask_split") != split_id:
+        raise typer.BadParameter(f"{kb_id} must mask split {split_id}")
+    if population == "all" and mask_scope != "all":
+        raise typer.BadParameter(f"{kb_id} must mask every R1 publication (mask_scope=all) for all patients")
     kb_path, kb_sha = _artifact_file(kb_id, "kb.json.gz")
     kb = kb_mod.read(kb_path)
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.TRAIN))
@@ -251,7 +261,14 @@ def knowledge_report_model(
         for r in card_rows
         if not any(ref in all_r1 or ref.startswith("R1-TRAIN:") for ref in cardinal.references(r["source"]))
     }
-    cases = splits.load_part(split_id, splits.Part.TRAIN, Purpose.TRAIN)
+    train = splits.load_part(split_id, splits.Part.TRAIN, Purpose.TRAIN)
+    extra_inputs = []
+    if population == "uncited":
+        extra_inputs.append(load_sources()["hpo_annotations"].as_input())
+        cited = calibration.cited_pmids(open_source("hpo_annotations", Purpose.TRAIN))
+        cases = calibration.select_population(train, population, cited)
+    else:
+        cases = calibration.select_population(train, population)
     groups = splits.publication_groups(split_id)
     annotations, n_diseases = R.annotation_counts(kb, ontology)
     reportability = R.reportability_counts(cases, ontology)
@@ -283,14 +300,27 @@ def knowledge_report_model(
         "within_gene_rho_r1_train_in_sample": R.gene_level_rho(
             cases, knowledge.diseases, kb, ontology, usable, scorers, min_patients=5
         ),
-        "note": "log loss and AUC use leave-publication-out reportability; the within-gene rho uses "
-        "full R1-train reportability, so it is in-sample and optimistic. Out-of-sample: "
-        "dxt sim report-model-check (R1-dev).",
+        "within_gene_rho_r1_train_publications_out": R.gene_level_rho_publications_out(
+            cases,
+            groups,
+            knowledge.diseases,
+            kb,
+            ontology,
+            usable,
+            featurizer,
+            {"full": (full, full_cols), "frequency_only": (freq_only, freq_cols)},
+            min_patients=5,
+        ),
+        "population": {"rule": population, "r1_train_cases": len(train), "cases": len(cases)},
+        "note": "log loss and AUC use leave-publication-out reportability and are in-sample for the "
+        "coefficients. The in-sample within-gene rho uses the population's full reportability; the "
+        "publications-out rho recomputes reportability without each gene's publication groups. "
+        "Out-of-sample: dxt sim report-model-check (R1-dev).",
     }
     sources = load_sources()
     provenance = {
         "adr": "0011 §3",
-        "fitted_on": f"{split_id} train ({len(cases)} patients)",
+        "fitted_on": f"{split_id} train, population {population} ({len(cases)} of {len(train)} patients)",
         "kb": kb_id,
         "cardinal": cardinal_id,
         "hpo_version": sources["hpo_ontology"].version,
@@ -347,10 +377,16 @@ def knowledge_report_model(
         {"id": f"all-pmids:{split_id}", "sha256": sha256_file(splits.mask_path(split_id, "all"))},
         sources["hpo_ontology"].as_input(),
         sources["orphanet_alignments"].as_input(),
+        *extra_inputs,
     ]
     params = {
-        "adr": "0011 §3",
+        "adr": "0011 §3" if population == "all" else "0011 §3 + amendment 5",
         "kb": kb_id,
+        "kb_mask_scope": mask_scope,
+        "population": population,
+        "population_rule": "all R1-train patients"
+        if population == "all"
+        else "R1-train patients none of whose PMIDs the pinned hpo_annotations cites",
         "cardinal": cardinal_id,
         "part": "train",
         "l2": R.L2,
@@ -380,6 +416,9 @@ def knowledge_shrinkage_prior(
     set_: list[str] = typer.Option(
         [], "--set", help="Extra KEY=JSON override, e.g. reporting.force_cardinal=false"
     ),
+    include: list[Path] = typer.Option(
+        [], help="Committed calibration-keys JSON (e.g. age-durations-v1) whose keys are merged in"
+    ),
 ) -> None:
     """Simulator calibration file with frequency.shrinkage_mean: the median count-based frequency
     of an hpoa-recount artifact (ADR-0011, simulator v0.4 step 2)."""
@@ -405,6 +444,11 @@ def knowledge_shrinkage_prior(
         body.update(json.loads(base.read_text()))
         body = {k: v for k, v in body.items() if not k.startswith("_")}
         base_input = {"id": f"file:{base.as_posix()}", "sha256": sha256_file(base)}
+    included = []
+    for path in include:
+        keys = {k: v for k, v in json.loads(path.read_text()).items() if not k.startswith("_")}
+        body.update(keys)
+        included.append({"id": f"file:{path.as_posix()}", "sha256": sha256_file(path), "keys": sorted(keys)})
     for item in set_:
         key, _, value = item.partition("=")
         body[key] = json.loads(value)
@@ -420,6 +464,7 @@ def knowledge_shrinkage_prior(
                 "min_denominator": min_denominator,
                 "mean": round(statistics.fmean(freqs), 6),
                 "base": base_input,
+                "included": included,
                 "overrides": set_,
                 "code_sha": state.sha,
             },
@@ -431,10 +476,12 @@ def knowledge_shrinkage_prior(
     inputs = [{"id": f"artifact:{recount_id}", "sha256": hpoa_sha}, load_sources()["hpo_ontology"].as_input()]
     if base_input:
         inputs.append(base_input)
+    inputs += [{"id": i["id"], "sha256": i["sha256"]} for i in included]
     params = {
         "statistic": "median pooled count-based frequency",
         "recount": recount_id,
         "min_denominator": min_denominator,
+        "included": [i["id"] for i in included],
         "overrides": set_,
     }
     write_manifest(build_manifest(calib_id, "simulator-calibration-file", inputs, params, [out], state=state))

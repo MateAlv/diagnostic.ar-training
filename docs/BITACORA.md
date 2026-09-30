@@ -1756,3 +1756,195 @@ Written and committed before the first candidate 3 pilot run.
   while candidate 3 was generating. The agent detected the dirty tree,
   discarded the run and regenerated from a pinned tarball. Rule: runs use
   pinned worktrees or tarballs.
+
+### 2026-09-30 — pre-registration — Candidate 4 pilot rounds (ADR-0011 amendment 5)
+Written and committed before the first candidate 4 pilot run.
+- **Generator:** rare-disease-simulator 0.5.0, run from the GitHub tarball
+  of 020e41d, never the shared checkout.
+  - Full profiles from hpoa-recount-v1 + genes-v2.
+  - report-model-v3; cardinal-v1.
+  - Calibration: `simcal-v05-v1` (simcal-v04-v5 + age-durations-v1,
+    independent reporting, proportional noise at 0.207, calib-v2
+    vocabulary), with r and s replaced per round.
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`), 10
+  cases per gene, medium, seed 91001.
+- **Targets:**
+  - more specific = 0.0929, calib-v2's share vs kb-v3 (the 0.093 of the
+    amendment);
+  - E0 in-vocab MRR on the noise terms alone (vocabulary + related noise
+    together) = 0.026, by `scripts/analysis/noise_signal.py`, every case.
+- **Round 1:** r = 0.195, s = 0.5. It also measures E0 MRR on vocabulary
+  noise alone (MRR_voc) and related noise alone (MRR_rel).
+- **Round 2 rules:**
+  - r₂ = r₁ × 0.0929 / the realized more-specific share, capped to
+    [0, 1];
+  - s₂ = (0.026 − MRR_voc) / (MRR_rel − MRR_voc), clipped to [0, 1]
+    (s₂ = s₁ if MRR_rel = MRR_voc);
+  - both rounded to 4 decimals.
+- **Selection:** the round with the smaller |more specific − 0.0929| /
+  0.0929 + |noise MRR − 0.026| / 0.026 is frozen as `simcal-v05-v2`.
+- **Also reported per round:**
+  - categories vs kb-v3;
+  - reported terms per case;
+  - `forced_min_one`;
+  - the q-calibration error.
+- **Not used:** R1-dev.
+
+### 2026-09-30 — build + pilot — report-model-v3, age-durations-v1, candidate 4 pilots; `simcal-v05-v2` frozen
+- **`report-model-v3`** (`dxt knowledge report-model --population uncited
+  --kb kb-v3`; R1-train only, published). It loads with simulator 0.5.0's
+  strict loader.
+  - Data: 1,193 uncited patients, 1,054 with a profile; 54,305 (patient,
+    profile term) rows; positive rate 0.093.
+  - Coefficients (raw scale): intercept −1.655; frequency 2.347 (unknown
+    value 0.454); information content 0.022; ancestor count −0.045; log
+    reportability 0.413; cardinal flag 0.494.
+  - In-sample fit:
+
+    | | Base rate | Frequency only | Full |
+    |---|---|---|---|
+    | Log loss | 0.309 | 0.291 | 0.267 |
+    | AUC | | 0.686 | 0.765 |
+
+  - Within-gene ρ on R1-train (32 genes with ≥ 5 patients):
+    - in-sample: full 0.509, frequency only 0.267;
+    - each gene's publications left out of reportability: full 0.406,
+      frequency only 0.267.
+- **`age-durations-v1`** (`dxt calib age-durations`): 891 R1-train patients
+  with age and onset, mapped with simulator 0.5.0's windows (the narrowest
+  window holding the onset).
+
+  | Onset category | Patients | Mean (age − onset), years | Median | Used |
+  |---|---|---|---|---|
+  | antenatal | 24 | 2.41 | 0.14 | 2.41 |
+  | neonatal | 49 | 4.71 | 1.46 | 4.71 |
+  | infantile | 338 | 7.56 | 5.04 | 7.56 |
+  | childhood | 153 | 10.35 | 8.0 | 10.35 |
+  | juvenile | 124 | 14.60 | 9.5 | 14.60 |
+  | adult | 203 | 12.38 | 9.0 | 12.38 |
+  | childhood_or_adolescent, variable | 0 | | | 9.82 (overall) |
+
+  Left out: 3,205 without age or onset, 3 with age below onset, 4 with
+  onset past every window.
+- **`simcal-v05-v1`:**
+  - base simcal-v04-v5 + age-durations-v1;
+  - `reporting.mode` independent, `noise_count` proportional,
+    `noise_share` 0.207, `force_cardinal` false;
+  - r = 0.195, s = 0.5.
+- **Pilots** (as pre-registered above; simulator 0.5.0 from the 020e41d
+  tarball, profiles byte-identical to candidate 2's; 4,890 cases for 489
+  genes; 0 invariant violations in both rounds):
+
+  | Round | r | s | More specific (0.0929) | Related | Weak | Explained | Noise-only E0 MRR (0.026) | Vocabulary / related noise MRR | Related share of noise | Reported terms per case (profile + noise) | `forced_min_one` | q-calibration error | Selection score |
+  |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.195 | 0.5 | 0.1003 | 0.0688 | 0.1191 | 0.7118 | 0.0098 | 0.001 / 0.020 | 0.422 | 2.97 (2.35 + 0.63) | 1,579 | 0.0024 | 0.703 |
+  | 2 | 0.1806 | 1.0 | 0.0918 | 0.1128 | 0.0798 | 0.7157 | 0.0181 | 0.0011 / 0.0211 | 0.870 | 2.97 (2.35 + 0.62) | 1,579 | 0.0024 | **0.316** |
+
+  Round 2 applies the declared rules:
+  - r₂ = 0.195 × 0.0929 / 0.1003;
+  - s₂ = (0.026 − 0.001) / (0.020 − 0.001) = 1.32, clipped to 1.
+- **Selected:** round 2, frozen as `simcal-v05-v2` (r 0.1806, s 1.0).
+- **What the pilots show** (R1-train comparisons only):
+  - **The noise target is out of reach.** Even with every noise slot
+    related (s = 1), noise-only MRR is 0.018 against 0.026; related noise
+    alone gives 0.021.
+  - **Records are much shorter than real ones.** Independent reporting
+    with report-model-v3 reports 16.9% of true profile terms: 2.97 shown
+    terms per case against R1-train's 8.70.
+  - **Many cases hit the fallback.** `forced_min_one` fires in 1,579 of
+    4,890 cases (32%), where no roll succeeds.
+  - Nothing here is tuned. r and s are the only pilot knobs.
+
+### 2026-09-30 — build + go/no-go — v0.5 candidate 4: G1 passes; the train-side go/no-go fails (G2c, G2d, G2e); last R1-dev read not spent
+- **Front / versions:** A / rare-disease-simulator 0.5.0 (GitHub tarball of
+  020e41d, sha256 `025e860a…`; never the shared checkout), `simcal-v05-v2`,
+  report-model-v3, cardinal-v1, hpoa-recount-v1, genes-v2. Gene-first, 100
+  per gene, medium, seed 1001. ADR-0011 amendment 5.
+- **Profiles:** rebuilt with 0.5.0; byte-identical to candidates 2 and 3
+  (full `d44e1586…`, half A `ad4476b4…`).
+- **G1:**
+
+  | Check | `ds-sim0.5.0-full-n100-s1001` | `ds-sim0.5.0-A-n100-s1001` |
+  |---|---|---|
+  | Cases / genes | 489,200 / 4,892 | 486,800 / 4,868 |
+  | `validate` (cases and export) | 0 violations | 0 violations |
+  | Slice rerun (20 genes, 19 simulated) | cases and export byte-identical, equal to the full run's lines | same |
+  | `dxt lineage verify` | ok | ok |
+  | Overlap with R1 (keys, all parts) / S3 | 369 / 6,094 (809 same signature) | 411 / 4,753 (303) |
+  | Excluded by `-excl-v1`, residual | 6,413, 0 | 5,106, 0 |
+  | Release | published | published |
+
+- **Run summaries** (independent reporting):
+
+  | | Full | Half A |
+  |---|---|---|
+  | Shown terms per case (profile + noise) | 2.95 (2.34 + 0.61) | 2.39 (1.90 + 0.49) |
+  | Share of true terms reported | 0.174 | 0.191 |
+  | `forced_min_one` | 157,402 (32.2%) | 189,402 (38.9%) |
+  | Specialised share of profile terms | 0.099 | 0.091 |
+  | Related share of noise | 0.868 | 0.900 |
+  | q-calibration error | 0.0003 | 0.0005 |
+
+- **Go/no-go** (`dxt sim realism --no-dev --label v0.5-cand4-full-nodev`, no
+  R1-dev read, no ledger row; `results/realism/gate-v0.5-cand4-gonogo.md`):
+
+  | Check | UP | V03-full | Candidate 4 | Rule | Result |
+  |---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.307 | beat both | ✅ |
+  | G2c W1 terms per case | 3.717 | 1.653 | 5.754 | beat both | ❌ (worse than both) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.822 | beat both, ≤ 0.75 | ❌ (worse than V03-full) |
+  | G2e \|E0 MRR − 0.405\| | 0.414 | 0.183 | 0.204 | beat both, ≤ 0.10 | ❌ (worse than V03-full) |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.502 | beat both | ✅ |
+  | Age: median \|ln(median age ratio)\| (69 genes) | no ages | 0.537 | 0.571 | report only | |
+
+  - E0 MRR 0.201.
+  - Terms per case: mean 2.95; p10 / median / p90 = 1 / 2 / 7 (R1-train:
+    8.70; 2 / 7 / 17).
+- **Decision:** three stop conditions fire. The last R1-dev read
+  (`v0.5-cand4`) was **not** run, and the ledger is unchanged. Per ADR-0011
+  amendment 5 §5, v0.4/0.5 is not frozen: the gate is **unmet**, and Mateo
+  decides how to proceed.
+- **Secondary numbers** (no R1-dev read):
+
+  | | Full | Half A (`--no-dev`) |
+  |---|---|---|
+  | G2a truth / reported | 0.307 / 0.443 | 0.345 / 0.455 |
+  | G2c | 5.754 | 6.309 |
+  | G2d | 0.822 | 0.836 |
+  | E0 MRR (gap to 0.405) | 0.201 (0.204) | 0.180 (0.225) |
+  | G2b-train | 0.502 | 0.400 |
+  | Age median \|log ratio\| | 0.571 | 0.467 |
+  | Categories vs kb-v3 (5% sample): explained / more specific / related / weak | 0.721 / 0.094 / 0.107 / 0.078 | 0.730 / 0.094 / 0.103 / 0.073 |
+  | Summed error vs calib-v2 | 0.105 | 0.106 |
+
+- **E0 ablation** (3,073 full cases), in-vocab MRR:
+  - as exported 0.206, 2.88 terms per case;
+  - no noise 0.251;
+  - no generalisation 0.221;
+  - no specialisation 0.228;
+  - profile terms ungeneralised, no noise 0.300;
+  - all true terms 0.743.
+
+  R1-train uncited: 0.405. Mean IC: noise 6.78, profile positives 3.77,
+  R1-train present 4.14.
+- **Age per gene** (median age in years; R1-train patients with a known
+  age):
+
+  | Gene | R1-train n | R1-train | V03-full | Candidate 3 | Candidate 4 |
+  |---|---|---|---|---|---|
+  | NF1 | 158 | 18.0 | 5.65 | 3.94 | 4.68 |
+  | LMNA | 27 | 46.0 | 22.14 | 21.48 | 23.53 |
+  | FBN1 | 66 | 18.5 | 26.45 | 24.17 | 28.79 |
+  | PTPN11 | 10 | 7.5 | 5.28 | 4.69 | 6.42 |
+  | KMT2D | 11 | 11.6 | 3.99 | 4.21 | 3.40 |
+  | TBX5 | 41 | 33.0 | 3.67 | 5.12 | 2.41 |
+  | UMOD | 76 | 39.0 | 23.84 | 23.75 | 34.88 |
+  | FBXL4 | 33 | 2.0 | 4.45 | 5.49 | 7.38 |
+  | SPTAN1 | 13 | 46.0 | 7.46 | 8.18 | 12.64 |
+  | ITPR1 | 45 | 16.0 | 14.94 | 15.38 | 18.98 |
+  | COL3A1 | 35 | 32.0 | 3.88 | 4.02 | 4.59 |
+
+- **Verdict:** ❌ candidate 4 stops at the train-side go/no-go. The main
+  driver is record length: independent reporting with report-model-v3
+  shows about 3 terms per case (R1-train: 8.7), and a third of the cases
+  fall back to `forced_min_one`. No fix was designed.

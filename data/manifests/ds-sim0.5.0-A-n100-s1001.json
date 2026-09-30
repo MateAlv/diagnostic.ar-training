@@ -1,0 +1,118 @@
+{
+  "artifact_id": "ds-sim0.5.0-A-n100-s1001",
+  "kind": "simulated-training-dataset",
+  "created_at": "2026-09-30T19:51:58+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "34737b62b428f042f70426b53e69f6f892d71fbb",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:simcal-v05-v2",
+      "sha256": "5f22071efa987038ed857e207ee087d1edfe65f788715b6e1f425423bc5e97c3"
+    },
+    {
+      "id": "artifact:genes-v2",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "artifact:report-model-v3",
+      "sha256": "78ece0e9bdd8d7f41f2d7085f28bb48f975496982534d765f7d7890bbf74737e"
+    },
+    {
+      "id": "artifact:cardinal-v1",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    {
+      "id": "artifact:annot-split-v1",
+      "sha256": "029922458e57a0d02a2a66bf9305b28340e1af56bb4b5d3fbe55849d06e46b18"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "file:data/splits/r1-v1.heldout-pmids.txt",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "artifact:calib-v2",
+      "sha256": "4c0c51f4a98a2c211ecea5811a6d67bd4b8fd64501d53caa6ed379d99cd0af1b"
+    },
+    {
+      "id": "file:genphenia-v3.0/genes.json",
+      "sha256": "f1c5b72e182490c0726ab3308f86bd92bec9523509853318223a5a6705fdc2fa"
+    },
+    {
+      "id": "file:rare-disease-simulator@020e41d GitHub tarball",
+      "sha256": "025e860a9a6acf98da728e8abccd78cb5f5cdf7777b845bb49bd6ebd0256eaf6"
+    },
+    {
+      "id": "simulator-profiles:A (build summary)",
+      "sha256": "eed6aee055a70f1344bf89cdf1ede95921dcc23a6e6286dfd2670991def82eb4"
+    },
+    {
+      "id": "simulator-profiles:A",
+      "sha256": "ad4476b4031d0761cf84dd30497b9d09a2472d30fc54e052e8d73a8616e375b4"
+    },
+    {
+      "id": "simulator-run-summary",
+      "sha256": "f366578aba7ccdd1a2e837014c21e427638aaeb8992a506d06ecb46a6a13d3f1"
+    }
+  ],
+  "params": {
+    "generator": "rare-disease-simulator@020e41d (0.5.0, run from the GitHub tarball of that commit, ADR-0011 amendment 5 run hygiene; the run summary records no commit)",
+    "simulator_version": "0.5.0",
+    "profiles": "half A of annot-split-v1 (B dropped), built from hpoa-recount-v1 (already masked; the simulator config's r1-v1 PMID mask ran as a fallback and masked 0 rows), genes-v2",
+    "mode": "gene-first",
+    "cases_per_gene": 100,
+    "difficulty": "medium",
+    "seed": 1001,
+    "calibration": "simcal-v05-v2",
+    "report_model": "report-model-v3",
+    "cardinal": "cardinal-v1",
+    "splits": "simulator's own 90/5/5 by case seed: train=gradients, val=early stopping, test=S1 sanity",
+    "role": "ADR-0012 candidate 4 Front A training set (half A); training data only if the gate passes"
+  },
+  "params_hash": "16f8af34ab544eacb20d04e15c2b2a84349a711a9127b189793f391bbc5049f0",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/ds-sim0.5.0-A-n100-s1001/contamination.json",
+      "sha256": "36d69dc06163664e887536cb139c64d8209218411f575755fbb8d23c81592433",
+      "bytes": 340
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.5.0-A-n100-s1001/ds-sim0.5.0-A-n100-s1001.card.json",
+      "sha256": "5dabdee174b191d0ec9f422996c2b283797518c52ca904e4f7dc25e5494b7a69",
+      "bytes": 127707
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.5.0-A-n100-s1001/ds-sim0.5.0-A-n100-s1001.jsonl.gz",
+      "sha256": "af84b952db4dc39e884a2d4eb423d7b9c9db597c667761e918edacb6b7a0393c",
+      "bytes": 28803671
+    }
+  ],
+  "notes": "",
+  "release": "ds-sim0.5.0-A-n100-s1001"
+}
