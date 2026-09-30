@@ -1087,3 +1087,74 @@ What they tell us:
   - one merged calibration file, `simcal-v04-v2`;
   - the candidate uses the Front A training shape;
   - 159 genes lose coverage, which is accepted.
+
+### 2026-09-30 — build — v0.4 candidate 1 dataset: G1 fails (622 invariant violations); G2 not run
+- **Front / versions:** A / rare-disease-simulator@266472c (0.4.0, clean
+  tree), `hpoa-recount-v1`, `genes-v2`, `report-model-v2`, `cardinal-v1`,
+  `simcal-v04-v2`, half A of `annot-split-v1`. Candidate 1 of 3 (ADR-0012).
+- **Profiles:** `build-profiles --from-hpoa` with `--hpoa` hpoa-recount-v1,
+  `--drop-annotations` annot-split-v1, `--gene-profiles` genes-v2, no
+  `--exclude-pmids`.
+  - 9,095 profiles, 5,134 genes; 1,675 recounted rows used.
+  - The simulator's config still supplies the r1-v1 PMID mask as a fallback,
+    so the mask ran: 1,026 references, **0 rows masked**. This confirms
+    hpoa-recount-v1 carries no held-out citation.
+  - Half B: 59,651 of 78,917 listed pairs dropped (59,798 rows); 128
+    diseases left without phenotypes.
+- **Simulate** (gene-first, 100 per gene, medium, seed 1001, 442 s):
+  486,800 cases for **4,868 genes**. 360 of 5,228 vocabulary genes skipped:
+  6 unresolved symbol, 53 no gene record, 277 no simulable entity, **24 no
+  profile available** (ADRB1, CEBPA, FLT3, SF3B1, …), which is the gap to
+  the 4,892 genes expected. Their entities' profiles were not built; the
+  likely cause is the 128 diseases half B leaves without phenotypes (not
+  checked per gene).
+- **G1:**
+
+  | Check | Result |
+  |---|---|
+  | `validate` invariants | **FAIL: 622 violations**, all `reported_count_mismatch`, each off by one |
+  | Rerun byte-identical | pass: a 20-gene slice (19 simulated, 1,900 cases) run twice gives identical bytes, equal to the full run's lines for those genes |
+  | `dxt lineage verify` | ok |
+  | Contamination vs R1 and S3 | not run: `export-training` refuses cases that fail `validate` |
+
+- **Cause of the violations** (simulator `_report`): a reported term whose
+  own id was already shown, because an earlier term was generalized to it,
+  is skipped with no record. Example: A2ML1 case 75 generalizes HP:0000407
+  to HP:0000365, then reports the true HP:0000365 itself. The case shows 9
+  profile terms for a profile budget of 10, and the skipped term is neither
+  a positive, a `recorded_as_generalized` missing term nor an unreported
+  one. An independent count over the cases finds exactly 622 cases below
+  their profile budget with unreported true terms left, and every one has a
+  generalized positive. The fix belongs in the simulator and needs a new
+  commit and a regenerated dataset.
+- **No dataset was registered or published, and G2 was not run.** No
+  R1-dev read and no ledger row, so candidate 1's budget slot is unspent.
+  `scripts/register_sim_dataset.py` (manifest + `-excl-v1`, as for V03) is
+  committed for the rerun; it has not been exercised yet.
+- **Diagnostics without R1-dev** (from the rich cases and the run summary;
+  `present` computed as in export v2):
+
+  | | Candidate | R1-train |
+  |---|---|---|
+  | Present terms per case: mean / median | 7.34 / 7 | 8.70 / 7 |
+  | p10 / p90 / max | 4 / 12 / 51 | 2 / 17 / 66 |
+  | Cases with ≤ 2 terms | 2.6% | 11.0% |
+
+  - W1 of terms per case vs R1-train (G2c's statistic, R1-train only):
+    **2.046**. UP is 3.717 and V03 1.382. The fix touches 622 cases by one
+    term, so this should barely move: the candidate is on course to fail
+    G2c against V03.
+  - Budget: mean drawn 8.70, reported total 7.35 (3.65 profile terms +
+    3.70 noise). TV of reported totals vs the budget histogram 0.234.
+  - **Noise share:** 50.4% of shown terms pooled, 55.3% mean per case.
+    41.6% of cases show exactly one profile term.
+  - **Cardinal:** 0.193 reported cardinal positives per case, 2.6% of shown
+    terms, at least one in 12.3% of cases. `validate`: 110,132 of 228,415
+    true cardinal terms reported (48.2%), counting generalized ones.
+  - Frequency calibration (ungated terms): error 0.0028.
+- **Verdict:** ❌ candidate 1 fails G1. Nothing tuned.
+- **Next:** fix the simulator's generalization collision with a regression
+  test, regenerate with the same settings, and re-run G1, then G2 once as
+  `v0.4-cand1`. Open question for Mateo before that run: noise takes half of
+  the shown terms and the term-count spread is narrower than R1-train's
+  (the W1 above).
