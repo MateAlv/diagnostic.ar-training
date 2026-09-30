@@ -200,3 +200,47 @@ record's budget: Poisson(3.7) noise slots out of a mean budget of 8.7.
   3. **Calibration file** `simcal-v04-v3` = `simcal-v04-v2` + rule 2.
 - **Ledger:** realism runs pass `--sim-version <version>-candN` so the
   3-candidate budget counts correctly.
+
+## Amendment 3 (2026-09-30): candidate 2 design (R1-dev read 2 of 3)
+
+Based on ANALYSIS-002 (R1-train only). Fixed before any candidate 2
+number exists.
+
+1. **Specialisation of reported terms** (simulator
+   `reporting.specialize_rate`).
+   - **Rule:** a reported profile term that was not generalized is
+     replaced, with probability r, by one of its descendants: a uniformly
+     chosen child; then, with probability 0.5, one of that child's
+     children.
+   - **Constraints:** the descendant must be a phenotypic abnormality,
+     allowed for the patient's sex, and not already shown.
+   - **Truth:** the patient truly has the reported descendant, so it
+     joins `true_present`.
+   - **Target:** R1-train's more-specific share, 0.115 of present terms.
+2. **Disease-related noise** (simulator `noise.related_share`).
+   - **Rule:** a share s of the noise slots is drawn near the disease
+     rather than from the vocabulary. Take a uniformly chosen true term,
+     go up to its parent (or, with probability 0.5, its grandparent), and
+     pick a uniformly chosen descendant of that ancestor, at most 2 levels
+     down.
+   - **Exclusions:** the pick must not be one of the profile's terms, a
+     present term or a negative, and must be allowed for the patient's
+     sex. With no eligible term, the slot falls back to vocabulary noise.
+   - **Target:** R1-train's related share, 0.108 of present terms
+     (shared-ancestor IC ≥ 2).
+3. **Noise share 0.348:** R1-train's truly unexplained share, which
+   excludes more-specific terms. It was 0.4625, which counted them.
+4. **Setting r and s by pilot rounds on R1-train targets only.**
+   - At most 2 declared pilot rounds, on the same 505-gene subset as the
+     simcal-train-v1 pilots (seed 91001), using full profiles.
+   - **Starting values:** r = 0.15, s = 0.30.
+   - **Targets:** the ANALYSIS-002 term categories on R1-train, i.e.
+     more-specific 0.115; related (IC ≥ 2) 0.108; weakly related or
+     unrelated 0.239.
+   - **Selection:** the pair minimising the summed absolute error is
+     frozen into `simcal-v04-v4`. Every tried pair is logged. No R1-dev,
+     no E0.
+5. **Scoring:** G2 scores the full-profile run
+   (`ds-sim0.4.2-full-n100-s1001`), per ADR-0012 amendment 1. The Front A
+   training set (`ds-sim0.4.2-A-n100-s1001`) is generated with the same
+   settings and must pass G1.

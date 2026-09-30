@@ -1239,3 +1239,30 @@ What they tell us:
   R1-train-only numbers point to a possible source of the G2e difficulty,
   not tested: about half of each record is noise, and a quarter of cases
   carry a single profile term.
+
+### 2026-09-30 — analysis + decision — ANALYSIS-002; ADR-0012 amendment 1
+- **Candidate 1** (sim 0.4.1, R1-dev read 1 of 3) passes G1 and fails G2
+  a, b and e (PR #27). E0 MRR on it is 0.092.
+- **ANALYSIS-002** (R1-train only):
+  - Real present terms are 53.8% explained, 11.5% more specific than an
+    annotation, 9.9% related (shared-ancestor IC 2–4), and 23.9% weakly
+    related or unrelated.
+  - Candidate 1 is 49.4% / 5.0% / 4.7% / 40.6%. Its noise is too
+    gene-independent.
+  - E0 in-vocab MRR on R1-train is 0.562 for patients whose paper is cited
+    in HPOA (n 2,398) and 0.405 for uncited ones (n 1,124).
+- **ADR-0012 amendment 1** (disclosed as made after candidate 1's read):
+  - the G2e target becomes 0.405;
+  - G2 scores full-profile runs, because half A zeroes 30% of G2b's
+    reference terms.
+  - Recomputed G2e gaps: UP 0.414, V03 0.237, candidate 1 0.313. None
+    passes.
+- **ADR-0011 amendment 3 (candidate 2 design, fixed before any candidate 2
+  number):**
+  - specialisation of reported terms (rate r);
+  - disease-related noise (share s of noise slots);
+  - noise share 0.348;
+  - r and s chosen in at most 2 declared pilot rounds against ANALYSIS-002's
+    R1-train term categories.
+- **Scoring and budget:** G2 runs on the full-profile dataset. This is
+  R1-dev read 2 of 3.
