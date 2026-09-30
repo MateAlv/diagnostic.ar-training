@@ -31,7 +31,7 @@ CAND must pass **all** of them.
 | b | R1-dev aggregate: mean per-gene Spearman of term frequencies (genes with ≥ 10 dev patients) | higher than UP's and V03's |
 | c | Terms per case: Wasserstein distance to R1-train's distribution | lower than UP's and V03's |
 | d | Classifier two-sample test: AUC of a classifier telling R1-train patients from simulated ones (source-neutral features: term count, mean IC and depth, organ-system histogram, share of terms annotated to the gene, noise share; publication-grouped cross-validation) | lower than UP's and V03's, and ≤ 0.75 |
-| e | Difficulty match: \|E0 MRR on CAND − E0 MRR on R1-train (0.44)\| | smaller than UP's (0.81 → 0.37) and V03's (0.17 → 0.27), and ≤ 0.10 |
+| e | Difficulty match: \|E0 MRR on CAND − E0 in-vocab MRR on R1-train (0.512, EXP-000)\| (simulated genes are all in vocabulary, so the in-vocab figure is the fair target) | smaller than UP's (0.812 → 0.300) and V03's (0.176 → 0.336), and ≤ 0.10 |
 
 **G3: Disease cards reviewed by a person**
 - Cards: a stratified sample of **30 diseases**, the 10 of ANALYSIS-001 plus

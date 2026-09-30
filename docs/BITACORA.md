@@ -1033,3 +1033,7 @@ What they tell us:
 - **R1-dev budget:** 3 candidate versions.
 - **GeneReviews:** facts-with-citations use under its non-commercial terms;
   written confirmation requested (TODO).
+- **Correction to ADR-0012 G2e,** made before any v0.4 number exists. The
+  difficulty target is now R1-train's in-vocab E0 MRR, 0.512 (it was the
+  all-genes 0.440): simulated genes are all in vocabulary. Gaps become
+  UP 0.300 and V03 0.336, both taken from EXP-000 and EXP-A-002f.
