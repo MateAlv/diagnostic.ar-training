@@ -132,10 +132,11 @@ def main() -> None:
             s3_signature_hits += 1
     excluded = sorted({i for ids in hits.values() for i in ids})
     dropped = set(excluded)
+    evaluation_keys = r1_keys | s3_keys
     residual = sum(
         1
         for r in read_rows(export)
-        if r["case_id"] not in dropped and overlap_key(r["gene"], r["present"]) in (r1_keys | s3_keys)
+        if r["case_id"] not in dropped and overlap_key(r["gene"], r["present"]) in evaluation_keys
     )
     if residual:
         raise LineageError(f"residual overlap after exclusion: {residual}")

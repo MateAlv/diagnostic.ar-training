@@ -1169,3 +1169,73 @@ What they tell us:
   cases with one profile term.
 - **New calibration file:** `simcal-v04-v3`.
 - **Status:** R1-dev still unread; candidate 1 remains read 1 of 3.
+
+### 2026-09-30 — build + gate — v0.4 candidate 1 (simulator 0.4.1): G1 passes, G2 fails on a, b and e
+- **Front / versions:** A / rare-disease-simulator@b645c60 (0.4.1, clean
+  tree), `simcal-v04-v3` (ADR-0011 amendment 2), `hpoa-recount-v1`,
+  `genes-v2`, `report-model-v2`, `cardinal-v1`, half A of `annot-split-v1`.
+  Gene-first, 100 per gene, medium, seed 1001. This is candidate 1 of 3 and
+  spends R1-dev read 1 of 3.
+- **Profiles:** the 266472c → b645c60 diff touches only `simulation/`, docs
+  and tests. A rebuild with 0.4.1 is byte-identical to the 0.4.0 build
+  (sha256 `ad4476b4…`); its PMID-mask fallback again masked 0 rows.
+- **Dataset** `ds-sim0.4.1-A-n100-s1001` (release assets, ADR-0005):
+  - 486,800 cases for 4,868 genes, the same 24 `no_profile_available`
+    genes short of 4,892 as before;
+  - 36.6 MB gz (sha256 `b18df39d…`); sim splits 438,011 train / 24,584 val
+    / 24,205 test.
+- **G1:**
+
+  | Check | Result |
+  |---|---|
+  | `validate` (cases and export) | pass: 0 invariant violations |
+  | Rerun byte-identical | pass: a 20-gene slice (19 simulated) run twice gives identical cases and identical exports, and its cases equal the full run's lines |
+  | `dxt lineage verify` | ok |
+  | Contamination, key (gene, present set) | R1 (all parts, keys only): 58; S3: 449 (42 with the same full signature). **498 cases excluded** by `ds-sim0.4.1-A-n100-s1001-excl-v1`; residual 0 |
+
+  The S3 overlap is higher than V03's (101). These are chance matches on
+  small presentations, likely because 12.7% of this candidate's records
+  have at most 2 terms.
+- **G2** (`dxt sim realism --label v0.4-cand1 --sim-version 0.4.1-cand1`,
+  one run with no crash; `results/realism/gate-v0.4-cand1.md`):
+
+  | Metric | UP | V03 | Candidate | Pass |
+  |---|---|---|---|---|
+  | a: panel-v1 MAE | 0.504 | 0.556 | 0.512 | ❌ (beats V03, not UP) |
+  | b: R1-dev mean per-gene ρ (38 genes scored) | 0.231 | 0.086 | 0.152 | ❌ (beats V03, not UP) |
+  | c: W1 terms per case vs R1-train | 3.717 | 1.382 | 1.214 | ✅ |
+  | d: C2ST AUC (≤ 0.75) | 0.840 | 0.778 | 0.737 | ✅ |
+  | e: \|E0 MRR − 0.512\| (≤ 0.10) | 0.307 | 0.344 | 0.420 | ❌ (worse than both) |
+
+  - **G2e:** E0's MRR on the candidate is 0.092. V03 gave 0.168 and UP
+    0.819, so the candidate's patients are much harder for E0 than real
+    ones.
+  - **G2a:** literature-panel-v1 has no `source_kind` column, so the
+    primary MAE uses all 37 rows, Orphanet-sourced ones included; the
+    baselines were computed the same way. It will be recomputed on
+    literature-panel-v2, which reads no R1-dev.
+- **Diagnostics without R1-dev** (`results/realism/v0.4-cand1.train-diagnostics.json`):
+
+  | | Candidate | R1-train |
+  |---|---|---|
+  | Present terms per case: mean / median | 7.49 / 6 | 8.70 / 7 |
+  | p10 / p90 | 2 / 14 | 2 / 17 |
+  | Cases with ≤ 2 terms | 12.7% | 11.0% |
+  | W1 | 1.214 | — |
+
+  - Profile terms per case: mean 3.51, median 3. **27.2% of cases show
+    exactly one profile term** (41.6% under 0.4.0).
+  - **Noise share:** 53.1% of shown terms pooled, 48.6% mean per case, 3.97
+    noise terms per case. That is above the nominal 0.4625 because profile
+    slots go unfilled when the true phenotype is thinner than the budget:
+    budget mean 8.70, shown 7.49.
+  - Reported totals vs the budget histogram: TV 0.070 (0.234 under 0.4.0).
+  - **Cardinal:** 0.194 reported cardinal positives per case, 2.6% of shown
+    terms, at least one in 12.9% of cases. `validate`: 111,082 of 228,406
+    true cardinal terms reported (48.6%).
+- **Verdict:** ❌ candidate 1 fails the gate (G2a, G2b, G2e). Nothing was
+  tuned after the read.
+- **Next:** Mateo decides candidate 2 (2 R1-dev reads left). The
+  R1-train-only numbers point to a possible source of the G2e difficulty,
+  not tested: about half of each record is noise, and a quarter of cases
+  carry a single profile term.
