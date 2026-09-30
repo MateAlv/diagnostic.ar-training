@@ -1373,3 +1373,27 @@ What they tell us:
   The commit ids quoted above and in the manifests' `code.sha` are the
   replayed ones, remapped one-to-one; each names exactly the code tree
   that produced the artifact.
+
+### 2026-09-30 — pre-registration — Candidate 2 pilot rounds (ADR-0011 amendment 3)
+Written and committed before the first pilot runs.
+- **Generator:** rare-disease-simulator@ddb1ec1 (0.4.2).
+  - Full profiles from hpoa-recount-v1 + genes-v2.
+  - Calibration: `simcal-v04-v3` plus `reporting.noise_share` 0.348, with
+    `reporting.specialize_rate` r and `noise.related_share` s.
+- **Pilot shape:**
+  - genes: the simcal-train-v1 pilot list
+    (`rare-disease-simulator/outputs/cal/pilot-genes.txt`, 523 symbols,
+    sha256 `5c817192…4c082`);
+  - 10 cases per gene, medium, seed 91001.
+- **Measure:** ANALYSIS-002 categories on each pilot export, every record
+  (`scripts/analysis/dataset_term_categories.py`, kb-v4; it reads no R1
+  data). Targets (R1-train): more specific 0.115, related IC ≥ 2 0.108,
+  weak IC < 2 0.239.
+- **Round 1:** r = 0.15, s = 0.30.
+- **Round 2 rule:** each knob is scaled by target / realized share of its
+  own category, capped to [0, 1]:
+  - r₂ = r₁ × 0.115 / more-specific share;
+  - s₂ = s₁ × 0.108 / related (IC ≥ 2) share.
+- **Selection:** the pair with the smallest summed absolute error over the
+  three categories is frozen as `simcal-v04-v4`.
+- **Not used:** R1-dev and E0.
