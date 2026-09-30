@@ -1063,3 +1063,20 @@ What they tell us:
 - **Caveat:** `genes-v1` picks some odd main diseases (e.g. UNC13A → ALS1,
   CST3 → ARMD11). The split keeps them, because the panel evaluates what
   the simulator emits for that entity.
+
+### 2026-09-30 — ADR-0012 G4 — Reserve list extended (`litpanel-split-v2`)
+- **Why:** after 5 of the 8 extraction batches, 15 of 38 panel units had
+  been dropped (no source with stated numbers for ≥ 5 features, or a
+  susceptibility-only gene–disease link). The 20 reserves of
+  `litpanel-split-v1` might not bring the panel to 50.
+- **Frozen at commit `410c0354bb7e0fbdb3b0232ec85c187bad71d566`**, built at
+  code `25bf214` (clean tree): the same sampler and seed, with 40 reserves.
+  - `data/realism/litpanel-split-v2.tsv` sha256
+    `c9de69c3a2575efaac176a1c4eb65f7c80055c905e87933b13ca0e4b25216543`.
+  - Its first 80 rows are identical to `litpanel-split-v1` (checked with
+    `diff`).
+- **Frozen before any extraction on reserves 81–100.** No
+  construction-side literature extraction has happened yet, so moving
+  these 20 units from construction to evaluation leaks nothing.
+  `litpanel-split-v2` supersedes v1 as the evaluation/construction
+  boundary.
