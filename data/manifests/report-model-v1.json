@@ -1,0 +1,58 @@
+{
+  "artifact_id": "report-model-v1",
+  "kind": "report-model",
+  "created_at": "2026-09-30T14:33:33+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "2e64f7ce69596ca4784992438b765145e5713f05",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "artifact:cardinal-v1",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    }
+  ],
+  "params": {
+    "adr": "0011 §3",
+    "kb": "kb-v4",
+    "cardinal": "cardinal-v1",
+    "part": "train",
+    "l2": 0.0001
+  },
+  "params_hash": "fc75327e1daacd6bb34f1c889521b3c8d5833fe16e7709d4241df11e995e82ad",
+  "outputs": [
+    {
+      "path": "data/interim/report-model/report-model-v1/report-model.json",
+      "sha256": "ea5e46074a4f0430b0ab4932aec5d5949bb5d7b82a94922af61c80690746547c",
+      "bytes": 1168519
+    },
+    {
+      "path": "data/report-model/report-model-v1.summary.json",
+      "sha256": "db171e2f38424dcf8c6f86b368c2f27b85fae707c7fa3edf0d7bfeb7a192a5e6",
+      "bytes": 3758
+    }
+  ],
+  "notes": "",
+  "release": "report-model-v1"
+}

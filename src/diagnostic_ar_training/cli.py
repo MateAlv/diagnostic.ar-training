@@ -6,6 +6,7 @@ from pathlib import Path
 import typer
 
 from diagnostic_ar_training import DATA_DIR, MANIFESTS_DIR, SPLITS_DIR
+from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
 from diagnostic_ar_training.lineage.registry import LineageError
@@ -23,6 +24,8 @@ app.add_typer(lineage_app, name="lineage")
 app.add_typer(eval_app, name="eval")
 app.add_typer(kb_app, name="kb")
 app.add_typer(artifacts_app, name="artifacts")
+app.add_typer(knowledge_app, name="knowledge")
+app.add_typer(sim_app, name="sim")
 
 
 @kb_app.command("build")
@@ -125,6 +128,10 @@ GENE_SOURCES = [
 def genes_build(
     genes_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. genes-v1"),
     mask_split: str = typer.Option("r1-v1", help="Split whose held-out PMIDs are masked"),
+    scheme: str = typer.Option(
+        "v1", help="v1 (ADR-0008) or v2 (ADR-0011 §2: + R1-train patients, zero rules)"
+    ),
+    hpoa_artifact: str = typer.Option("", help="hpoa-recount artifact to take profiles from (scheme v2)"),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Per-gene disease entities, validity, ClinVar evidence, inheritance and weights."""
@@ -133,15 +140,42 @@ def genes_build(
     ensure_new(genes_id)
     from diagnostic_ar_training import INTERIM_DIR, splits
     from diagnostic_ar_training.knowledge import genes
+    from diagnostic_ar_training.lineage.gitinfo import code_state
     from diagnostic_ar_training.lineage.hashing import sha256_file
-    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
     from diagnostic_ar_training.lineage.manifest import publish as publish_release
     from diagnostic_ar_training.lineage.registry import Purpose, open_source
     from diagnostic_ar_training.ontology import Ontology
     from diagnostic_ar_training.rerank import kb
     from diagnostic_ar_training.systems.genphenia_v3 import CHECKPOINT, unpack_bundle
 
+    if scheme == "v2" and not hpoa_artifact:
+        raise typer.BadParameter(
+            "scheme v2 takes its profiles from an hpoa-recount artifact (--hpoa-artifact)"
+        )
+    state = code_state()
     paths = {n: open_source(n, Purpose.SIMULATE) for n in GENE_SOURCES}
+    extra_inputs, diagnoses = [], []
+    if hpoa_artifact:
+        recount_manifest = load_manifest(hpoa_artifact)
+        recount_out = dict(
+            zip((o.path for o in recount_manifest.outputs), recount_manifest.outputs, strict=True)
+        )
+        hpoa_path = next(p for p in fetch_outputs(recount_manifest) if p.name == "phenotype.hpoa")
+        paths["hpo_annotations"] = hpoa_path
+        sha = next(o.sha256 for k, o in recount_out.items() if k.endswith("phenotype.hpoa"))
+        extra_inputs.append({"id": f"artifact:{hpoa_artifact}", "sha256": sha})
+    if scheme == "v2":
+        cases = splits.load_part(mask_split, splits.Part.TRAIN, Purpose.SIMULATE)
+        diagnoses = [(c.gene, c.disease_ids) for c in cases]
+        extra_inputs.append(
+            {"id": f"split:{mask_split}", "sha256": sha256_file(SPLITS_DIR / f"{mask_split}.json")}
+        )
     splits.write_heldout_pmids(mask_split)
     mask_path = splits.heldout_pmids_path(mask_split)
     vocab_path = unpack_bundle() / "checkpoints" / CHECKPOINT / "genes.json"
@@ -150,6 +184,8 @@ def genes_build(
         *paths.values(),
         masked_pmids=set(mask_path.read_text().split()),
         vocabulary=json.loads(vocab_path.read_text()),
+        scheme=scheme,
+        r1_train_diagnoses=diagnoses,
     )
     out_path = INTERIM_DIR / "genes" / genes_id / "genes.json.gz"
     kb.write(built, out_path)
@@ -157,13 +193,26 @@ def genes_build(
     stats_path.parent.mkdir(parents=True, exist_ok=True)
     stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
     sources = registry.load_sources()
-    inputs = [sources[n].as_input() for n in GENE_SOURCES]
+    inputs = [sources[n].as_input() for n in GENE_SOURCES if not (hpoa_artifact and n == "hpo_annotations")]
     inputs += [
         {"id": f"heldout-pmids:{mask_split}", "sha256": sha256_file(mask_path)},
         sources["genphenia_v3"].as_input(),
+        *extra_inputs,
     ]
     params = {"mask_split": mask_split, "adr": "0008", "weight": "validity * sqrt(1 + clinvar_plp_alleles)"}
-    manifest = build_manifest(genes_id, "gene-profiles", inputs, params, [out_path, stats_path])
+    if scheme == "v2":
+        params = {
+            "mask_split": mask_split,
+            "adr": "0008 + 0011 §2",
+            "scheme": "v2",
+            "profiles_from": hpoa_artifact,
+            "weight": "validity * sqrt(1 + clinvar_plp_alleles + r1_train_patients)",
+            "r1_train_patients": "R1-train patients of this gene diagnosed with any id of the entity",
+            "zero_weight": "somatic_only (Orphanet associations all somatic, no ClinGen); validity_zero; "
+            "no_supporting_evidence (no ClinVar P/LP, Orphanet product-6 association, ClinGen curation "
+            "or R1-train patient)",
+        }
+    manifest = build_manifest(genes_id, "gene-profiles", inputs, params, [out_path, stats_path], state=state)
     if publish:
         manifest = publish_release(manifest, genes_id)
     write_manifest(manifest)
@@ -183,9 +232,13 @@ def genes_calibrate(genes_id: str = typer.Option(..., "--id"), split_id: str = "
     manifest = load_manifest(genes_id)
     built = kb.read(INTERIM_DIR / "genes" / genes_id / "genes.json.gz")
     cases = splits.load_part(split_id, splits.Part.TRAIN, Purpose.TRAIN)
-    report = genes.calibration(
-        built["genes"], built["vocabulary"], cases, splits.publication_groups(split_id)
-    )
+    groups = splits.publication_groups(split_id)
+    report = genes.calibration(built["genes"], built["vocabulary"], cases, groups)
+    if manifest.params.get("scheme") == "v2":
+        report = {
+            "adr0008_gamma": report,
+            "v2": genes.calibration_v2(built["genes"], built["vocabulary"], cases, groups),
+        }
     out = RESULTS_DIR / genes_id / "calibration-r1-train.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")

@@ -135,6 +135,16 @@ orphanet_alignments:
   license: CC-BY-4.0 (Orphanet)
   notes: ORPHA<->OMIM alignments (3,781 exact, 4,138 BTNT, 797 NTBT, 29 ND). Approved by Mateo 2026-09-29 to carry Orphanet onset to OMIM diseases; only exact (E), validated mappings transfer facts.
 
+orphanet_phenotypes:
+  role: knowledge
+  version: "2026-06-23"
+  filename: en_product4.xml
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-09-30-product4/en_product4.xml
+  upstream_url: https://www.orphadata.com/data/xml/en_product4.xml
+  sha256: 4f44e8a61201399911aa1ba44a293c0ccaa5ce11272c47d40862255cb72f6b32
+  license: CC-BY-4.0 (Orphanet)
+  notes: Phenotypes (HPO) of 4,357 rare disorders with frequency classes and DiagnosticCriteria flags ("Diagnostic criterion", "Pathognomonic sign"); source of cardinal-v1's product-4 rows (ADR-0011 §4). Same Orphanet release as orphanet_alignments. Disorders citing a held-out R1 PMID are dropped from cardinal rows.
+
 orphanet_ages_2026_06:
   role: knowledge
   version: "2026-06-23"

@@ -109,15 +109,14 @@ CLINVAR = [
 ]
 
 
-@pytest.fixture
-def built(tmp_path):
+def build_files(tmp_path, hpoa_extra=(), g2d_extra=(), **kwargs):
     nodes = [{"id": OBO + c, "lbl": c} for c in HP]
     edges = [{"sub": OBO + c, "pred": "is_a", "obj": OBO + p} for c, ps in HP.items() for p in ps]
     (tmp_path / "hp.json").write_text(json.dumps({"graphs": [{"nodes": nodes, "edges": edges}]}))
     files = {
         "hgnc": HGNC,
-        "hpoa": "#version: t\n" + "\t".join(HPOA_COLUMNS) + "\n" + "\n".join(HPOA),
-        "g2d": "\n".join(G2D),
+        "hpoa": "#version: t\n" + "\t".join(HPOA_COLUMNS) + "\n" + "\n".join([*HPOA, *hpoa_extra]),
+        "g2d": "\n".join([*G2D, *g2d_extra]),
         "g2p": "\n".join(G2P),
         "p6": P6,
         "p1": P1,
@@ -133,8 +132,13 @@ def built(tmp_path):
     return G.build(
         Ontology.from_json(tmp_path / "hp.json"),
         p("hgnc"), p("hpoa"), p("g2d"), p("g2p"), p("p6"), p("p1"), p("prev"), p("clingen"), p("mondo"),
-        p("clinvar.gz"), {"PMID:666"}, ["-", "GENEA", "OLDA", "NOPE"],
+        p("clinvar.gz"), {"PMID:666"}, ["-", "GENEA", "OLDA", "NOPE"], **kwargs,
     )  # fmt: skip
+
+
+@pytest.fixture
+def built(tmp_path):
+    return build_files(tmp_path)
 
 
 def entity(out, symbol, primary):
@@ -193,3 +197,59 @@ def test_prevalence_prefers_worldwide_point_prevalence(built):
 def test_obsolete_mondo_terms_are_ignored(tmp_path):
     (tmp_path / "m").write_text(MONDO)
     assert G.parse_mondo(tmp_path / "m") == {"MONDO:1": {"OMIM:1"}}
+
+
+@pytest.fixture
+def built_v2(tmp_path):
+    return build_files(
+        tmp_path,
+        hpoa_extra=[hpoa("OMIM:5", "HP:0001250"), hpoa("OMIM:6", "HP:0001250")],
+        g2d_extra=["N:1\tGENEA\tMENDELIAN\tOMIM:5\tx", "N:1\tGENEA\tMENDELIAN\tOMIM:6\tx"],
+        scheme="v2",
+        # OLDA resolves to GENEA; a patient of another gene does not support GENEA's link.
+        r1_train_diagnoses=[("OLDA", ("OMIM:6",)), ("GENEA", ("OMIM:1",)), ("GENEX", ("OMIM:5",))],
+    )
+
+
+def test_v2_adds_patients_to_the_evidence(built_v2):
+    out, stats = built_v2
+    e = entity(out, "GENEA", "OMIM:1")
+    assert e["r1_train_patients"] == 1 and e["zero_weight_reason"] is None
+    assert e["weight_raw"] == pytest.approx(0.3 * math.sqrt(1 + 2 + 1), abs=1e-6)
+
+
+def test_v2_zeroes_unsupported_links_and_somatic_only_entities(built_v2):
+    out, stats = built_v2
+    unsupported = entity(out, "GENEA", "OMIM:5")  # HPO link only: no ClinVar, Orphanet, ClinGen or patient
+    assert unsupported["zero_weight_reason"] == "no_supporting_evidence"
+    assert unsupported["weight_raw"] == 0.0 and not unsupported["simulable"]
+    supported = entity(out, "GENEA", "OMIM:6")  # same, but one R1-train patient
+    assert supported["zero_weight_reason"] is None and supported["weight_raw"] == pytest.approx(math.sqrt(2))
+    assert entity(out, "GENEX", "ORPHA:20")["zero_weight_reason"] == "somatic_only"
+    assert stats["entities_zero_weight_no_supporting_evidence"] == 2  # OMIM:5 and the masked OMIM:3
+
+
+def test_v1_output_has_no_v2_fields(built):
+    out, _ = built
+    assert "r1_train_patients" not in entity(out, "GENEA", "OMIM:1")
+
+
+def test_calibration_v2_separates_in_sample_from_leave_publication_out():
+    ents = [
+        {"ids": ["OMIM:1"], "simulable": True, "validity": 1.0, "clinvar_plp_alleles": 0,
+         "orphanet": [], "clingen": [], "r1_train_patients": 3},
+        {"ids": ["OMIM:2"], "simulable": True, "validity": 1.0, "clinvar_plp_alleles": 3,
+         "orphanet": [["x", "Assessed"]], "clingen": [], "r1_train_patients": 0},
+    ]  # fmt: skip
+    genes = {"G": {"entities": ents}}
+
+    class C:
+        def __init__(self, i):
+            self.case_id, self.gene, self.disease_ids = f"c{i}", "G", ("OMIM:1",)
+
+    cases = [C(i) for i in range(3)]
+    report = G.calibration_v2(genes, {}, cases, {c.case_id: "paper" for c in cases})
+    by = report["by_variant"]
+    assert by["in_sample"]["mean_p"] == pytest.approx(0.5)  # sqrt(4) vs sqrt(4)
+    assert by["leave_publication_out"]["mean_p"] == 0.0  # its only support was its own paper
+    assert by["v1_formula"]["mean_p"] == pytest.approx(1 / 3)

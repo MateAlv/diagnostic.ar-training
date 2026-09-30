@@ -1,0 +1,63 @@
+{
+  "artifact_id": "realism-up-graphens",
+  "kind": "realism-report",
+  "created_at": "2026-09-30T14:36:59+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "93c618251d24d4cdc69bb86c7423cc0cd59696cc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:graphens_sim_20251202@GraPhens@7d861ff",
+      "sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "panel:literature-panel-v1.tsv",
+      "sha256": "0cc7968b5fca73dab7b2836f6f0b0b74d5baa6670db6aee36b937ab84904f4b0"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    }
+  ],
+  "params": {
+    "label": "up-graphens",
+    "role": "baseline",
+    "sim_version": null,
+    "e0_cases": 5000,
+    "seed": 20260930,
+    "min_dev_patients_rho": 10,
+    "report_model": null
+  },
+  "params_hash": "d99bcbac2577da6b5637a3a981724cd9bdc9d728d6764a9cb33b6bcf1d2c1d5f",
+  "outputs": [
+    {
+      "path": "results/realism/up-graphens.json",
+      "sha256": "7809bd09dbff3b95ce4704eaadb99960d30a5856426976a3d8a79429514268ea",
+      "bytes": 16809
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -56,6 +56,8 @@ make setup | make sources | make check   # setup also installs the pre-push hook
 .venv/bin/dxt sources list|fetch|verify
 .venv/bin/dxt split freeze|show|heldout-pmids r1-v1
 .venv/bin/dxt lineage verify
+.venv/bin/dxt knowledge recount|cardinal|report-model|shrinkage-prior|panel   # simulator v0.4 inputs (ADR-0011)
+.venv/bin/dxt sim realism|gate|report-model-check   # realism gate (ADR-0012); each R1-dev read is ledgered in results/realism/LEDGER.md
 ```
 
 ## Where things are

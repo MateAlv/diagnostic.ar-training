@@ -73,3 +73,12 @@ def test_a_term_both_present_and_excluded_is_removed_from_both():
     case = parse_packet(packet(features=(("HP:1", False), ("HP:2", False), ("HP:2", True))), drops)
     assert case.present == ("HP:1",) and case.excluded == ()
     assert drops["terms_both_present_and_excluded"] == 1
+
+
+def test_feature_onsets_are_kept_for_present_features_only():
+    p = packet(features=(("HP:1", False), ("HP:2", False), ("HP:3", True)))
+    p["phenotypicFeatures"][0]["onset"] = {"age": {"iso8601duration": "P2Y"}}
+    p["phenotypicFeatures"][1]["onset"] = {"ontologyClass": {"id": "HP:0003593"}}
+    p["phenotypicFeatures"][2]["onset"] = {"age": {"iso8601duration": "P5Y"}}
+    case = parse_packet(p, Counter())
+    assert case.feature_onsets == (("HP:1", 2.0, None), ("HP:2", None, "HP:0003593"))

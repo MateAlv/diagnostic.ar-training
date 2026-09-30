@@ -1,0 +1,13 @@
+{
+ "artifact": "report-model-v2",
+ "cardinal": "cardinal-v1",
+ "frequency": "P(term | gene): disease-weight mixture of the masked KB's known frequencies",
+ "genes": 68,
+ "mean_rho": {
+  "frequency_only": 0.18472371067637303,
+  "full": 0.3667774829632158
+ },
+ "min_patients": 5,
+ "part": "r1-v1 dev",
+ "sha256": "1be9413b8b4b040b4f07c60ffe693879f848d869c8db906e9a858fb827b7f6b4"
+}

@@ -1,0 +1,143 @@
+{
+ "adr": "0011 \u00a73",
+ "annotation_diseases": 12578,
+ "artifact": "report-model-v1",
+ "cardinal_flag": {
+  "artifact": "cardinal-v1",
+  "fit_rule": "rows resting on any R1 publication or on R1-train recounts are left out while fitting, so the flag carries no information from the scored patients' papers",
+  "rows_in_artifact": 5920,
+  "rows_used_for_fit": 5500
+ },
+ "coefficients": {
+  "ancestor_count": -0.020568264890705477,
+  "cardinal": 0.44732497598940585,
+  "frequency": 2.253338385217538,
+  "frequency_unknown": 0.4975229647430661,
+  "information_content": 0.06104164472443001,
+  "intercept": -1.8299878628334154,
+  "log_reportability": 0.37827882152645115
+ },
+ "features": [
+  {
+   "definition": "HPOA frequency of the term in the disease profile (ADR-0007 estimate); 0 when unknown",
+   "name": "frequency"
+  },
+  {
+   "definition": "1 if the profile gives the term no frequency, else 0",
+   "name": "frequency_unknown"
+  },
+  {
+   "definition": "-ln((a + 1) / (D + 1)); a = diseases in the masked KB annotating the term or a descendant, D = diseases in the KB (terms.annotated_diseases, annotation_diseases)",
+   "name": "information_content"
+  },
+  {
+   "definition": "number of strict is_a ancestors of the term in HPO (terms.ancestors)",
+   "name": "ancestor_count"
+  },
+  {
+   "definition": "ln((c + 1) / (N + 1)); c = R1-train patients reporting the term or a descendant, N = R1-train patients (terms.reportability, reportability_patients). While fitting, c and N leave out the scored patient's publication group",
+   "name": "log_reportability"
+  },
+  {
+   "definition": "1 if (disease, term) is a cardinal-v1 row, else 0",
+   "name": "cardinal"
+  }
+ ],
+ "fit": {
+  "auc": {
+   "frequency_only": 0.7004370651138789,
+   "full": 0.75509566169418
+  },
+  "log_loss": {
+   "base_rate": 0.30715518784324997,
+   "frequency_only": 0.2845408554609763,
+   "full": 0.2683285583818566
+  },
+  "note": "log loss and AUC use leave-publication-out reportability; the within-gene rho uses full R1-train reportability, so it is in-sample and optimistic. Out-of-sample: dxt sim realism.",
+  "patients": 4103,
+  "patients_with_profile": 2476,
+  "positive_rate": 0.09200626959247649,
+  "rows": 108460,
+  "within_gene_rho_r1_train_in_sample": {
+   "genes": 131,
+   "mean_rho": {
+    "frequency_only": 0.19840470402573165,
+    "full": 0.3926740227488321
+   },
+   "min_patients": 5
+  }
+ },
+ "hpo_version": "2026-02-16",
+ "reference_models": {
+  "frequency_only": {
+   "frequency": 2.5069766497786388,
+   "frequency_unknown": 0.395508610977851,
+   "intercept": -3.508592958430845
+  }
+ },
+ "reportability_patients": 4103,
+ "score": "logit = intercept + sum(coefficients[f] * x[f]); P(report | true term) = 1 / (1 + exp(-logit))",
+ "term_budget": {
+  "cases": 4103,
+  "definition": "number of present (reported) terms per R1-train case",
+  "histogram": {
+   "1": 199,
+   "10": 203,
+   "11": 181,
+   "12": 171,
+   "13": 142,
+   "14": 93,
+   "15": 91,
+   "16": 78,
+   "17": 53,
+   "18": 59,
+   "19": 43,
+   "2": 253,
+   "20": 41,
+   "21": 22,
+   "22": 23,
+   "23": 17,
+   "24": 15,
+   "25": 23,
+   "26": 22,
+   "27": 16,
+   "28": 15,
+   "29": 11,
+   "3": 343,
+   "30": 6,
+   "31": 11,
+   "32": 6,
+   "33": 7,
+   "34": 1,
+   "35": 9,
+   "36": 6,
+   "37": 6,
+   "38": 3,
+   "39": 2,
+   "4": 415,
+   "40": 2,
+   "41": 3,
+   "42": 1,
+   "43": 2,
+   "45": 1,
+   "46": 2,
+   "47": 1,
+   "5": 320,
+   "6": 345,
+   "66": 1,
+   "7": 301,
+   "8": 294,
+   "9": 244
+  },
+  "mean": 8.69948817938094,
+  "percentiles": {
+   "10": 2.0,
+   "25": 4.0,
+   "50": 7.0,
+   "75": 11.0,
+   "90": 17.0,
+   "99": 33.0
+  }
+ },
+ "unit": "(R1-train patient, phenotypic-abnormality term of the patient's disease profile in kb-v4); label 1 if the patient reports the term or a descendant of it"
+}

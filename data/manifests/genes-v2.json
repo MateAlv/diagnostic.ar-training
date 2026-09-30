@@ -1,0 +1,92 @@
+{
+  "artifact_id": "genes-v2",
+  "kind": "gene-profiles",
+  "created_at": "2026-09-30T14:34:37+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "495ecc01188a524877ee1f65290e7f7f5ca8a52c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hgnc@2026-09-25",
+      "sha256": "3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:orphanet_genes@2026-06-23",
+      "sha256": "f1c039f78683beea7ca5b34d1c01c4ec98f80e8ca488eee69770074db1020e39"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "source:orphanet_prevalence@2026-06-23",
+      "sha256": "6b492b3cc61e5a0327de12f59386a07a071760a938d0bbd8f525bc4a5f71b7f0"
+    },
+    {
+      "id": "source:clingen_validity@2026-09-29",
+      "sha256": "f7df196f67638c536918c5147170a01e2770d4d7149422da008b3b7a42c2525c"
+    },
+    {
+      "id": "source:mondo@2026-09-01",
+      "sha256": "50c8367f9bd9978321eedf84d4e2e79cb757efbed514c81effb00b9ad2e49994"
+    },
+    {
+      "id": "source:clinvar_variants@2026-09",
+      "sha256": "186ad2838a138f0bc7a79b1b7b6dde5533b105175d293e1131652889529804c9"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "mask_split": "r1-v1",
+    "adr": "0008 + 0011 §2",
+    "scheme": "v2",
+    "profiles_from": "hpoa-recount-v1",
+    "weight": "validity * sqrt(1 + clinvar_plp_alleles + r1_train_patients)",
+    "r1_train_patients": "R1-train patients of this gene diagnosed with any id of the entity",
+    "zero_weight": "somatic_only (Orphanet associations all somatic, no ClinGen); validity_zero; no_supporting_evidence (no ClinVar P/LP, Orphanet product-6 association, ClinGen curation or R1-train patient)"
+  },
+  "params_hash": "1e1443559ba018757565145a54831356f44d8eda559939530cb442f82edb6b6c",
+  "outputs": [
+    {
+      "path": "data/interim/genes/genes-v2/genes.json.gz",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+      "bytes": 729379
+    },
+    {
+      "path": "data/genes/genes-v2.stats.json",
+      "sha256": "5e6f37e615640149e332b9fc86c7507d6c60f90b9b0ecf314769fdc57cd77859",
+      "bytes": 924
+    }
+  ],
+  "notes": "",
+  "release": "genes-v2"
+}

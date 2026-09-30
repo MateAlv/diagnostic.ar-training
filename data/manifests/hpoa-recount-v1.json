@@ -1,0 +1,62 @@
+{
+  "artifact_id": "hpoa-recount-v1",
+  "kind": "hpoa-recount",
+  "created_at": "2026-09-30T14:31:48+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "12b6fee00b2017220115c18e8ea447a7475dbaa4",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "adr": "0011 §1",
+    "split": "r1-v1",
+    "part": "train",
+    "min_patients": 3,
+    "n": "patients with the term or a descendant present",
+    "m": "n + patients excluding the term or an ancestor of it",
+    "disease_match": "OMIM id directly; ORPHA via exact validated Orphanet alignments",
+    "other_aspects_citing_heldout": "dropped"
+  },
+  "params_hash": "b6c8f3202d3cc2eb810932f38c7e9a4cc11992b909c0ddf8ba584a32f06e6955",
+  "outputs": [
+    {
+      "path": "data/interim/hpoa-recount/hpoa-recount-v1/phenotype.hpoa",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a",
+      "bytes": 33164941
+    },
+    {
+      "path": "data/interim/hpoa-recount/hpoa-recount-v1/feature-onsets.tsv",
+      "sha256": "b6d0d5158f6e5999021c241739fc6e246fccdce44e07c3bb967c434145861e65",
+      "bytes": 15662
+    },
+    {
+      "path": "data/hpoa-recount/hpoa-recount-v1.stats.json",
+      "sha256": "55ff922b0aa4db7d9a4ea5b472c98814b044afc14553adbd6e510f9785efc96e",
+      "bytes": 44982
+    }
+  ],
+  "notes": "rows_kept_unchanged=267311, rows_recounted=1706, recount_rows_written=1675, rows_dropped=13706",
+  "release": "hpoa-recount-v1"
+}

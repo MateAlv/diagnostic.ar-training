@@ -26,6 +26,15 @@ make check          # lint, tests, lineage verification
 .venv/bin/dxt --help
 ```
 
+Simulator v0.4 inputs and its realism gate (see `docs/DATA_LINEAGE.md` §7):
+
+```bash
+dxt knowledge recount --id hpoa-recount-v1          # also: cardinal, report-model, shrinkage-prior, panel
+dxt genes build --id genes-v2 --scheme v2 --hpoa-artifact hpoa-recount-v1
+dxt sim realism --dataset <export.jsonl.gz | artifact:<id> | source:<name>> --label <name> [--baseline | --sim-version <v>]
+dxt sim gate --candidate <label>                    # ADR-0012 G2 table vs UP and V03
+```
+
 ## Layout
 
 | Path | What |
@@ -36,7 +45,9 @@ make check          # lint, tests, lineage verification
 | `src/diagnostic_ar_training/lineage/` | Source registry and roles, manifests, sealed-split ledger |
 | `src/diagnostic_ar_training/cohorts/` | `Case` schema, phenopacket parser, benchmark loaders |
 | `src/diagnostic_ar_training/splits.py` | Split computation, freezing, sealed access |
-| `src/diagnostic_ar_training/eval/` | Metrics, paired bootstrap, contamination checks |
+| `src/diagnostic_ar_training/eval/` | Metrics, paired bootstrap, contamination checks, simulated-data realism (`realism.py`, ADR-0012 G2) |
+| `src/diagnostic_ar_training/knowledge/` | Gene profiles, HPOA recount, cardinal features, reporting model (simulator v0.4 inputs, ADR-0011) |
+| `data/realism/`, `results/realism/` | Literature panel; realism reports, the G2 gate table and the R1-dev ledger |
 | `src/diagnostic_ar_training/rerank/` | Front B |
 | `src/diagnostic_ar_training/gnn/` | Front A: v3.0 in PyTorch (`GinV3`), graph batching, zero-initialised extension (ADR-0009), ONNX export |
 | `docs/` | Plan, log, protocol, lineage, decisions, experiments |

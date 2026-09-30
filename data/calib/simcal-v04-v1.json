@@ -1,0 +1,11 @@
+{
+ "_provenance": {
+  "artifact": "simcal-v04-v1",
+  "code_sha": "8800e0096a496107df0269e8bf30d2f420c95c48",
+  "mean": 0.622968,
+  "pairs": 80221,
+  "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+  "source": "hpoa-recount-v1 (8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a)"
+ },
+ "frequency.shrinkage_mean": 0.666667
+}

@@ -1,0 +1,42 @@
+{
+  "artifact_id": "realism-report-model-v2-dev",
+  "kind": "report-model-check",
+  "created_at": "2026-09-30T14:43:26+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "78dd66e05f9d27da8d6e03b483a6af0f04f1c60e",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:report-model-v2",
+      "sha256": "1be9413b8b4b040b4f07c60ffe693879f848d869c8db906e9a858fb827b7f6b4"
+    },
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "min_patients": 5,
+    "check": "within-gene rho on R1-dev"
+  },
+  "params_hash": "0db4002528fbfe2f68b31ee85cd830005715f521c21b187b5784978253c5b8d5",
+  "outputs": [
+    {
+      "path": "results/realism/report-model-v2-dev.json",
+      "sha256": "eaea577c97ce6f4317d74f5dc739a6981c0ce3f05c8aca9af7afd6061ae2aa2a",
+      "bytes": 380
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
