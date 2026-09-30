@@ -1,0 +1,12 @@
+{
+ "unexplained_terms": 3047,
+ "share_annotated_to_gene_in_unmasked_g2p": 0.135,
+ "in_g2p": {
+  "patients": 149,
+  "mrr_in_vocab": 0.3045
+ },
+ "not_in_g2p": {
+  "patients": 740,
+  "mrr_in_vocab": 0.0259
+ }
+}

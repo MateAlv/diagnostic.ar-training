@@ -68,6 +68,7 @@ proposed fixes.
   pipe a step through `grep` when a later step depends on it. Never write
   numbers before reading them.
 - In this Bash environment `set -e` has been seen not to stop a chain; chain critical steps with `&&` and check exit codes.
+- **Never update a shared checkout (e.g. rare-disease-simulator main) while an agent is generating from it.** Runs use a pinned worktree or tarball.
 - Worktree agents push with `PYTHONPATH=<worktree>/src`.
 - Sealed data is read only under a committed pre-registration.
 - No AI mention in commits or PRs.
