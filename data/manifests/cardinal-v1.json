@@ -1,0 +1,59 @@
+{
+  "artifact_id": "cardinal-v1",
+  "kind": "cardinal-features",
+  "created_at": "2026-09-30T14:32:12+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "7c5d15eaa71612a339edeee23c8b4923736b781d",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:orphanet_phenotypes@2026-06-23",
+      "sha256": "4f44e8a61201399911aa1ba44a293c0ccaa5ce11272c47d40862255cb72f6b32"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    }
+  ],
+  "params": {
+    "adr": "0011 §4",
+    "product4_kinds": [
+      "diagnostic_criterion",
+      "pathognomonic"
+    ],
+    "product4_omim": "rows repeated for OMIM ids exactly and validatedly aligned to the ORPHA disorder",
+    "product4_heldout": "disorders citing a held-out PMID are dropped",
+    "proxy_min_patients": 10,
+    "proxy_min_frequency": 0.8,
+    "proxy_rule": "pooled count rows (n/m) of hpoa-recount; raw n/m, no prior"
+  },
+  "params_hash": "d8955efa473a17334ad46c7580adec22aa084259609288d809e8e10600fc479e",
+  "outputs": [
+    {
+      "path": "data/cardinal/cardinal-v1.tsv",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45",
+      "bytes": 539405
+    },
+    {
+      "path": "data/cardinal/cardinal-v1.stats.json",
+      "sha256": "880771f934e107ea5565953eb5a14ad71f7117c3ece5c8702a8aa29b5428c4c7",
+      "bytes": 392
+    }
+  ],
+  "notes": "",
+  "release": "cardinal-v1"
+}

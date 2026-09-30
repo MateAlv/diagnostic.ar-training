@@ -1,0 +1,14 @@
+{
+ "diseases": 1821,
+ "diseases_cardinal_proxy": 1524,
+ "diseases_diagnostic_criterion": 305,
+ "diseases_pathognomonic": 26,
+ "product4_diagnostic_criterion": 1133,
+ "product4_dropped_cites_heldout_pmid": 15,
+ "product4_pathognomonic": 19,
+ "product4_rows_via_exact_alignment": 574,
+ "rows": 5920,
+ "rows_cardinal_proxy": 4209,
+ "rows_diagnostic_criterion": 1683,
+ "rows_pathognomonic": 28
+}
