@@ -1559,3 +1559,23 @@ the full dataset, one run with no crash; `results/realism/gate-v0.4-cand2.md`):
   categories now match R1-train within 0.016 each, and E0 MRR rose from
   0.092 to 0.163. Nothing was tuned after the read. One R1-dev candidate
   read is left.
+
+### 2026-09-30 — result + analysis + decision — candidate 2 fails G2; ANALYSIS-003; candidate 3 design
+- **Candidate 2** (sim 0.4.2, `simcal-v04-v4`; R1-dev read 2 of 3; PR #34):
+  - passes G1 on both the full and half-A datasets;
+  - passes G2c only.
+  - G2a 0.404, b 0.193, d 0.792, e 0.242; E0 MRR 0.163.
+- **ANALYSIS-003:**
+  - Noise causes E0's difficulty: removing it lifts MRR from 0.163 to
+    0.472. Real patients' unexplained terms cost only 0.074.
+  - The kb-v4 reference inflates "unexplained". Against the simulator's own
+    knowledge (kb-v3), uncited patients show 66.8% explained, 9.3% more
+    specific, 8.2% related and 15.7% weak.
+  - G2a scored reported rates against prevalence, while real patients' own
+    reports miss the literature by 0.307.
+- **Decisions:**
+  - ADR-0012 amendment 3: G2a on the truth layer, disclosed as made after
+    candidate 2's read.
+  - ADR-0011 amendment 4: candidate 3 uses `calib-v2` (uncited patients vs
+    kb-v3), re-pilots r and s, and runs a train-side go/no-go before the
+    last R1-dev read.

@@ -1,0 +1,28 @@
+{
+ "rows_independent": 497,
+ "rows_genes_with_>=10_r1_train": 145,
+ "on_those_rows": {
+  "r1_train_reported": [
+   0.307,
+   145
+  ],
+  "sim_true": [
+   0.269,
+   145
+  ],
+  "sim_reported": [
+   0.381,
+   145
+  ]
+ },
+ "all_independent_rows": {
+  "sim_true": [
+   0.305,
+   497
+  ],
+  "sim_reported": [
+   0.405,
+   497
+  ]
+ }
+}

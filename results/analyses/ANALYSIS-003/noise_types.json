@@ -1,0 +1,37 @@
+{
+ "ic_quartiles": {
+  "sim_vocab_noise": [
+   3.58,
+   4.5,
+   5.73
+  ],
+  "sim_related_noise": [
+   5.86,
+   7.65,
+   9.44
+  ],
+  "r1_train_unexplained": [
+   3.33,
+   4.37,
+   5.66
+  ],
+  "r1_train_more_specific": [
+   3.88,
+   5.03,
+   6.73
+  ]
+ },
+ "ic_mean": {
+  "sim_vocab_noise": 4.79,
+  "sim_related_noise": 7.28,
+  "r1_train_unexplained": 4.65,
+  "r1_train_more_specific": 5.37
+ },
+ "noise_terms": {
+  "vocab": 6486,
+  "related": 2830
+ },
+ "e0_as_exported": 0.1632,
+ "e0_no_vocab_noise": 0.3837,
+ "e0_no_related_noise": 0.1935
+}

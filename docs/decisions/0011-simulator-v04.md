@@ -244,3 +244,35 @@ number exists.
    (`ds-sim0.4.2-full-n100-s1001`), per ADR-0012 amendment 1. The Front A
    training set (`ds-sim0.4.2-A-n100-s1001`) is generated with the same
    settings and must pass G1.
+
+## Amendment 4 (2026-09-30): candidate 3 design (R1-dev read 3 of 3, the last)
+
+Based on ANALYSIS-003 (R1-train only). Fixed before any candidate 3
+number exists.
+
+1. **Reference population for noise.** R1-train patients whose
+   publication the pinned HPOA does not cite, measured against `kb-v3`,
+   which has the same knowledge as the simulator's profiles.
+   - **New artifact `calib-v2`:** targets plus noise vocabulary from those
+     patients, with the same rules as calib-v1 (vocabulary terms seen in at
+     least 2 patients; the vocabulary size is reported).
+   - Missingness and negation knobs stay those of simcal-train-v1.
+2. **Noise share:** calib-v2's unexplained share (≈ 0.24). The vocabulary
+   noise comes from calib-v2's vocabulary.
+3. **Pilots** (at most 2 rounds, same pilot genes and rules as
+   amendment 3) set r and s against calib-v2's categories:
+   - more specific ≈ 0.093;
+   - related ≈ 0.082;
+   - weakly related or unrelated ≈ 0.157.
+
+   Categories are measured against kb-v3. The result is frozen as
+   `simcal-v04-v5`.
+4. **Simulator 0.4.2 is unchanged;** only calibration changes.
+5. **Go/no-go before the last R1-dev read.**
+   - On the full candidate 3 dataset, run `dxt sim realism --no-dev`
+     (G2a on the truth layer, G2c, G2d, G2e).
+   - If any of them fails its gate threshold, **do not spend the last
+     R1-dev read**. Stop, report, and design again.
+   - These metrics compare with R1-train, so they may be measured more
+     than once; every measurement is logged. G2b (R1-dev), G3 (cards) and
+     G4 (the literature panel) remain the checks nothing was fitted to.
