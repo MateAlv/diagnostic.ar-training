@@ -1038,3 +1038,21 @@ What they tell us:
   all-genes 0.440): simulated genes are all in vocabulary. Gaps become
   UP 0.300 and V03 0.336, both taken from EXP-000 and EXP-A-002f.
 - **Clarification to ADR-0012 G2a,** made before any v0.4 number exists. The primary panel error uses only the rows sourced from GeneReviews or cohort papers. HPOA already carries Orphanet's frequencies, so Orphanet-sourced rows would not be an independent check.
+
+### 2026-09-30 — build — Simulator v0.4 code merged (rare-disease-simulator PR #5, 266472c)
+- **Implemented (ADR-0011):**
+  - merged entity profiles;
+  - Beta shrinkage of count frequencies, with no built-in μ₀;
+  - truth-then-reporting emission, using report-model-v1's R1-train budget histogram and cardinal terms first;
+  - age gating;
+  - new validate checks.
+- **239 tests pass.** Only fixture runs so far; no real data, because the
+  training-repo artifacts are still being built.
+- **Review fix before merge:** noise terms now take slots from the report
+  budget instead of adding to it. The budget comes from R1-train's
+  reported-term counts, which already include noise, so without the fix
+  simulated cases would overshoot terms-per-case (G2c). On the fixture,
+  reported totals follow the histogram with total variation 0.038.
+- **Onset coverage is thin:** 1.2% of positive HPOA rows carry an onset
+  (HPO 2026-02-16), so most terms are not age-gated.
+- **Not tagged or frozen.** Freezing waits for the ADR-0012 gate.
