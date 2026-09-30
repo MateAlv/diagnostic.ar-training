@@ -1015,3 +1015,21 @@ What they tell us:
   - the standing `dxt sim realism` check, with its R1-dev budget (≤ 3
     simulator versions, logged).
 - **Protocol amendment:** EVAL_PROTOCOL §4.1 is now recount-or-drop.
+
+### 2026-09-30 — decision — Data-quality gate before any retraining (ADR-0012)
+- **Mateo:** "not move forward until the simulator and data is pristine".
+  GenPhenAI's plain gene→phenotype simulator is the bar to beat. Claude Code
+  and Codex are available for processing sources.
+- **ADR-0012 gate**, written before any v0.4 number exists:
+  - G1: integrity.
+  - G2: beat both GraPhens' simulator (UP) and v0.3 on literature-panel
+    error, R1-dev aggregate term correlation, term-count distance, a
+    classifier two-sample test (AUC ≤ 0.75) and E0 difficulty match
+    (≤ 0.10).
+  - G3: 30 disease cards reviewed by a person.
+  - G4: a ≥ 50-disease literature panel, LLM-extracted with evidence
+    quotes, 10% double-checked, strictly separated from construction.
+  - G5: freeze.
+- **R1-dev budget:** 3 candidate versions.
+- **GeneReviews:** facts-with-citations use under its non-commercial terms;
+  written confirmation requested (TODO).

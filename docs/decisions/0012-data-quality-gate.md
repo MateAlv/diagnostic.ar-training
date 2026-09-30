@@ -1,0 +1,86 @@
+# ADR-0012: No retraining until the simulated data passes a pre-registered quality gate
+
+- **Status:** Accepted, 2026-09-30 (Mateo: "not move forward until the
+  simulator and data is pristine … GenPhenAI … only used a gen/phenotype
+  HPO synthetic simulator … We should be able to do better").
+- **Criteria written:** before any simulator-v0.4 number exists.
+- **Blocks:** A-002f-v2, A-003f-v2 and any other training on simulated
+  data until the gate passes for a frozen simulator version.
+
+## Comparators
+| Id | What |
+|---|---|
+| **UP** | GraPhens' gene→phenotype simulator, the one v3.0 was trained on. Its outputs: source `graphens_sim_20251202` |
+| **V03** | Our simulator v0.3 (`ds-sim0.3.1-A-n100-s1001`) |
+| **CAND** | The candidate version (v0.4, or later) |
+
+## Gate criteria
+CAND must pass **all** of them.
+
+**G1: Integrity**
+- `validate`: 0 invariant violations.
+- `dxt lineage verify` ok.
+- Contamination vs R1 (all parts) and S3: 0 after exclusion.
+- A rerun is byte-identical.
+
+**G2: Beats UP and V03 on every realism metric** (`dxt sim realism`)
+
+| # | Metric | Must be |
+|---|---|---|
+| a | Evaluation literature panel (G4): mean absolute error between simulated emission and literature prevalence | lower than UP's and V03's |
+| b | R1-dev aggregate: mean per-gene Spearman of term frequencies (genes with ≥ 10 dev patients) | higher than UP's and V03's |
+| c | Terms per case: Wasserstein distance to R1-train's distribution | lower than UP's and V03's |
+| d | Classifier two-sample test: AUC of a classifier telling R1-train patients from simulated ones (source-neutral features: term count, mean IC and depth, organ-system histogram, share of terms annotated to the gene, noise share; publication-grouped cross-validation) | lower than UP's and V03's, and ≤ 0.75 |
+| e | Difficulty match: \|E0 MRR on CAND − E0 MRR on R1-train (0.44)\| | smaller than UP's (0.81 → 0.37) and V03's (0.17 → 0.27), and ≤ 0.10 |
+
+**G3: Disease cards reviewed by a person**
+- Cards: a stratified sample of **30 diseases**, the 10 of ANALYSIS-001 plus
+  20 new ones. Each shows the simulated patients' top reported features
+  next to the literature prevalence and the real R1 reports.
+- Reviewer: Mateo, or someone he designates.
+- No card may remain flagged "clinically implausible" without a fix or a
+  written, accepted reason.
+
+**G4: An evaluation literature panel independent of construction**
+- **Size:** ≥ 50 diseases, stratified by organ system, inheritance and
+  prevalence. The 8 diseases of `literature-panel-v1` are included.
+- **Built by** LLM-assisted extraction (Claude Code or Codex on this PC)
+  from GeneReviews (see licensing below), Orphanet and cohort papers. Every
+  number carries a citation and a verbatim evidence quote.
+- **Double-check:** a random 10% is re-extracted by the other model or
+  reviewed by a person; agreement ≥ 90%, and every disagreement resolved.
+- **Separation from construction:** these diseases' literature numbers are
+  **never** used to build or tune profiles. If literature-derived
+  enrichment is used (a v0.5 option), it draws only on diseases *outside*
+  the evaluation panel. The split is frozen and hashed before any
+  extraction for construction.
+
+**G5: Freeze**
+When G1–G4 pass, the simulator version, its artifacts and the dataset are
+frozen (tags and manifests). STATE records "data gate passed". Only then
+does retraining resume.
+
+## Budgets (anti-overfitting of the simulator)
+- R1-dev may be consulted for at most **3 candidate versions** before one
+  is frozen, logged in `results/realism/LEDGER.md`. UP and V03 are
+  baselines and don't count.
+- All simulator parameters are fitted on R1-train only.
+- The evaluation panel is a check, never a fitting target.
+
+## Licensing of literature sources
+- **GeneReviews:** the copyright notice permits reproduction "for
+  noncommercial research purposes only", with credit, a link, and "No
+  further modifications". We extract *facts* (feature prevalences, onset),
+  with citations, for a free, non-commercial academic tool, and never
+  redistribute text. Written confirmation is requested from the address the
+  notice gives (`docs/TODO.md`).
+- **Orphanet:** CC-BY-4.0.
+- **Cohort papers:** facts with citations only.
+- **OMIM:** not automated.
+
+## Consequences
+- `dxt sim realism` gains G2 c–e and runs UP as a comparator.
+- New artifacts: `literature-panel-v2` (evaluation, ≥ 50 diseases) and the
+  frozen construction/evaluation disease split.
+- If v0.4 fails the gate, v0.5 adds literature-derived enrichment on the
+  construction diseases. The gate is re-run within the 3-version budget.
