@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-30, late (v0.4 candidate 3 running; Front B release candidate ready). Disk: about 40 GB free on TARS.
+**Snapshot:** 2026-09-30, evening (candidate 4 running; Front B release candidate ready). Disk: about 40 GB free on TARS.
 
 ## Where each front stands
 
@@ -17,14 +17,17 @@ at each checkpoint; the history lives in `BITACORA.md`.
 ## In progress: simulator v0.4 data-quality gate (ADR-0011, ADR-0012)
 **Retraining is blocked until the ADR-0012 gate passes.**
 
-**R1-dev realism reads used: 2 of 3.** The next is the last.
+**R1-dev realism reads used: 2 of 3.** The next is the last; candidate 3 did not use it.
 
 | Piece | Status |
 |---|---|
 | Candidate 1 (sim 0.4.1) | G1 pass; G2 fails on a, b, e |
 | Candidate 2 (sim 0.4.2, `simcal-v04-v4`) | G1 pass; G2c passes; a 0.404, b 0.193, d 0.792, e 0.242 fail (PR #34) |
 | ANALYSIS-003 | Noise causes E0's difficulty (0.163 → 0.472 without it). The kb-v4 reference inflated "unexplained": against kb-v3, new patients have about 24% noise, not 35%. G2a now scores the truth layer (ADR-0012 amendment 3) |
-| Candidate 3 | **Running** (agent, `phase3/sim-v04-cand3`): `calib-v2` (uncited R1-train vs kb-v3), re-piloted, then a **train-side go/no-go before the last R1-dev read** |
+| Candidate 3 | G1 pass; **stopped at the train-side go/no-go** (G2c 1.732, d 0.764, e gap 0.142). The last R1-dev read was not spent (PR #39) |
+| ANALYSIS-004 | Real "noise" carries gene signal: E0 MRR 0.059 on it, vs 0.001 for simulated vocabulary noise. 13.5% of it is annotated in unmasked g2p |
+| Simulator 0.5.0 | Merged (PR #8): independent per-term reporting, proportional noise, age by onset |
+| Candidate 4 | **Running** (agent, `phase3/sim-v05-cand4`): sim 0.5.0, `report-model-v3` (uncited vs kb-v3), ρ 0.207, related share from a noise-signal target, age durations from R1-train, then the same go/no-go before the **last** R1-dev read. If it stops too, the gate is recorded as unmet and Mateo decides |
 | G3 cards | Tool merged (`scripts/realism_cards.py`). Review: the assistant plus Codex independently; Mateo spot-checks afterwards (ADR-0012 amendment 2) |
 | G4 panel | Done (literature-panel-v2) |
 
