@@ -1756,3 +1756,36 @@ Written and committed before the first candidate 3 pilot run.
   while candidate 3 was generating. The agent detected the dirty tree,
   discarded the run and regenerated from a pinned tarball. Rule: runs use
   pinned worktrees or tarballs.
+
+### 2026-09-30 — pre-registration — Candidate 4 pilot rounds (ADR-0011 amendment 5)
+Written and committed before the first candidate 4 pilot run.
+- **Generator:** rare-disease-simulator 0.5.0, run from the GitHub tarball
+  of 020e41d, never the shared checkout.
+  - Full profiles from hpoa-recount-v1 + genes-v2.
+  - report-model-v3; cardinal-v1.
+  - Calibration: `simcal-v05-v1` (simcal-v04-v5 + age-durations-v1,
+    independent reporting, proportional noise at 0.207, calib-v2
+    vocabulary), with r and s replaced per round.
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`), 10
+  cases per gene, medium, seed 91001.
+- **Targets:**
+  - more specific = 0.0929, calib-v2's share vs kb-v3 (the 0.093 of the
+    amendment);
+  - E0 in-vocab MRR on the noise terms alone (vocabulary + related noise
+    together) = 0.026, by `scripts/analysis/noise_signal.py`, every case.
+- **Round 1:** r = 0.195, s = 0.5. It also measures E0 MRR on vocabulary
+  noise alone (MRR_voc) and related noise alone (MRR_rel).
+- **Round 2 rules:**
+  - r₂ = r₁ × 0.0929 / the realized more-specific share, capped to
+    [0, 1];
+  - s₂ = (0.026 − MRR_voc) / (MRR_rel − MRR_voc), clipped to [0, 1]
+    (s₂ = s₁ if MRR_rel = MRR_voc);
+  - both rounded to 4 decimals.
+- **Selection:** the round with the smaller |more specific − 0.0929| /
+  0.0929 + |noise MRR − 0.026| / 0.026 is frozen as `simcal-v05-v2`.
+- **Also reported per round:**
+  - categories vs kb-v3;
+  - reported terms per case;
+  - `forced_min_one`;
+  - the q-calibration error.
+- **Not used:** R1-dev.
