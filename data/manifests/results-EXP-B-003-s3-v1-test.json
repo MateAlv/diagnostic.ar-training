@@ -1,0 +1,68 @@
+{
+  "artifact_id": "results-EXP-B-003-s3-v1-test",
+  "kind": "s3-run",
+  "created_at": "2026-09-30T18:27:39+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "0b1bae814524d1bfa04754dbb9ad2d8efbf9d5fa",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "split:s3-v1",
+      "sha256": "c0e7bef492133fa5a37f172e7753aaa22483e03c26b9770925e0f5632fd46665"
+    },
+    {
+      "id": "results/EXP-B-002/rr-v2-fits.json",
+      "sha256": "5041c0e1b4cadaf58cfe9f593138ca9c050252d818ca5c58d20f60fe416fb46d"
+    }
+  ],
+  "params": {
+    "part": "test",
+    "kb": "kb-v5",
+    "n_candidates": 10,
+    "n_questions": 7,
+    "top_k": 200,
+    "systems": [
+      "E0+answers",
+      "rr-v1[neg=0.5]"
+    ]
+  },
+  "params_hash": "390d2792a730b82f072452a2a33d02815eea6e71d32bd609d64db237ac254fad",
+  "outputs": [
+    {
+      "path": "results/EXP-B-003/s3-v1-test__E0-initial__interviewed.ranks.jsonl",
+      "sha256": "96c9bdb5a1b5d7e6d1ff8d850753dd41e6864344438cbdde5263eddecbac3e32",
+      "bytes": 2231857
+    },
+    {
+      "path": "results/EXP-B-003/s3-v1-test__E0+answers__interviewed.ranks.jsonl",
+      "sha256": "3c5b04f55487f4eda6cffa9b2e08317002c376ec5631fccd3613636c94fcd705",
+      "bytes": 2231726
+    },
+    {
+      "path": "results/EXP-B-003/s3-v1-test__rr-v1[neg=0.5]__interviewed.ranks.jsonl",
+      "sha256": "ba8c53797523b71787012a661f415ad8e45b5294fbcf12d22efa25af3fc0395a",
+      "bytes": 2231658
+    },
+    {
+      "path": "results/EXP-B-003/s3-v1-test__report.json",
+      "sha256": "a04e5d1e302454a83cd44d11be4d7afbc2ccedc6c8d84580102f0eb8f00de1a4",
+      "bytes": 2611
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

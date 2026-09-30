@@ -1,0 +1,65 @@
+{
+  "artifact_id": "results-EXP-B-003-r1-v1-test-rr-v1[neg=0.5]",
+  "kind": "rerank-eval",
+  "created_at": "2026-09-30T18:29:49+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "d4dcf67ad84a0380fcd5fae8485f6a31f58f8f91",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "cohort": "r1-v1/test",
+    "kb": "kb-v3",
+    "weights": {
+      "neg": 0.5,
+      "sex": 0.0,
+      "age": 0.0,
+      "onset": 0.0
+    },
+    "top_k": 200
+  },
+  "params_hash": "20354c7634642a2cd250322f5bcea9afa9ddd69e8ad2f7960c98b3214db1a140",
+  "outputs": [
+    {
+      "path": "results/EXP-B-003/r1-v1-test__E0__all.ranks.jsonl",
+      "sha256": "ea57825e947a4f290bd6727fc550ebed9d657a4ad2b5bc0541ec7c27e157f672",
+      "bytes": 554512
+    },
+    {
+      "path": "results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__all.ranks.jsonl",
+      "sha256": "95672b183a7ef470ccfe4ec2f504b8fcef90a274169378786df1d6db5107bf09",
+      "bytes": 554519
+    },
+    {
+      "path": "results/EXP-B-003/r1-v1-test__E0__present.ranks.jsonl",
+      "sha256": "19c18c05af6d18a655c20bb8078fb19a9b463c7d61f3ddb340643d0f47325e9a",
+      "bytes": 556409
+    },
+    {
+      "path": "results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__present.ranks.jsonl",
+      "sha256": "19c18c05af6d18a655c20bb8078fb19a9b463c7d61f3ddb340643d0f47325e9a",
+      "bytes": 556409
+    },
+    {
+      "path": "results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json",
+      "sha256": "cdb9bfd8967a643c4b784d33c044a01f292d3ba9817d72932cc2d8507fb61629",
+      "bytes": 1829
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
