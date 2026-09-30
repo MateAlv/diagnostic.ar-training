@@ -1605,3 +1605,26 @@ Written and committed before the first candidate 3 pilot run.
 - **Selection:** the pair with the smallest summed absolute error over the
   three categories is frozen as `simcal-v04-v5`.
 - **Not used:** R1-dev and E0.
+
+### 2026-09-30 — pilot — Candidate 3 pilot rounds; `simcal-v04-v5` frozen
+- **Setup:** as pre-registered above; R1-train targets only (calib-v2, vs
+  kb-v3), no R1-dev, no E0.
+  - Pilot shape: 4,890 cases for 489 genes.
+  - Validate: 0 invariant violations in both rounds.
+- **Every pair tried:**
+
+  | Round | r | s | Specialised share of profile terms | Related share of noise | More specific (0.0929) | Related (0.0822) | Weak (0.1569) | Explained (0.668) | Summed abs. error |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.21 | 0.3437 | 0.1173 | 0.3046 | 0.1000 | 0.0719 | 0.1962 | 0.6320 | 0.0566 |
+  | 2 | 0.1951 | 0.3929 | 0.1099 | 0.3526 | 0.0957 | 0.0785 | 0.1896 | 0.6362 | **0.0392** |
+
+  Round 2 applies the declared rule: r₂ = 0.21 × 0.0929 / 0.1000, and
+  s₂ = 0.3437 × 0.0822 / 0.0719.
+- **Selected:** round 2. Frozen as `simcal-v04-v5`: base simcal-v04-v4,
+  `noise.vocabulary_path` calib-v2's vocabulary, `reporting.noise_share`
+  0.2391, `reporting.specialize_rate` 0.1951, `noise.related_share`
+  0.3929.
+- **Remaining gap:** weak (IC < 2) stays 0.033 above the uncited patients'
+  share. Related plus weak comes to 0.268 against the nominal noise share
+  of 0.239, because profile slots go unfilled when a patient's truth is
+  thinner than the budget.
