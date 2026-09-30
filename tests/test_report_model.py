@@ -136,3 +136,33 @@ def test_an_unknown_frequency_that_cannot_be_folded_is_refused(onto):
         R.to_simulator_format(
             "rm", model, annotations, n, Counter(), 1, {"histogram": {}, "definition": ""}, {}, ""
         )
+
+
+def test_publications_out_rho_removes_the_scored_patients_own_reports():
+    parents = {
+        "HP:0000001": (),
+        "HP:0000118": ("HP:0000001",),
+        "HP:0001250": ("HP:0000118",),
+        "HP:0000505": ("HP:0000118",),
+        "HP:0000707": ("HP:0000118",),
+    }
+    onto = Ontology(parents, {}, {}, {}, frozenset())
+    terms = ("HP:0001250", "HP:0000505", "HP:0000707")
+    kb = {"diseases": {"OMIM:1": {"phenotypes": {t: {"freq": 0.5} for t in terms}}}}
+    cases = [Case(case_id=f"g{i}", cohort="t", gene="G", present=("HP:0001250",)) for i in range(5)]
+    cases += [Case(case_id=f"h{i}", cohort="t", gene="H", present=("HP:0000505",)) for i in range(3)]
+    groups = {c.case_id: "p1" if c.gene == "G" else "p2" for c in cases}
+    annotations, n = R.annotation_counts(kb, onto)
+    featurizer = R.Featurizer(onto, annotations, n, R.reportability_counts(cases, onto), len(cases), set())
+    model, cols = {"intercept": 0.0, "coef": [0.0, 0.0, 0.0, 0.0, 1.0, 0.0]}, tuple(range(6))
+
+    def diseases(gene):
+        return {"OMIM:1": 1.0} if gene == "G" else {}
+
+    scorers = {"m": R.internal_scorer(featurizer, model, cols)}
+    inside = R.gene_level_rho(cases, diseases, kb, onto, set(), scorers, min_patients=5)
+    out = R.gene_level_rho_publications_out(
+        cases, groups, diseases, kb, onto, set(), featurizer, {"m": (model, cols)}, min_patients=5
+    )
+    assert inside["genes"] == out["genes"] == 1
+    assert inside["mean_rho"]["m"] > 0 > out["mean_rho"]["m"]

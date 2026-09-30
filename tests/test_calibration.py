@@ -83,3 +83,27 @@ def test_related_or_weak_vocabulary_leaves_more_specific_terms_out():
     assert [r[0] for r in rows_v1] == ["HP:0011169", "HP:0020219"]
     with pytest.raises(ValueError):
         calibration.measure(cases, KNOW, 2, None, "related_or_weak")
+
+
+def test_onset_category_takes_the_narrowest_window():
+    assert calibration.onset_category(0.0) == "antenatal"
+    assert calibration.onset_category(0.05) == "neonatal"
+    assert calibration.onset_category(1.0) == "infantile"  # both infantile and childhood hold 1.0
+    assert calibration.onset_category(10.0) == "juvenile"
+    assert calibration.onset_category(30.0) == "adult"
+    assert calibration.onset_category(70.0) is None
+
+
+def test_duration_means_fall_back_to_the_overall_mean_for_small_categories():
+    def aged(i, age, onset):
+        return Case(case_id=f"c{i}", cohort="t", gene="G", present=(), age_years=age, onset_years=onset)
+
+    cases = [aged(i, 30.0, 20.0) for i in range(3)]
+    cases += [aged(9, 2.0, 1.5), aged(10, 1.0, 5.0), aged(11, 3.0, None)]
+    out = calibration.duration_means(cases, min_patients=3)
+    assert out["per_category"]["adult"]["used"] == pytest.approx(10.0)
+    assert out["per_category"]["childhood"]["patients"] == 1
+    assert out["per_category"]["childhood"]["used"] == pytest.approx(out["overall_mean_duration"])
+    assert out["overall_mean_duration"] == pytest.approx((30.0 + 0.5) / 4)
+    assert out["skipped"] == {"age_below_onset": 1, "age_or_onset_missing": 1}
+    assert out["keys"]["age.duration_mean_by_onset.adult"] == 10.0

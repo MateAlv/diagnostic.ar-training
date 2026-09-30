@@ -656,6 +656,50 @@ def calib_build(
     typer.echo(json.dumps(targets, indent=1))
 
 
+@calib_app.command("age-durations")
+def calib_age_durations(
+    calib_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. age-durations-v1"),
+    min_patients: int = typer.Option(20, help="Categories with fewer patients take the overall mean"),
+) -> None:
+    """Mean (age - onset) per onset category, R1-train patients with both: `age.duration_mean_by_onset`."""
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.knowledge import calibration
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose
+
+    ensure_new(calib_id)
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: artifacts must be reproducible from a SHA")
+    train = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.TRAIN)
+    result = calibration.duration_means(train, min_patients=min_patients)
+    body = {
+        **result["keys"],
+        "_provenance": {
+            "artifact": calib_id,
+            "population": f"R1-train patients with age and onset ({result['patients']} of {len(train)})",
+            "windows": "rare-disease-simulator 0.5.0 (020e41d) AgeSettings.onset_years",
+            "code_sha": state.sha,
+            **{k: v for k, v in result.items() if k != "keys"},
+        },
+    }
+    out = DATA_DIR / "calib" / f"{calib_id}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(body, indent=1, sort_keys=True) + "\n")
+    inputs = [{"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")}]
+    params = {
+        "part": "train",
+        "statistic": "mean(age - onset) per onset category",
+        "category_rule": result["category_rule"],
+        "min_patients": min_patients,
+        "windows": result["windows"],
+    }
+    write_manifest(build_manifest(calib_id, "simulator-calibration-keys", inputs, params, [out], state=state))
+    typer.echo(json.dumps(body, indent=1, sort_keys=True))
+
+
 annotations_app = typer.Typer(no_args_is_help=True, help="Known/held-out annotation splits (S3).")
 app.add_typer(annotations_app, name="annotations")
 
