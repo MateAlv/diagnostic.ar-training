@@ -1037,3 +1037,29 @@ What they tell us:
   difficulty target is now R1-train's in-vocab E0 MRR, 0.512 (it was the
   all-genes 0.440): simulated genes are all in vocabulary. Gaps become
   UP 0.300 and V03 0.336, both taken from EXP-000 and EXP-A-002f.
+
+### 2026-09-30 — ADR-0012 G4 — Evaluation/construction disease split frozen (`litpanel-split-v1`)
+- **Why:** G4 requires the split to be frozen and hashed before any
+  literature extraction.
+- **Frozen at commit `b9be9baae84f47ae6cfcb8f635f25ba273053579`**, built by
+  `dxt litpanel split --id litpanel-split-v1` at code `cb0ccf4` (clean tree).
+  - `data/realism/litpanel-split-v1.tsv` sha256
+    `39ba3b252adc7bf0712d03a0abc6d2fc522d6011fdf77658699f2203737f504c`;
+    manifest `data/manifests/litpanel-split-v1.json`.
+- **Unit:** a vocabulary gene plus its main disease, the simulable
+  `genes-v1` entity with the highest `sim_weight`. Pool: 5,050 units.
+- **Selection (seed 20260930):**
+  - the 10 ANALYSIS-001 genes;
+  - 50 sampled units, with square-root allocation over organ system (modal
+    child of HP:0000118 among the entity's HPOA terms, held-out rows
+    masked), inheritance (AD/AR/XL/other) and R1-train patients (0, 1–9,
+    ≥ 10). Picks alternate with genes that have ≥ 10 R1-dev patients: 25
+    of the 50, 35 of 60 counting anchors;
+  - 20 ordered reserves, drawn only if fewer than 50 units survive
+    extraction.
+- **R1 parts read:** train and dev (patient counts per gene). No sealed data.
+- **Separation:** all 80 listed units (their genes and all their disease
+  ids) are evaluation-only. Every other unit is construction.
+- **Caveat:** `genes-v1` picks some odd main diseases (e.g. UNC13A → ALS1,
+  CST3 → ARMD11). The split keeps them, because the panel evaluates what
+  the simulator emits for that entity.
