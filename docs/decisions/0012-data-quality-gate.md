@@ -27,7 +27,7 @@ CAND must pass **all** of them.
 
 | # | Metric | Must be |
 |---|---|---|
-| a | Evaluation literature panel (G4): mean absolute error between simulated emission and literature prevalence | lower than UP's and V03's |
+| a | Evaluation literature panel (G4): mean absolute error between simulated emission and literature prevalence, on the rows not sourced from Orphanet. Profiles are built from HPOA, which already carries Orphanet's frequencies, so those rows would not be an independent check. All rows are reported as secondary | lower than UP's and V03's |
 | b | R1-dev aggregate: mean per-gene Spearman of term frequencies (genes with ≥ 10 dev patients) | higher than UP's and V03's |
 | c | Terms per case: Wasserstein distance to R1-train's distribution | lower than UP's and V03's |
 | d | Classifier two-sample test: AUC of a classifier telling R1-train patients from simulated ones (source-neutral features: term count, mean IC and depth, organ-system histogram, share of terms annotated to the gene, noise share; publication-grouped cross-validation) | lower than UP's and V03's, and ≤ 0.75 |
