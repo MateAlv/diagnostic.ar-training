@@ -1,0 +1,114 @@
+{
+  "artifact_id": "ds-sim0.4.2c3-full-n100-s1001",
+  "kind": "simulated-training-dataset",
+  "created_at": "2026-09-30T19:10:20+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "1c4d1b005f2dcfb895bfaac0bf2ec4a353a0466f",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:simcal-v04-v5",
+      "sha256": "7008d2533258132c40adc231b05b57a7e0173ea76b2fef71a1ddcb6e40d05858"
+    },
+    {
+      "id": "artifact:genes-v2",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "artifact:report-model-v2",
+      "sha256": "1be9413b8b4b040b4f07c60ffe693879f848d869c8db906e9a858fb827b7f6b4"
+    },
+    {
+      "id": "artifact:cardinal-v1",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "file:data/splits/r1-v1.heldout-pmids.txt",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "artifact:calib-v2",
+      "sha256": "4c0c51f4a98a2c211ecea5811a6d67bd4b8fd64501d53caa6ed379d99cd0af1b"
+    },
+    {
+      "id": "file:genphenia-v3.0/genes.json",
+      "sha256": "f1c5b72e182490c0726ab3308f86bd92bec9523509853318223a5a6705fdc2fa"
+    },
+    {
+      "id": "file:rare-disease-simulator@ddb1ec1 GitHub tarball",
+      "sha256": "c0a97f33e139beb568ec9e90c0b277259fbd95a05c9a94018e2c93c2331b6802"
+    },
+    {
+      "id": "simulator-profiles:A (build summary)",
+      "sha256": "a3c36663912c52ef611dd6089d356b568cd0c0132455c0838332f1f26771cd4d"
+    },
+    {
+      "id": "simulator-profiles:A",
+      "sha256": "d44e15860c4c9aef7c0a8f1745ffd12947b0cec7b73022694a557629477804ad"
+    },
+    {
+      "id": "simulator-run-summary",
+      "sha256": "95ebf1b5a78f2fdab0827f81e29703a356cf444ffd4c1e89f14ec48aee93866c"
+    }
+  ],
+  "params": {
+    "generator": "rare-disease-simulator@ddb1ec1 (run from the GitHub tarball of that commit: the shared checkout moved to 0.5.0 during the first attempt; the run summary therefore records no git sha)",
+    "simulator_version": "0.4.2",
+    "profiles": "full profiles (no half-B drop), built from hpoa-recount-v1 (already masked; the simulator config's r1-v1 PMID mask ran as a fallback and masked 0 rows), genes-v2",
+    "mode": "gene-first",
+    "cases_per_gene": 100,
+    "difficulty": "medium",
+    "seed": 1001,
+    "calibration": "simcal-v04-v5",
+    "report_model": "report-model-v2",
+    "cardinal": "cardinal-v1",
+    "splits": "simulator's own 90/5/5 by case seed: train=gradients, val=early stopping, test=S1 sanity",
+    "role": "ADR-0012 candidate 3 G2 dataset (full profiles, ADR-0012 amendment 1); never training data"
+  },
+  "params_hash": "b5c4625308b73598a813f7a61dc4e70e18cba79f3353f99e7aa4766dc81d96d7",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/ds-sim0.4.2c3-full-n100-s1001/contamination.json",
+      "sha256": "7e109591b2babd05e150c6bbacf00cf9c7b9b22916da9b278f19665a2b009f37",
+      "bytes": 340
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.4.2c3-full-n100-s1001/ds-sim0.4.2c3-full-n100-s1001.card.json",
+      "sha256": "3d185e37b7908af3f9b22bb0eaa2136af24114a6d85d044df3ebe4b0f940eab8",
+      "bytes": 129850
+    },
+    {
+      "path": "data/interim/datasets/ds-sim0.4.2c3-full-n100-s1001/ds-sim0.4.2c3-full-n100-s1001.jsonl.gz",
+      "sha256": "ae8884458e87c11e81b36398cc1c757999a13efe85c73c74e6cc3186fa293867",
+      "bytes": 37538781
+    }
+  ],
+  "notes": "",
+  "release": "ds-sim0.4.2c3-full-n100-s1001"
+}

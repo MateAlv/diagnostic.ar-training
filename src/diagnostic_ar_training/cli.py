@@ -569,6 +569,16 @@ def calib_build(
     calib_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. calib-v1"),
     kb_id: str = typer.Option("kb-v4", "--kb", help="KB masking every R1 publication"),
     min_noise_count: int = typer.Option(2),
+    population: str = typer.Option(
+        "all",
+        help="R1-train patients measured: all, or uncited (publications the pinned HPOA does not cite; "
+        "then the KB may mask only held-out PMIDs, e.g. kb-v3, as their papers fed no annotation)",
+    ),
+    vocabulary: str = typer.Option(
+        "unexplained",
+        help="Noise vocabulary terms: every unexplained term (calib-v1), or related_or_weak "
+        "(leaving more specific terms to the simulator's specialisation)",
+    ),
 ) -> None:
     """Measure R1-train patients: term counts, missingness, negation sources, noise vocabulary."""
     from diagnostic_ar_training.lineage.manifest import ensure_new
@@ -584,20 +594,38 @@ def calib_build(
         load_manifest,
         write_manifest,
     )
-    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
     from diagnostic_ar_training.ontology import Ontology
     from diagnostic_ar_training.rerank import kb
     from diagnostic_ar_training.rerank.features import GeneKnowledge
 
     state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: artifacts must be reproducible from a SHA")
+    if population not in calibration.POPULATIONS:
+        raise typer.BadParameter(f"population must be one of {calibration.POPULATIONS}")
+    if vocabulary not in calibration.VOCABULARY_RULES:
+        raise typer.BadParameter(f"vocabulary must be one of {calibration.VOCABULARY_RULES}")
     kb_manifest = load_manifest(kb_id)
-    if kb_manifest.params.get("mask_scope") != "all":
-        raise typer.BadParameter(f"{kb_id} must mask every R1 publication (mask_scope=all)")
-    knowledge = GeneKnowledge(
-        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
-    )
-    cases = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.TRAIN)
-    targets, rows = calibration.measure(cases, knowledge, min_noise_count)
+    mask_scope = kb_manifest.params.get("mask_scope", "heldout")
+    if kb_manifest.params.get("mask_split") != "r1-v1":
+        raise typer.BadParameter(f"{kb_id} must mask split r1-v1")
+    if population == "all" and mask_scope != "all":
+        raise typer.BadParameter(f"{kb_id} must mask every R1 publication (mask_scope=all) for all patients")
+    kb_data = kb.read(fetch_outputs(kb_manifest)[0])
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb_data, ontology)
+    train = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.TRAIN)
+    extra_inputs = []
+    if population == "uncited":
+        extra_inputs.append(load_sources()["hpo_annotations"].as_input())
+        cited = calibration.cited_pmids(open_source("hpo_annotations", Purpose.KB))
+        cases = calibration.select_population(train, population, cited)
+    else:
+        cases = calibration.select_population(train, population)
+    categories = calibration.TermCategories(kb_data, knowledge, ontology)
+    targets, rows = calibration.measure(cases, knowledge, min_noise_count, categories, vocabulary)
+    targets["population"] = {"rule": population, "r1_train_cases": len(train), "cases": len(cases)}
     out_dir = DATA_DIR / "calib"
     out_dir.mkdir(parents=True, exist_ok=True)
     targets_path = out_dir / f"{calib_id}.targets.json"
@@ -607,8 +635,20 @@ def calib_build(
     inputs = [
         {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
         {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+        load_sources()["hpo_ontology"].as_input(),
+        *extra_inputs,
     ]
-    params = {"part": "train", "kb": kb_id, "min_noise_count": min_noise_count}
+    params = {
+        "part": "train",
+        "kb": kb_id,
+        "kb_mask_scope": mask_scope,
+        "population": population,
+        "population_rule": "all R1-train patients"
+        if population == "all"
+        else "R1-train patients none of whose PMIDs the pinned hpo_annotations cites",
+        "min_noise_count": min_noise_count,
+        "vocabulary": vocabulary,
+    }
     manifest = build_manifest(
         calib_id, "simulator-calibration", inputs, params, [targets_path, vocab_path], state=state
     )

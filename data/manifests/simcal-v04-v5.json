@@ -1,0 +1,45 @@
+{
+  "artifact_id": "simcal-v04-v5",
+  "kind": "simulator-calibration-file",
+  "created_at": "2026-09-30T18:47:55+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "9928a550c97ab052f05aa29f6895c7508fff5aa4",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "file:data/calib/simcal-v04-v4.json",
+      "sha256": "fbd516a5e1c861d51030aca7152c17606f0e718a8eedb1f214407d2b776130b5"
+    }
+  ],
+  "params": {
+    "statistic": "median pooled count-based frequency",
+    "recount": "hpoa-recount-v1",
+    "min_denominator": 10,
+    "overrides": [
+      "noise.vocabulary_path=\"calib-v2.noise_vocabulary.tsv\"",
+      "reporting.noise_share=0.2391",
+      "reporting.specialize_rate=0.1951",
+      "noise.related_share=0.3929"
+    ]
+  },
+  "params_hash": "aebe4a7e401d8cf2f03afd5bf0026b70fc62151370c78fba8ccab519dae78b11",
+  "outputs": [
+    {
+      "path": "data/calib/simcal-v04-v5.json",
+      "sha256": "7008d2533258132c40adc231b05b57a7e0173ea76b2fef71a1ddcb6e40d05858",
+      "bytes": 1603
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

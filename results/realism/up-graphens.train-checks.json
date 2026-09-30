@@ -1,0 +1,547 @@
+{
+ "age": {
+  "skipped": "the dataset has no ages"
+ },
+ "dataset": "source:graphens_sim_20251202@GraPhens@7d861ff",
+ "dataset_sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e",
+ "g2b_train_rho": {
+  "genes_eligible": 108,
+  "genes_missing_from_dataset": [
+   "AMOTL1",
+   "ARHGAP19",
+   "CIROZ",
+   "ELFN1",
+   "FBXO22",
+   "GTF3C3",
+   "INPP4A",
+   "KICS2",
+   "MARK2",
+   "MAU2",
+   "MED16",
+   "NR6A1",
+   "PGBD5",
+   "RNU2-2",
+   "RNU5B-1",
+   "SEL1L",
+   "SPOUT1",
+   "SRSF1",
+   "TBCB",
+   "TMEM63B",
+   "UGGT1",
+   "WDR83OS",
+   "ZNF808",
+   "ZNF862"
+  ],
+  "genes_scored": 83,
+  "mean_rho": 0.24143297891952137,
+  "min_dev_patients": 10,
+  "per_gene": {
+   "ACTN1": {
+    "dev_patients": 13,
+    "rho": 0.4126536306249159,
+    "sim_cases": 10,
+    "terms": 11
+   },
+   "AHDC1": {
+    "dev_patients": 26,
+    "rho": 0.37030270064969156,
+    "sim_cases": 10,
+    "terms": 194
+   },
+   "AIRE": {
+    "dev_patients": 10,
+    "rho": 0.33848312604057335,
+    "sim_cases": 10,
+    "terms": 76
+   },
+   "ANKRD11": {
+    "dev_patients": 333,
+    "rho": 0.3408580284799241,
+    "sim_cases": 10,
+    "terms": 101
+   },
+   "ASPM": {
+    "dev_patients": 22,
+    "rho": 0.46312836280025,
+    "sim_cases": 10,
+    "terms": 41
+   },
+   "ATP6V0C": {
+    "dev_patients": 25,
+    "rho": 0.5027438709887097,
+    "sim_cases": 10,
+    "terms": 20
+   },
+   "B3GALT6": {
+    "dev_patients": 11,
+    "rho": 0.3668442534738194,
+    "sim_cases": 10,
+    "terms": 155
+   },
+   "BBS1": {
+    "dev_patients": 13,
+    "rho": 0.31746266312138915,
+    "sim_cases": 10,
+    "terms": 149
+   },
+   "BRD4": {
+    "dev_patients": 18,
+    "rho": 0.10644322088428514,
+    "sim_cases": 10,
+    "terms": 131
+   },
+   "CHD8": {
+    "dev_patients": 40,
+    "rho": 0.15100027018459897,
+    "sim_cases": 10,
+    "terms": 91
+   },
+   "CLDN16": {
+    "dev_patients": 34,
+    "rho": 0.2339833749340615,
+    "sim_cases": 10,
+    "terms": 55
+   },
+   "CLN3": {
+    "dev_patients": 10,
+    "rho": -0.14591039047599202,
+    "sim_cases": 10,
+    "terms": 30
+   },
+   "CNTNAP2": {
+    "dev_patients": 12,
+    "rho": 0.3131393784663338,
+    "sim_cases": 10,
+    "terms": 114
+   },
+   "COL3A1": {
+    "dev_patients": 35,
+    "rho": 0.39799917168773413,
+    "sim_cases": 10,
+    "terms": 181
+   },
+   "COQ4": {
+    "dev_patients": 17,
+    "rho": 0.14416155545703133,
+    "sim_cases": 10,
+    "terms": 75
+   },
+   "CRELD1": {
+    "dev_patients": 18,
+    "rho": -0.019235151971054056,
+    "sim_cases": 10,
+    "terms": 110
+   },
+   "DHCR24": {
+    "dev_patients": 10,
+    "rho": 0.2216636524166911,
+    "sim_cases": 10,
+    "terms": 83
+   },
+   "DHX9": {
+    "dev_patients": 14,
+    "rho": -0.03935377286260052,
+    "sim_cases": 10,
+    "terms": 31
+   },
+   "EIF4A2": {
+    "dev_patients": 15,
+    "rho": 0.050272033349379755,
+    "sim_cases": 10,
+    "terms": 74
+   },
+   "EPG5": {
+    "dev_patients": 15,
+    "rho": 0.11336711345474451,
+    "sim_cases": 10,
+    "terms": 86
+   },
+   "ESAM": {
+    "dev_patients": 14,
+    "rho": 0.19137648975215255,
+    "sim_cases": 10,
+    "terms": 88
+   },
+   "FBN1": {
+    "dev_patients": 73,
+    "rho": 0.32763267561372167,
+    "sim_cases": 10,
+    "terms": 304
+   },
+   "FBXL4": {
+    "dev_patients": 36,
+    "rho": 0.001997549565464441,
+    "sim_cases": 10,
+    "terms": 113
+   },
+   "FBXO11": {
+    "dev_patients": 24,
+    "rho": 0.08469330729837846,
+    "sim_cases": 10,
+    "terms": 122
+   },
+   "FBXO7": {
+    "dev_patients": 10,
+    "rho": 0.08665678118767686,
+    "sim_cases": 10,
+    "terms": 33
+   },
+   "FDXR": {
+    "dev_patients": 13,
+    "rho": 0.07516420400959806,
+    "sim_cases": 10,
+    "terms": 205
+   },
+   "FOSL2": {
+    "dev_patients": 11,
+    "rho": -0.023137047138703973,
+    "sim_cases": 10,
+    "terms": 19
+   },
+   "FZD5": {
+    "dev_patients": 25,
+    "rho": 0.430905077342082,
+    "sim_cases": 10,
+    "terms": 15
+   },
+   "HMGCS2": {
+    "dev_patients": 30,
+    "rho": 0.730534226826292,
+    "sim_cases": 10,
+    "terms": 21
+   },
+   "HNRNPC": {
+    "dev_patients": 13,
+    "rho": 0.09298709414749849,
+    "sim_cases": 10,
+    "terms": 31
+   },
+   "IKZF1": {
+    "dev_patients": 59,
+    "rho": 0.6256116440889686,
+    "sim_cases": 10,
+    "terms": 49
+   },
+   "ISCA2": {
+    "dev_patients": 14,
+    "rho": 0.02500530012791161,
+    "sim_cases": 10,
+    "terms": 13
+   },
+   "ITPR1": {
+    "dev_patients": 99,
+    "rho": 0.3898877765188414,
+    "sim_cases": 10,
+    "terms": 175
+   },
+   "KCNH5": {
+    "dev_patients": 17,
+    "rho": 0.6818896507048402,
+    "sim_cases": 10,
+    "terms": 68
+   },
+   "KDM6A": {
+    "dev_patients": 81,
+    "rho": 0.21798527085057667,
+    "sim_cases": 10,
+    "terms": 232
+   },
+   "KIF1A": {
+    "dev_patients": 14,
+    "rho": 0.2648675650542159,
+    "sim_cases": 10,
+    "terms": 91
+   },
+   "KMT2D": {
+    "dev_patients": 12,
+    "rho": 0.2982275174404534,
+    "sim_cases": 10,
+    "terms": 259
+   },
+   "LIM2": {
+    "dev_patients": 10,
+    "rho": 0.8660254037844387,
+    "sim_cases": 10,
+    "terms": 3
+   },
+   "LMNA": {
+    "dev_patients": 64,
+    "rho": 0.22117327891650346,
+    "sim_cases": 10,
+    "terms": 503
+   },
+   "LZTR1": {
+    "dev_patients": 16,
+    "rho": 0.3920910169135375,
+    "sim_cases": 10,
+    "terms": 149
+   },
+   "MAPK8IP3": {
+    "dev_patients": 14,
+    "rho": NaN,
+    "sim_cases": 10,
+    "terms": 0
+   },
+   "MPV17": {
+    "dev_patients": 15,
+    "rho": 0.2685083050503412,
+    "sim_cases": 10,
+    "terms": 188
+   },
+   "NAA60": {
+    "dev_patients": 10,
+    "rho": 0.6962619215207235,
+    "sim_cases": 10,
+    "terms": 78
+   },
+   "NBAS": {
+    "dev_patients": 11,
+    "rho": 0.1466379535692186,
+    "sim_cases": 10,
+    "terms": 45
+   },
+   "NEK8": {
+    "dev_patients": 20,
+    "rho": 0.48020518598492196,
+    "sim_cases": 10,
+    "terms": 76
+   },
+   "NF1": {
+    "dev_patients": 158,
+    "rho": 0.4044817787592154,
+    "sim_cases": 10,
+    "terms": 244
+   },
+   "NIPBL": {
+    "dev_patients": 25,
+    "rho": 0.2969812642712098,
+    "sim_cases": 10,
+    "terms": 169
+   },
+   "NOTCH3": {
+    "dev_patients": 24,
+    "rho": 0.0350456717743241,
+    "sim_cases": 10,
+    "terms": 287
+   },
+   "NSUN2": {
+    "dev_patients": 11,
+    "rho": 0.19214904898953072,
+    "sim_cases": 10,
+    "terms": 137
+   },
+   "PIEZO2": {
+    "dev_patients": 10,
+    "rho": 0.08952093765711257,
+    "sim_cases": 10,
+    "terms": 171
+   },
+   "PIGA": {
+    "dev_patients": 14,
+    "rho": 0.24000269761410342,
+    "sim_cases": 10,
+    "terms": 266
+   },
+   "POGZ": {
+    "dev_patients": 62,
+    "rho": 0.21895009646779823,
+    "sim_cases": 10,
+    "terms": 157
+   },
+   "POLR1A": {
+    "dev_patients": 22,
+    "rho": 0.28658580785410925,
+    "sim_cases": 10,
+    "terms": 136
+   },
+   "PPP2R1A": {
+    "dev_patients": 60,
+    "rho": 0.5079295853486863,
+    "sim_cases": 10,
+    "terms": 49
+   },
+   "PTPN11": {
+    "dev_patients": 13,
+    "rho": 0.42743537893329686,
+    "sim_cases": 10,
+    "terms": 159
+   },
+   "RERE": {
+    "dev_patients": 12,
+    "rho": 0.10400059226774434,
+    "sim_cases": 10,
+    "terms": 178
+   },
+   "RFXANK": {
+    "dev_patients": 16,
+    "rho": -0.12272454085741925,
+    "sim_cases": 10,
+    "terms": 52
+   },
+   "ROR2": {
+    "dev_patients": 22,
+    "rho": 0.22359823283143732,
+    "sim_cases": 10,
+    "terms": 151
+   },
+   "RPGRIP1": {
+    "dev_patients": 51,
+    "rho": 0.3161469244995421,
+    "sim_cases": 10,
+    "terms": 110
+   },
+   "SATB2": {
+    "dev_patients": 157,
+    "rho": 0.2337910622218484,
+    "sim_cases": 10,
+    "terms": 148
+   },
+   "SCO2": {
+    "dev_patients": 10,
+    "rho": 0.06881011954477721,
+    "sim_cases": 10,
+    "terms": 159
+   },
+   "SEC61A1": {
+    "dev_patients": 12,
+    "rho": 0.000397376552094205,
+    "sim_cases": 10,
+    "terms": 71
+   },
+   "SETD2": {
+    "dev_patients": 38,
+    "rho": 0.32640917511987216,
+    "sim_cases": 10,
+    "terms": 66
+   },
+   "SLC4A1": {
+    "dev_patients": 23,
+    "rho": 0.4541234096200428,
+    "sim_cases": 10,
+    "terms": 77
+   },
+   "SMAD3": {
+    "dev_patients": 20,
+    "rho": 0.12999645842630758,
+    "sim_cases": 10,
+    "terms": 116
+   },
+   "SMARCB1": {
+    "dev_patients": 11,
+    "rho": 0.32144733653923857,
+    "sim_cases": 10,
+    "terms": 187
+   },
+   "SNUPN": {
+    "dev_patients": 18,
+    "rho": -0.2128650381294012,
+    "sim_cases": 10,
+    "terms": 41
+   },
+   "SOX17": {
+    "dev_patients": 29,
+    "rho": -0.20748553806269926,
+    "sim_cases": 10,
+    "terms": 55
+   },
+   "SPINK5": {
+    "dev_patients": 45,
+    "rho": 0.3994503893529611,
+    "sim_cases": 10,
+    "terms": 154
+   },
+   "SPINT2": {
+    "dev_patients": 16,
+    "rho": 0.2235701082796388,
+    "sim_cases": 10,
+    "terms": 16
+   },
+   "SPTAN1": {
+    "dev_patients": 13,
+    "rho": 0.13262190328988338,
+    "sim_cases": 10,
+    "terms": 98
+   },
+   "TBCK": {
+    "dev_patients": 32,
+    "rho": 0.14655112466266906,
+    "sim_cases": 10,
+    "terms": 144
+   },
+   "TBX1": {
+    "dev_patients": 14,
+    "rho": 0.3536416684991734,
+    "sim_cases": 10,
+    "terms": 216
+   },
+   "TBX5": {
+    "dev_patients": 55,
+    "rho": 0.28737499449107623,
+    "sim_cases": 10,
+    "terms": 128
+   },
+   "TBXAS1": {
+    "dev_patients": 12,
+    "rho": 0.6231409598721989,
+    "sim_cases": 10,
+    "terms": 21
+   },
+   "TGFB3": {
+    "dev_patients": 29,
+    "rho": 0.11493404164302631,
+    "sim_cases": 10,
+    "terms": 118
+   },
+   "TGFBR1": {
+    "dev_patients": 27,
+    "rho": 0.4661440185215669,
+    "sim_cases": 10,
+    "terms": 103
+   },
+   "TGFBR2": {
+    "dev_patients": 29,
+    "rho": 0.19887838661767443,
+    "sim_cases": 10,
+    "terms": 168
+   },
+   "TMEM216": {
+    "dev_patients": 62,
+    "rho": -0.1513026081809194,
+    "sim_cases": 10,
+    "terms": 179
+   },
+   "UMOD": {
+    "dev_patients": 76,
+    "rho": 0.3116874697563833,
+    "sim_cases": 10,
+    "terms": 33
+   },
+   "WDR26": {
+    "dev_patients": 15,
+    "rho": 0.3875065739145073,
+    "sim_cases": 10,
+    "terms": 93
+   },
+   "WWOX": {
+    "dev_patients": 36,
+    "rho": 0.12038471501927347,
+    "sim_cases": 10,
+    "terms": 113
+   },
+   "ZFPM2": {
+    "dev_patients": 11,
+    "rho": -0.26197391252528957,
+    "sim_cases": 10,
+    "terms": 80
+   },
+   "ZSWIM6": {
+    "dev_patients": 17,
+    "rho": 0.13840433802953792,
+    "sim_cases": 10,
+    "terms": 107
+   }
+  },
+  "reference": "R1-train (optimistic: the report model was fitted on R1-train)"
+ },
+ "label": "up-graphens"
+}
