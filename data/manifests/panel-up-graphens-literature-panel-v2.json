@@ -1,0 +1,39 @@
+{
+  "artifact_id": "panel-up-graphens-literature-panel-v2",
+  "kind": "panel-error-report",
+  "created_at": "2026-09-30T18:00:54+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "84fec4cfa6875de2368fff55b4ee4ddb013050f7",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:graphens_sim_20251202@GraPhens@7d861ff",
+      "sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e"
+    },
+    {
+      "id": "panel:literature-panel-v2.tsv",
+      "sha256": "b7538db73dcc10440f2e6c93ec0485f4270e8e22fe0667cfd11f1786f28a0985"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "label": "up-graphens",
+    "panel": "literature-panel-v2.tsv",
+    "reads_r1": false
+  },
+  "params_hash": "36e3070043ce2134e0b929c4bcd56ddd01b3c44795e391f35f3c9729bfb5b1f5",
+  "outputs": [
+    {
+      "path": "results/realism/up-graphens.panel-literature-panel-v2.json",
+      "sha256": "1dbc15ca3d3a9079df1b7bd79b0ce432f8fc736ca48a83e1d4e85f77b5654416",
+      "bytes": 135777
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
