@@ -1,0 +1,72 @@
+{
+  "artifact_id": "litpanel-split-v1",
+  "kind": "litpanel-split",
+  "created_at": "2026-09-30T14:28:53+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "cb0ccf40c00d1d5816b9c410bb1dfc49a836bfda",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:genes-v1",
+      "sha256": "58192f3b54e96752206b5a31214f07b71254eacab8238b09647dc449be94ac70"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "anchors": [
+      "NF1",
+      "LMNA",
+      "FBN1",
+      "PTPN11",
+      "KMT2D",
+      "TBX5",
+      "UMOD",
+      "FBXL4",
+      "SPTAN1",
+      "ITPR1"
+    ],
+    "size": 60,
+    "reserves": 20,
+    "seed": 20260930,
+    "dev_share": 0.5,
+    "dev_min": 10,
+    "main_disease": "simulable entity with the highest sim_weight",
+    "strata": "organ system (modal child of HP:0000118), inheritance (AD/AR/XL/other), R1-train patients (0, 1-9, >=10); square-root allocation per margin",
+    "r1_parts_read": [
+      "train",
+      "dev"
+    ]
+  },
+  "params_hash": "153471dab4f0dc00713c927f2a738833fc5fbf587e657ae511ded35ea0d0050a",
+  "outputs": [
+    {
+      "path": "data/realism/litpanel-split-v1.tsv",
+      "sha256": "39ba3b252adc7bf0712d03a0abc6d2fc522d6011fdf77658699f2203737f504c",
+      "bytes": 12909
+    },
+    {
+      "path": "data/realism/litpanel-split-v1.summary.json",
+      "sha256": "ffbda1923f6c8c85cfcee9b34315b0964f7cd79222462e535395f0e990e1206f",
+      "bytes": 1956
+    }
+  ],
+  "notes": "Evaluation units: every row of the TSV (anchor, sampled and reserve). Their genes and all their disease ids must never feed literature-derived construction. Every other unit is construction.",
+  "release": ""
+}

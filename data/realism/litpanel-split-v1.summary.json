@@ -1,0 +1,72 @@
+{
+ "panel_margins": {
+  "inheritance": {
+   "AD": 18,
+   "AR": 23,
+   "XL": 7,
+   "other": 12
+  },
+  "organ": {
+   "Abnormality of blood and blood-forming tissues": 3,
+   "Abnormality of head or neck": 6,
+   "Abnormality of metabolism/homeostasis": 3,
+   "Abnormality of the cardiovascular system": 3,
+   "Abnormality of the digestive system": 2,
+   "Abnormality of the ear": 2,
+   "Abnormality of the endocrine system": 2,
+   "Abnormality of the eye": 5,
+   "Abnormality of the genitourinary system": 4,
+   "Abnormality of the immune system": 4,
+   "Abnormality of the integument": 3,
+   "Abnormality of the musculoskeletal system": 6,
+   "Abnormality of the nervous system": 12,
+   "Abnormality of the respiratory system": 2,
+   "Growth abnormality": 1,
+   "Neoplasm": 2
+  },
+  "train": {
+   "0": 33,
+   "1-9": 7,
+   ">=10": 20
+  }
+ },
+ "panel_units": 60,
+ "panel_with_dev_ge_10": 35,
+ "pool_margins": {
+  "inheritance": {
+   "AD": 1583,
+   "AR": 2632,
+   "XL": 231,
+   "other": 604
+  },
+  "organ": {
+   "Abnormality of blood and blood-forming tissues": 176,
+   "Abnormality of head or neck": 485,
+   "Abnormality of limbs": 4,
+   "Abnormality of metabolism/homeostasis": 225,
+   "Abnormality of prenatal development or birth": 6,
+   "Abnormality of the breast": 10,
+   "Abnormality of the cardiovascular system": 202,
+   "Abnormality of the digestive system": 95,
+   "Abnormality of the ear": 111,
+   "Abnormality of the endocrine system": 76,
+   "Abnormality of the eye": 331,
+   "Abnormality of the genitourinary system": 367,
+   "Abnormality of the immune system": 257,
+   "Abnormality of the integument": 212,
+   "Abnormality of the musculoskeletal system": 685,
+   "Abnormality of the nervous system": 1638,
+   "Abnormality of the respiratory system": 97,
+   "Constitutional symptom": 2,
+   "Growth abnormality": 19,
+   "Neoplasm": 52
+  },
+  "train": {
+   "0": 4715,
+   "1-9": 251,
+   ">=10": 84
+  }
+ },
+ "pool_units": 5050,
+ "reserve_units": 20
+}
