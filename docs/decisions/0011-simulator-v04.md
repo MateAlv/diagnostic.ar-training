@@ -172,3 +172,31 @@ follow from the artifacts built in PR #22.
    supporting evidence. With the frozen base (ADR-0010), those genes keep
    v3.0's behaviour; Front A's new parameters just see no positives for
    them.
+
+## Amendment 2 (2026-09-30): candidate 1 settings, revised before any R1-dev read
+
+The first full candidate run (simulator 0.4.0) failed G1: 622 cases had a
+`reported_count_mismatch`, caused by a simulator bug. So `dxt sim realism`
+never ran, and nothing was read from R1-dev. The run's R1-train-only
+diagnostics also showed that noise was drawn independently of each
+record's budget: Poisson(3.7) noise slots out of a mean budget of 8.7.
+- **Effect:** 41.6% of cases showed exactly one profile term, and small
+  records were inflated. Cases with at most 2 terms were 2.6% of the
+  candidate vs 11.0% of R1-train; p10 was 4 vs 2.
+- **Changes** (the candidate keeps the name "candidate 1" and still uses
+  R1-dev read 1 of 3):
+  1. **Simulator 0.4.1** (rare-disease-simulator PR #6) fixes the bug. A
+     picked term already shown through a generalized child now leaves its
+     slot to another true term.
+  2. **Noise scales with the record** (`reporting.noise_count:
+     budget_share`). Each of the k budget slots is noise with probability
+     0.4625, at most k − 1.
+     - 0.4625 is R1-train's pooled share of present terms not explained by
+       the knowledge base (kb-v4), from `calib-v1` →
+       `unexplained_present_share`.
+     - That is the same measurement that set `noise_mean` 3.7, so the
+       average noise per case barely changes. What changes is its
+       dependence on record size.
+  3. **Calibration file** `simcal-v04-v3` = `simcal-v04-v2` + rule 2.
+- **Ledger:** realism runs pass `--sim-version <version>-candN` so the
+  3-candidate budget counts correctly.
