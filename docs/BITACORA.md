@@ -1080,3 +1080,17 @@ What they tell us:
   these 20 units from construction to evaluation leaks nothing.
   `litpanel-split-v2` supersedes v1 as the evaluation/construction
   boundary.
+
+### 2026-09-30 — ADR-0012 G4 — Reserve list extended again (`litpanel-split-v3`)
+- **Why:** of the first 80 units, 43 survive extraction. Reserves 81–100 are
+  still being extracted, and at the survival rate seen so far they may not
+  reach 50.
+- **Frozen at commit `7399bc212cd525ab7d402d49c767c95eb4524f46`**, built at
+  code `4d3da3a` (clean tree): the same sampler and seed, with 60 reserves.
+  - `data/realism/litpanel-split-v3.tsv` sha256
+    `b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2`.
+  - Its first 100 rows are identical to `litpanel-split-v2`.
+- **Frozen before any extraction on reserves 101–120.**
+  `litpanel-split-v3` is now the evaluation/construction boundary. All 120
+  listed units are evaluation-only, whether or not they survive
+  extraction.
