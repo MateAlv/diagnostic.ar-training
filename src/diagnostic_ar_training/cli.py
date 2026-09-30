@@ -257,6 +257,94 @@ rerank_app = typer.Typer(no_args_is_help=True, help="Front B re-ranker (rr-v1)."
 app.add_typer(rerank_app, name="rerank")
 
 
+@rerank_app.command("eval")
+def rerank_eval(
+    exp: str = typer.Option(..., help="Pre-registered experiment id"),
+    cohort: str = typer.Option(..., help="e.g. r1-v1/test (sealed: needs --reason)"),
+    reason: str = typer.Option("", help="Required for a sealed cohort"),
+    kb_id: str = typer.Option("kb-v3", "--kb"),
+    neg: float = typer.Option(0.0),
+    sex: float = typer.Option(0.0),
+    age: float = typer.Option(0.0),
+    onset: float = typer.Option(0.0),
+    top_k: int = typer.Option(200),
+) -> None:
+    """One fixed rr-v1 configuration vs E0 on a cohort, as given and with excluded terms removed."""
+
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import grid, kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.rerank.model import Weights, feature_table
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the run")
+    kb_manifest = load_manifest(kb_id)
+    knowledge = GeneKnowledge(
+        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    )
+    base = GenPheniaV3()
+    cases = access.load(cohort, exp_id=exp, reason=reason)
+    groups = splits.publication_groups("r1-v1") if cohort.startswith("r1-v1/") else None
+    weights = Weights(neg=neg, sex=sex, age=age, onset=onset)
+    name = "rr-v1[" + ",".join(f"{k}={v:g}" for k, v in weights.as_dict().items() if v) + "]"
+
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = cohort.replace("/", "-")
+    report: dict = {"cohort": cohort, "kb": kb_id, "top_k": top_k, "system": name, "views": {}}
+    outputs = []
+    views = {"all": cases, "present": [c.model_copy(update={"excluded": ()}) for c in cases]}
+    for view, view_cases in views.items():
+        tables = [feature_table(base, knowledge, c, top_k) for c in view_cases]
+        e0 = grid._records(view_cases, tables, base.genes, Weights(), groups)
+        recs = grid._records(view_cases, tables, base.genes, weights, groups)
+        with_excluded = [r for r in recs if r["has_excluded"]]
+        e0_with_excluded = [r for r in e0 if r["has_excluded"]]
+        report["views"][view] = {
+            "summary": harness.summarize(recs)["all"],
+            "vs_e0": harness.compare(e0, recs),
+            "cases_with_excluded": len(with_excluded),
+            "vs_e0_cases_with_excluded": harness.compare(e0_with_excluded, with_excluded)
+            if with_excluded
+            else None,
+        }
+        outputs.append(harness.write(exp, cohort, "E0", view, e0)[0])
+        outputs.append(harness.write(exp, cohort, name, view, recs)[0])
+    report_path = out_dir / f"{stem}__{name}__report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = base.lineage_inputs() + [{"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256}]
+    if cohort.startswith("r1-v1/"):
+        inputs.append({"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")})
+    params = {"cohort": cohort, "kb": kb_id, "weights": weights.as_dict(), "top_k": top_k}
+    write_manifest(
+        build_manifest(f"results-{exp}-{stem}-{name}", "rerank-eval", inputs, params, outputs, state=state)
+    )
+    for view, v in report["views"].items():
+        d = v["vs_e0"]
+        typer.echo(
+            f"{view:8} MRR {v['summary']['mrr']:.4f} dMRR {d['delta']:+.4f} "
+            f"[{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] harmed {d['harmed']:.3f} helped {d['helped']:.3f}"
+        )
+
+
 @rerank_app.command("grid")
 def rerank_grid(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-B-001"),
@@ -578,6 +666,9 @@ def s3_run_cmd(
     n_candidates: int = typer.Option(10),
     n_questions: int = typer.Option(7),
     top_k: int = typer.Option(200),
+    only: list[str] = typer.Option(
+        [], "--system", help="Score only these systems (E0 references are always scored)"
+    ),
 ) -> None:
     """Interview every S3 case once, score every pre-registered system on the same answers."""
     import numpy as np
@@ -629,6 +720,10 @@ def s3_run_cmd(
         "rr-v2[EXP-B-002 l2=0.1]": as_vec(chosen["beta"]),
         "rr-v2[without negation]": as_vec(no_neg["refit_beta"]),
     }
+    if unknown := set(only) - set(systems):
+        raise typer.BadParameter(f"unknown systems {sorted(unknown)}; known: {sorted(systems)}")
+    if only:
+        systems = {name: beta for name, beta in systems.items() if name in only or name == "E0+answers"}
 
     def records(probs_of) -> list[dict]:
         return [
@@ -690,6 +785,7 @@ def s3_run_cmd(
         "n_candidates": n_candidates,
         "n_questions": n_questions,
         "top_k": top_k,
+        "systems": sorted(systems),
     }
     write_manifest(
         build_manifest(f"results-{exp}-s3-v1-{part}", "s3-run", inputs, params, outputs, state=state)
