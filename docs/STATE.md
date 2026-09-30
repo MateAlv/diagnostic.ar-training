@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-30, afternoon (simulator v0.4 rebuild in progress). Disk: about 40 GB free on TARS.
+**Snapshot:** 2026-09-30, evening (v0.4 candidate 1 under the data-quality gate). Disk: about 40 GB free on TARS.
 
 ## Where each front stands
 
@@ -14,22 +14,34 @@ at each checkpoint; the history lives in `BITACORA.md`.
 | B on S3 | **The only method that passes the harm cap:** rr-v1[neg=0.5] +0.0045 [+0.0034, +0.0056], harmed 4% (knowledge-based, no simulator training). rr-v2 hurts (−0.030) | `EXP-S3-001.md` |
 | A | **All three trained designs fail on real patients:** A-001 (full fine-tune), A-002f (negation, frozen), A-003f (sex/age, frozen). Each gains on S3, which is the same simulator. A-004f not run (nothing to combine) | `EXP-A-001.md`, `EXP-A-002f.md`, `EXP-A-003f.md`, `EXP-A-004f.md` |
 
-## In progress: simulator v0.4 (ADR-0011)
-Two agents are building in parallel:
+## In progress: simulator v0.4 data-quality gate (ADR-0011, ADR-0012)
+**Retraining is blocked until the ADR-0012 gate passes.**
 
-| Work | Where | Contents |
+| Piece | Status |
+|---|---|
+| Simulator v0.4 code | Merged (rare-disease-simulator PR #5, 266472c). Not tagged; freezing waits for the gate |
+| Training artifacts | Merged (PR #22): `hpoa-recount-v1`, `genes-v2`, `report-model-v2`, `cardinal-v1`, `literature-panel-v1`, `dxt sim realism/gate`, G2 baselines for UP and V03 |
+| Candidate 1 settings | Merged (PR #23, ADR-0011 amendment 1): μ₀ 0.30 (pairs with m ≥ 10), cardinal terms unforced, `simcal-v04-v2` |
+| Candidate 1 data + G1/G2 | **Running** (agent, branch `phase3/sim-v04-cand1-data`). This is R1-dev read **1 of 3** |
+| G4 literature panel v2 | **Running** (agent, branch `phase3/literature-panel-v2`): 60-gene evaluation split frozen first; Claude extraction, Codex 10% cross-check |
+| G3 disease cards | Not started. Needs candidate data and panel v2; the 30 cards go to Mateo |
+
+**G2 baselines** (`results/realism/gate-baselines.md`):
+
+| Metric | UP (GraPhens sim) | V03 |
 |---|---|---|
-| Training-repo artifacts | worktree branch `phase3/sim-v04-artifacts` | `hpoa-recount-v1`, `genes-v2`, `report-model-v1`, `cardinal-v1` (new source: Orphadata product 4), `literature-panel-v1`, the `dxt sim realism` check + a v0.3 baseline realism report |
-| Simulator v0.4 | `rare-disease-simulator` branch `feat/v0.4-realism` | merged entity profiles, Beta shrinkage, truth-then-reporting emission with forced cardinal features, age dependence, validate additions (fixture-tested) |
+| panel-v1 MAE | 0.504 | 0.556 |
+| R1-dev ρ | 0.231 | 0.086 |
+| W1 terms per case | 3.717 | 1.382 |
+| C2ST AUC | 0.840 | 0.778 |
+| E0 gap to 0.512 | 0.307 | 0.344 |
 
-**Data-quality gate (ADR-0012): no retraining until it passes.** v0.4 must beat GraPhens' gene→phenotype simulator and v0.3 on every realism metric, plus person-reviewed disease cards and a ≥ 50-disease evaluation literature panel kept separate from construction.
-
-**When both land:**
-1. build the v0.4 profiles on `hpoa-recount-v1`;
-2. run the realism check (≤ 3 versions on R1-dev, logged);
-3. freeze v0.4;
-4. regenerate the training data (half A) + interviews;
-5. pass the ADR-0012 gate (G1–G5); only then pre-register and run A-002f-v2 / A-003f-v2.
+**Next:**
+1. Review candidate 1's G1/G2 results.
+2. Recompute G2a on panel v2.
+3. Build the G3 cards.
+4. If it fails, write candidate 2 settings from R1-train-only diagnostics.
+5. Once G1–G4 pass, freeze (G5), then pre-register A-002f-v2 / A-003f-v2.
 
 ## Latest analysis
 **ANALYSIS-001 (dataset realism).** The simulator is internally
@@ -72,6 +84,7 @@ proposed fixes.
 - Scripted shell blocks use `set -euo pipefail` on their own line. Never
   pipe a step through `grep` when a later step depends on it. Never write
   numbers before reading them.
+- In this Bash environment `set -e` has been seen not to stop a chain; chain critical steps with `&&` and check exit codes.
 - Worktree agents push with `PYTHONPATH=<worktree>/src`.
 - Sealed data is read only under a committed pre-registration.
 - No AI mention in commits or PRs.
