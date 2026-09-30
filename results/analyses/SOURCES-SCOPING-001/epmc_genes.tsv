@@ -1,0 +1,321 @@
+gene	symbol	stratum	weakness	gr_usable	hits_broad	hits_ta	hits_title	retrieved	retrieved_r1_heldout	retrieved_in_hpoa	retrieved_litpanel_source	licences
+PROK2	PROK2	gr_ok	ok_counts	True	493	14	1	1	0	0	0	"{""cc by-nc"": 1}"
+PAX6	PAX6	gr_ok	ok_counts	True	2477	50	19	19	0	0	0	"{""cc by"": 11, ""cc by-nc-nd"": 6, ""cc by-nc-sa"": 1, ""cc0"": 1}"
+VHL	VHL	gr_ok	ok_counts	True	7207	208	17	17	0	0	0	"{""cc by"": 8, ""cc by-nc"": 2, ""cc by-nc-nd"": 6, ""none"": 1}"
+FTL	FTL	gr_ok	ok_counts	True	1356	24	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+KISS1R	KISS1R	gr_ok	ok_counts	True	425	11	0	0	0	0	0	{}
+WDR45	WDR45	gr_ok	ok_counts	True	313	9	2	2	0	0	0	"{""cc by"": 2}"
+SALL4	SALL4	gr_ok	ok_counts	True	1038	15	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 2}"
+WNK1	WNK1	gr_ok	ok_counts	True	504	10	2	2	0	0	0	"{""cc by"": 2}"
+PEX12	PEX12	gr_ok	ok_counts	True	99	2	0	0	0	0	0	{}
+ALOXE3	ALOXE3	gr_ok	ok_counts	True	227	8	1	1	0	0	0	"{""cc by"": 1}"
+ATF6	ATF6	gr_ok	ok_counts	True	2297	16	1	1	0	0	0	"{""cc by"": 1}"
+STXBP1	STXBP1	gr_ok	ok_counts	True	820	42	10	10	1	0	0	"{""cc by"": 9, ""cc by-nc-nd"": 1}"
+IFT140	IFT140	gr_ok	ok_counts	True	406	16	7	7	1	2	0	"{""cc by"": 4, ""cc by-nc"": 2, ""cc by-nc-nd"": 1}"
+PSEN2	PSEN2	gr_ok	ok_counts	True	1905	36	5	5	0	0	0	"{""cc by"": 3, ""cc by-nc-nd"": 2}"
+TECPR2	TECPR2	gr_ok	ok_counts	True	133	2	0	0	0	0	0	{}
+PIK3R1	PIK3R1	gr_ok	ok_counts	True	3722	57	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc"": 2}"
+ALX4	ALX4	gr_ok	ok_counts	True	284	4	1	1	0	0	0	"{""cc by"": 1}"
+APOB	APOB	gr_ok	ok_counts	True	13060	301	39	39	0	0	0	"{""cc by"": 26, ""cc by-nc"": 3, ""cc by-nc-nd"": 7, ""cc by-nc-sa"": 1, ""cc0"": 1, ""none"": 1}"
+RTL1	RTL1	gr_ok	ok_counts	True	173	1	0	0	0	0	0	{}
+CAV3	CAV3	gr_ok	ok_counts	True	735	9	0	0	0	0	0	{}
+EFL1	EFL1	gr_ok	ok_counts	True	263	1	1	1	0	0	0	"{""cc by-nc"": 1}"
+TRPM4	TRPM4	gr_ok	ok_counts	True	529	18	5	5	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+SLC25A24	SLC25A24	gr_ok	ok_counts	True	125	8	1	1	0	0	0	"{""cc by"": 1}"
+MMP2	MMP2	gr_ok	ok_counts	True	7456	92	7	7	0	0	0	"{""cc by"": 6, ""cc by-nc"": 1}"
+CACNA1F	CACNA1F	gr_ok	ok_counts	True	317	22	6	6	0	0	0	"{""cc by"": 5, ""cc by-nc"": 1}"
+NCF1	NCF1	gr_ok	ok_counts	True	745	9	0	0	0	0	0	{}
+LIPN	LIPN	gr_ok	ok_counts	True	84	3	0	0	0	0	0	{}
+B9D2	B9D2	gr_ok	ok_counts	True	91	2	0	0	0	0	0	{}
+PAH	PAH	gr_ok	ok_counts	True	10654	695	45	45	0	0	0	"{""cc by"": 22, ""cc by-nc"": 14, ""cc by-nc-nd"": 5, ""cc by-nc-sa"": 1, ""cc0"": 3}"
+ASS1	ASS1	gr_ok	ok_counts	True	987	13	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+GNAT2	GNAT2	gr_ok	ok_counts	True	189	7	0	0	0	0	0	{}
+ADA	ADA	gr_ok	ok_counts	True	20571	370	13	13	0	0	0	"{""cc by"": 7, ""cc by-nc"": 3, ""cc by-nc-nd"": 3}"
+SCN1B	SCN1B	gr_ok	ok_counts	True	599	16	3	3	0	0	0	"{""cc by-nc-nd"": 3}"
+IL17RD	IL17RD	gr_ok	ok_counts	True	220	4	0	0	0	0	0	{}
+POGZ	POGZ	gr_ok	ok_counts	True	256	14	2	2	1	1	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+SERAC1	SERAC1	gr_ok	ok_counts	True	138	4	2	2	0	0	0	"{""cc by"": 1, ""none"": 1}"
+SLC6A1	SLC6A1	gr_ok	ok_counts	True	487	14	8	8	0	0	0	"{""cc by"": 5, ""cc by-nc-nd"": 3}"
+CHD2	CHD2	gr_ok	ok_counts	True	851	21	5	5	0	1	0	"{""cc by"": 3, ""cc by-nc-nd"": 1, ""none"": 1}"
+FBXW7	FBXW7	gr_ok	ok_counts	True	3860	91	13	13	0	0	0	"{""cc by"": 10, ""cc by-nc-nd"": 3}"
+TUBA1A	TUBA1A	gr_ok	ok_counts	True	641	15	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1}"
+SLC25A20	SLC25A20	gr_ok	ok_counts	True	266	5	0	0	0	0	0	{}
+DSP	DSP	gr_ok	ok_counts	True	5525	108	6	6	0	0	0	"{""cc by"": 6}"
+HOXA1	HOXA1	gr_ok	ok_counts	True	628	6	1	1	0	0	0	"{""cc by"": 1}"
+SOX9	SOX9	gr_ok	ok_counts	True	5249	49	12	12	0	0	0	"{""cc by"": 7, ""cc by-nc"": 2, ""cc by-nc-nd"": 3}"
+PEX1	PEX1	gr_ok	ok_counts	True	274	11	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+SLC22A5	SLC22A5	gr_ok	ok_counts	True	540	15	2	2	0	0	0	"{""cc by"": 2}"
+DES	DES	gr_ok	ok_counts	True	51468	772	272	100	0	0	0	"{""cc by"": 60, ""cc by-nc"": 21, ""cc by-nc-nd"": 15, ""none"": 4}"
+ELOVL5	ELOVL5	gr_ok	ok_counts	True	463	7	2	2	0	0	0	"{""cc by"": 2}"
+ANOS1	ANOS1	gr_ok	ok_counts	True	261	11	2	2	0	0	0	"{""cc by"": 2}"
+NSDHL	NSDHL	gr_ok	ok_counts	True	240	1	1	1	0	0	0	"{""cc by"": 1}"
+ARSA	ARSA	gr_weak	W3_no_counts_other	True	1439	26	2	2	0	0	0	"{""cc by"": 2}"
+SLC6A5	SLC6A5	gr_weak	W3_no_counts_other	True	151	1	0	0	0	0	0	{}
+VCAN	VCAN	gr_weak	W3_no_counts_other	True	2115	35	1	1	0	0	0	"{""cc by"": 1}"
+TCTN3	TCTN3	gr_weak	W3_no_counts_other	True	85	2	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+HIBCH	HIBCH	gr_weak	W4_counts_from_small_series_only	True	260	7	2	2	0	0	0	"{""cc by"": 2}"
+ADAMTSL4	ADAMTSL4	gr_weak	W2_orphanet_bins_only	True	259	12	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+TAT	TAT	gr_weak	W3_no_counts_other	True	10570	164	13	13	0	0	0	"{""cc by"": 11, ""cc by-nc-nd"": 2}"
+LZTFL1	LZTFL1	gr_weak	W2_orphanet_bins_only	True	413	11	2	2	0	0	0	"{""cc by-nc-nd"": 1, ""none"": 1}"
+EPB42	EPB42	gr_weak	W4_counts_from_small_series_only	True	185	3	0	0	0	0	0	{}
+MLH1	MLH1	gr_weak	W3_no_counts_other	True	9698	302	34	34	0	0	0	"{""cc by"": 26, ""cc by-nc"": 5, ""cc by-nc-nd"": 3}"
+HFE	HFE	gr_weak	W1_mostly_no_frequency	True	4260	103	35	35	0	0	0	"{""cc by"": 24, ""cc by-nc"": 3, ""cc by-nc-nd"": 6, ""cc by-nd"": 1, ""none"": 1}"
+MFSD8	MFSD8	gr_weak	W1_mostly_no_frequency	True	189	12	1	1	0	0	0	"{""cc by"": 1}"
+EMC10	EMC10	gr_weak	W4_counts_from_small_series_only	True	41	2	2	2	0	0	0	"{""cc by"": 2}"
+C2CD3	C2CD3	gr_weak	W4_counts_from_small_series_only	True	85	4	0	0	0	0	0	{}
+CRLF1	CRLF1	gr_weak	W1_mostly_no_frequency	True	217	3	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+MT-TS1	MT-TS1	gr_weak	W3_no_counts_other	True	102	2	0	0	0	0	0	{}
+GRN	GRN	gr_weak	W4_counts_from_small_series_only	True	3920	116	11	11	0	0	0	"{""cc by"": 7, ""cc by-nc"": 1, ""cc by-nc-nd"": 2, ""cc0"": 1}"
+POT1	POT1	gr_weak	W1_mostly_no_frequency	True	981	28	11	11	0	0	0	"{""cc by"": 9, ""cc by-nc-nd"": 1, ""none"": 1}"
+SATB2	SATB2	gr_weak	W4_counts_from_small_series_only	True	1331	36	11	11	0	0	0	"{""cc by"": 9, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+HPSE2	HPSE2	gr_weak	W3_no_counts_other	True	145	3	0	0	0	0	0	{}
+LHX1	LHX1	gr_weak	W3_no_counts_other	True	386	5	0	0	0	0	0	{}
+SERPINE1	SERPINE1	gr_weak	W3_no_counts_other	True	3012	72	11	11	0	0	0	"{""cc by"": 7, ""cc by-nc"": 1, ""cc by-nc-nd"": 2, ""cc by-nc-sa"": 1}"
+ATP8B1	ATP8B1	gr_weak	W1_mostly_no_frequency	True	346	15	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1, ""none"": 1}"
+TRPS1	TRPS1	gr_weak	W4_counts_from_small_series_only	True	518	13	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1}"
+KCNQ2	KCNQ2	gr_weak	W4_counts_from_small_series_only	True	942	44	9	9	0	0	0	"{""cc by"": 4, ""cc by-nc"": 1, ""cc by-nc-nd"": 4}"
+HEPACAM	HEPACAM	gr_weak	W4_counts_from_small_series_only	True	364	1	0	0	0	0	0	{}
+CDKN1C	CDKN1C	gr_weak	W3_no_counts_other	True	1312	25	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc-sa"": 1}"
+ARID1B	ARID1B	gr_weak	W2_orphanet_bins_only	True	1694	39	8	8	0	0	0	"{""cc by"": 4, ""cc by-nc-nd"": 3, ""none"": 1}"
+INSR	INSR	gr_weak	W4_counts_from_small_series_only	True	8657	41	5	5	0	0	0	"{""cc by"": 4, ""none"": 1}"
+DNAJC5	DNAJC5	gr_weak	W4_counts_from_small_series_only	True	177	0	0	0	0	0	0	{}
+HPCA	HPCA	gr_weak	W4_counts_from_small_series_only	True	237	4	1	1	0	0	0	"{""cc by"": 1}"
+NR5A1	NR5A1	gr_weak	W4_counts_from_small_series_only	True	666	47	26	26	0	0	0	"{""cc by"": 21, ""cc by-nc"": 1, ""cc by-nc-nd"": 4}"
+PEX13	PEX13	gr_weak	W1_mostly_no_frequency	True	137	2	0	0	0	0	0	{}
+APP	APP	gr_weak	W2_orphanet_bins_only	True	44744	1346	345	100	0	0	0	"{""cc by"": 72, ""cc by-nc"": 12, ""cc by-nc-nd"": 16}"
+ATP6V1B1	ATP6V1B1	gr_weak	W1_mostly_no_frequency	True	242	7	1	1	0	0	0	"{""cc by"": 1}"
+CACNA2D1	CACNA2D1	gr_weak	W4_counts_from_small_series_only	True	499	5	0	0	0	0	0	{}
+MAPT	MAPT	gr_weak	W1_mostly_no_frequency	True	5258	177	33	33	0	0	0	"{""cc by"": 28, ""cc by-nc"": 2, ""cc by-nc-nd"": 2, ""cc0"": 1}"
+MT-TS2	MT-TS2	gr_weak	W2_orphanet_bins_only	True	68	1	0	0	0	0	0	{}
+ADAR	ADAR	gr_weak	W3_no_counts_other	True	1350	24	3	3	0	0	0	"{""cc by"": 3}"
+FLNA	FLNA	gr_weak	W4_counts_from_small_series_only	True	1651	44	9	9	0	0	0	"{""cc by"": 5, ""cc by-nc-nd"": 3, ""none"": 1}"
+SRY	SRY	gr_weak	W4_counts_from_small_series_only	True	4488	66	7	7	0	0	0	"{""cc by"": 6, ""cc by-nc-nd"": 1}"
+CD151	CD151	gr_weak	W4_counts_from_small_series_only	True	621	11	7	7	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1, ""cc by-nc-nd"": 1, ""cc by-nc-sa"": 2}"
+NPHP1	NPHP1	gr_weak	W4_counts_from_small_series_only	True	454	19	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-sa"": 1}"
+NIPA1	NIPA1	gr_weak	W3_no_counts_other	True	292	9	2	2	0	0	0	"{""cc by-nc-nd"": 2}"
+NAGS	NAGS	gr_weak	W4_counts_from_small_series_only	True	477	7	0	0	0	0	0	{}
+VPS13C	VPS13C	gr_weak	W2_orphanet_bins_only	True	364	5	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+PDP1	PDP1	gr_weak	W4_counts_from_small_series_only	True	219	2	0	0	0	0	0	{}
+CPT1A	CPT1A	gr_weak	W4_counts_from_small_series_only	True	2267	28	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1}"
+KCNQ1OT1	KCNQ1OT1	gr_weak	W3_no_counts_other	True	806	17	4	4	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 3}"
+MCM8	MCM8	gr_weak	W1_mostly_no_frequency	True	282	10	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+TKT	TKT	nogr_ok	ok_counts	False	786	8	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+ZNF526	ZNF526	nogr_ok	ok_counts	False	22	0	0	0	0	0	0	{}
+TXNRD2	TXNRD2	nogr_ok	ok_counts	False	382	8	1	1	0	0	0	"{""cc by"": 1}"
+SET	SET	nogr_ok	ok_counts	False	790055	18265	271	100	0	0	0	"{""cc by"": 59, ""cc by-nc"": 14, ""cc by-nc-nd"": 27}"
+TULP3	TULP3	nogr_ok	ok_counts	False	107	2	1	1	0	0	0	"{""cc by"": 1}"
+ATP2A1	ATP2A1	nogr_ok	ok_counts	False	415	3	1	1	0	0	0	"{""cc by"": 1}"
+SLC17A8	SLC17A8	nogr_ok	ok_counts	False	151	2	0	0	0	0	0	{}
+SPINK5	SPINK5	nogr_ok	ok_counts	False	495	12	0	0	0	0	0	{}
+MAGT1	MAGT1	nogr_ok	ok_counts	False	302	10	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1}"
+UBA5	UBA5	nogr_ok	ok_counts	False	118	2	2	2	0	0	0	"{""cc by"": 2}"
+MAN2C1	MAN2C1	nogr_ok	ok_counts	False	70	2	0	0	0	0	0	{}
+L2HGDH	L2HGDH	nogr_ok	ok_counts	False	152	3	1	1	0	0	0	"{""cc by"": 1}"
+AGR2	AGR2	nogr_ok	ok_counts	False	874	14	4	4	0	0	0	"{""cc by"": 4}"
+TERC	TERC	nogr_ok	ok_counts	False	1483	32	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1}"
+CFAP74	CFAP74	nogr_ok	ok_counts	False	43	0	0	0	0	0	0	{}
+GPT2	GPT2	nogr_ok	ok_counts	False	349	5	0	0	0	0	0	{}
+BCOR	BCOR	nogr_ok	ok_counts	False	2667	56	11	11	0	0	0	"{""cc by"": 4, ""cc by-nc"": 1, ""cc by-nc-nd"": 4, ""none"": 2}"
+PET100	PET100	nogr_ok	ok_counts	False	60	1	1	1	0	1	0	"{""cc by"": 1}"
+SLC26A3	SLC26A3	nogr_ok	ok_counts	False	293	6	0	0	0	0	0	{}
+REV3L	REV3L	nogr_ok	ok_counts	False	235	11	1	1	0	0	0	"{""cc by"": 1}"
+DMXL2	DMXL2	nogr_ok	ok_counts	False	164	2	0	0	0	0	0	{}
+MACF1	MACF1	nogr_ok	ok_counts	False	526	8	2	2	0	0	0	"{""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+RNF135	RNF135	nogr_ok	ok_counts	False	164	2	0	0	0	0	0	{}
+SNX14	SNX14	nogr_ok	ok_counts	False	84	1	0	0	0	0	0	{}
+RAF1	RAF1	nogr_ok	ok_counts	False	3074	47	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1}"
+ECEL1	ECEL1	nogr_ok	ok_counts	False	109	2	1	1	0	0	0	"{""cc by"": 1}"
+MMP21	MMP21	nogr_ok	ok_counts	False	223	3	2	2	0	1	0	"{""cc by"": 1, ""none"": 1}"
+CERKL	CERKL	nogr_ok	ok_counts	False	223	8	2	2	0	0	0	"{""cc by"": 2}"
+BUD23	BUD23	nogr_ok	ok_counts	False	53	0	0	0	0	0	0	{}
+CHSY1	CHSY1	nogr_ok	ok_counts	False	157	0	0	0	0	0	0	{}
+GRIK2	GRIK2	nogr_ok	ok_counts	False	430	4	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+PTPN22	PTPN22	nogr_ok	ok_counts	False	1810	59	20	20	0	0	0	"{""cc by"": 16, ""cc by-nc"": 3, ""cc by-nc-nd"": 1}"
+TDRD9	TDRD9	nogr_ok	ok_counts	False	142	8	0	0	0	0	0	{}
+SIAH1	SIAH1	nogr_ok	ok_counts	False	243	1	0	0	0	0	0	{}
+CD55	CD55	nogr_ok	ok_counts	False	2082	22	2	2	0	0	0	"{""cc by"": 2}"
+NAA20	NAA20	nogr_ok	ok_counts	False	34	0	0	0	0	0	0	{}
+PLD1	PLD1	nogr_ok	ok_counts	False	409	8	0	0	0	0	0	{}
+TBX4	TBX4	nogr_ok	ok_counts	False	419	13	4	4	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1, ""cc by-nc-nd"": 2}"
+DNAJB6	DNAJB6	nogr_ok	ok_counts	False	282	9	3	3	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 2}"
+LTBP2	LTBP2	nogr_ok	ok_counts	False	618	22	8	8	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1, ""cc by-nc-nd"": 4, ""cc0"": 1}"
+RUSC2	RUSC2	nogr_ok	ok_counts	False	39	1	0	0	0	0	0	{}
+BAG5	BAG5	nogr_ok	ok_counts	False	113	2	1	1	0	0	0	"{""cc by"": 1}"
+MIR17HG	MIR17HG	nogr_ok	ok_counts	False	286	1	1	1	0	0	0	"{""cc by-nc"": 1}"
+CAMK2A	CAMK2A	nogr_ok	ok_counts	False	808	5	1	1	0	0	0	"{""cc by"": 1}"
+PMFBP1	PMFBP1	nogr_ok	ok_counts	False	7195	1	0	0	0	0	0	{}
+AMPD2	AMPD2	nogr_ok	ok_counts	False	130	4	2	2	0	0	0	"{""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+DEF6	DEF6	nogr_ok	ok_counts	False	120	0	0	0	0	0	0	{}
+KIF22	KIF22	nogr_ok	ok_counts	False	190	2	0	0	0	0	0	{}
+ATP2B2	ATP2B2	nogr_ok	ok_counts	False	332	5	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+CASZ1	CASZ1	nogr_ok	ok_counts	False	256	6	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1}"
+GPC6	GPC6	nogr_weak	W1_mostly_no_frequency	False	306	6	1	1	0	0	0	"{""cc by"": 1}"
+SIM1	SIM1	nogr_weak	W2_orphanet_bins_only	False	492	7	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+NDUFC2	NDUFC2	nogr_weak	W4_counts_from_small_series_only	False	213	4	1	1	0	0	0	"{""cc by"": 1}"
+ASTL	ASTL	nogr_weak	W4_counts_from_small_series_only	False	89	3	0	0	0	0	0	{}
+MIEF1	MIEF1	nogr_weak	W4_counts_from_small_series_only	False	77	0	0	0	0	0	0	{}
+DLX4	DLX4	nogr_weak	W4_counts_from_small_series_only	False	123	6	2	2	0	0	0	"{""cc by"": 2}"
+ACY1	ACY1	nogr_weak	W4_counts_from_small_series_only	False	182	5	0	0	0	0	0	{}
+SQSTM1	SQSTM1	nogr_weak	W2_orphanet_bins_only	False	3343	56	16	16	0	0	0	"{""cc by"": 10, ""cc by-nc"": 2, ""cc by-nc-nd"": 4}"
+CYP11A1	CYP11A1	nogr_weak	W3_no_counts_other	False	1206	17	3	3	0	0	0	"{""cc by"": 3}"
+NDN	NDN	nogr_weak	W2_orphanet_bins_only	False	559	14	1	1	0	0	0	"{""cc by"": 1}"
+ALX1	ALX1	nogr_weak	W4_counts_from_small_series_only	False	361	1	0	0	0	0	0	{}
+MRPS7	MRPS7	nogr_weak	W4_counts_from_small_series_only	False	100	1	0	0	0	0	0	{}
+GDAP2	GDAP2	nogr_weak	W4_counts_from_small_series_only	False	27	3	1	1	0	0	0	"{""cc by"": 1}"
+COA3	COA3	nogr_weak	W4_counts_from_small_series_only	False	71	1	0	0	0	0	0	{}
+KCNT2	KCNT2	nogr_weak	W4_counts_from_small_series_only	False	153	6	1	1	0	0	0	"{""cc by"": 1}"
+SLC5A1	SLC5A1	nogr_weak	W4_counts_from_small_series_only	False	336	10	1	1	0	0	0	"{""cc by-nc"": 1}"
+YARS2	YARS2	nogr_weak	W4_counts_from_small_series_only	False	130	4	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1}"
+INTU	INTU	nogr_weak	W4_counts_from_small_series_only	False	239	3	0	0	0	0	0	{}
+NAGA	NAGA	nogr_weak	W3_no_counts_other	False	1279	2	1	1	0	0	0	"{""cc by"": 1}"
+SPIDR	SPIDR	nogr_weak	W4_counts_from_small_series_only	False	77	3	0	0	0	0	0	{}
+RNPC3	RNPC3	nogr_weak	W4_counts_from_small_series_only	False	102	2	1	1	0	0	0	"{""cc by-nc"": 1}"
+SLC6A4	SLC6A4	nogr_weak	W1_mostly_no_frequency	False	2459	43	13	13	0	0	0	"{""cc by"": 11, ""cc by-nc-nd"": 1, ""none"": 1}"
+GDF3	GDF3	nogr_weak	W1_mostly_no_frequency	False	196	4	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+DMP1	DMP1	nogr_weak	W1_mostly_no_frequency	False	498	6	0	0	0	0	0	{}
+IL17RA	IL17RA	nogr_weak	W3_no_counts_other	False	695	12	1	1	0	0	0	"{""cc by"": 1}"
+SPIB	SPIB	nogr_weak	W2_orphanet_bins_only	False	553	3	1	1	0	0	0	"{""cc by"": 1}"
+KANK1	KANK1	nogr_weak	W1_mostly_no_frequency	False	290	8	1	1	0	0	0	"{""cc by"": 1}"
+PANX1	PANX1	nogr_weak	W1_mostly_no_frequency	False	369	11	2	2	0	0	0	"{""cc by"": 2}"
+PIGH	PIGH	nogr_weak	W4_counts_from_small_series_only	False	52	0	0	0	0	0	0	{}
+SYT14	SYT14	nogr_weak	W4_counts_from_small_series_only	False	69	1	0	0	0	0	0	{}
+NHERF1	NHERF1	nogr_weak	W1_mostly_no_frequency	False	177	3	2	2	0	0	0	"{""cc by-nc-nd"": 2}"
+RSPH1	RSPH1	nogr_weak	W4_counts_from_small_series_only	False	180	3	1	1	0	0	0	"{""cc by-nc"": 1}"
+PAX1	PAX1	nogr_weak	W4_counts_from_small_series_only	False	445	22	11	11	0	0	0	"{""cc by-nc"": 2, ""cc by-nc-nd"": 9}"
+NDUFS8	NDUFS8	nogr_weak	W4_counts_from_small_series_only	False	270	4	2	2	0	0	0	"{""cc by"": 2}"
+NFKBIA	NFKBIA	nogr_weak	W4_counts_from_small_series_only	False	2110	31	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1}"
+TRPA1	TRPA1	nogr_weak	W1_mostly_no_frequency	False	1455	16	5	5	0	0	0	"{""cc by"": 5}"
+DNAAF4	DNAAF4	nogr_weak	W4_counts_from_small_series_only	False	99	0	0	0	0	0	0	{}
+CORIN	CORIN	nogr_weak	W4_counts_from_small_series_only	False	879	7	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc-nd"": 1}"
+CAT	CAT	nogr_weak	W3_no_counts_other	False	74511	826	95	95	0	0	0	"{""cc by"": 56, ""cc by-nc"": 18, ""cc by-nc-nd"": 18, ""cc0"": 1, ""none"": 2}"
+KRT13	KRT13	nogr_weak	W1_mostly_no_frequency	False	415	2	0	0	0	0	0	{}
+NHLRC2	NHLRC2	nogr_weak	W4_counts_from_small_series_only	False	50	2	1	1	0	0	0	"{""cc by"": 1}"
+OTOA	OTOA	nogr_weak	W1_mostly_no_frequency	False	155	8	1	1	0	0	0	"{""cc by"": 1}"
+P2RY11	P2RY11	nogr_weak	W2_orphanet_bins_only	False	132	2	0	0	0	0	0	{}
+MRPS14	MRPS14	nogr_weak	W4_counts_from_small_series_only	False	46	0	0	0	0	0	0	{}
+AGK	AGK	nogr_weak	W4_counts_from_small_series_only	False	468	3	1	1	0	0	0	"{""cc by"": 1}"
+LAMTOR2	LAMTOR2	nogr_weak	W3_no_counts_other	False	137	1	0	0	0	0	0	{}
+ISCU	ISCU	nogr_weak	W4_counts_from_small_series_only	False	269	5	0	0	0	0	0	{}
+MSN	MSN	nogr_weak	W1_mostly_no_frequency	False	6222	20	0	0	0	0	0	{}
+COG1	COG1	nogr_weak	W4_counts_from_small_series_only	False	108	1	0	0	0	0	0	{}
+NDUFS7	NDUFS7	nogr_weak	W4_counts_from_small_series_only	False	231	2	0	0	0	0	0	{}
+ABCA5	ABCA5	evaluation	W3_no_counts_other	False	183	0	0	0	0	0	0	{}
+AFP	AFP	evaluation	W1_mostly_no_frequency	False	19875	829	48	48	0	0	0	"{""cc by"": 27, ""cc by-nc"": 14, ""cc by-nc-nd"": 7}"
+AP4M1	AP4M1	evaluation	ok_counts	False	296	4	1	1	0	0	0	"{""cc by"": 1}"
+ARHGEF1	ARHGEF1	evaluation	W4_counts_from_small_series_only	False	174	2	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+ATP11C	ATP11C	evaluation	W4_counts_from_small_series_only	False	65	1	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+ATP2A2	ATP2A2	evaluation	W3_no_counts_other	False	1188	12	3	3	0	0	0	"{""cc by"": 3}"
+ATP5F1B	ATP5F1B	evaluation	W4_counts_from_small_series_only	False	155	2	0	0	0	0	0	{}
+ATP6AP1	ATP6AP1	evaluation	ok_counts	False	277	6	2	2	0	0	1	"{""cc by"": 1, ""cc by-nc"": 1}"
+BAG3	BAG3	evaluation	W4_counts_from_small_series_only	False	1101	25	9	9	0	0	0	"{""cc by"": 8, ""cc by-nc-nd"": 1}"
+BHLHA9	BHLHA9	evaluation	W3_no_counts_other	False	46	2	1	1	0	0	0	"{""cc by"": 1}"
+BLK	BLK	evaluation	W1_mostly_no_frequency	False	1443	17	1	1	0	0	0	"{""none"": 1}"
+BMP10	BMP10	evaluation	ok_counts	False	378	17	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+BRPF1	BRPF1	evaluation	W1_mostly_no_frequency	False	124	5	2	2	0	0	1	"{""cc by"": 2}"
+CHRDL1	CHRDL1	evaluation	ok_counts	False	274	9	1	1	0	1	0	"{""cc by"": 1}"
+CLRN1	CLRN1	evaluation	W1_mostly_no_frequency	False	231	10	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+CNNM4	CNNM4	evaluation	ok_counts	False	130	4	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1}"
+COL18A1	COL18A1	evaluation	ok_counts	False	1254	13	1	1	0	0	0	"{""cc by"": 1}"
+COL9A3	COL9A3	evaluation	ok_counts	False	384	9	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+COQ4	COQ4	evaluation	ok_counts	False	156	7	2	2	1	1	0	"{""cc by"": 2}"
+COQ6	COQ6	evaluation	ok_counts	False	233	4	0	0	0	0	0	{}
+CST3	CST3	evaluation	W1_mostly_no_frequency	False	1840	19	2	2	0	0	0	"{""cc by"": 2}"
+CTRC	CTRC	evaluation	W3_no_counts_other	False	692	11	3	3	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1, ""cc by-nc-sa"": 1}"
+DCAF17	DCAF17	evaluation	ok_counts	False	93	2	0	0	0	0	0	{}
+DKC1	DKC1	evaluation	W4_counts_from_small_series_only	False	695	13	2	2	0	0	0	"{""cc by"": 2}"
+DNAAF2	DNAAF2	evaluation	W4_counts_from_small_series_only	False	112	1	0	0	0	0	0	{}
+DNAAF6	DNAAF6	evaluation	W4_counts_from_small_series_only	False	34	0	0	0	0	0	0	{}
+DNAH11	DNAH11	evaluation	W4_counts_from_small_series_only	False	550	15	1	1	0	0	0	"{""cc by"": 1}"
+DOCK8	DOCK8	evaluation	ok_counts	False	1184	32	5	5	0	0	0	"{""cc by"": 5}"
+ELANE	ELANE	evaluation	W3_no_counts_other	False	4313	20	3	3	0	0	0	"{""cc by"": 2, ""none"": 1}"
+ELMOD3	ELMOD3	evaluation	ok_counts	False	32	0	0	0	0	0	0	{}
+ERCC4	ERCC4	evaluation	W4_counts_from_small_series_only	False	640	15	2	2	0	0	0	"{""cc by"": 2}"
+F8	F8	evaluation	ok_counts	False	4306	32	10	10	0	0	0	"{""cc by"": 6, ""cc by-nc"": 2, ""cc by-nc-nd"": 2}"
+FANCD2	FANCD2	evaluation	W3_no_counts_other	False	1617	23	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+FBN1	FBN1	evaluation	ok_counts	False	2429	84	14	14	0	0	0	"{""cc by"": 12, ""cc by-nc-nd"": 2}"
+FBXL4	FBXL4	evaluation	ok_counts	False	162	2	0	0	0	0	0	{}
+FBXO11	FBXO11	evaluation	ok_counts	False	282	5	3	3	0	0	1	"{""cc by"": 3}"
+FCGR2B	FCGR2B	evaluation	ok_counts	False	919	22	2	2	0	0	0	"{""cc by"": 2}"
+FERMT3	FERMT3	evaluation	W1_mostly_no_frequency	False	255	8	1	1	0	0	0	"{""cc by"": 1}"
+FH	FH	evaluation	ok_counts	False	18564	374	20	20	0	0	0	"{""cc by"": 14, ""cc by-nc"": 1, ""cc by-nc-nd"": 4, ""cc0"": 1}"
+GATB	GATB	evaluation	ok_counts	False	65	1	0	0	0	0	0	{}
+GHRHR	GHRHR	evaluation	ok_counts	False	230	6	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+GLA	GLA	evaluation	ok_counts	False	4809	181	35	35	0	0	0	"{""cc by"": 20, ""cc by-nc"": 5, ""cc by-nc-nd"": 9, ""cc by-nc-sa"": 1}"
+GLI3	GLI3	evaluation	W3_no_counts_other	False	1245	21	5	5	0	0	0	"{""cc by"": 4, ""cc by-nc"": 1}"
+HK1	HK1	evaluation	W4_counts_from_small_series_only	False	11665	21	5	5	0	0	0	"{""cc by"": 3, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+HNRNPA2B1	HNRNPA2B1	evaluation	ok_counts	False	1569	26	0	0	0	0	0	{}
+HOXA2	HOXA2	evaluation	ok_counts	False	345	7	1	1	0	0	0	"{""cc by"": 1}"
+HPS4	HPS4	evaluation	ok_counts	False	147	2	0	0	0	0	0	{}
+HSPB8	HSPB8	evaluation	ok_counts	False	437	10	2	2	0	0	0	"{""cc by"": 2}"
+IARS1	IARS1	evaluation	W4_counts_from_small_series_only	False	63	3	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc"": 1}"
+IGF1R	IGF1R	evaluation	W4_counts_from_small_series_only	False	9959	78	21	21	0	0	1	"{""cc by"": 15, ""cc by-nc"": 5, ""cc by-nc-nd"": 1}"
+IKBKG	IKBKG	evaluation	ok_counts	False	671	9	0	0	0	0	0	{}
+ITPR1	ITPR1	evaluation	ok_counts	False	828	36	10	10	1	2	1	"{""cc by"": 7, ""cc by-nc"": 2, ""cc by-nc-nd"": 1}"
+KDM5D	KDM5D	evaluation	W0_no_profile	False	416	6	1	1	0	0	0	"{""cc by"": 1}"
+KIF12	KIF12	evaluation	ok_counts	False	79	1	0	0	0	0	0	{}
+KLK11	KLK11	evaluation	ok_counts	False	186	5	1	1	0	0	0	"{""cc by"": 1}"
+KMT2D	KMT2D	evaluation	ok_counts	False	4672	145	6	6	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 3, ""none"": 1}"
+KRT10	KRT10	evaluation	ok_counts	False	545	2	0	0	0	0	0	{}
+LAMP2	LAMP2	evaluation	ok_counts	False	1719	19	2	2	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+LARS2	LARS2	evaluation	ok_counts	False	293	3	0	0	0	0	0	{}
+LIPT1	LIPT1	evaluation	W4_counts_from_small_series_only	False	1073	8	0	0	0	0	0	{}
+LMNA	LMNA	evaluation	ok_counts	False	3467	109	29	29	0	0	1	"{""cc by"": 19, ""cc by-nc"": 2, ""cc by-nc-nd"": 8}"
+LZTR1	LZTR1	evaluation	ok_counts	False	735	29	7	7	0	0	0	"{""cc by"": 5, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+MAPRE2	MAPRE2	evaluation	W4_counts_from_small_series_only	False	118	3	2	2	0	0	0	"{""cc by"": 2}"
+MBD4	MBD4	evaluation	ok_counts	False	456	4	2	2	0	1	0	"{""cc by"": 1, ""cc by-nc-nd"": 1}"
+MBTPS2	MBTPS2	evaluation	ok_counts	False	201	3	1	1	0	0	0	"{""cc by"": 1}"
+METTL5	METTL5	evaluation	ok_counts	False	175	4	2	2	0	0	0	"{""cc by"": 2}"
+MT-TL2	MT-TL2	evaluation	W3_no_counts_other	False	71	2	0	0	0	0	0	{}
+MT-TV	MT-TV	evaluation	W3_no_counts_other	False	74	0	0	0	0	0	0	{}
+MYH3	MYH3	evaluation	ok_counts	False	379	7	1	1	0	0	0	"{""cc by"": 1}"
+MYO3A	MYO3A	evaluation	W1_mostly_no_frequency	False	214	2	0	0	0	0	0	{}
+MYO6	MYO6	evaluation	W1_mostly_no_frequency	False	415	14	0	0	0	0	0	{}
+NBAS	NBAS	evaluation	ok_counts	False	771	15	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1, ""cc0"": 1}"
+NDUFAF5	NDUFAF5	evaluation	W4_counts_from_small_series_only	False	96	2	0	0	0	0	0	{}
+NF1	NF1	evaluation	ok_counts	False	10704	442	63	63	2	3	0	"{""cc by"": 38, ""cc by-nc"": 9, ""cc by-nc-nd"": 16}"
+NFU1	NFU1	evaluation	ok_counts	False	126	6	2	2	1	1	1	"{""cc by"": 2}"
+NHLRC1	NHLRC1	evaluation	W2_orphanet_bins_only	False	155	6	1	1	0	0	0	"{""cc by"": 1}"
+NLRP3	NLRP3	evaluation	ok_counts	False	19818	197	72	72	0	0	0	"{""cc by"": 45, ""cc by-nc"": 11, ""cc by-nc-nd"": 13, ""cc by-nc-sa"": 1, ""none"": 2}"
+NR0B1	NR0B1	evaluation	ok_counts	False	380	12	5	5	0	0	0	"{""cc by"": 4, ""cc by-nc-nd"": 1}"
+NTHL1	NTHL1	evaluation	ok_counts	False	563	15	3	3	0	0	0	"{""cc by"": 3}"
+PDX1	PDX1	evaluation	W4_counts_from_small_series_only	False	2182	42	13	13	0	0	1	"{""cc by"": 9, ""cc by-nc"": 1, ""cc by-nc-nd"": 3}"
+PICALM	PICALM	evaluation	W0_no_profile	False	1042	15	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+PROP1	PROP1	evaluation	ok_counts	False	330	13	5	5	0	0	1	"{""cc by"": 4, ""cc by-nc"": 1}"
+PSMB10	PSMB10	evaluation	ok_counts	False	437	8	1	1	0	0	0	"{""cc by"": 1}"
+PTH1R	PTH1R	evaluation	W1_mostly_no_frequency	False	448	4	0	0	0	0	0	{}
+PTPN11	PTPN11	evaluation	ok_counts	False	4353	102	13	13	0	1	0	"{""cc by"": 10, ""cc by-nc"": 1, ""cc by-nc-nd"": 2}"
+PTPN2	PTPN2	evaluation	W2_orphanet_bins_only	False	772	20	8	8	0	0	0	"{""cc by"": 6, ""cc by-nc-nd"": 2}"
+PYROXD1	PYROXD1	evaluation	ok_counts	False	65	2	1	1	0	0	0	"{""cc by-nc"": 1}"
+RAB23	RAB23	evaluation	W2_orphanet_bins_only	False	204	4	1	1	0	0	0	"{""cc by"": 1}"
+RB1CC1	RB1CC1	evaluation	W1_mostly_no_frequency	False	274	4	1	1	0	0	0	"{""cc by"": 1}"
+RERE	RERE	evaluation	ok_counts	False	396	10	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+RHCE	RHCE	evaluation	W4_counts_from_small_series_only	False	168	4	1	1	0	0	0	"{""cc by"": 1}"
+RNU4-2	RNU4-2	evaluation	ok_counts	False	96	8	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+RPGRIP1	RPGRIP1	evaluation	ok_counts	False	326	20	4	4	0	1	1	"{""cc by"": 3, ""cc by-nc-nd"": 1}"
+RPS19	RPS19	evaluation	ok_counts	False	450	5	2	2	0	0	0	"{""cc by"": 1, ""cc0"": 1}"
+RTEL1	RTEL1	evaluation	ok_counts	False	716	13	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+SAMD9L	SAMD9L	evaluation	W3_no_counts_other	False	389	15	4	4	0	0	0	"{""cc by"": 3, ""cc by-nc-nd"": 1}"
+SASH3	SASH3	evaluation	ok_counts	False	105	2	1	1	0	1	0	"{""cc by"": 1}"
+SCGB3A2	SCGB3A2	evaluation	W0_no_profile	False	237	1	0	0	0	0	0	{}
+SCO2	SCO2	evaluation	ok_counts	False	504	3	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+SKIC2	SKIC2	evaluation	ok_counts	False	40	1	0	0	0	0	0	{}
+SLC19A2	SLC19A2	evaluation	ok_counts	False	1419	9	2	2	0	0	0	"{""cc by"": 2}"
+SLC25A32	SLC25A32	evaluation	W1_mostly_no_frequency	False	79	1	1	1	0	0	0	"{""cc by"": 1}"
+SLC52A1	SLC52A1	evaluation	W4_counts_from_small_series_only	False	104	2	1	1	0	0	0	"{""cc by"": 1}"
+SLURP1	SLURP1	evaluation	W3_no_counts_other	False	817	0	0	0	0	0	0	{}
+SMARCB1	SMARCB1	evaluation	W4_counts_from_small_series_only	False	2414	61	10	10	0	0	0	"{""cc by"": 6, ""cc by-nc"": 3, ""cc by-nc-nd"": 1}"
+SMPX	SMPX	evaluation	W1_mostly_no_frequency	False	99	4	3	3	0	0	0	"{""cc by"": 1, ""cc by-nc-nd"": 1, ""cc0"": 1}"
+SOX17	SOX17	evaluation	ok_counts	False	1360	9	3	3	0	0	0	"{""cc by"": 2, ""cc by-nc-nd"": 1}"
+SPTAN1	SPTAN1	evaluation	W1_mostly_no_frequency	False	372	8	4	4	1	1	0	"{""cc by"": 4}"
+SUN5	SUN5	evaluation	ok_counts	False	104	3	0	0	0	0	0	{}
+TBX5	TBX5	evaluation	ok_counts	False	1059	21	8	8	0	0	0	"{""cc by"": 6, ""cc by-nc-nd"": 2}"
+TGFB2	TGFB2	evaluation	ok_counts	False	3235	32	4	4	0	0	0	"{""cc by"": 4}"
+TGFB3	TGFB3	evaluation	ok_counts	False	1324	11	0	0	0	0	0	{}
+TNFRSF13B	TNFRSF13B	evaluation	ok_counts	False	966	18	2	2	0	0	0	"{""cc by"": 2}"
+TUBA4A	TUBA4A	evaluation	W4_counts_from_small_series_only	False	466	4	1	1	0	0	0	"{""cc by"": 1}"
+UMOD	UMOD	evaluation	ok_counts	False	1090	30	7	7	0	0	0	"{""cc by"": 6, ""cc by-nc"": 1}"
+UNC13A	UNC13A	evaluation	W3_no_counts_other	False	393	11	4	4	0	0	0	"{""cc by"": 2, ""cc by-nc"": 1, ""cc by-nc-nd"": 1}"
+VAMP7	VAMP7	evaluation	W2_orphanet_bins_only	False	209	3	0	0	0	0	0	{}
+ZBTB42	ZBTB42	evaluation	W4_counts_from_small_series_only	False	26	0	0	0	0	0	0	{}
+ZFAT	ZFAT	evaluation	W0_no_profile	False	157	2	1	1	0	0	0	"{""cc by-nc-nd"": 1}"
+ZIC3	ZIC3	evaluation	ok_counts	False	328	1	0	0	0	0	0	{}

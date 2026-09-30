@@ -1,0 +1,373 @@
+{
+ "panel_throughput_inputs": {
+  "paper_units": 43,
+  "genereviews_rows": 164,
+  "genereviews_chapters": 23,
+  "paper_rows": 367,
+  "paper_pmids": 68,
+  "raw_rows": 549,
+  "batches": 17,
+  "agent_minutes": 339,
+  "wall_minutes": 55,
+  "units_attempted": 120,
+  "units_kept": 56,
+  "crosscheck_rows": 54,
+  "crosscheck_minutes": 9
+ },
+ "genereviews_coverage": {
+  "construction": {
+   "genes": 5108,
+   "any_chapter": 1772,
+   "chapter_with_le_10_genes": 1126,
+   "chapter_lists_main_disease_omim": 1291,
+   "usable_chapter_strict": 1289,
+   "only_eval_touched_chapters": 483,
+   "only_eval_touched_via_overview_only": 426
+  },
+  "evaluation": {
+   "genes": 120,
+   "any_chapter": 68,
+   "chapter_with_le_10_genes": 38,
+   "chapter_lists_main_disease_omim": 54,
+   "usable_chapter_strict": 0,
+   "only_eval_touched_chapters": 68,
+   "only_eval_touched_via_overview_only": 30
+  }
+ },
+ "genereviews_chapters": {
+  "in_gene_map": 882,
+  "touching_eval_units": 78,
+  "overview_gt_10_genes": 43
+ },
+ "genereviews_sample30": {
+  "numeric_feature_table": {
+   "k": 17,
+   "n": 30,
+   "p": 0.5667,
+   "lo": 0.392,
+   "hi": 0.7262
+  },
+  "ge5_numeric_features": {
+   "k": 19,
+   "n": 30,
+   "p": 0.6333,
+   "lo": 0.4551,
+   "hi": 0.7813
+  },
+  "table_or_ge5": {
+   "k": 20,
+   "n": 30,
+   "p": 0.6667,
+   "lo": 0.4878,
+   "hi": 0.8077
+  },
+  "numeric_age": {
+   "k": 14,
+   "n": 30,
+   "p": 0.4667,
+   "lo": 0.3023,
+   "hi": 0.6386
+  },
+  "qualitative_age_only": {
+   "k": 7,
+   "n": 30,
+   "p": 0.2333,
+   "lo": 0.1179,
+   "hi": 0.4093
+  },
+  "any_age": {
+   "k": 21,
+   "n": 30,
+   "p": 0.7,
+   "lo": 0.5212,
+   "hi": 0.8334
+  },
+  "numeric_table_rows_median": 11,
+  "numeric_table_rows_range": [
+   0,
+   23
+  ],
+  "chapters_citing_r1_heldout": {
+   "k": 4,
+   "n": 30,
+   "p": 0.1333,
+   "lo": 0.0531,
+   "hi": 0.2968
+  },
+  "cited_pmids": 1048,
+  "cited_pmids_r1_heldout": 13,
+  "nxml_bytes_mean": 168427
+ },
+ "weakness": {
+  "W1_mostly_no_frequency": {
+   "genes": 440,
+   "gr_usable": 78,
+   "gr_usable_lists_main_disease": 58,
+   "main_disease_is_eval_disease": 8
+  },
+  "W2_orphanet_bins_only": {
+   "genes": 314,
+   "gr_usable": 103,
+   "gr_usable_lists_main_disease": 1,
+   "main_disease_is_eval_disease": 3
+  },
+  "W3_no_counts_other": {
+   "genes": 405,
+   "gr_usable": 164,
+   "gr_usable_lists_main_disease": 136,
+   "main_disease_is_eval_disease": 41
+  },
+  "W4_counts_from_small_series_only": {
+   "genes": 1412,
+   "gr_usable": 261,
+   "gr_usable_lists_main_disease": 206,
+   "main_disease_is_eval_disease": 34
+  },
+  "ok_counts": {
+   "genes": 2205,
+   "gr_usable": 673,
+   "gr_usable_lists_main_disease": 571,
+   "main_disease_is_eval_disease": 118
+  }
+ },
+ "weak_cross": {
+  "weak_genes": 2571,
+  "weak_with_usable_gr": 606,
+  "weak_with_usable_gr_expected_ge5_numeric": 384,
+  "epmc_title_bins_weak_all": {
+   "0": 0.367,
+   "1-4": 0.4811,
+   "5+": 0.1519,
+   "genes": 2571
+  },
+  "epmc_title_bins_weak_without_gr": {
+   "0": 0.4,
+   "1-4": 0.5,
+   "5+": 0.1,
+   "genes": 1965
+  },
+  "epmc_title_bins_ok": {
+   "0": 0.3451,
+   "1-4": 0.4956,
+   "5+": 0.1594,
+   "genes": 2205
+  }
+ },
+ "europepmc": {
+  "hits_broad": {
+   "construction_weighted": {
+    "0": 0.0,
+    "1-4": 0.0,
+    "5+": 1.0,
+    "genes": 4776
+   },
+   "per_stratum": {
+    "evaluation": {
+     "5+": 120,
+     "n": 120,
+     "median": 386.5
+    },
+    "gr_ok": {
+     "5+": 50,
+     "n": 50,
+     "median": 516.5
+    },
+    "gr_weak": {
+     "5+": 50,
+     "n": 50,
+     "median": 465.5
+    },
+    "nogr_ok": {
+     "5+": 50,
+     "n": 50,
+     "median": 249.5
+    },
+    "nogr_weak": {
+     "5+": 50,
+     "n": 50,
+     "median": 235.0
+    }
+   }
+  },
+  "hits_ta": {
+   "construction_weighted": {
+    "0": 0.0739,
+    "1-4": 0.387,
+    "5+": 0.5391,
+    "genes": 4776
+   },
+   "per_stratum": {
+    "evaluation": {
+     "0": 6,
+     "5+": 74,
+     "1-4": 40,
+     "n": 120,
+     "median": 8.0
+    },
+    "gr_ok": {
+     "5+": 40,
+     "1-4": 10,
+     "n": 50,
+     "median": 14.0
+    },
+    "gr_weak": {
+     "5+": 36,
+     "1-4": 13,
+     "0": 1,
+     "n": 50,
+     "median": 12.0
+    },
+    "nogr_ok": {
+     "5+": 24,
+     "0": 6,
+     "1-4": 20,
+     "n": 50,
+     "median": 4.0
+    },
+    "nogr_weak": {
+     "5+": 22,
+     "1-4": 24,
+     "0": 4,
+     "n": 50,
+     "median": 4.0
+    }
+   }
+  },
+  "hits_title": {
+   "construction_weighted": {
+    "0": 0.3569,
+    "1-4": 0.4878,
+    "5+": 0.1553,
+    "genes": 4776
+   },
+   "per_stratum": {
+    "evaluation": {
+     "0": 30,
+     "5+": 24,
+     "1-4": 66,
+     "n": 120,
+     "median": 2.0
+    },
+    "gr_ok": {
+     "1-4": 22,
+     "5+": 17,
+     "0": 11,
+     "n": 50,
+     "median": 2.0
+    },
+    "gr_weak": {
+     "1-4": 21,
+     "0": 13,
+     "5+": 16,
+     "n": 50,
+     "median": 2.0
+    },
+    "nogr_ok": {
+     "1-4": 26,
+     "0": 20,
+     "5+": 4,
+     "n": 50,
+     "median": 1.0
+    },
+    "nogr_weak": {
+     "1-4": 25,
+     "0": 20,
+     "5+": 5,
+     "n": 50,
+     "median": 1.0
+    }
+   }
+  },
+  "construction_hits": {
+   "retrieved_rows": 1103,
+   "distinct_pmids": 1066,
+   "licences": {
+    "cc by": 714,
+    "cc by-nc-nd": 211,
+    "cc by-nc": 139,
+    "none": 21,
+    "cc0": 9,
+    "cc by-nc-sa": 8,
+    "cc by-nd": 1
+   },
+   "case_report_type": 90,
+   "review_type": 50,
+   "r1_heldout_pmids": 3,
+   "in_hpoa_pmids": 6,
+   "litpanel_source_pmids": 0
+  },
+  "evaluation_hits": {
+   "retrieved_rows": 556,
+   "distinct_pmids": 542,
+   "licences": {
+    "cc by": 375,
+    "cc by-nc-nd": 101,
+    "cc by-nc": 68,
+    "none": 5,
+    "cc0": 4,
+    "cc by-nc-sa": 3
+   },
+   "case_report_type": 61,
+   "review_type": 22,
+   "r1_heldout_pmids": 6,
+   "in_hpoa_pmids": 13,
+   "litpanel_source_pmids": 10
+  },
+  "title_precision": {
+   "k": 22,
+   "n": 40,
+   "p": 0.55,
+   "lo": 0.3983,
+   "hi": 0.6929
+  }
+ },
+ "age": {
+  "by_source_and_gr": {
+   "hpoa_and_orphanet|gr_usable": 564,
+   "hpoa_and_orphanet|no_gr": 978,
+   "hpoa_only|gr_usable": 278,
+   "hpoa_only|no_gr": 1348,
+   "none|gr_usable": 144,
+   "none|no_gr": 499,
+   "orphanet_only|gr_usable": 293,
+   "orphanet_only|no_gr": 672
+  },
+  "gr_usable_genes": 1279,
+  "gr_expected_numeric_age": 597,
+  "gr_expected_numeric_age_ci": [
+   387,
+   817
+  ],
+  "orphanet_onset_genes": 2507
+ },
+ "effort": {
+  "rows_per_genereviews_chapter": 7.13,
+  "rows_per_cohort_paper": 5.4,
+  "raw_rows_per_agent_hour": 97.2,
+  "crosscheck_rows_per_hour": 360.0,
+  "usable_chapters": 794,
+  "usable_chapters_of_weak_genes": 396,
+  "genereviews_all_usable_chapters_ge5": {
+   "units": 503,
+   "rows": 3587,
+   "agent_hours": 36.9,
+   "wall_hours_at_8_parallel": 4.6,
+   "crosscheck_hours_10pct": 1.0
+  },
+  "genereviews_weak_gene_chapters_ge5": {
+   "units": 251,
+   "rows": 1790,
+   "agent_hours": 18.4,
+   "wall_hours_at_8_parallel": 2.3,
+   "crosscheck_hours_10pct": 0.5
+  },
+  "papers_weak_genes_without_gr": {
+   "candidate_genes": 648,
+   "agent_hours_to_attempt": 30.5,
+   "panel_survival_rate": 0.467,
+   "expected_kept_units": 302,
+   "rows_per_kept_unit": 8.5,
+   "expected_rows": 2581
+  }
+ }
+}

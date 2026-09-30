@@ -1,0 +1,17 @@
+{
+ "seed": 20260930,
+ "per_stratum": 50,
+ "strata_sizes": {
+  "gr_ok": 673,
+  "gr_weak": 606,
+  "nogr_ok": 1532,
+  "nogr_weak": 1965
+ },
+ "queries": {
+  "broad": "\"{SYMBOL}\" AND (cohort OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\") AND OPEN_ACCESS:y",
+  "ta": "(TITLE:\"{SYMBOL}\" OR ABSTRACT:\"{SYMBOL}\") AND (TITLE:(cohort OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\") OR ABSTRACT:(cohort OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\")) AND OPEN_ACCESS:y",
+  "title": "TITLE:\"{SYMBOL}\" AND (TITLE:(cohort OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\") OR ABSTRACT:(cohort OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\")) AND OPEN_ACCESS:y"
+ },
+ "retrieved_per_gene_cap": 100,
+ "run_utc": "2026-09-30T20:35:45Z"
+}

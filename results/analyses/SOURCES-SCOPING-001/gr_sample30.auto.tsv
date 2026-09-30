@@ -1,0 +1,31 @@
+shortname	nbk	title	n_genes	nxml_bytes	feature_tables	feature_table_rows	feature_table_numeric_rows	clinical_sentences	clinical_numeric_sentences	age_numeric_sentences	age_qualitative_sentences	cited_pmids	cited_pmids_r1_heldout	cited_pmids_litpanel_sources
+agu	NBK599378	Aspartylglucosaminuria	1	151236	1	11	10	80	0	0	0	23	0	0
+alkap	NBK1454	Alkaptonuria	1	122344	0	0	0	76	5	6	0	31	0	0
+aniridia	NBK1360	PAX6 Aniridia Syndrome	1	185776	0	0	0	111	5	1	2	58	0	0
+arg1	NBK1159	Arginase 1 Deficiency	1	207890	0	0	0	116	5	0	0	38	0	0
+bofs	NBK55063	Branchiooculofacial Syndrome	1	124742	0	0	0	84	7	0	0	23	0	0
+ctx	NBK1409	Cerebrotendinous Xanthomatosis	1	175950	1	13	12	78	9	4	2	51	0	0
+eds-pd	NBK572429	Periodontal Ehlers-Danlos Syndrome	2	166436	1	11	10	103	7	6	3	33	0	0
+g6pc3-def	NBK285321	G6PC3 Deficiency	1	139059	0	0	0	93	7	4	0	36	0	0
+gsd4	NBK115333	Glycogen Storage Disease Type IV	1	140982	0	0	0	63	1	0	1	35	0	0
+lms	NBK368476	NOTCH3-Related Lateral Meningocele Syndrome	1	109628	1	11	10	56	0	0	0	16	0	0
+mbtps1-semd	NBK597768	MBTPS1-Related Spondyloepimetaphyseal Dysplasia with Elevated Lysosomal Enzymes	1	132542	1	12	11	69	0	5	0	11	1	0
+mdel1q21_1	NBK52787	1q21.1 Recurrent Microdeletion	2	191932	1	6	0	95	9	0	0	39	1	0
+mopd2	NBK575926	Microcephalic Osteodysplastic Primordial Dwarfism Type II	1	175781	1	22	19	137	4	4	1	24	0	0
+mps1	NBK1162	Mucopolysaccharidosis Type I	1	245272	1	12	10	192	8	8	0	57	0	0
+nfia-dis	NBK542336	NFIA-Related Disorder	1	120546	0	0	0	66	0	3	0	17	0	0
+nkh	NBK1357	Nonketotic Hyperglycinemia	2	243077	0	0	0	152	9	5	2	63	0	0
+peaf	NBK1537	Autosomal Dominant Epilepsy with Auditory Features	3	232754	1	5	4	115	7	4	1	72	0	0
+ppp1r21-ndd	NBK620407	PPP1R21-Related El-Hattab-Schmidts Syndrome	1	117639	1	12	11	76	3	3	0	12	0	0
+pycnodys	NBK563694	Pycnodysostosis	1	140901	1	21	20	96	15	1	0	27	0	0
+sca10	NBK1175	Spinocerebellar Ataxia Type 10	1	163324	0	0	0	76	2	3	0	49	0	0
+schaaf-yang	NBK567492	Schaaf-Yang Syndrome	1	190118	1	24	23	123	10	3	3	25	0	0
+setd1b-ndd	NBK584549	SETD1B-Related Neurodevelopmental Disorder	1	144502	1	14	13	73	4	2	0	21	0	0
+sgs	NBK1277	Shprintzen-Goldberg Syndrome	1	135072	2	43	23	82	4	1	2	13	1	0
+sptbn4	NBK559435	SPTBN4 Disorder	1	133026	1	11	10	75	0	0	1	9	0	0
+timothy	NBK1403	CACNA1C-Related Disorders	1	218949	3	30	1	141	5	0	0	31	0	0
+traps	NBK586171	TNF Receptor-Associated Periodic Fever Syndrome	1	138613	1	9	8	76	9	2	0	16	0	0
+tubulin-ov	NBK350554	Tubulinopathies Overview	6	142335	0	0	0	0	0	0	0	29	0	0
+vhl	NBK1463	Von Hippel-Lindau Syndrome	1	325619	0	0	0	120	10	5	1	130	0	0
+white-sutton	NBK573972	White-Sutton Syndrome	1	197318	1	19	18	122	6	3	2	34	10	0
+x-ag	NBK476671	X-Linked Acrogigantism	1	139442	0	0	0	51	8	0	0	25	0	0
