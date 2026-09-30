@@ -970,3 +970,33 @@ What they tell us:
   - §16: "synthetic data calibrated to real statistics still teaches
     relationships that don't hold on real patients", and the
     graceful-stop/recovery procedure.
+
+### 2026-09-30 — ANALYSIS-001 — Dataset realism: the simulator is consistent but not realistic; over-masking found
+- **Asked by Mateo:** is disease→phenotype the problem, and how good is the
+  dataset? Full write-up: `docs/analyses/ANALYSIS-001-dataset-realism.md`.
+  R1-dev (out of sample for the simulator) and R1-train only, plus a
+  literature check of 10 diseases by two research agents.
+- **Findings:**
+
+  | Question / check | Result |
+  |---|---|
+  | Real-vs-generated term-frequency correlation, 10 genes | ours 0.07 vs upstream 0.39 |
+  | HPOA frequency vs real reporting, 64 genes | within-gene ρ 0.02–0.07 |
+  | Reporting model fitted on R1-train | ρ 0.170 |
+  | Over-masking | whole multi-PMID cohort rows dropped: UMOD keeps 3 of 33 rows |
+  | Literature | cardinal features under-emitted, wrong Orphanet bins, OMIM/ORPHA halving, spurious links, no age dependence |
+  | Real R1-dev per-gene rates | often a single paper's cohort, so not per-gene ground truth |
+
+- **Answers:**
+  1. The disease framing is not the root cause; profile construction and
+     emission are.
+  2. The dataset is internally consistent but not realistic per disease,
+     so the Front A negatives are about *this* simulator.
+- **Recommendations** (awaiting Mateo): recount instead of whole-row
+  masking; merge OMIM/ORPHA; better disease weights; reporting-model
+  emission with forced cardinal features; age dependence; a standing
+  realism check.
+- **Evidence for the informe:**
+  - §14: the realism tables and the frequency-vs-reporting calibration;
+  - §16: over-masking as a design flaw, and "internally valid ≠
+    realistic".
