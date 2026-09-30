@@ -3,85 +3,219 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-30, night (simulator gate unmet; waiting for Mateo; Front B release candidate ready). Disk: about 40 GB free on TARS.
+**Snapshot:** 2026-09-30, end of day. Stopped cleanly for the night:
+- no agents running, no background jobs;
+- every PR from today merged except diagnostic.ar-model PR #2, which waits
+  for Mateo.
+
+**Deadline:** 2026-11-07 (38 days left).
+
+## TL;DR for tomorrow
+- **Front B: done and validated.** rr-v1[neg=0.5] passed its sealed gate
+  (EXP-B-003). A production package is ready for review in
+  **diagnostic.ar-model PR #2** (not merged, nothing deployed).
+- **Front A: blocked by design.** The ADR-0012 data-quality gate is
+  **unmet after 4 simulator candidates**; candidate 3 came closest.
+  **R1-dev realism reads used: 2 of 3.** The last one is still unspent,
+  because candidates 3 and 4 were stopped by the train-side go/no-go.
+- **Mateo asked:** would better sources improve the profiles? The scoping
+  study (SOURCES-SCOPING-001) says yes, for a minority of genes:
+  - GeneReviews could give about 800 genes literature frequencies and about
+    600 a numeric age;
+  - open-access cohort papers about 300 more weak genes;
+  - about 73% of weak profiles have no stated numbers in any reachable
+    source.
+
+  Sources fix the **truth layer** (missing or over-produced features, age),
+  not the **reporting and noise** structure that fails G2c, d and e.
+
+## Decisions waiting for Mateo (in suggested order)
+1. **How Front A continues.** My recommendation is (a) + (b) together,
+   time-boxed:
+   - **(a) Literature enrichment of construction profiles.** GeneReviews
+     first, once the licence answer arrives; OA cohort papers second. It
+     needs two rules pre-registered before any extraction (see 2).
+     Effort: about 37 agent-hours for all usable GeneReviews chapters,
+     about 5 wall-hours at 8 agents in parallel; OA papers about 31
+     agent-hours more.
+   - **(b) Two more reporting/noise candidates, checked on R1-train only.**
+     Starting points from candidate 4:
+     - one global factor on q so reported explained terms per case match
+       uncited R1-train (about 5.5), replacing raw π/f, which gave 2.95
+       terms per case;
+     - related noise restricted to closer relatives (its IC is 6.8 vs 4.1
+       for real terms);
+     - age from GeneReviews age at diagnosis where available.
+   - **(c) Fallback, A-005:** train the new sex/age/negation parameters
+     (frozen v3.0) on real R1-train patients, and stop depending on the
+     simulator.
+   - **(d) Stop Front A:** write up the negative results plus the simulator
+     analysis as the contribution.
+   - **Mateo's last message** leaned towards improving sources.
+2. **Rules for literature enrichment** (only if (a)):
+   - **Held-out patients inside pooled GeneReviews tables.** About 13% of
+     chapters cite R1 held-out papers. Options: drop those chapters, or keep
+     only rows whose cited sources are clean. I recommend dropping the whole
+     chapter; it is simplest and safe.
+   - **Overview chapters that touch an evaluation unit** (RP, Leigh, hearing
+     loss, PCD, CMT; up to 426 construction genes). Strict: exclude them. Or
+     allow them to feed only construction genes' own rows. I recommend
+     strict at first.
+   - **No-derivatives OA licences** (CC BY-NC-ND, 19% of hits): include
+     them (facts plus citations, never text), or exclude them.
+3. **rr-v1 release** (diagnostic.ar-model PR #2):
+   - **merge it** and create the GitHub release (`gh release create
+     rerank-v1.0.0`, as written in the PR);
+   - **pass only the question agent's "no" answers**, not free-text
+     negations. That is what was validated; it reverses D-18 in Mariano's
+     question-agent repo;
+   - **production `/genphenai` routes to brainy, not the pinned image.**
+     Enabling the re-ranker needs brainy updated or production re-routed;
+   - **the web's "Con tus respuestas"** list showing the re-ranked order is a
+     product call;
+   - **OK to keep 50 R1-dev cases** as a parity fixture in the private model
+     repo?
+4. **ADR-0012 amendment 3** (G2a scores the truth layer), made after
+   candidate 2's read: accept or revert. Amendment 1 is already accepted.
+5. **GeneReviews email:** Mateo is sending it. If the answer is no, see
+   `docs/TODO.md` for the fallback.
+6. **Later:** spot-check the G3 cards and the two reviewers' verdicts, once
+   a candidate reaches G3.
 
 ## Where each front stands
-
 | Front | Status | Evidence |
 |---|---|---|
 | Shared | E0 measured on every cohort; R1 CIs resample publications | `EXP-000.md` |
-| B on R1 | rr-v1 null; rr-v2 (learned on R1-train) +0.056 dev but harmed 10%, and its gain is R1's negation reporting pattern; sex/age/onset ≈ 0 | `EXP-B-001.md`, `EXP-B-002.md` |
-| B on S3 | **rr-v1[neg=0.5] passed its sealed Phase-4 gate (EXP-B-003):** S3-test +0.0044 [+0.0032, +0.0057], harmed 3.9%; R1-test no regression (−0.0025 [−0.0070, +0.0013]). It is a release candidate; deploying is Mateo's call | `EXP-S3-001.md`, `EXP-B-003.md` |
-| A | **All three trained designs fail on real patients:** A-001 (full fine-tune), A-002f (negation, frozen), A-003f (sex/age, frozen). Each gains on S3, which is the same simulator. A-004f not run (nothing to combine) | `EXP-A-001.md`, `EXP-A-002f.md`, `EXP-A-003f.md`, `EXP-A-004f.md` |
+| B on R1 | rr-v1 null on R1-dev. rr-v2 (learned on R1-train) gains on dev, but only through R1's negation reporting pattern | `EXP-B-001.md`, `EXP-B-002.md` |
+| **B on S3, sealed** | **rr-v1[neg=0.5] passed (EXP-B-003):** S3-test +0.0044 [+0.0032, +0.0057], harmed 3.9%; R1-test −0.0025 [−0.0070, +0.0013], exactly 0 without negations. Production package: diagnostic.ar-model PR #2 (parity 0 mismatches over 1,680 dev cases; p95 +6.8 ms) | `EXP-S3-001.md`, `EXP-B-003.md` |
+| A (retraining) | A-001, A-002f and A-003f all failed on real patients using simulator v0.3 data. **Retraining is blocked** until the ADR-0012 data gate passes | `EXP-A-00*.md` |
 
-## In progress: simulator v0.4 data-quality gate (ADR-0011, ADR-0012)
-**Retraining is blocked until the ADR-0012 gate passes.**
+## Simulator data-quality gate (ADR-0012), history
+**Gate:**
+- G1: integrity.
+- G2: beat UP (GraPhens' simulator) and V03 (our v0.3, full profiles) on
+  - a: literature panel, truth layer;
+  - b: R1-dev per-gene ρ;
+  - c: terms per case, W1;
+  - d: C2ST AUC ≤ 0.75;
+  - e: E0 difficulty gap to 0.405 ≤ 0.10.
+- G3: 30 disease cards, reviewed by the assistant and Codex; Mateo
+  spot-checks.
+- G4: literature panel (done).
+- G5: freeze.
 
-**R1-dev realism reads used: 2 of 3.** The next is the last; candidate 3 did not use it.
+**Amendments:** 1 (accepted), 2 (G3 reviewers), 3 (G2a truth layer; needs
+Mateo's OK).
 
-| Piece | Status |
-|---|---|
-| Candidate 1 (sim 0.4.1) | G1 pass; G2 fails on a, b, e |
-| Candidate 2 (sim 0.4.2, `simcal-v04-v4`) | G1 pass; G2c passes; a 0.404, b 0.193, d 0.792, e 0.242 fail (PR #34) |
-| ANALYSIS-003 | Noise causes E0's difficulty (0.163 → 0.472 without it). The kb-v4 reference inflated "unexplained": against kb-v3, new patients have about 24% noise, not 35%. G2a now scores the truth layer (ADR-0012 amendment 3) |
-| Candidate 3 | G1 pass; **stopped at the train-side go/no-go** (G2c 1.732, d 0.764, e gap 0.142). The last R1-dev read was not spent (PR #39) |
-| ANALYSIS-004 | Real "noise" carries gene signal: E0 MRR 0.059 on it, vs 0.001 for simulated vocabulary noise. 13.5% of it is annotated in unmasked g2p |
-| Simulator 0.5.0 | Merged (PR #8): independent per-term reporting, proportional noise, age by onset |
-| Candidate 4 | G1 pass; **stopped at the go/no-go** (G2c 5.754, d 0.822, e gap 0.204; records too short, 2.95 terms per case). PR #44 |
-| **Gate** | **Unmet after four candidates. Mateo decides** (ADR-0011 amendment 5 §5). The last R1-dev read is still unspent |
-| G3 cards | Tool merged (`scripts/realism_cards.py`). Review: the assistant plus Codex independently; Mateo spot-checks afterwards (ADR-0012 amendment 2) |
-| G4 panel | Done (literature-panel-v2) |
+| Candidate | Simulator / calibration | G1 | a | b (dev) | c | d | e gap | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| UP (baseline) | GraPhens | — | 0.416 | 0.231 | 3.717 | 0.840 | 0.414 | — |
+| V03-full (baseline) | v0.3 | — | 0.336 | 0.095 | 1.653 | 0.819 | 0.183 | — |
+| 1 | 0.4.1 / simcal-v04-v3 | pass | 0.339 | 0.152 | 1.214 | 0.737 | 0.313 | read 1; fail |
+| 2 | 0.4.2 / simcal-v04-v4 | pass | 0.304 | 0.193 | 1.315 | 0.792 | 0.242 | read 2; fail |
+| 3 | 0.4.2 / simcal-v04-v5 (calib-v2) | pass | 0.305 | not read (train 0.536) | 1.732 | 0.764 | 0.142 | stopped before read 3 |
+| 4 | 0.5.0 / simcal-v05-v2 | pass | 0.307 | not read (train 0.502) | 5.754 | 0.822 | 0.204 | stopped before read 3 |
 
-## Latest analysis
-**ANALYSIS-001 (dataset realism).** The simulator is internally
-consistent but not realistic per disease. Over-masking guts some
-profiles (UMOD keeps 3 of 33 rows), and the emission model mismatches how
-real patients are reported. Front A's negatives are about *this*
-simulator. See `docs/analyses/ANALYSIS-001-dataset-realism.md` §6 for the
-proposed fixes.
+Candidate 1's a and e are recomputed on today's definitions (truth layer;
+target 0.405).
 
-## Open decisions for Mateo
-1. **rr-v1[neg=0.5] release:** approved for preparation. diagnostic.ar-model
-   PR #2 is ready for review (parity 0 mismatches; identity without
-   negations). Open points:
-   - merge it and create the GitHub release;
-   - send only the question agent's "no" answers, not free-text negations
-     (this reverses D-18 in Mariano's repo);
-   - production routes to brainy, not the pinned image;
-   - should "Con tus respuestas" show the re-ranked list?
-   - 50 R1-dev cases committed as a parity fixture in the private model
-     repo: is that OK?
-2. **ADR-0012 amendment 3** (G2a on the truth layer), made after
-   candidate 2's read: accept or revert. Amendment 1 is already accepted.
-3. **Spot-check the G3 cards and the two reviewers' verdicts** once they
-   exist.
-4. **GeneReviews email:** Mateo is sending it; not blocking.
+**What we learned** (all R1-train only):
+- **ANALYSIS-002:** real noise is structured. Also, E0 scores 0.562 on
+  patients whose paper HPOA cites and 0.405 on uncited ones, which led to
+  the G2e target of 0.405.
+- **ANALYSIS-003:**
+  - noise causes E0's difficulty;
+  - the kb-v4 reference inflated "unexplained" (the right reference is
+    uncited patients vs kb-v3, giving about 24% noise);
+  - G2a should score the truth layer (real patients' own reports miss the
+    literature by 0.307).
+- **ANALYSIS-004:**
+  - real unexplained terms carry gene signal (E0 MRR 0.059), while
+    simulated vocabulary noise carries none (0.001);
+  - 13.5% of real unexplained terms are annotated to the gene in unmasked
+    g2p;
+  - construction-side audit (Codex, 26 genes outside the panel): **25 of 26
+    implausible**. The top problems are unrelated noise (14), hallmark
+    features under-reported (14) and missing features in the truth
+    layer (11).
+- **Candidate 4:** independent reporting with q = π/f reports only 17–19%
+  of true terms (2.95 terms per case; 32% forced_min_one). Age calibration
+  barely moved medians (COL3A1 4.6 vs 32 years real; TBX5 2.4 vs 33), so
+  the problem is the onset categories, not the durations.
+- **SOURCES-SCOPING-001:**
+  - GeneReviews has a usable chapter for 1,289 construction genes (25%);
+  - an estimated 35% of genes have at least one OA cohort series;
+  - 2,571 of 4,776 simulable construction genes have weak profiles;
+  - literature should also be used to *check* existing profiles (22 of the
+    26 audit genes were count-rich yet implausible).
 
-## Artifacts, newest first
+## Front B release: what exists
+- **diagnostic.ar-model worktree** at
+  `/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-model-rerank-v1.0.0`,
+  branch `release/rerank-v1.0.0`.
+  - The tarball `dist/rerank-v1.0.tar.gz` (sha `4b83f5e3…`) is not yet a
+    GitHub release.
+  - The KB is kb-v3 (sha `39d5f921…`).
+- **App integration list:** `docs/integracion-app-rerank-v1.md` in that PR.
+  The API needs to accept `excluded_hpo_ids`, and the question agent needs
+  to send its "no" answers.
+- **The main diagnostic.ar-model checkout has changes that are not ours**
+  (`.dvc/config` modified; untracked `dist/`, `models/`, `.claude/`). They
+  were left untouched.
 
+## Artifacts, newest first (see `data/manifests/`)
 | Artifact | What it is |
 |---|---|
-| `ds-sim0.3.1-A-iv-v1` | Interviewed simulated training cases (Front A frozen) |
-| `ds-sim0.3.1-A-n100-s1001` (+`-excl-v1`) | Front A training set, 501,100 cases |
-| `s3-data-v1` + split `s3-v1` | S3 patients; dev 10,210 / test 9,990 (sealed) |
-| `simcal-train-v1`, `simcal-s3-v1` | Simulator calibration files |
-| `kb-v5` | KB without half B of `annot-split-v1` |
-| `annot-split-v1` | Held-out annotation pairs |
-| `calib-v1` | R1-train targets |
-| `kb-v4`, `kb-v3`, `genes-v1` | Earlier KBs and gene profiles |
-| `kb-v2` | VOID |
+| `ds-sim0.5.0-{full,A}-n100-s1001` (+`-excl-v1`) | Candidate 4 datasets (gate unmet) |
+| `simcal-v05-v1/v2`, `report-model-v3` | Candidate 4 calibration; report model fit on uncited patients vs kb-v3 |
+| `ds-sim0.4.2c3-{full,A}-n100-s1001` (+excl) | Candidate 3 datasets (closest; gate unmet) |
+| `calib-v2`, `simcal-v04-v5` | Uncited-vs-kb-v3 targets and noise vocabulary (295 terms); candidate 3 calibration |
+| `ds-sim0.4.2-{full,A}-n100-s1001`, `simcal-v04-v4` | Candidate 2 |
+| `ds-sim0.4.1-A-n100-s1001`, `simcal-v04-v3` | Candidate 1 |
+| `ds-sim0.3.1-full-n100-s1001` | V03-full baseline |
+| `literature-panel-v2`, `litpanel-split-v1..v3` | G4 evaluation panel (56 diseases, 531 rows). **The 120 split units are evaluation-only** |
+| `hpoa-recount-v1`, `genes-v2`, `report-model-v2`, `cardinal-v1`, `simcal-v04-v2` | Simulator v0.4 inputs |
+| `ds-sim0.3.1-A-*`, `s3-data-v1` + `s3-v1`, `kb-v5`, `annot-split-v1`, `calib-v1`, `kb-v4`, `kb-v3`, `genes-v1` | Earlier; kb-v2 is VOID |
+
+## Repos, outputs, disk
+- **diagnostic.ar-training** main is at `fe81790` (PRs #1–#47 merged).
+  Agent worktrees of merged branches remain under `.claude/worktrees/`;
+  they are safe to remove.
+- **rare-disease-simulator** main is at `020e41d` (0.5.0; PRs #1–#8
+  merged). Not tagged: nothing is frozen.
+- **Simulator outputs.** Candidate 4's rich-cases files (about 3 GB each)
+  are in `rare-disease-simulator/outputs/v0.5.0-cand4-{full,A}`. Their
+  exports are registered, so the rich files can go if disk is needed.
+- **Disk: only about 11 GB free on `/` (96%).** Free space before the next
+  big run.
+
+## Tooling added today
+| Tool | What it does |
+|---|---|
+| `dxt sim realism [--no-dev]`, `dxt sim gate [--secondary]`, `dxt sim panel-error`, `dxt sim train-checks` | Gate metrics; every R1-dev read is ledgered in `results/realism/LEDGER.md` |
+| `dxt calib build --population uncited`, `dxt calib age-durations`, `dxt knowledge report-model --population uncited`, `dxt knowledge shrinkage-prior --min-denominator/--base/--set/--include` | Calibration builders |
+| `dxt rerank eval`, `dxt s3 run --system` | Fixed-configuration and sealed-aware evaluation |
+| `scripts/realism_cards.py [--construction N]`, `scripts/g3/review_codex.sh` | G3 cards; Codex reviewer B (prompt and schema in `scripts/g3/`) |
+| `scripts/analysis/*.py` | ANALYSIS-002..004 and SOURCES-SCOPING-001 scripts |
 
 ## Invariants to keep in mind
 - Never touch `GenPhenAI/`.
 - Commit before any run that writes a manifest, and don't edit tracked files
   while a long run is going.
-- Scripted shell blocks use `set -euo pipefail` on their own line. Never
-  pipe a step through `grep` when a later step depends on it. Never write
-  numbers before reading them.
-- In this Bash environment `set -e` has been seen not to stop a chain; chain critical steps with `&&` and check exit codes.
-- **Never update a shared checkout (e.g. rare-disease-simulator main) while an agent is generating from it.** Runs use a pinned worktree or tarball.
+- Scripted shell blocks use `set -euo pipefail` on their own line. In this
+  Bash environment `set -e` has been seen not to stop a chain, so chain
+  critical steps with `&&` and check exit codes.
+- Never pipe a step through `grep` when a later step depends on it. Never
+  write numbers before reading them.
+- **Never update a shared checkout** (e.g. rare-disease-simulator main)
+  while an agent is generating from it. Runs use a pinned worktree or
+  tarball.
+- `pkill -f` can match your own shell. Kill by exact PID.
 - Worktree agents push with `PYTHONPATH=<worktree>/src`.
-- Sealed data is read only under a committed pre-registration.
+- Sealed data is read only under a committed pre-registration. The R1-dev
+  realism budget is 3 candidate reads; 2 are used.
+- **Train-side go/no-go before any R1-dev realism read:** G2a, c, d, e and
+  G2b-train.
 - No AI mention in commits or PRs.
 - **Graceful stop:** message the agents, then stop queue scripts before
   their runs (by exact PID). Interrupted runs must leave no manifest.

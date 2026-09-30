@@ -2034,3 +2034,16 @@ Written and committed before the first candidate 4 pilot run.
 - **Caveat:** the ANALYSIS-004 audit genes are almost all count-rich and
   still implausible. Literature should also check the truth layer, not only
   fill empty frequencies.
+
+### 2026-09-30 — checkpoint — End of day: clean stop, state for resuming
+- **Agents:** none running; each handed back before the stop. No background
+  jobs.
+- **Merged today:**
+  - diagnostic.ar-training PRs up to #47;
+  - rare-disease-simulator PRs #5–#8 (0.4.0 → 0.5.0).
+- **Waiting for Mateo:** diagnostic.ar-model PR #2 (rr-v1 release). The
+  decision list is in STATE.md.
+- **Front A:** the ADR-0012 gate is unmet after 4 candidates. The last
+  R1-dev read is unspent. Mateo is considering better sources
+  (SOURCES-SCOPING-001).
+- **Disk:** about 11 GB free.
