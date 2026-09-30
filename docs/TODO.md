@@ -3,7 +3,7 @@
 The newest items are at the top. Mark them done with the date, and log the
 outcome in `BITACORA.md`.
 
-## [ ] GeneReviews: confirm literature-extraction use (recommended before G4)
+## [ ] GeneReviews: confirm literature-extraction use (Mateo sending; not blocking)
 - **Why:** ADR-0012 extracts facts (feature prevalences, onset) with
   citations from GeneReviews for a non-commercial academic tool. The
   copyright notice (https://www.ncbi.nlm.nih.gov/books/NBK138602/) permits
@@ -12,6 +12,13 @@ outcome in `BITACORA.md`.
   training and evaluation panel is fine.
 - **Contact:** the address named in the notice, addmast@wu.edu (from
   Mateo's or the director's FIUBA address).
+- **If the answer is no:**
+  - drop the 164 GeneReviews rows from `literature-panel-v2`;
+  - 35 diseases keep ≥ 5 independent cohort-paper rows, which is short of
+    G4's 50;
+  - extend with open-access cohort papers from Europe PMC for more
+    diseases in `litpanel-split-v3`'s reserves, or freeze a v4 extension
+    before extracting.
 
 ## [ ] GeneCards: ask LifeMap Sciences for written permission (optional)
 - **Why:** the GeneCards terms forbid training or validating AI models with

@@ -1373,3 +1373,14 @@ What they tell us:
   The commit ids quoted above and in the manifests' `code.sha` are the
   replayed ones, remapped one-to-one; each names exactly the code tree
   that produced the artifact.
+
+### 2026-09-30 — decision — Mateo's answers
+1. **ADR-0012 amendment 1: accepted.** The G2e target is 0.405, and G2
+   scores full-profile runs.
+2. **GeneReviews confirmation:** Mateo is sending the email; the work
+   doesn't wait for the answer. Without GeneReviews rows, 35 diseases keep
+   ≥ 5 independent rows. The fallback is recorded in the TODO.
+3. **Phase-4 sealed gate for rr-v1[neg=0.5]:** approved; pre-registration
+   follows.
+4. **G3 disease cards:** delegated. The assistant and Codex review them
+   independently, and Mateo spot-checks at the end (ADR-0012 amendment 2).
