@@ -1483,8 +1483,8 @@ Written and committed before the first pilot runs.
   | Excluded by `-excl-v1`, residual | 792, 0 | 641, 0 |
   | Release | published | published |
 
-  The S3 overlap grew because S3 was simulated from full v0.3 profiles, and
-  candidate 2 reports more specific and related terms of the same diseases.
+  The S3 overlap is higher than candidate 1's (449). S3 was simulated from
+  full v0.3 profiles, which may explain part of it; not investigated.
 - **Run summaries:**
   - Specialised share of profile terms: 0.1172 (full) and 0.1168 (A), for a
     rate of 0.2117.
