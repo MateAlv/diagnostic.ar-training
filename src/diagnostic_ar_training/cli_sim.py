@@ -449,20 +449,25 @@ def _dataset(spec: str):
 
 
 def _gene_terms_factory(kb: dict, knowledge, ontology):
+    """Gene -> {term: P(term | gene)}: the disease-weight mixture of the known frequencies.
+
+    A term only minor diseases of the gene annotate gets a small probability. It is None
+    when no annotating disease gives a frequency.
+    """
     from diagnostic_ar_training.knowledge.report_model import profile
 
     cache = {}
 
     def gene_terms(gene: str) -> dict[str, float | None]:
         if gene not in cache:
-            num, den, terms = defaultdict(float), defaultdict(float), set()
+            mix, known, terms = defaultdict(float), set(), set()
             for d, w in knowledge.diseases(gene).items():
                 for term, freq in profile(kb, [d], ontology).items():
                     terms.add(term)
                     if freq is not None:
-                        num[term] += w * freq
-                        den[term] += w
-            cache[gene] = {t: (num[t] / den[t] if den[t] else None) for t in terms}
+                        mix[term] += w * freq
+                        known.add(term)
+            cache[gene] = {t: (mix[t] if t in known else None) for t in terms}
         return cache[gene]
 
     return gene_terms
