@@ -2,12 +2,7 @@
 
 - **Front:** A
 - **Registered:** 2026-09-29, by the Front A agent for Mateo Alvarez
-- **Status:** **paused 2026-09-29 (graceful stop)**; resumes 2026-09-30.
-  - Completed with manifests: `a003f-c1-cov16-lr1e-4-s0`,
-    `a003f-c4-cov64-lr1e-4-s0` and the pipeline check.
-  - Interrupted, no outputs kept: c2 and c5.
-  - Not started: c3 and c6.
-  - No verdict until the pre-registered grid is complete.
+- **Status:** done (grid paused by the graceful stop on 2026-09-29, completed 2026-09-30)
 
 ## Hypothesis
 **H1 (primary):** with v3.0's weights frozen, training only a covariate head
@@ -109,9 +104,53 @@ stopping on sim-val MRR (patience 3, min Δ 1e-4), clipping 1.0, float32.
 | S3-dev "all" | Positive (circular; not evidence) |
 
 ## Results
-(filled after running)
+The pre-registration was committed at `241acc2`, and every run is from
+`241acc2` or `5f1f3f0` (code unchanged; `5f1f3f0` only added results and
+docs). Every manifest verifies. Results are in `results/EXP-A-003f/`
+(`report.json` from `dxt gnn report-frozen`).
+- **Identity checks:** in every run, R1-dev "present" and "+excluded"
+  equal E0, and S2 equals E0.
+- **Resumption:** the grid was interrupted on 2026-09-29 by the graceful
+  stop, after c1 and c4. The interrupted c2 and c5 left no outputs and were
+  re-run from scratch under the same ids on 2026-09-30; c3 and c6 ran
+  then too.
+
+R1-dev Δ is vs E0 (publications resampled); S3-dev Δ is vs E0+answers:
+
+| Run | Epochs (best) | R1 "all" Δ [CI] | Harmed | R1 "sex" Δ | R1 "age" Δ | S3-dev Δ |
+|---|---|---|---|---|---|---|
+| c1 cov16 lr 1e-4 | 15 (15) | −0.2090 [−0.2584, −0.1556] | 0.545 | −0.0683 | −0.1816 | +0.0993 |
+| c2 cov16 lr 1e-3 | 15 (12) | −0.2348 [−0.2846, −0.1820] | 0.595 | −0.2119 | −0.1620 | +0.1242 |
+| c3 cov16 lr 1e-2 | 15 (12) | −0.2310 [−0.2805, −0.1776] | 0.593 | −0.2215 | −0.2160 | +0.1285 |
+| c4 cov64 lr 1e-4 | 15 (15) | −0.2314 [−0.2807, −0.1781] | 0.590 | −0.1172 | −0.1800 | +0.1214 |
+| c5 cov64 lr 1e-3 | 13 (10) | −0.2344 [−0.2830, −0.1818] | 0.591 | −0.2212 | −0.2157 | +0.1306 |
+| c6 cov64 lr 1e-2 | 12 (9) | −0.2336 [−0.2837, −0.1794] | 0.588 | −0.2186 | −0.2172 | +0.1304 |
+
+- **Median R1 "all" Δ** of the grid: −0.2325.
+- **Seeds, "not a candidate":** c1 had the highest R1 "all" CI lower bound,
+  so it was re-run with seeds 1 and 2.
+
+  | Measure | Mean ± sd (seeds 0–2) |
+  |---|---|
+  | R1 "all" Δ | **−0.2074 ± 0.0028**, harmed 53.7–54.6% |
+  | R1 "sex" Δ | −0.0758 ± 0.0069 |
+  | R1 "age" Δ | −0.1754 ± 0.0063 |
+  | S3-dev Δ | +0.0998 ± 0.0014 |
 
 ## Verdict
-(filled after running)
+❌ **No candidate.** No run is eligible (R1 "all" CI lower bound > 0 and
+harmed ≤ 5%). Every configuration is strongly harmful on real patients
+(−0.21 to −0.23 MRR, harmed 55–60%), for sex and age alike.
+
+The covariate relationships the simulator encodes do not transfer to real
+patients:
+- sex from inheritance;
+- age drawn after onset windows;
+- phenotypes gated by onset.
+
+S3's rise (+0.10 to +0.13) is the declared same-simulator dependency (S3 v1
+is circular for sex and age, EXP-S3-001 Addendum 1). This is the third
+Front A result (after A-001 and A-002f) where learning from simulated
+patients improves simulated evaluation and hurts real patients.
 
 ## Addenda

@@ -1,0 +1,203 @@
+{
+ "at_best": {
+  "r1_dev_age": {
+   "ci95": [
+    -0.22212785372353672,
+    -0.11582911124590321
+   ],
+   "delta": -0.16890883997060194,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.48220924057355286,
+   "helped": 0.1332979288369623,
+   "mrr": 0.27956639248487114,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.21933085501858737,
+   "top10": 0.4078597981943707,
+   "unrankable": 203
+  },
+  "r1_dev_all": {
+   "ci95": [
+    -0.25422410178473037,
+    -0.1499396145823246
+   ],
+   "delta": -0.20408865174203,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5374402549123739,
+   "helped": 0.13223579394583113,
+   "mrr": 0.24438658071344319,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.18852894317578334,
+   "top10": 0.36112586298459903,
+   "unrankable": 203
+  },
+  "r1_dev_excluded": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_present": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_sex": {
+   "ci95": [
+    -0.13152340052533576,
+    -0.03758821736917294
+   ],
+   "delta": -0.08198488699285116,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.3505045140732873,
+   "helped": 0.1646309081253319,
+   "mrr": 0.366490345462622,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.2782793414763675,
+   "top10": 0.5608072225172597,
+   "unrankable": 203
+  },
+  "s2": {
+   "ci95": [
+    -2.3731728941887766e-08,
+    0.0
+   ],
+   "delta": -7.910576313962588e-09,
+   "e0_mrr": 0.8116979580150323,
+   "harmed": 0.00019127773527161438,
+   "helped": 0.0,
+   "mrr": 0.811697950104456,
+   "n": 5228,
+   "resample_unit": "case",
+   "top1": 0.7511476664116297,
+   "top10": 0.9261667941851568,
+   "unrankable": 0
+  },
+  "s3_dev_all": {
+   "ci95": [
+    0.09171566956578572,
+    0.10580753429307019
+   ],
+   "delta": 0.09881932879455635,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.12634671890303623,
+   "helped": 0.5953966699314398,
+   "mrr": 0.428625900693315,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.3563173359451518,
+   "top10": 0.5678746327130264,
+   "unrankable": 0
+  },
+  "s3_dev_present": {
+   "ci95": [
+    -3.362612446099912e-07,
+    5.792400178002883e-07
+   ],
+   "delta": 8.079643289733756e-08,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.0004897159647404506,
+   "helped": 0.0005876591576885406,
+   "mrr": 0.32980665269519155,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.2753183153770813,
+   "top10": 0.43712047012732613,
+   "unrankable": 0
+  }
+ },
+ "best_epoch": 15,
+ "best_epoch_reloaded": 15,
+ "best_sim_val_mrr": 0.2689058842530105,
+ "checkpoints": {
+  "best.pt": 352682,
+  "last.pt": 1027057
+ },
+ "checks": {
+  "base_unchanged": true,
+  "best_base_unchanged": true,
+  "best_positive_types_closed": true,
+  "pass": true,
+  "positive_types_closed": true,
+  "present_only_logits_bit_identical_cpu": {
+   "r1_dev": {
+    "cases": 1883,
+    "identical": 1883,
+    "max_abs_diff": 0.0,
+    "scorable": 1883
+   },
+   "s2": {
+    "cases": 5228,
+    "identical": 5228,
+    "max_abs_diff": 0.0,
+    "scorable": 5228
+   }
+  },
+  "r1_dev_present_ranks_changed_vs_exp000": 0,
+  "s2_ranks_changed_vs_exp000_onnx": 1,
+  "s2_ranks_changed_vs_untrained": 0
+ },
+ "epoch_views": [
+  "present",
+  "sex",
+  "age",
+  "all"
+ ],
+ "epochs_run": 15,
+ "flags": {
+  "simval_up_r1dev_down_at_best": true,
+  "simval_up_r1dev_down_epochs": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15
+  ],
+  "view": "all"
+ },
+ "max_gpu_memory_gb": 1.6002432,
+ "sim_val_at_best": {
+  "loss": 16.338129031877575,
+  "mrr": 0.2689058842530105,
+  "n": 20864,
+  "top1": 0.20887653374233128,
+  "top10": 0.38348351226993865,
+  "unscorable": 0
+ },
+ "steps": 5880,
+ "stopped_early": false,
+ "wall_seconds": 382.0655932430002
+}
