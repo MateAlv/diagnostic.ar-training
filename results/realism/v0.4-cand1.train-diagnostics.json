@@ -1,0 +1,234 @@
+{
+ "genes_with_cases": 4868,
+ "cases": 486800,
+ "cases_per_gene": [
+  100
+ ],
+ "run_summary_genes": {
+  "vocabulary_size": 5229,
+  "targets": 4868,
+  "skipped": {
+   "unresolved_symbol": 6,
+   "no_gene_record": 53,
+   "no_simulable_entity": 277,
+   "no_profile_available": 24
+  },
+  "entities": {
+   "entities_used": 10416,
+   "entities_without_profile": 143,
+   "profile_ids_listed": 14027,
+   "profile_ids_missing": 190
+  },
+  "requested": "all"
+ },
+ "present_per_case": {
+  "sim": {
+   "n": 486800,
+   "mean": 7.485,
+   "median": 6,
+   "p10": 2,
+   "p90": 14,
+   "max": 66,
+   "share_1": 0.054,
+   "share_le2": 0.1271
+  },
+  "r1_train": {
+   "n": 4103,
+   "mean": 8.699,
+   "median": 7,
+   "p10": 2,
+   "p90": 17,
+   "max": 66,
+   "share_1": 0.0485,
+   "share_le2": 0.1102
+  }
+ },
+ "present_w1_vs_r1_train": 1.2143217866118374,
+ "profile_terms_per_case": {
+  "n": 486800,
+  "mean": 3.513,
+  "median": 3,
+  "p10": 1,
+  "p90": 7,
+  "max": 42,
+  "share_1": 0.2721,
+  "share_le2": 0.458
+ },
+ "present_hist": {
+  "sim": {
+   "1": 0.054,
+   "2": 0.073,
+   "3": 0.0981,
+   "4": 0.1126,
+   "5": 0.091,
+   "6": 0.0927,
+   "7": 0.0791,
+   "8": 0.0723,
+   "9": 0.0591,
+   "10": 0.0486,
+   "11": 0.0406,
+   "12": 0.036,
+   "13": 0.0285,
+   "14": 0.0196,
+   "15": 0.0178,
+   "16": 0.0142,
+   "17": 0.0105,
+   "18": 0.0099,
+   "19": 0.0074,
+   "20": 0.0067,
+   "21": 0.0043,
+   "22": 0.004,
+   "23": 0.0032,
+   "24": 0.0026,
+   "25": 0.0029,
+   "26": 0.0023,
+   "27": 0.0018,
+   "28": 0.0014,
+   "29": 0.0011,
+   "30": 0.0048
+  },
+  "r1_train": {
+   "1": 0.0485,
+   "2": 0.0617,
+   "3": 0.0836,
+   "4": 0.1011,
+   "5": 0.078,
+   "6": 0.0841,
+   "7": 0.0734,
+   "8": 0.0717,
+   "9": 0.0595,
+   "10": 0.0495,
+   "11": 0.0441,
+   "12": 0.0417,
+   "13": 0.0346,
+   "14": 0.0227,
+   "15": 0.0222,
+   "16": 0.019,
+   "17": 0.0129,
+   "18": 0.0144,
+   "19": 0.0105,
+   "20": 0.01,
+   "21": 0.0054,
+   "22": 0.0056,
+   "23": 0.0041,
+   "24": 0.0037,
+   "25": 0.0056,
+   "26": 0.0054,
+   "27": 0.0039,
+   "28": 0.0037,
+   "29": 0.0027,
+   "30": 0.0171
+  }
+ },
+ "noise_share": {
+  "mean_per_case": 0.4862,
+  "pooled": 0.5306,
+  "noise_per_case": 3.972
+ },
+ "cardinal_share": {
+  "mean_per_case": 0.0304,
+  "pooled": 0.0259,
+  "cases_with_a_cardinal_reported": 0.1287,
+  "cardinal_per_case": 0.194,
+  "note": "reported positives with reason 'cardinal' (generalized cardinal terms are counted as generalized)"
+ },
+ "generalized_share_mean_per_case": 0.0763,
+ "report_budget_mean": 8.705,
+ "run_summary_reporting": {
+  "mode": "report_model",
+  "report_model": "report-model-v2",
+  "features": [
+   {
+    "name": "frequency",
+    "kind": "frequency",
+    "coefficient": 2.253338385217538
+   },
+   {
+    "name": "information_content",
+    "kind": "information_content",
+    "coefficient": 0.06104164472443001
+   },
+   {
+    "name": "ancestor_count",
+    "kind": "ancestor_count",
+    "coefficient": -0.020568264890705477
+   },
+   {
+    "name": "log_reportability",
+    "kind": "log_reportability",
+    "coefficient": 0.37827882152645115
+   },
+   {
+    "name": "cardinal",
+    "kind": "cardinal_flag",
+    "coefficient": 0.44732497598940585
+   }
+  ],
+  "intercept": -1.8299878628334154,
+  "budget_probabilities": {
+   "1": 0.048501,
+   "2": 0.061662,
+   "3": 0.083597,
+   "4": 0.101146,
+   "5": 0.077992,
+   "6": 0.084085,
+   "7": 0.073361,
+   "8": 0.071655,
+   "9": 0.059469,
+   "10": 0.049476,
+   "11": 0.044114,
+   "12": 0.041677,
+   "13": 0.034609,
+   "14": 0.022666,
+   "15": 0.022179,
+   "16": 0.01901,
+   "17": 0.012917,
+   "18": 0.01438,
+   "19": 0.01048,
+   "20": 0.009993,
+   "21": 0.005362,
+   "22": 0.005606,
+   "23": 0.004143,
+   "24": 0.003656,
+   "25": 0.005606,
+   "26": 0.005362,
+   "27": 0.0039,
+   "28": 0.003656,
+   "29": 0.002681,
+   "30": 0.001462,
+   "31": 0.002681,
+   "32": 0.001462,
+   "33": 0.001706,
+   "34": 0.000244,
+   "35": 0.002194,
+   "36": 0.001462,
+   "37": 0.001462,
+   "38": 0.000731,
+   "39": 0.000487,
+   "40": 0.000487,
+   "41": 0.000731,
+   "42": 0.000244,
+   "43": 0.000487,
+   "45": 0.000244,
+   "46": 0.000487,
+   "47": 0.000244,
+   "66": 0.000244
+  },
+  "budget_mean": 8.6995,
+  "budget_zero_cases_dropped": 0,
+  "cardinal": {
+   "diseases": 1821,
+   "pairs": 5907,
+   "rows_by_kind": {
+    "cardinal_proxy": 4209,
+    "diagnostic_criterion": 1683,
+    "pathognomonic": 28
+   },
+   "unresolved_terms": 0
+  },
+  "budget_mean_drawn": 8.7047,
+  "reported_total_mean": 7.4852,
+  "reported_profile_mean": 3.5134,
+  "reported_noise_mean": 3.9717
+ }
+}
