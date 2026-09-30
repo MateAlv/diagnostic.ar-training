@@ -22,12 +22,14 @@ Two agents are building in parallel:
 | Training-repo artifacts | worktree branch `phase3/sim-v04-artifacts` | `hpoa-recount-v1`, `genes-v2`, `report-model-v1`, `cardinal-v1` (new source: Orphadata product 4), `literature-panel-v1`, the `dxt sim realism` check + a v0.3 baseline realism report |
 | Simulator v0.4 | `rare-disease-simulator` branch `feat/v0.4-realism` | merged entity profiles, Beta shrinkage, truth-then-reporting emission with forced cardinal features, age dependence, validate additions (fixture-tested) |
 
+**Data-quality gate (ADR-0012): no retraining until it passes.** v0.4 must beat GraPhens' gene→phenotype simulator and v0.3 on every realism metric, plus person-reviewed disease cards and a ≥ 50-disease evaluation literature panel kept separate from construction.
+
 **When both land:**
 1. build the v0.4 profiles on `hpoa-recount-v1`;
 2. run the realism check (≤ 3 versions on R1-dev, logged);
 3. freeze v0.4;
 4. regenerate the training data (half A) + interviews;
-5. pre-register and run A-002f-v2 / A-003f-v2.
+5. pass the ADR-0012 gate (G1–G5); only then pre-register and run A-002f-v2 / A-003f-v2.
 
 ## Latest analysis
 **ANALYSIS-001 (dataset realism).** The simulator is internally

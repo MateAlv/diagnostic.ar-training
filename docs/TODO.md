@@ -3,6 +3,16 @@
 The newest items are at the top. Mark them done with the date, and log the
 outcome in `BITACORA.md`.
 
+## [ ] GeneReviews: confirm literature-extraction use (recommended before G4)
+- **Why:** ADR-0012 extracts facts (feature prevalences, onset) with
+  citations from GeneReviews for a non-commercial academic tool. The
+  copyright notice (https://www.ncbi.nlm.nih.gov/books/NBK138602/) permits
+  noncommercial research reproduction with credit, a link and no
+  modifications. Get written confirmation that fact extraction for an ML
+  training and evaluation panel is fine.
+- **Contact:** the address named in the notice, addmast@wu.edu (from
+  Mateo's or the director's FIUBA address).
+
 ## [ ] GeneCards: ask LifeMap Sciences for written permission (optional)
 - **Why:** the GeneCards terms forbid training or validating AI models with
   its data, and forbid scraping, without express written permission.
