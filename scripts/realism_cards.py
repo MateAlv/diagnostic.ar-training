@@ -85,6 +85,12 @@ def main() -> None:
     ap.add_argument("--dataset", required=True)
     ap.add_argument("--label", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument(
+        "--construction",
+        type=int,
+        default=0,
+        help="Instead of the G3 set, N genes outside litpanel-split-v3 with >= 10 R1-train patients",
+    )
     args = ap.parse_args()
 
     onto = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
@@ -94,8 +100,27 @@ def main() -> None:
     units = {}
     for r in panel:
         units.setdefault((r["gene"], r["disease_id"]), []).append(r)
-    chosen = pick_units(units, split_rows)
+    if args.construction:
+        excluded = {r["gene"] for r in split_rows}
+        counts = Counter(c.gene for c in splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL))
+        pool = sorted(
+            (g for g, n in counts.items() if n >= 10 and g not in excluded),
+            key=lambda g: hashlib.sha256(f"{SALT}:construction:{g}".encode()).hexdigest(),
+        )
+        chosen = [(g, "") for g in pool[: args.construction]]
+        units = {}
+    else:
+        chosen = pick_units(units, split_rows)
     genes = {g for g, _ in chosen}
+    disease_names = {}
+    if args.construction:
+        from diagnostic_ar_training.lineage.manifest import fetch_outputs, load_manifest
+        from diagnostic_ar_training.rerank import kb
+
+        disease_names = {
+            d: v.get("name", "")
+            for d, v in kb.read(fetch_outputs(load_manifest("kb-v3"))[0])["diseases"].items()
+        }
 
     sim = defaultdict(list)
     with gzip.open(args.dataset, "rt") as f:
@@ -119,6 +144,8 @@ def main() -> None:
     data = []
     for i, (gene, disease) in enumerate(chosen, 1):
         cases = sim.get(gene, [])
+        if not disease and cases:
+            disease = Counter(c.get("entity") for c in cases).most_common(1)[0][0]
         own = [c for c in cases if disease and disease in (c.get("entity"), c.get("profile_id"))]
         scope = "this disease" if own else "all of the gene's entities (no case carries this disease id)"
         cases_used = own or cases
@@ -126,7 +153,9 @@ def main() -> None:
         real_sets = [closure(c.present, onto) for c in real]
         rows = units.get((gene, disease), [])
         name = (
-            rows[0]["disease_name"]
+            disease_names.get(disease, "")
+            if args.construction
+            else rows[0]["disease_name"]
             if rows
             else next((r["disease_name"] for r in split_rows if r["gene"] == gene), "")
         )
@@ -202,6 +231,21 @@ def main() -> None:
             )
         if not lit:
             md.append("| (no literature-panel rows for this gene) | | | | | | |")
+        if real and cases_used:
+            real_top = Counter(t for c in real for t in set(c.present)).most_common(TOP_TERMS)
+            sim_true = [closure(c["true_present"], onto) for c in cases_used]
+            sim_rep = [closure(c["present"], onto) for c in cases_used]
+            md += [
+                f"\n## Terms most reported by real R1-train patients ({len(real)}) vs simulation\n",
+                "| Term | R1-train reported | Sim true | Sim reported |",
+                "|---|---|---|---|",
+            ]
+            for t, k in real_top:
+                r_ = onto.resolve(t) or t
+                md.append(
+                    f"| {label(r_)} ({r_}) | {k / len(real):.2f} | {fmt(rate(sim_true, r_))} | "
+                    f"{fmt(rate(sim_rep, r_))} |"
+                )
         md += ["\n## Most reported simulated terms\n", "| Term | Share of cases |", "|---|---|"]
         md += [f"| {label(t)} ({t}) | {k:.2f} |" for t, k in top]
         md += ["\n## Example simulated records\n"]
