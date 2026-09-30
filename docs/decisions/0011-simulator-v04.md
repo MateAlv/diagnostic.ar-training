@@ -276,3 +276,37 @@ number exists.
    - These metrics compare with R1-train, so they may be measured more
      than once; every measurement is logged. G2b (R1-dev), G3 (cards) and
      G4 (the literature panel) remain the checks nothing was fitted to.
+
+## Amendment 5 (2026-09-30): candidate 4 design (R1-dev read 3 of 3, still unspent)
+
+Based on ANALYSIS-003, ANALYSIS-004 and the construction-side card audit
+(ANALYSIS-004 §3). Fixed before any candidate 4 number exists.
+
+1. **Simulator 0.5.0** (rare-disease-simulator PR #8, 020e41d).
+   - `reporting.mode: independent`: each true term is reported with
+     probability `min(1, π/f)`.
+   - `reporting.noise_count: proportional`.
+   - `age.duration_mean_by_onset`.
+2. **`report-model-v3`:** the report-model-v2 procedure refit on uncited
+   R1-train patients against kb-v3, in the same strict format. Report its
+   in-sample fit, and its within-gene ρ on R1-train with each
+   publication left out. No R1-dev.
+3. **Noise:**
+   - ρ = 0.207;
+   - vocabulary from calib-v2;
+   - the related share s comes from at most 2 pilot rounds, targeting an
+     E0 MRR on noise-only terms of 0.026 (the ANALYSIS-004 component
+     target);
+   - the specialisation rate r comes from the same pilots, targeting
+     calib-v2's more-specific share of 0.093.
+4. **Age:** `age.duration_mean_by_onset` = the mean of (age − onset) over
+   R1-train patients with both fields, per onset category, using the
+   simulator's category windows. Categories with fewer than 20 patients
+   use the overall mean.
+5. **Go/no-go:** as in amendment 4 (G2a on the truth layer, G2c, G2d,
+   G2e, G2b-train as stop conditions; age reported).
+   - Only if all pass is the last R1-dev read spent.
+   - If candidate 4 also stops, v0.4/0.5 is **not** frozen: the gate's
+     result is recorded as unmet, and Mateo decides how to proceed.
+6. **Run hygiene:** runs use a dedicated simulator worktree or tarball
+   pinned at the release commit, never the shared checkout.

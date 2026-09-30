@@ -1734,3 +1734,25 @@ Written and committed before the first candidate 3 pilot run.
   4.47, R1-train present terms 4.14.
 - **Verdict:** ❌ candidate 3 stops at the train-side go/no-go. As
   instructed, no fix was designed.
+
+### 2026-09-30 — analysis + decision — ANALYSIS-004; candidate 4 design (ADR-0011 amendment 5)
+- **Candidate 3 stopped at the train-side go/no-go** (G2c, d and e fail).
+  R1-dev read 3 of 3 is still unspent.
+- **Construction-side audit:** Codex reviewed 16 of 26 cards of genes
+  outside the panel; 15 were implausible. The main themes were hallmark
+  features under-reported (10) and unrelated noise dominating (9).
+- **ANALYSIS-004:**
+  - real uncited patients' unexplained terms give E0 an MRR of 0.059;
+  - 13.5% of them are annotated to the gene in unmasked g2p (MRR 0.305);
+    the rest give 0.026;
+  - simulated vocabulary noise gives 0.001, related noise 0.030.
+- **Candidate 4 design:**
+  - simulator 0.5.0, with independent reporting and age by onset;
+  - `report-model-v3` (uncited vs kb-v3);
+  - ρ 0.207;
+  - s set by a noise-signal component target of 0.026;
+  - the same go/no-go as candidate 3.
+- **Process slip:** the shared simulator checkout was updated to 0.5.0
+  while candidate 3 was generating. The agent detected the dirty tree,
+  discarded the run and regenerated from a pinned tarball. Rule: runs use
+  pinned worktrees or tarballs.

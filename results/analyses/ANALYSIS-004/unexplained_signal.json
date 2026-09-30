@@ -1,0 +1,22 @@
+{
+ "real uncited: unexplained terms only": {
+  "n": 775,
+  "mrr_in_vocab": 0.0588,
+  "top10": 0.1072
+ },
+ "real uncited: explained terms only": {
+  "n": 1086,
+  "mrr_in_vocab": 0.4982,
+  "top10": 0.7089
+ },
+ "sim: vocabulary noise only": {
+  "n": 2063,
+  "mrr_in_vocab": 0.0011,
+  "top10": 0.0005
+ },
+ "sim: related noise only": {
+  "n": 1423,
+  "mrr_in_vocab": 0.0303,
+  "top10": 0.0576
+ }
+}
