@@ -1384,3 +1384,14 @@ What they tell us:
    follows.
 4. **G3 disease cards:** delegated. The assistant and Codex review them
    independently, and Mateo spot-checks at the end (ADR-0012 amendment 2).
+
+### 2026-09-30 — pre-registration — EXP-B-003: Phase-4 gate for rr-v1[neg=0.5]
+- **Plan:** one S3-test read and one R1-test read, as a no-regression
+  tripwire. Step 0 reproduces the dev numbers first.
+- **Gate rules:** P1 (S3-test CI lower bound > 0, harmed ≤ 5%), N1 (R1
+  present view Δ exactly 0), N2 (R1 "all" view is neither significantly
+  harmful nor below −0.02).
+- **New code:**
+  - `dxt rerank eval`: one fixed configuration, "all" and "present"
+    views, sealed-aware;
+  - `dxt s3 run --system`: scores only the named systems.
