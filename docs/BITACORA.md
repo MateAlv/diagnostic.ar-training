@@ -1138,3 +1138,8 @@ What they tell us:
 - **Evidence for the informe:** the G4 row of the data-quality gate, and
   the dropped-unit statistics (most vocabulary units have no published
   frequencies).
+- **History note:** before the first push, three commit messages on this
+  branch were reworded, and the branch was replayed with identical trees.
+  The commit ids quoted above and in the manifests' `code.sha` are the
+  replayed ones, remapped one-to-one; each names exactly the code tree
+  that produced the artifact.
