@@ -1,0 +1,54 @@
+{
+  "artifact_id": "simcal-v05-v1",
+  "kind": "simulator-calibration-file",
+  "created_at": "2026-09-30T19:32:02+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "75d91b723a7a285252fcbc674d60e34a47b065ee",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "file:data/calib/simcal-v04-v5.json",
+      "sha256": "7008d2533258132c40adc231b05b57a7e0173ea76b2fef71a1ddcb6e40d05858"
+    },
+    {
+      "id": "file:data/calib/age-durations-v1.json",
+      "sha256": "2ff6246568443eb4e0cf0b1b4d0a7529106b4a52f9610cdb15672378d6fab43a"
+    }
+  ],
+  "params": {
+    "statistic": "median pooled count-based frequency",
+    "recount": "hpoa-recount-v1",
+    "min_denominator": 10,
+    "included": [
+      "file:data/calib/age-durations-v1.json"
+    ],
+    "overrides": [
+      "reporting.mode=\"independent\"",
+      "reporting.noise_count=\"proportional\"",
+      "reporting.noise_share=0.207",
+      "reporting.force_cardinal=false",
+      "reporting.specialize_rate=0.195",
+      "noise.related_share=0.5"
+    ]
+  },
+  "params_hash": "e3c3eaf5afdb8b49726a942bcf9925cc13874b052a888de76b27e782b02df2f5",
+  "outputs": [
+    {
+      "path": "data/calib/simcal-v05-v1.json",
+      "sha256": "a937204d4618b4871a13469f714f8c8b7f14d0bbe84bc19e19532be73b231589",
+      "bytes": 2636
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
