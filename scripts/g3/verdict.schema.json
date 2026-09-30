@@ -1,0 +1,8 @@
+{"type":"object","additionalProperties":false,
+ "required":["verdict","problems","summary"],
+ "properties":{
+  "verdict":{"type":"string","enum":["plausible","implausible"]},
+  "problems":{"type":"array","items":{"type":"object","additionalProperties":false,
+     "required":["severity","issue"],
+     "properties":{"severity":{"type":"string","enum":["major","minor"]},"issue":{"type":"string"}}}},
+  "summary":{"type":"string"}}}
