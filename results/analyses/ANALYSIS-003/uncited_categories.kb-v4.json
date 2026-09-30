@@ -1,0 +1,19 @@
+{
+ "kb": "kb-v4",
+ "uncited": {
+  "terms": 9154,
+  "explained": 0.641,
+  "more_specific": 0.087,
+  "related_ic>=2": 0.088,
+  "weak_ic<2": 0.185,
+  "unexplained_per_case_mean": 2.2
+ },
+ "cited": {
+  "terms": 17019,
+  "explained": 0.482,
+  "more_specific": 0.13,
+  "related_ic>=2": 0.12,
+  "weak_ic<2": 0.268,
+  "unexplained_per_case_mean": 3.1
+ }
+}

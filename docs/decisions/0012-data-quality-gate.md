@@ -134,3 +134,21 @@ done").
   - Mateo spot-checks the cards and both verdicts afterwards, and can
     overturn any of them before G5.
 - The cards and verdicts are committed as evidence.
+
+## Amendment 3 (2026-09-30): G2a scores the truth layer, made after candidate 2's read
+
+**Disclosure.** This change was found after candidate 2's read, by
+ANALYSIS-003 §3. G2a reads no R1-dev. The rule applies to every dataset,
+and baselines are recomputed.
+
+- **Primary G2a:** MAE between literature prevalence and the simulated
+  **true** rate (`true_present`, with more specific terms included) on the
+  independent panel rows.
+- **Datasets without a truth layer** (UP): scored on emission, their only
+  layer.
+- **Secondary G2a:** the reported-layer MAE, next to the real-patient
+  reference (R1-train reported rates, 0.307 on the rows where the gene has
+  at least 10 train patients).
+- **Why:** the literature describes what patients have. Real patients'
+  reports miss it by about 0.3, so scoring reports against prevalence
+  penalises a correct reporting layer.
