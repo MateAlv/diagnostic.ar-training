@@ -1,0 +1,65 @@
+{
+ "cases": 1193,
+ "cases_with_gene_in_kb": 1140,
+ "categories": {
+  "explained": 0.6679742835349243,
+  "more_specific": 0.09294976571864444,
+  "related_ic_ge_2": 0.08216192655551924,
+  "terms": 9177,
+  "weak_ic_lt_2": 0.15691402419091205
+ },
+ "excluded_annotated_to_own_gene_share": 0.49315794120243667,
+ "excluded_per_case": {
+  "mean": 9.748533109807209,
+  "percentiles": {
+   "10": 0.0,
+   "25": 2.0,
+   "50": 5.0,
+   "75": 13.0,
+   "90": 26.0
+  },
+  "share_zero": 0.10980720871751885
+ },
+ "missing": {
+  "age": 0.35456831517183574,
+  "excluded": 0.10980720871751885,
+  "onset": 0.6102263202011735,
+  "sex": 0.04861693210393965
+ },
+ "noise_share": 0.2390759507464313,
+ "noise_vocabulary": {
+  "dropped_singletons": 324,
+  "min_patients": 2,
+  "rule": "related_or_weak",
+  "terms": 295
+ },
+ "population": {
+  "cases": 1193,
+  "r1_train_cases": 4103,
+  "rule": "uncited"
+ },
+ "present_per_case": {
+  "mean": 8.114836546521374,
+  "percentiles": {
+   "10": 3.0,
+   "25": 4.0,
+   "50": 7.0,
+   "75": 10.0,
+   "90": 15.0
+  },
+  "share_zero": 0.0
+ },
+ "related_share_of_noise": 0.3436645396536008,
+ "unexplained_present_per_case": {
+  "mean": 2.67280701754386,
+  "percentiles": {
+   "10": 0.0,
+   "25": 0.0,
+   "50": 1.0,
+   "75": 4.0,
+   "90": 7.0
+  },
+  "share_zero": 0.3201754385964912
+ },
+ "unexplained_present_share": 0.3320257164650757
+}

@@ -1,0 +1,52 @@
+{
+  "artifact_id": "calib-v2",
+  "kind": "simulator-calibration",
+  "created_at": "2026-09-30T18:44:51+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "8d967131faa85dcae8224ab38c792a3547a66102",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    }
+  ],
+  "params": {
+    "part": "train",
+    "kb": "kb-v3",
+    "kb_mask_scope": "heldout",
+    "population": "uncited",
+    "population_rule": "R1-train patients none of whose PMIDs the pinned hpo_annotations cites",
+    "min_noise_count": 2,
+    "vocabulary": "related_or_weak"
+  },
+  "params_hash": "e52d284663aaf8399b904351254985f255e03077ed61faa25147b7d67d4ba8b6",
+  "outputs": [
+    {
+      "path": "data/calib/calib-v2.targets.json",
+      "sha256": "81ef1fe1eb2343c8945e1ac7d527cf891ab0030e8d4f535904934dc51a3f4910",
+      "bytes": 1341
+    },
+    {
+      "path": "data/calib/calib-v2.noise_vocabulary.tsv",
+      "sha256": "4c0c51f4a98a2c211ecea5811a6d67bd4b8fd64501d53caa6ed379d99cd0af1b",
+      "bytes": 6555
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

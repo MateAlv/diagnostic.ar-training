@@ -1,0 +1,43 @@
+{
+  "artifact_id": "train-checks-v0.3-full-baseline",
+  "kind": "train-checks-report",
+  "created_at": "2026-09-30T18:45:39+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5e361f3dcc8ed8b9e2671a10a5893327debbd230",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.3.1-full-n100-s1001",
+      "sha256": "840433d24d1e43cf14b5833b0dffcbc4ef0a8411210f89f167a6ef42e8dbdac6"
+    },
+    {
+      "id": "split:r1-v1 (train)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    }
+  ],
+  "params": {
+    "label": "v0.3-full-baseline",
+    "reads": "R1-train",
+    "min_real_patients": 10
+  },
+  "params_hash": "b09b9e3f4ab28230610ca8be3253b104eb5d4469cebb4b71e951df64e2e7f355",
+  "outputs": [
+    {
+      "path": "results/realism/v0.3-full-baseline.train-checks.json",
+      "sha256": "0e5a4681b067db1327f580b39c3fbe5f9031f4c2b5328f6a1066fa04ce26868d",
+      "bytes": 22287
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

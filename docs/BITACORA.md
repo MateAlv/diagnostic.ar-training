@@ -1579,3 +1579,158 @@ the full dataset, one run with no crash; `results/realism/gate-v0.4-cand2.md`):
   - ADR-0011 amendment 4: candidate 3 uses `calib-v2` (uncited patients vs
     kb-v3), re-pilots r and s, and runs a train-side go/no-go before the
     last R1-dev read.
+
+### 2026-09-30 — pre-registration — Candidate 3 pilot rounds (ADR-0011 amendment 4)
+Written and committed before the first candidate 3 pilot run.
+- **calib-v2** (built above in this branch):
+  - population: 1,193 uncited R1-train patients, measured against kb-v3;
+  - category shares: explained 0.668, more specific 0.0929, related
+    (IC ≥ 2) 0.0822, weak (IC < 2) 0.1569;
+  - noise share: 0.2391 (related + weak);
+  - noise vocabulary: 295 related-or-weak terms seen in ≥ 2 patients.
+- **Generator:** rare-disease-simulator@ddb1ec1 (0.4.2), with candidate 2's
+  full profiles from the same commit and inputs.
+  - Calibration: `simcal-v04-v4`, plus `noise.vocabulary_path` → calib-v2's
+    vocabulary and `reporting.noise_share` 0.2391.
+- **Pilot shape:** the same 523-symbol list
+  (`outputs/cal/pilot-genes.txt`), 10 cases per gene, medium, seed 91001.
+- **Measure:** `scripts/analysis/dataset_term_categories.py --kb kb-v3
+  --targets data/calib/calib-v2.targets.json`, every record.
+- **Round 1:** r = 0.21, s = 0.3437 (calib-v2's related / (related + weak)
+  = 0.0822 / 0.2391, rounded to 4 decimals).
+- **Round 2 rule:** each knob is scaled by target / realized share of its
+  own category, capped to [0, 1], rounded to 4 decimals:
+  - r₂ = r₁ × 0.0929 / more-specific share;
+  - s₂ = s₁ × 0.0822 / related share.
+- **Selection:** the pair with the smallest summed absolute error over the
+  three categories is frozen as `simcal-v04-v5`.
+- **Not used:** R1-dev and E0.
+
+### 2026-09-30 — pilot — Candidate 3 pilot rounds; `simcal-v04-v5` frozen
+- **Setup:** as pre-registered above; R1-train targets only (calib-v2, vs
+  kb-v3), no R1-dev, no E0.
+  - Pilot shape: 4,890 cases for 489 genes.
+  - Validate: 0 invariant violations in both rounds.
+- **Every pair tried:**
+
+  | Round | r | s | Specialised share of profile terms | Related share of noise | More specific (0.0929) | Related (0.0822) | Weak (0.1569) | Explained (0.668) | Summed abs. error |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.21 | 0.3437 | 0.1173 | 0.3046 | 0.1000 | 0.0719 | 0.1962 | 0.6320 | 0.0566 |
+  | 2 | 0.1951 | 0.3929 | 0.1099 | 0.3526 | 0.0957 | 0.0785 | 0.1896 | 0.6362 | **0.0392** |
+
+  Round 2 applies the declared rule: r₂ = 0.21 × 0.0929 / 0.1000, and
+  s₂ = 0.3437 × 0.0822 / 0.0719.
+- **Selected:** round 2. Frozen as `simcal-v04-v5`: base simcal-v04-v4,
+  `noise.vocabulary_path` calib-v2's vocabulary, `reporting.noise_share`
+  0.2391, `reporting.specialize_rate` 0.1951, `noise.related_share`
+  0.3929.
+- **Remaining gap:** weak (IC < 2) stays 0.033 above the uncited patients'
+  share. Related plus weak comes to 0.268 against the nominal noise share
+  of 0.239; unfilled profile slots are a likely cause, not checked.
+
+### 2026-09-30 — build + go/no-go — v0.4 candidate 3: G1 passes; the train-side go/no-go fails (G2c, G2d, G2e), so the last R1-dev read is not spent
+- **Front / versions:** A / rare-disease-simulator ddb1ec1 (0.4.2),
+  `simcal-v04-v5`, calib-v2 vocabulary, hpoa-recount-v1, genes-v2,
+  report-model-v2, cardinal-v1. Gene-first, 100 per gene, medium, seed 1001.
+  Candidate 3 of 3 (ADR-0011 amendment 4).
+- **Tooling** (this branch):
+  - `dxt calib build --population uncited --vocabulary related_or_weak`;
+  - truth-layer G2a (ADR-0012 amendment 3), with the reported layer and
+    R1-train's reported rates as references;
+  - `dxt sim train-checks`, plus G2b-train and the age match in every
+    realism report;
+  - `dataset_term_categories.py --kb --targets`.
+- **calib-v2** (uncited R1-train vs kb-v3):
+  - 1,193 patients (1,140 with a KB gene), 9,177 present terms;
+  - category shares: explained 0.668, more specific 0.093, related 0.082,
+    weak 0.157;
+  - noise share 0.239; related share of noise 0.344;
+  - vocabulary: 295 related-or-weak terms seen in ≥ 2 patients (324 seen
+    once were dropped).
+- **G2a recomputed on the truth layer** (literature-panel-v2, 497
+  independent rows; panel-only runs that read R1-train, not R1-dev):
+
+  | Dataset | Primary (truth, emission for UP) | Reported layer | Truth on the 145 rows with ≥ 10 R1-train patients | Reported on those rows |
+  |---|---|---|---|---|
+  | UP | 0.416 | 0.416 | 0.407 | 0.407 |
+  | V03-full | 0.336 | 0.390 | 0.341 | 0.381 |
+  | V03 half A (secondary) | 0.377 | 0.418 | | |
+  | Candidate 1 (half A) | 0.339 | 0.421 | 0.298 | 0.394 |
+  | Candidate 2 (full) | 0.304 | 0.404 | 0.267 | 0.380 |
+  | Candidate 3 (full) | 0.305 | 0.398 | 0.267 | 0.373 |
+
+  R1-train patients' own reported rates on those 145 rows: 0.307.
+- **Pilots:** see the two entries above; round 2 is frozen as `simcal-v04-v5`.
+- **Environment incident:**
+  - While candidate 3 was generating, the shared simulator checkout moved
+    to 0.5.0 (020e41d, "Report each true term independently"). The full
+    run recorded a dirty tree, and `export-training` refused it. That
+    first attempt was stopped and discarded.
+  - Everything was regenerated from the GitHub tarball of ddb1ec1 (sha256
+    `c0a97f33…`). Its slice exports are byte-identical to the slice
+    exports the clean ddb1ec1 checkout had produced minutes earlier, full
+    and half A.
+  - The run summaries therefore record no commit; the manifests record the
+    tarball. The pilots ran on the clean ddb1ec1 checkout.
+- **G1:**
+
+  | Check | `ds-sim0.4.2c3-full-n100-s1001` | `ds-sim0.4.2c3-A-n100-s1001` |
+  |---|---|---|
+  | Cases / genes | 489,200 / 4,892 | 486,800 / 4,868 |
+  | `validate` (cases and export) | 0 violations | 0 violations |
+  | Slice rerun (20 genes, 19 simulated) | cases and export byte-identical, equal to the full run's lines | same |
+  | `dxt lineage verify` | ok | ok |
+  | Overlap with R1 (keys, all parts) / S3 | 111 / 1,199 (194 same signature) | 88 / 949 (59) |
+  | Excluded by `-excl-v1`, residual | 1,293, 0 | 1,021, 0 |
+  | Release | published | published |
+
+- **Run summaries:**
+  - specialised share of profile terms: 0.108 (full) and 0.107 (A);
+  - related share of noise: 0.349 and 0.358;
+  - shown terms per case: 6.97 (4.91 profile + 2.06 noise) and 6.50
+    (4.43 + 2.07), for a drawn budget mean of 8.71.
+- **Go/no-go** (`dxt sim realism --no-dev --label v0.4-cand3-full-nodev`, no
+  R1-dev read, no ledger row; `results/realism/gate-v0.4-cand3-gonogo.md`):
+
+  | Check | UP | V03-full | Candidate 3 | Rule | Result |
+  |---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | beat both | ✅ |
+  | G2c W1 terms per case | 3.717 | 1.653 | 1.732 | beat both | ❌ (worse than V03-full) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | beat both, ≤ 0.75 | ❌ (above 0.75) |
+  | G2e \|E0 MRR − 0.405\| | 0.414 | 0.183 | 0.142 | beat both, ≤ 0.10 | ❌ (above 0.10) |
+  | G2b-train (83 genes, ≥ 10 train patients) | 0.241 | 0.385 | 0.536 | beat both | ✅ (optimistic: the report model is fitted on R1-train) |
+  | Age: median \|ln(median age ratio)\| (69 genes) | no ages | 0.537 | 0.539 | report only | candidate 2: 0.488 |
+
+  - E0 MRR 0.263 (candidate 2: 0.163).
+  - COL3A1 median age: simulated 4.0 vs R1-train 32.0.
+  - Age medians are floored at 0.1 years.
+- **Decision:** three stop conditions fire (G2c, G2d, G2e). The last R1-dev
+  read (`v0.4-cand3`) was **not** run. The ledger is unchanged; its last
+  candidate row is `v0.4-cand2`.
+- **Secondary numbers** (no R1-dev read):
+
+  | | Full | Half A (`--no-dev`) |
+  |---|---|---|
+  | G2a truth / reported | 0.305 / 0.398 | 0.341 / 0.407 |
+  | G2c | 1.732 | 2.203 |
+  | G2d | 0.764 | 0.746 |
+  | E0 MRR (gap to 0.405) | 0.263 (0.142) | 0.259 (0.146) |
+  | G2b-train | 0.536 | 0.428 |
+  | Age median \|log ratio\| | 0.539 | 0.519 |
+  | Categories vs kb-v3 (5% sample): explained / more specific / related / weak | 0.641 / 0.100 / 0.077 / 0.182 | 0.627 / 0.102 / 0.080 / 0.191 |
+  | Summed error vs calib-v2 | 0.037 | 0.045 |
+
+- **E0 ablation** (`scripts/analysis/e0_ablation.py`, 3,073 cases of the
+  full rich cases), in-vocab MRR:
+  - as exported 0.263, 7.03 terms per case;
+  - no noise 0.515;
+  - no generalisation 0.285;
+  - no specialisation 0.309;
+  - profile terms ungeneralised, no noise 0.592;
+  - all true terms 0.742.
+
+  R1-train uncited patients: 0.405 (8.11 terms), and 0.479 on their
+  explained terms only. Mean IC: simulated noise 5.37, profile positives
+  4.47, R1-train present terms 4.14.
+- **Verdict:** ❌ candidate 3 stops at the train-side go/no-go. As
+  instructed, no fix was designed.
