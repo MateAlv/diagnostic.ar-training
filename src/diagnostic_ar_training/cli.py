@@ -656,6 +656,82 @@ def s3_run_cmd(
         )
 
 
+litpanel_app = typer.Typer(no_args_is_help=True, help="Evaluation literature panel (ADR-0012 G4).")
+app.add_typer(litpanel_app, name="litpanel")
+REALISM_DIR = DATA_DIR / "realism"
+
+
+@litpanel_app.command("split")
+def litpanel_split(
+    split_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. litpanel-split-v1"),
+    genes_id: str = typer.Option("genes-v1", help="Gene profiles that define each gene's main disease"),
+    size: int = typer.Option(60, help="Panel units, anchors included"),
+    reserves: int = typer.Option(20, help="Ordered reserve units, also evaluation-only"),
+    seed: int = typer.Option(20260930),
+) -> None:
+    """Freeze which (gene, main disease) units are evaluation-only; every other unit is construction."""
+    from diagnostic_ar_training import INTERIM_DIR, splits
+    from diagnostic_ar_training.knowledge import literature_panel as lp
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+
+    ensure_new(split_id)
+    genes_manifest = load_manifest(genes_id)
+    genes_path = INTERIM_DIR / "genes" / genes_id / "genes.json.gz"
+    if sha256_file(genes_path) != genes_manifest.outputs[0].sha256:
+        raise LineageError(f"{genes_path} does not match the {genes_id} manifest")
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
+    mask_path = splits.heldout_pmids_path("r1-v1")
+    splits.write_heldout_pmids("r1-v1")
+    phenotypes, names = lp.hpoa_phenotypes(
+        open_source("hpo_annotations", Purpose.EVAL), ontology, set(mask_path.read_text().split())
+    )
+    train = lp.patients_per_gene(splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL))
+    dev = lp.patients_per_gene(splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL))
+    pool = lp.units(kb.read(genes_path), ontology, phenotypes, names, train, dev)
+    chosen = lp.select(pool, size=size, reserves=reserves, seed=seed)
+    rows = lp.split_rows(chosen)
+    out = REALISM_DIR / f"{split_id}.tsv"
+    lp.write_tsv(rows, lp.SPLIT_COLUMNS, out)
+    summary = lp.split_summary(rows, pool)
+    summary_path = REALISM_DIR / f"{split_id}.summary.json"
+    summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
+    sources = registry.load_sources()
+    inputs = [
+        {"id": f"artifact:{genes_id}", "sha256": genes_manifest.outputs[0].sha256},
+        sources["hpo_ontology"].as_input(),
+        sources["hpo_annotations"].as_input(),
+        {"id": "heldout-pmids:r1-v1", "sha256": sha256_file(mask_path)},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+    ]
+    params = {
+        "anchors": list(lp.ANALYSIS_001_GENES),
+        "size": size,
+        "reserves": reserves,
+        "seed": seed,
+        "dev_share": 0.5,
+        "dev_min": 10,
+        "main_disease": "simulable entity with the highest sim_weight",
+        "strata": "organ system (modal child of HP:0000118), inheritance (AD/AR/XL/other), "
+        "R1-train patients (0, 1-9, >=10); square-root allocation per margin",
+        "r1_parts_read": ["train", "dev"],
+    }
+    notes = (
+        "Evaluation units: every row of the TSV (anchor, sampled and reserve). Their genes and all "
+        "their disease ids must never feed literature-derived construction. Every other unit is construction."
+    )
+    write_manifest(build_manifest(split_id, "litpanel-split", inputs, params, [out, summary_path], notes))
+    typer.echo(json.dumps(summary, indent=1))
+
+
 @artifacts_app.command("fetch")
 def artifacts_fetch(artifact_id: str) -> None:
     """Download a published artifact's files and verify them against its manifest."""
