@@ -1,0 +1,24 @@
+{
+ "export": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/datasets/ds-sim0.4.2-full-n100-s1001/ds-sim0.4.2-full-n100-s1001.jsonl.gz",
+ "sample": 0.05,
+ "records": 24016,
+ "records_without_kb_gene": 243,
+ "terms": 176965,
+ "shares": {
+  "explained": 0.5355,
+  "more_specific": 0.1094,
+  "related_ic_ge_2": 0.1002,
+  "weak_ic_lt_2": 0.255
+ },
+ "targets": {
+  "more_specific": 0.115,
+  "related_ic_ge_2": 0.108,
+  "weak_ic_lt_2": 0.239
+ },
+ "abs_errors": {
+  "more_specific": 0.0056,
+  "related_ic_ge_2": 0.0078,
+  "weak_ic_lt_2": 0.016
+ },
+ "summed_abs_error": 0.0294
+}
