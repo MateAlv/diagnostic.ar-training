@@ -1948,3 +1948,15 @@ Written and committed before the first candidate 4 pilot run.
   driver is record length: independent reporting with report-model-v3
   shows about 3 terms per case (R1-train: 8.7), and a third of the cases
   fall back to `forced_min_one`. No fix was designed.
+
+### 2026-09-30 — status — ADR-0012 gate unmet after candidates 1–4; decision for Mateo
+- **Candidate 4** (sim 0.5.0, independent reporting; PR #44):
+  - passes G1 and the G2a / G2b-train stop conditions;
+  - fails G2c (5.754), G2d (0.822) and G2e (gap 0.204), because records
+    are far too short (2.95 terms per case vs 8.70; 32% of cases fall back
+    to `forced_min_one`).
+  - The last R1-dev read was **not** spent.
+- **Per ADR-0011 amendment 5 §5,** nothing is frozen and Mateo decides.
+- **Closest candidate so far: candidate 3** (sim 0.4.2, `simcal-v04-v5`).
+  It misses three thresholds narrowly: G2c 1.732 (needs < 1.653), G2d 0.764
+  (needs ≤ 0.75), G2e gap 0.142 (needs ≤ 0.10).
