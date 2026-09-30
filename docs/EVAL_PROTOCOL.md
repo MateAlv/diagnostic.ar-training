@@ -74,7 +74,7 @@ addendum below the original text [discipline].
 
 ## 4. Leakage controls
 
-1. **PMID masking [code: `splits.heldout_pmids`].** Every HPOA row citing an
+1. **PMID masking [code: `splits.heldout_pmids`].** *Amended 2026-09-30 (ADR-0011):* from `hpoa-recount-v1` onward, a row citing a held-out PMID is **recounted from R1-train phenopackets, or dropped if there are too few**, instead of always dropped. Dropping whole multi-paper cohort rows gutted profiles (ANALYSIS-001 §3.3). Every HPOA row citing an
    R1 dev, test or vault publication is dropped before building any KB or
    simulator profile. That is 15,412 rows (5.45%) for `r1-v1`. The manifest of
    each KB or dataset records the hash of the masked PMID list and the number

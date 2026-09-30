@@ -1000,3 +1000,18 @@ What they tell us:
   - §14: the realism tables and the frequency-vs-reporting calibration;
   - §16: over-masking as a design flaw, and "internally valid ≠
     realistic".
+
+### 2026-09-30 — decision — Simulator v0.4 rebuild (ADR-0011)
+- **Mateo chose:** "Rebuild simulator".
+- **ADR-0011 fixes:**
+  - the design;
+  - the formats of four new training-repo artifacts: `hpoa-recount-v1`
+    (recount instead of drop), `genes-v2` (patient-count weights, spurious
+    and somatic links removed), `report-model-v1`, `cardinal-v1` (Orphadata
+    product 4 flags + count-based proxies);
+  - simulator v0.4 (merged entity profiles, Beta shrinkage, truth-then-
+    reporting emission with forced cardinal features, age dependence where
+    data exist);
+  - the standing `dxt sim realism` check, with its R1-dev budget (≤ 3
+    simulator versions, logged).
+- **Protocol amendment:** EVAL_PROTOCOL §4.1 is now recount-or-drop.

@@ -16,3 +16,4 @@ with a new one and link both ways.
 | [0008](0008-gene-profiles.md) | Gene profiles from open sources, and how a gene's diseases are weighted | Accepted 2026-09-29 |
 | [0009](0009-step-zero-identity.md) | How new inputs enter the GNN so that the untrained extension is exactly v3.0 | Accepted 2026-09-29 (Front A only) |
 | [0010](0010-front-a-frozen-base.md) | Front A keeps v3.0 frozen and trains only the new inputs' parameters | Accepted 2026-09-29 |
+| [0011](0011-simulator-v04.md) | Simulator v0.4: realism-first rebuild (recounted masking, merged profiles, reporting model, cardinal features) | Accepted 2026-09-30 |
