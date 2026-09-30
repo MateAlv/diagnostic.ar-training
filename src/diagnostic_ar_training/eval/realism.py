@@ -28,6 +28,7 @@ import numpy as np
 from diagnostic_ar_training.ontology import PHENOTYPIC_ABNORMALITY, Ontology
 
 MIN_DEV_PATIENTS = 10
+MIN_REAL_PATIENTS = 10
 FREQUENCY_BINS = ((0.0, 0.2), (0.2, 0.4), (0.4, 0.6), (0.6, 0.8), (0.8, 1.0001))
 E0_TARGET_MRR = 0.405
 E0_TARGET_MRR_ALL_TRAIN = 0.512
@@ -43,6 +44,9 @@ class SimCase:
     excluded: tuple[str, ...] | None
     """None when the generator never produces negations (UP)."""
     sex: str = "unknown"
+    true_present: tuple[str, ...] | None = None
+    """The patient's true terms (export v2); None when the generator has no truth layer (UP)."""
+    age_years: float | None = None
 
 
 def load_export(path: Path) -> list[SimCase]:
@@ -58,6 +62,8 @@ def load_export(path: Path) -> list[SimCase]:
                     tuple(r["present"]),
                     tuple(r.get("excluded") or ()),
                     r.get("sex") or "unknown",
+                    tuple(sys.intern(t) for t in r["true_present"]) if "true_present" in r else None,
+                    r.get("age_years"),
                 )
             )
     return out
@@ -142,6 +148,45 @@ def per_gene_rho(
         "genes_scored": len(values),
         "genes_missing_from_dataset": missing,
         "mean_rho": float(np.mean(values)) if values else None,
+        "per_gene": per_gene,
+    }
+
+
+AGE_FLOOR_YEARS = 0.1
+
+
+def age_match(
+    sim_ages: dict[str, list[float]],
+    real_ages: dict[str, list[float]],
+    min_patients: int = MIN_REAL_PATIENTS,
+    floor: float = AGE_FLOOR_YEARS,
+) -> dict:
+    """Per gene with >= `min_patients` real patients of known age: |ln(median simulated age / median real
+    age)|, both medians floored at `floor` years so newborns do not divide by zero; the median over genes."""
+    per_gene, missing = {}, []
+    for gene, real in sorted(real_ages.items()):
+        if len(real) < min_patients:
+            continue
+        sim = sim_ages.get(gene) or []
+        if not sim:
+            missing.append(gene)
+            continue
+        m_sim, m_real = float(np.median(sim)), float(np.median(real))
+        per_gene[gene] = {
+            "real_patients": len(real),
+            "sim_cases": len(sim),
+            "median_age_sim": m_sim,
+            "median_age_real": m_real,
+            "abs_log_ratio": abs(math.log(max(m_sim, floor) / max(m_real, floor))),
+        }
+    values = [g["abs_log_ratio"] for g in per_gene.values()]
+    return {
+        "min_real_patients_with_age": min_patients,
+        "age_floor_years": floor,
+        "genes_eligible": len(per_gene) + len(missing),
+        "genes_scored": len(values),
+        "genes_without_simulated_ages": missing,
+        "median_abs_log_ratio": float(np.median(values)) if values else None,
         "per_gene": per_gene,
     }
 
@@ -231,28 +276,51 @@ def read_panel(path: Path) -> tuple[list[dict], bool]:
 
 
 def panel_errors(
-    rows: list[dict], sim: dict[str, list[SimCase]], closure: Closure, has_source_kind: bool
+    rows: list[dict],
+    sim: dict[str, list[SimCase]],
+    closure: Closure,
+    has_source_kind: bool,
+    real: dict[str, list[frozenset[str]]] | None = None,
+    min_real: int = MIN_REAL_PATIENTS,
 ) -> dict:
-    """G2a. Primary: the rows flagged `independent == "true"` when the panel has that column (panel v2),
-    else the rows not sourced from Orphanet; secondary: all rows."""
+    """G2a. Rows: `independent == "true"` when the panel has that column (panel v2), else the rows not
+    sourced from Orphanet; all rows are reported too.
+
+    Primary layer (ADR-0012 amendment 3): the simulated **true** rate (`true_present`) where the dataset has
+    a truth layer, else emission (UP). The reported layer is secondary. `real` (gene -> R1-train patients'
+    closed present sets) adds the real-patient reference: R1-train's reported rates on the rows whose gene
+    has at least `min_real` train patients, next to the simulated layers on the same rows.
+    """
     if not has_source_kind:
         print(
             "warning: panel has no source_kind column; every row is treated as independent", file=sys.stderr
         )
+    has_truth = any(c.true_present is not None for cases in sim.values() for c in cases)
     scored = []
     for r in rows:
         cases = [c for c in sim.get(r["gene"], []) if not r["sex"] or c.sex == r["sex"]]
         term = closure.ontology.resolve(r["hpo_id"])
-        if not cases or term is None:
-            scored.append({**r, "sim_cases": len(cases), "emission": None, "abs_error": None})
-            continue
-        emission = sum(term in closure(c.present) for c in cases) / len(cases)
-        scored.append(
-            {**r, "sim_cases": len(cases), "emission": emission, "abs_error": abs(emission - r["prevalence"])}
-        )
+        row = {**r, "sim_cases": len(cases)}
+        for layer in ("true", "reported"):
+            if not cases or term is None:
+                row[f"rate_{layer}"] = row[f"error_{layer}"] = None
+                continue
+            terms = (
+                (lambda c: c.present) if layer == "reported" or not has_truth else (lambda c: c.true_present)
+            )
+            rate = sum(term in closure(terms(c)) for c in cases) / len(cases)
+            row[f"rate_{layer}"], row[f"error_{layer}"] = rate, abs(rate - r["prevalence"])
+        row["emission"], row["abs_error"] = row["rate_true"], row["error_true"]
+        if real is not None:
+            sets = real.get(r["gene"].upper(), [])
+            row["r1_train_patients"] = len(sets)
+            if sets and term is not None:
+                rate = sum(term in s for s in sets) / len(sets)
+                row["rate_r1_train"], row["error_r1_train"] = rate, abs(rate - r["prevalence"])
+        scored.append(row)
 
-    def mae(subset):
-        errs = [s["abs_error"] for s in subset if s["abs_error"] is not None]
+    def mae(subset, layer="true"):
+        errs = [s[f"error_{layer}"] for s in subset if s.get(f"error_{layer}") is not None]
         return {"rows": len(subset), "rows_scored": len(errs), "mae": float(np.mean(errs)) if errs else None}
 
     if any(s.get("independent") is not None for s in scored):
@@ -261,12 +329,23 @@ def panel_errors(
     else:
         rule = "source_kind != orphanet"
         independent = [s for s in scored if s["source_kind"] != "orphanet"]
-    return {
+    out = {
         "source_kind_column": has_source_kind,
-        "primary": {"rule": rule, **mae(independent)},
-        "all_rows": mae(scored),
+        "has_truth_layer": has_truth,
+        "primary": {"rule": rule, "layer": "true" if has_truth else "emission", **mae(independent)},
+        "reported": {"rule": rule, "layer": "reported", **mae(independent, "reported")},
+        "all_rows": {"layer": "true" if has_truth else "emission", **mae(scored)},
         "per_row": scored,
     }
+    if real is not None:
+        with_real = [s for s in independent if s.get("r1_train_patients", 0) >= min_real]
+        out["r1_train_reference"] = {
+            "rule": f"{rule}, gene with >= {min_real} R1-train patients",
+            "r1_train_reported": mae(with_real, "r1_train"),
+            "sim_primary": mae(with_real),
+            "sim_reported": mae(with_real, "reported"),
+        }
+    return out
 
 
 # --- G2d: classifier two-sample test --------------------------------------------------------------
@@ -442,7 +521,7 @@ def e0_difficulty(system, cases: list[SimCase], target: float = E0_TARGET_MRR) -
 # --- Gate table -----------------------------------------------------------------------------------
 
 G2 = {
-    "a": ("literature panel MAE (primary rows)", "lower"),
+    "a": ("literature panel MAE (truth layer, primary rows)", "lower"),
     "b": ("R1-dev mean per-gene rho", "higher"),
     "c": ("W1 terms/case vs R1-train", "lower"),
     "d": ("C2ST AUC vs R1-train", "lower"),

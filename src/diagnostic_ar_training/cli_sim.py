@@ -547,6 +547,49 @@ def _dataset(spec: str):
     return realism.load_export(path), f"path:{path.name}", sha256_file(path)
 
 
+def _g2p(ontology) -> dict[str, set[str]]:
+    """Gene -> its phenotypic-abnormality terms in `genes_to_phenotype` (G2b's term universe)."""
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import PHENOTYPIC_ABNORMALITY
+
+    g2p = defaultdict(set)
+    with open_source("hpo_genes_to_phenotype", Purpose.EVAL).open(encoding="utf-8") as handle:
+        for r in csv.DictReader(handle, delimiter="\t"):
+            if (t := ontology.resolve(r["hpo_id"])) and ontology.is_a(t, PHENOTYPIC_ABNORMALITY):
+                g2p[r["gene_symbol"].upper()].add(t)
+    return g2p
+
+
+def _train_checks(cases, closure, train, g2p) -> tuple[dict, dict[str, list[frozenset[str]]]]:
+    """Train-side checks that read no R1-dev: G2b's per-gene Spearman against R1-train (genes with >= 10
+    train patients) and the per-gene median-age match. Also returns R1-train's closed present sets by gene."""
+    from diagnostic_ar_training.eval import realism as RZ
+
+    train_by_gene, real_ages = defaultdict(list), defaultdict(list)
+    for c in train:
+        gene = c.gene.upper()
+        train_by_gene[gene].append(closure(c.present))
+        if c.age_years is not None:
+            real_ages[gene].append(c.age_years)
+    eligible = {g for g, v in train_by_gene.items() if len(v) >= RZ.MIN_REAL_PATIENTS}
+    sim_by_gene, sim_ages = defaultdict(list), defaultdict(list)
+    for c in cases:
+        gene = c.gene.upper()
+        if gene in eligible:
+            sim_by_gene[gene].append(closure(c.present))
+        if c.age_years is not None:
+            sim_ages[gene].append(c.age_years)
+    rho = RZ.per_gene_rho(
+        {g: train_by_gene[g] for g in eligible},
+        sim_by_gene,
+        lambda g: g2p.get(g, set()),
+        RZ.MIN_REAL_PATIENTS,
+    )
+    rho["reference"] = "R1-train (optimistic: the report model was fitted on R1-train)"
+    ages = RZ.age_match(sim_ages, real_ages) if sim_ages else {"skipped": "the dataset has no ages"}
+    return {"g2b_train_rho": rho, "age": ages}, train_by_gene
+
+
 def _gene_terms_factory(kb: dict, knowledge, ontology):
     """Gene -> {term: P(term | gene)} (`report_model.gene_frequencies`), cached."""
     from diagnostic_ar_training.knowledge.report_model import gene_frequencies
@@ -591,7 +634,7 @@ def sim_realism(
     from diagnostic_ar_training.lineage.hashing import sha256_file
     from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
     from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
-    from diagnostic_ar_training.ontology import PHENOTYPIC_ABNORMALITY, Ontology
+    from diagnostic_ar_training.ontology import Ontology
     from diagnostic_ar_training.rerank import kb as kb_mod
     from diagnostic_ar_training.rerank.features import GeneKnowledge
 
@@ -611,11 +654,8 @@ def sim_realism(
     needed = {g for g, v in dev_by_gene.items() if len(v) >= 5}
     sim_by_gene = {g: [closure(c.present) for c in sim_cases[g]] for g in needed if g in sim_cases}
 
-    g2p = defaultdict(set)
-    with open_source("hpo_genes_to_phenotype", Purpose.EVAL).open(encoding="utf-8") as handle:
-        for r in csv.DictReader(handle, delimiter="\t"):
-            if (t := ontology.resolve(r["hpo_id"])) and ontology.is_a(t, PHENOTYPIC_ABNORMALITY):
-                g2p[r["gene_symbol"].upper()].add(t)
+    g2p = _g2p(ontology)
+    train_checks, train_sets = _train_checks(cases, closure, train, g2p)
 
     freq_kb_path, freq_kb_sha = _artifact_file(freq_kb_id, "kb.json.gz")
     freq_kb = kb_mod.read(freq_kb_path)
@@ -663,13 +703,14 @@ def sim_realism(
             "w1_vs_r1_train": RZ.wasserstein(ex_sim, ex_train),
         }
     report["g2c_terms_per_case"] = terms_per_case
+    report.update(train_checks)
 
     panel_rows, has_kind = RZ.read_panel(panel)
     panel_sim = {r["gene"]: sim_cases.get(r["gene"].upper(), []) for r in panel_rows}
     report["g2a_panel"] = {
         "panel": panel.name,
         "panel_sha256": sha256_file(panel),
-        **RZ.panel_errors(panel_rows, panel_sim, closure, has_kind),
+        **RZ.panel_errors(panel_rows, panel_sim, closure, has_kind, real=train_sets),
     }
 
     c2st_kb_path, c2st_kb_sha = _artifact_file(kb_id, "kb.json.gz")
@@ -740,7 +781,18 @@ def sim_realism(
 
 
 def _panel_report_path(label: str, panel: Path) -> Path:
-    return REALISM_DIR / f"{label}.panel-{panel.stem}.json"
+    """A panel-error report on the truth layer (ADR-0012 amendment 3)."""
+    return REALISM_DIR / f"{label}.panel-{panel.stem}.truth.json"
+
+
+def _write_side_report(
+    artifact_id: str, kind: str, out: Path, result: dict, inputs: list, params: dict, state
+):
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+
+    REALISM_DIR.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=1, sort_keys=True, default=float) + "\n")
+    write_manifest(build_manifest(artifact_id, kind, inputs, params, [out], state=state))
 
 
 @sim_app.command("panel-error")
@@ -749,14 +801,17 @@ def sim_panel_error(
     label: str = typer.Option(..., help="Realism label of the dataset, e.g. v0.3-baseline"),
     panel: Path = typer.Option(PANEL, help="Evaluation panel TSV"),
 ) -> None:
-    """G2a alone: literature-panel error of one dataset. Reads no R1 data and writes no ledger row."""
+    """G2a alone, on the truth layer, with R1-train's reported rates as the real-patient reference.
+
+    Reads R1-train only (no R1-dev) and writes no ledger row."""
+    from diagnostic_ar_training import splits
     from diagnostic_ar_training.eval import realism as RZ
     from diagnostic_ar_training.lineage.hashing import sha256_file
-    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+    from diagnostic_ar_training.lineage.manifest import ensure_new
     from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
     from diagnostic_ar_training.ontology import Ontology
 
-    artifact_id = f"panel-{label}-{panel.stem}"
+    artifact_id = f"panel-{label}-{panel.stem}-truth"
     ensure_new(artifact_id)
     state = _require_clean()
     cases, dataset_id, dataset_sha = _dataset(dataset)
@@ -764,28 +819,79 @@ def sim_panel_error(
     sim_cases = defaultdict(list)
     for c in cases:
         sim_cases[c.gene.upper()].append(c)
+    real = defaultdict(list)
+    for c in splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL):
+        real[c.gene.upper()].append(closure(c.present))
     rows, has_kind = RZ.read_panel(panel)
+    errors = RZ.panel_errors(
+        rows, {r["gene"]: sim_cases.get(r["gene"].upper(), []) for r in rows}, closure, has_kind, real=real
+    )
     result = {
         "label": label,
         "dataset": dataset_id,
         "dataset_sha256": dataset_sha,
         "panel": panel.name,
         "panel_sha256": sha256_file(panel),
-        **RZ.panel_errors(
-            rows, {r["gene"]: sim_cases.get(r["gene"].upper(), []) for r in rows}, closure, has_kind
-        ),
+        **errors,
     }
-    REALISM_DIR.mkdir(parents=True, exist_ok=True)
-    out = _panel_report_path(label, panel)
-    out.write_text(json.dumps(result, indent=1, sort_keys=True, default=float) + "\n")
     inputs = [
         {"id": dataset_id, "sha256": dataset_sha},
         {"id": f"panel:{panel.name}", "sha256": sha256_file(panel)},
+        {"id": "split:r1-v1 (train)", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
         load_sources()["hpo_ontology"].as_input(),
     ]
-    params = {"label": label, "panel": panel.name, "reads_r1": False}
-    write_manifest(build_manifest(artifact_id, "panel-error-report", inputs, params, [out], state=state))
-    typer.echo(json.dumps({"primary": result["primary"], "all_rows": result["all_rows"]}, indent=1))
+    params = {"label": label, "panel": panel.name, "layer": errors["primary"]["layer"], "reads": "R1-train"}
+    _write_side_report(
+        artifact_id, "panel-error-report", _panel_report_path(label, panel), result, inputs, params, state
+    )
+    shown = ("primary", "reported", "all_rows", "r1_train_reference")
+    typer.echo(json.dumps({k: result[k] for k in shown}, indent=1))
+
+
+@sim_app.command("train-checks")
+def sim_train_checks(
+    dataset: str = typer.Option(..., help="Export path, artifact:<id> or source:<name> (UP)"),
+    label: str = typer.Option(..., help="Realism label of the dataset, e.g. up-graphens"),
+) -> None:
+    """G2b against R1-train and the per-gene median-age match. Reads R1-train only; no ledger row."""
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.eval import realism as RZ
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import ensure_new
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    artifact_id = f"train-checks-{label}"
+    ensure_new(artifact_id)
+    state = _require_clean()
+    cases, dataset_id, dataset_sha = _dataset(dataset)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
+    closure = RZ.Closure(ontology)
+    train = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL)
+    checks, _ = _train_checks(cases, closure, train, _g2p(ontology))
+    result = {"label": label, "dataset": dataset_id, "dataset_sha256": dataset_sha, **checks}
+    sources = load_sources()
+    inputs = [
+        {"id": dataset_id, "sha256": dataset_sha},
+        {"id": "split:r1-v1 (train)", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+        sources["hpo_ontology"].as_input(),
+        sources["hpo_genes_to_phenotype"].as_input(),
+    ]
+    params = {"label": label, "reads": "R1-train", "min_real_patients": RZ.MIN_REAL_PATIENTS}
+    out = REALISM_DIR / f"{label}.train-checks.json"
+    _write_side_report(artifact_id, "train-checks-report", out, result, inputs, params, state)
+    age = checks["age"]
+    typer.echo(
+        json.dumps(
+            {
+                "g2b_train_mean_rho": checks["g2b_train_rho"]["mean_rho"],
+                "g2b_train_genes_scored": checks["g2b_train_rho"]["genes_scored"],
+                "age_median_abs_log_ratio": age.get("median_abs_log_ratio"),
+                "age_genes_scored": age.get("genes_scored"),
+            },
+            indent=1,
+        )
+    )
 
 
 def _read_tsv(path: Path) -> list[dict]:
@@ -877,11 +983,14 @@ def sim_gate(
     reports = {label: load(label) for label in labels}
     panels = {}
     for label, report in reports.items():
-        if report["g2a_panel"].get("panel") == panel.name:
+        own = report["g2a_panel"]
+        if own.get("panel") == panel.name and "layer" in own.get("primary", {}):
             continue
         path = _panel_report_path(label, panel)
         if not path.is_file():
-            raise typer.BadParameter(f"{label}'s G2a is not on {panel.name}; run `dxt sim panel-error` first")
+            raise typer.BadParameter(
+                f"{label}'s G2a is not on {panel.name}'s truth layer; run `dxt sim panel-error` first"
+            )
         panels[label] = json.loads(path.read_text())
     table = RZ.gate(
         {b: reports[b] for b in baseline},

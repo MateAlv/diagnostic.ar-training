@@ -1,5 +1,6 @@
 import gzip
 import json
+import math
 from collections import Counter
 
 import numpy as np
@@ -116,6 +117,36 @@ def test_panel_v2_primary_is_the_independent_rows_and_reads_sex_restriction(tmp_
     assert per_row["HP:0000505"]["sim_cases"] == 1  # sex_restriction filters like sex
     assert out["primary"]["rule"] == 'independent == "true"' and out["primary"]["rows_scored"] == 1
     assert out["primary"]["mae"] == pytest.approx(0.4) and out["all_rows"]["mae"] == pytest.approx(0.45)
+
+
+def test_panel_scores_the_truth_layer_first_with_the_reported_layer_and_a_train_reference(tmp_path, onto):
+    sim = {
+        "G": [
+            RZ.SimCase("1", "G", ("HP:0000505",), (), "male", ("HP:0000505", "HP:0002069")),
+            RZ.SimCase("2", "G", ("HP:0000505",), (), "female", ("HP:0000505",)),
+        ]
+    }
+    (tmp_path / "p.tsv").write_text(
+        "gene\tfeature_label\thpo_id\tprevalence\tsource_kind\tindependent\n"
+        "G\tseizure\tHP:0001250\t0.9\tgenereviews\ttrue\n"
+    )
+    rows, has_kind = RZ.read_panel(tmp_path / "p.tsv")
+    closure = RZ.Closure(onto)
+    real = {"G": [closure(("HP:0002069",))] * 10}
+    out = RZ.panel_errors(rows, sim, closure, has_kind, real=real)
+    assert out["has_truth_layer"] and out["primary"]["layer"] == "true"
+    assert out["primary"]["mae"] == pytest.approx(0.4)  # truly 1 of 2 have a seizure
+    assert out["reported"]["mae"] == pytest.approx(0.9)  # neither reports one
+    ref = out["r1_train_reference"]
+    assert ref["r1_train_reported"]["mae"] == pytest.approx(0.1) and ref["sim_primary"]["rows_scored"] == 1
+
+
+def test_age_match_is_the_median_absolute_log_ratio_of_median_ages():
+    out = RZ.age_match({"A": [4.0] * 3, "B": [0.0]}, {"A": [8.0] * 10, "B": [0.0] * 10, "C": [1.0] * 3})
+    assert out["genes_scored"] == 2  # C has too few real patients
+    assert out["per_gene"]["A"]["abs_log_ratio"] == pytest.approx(math.log(2))
+    assert out["per_gene"]["B"]["abs_log_ratio"] == 0.0  # both floored
+    assert out["median_abs_log_ratio"] == pytest.approx(math.log(2) / 2)
 
 
 def test_matched_pairs_use_same_gene_first_then_any_unused_case():
