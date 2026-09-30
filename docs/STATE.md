@@ -14,6 +14,14 @@ at each checkpoint; the history lives in `BITACORA.md`.
 | B on S3 | **The only method that passes the harm cap:** rr-v1[neg=0.5] +0.0045 [+0.0034, +0.0056], harmed 4% (knowledge-based, no simulator training). rr-v2 hurts (−0.030) | `EXP-S3-001.md` |
 | A | **All three trained designs fail on real patients:** A-001 (full fine-tune), A-002f (negation, frozen), A-003f (sex/age, frozen). Each gains on S3, which is the same simulator. A-004f not run (nothing to combine) | `EXP-A-001.md`, `EXP-A-002f.md`, `EXP-A-003f.md`, `EXP-A-004f.md` |
 
+## Latest analysis
+**ANALYSIS-001 (dataset realism).** The simulator is internally
+consistent but not realistic per disease. Over-masking guts some
+profiles (UMOD keeps 3 of 33 rows), and the emission model mismatches how
+real patients are reported. Front A's negatives are about *this*
+simulator. See `docs/analyses/ANALYSIS-001-dataset-realism.md` §6 for the
+proposed fixes.
+
 ## Open decisions for Mateo
 1. **Phase-4 gate for rr-v1[neg=0.5]:** pre-register one sealed read of
    S3-test + an R1-test no-regression check (R1-test "present" view is
