@@ -44,3 +44,25 @@ E0 in-vocab MRR, scored on only these terms:
   report model refit on uncited patients vs kb-v3. The construction audit
   found hallmark features under-reported in 10 of 16 cards.
 - **Age:** the duration mean per onset category comes from R1-train.
+
+## 4. Construction-side card audit (candidate 2, complete)
+- **Scope:** 30 genes outside `litpanel-split-v3`, each with ≥ 10 R1-train
+  patients (`realism_cards.py --construction 30`). Four have no simulable
+  entity; 26 were reviewed.
+- **Reviewer:** Codex CLI, read-only sandbox, seeing the card only.
+- **Verdicts:** **25 implausible, 1 plausible** (WWOX).
+- **Major-problem themes** (keyword count, indicative only):
+
+  | Theme | Cards |
+  |---|---|
+  | unrelated noise dominates | 14 |
+  | hallmark features under-reported | 14 |
+  | truth: a feature is missing | 11 |
+  | generic terms | 6 |
+  | truth: a feature is over-produced | 5 |
+  | age wrong | 4 |
+
+- **Files:** `results/analyses/ANALYSIS-004/construction-audit-cand2/`.
+- **Truth-layer errors** (missing or over-produced features) come from the
+  source annotations. Candidate 4 does not address them; they are expected
+  to remain a residual finding under G3.

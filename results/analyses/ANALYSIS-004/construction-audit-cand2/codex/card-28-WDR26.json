@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "The characteristic facial and dental phenotype is severely underreported: widely spaced teeth 18% versus 87% in R1-train, maxillary hyperplasia 20% versus 87%, and wide mouth 8% versus 67%. The combined reduction would weaken the recognizable Skraban-Deardorff phenotype in training records."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 3 contains internally contradictory findings: thick and thin upper lip vermilion, plus buphthalmos and bilateral microphthalmos. Without temporal or anatomical clarification, these are not coherent clinical descriptions."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 1 mixes appropriate developmental, seizure, gait, and facial findings with an unexplained immunologic and connective-tissue cluster: decreased IgG, inverted CD4:CD8 ratio, and tendon rupture. Together with glossitis and spastic dysarthria, this creates a misleading phenotype beyond the syndrome's usual presentation."
+    }
+  ],
+  "summary": "The core developmental and seizure phenotype is recognizable, and the age and sex distributions are plausible. However, marked underreporting of characteristic features, contradictory anatomy, and substantial unrelated findings make these simulated patients unsuitable as coherent disease exemplars. No literature prevalence panel is supplied to assess true-rate calibration directly."
+}

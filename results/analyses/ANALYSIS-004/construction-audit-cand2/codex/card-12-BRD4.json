@@ -1,0 +1,14 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Core features are substantially underreported: microcephaly 0.36 versus 0.83 in R1-train, developmental delay 0.44 versus 0.83, and synophrys 0.16 versus 0.44. Together with reduced reporting of characteristic eyebrows, this weakens the recognizable BRD4-related phenotype and would mislead a model."
+    },
+    {
+      "severity": "minor",
+      "issue": "The examples contain atypical findings such as trichoschisis, arachnodactyly, and chorioretinal coloboma. These require justification as occasional findings. Example 3 is particularly unrepresentative, lacking reported developmental impairment or microcephaly while including trichoschisis."
+    }
+  ],
+  "summary": "The principal problem is loss of the core neurodevelopmental and facial phenotype during reporting. Sex distribution is plausible; younger ascertainment is possible. Permanent-incisor macrodontia should be restricted to developmentally appropriate ages. Without literature prevalence rows, true-rate calibration remains uncertain."
+}

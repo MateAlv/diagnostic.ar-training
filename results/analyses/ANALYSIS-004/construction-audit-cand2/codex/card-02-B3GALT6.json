@@ -1,0 +1,22 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "The defining skeletal phenotype is substantially underreported: platyspondyly 10%, kyphoscoliosis 12%, flared metaphyses 12%, and hypoplastic iliac bodies 20%, versus 91–100% in R1-train. Despite possible ascertainment differences, this loses the recognizable spondyloepimetaphyseal dysplasia pattern."
+    },
+    {
+      "severity": "major",
+      "issue": "Joint laxity is poorly represented: finger joint hypermobility is reported in only 2%, versus 55% in R1-train, with no prominent broader joint-hypermobility term shown. Soft, doughy skin is likewise reported in only 2%, suppressing the characteristic connective-tissue phenotype."
+    },
+    {
+      "severity": "major",
+      "issue": "Examples contain distracting, atypical findings such as elevated fecal sodium, increased IgG, delayed CNS myelination, and fatty replacement of skeletal muscle. Example 1 lacks a recognizable defining phenotype, while example 3 emphasizes ocular, biochemical, and endocrine findings over skeletal dysplasia and laxity."
+    },
+    {
+      "severity": "minor",
+      "issue": "Atrial septal defect is reported in 29% and outranks nearly every defining skeletal feature. Although cardiac abnormalities can occur, this prominence needs supporting evidence."
+    }
+  ],
+  "summary": "Sex balance and young presentation are plausible, but hallmark underreporting and atypical findings would teach a misleading disease profile. No literature panel is provided to assess true-rate calibration directly."
+}

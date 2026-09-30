@@ -1,0 +1,22 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Aortic dissection in 99% of simulated patients is implausible for vascular EDS, especially with a median age of 3.8 years. Childhood diagnosis is possible, but this combination grossly exaggerates early vascular complications."
+    },
+    {
+      "severity": "major",
+      "issue": "Core diagnostic features are severely underreported: easy bruising 12% versus 77% in R1-train, translucent skin 7% versus 66%, and small-joint hypermobility 10% versus 51%. Characteristic facial features and arterial rupture/dissection are also largely absent from records despite substantial simulated true rates."
+    },
+    {
+      "severity": "major",
+      "issue": "Records overemphasize nonspecific or unrelated findings. Cognitive impairment (12%) is not a typical primary feature, and hypertelorism and short stature lead the reported phenotype. Example 1 contains only abnormal bladder morphology; examples 2 and 3 mix potentially relevant bleeding or vascular findings with poorly supported cardiac, hair, iris, and immune abnormalities."
+    },
+    {
+      "severity": "minor",
+      "issue": "The feature hierarchy appears inconsistent: aortic dissection is more frequent than arterial dissection in both true and reported rates, although the table states that rates include more specific terms."
+    }
+  ],
+  "summary": "The simulated records obscure the characteristic vascular EDS phenotype while introducing unrelated findings and an implausibly high burden of aortic dissection in a predominantly very young cohort. The sex distribution is plausible."
+}

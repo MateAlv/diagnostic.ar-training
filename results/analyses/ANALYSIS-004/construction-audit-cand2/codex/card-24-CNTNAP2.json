@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Core neurodevelopmental features are substantially underreported: speech/language delay 33% versus 83% in R1-train, intellectual disability 41% versus 92%, and global developmental delay 43% versus 83%. Severe language impairment is particularly characteristic of biallelic CNTNAP2 disease; its sparse documentation weakens the simulated disease signature."
+    },
+    {
+      "severity": "major",
+      "issue": "Examples contain misleading findings: elevated acetylcarnitine is not an established CNTNAP2 hallmark, and 'word salad' poorly represents the characteristic severe speech impairment or regression. 'EEG with constitutional variants' describes a normal variant rather than supporting the expected epileptic EEG phenotype. These substitutions could teach incorrect associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "EEG abnormalities are reported in only 33% despite being simulated in every patient and documented in all 12 R1-train patients. This appears excessively sparse for an epilepsy-associated syndrome, although the reference cohort is small."
+    }
+  ],
+  "summary": "Age and sex distributions are plausible, and the developmental-delay/focal-epilepsy phenotype broadly fits. However, underdocumentation of hallmark developmental features and misleading example findings make the simulated records clinically implausible overall."
+}

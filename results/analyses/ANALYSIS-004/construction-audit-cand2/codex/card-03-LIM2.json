@@ -1,0 +1,22 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "The defining cataract phenotype is missing from the leading simulated terms and all three examples. Membranous cataract is entirely absent despite being documented in all 10 R1-train patients. Other cataract types can occur with LIM2, but visual impairment and nystagmus alone do not adequately represent this disease."
+    },
+    {
+      "severity": "major",
+      "issue": "The simulations introduce inappropriate neurologic specificity: ocular flutter is reported in 8% and epileptic encephalopathy in 4%. These are not characteristic manifestations of LIM2-related isolated cataract; ocular flutter should not substitute for sensory nystagmus."
+    },
+    {
+      "severity": "major",
+      "issue": "The example records are dominated by unrelated findings, including congestive heart failure, respiratory insufficiency, and highly specific pulmonary arterial hypertension. Example 1 also combines several overlapping visual-acuity grades and sudden visual loss without describing cataract. These records would teach a misleading multisystem disease phenotype."
+    },
+    {
+      "severity": "minor",
+      "issue": "Exotropia is nearly absent (1%) compared with 80% in R1-train. Although the small published cohort may not represent every LIM2 presentation, this suggests underrepresentation of an important associated ocular finding."
+    }
+  ],
+  "summary": "Implausible: the simulated patients lack explicit cataract characterization and contain substantial unrelated neurologic and systemic findings. Childhood presentation and the sex distribution are plausible; the younger age than R1-train alone is not a clinical contradiction."
+}

@@ -1,0 +1,17 @@
+{
+ "dataset": "ds-sim0.4.2-full-n100-s1001 (candidate 2)",
+ "reviewer": "Codex CLI 0.155.1, read-only, card content only",
+ "verdicts": {
+  "implausible": 25,
+  "plausible": 1
+ },
+ "major_problem_themes": {
+  "unrelated noise dominates": 14,
+  "hallmark under-reported": 14,
+  "truth: feature missing": 11,
+  "generic terms": 6,
+  "truth: feature over-produced": 5,
+  "age wrong": 4
+ },
+ "theme_rule": "keyword match on major issues; indicative only"
+}

@@ -1,0 +1,14 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Disease-defining calcifications are substantially underreported: basal ganglia calcification appears in 30% of simulated records versus 70% of R1-train patients, and cerebellar calcifications in 19% versus 60%. This weakens the central diagnostic signature and risks teaching a nonspecific neurological phenotype."
+    },
+    {
+      "severity": "minor",
+      "issue": "Examples contain poorly supported distractions: short nail, chronic diarrhea and claustrophobia in record 1; low-set ears and basal ganglia dysgenesis in record 3. Dysgenesis is not equivalent to calcification. Record 2 contains only progressive macrocephaly and constipation, providing no recognizable neurological or imaging signature."
+    }
+  ],
+  "summary": "The movement disorders, seizures, sex balance and adult age distribution are broadly plausible. However, hallmark calcifications are insufficiently represented in reported records. Without literature prevalence rows, true-rate calibration remains uncertain."
+}

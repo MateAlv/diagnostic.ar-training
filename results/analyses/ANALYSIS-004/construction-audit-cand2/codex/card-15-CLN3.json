@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Example records contain excessive unrelated findings, particularly finger hyperphalangy, Z-band streaming, renal abnormalities, and elevated urinary 3-hydroxybutyric acid. Their combination with dysmorphic and highly specific psychiatric terms would teach spurious CLN3 associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "The simulator poorly represents the retinal phenotype captured in R1-train: nyctalopia is reported in 1% versus 100%, and characteristic retinal imaging findings are absent. However, the older, predominantly ophthalmic R1 sample may represent CLN3-associated isolated retinal disease rather than classic juvenile neuronal ceroid lipofuscinosis."
+    },
+    {
+      "severity": "minor",
+      "issue": "Glaucoma in 17% appears overemphasized. Glaucoma and phthisis bulbi can occur as late ocular complications, but should be linked to advanced eye disease rather than sampled as ordinary adolescent features."
+    }
+  ],
+  "summary": "The adolescent age, balanced sex distribution, and core combination of visual decline, seizures, cognitive deterioration, and motor decline fit classic CLN3 disease. Excessive unrelated findings make the records implausible overall. Missing literature-panel data and aggregate visual-feature rates limit assessment of hallmark coverage."
+}
