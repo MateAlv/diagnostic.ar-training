@@ -3,7 +3,7 @@
 - **Front:** B
 - **Registered:** 2026-09-30, by Mateo Alvarez (approved 2026-09-30; written
   by the assistant)
-- **Status:** planned
+- **Status:** done (2026-09-30)
 
 ## Hypothesis
 On S3-test, rr-v1[neg=0.5] improves on E0+answers with CI lower bound > 0
@@ -86,7 +86,57 @@ The same as EXP-S3-001 (EVAL_PROTOCOL §8):
 - `genes-v1` weights are shared between the generator and the KB.
 
 ## Results
-(filled after running)
+- **Commits:** registered at PR #32 (99fd541). Step 0 results are in
+  0b1bae8; the sealed reads were run from 0b1bae8 (S3-test) and d4dcf67
+  (R1-test), both ledgered in `docs/TEST_LEDGER.md`.
+- **Files:** `results/EXP-B-003/`.
+
+**Step 0 (dev reproduction):** exact.
+
+| Run | Δ | 95% CI | Harmed |
+|---|---|---|---|
+| S3-dev | +0.0045 | [+0.0034, +0.0056] | 0.040 |
+| R1-dev, all view | −0.0067 | [−0.0235, +0.0051] | 0.116 |
+| R1-dev, present view | 0 | | |
+
+**Step 1: S3-test** (9,990 cases; 6.89 questions per case, 0.76 answered
+"yes" and 6.13 "no"):
+
+| System | MRR | Δ vs E0+answers | 95% CI (genes) | Harmed | Helped |
+|---|---|---|---|---|---|
+| E0-initial | 0.3204 | −0.0132 | | | |
+| E0+answers | 0.3336 | 0 | | | |
+| **rr-v1[neg=0.5]** | 0.3380 | **+0.0044** | **[+0.0032, +0.0057]** | **0.039** | 0.176 |
+
+**Step 2: R1-test** (2,548 patients; CI by publication):
+
+| View | MRR | Δ vs E0 | 95% CI | Harmed | Helped |
+|---|---|---|---|---|---|
+| present (excluded terms removed) | 0.3698 | **0 exactly** | | 0 | 0 |
+| **all** | 0.3674 | **−0.0025** | **[−0.0070, +0.0013]** | 0.090 | 0.063 |
+| all, the 1,897 with excluded terms (descriptive) | | −0.0033 | [−0.0086, +0.0019] | 0.121 | 0.085 |
 
 ## Verdict
-(filled after running)
+✅ **The gate passes.**
+
+| Check | Rule | Result |
+|---|---|---|
+| P1 | CI lower bound > 0 and harmed ≤ 0.05 | +0.0032 > 0, harmed 0.039 ✓ |
+| N1 | present view Δ exactly 0 | 0 ✓ |
+| N2 | CI upper bound ≥ 0 and point estimate ≥ −0.02 | +0.0013 ≥ 0 and −0.0025 ≥ −0.02 ✓ |
+
+**What this supports:**
+- rr-v1[neg=0.5] is a **release candidate**. On simulated patients
+  interviewed the way the app interviews, penalising genes that annotate
+  the patient's "no" answers gives a small, reliable gain: about +0.004
+  MRR, helping 17.6% of patients and harming 3.9%.
+- On real patients whose negations the authors chose to report, it causes
+  no significant harm.
+
+**What it does not support:**
+- a claim about the size of the benefit on real app users. S3 is
+  simulated, and its answers come from the simulator's truth.
+- sex, age or onset (EXP-S3-001 Addendum 1).
+
+**Next step:** deployment is Mateo's decision, through
+`diagnostic.ar-model`, with the negation input as an optional API field.
