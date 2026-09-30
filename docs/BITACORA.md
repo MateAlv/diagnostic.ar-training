@@ -1579,3 +1579,29 @@ the full dataset, one run with no crash; `results/realism/gate-v0.4-cand2.md`):
   - ADR-0011 amendment 4: candidate 3 uses `calib-v2` (uncited patients vs
     kb-v3), re-pilots r and s, and runs a train-side go/no-go before the
     last R1-dev read.
+
+### 2026-09-30 — pre-registration — Candidate 3 pilot rounds (ADR-0011 amendment 4)
+Written and committed before the first candidate 3 pilot run.
+- **calib-v2** (built above in this branch):
+  - population: 1,193 uncited R1-train patients, measured against kb-v3;
+  - category shares: explained 0.668, more specific 0.0929, related
+    (IC ≥ 2) 0.0822, weak (IC < 2) 0.1569;
+  - noise share: 0.2391 (related + weak);
+  - noise vocabulary: 295 related-or-weak terms seen in ≥ 2 patients.
+- **Generator:** rare-disease-simulator@ddb1ec1 (0.4.2), with candidate 2's
+  full profiles from the same commit and inputs.
+  - Calibration: `simcal-v04-v4`, plus `noise.vocabulary_path` → calib-v2's
+    vocabulary and `reporting.noise_share` 0.2391.
+- **Pilot shape:** the same 523-symbol list
+  (`outputs/cal/pilot-genes.txt`), 10 cases per gene, medium, seed 91001.
+- **Measure:** `scripts/analysis/dataset_term_categories.py --kb kb-v3
+  --targets data/calib/calib-v2.targets.json`, every record.
+- **Round 1:** r = 0.21, s = 0.3437 (calib-v2's related / (related + weak)
+  = 0.0822 / 0.2391, rounded to 4 decimals).
+- **Round 2 rule:** each knob is scaled by target / realized share of its
+  own category, capped to [0, 1], rounded to 4 decimals:
+  - r₂ = r₁ × 0.0929 / more-specific share;
+  - s₂ = s₁ × 0.0822 / related share.
+- **Selection:** the pair with the smallest summed absolute error over the
+  three categories is frozen as `simcal-v04-v5`.
+- **Not used:** R1-dev and E0.
