@@ -1,0 +1,66 @@
+{
+  "artifact_id": "age-durations-v1",
+  "kind": "simulator-calibration-keys",
+  "created_at": "2026-09-30T19:31:46+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "674e10550a2026da3719bfa13d79269fea6ee1b4",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "part": "train",
+    "statistic": "mean(age - onset) per onset category",
+    "category_rule": "the narrowest window holding the onset, closed ends, ties to the first listed",
+    "min_patients": 20,
+    "windows": {
+      "antenatal": [
+        0.0,
+        0.0
+      ],
+      "neonatal": [
+        0.0,
+        0.0767
+      ],
+      "infantile": [
+        0.0767,
+        1.0
+      ],
+      "childhood": [
+        1.0,
+        5.0
+      ],
+      "juvenile": [
+        5.0,
+        16.0
+      ],
+      "childhood_or_adolescent": [
+        1.0,
+        16.0
+      ],
+      "adult": [
+        16.0,
+        60.0
+      ],
+      "variable": [
+        0.0,
+        60.0
+      ]
+    }
+  },
+  "params_hash": "2982310d6c7891e3c5f3914aa727b2fa421b7bd2dc9e7ba40e40d0e0f8c9993d",
+  "outputs": [
+    {
+      "path": "data/calib/age-durations-v1.json",
+      "sha256": "2ff6246568443eb4e0cf0b1b4d0a7529106b4a52f9610cdb15672378d6fab43a",
+      "bytes": 2711
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
