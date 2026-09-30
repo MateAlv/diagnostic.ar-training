@@ -1257,3 +1257,12 @@ What they tell us:
     reference terms.
   - Recomputed G2e gaps: UP 0.414, V03 0.237, candidate 1 0.313. None
     passes.
+- **ADR-0011 amendment 3 (candidate 2 design, fixed before any candidate 2
+  number):**
+  - specialisation of reported terms (rate r);
+  - disease-related noise (share s of noise slots);
+  - noise share 0.348;
+  - r and s chosen in at most 2 declared pilot rounds against ANALYSIS-002's
+    R1-train term categories.
+- **Scoring and budget:** G2 runs on the full-profile dataset. This is
+  R1-dev read 2 of 3.
