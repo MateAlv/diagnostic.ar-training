@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Example 2 simultaneously reports partial and complete or near-complete absence of the tetanus vaccine response. Without distinct testing dates, these are incompatible severity categories and would teach erroneous antibody-response relationships."
+    },
+    {
+      "severity": "minor",
+      "issue": "Example 2 includes Pneumocystis pneumonia, which is atypical for predominantly antibody-deficient CVID and requires additional context suggesting impaired cellular immunity. Hyperuricosuria in example 1 is also unexplained."
+    },
+    {
+      "severity": "minor",
+      "issue": "Core diagnostic findings are underreported relative to R1-train: low IgG 0.51 versus 0.83, impaired conjugate-vaccine response 0.50 versus 0.83, and low IgA 0.34 versus 0.67. This weakens an otherwise recognizable antibody-deficiency phenotype."
+    }
+  ],
+  "summary": "The overall antibody-deficiency pattern is plausible, and childhood presentation and balanced sex distribution are defensible. However, contradictory vaccine-response findings create a major record-coherence problem. No literature panel is available to validate true prevalence."
+}

@@ -1,0 +1,14 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Hallmark features are severely underreported despite high simulated true rates: mesomelia 11%, brachydactyly 19%, hypertelorism 16%, rib fusion 5%, and hemivertebrae 12%, versus 86–100% in R1-train. This obscures the characteristic limb, facial, and vertebral pattern of recessive Robinow syndrome."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 2 mixes compatible Robinow findings with an implausible burden of unrelated abnormalities, including tubulointerstitial nephritis, secretory diarrhea, elevated parathyroid hormone, cerebral atrophy, reduced white matter, and atypical absence seizures. Example 1 includes severe intellectual disability, which is atypical because intelligence is usually normal. These records risk teaching misleading disease associations."
+    }
+  ],
+  "summary": "The simulated true rates of core features, balanced sex distribution, and pediatric age are plausible. However, excessive loss of diagnostic hallmarks from reported records and substantial atypical findings make the simulated patients clinically implausible."
+}

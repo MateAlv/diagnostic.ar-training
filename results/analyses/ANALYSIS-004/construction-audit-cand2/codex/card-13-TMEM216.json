@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "The characteristic retinal degeneration is inadequately represented: rod-cone dystrophy is absent from simulated true and reported phenotypes, while visual findings are largely nonspecific impairment or blindness. The gene-level R1 cohort may represent a different phenotype, and toddlers need not report nyctalopia, but these caveats do not explain omission of the underlying retinal disease."
+    },
+    {
+      "severity": "major",
+      "issue": "Example records contain unexplained findings such as angina pectoris, hemoptysis and irregular sperm-tail morphology. These are inappropriate routine features for this predominantly pediatric cerebro-oculo-renal syndrome and would teach misleading disease associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "Records are substantially denser than R1-train and include redundant intellectual-disability labels and multiple behavioral descriptors, diluting the characteristic neurologic, retinal and renal phenotype."
+    }
+  ],
+  "summary": "The early age, balanced sex distribution, developmental impairment, cerebellar abnormalities and renal disease are plausible. Missing explicit retinal degeneration and unrelated findings make the simulated cohort clinically implausible."
+}

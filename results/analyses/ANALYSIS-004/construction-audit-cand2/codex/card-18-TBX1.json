@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Core DiGeorge features are missing or severely underrepresented: velopharyngeal insufficiency and hypoparathyroidism have zero simulated rates despite reporting in 57% and 43% of R1-train patients. Thymic hypoplasia is only 4% true and never reported, and decreased T cells are absent. Occasional related findings in examples do not adequately restore this hallmark pattern."
+    },
+    {
+      "severity": "major",
+      "issue": "Universal cardiovascular abnormalities and 57% true tetralogy of Fallot make the phenotype excessively cardiac and overconcentrated on one heart defect. Conotruncal defects are characteristic, but these rates are implausibly high for an unselected DiGeorge population."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 1 combines characteristic findings with an excessive collection of atypical findings, including sclerocornea, rhizomelia, eunuchoid habitus and falx calcification. Example 3 adds hypometric saccades and severe intellectual disability without a recognizable DiGeorge hallmark pattern. These records would teach misleading disease associations."
+    }
+  ],
+  "summary": "Some cardiac, palatal and developmental findings are appropriate, and the sex balance and pediatric median age are plausible. However, missing endocrine and immune hallmarks, excessive cardiac penetrance and atypical example records make the simulated cohort implausible."
+}

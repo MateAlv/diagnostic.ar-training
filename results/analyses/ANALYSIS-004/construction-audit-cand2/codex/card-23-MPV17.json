@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Median simulated age 46.2 years is implausibly high for predominantly infantile or childhood hepatocerebral MPV17 disease, especially with true hepatic failure in 83% and cirrhosis in 86%. Adult neuropathic presentations exist but do not justify this combination of age and severe hepatic burden."
+    },
+    {
+      "severity": "major",
+      "issue": "Hallmark hepatic and metabolic findings are severely underreported: hepatic failure and cirrhosis each appear in only 9%, elevated transaminases in 6–8%, and hypoglycemia in 3%, versus R1-train rates of 33–53%. This teaches a predominantly neuromuscular presentation while hiding the defining hepatocerebral disease."
+    },
+    {
+      "severity": "minor",
+      "issue": "Examples contain distracting, noncharacteristic findings, particularly bicuspid aortic valve, pectus excavatum, and bulbous nose. Decreased pyruvate dehydrogenase complex activity is also an atypical biochemical emphasis for MPV17-related mtDNA depletion and needs specific support."
+    }
+  ],
+  "summary": "The sex balance is plausible, but the adult-heavy age distribution and suppression of hallmark liver disease make these simulated patients clinically misleading."
+}

@@ -1,0 +1,14 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Examples contain distracting, unsupported findings: fatty replacement of skeletal muscle, decreased liver function, abnormal libido, and rectal prolapse. 'Autism with high cognitive abilities' alongside intellectual disability is also discordant with this typically severe neurodevelopmental phenotype. These records could teach misleading disease associations."
+    },
+    {
+      "severity": "major",
+      "issue": "Core developmental impairment is underdocumented: global developmental delay is reported in only 39% despite 86% true prevalence and 82% reporting in R1-train. Sparse reporting of intellectual disability and absent speech further weakens the characteristic developmental and language phenotype."
+    }
+  ],
+  "summary": "The simulated developmental, gait, and behavioral features broadly fit, but reporting and example-record contamination are major concerns. The gene-level comparator appears to include ZSWIM6-related acromelic frontonasal dysostosis; absent bifid nose, facial clefts, lipomas, and polydactyly should not count against this distinct disease. Younger ages and the sex distribution are not inherently implausible."
+}

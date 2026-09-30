@@ -1,0 +1,22 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Seizures in 90% of simulated patients are implausibly frequent for Xia-Gibbs syndrome, where epilepsy affects a minority. This would teach an exaggerated association with epilepsy."
+    },
+    {
+      "severity": "major",
+      "issue": "Core features are severely underreported despite plausible true rates: hypotonia 14% versus 73% in R1-train, global developmental delay 28% versus 69%, and speech delay 31% versus 54%. Walking delay and intellectual disability are also underreported, weakening the characteristic developmental phenotype."
+    },
+    {
+      "severity": "major",
+      "issue": "Example records contain distracting, atypical findings: inappropriate antidiuretic hormone secretion, vestibular nerve aplasia, middle-ear aplasia/hypoplasia, and reduced natural killer cell count. The explicit attribution of hypotonia to a neuromuscular-junction defect is particularly misleading. Collectively, these records imply unrelated disease mechanisms and malformation patterns."
+    },
+    {
+      "severity": "minor",
+      "issue": "Generic terms such as 'Abnormality of the head' are disproportionately prominent, while recognizable associated findings such as short stature, scoliosis, and facial features are almost absent from reported records."
+    }
+  ],
+  "summary": "Age and sex distributions are plausible, but excessive true seizure prevalence, suppressed reporting of hallmark developmental features, and atypical example findings make the simulated cohort clinically implausible."
+}

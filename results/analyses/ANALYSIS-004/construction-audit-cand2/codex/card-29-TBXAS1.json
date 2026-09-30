@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Defining skeletal features are absent from simulated biology: increased long-bone density is 0% and cortical thickening 2%, versus 92% and 83% reported in R1-train. Diaphyseal undertubulation alone does not capture this sclerosing bone dysplasia."
+    },
+    {
+      "severity": "major",
+      "issue": "Hallmark findings are substantially underreported: anemia 44%, diaphyseal undertubulation 43%, diaphyseal dysplasia 9%, and thrombocytopenia 7%, versus 83%, 92%, 83%, and 58% in R1-train. This weakens the characteristic combination of skeletal disease and cytopenias."
+    },
+    {
+      "severity": "major",
+      "issue": "Generic skeletal and immune terms displace diagnostic findings, while examples introduce misleading phenotypes. Record 1 suggests a dysmorphic developmental syndrome; record 2 includes myeloid leukemia without characteristic sclerosis or anemia; record 3 includes cleft palate and increased nuchal translucency. These are not established defining features of TBXAS1 disease and collectively create substantial diagnostic noise."
+    }
+  ],
+  "summary": "Age and sex distributions are plausible, but missing osteosclerosis and cortical thickening, weak hallmark reporting, and unrelated example findings make the simulated patients clinically implausible."
+}
