@@ -1,0 +1,187 @@
+{
+ "at_best": {
+  "r1_dev_age": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_all": {
+   "ci95": [
+    -0.33059832437365494,
+    -0.22322765509727913
+   ],
+   "delta": -0.27876752936991583,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.6346255974508762,
+   "helped": 0.10674455655868295,
+   "mrr": 0.16970770308555733,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.1290493892724376,
+   "top10": 0.2549123738714817,
+   "unrankable": 203
+  },
+  "r1_dev_excluded": {
+   "ci95": [
+    -0.33059832437365494,
+    -0.22322765509727913
+   ],
+   "delta": -0.27876752936991583,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.6346255974508762,
+   "helped": 0.10674455655868295,
+   "mrr": 0.16970770308555733,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.1290493892724376,
+   "top10": 0.2549123738714817,
+   "unrankable": 203
+  },
+  "r1_dev_present": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_sex": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "s2": {
+   "ci95": [
+    -2.3731728941887766e-08,
+    0.0
+   ],
+   "delta": -7.910576313962588e-09,
+   "e0_mrr": 0.8116979580150323,
+   "harmed": 0.00019127773527161438,
+   "helped": 0.0,
+   "mrr": 0.811697950104456,
+   "n": 5228,
+   "resample_unit": "case",
+   "top1": 0.7511476664116297,
+   "top10": 0.9261667941851568,
+   "unrankable": 0
+  },
+  "s3_dev_all": {
+   "ci95": [
+    0.06733396191401396,
+    0.08385486210987753
+   ],
+   "delta": 0.0756031102879711,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.22566111655239962,
+   "helped": 0.5362389813907933,
+   "mrr": 0.40540968218672985,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.3303623898139079,
+   "top10": 0.5537708129285015,
+   "unrankable": 0
+  },
+  "s3_dev_present": {
+   "ci95": [
+    -3.362492516575222e-07,
+    5.792517247863039e-07
+   ],
+   "delta": 8.080784556749933e-08,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.0004897159647404506,
+   "helped": 0.0006856023506366307,
+   "mrr": 0.32980665270660425,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.2753183153770813,
+   "top10": 0.43712047012732613,
+   "unrankable": 0
+  }
+ },
+ "best_epoch": 1,
+ "best_epoch_reloaded": 1,
+ "best_sim_val_mrr": 0.2659231149434014,
+ "checkpoints": {
+  "best.pt": 11252444,
+  "last.pt": 33756153
+ },
+ "checks": {
+  "base_unchanged": true,
+  "best_base_unchanged": true,
+  "best_positive_types_closed": true,
+  "pass": true,
+  "positive_types_closed": true,
+  "present_only_logits_bit_identical_cpu": {
+   "r1_dev": {
+    "cases": 1883,
+    "identical": 1883,
+    "max_abs_diff": 0.0,
+    "scorable": 1883
+   },
+   "s2": {
+    "cases": 5228,
+    "identical": 5228,
+    "max_abs_diff": 0.0,
+    "scorable": 5228
+   }
+  },
+  "r1_dev_present_ranks_changed_vs_exp000": 0,
+  "s2_ranks_changed_vs_exp000_onnx": 1,
+  "s2_ranks_changed_vs_untrained": 0
+ },
+ "epoch_views": [
+  "present",
+  "excluded"
+ ],
+ "epochs_run": 4,
+ "flags": {
+  "simval_up_r1dev_down_at_best": true,
+  "simval_up_r1dev_down_epochs": [
+   1
+  ],
+  "view": "excluded"
+ },
+ "max_gpu_memory_gb": 1.813228544,
+ "sim_val_at_best": {
+  "loss": 6.823898596266296,
+  "mrr": 0.2659231149434014,
+  "n": 20864,
+  "top1": 0.20024923312883436,
+  "top10": 0.3940759202453988,
+  "unscorable": 0
+ },
+ "steps": 1568,
+ "stopped_early": true,
+ "wall_seconds": 167.5196462840031
+}

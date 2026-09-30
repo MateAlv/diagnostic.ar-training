@@ -1,0 +1,137 @@
+{
+  "artifact_id": "results-EXP-A-003f-a003f-c4-cov64-lr1e-4-s0",
+  "kind": "gnn-frozen-base-run",
+  "created_at": "2026-09-29T20:58:59+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "241acc26834f733c98f41c2e5830cb169e5fc7dc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-iv-v1",
+      "sha256": "1eae74542918cf28138a86818adbccd6878865c3360d2e03b7aa8d50d7705d7b"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:s3-v1-dev-interviews-kb-v5-c10-q7",
+      "sha256": "c4dccbcb9c2541cb5061173f162d89fa5ebfa6fd3f567d3df9af536b22facdc9"
+    },
+    {
+      "id": "results:EXP-000/r1-v1-dev__genphenia-v3.0__present.ranks.jsonl",
+      "sha256": "4702d7cf7d7bccca4e17a3201b943321b76f51c60b6af3189e997255b5f6e417"
+    },
+    {
+      "id": "results:EXP-000/s2__genphenia-v3.0__all.ranks.jsonl",
+      "sha256": "c220b86e1cfb9eb2c81ad833892e4b90136a6595179958c322dab6e837a0b720"
+    },
+    {
+      "id": "results:EXP-S3-001/s3-v1-dev__E0+answers__interviewed.ranks.jsonl",
+      "sha256": "bd444dae128675b77376b4bf5a9aa05c19c088e8ef725a3dad87d2d28b0417ad"
+    }
+  ],
+  "params": {
+    "lr_base": 0.0,
+    "lr_new": 0.0001,
+    "weight_decay": 0.0005,
+    "batch_size": 256,
+    "max_epochs": 15,
+    "patience": 3,
+    "min_delta": 0.0001,
+    "warmup_steps": 200,
+    "min_lr_ratio": 0.1,
+    "clip_norm": 1.0,
+    "bn": "train",
+    "amp": false,
+    "seed": 0,
+    "negated": false,
+    "covariates": true,
+    "neg_readout": false,
+    "cov_hidden": 64,
+    "frozen_base": true,
+    "num_workers": 6,
+    "eval_batch_size": 1024,
+    "max_train_cases": null,
+    "exp": "EXP-A-003f",
+    "run_id": "a003f-c4-cov64-lr1e-4-s0",
+    "design": "cov",
+    "device": "cuda"
+  },
+  "params_hash": "357d06a145c4742e7b4a0880417a307ce66b7219ca4876eb322d7f126876f8e4",
+  "outputs": [
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/curves.json",
+      "sha256": "eb2ba0162de84a88bc974cfa20fc64b1985af6a57cc9f2f0c92494eace36d126",
+      "bytes": 37984
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/run.json",
+      "sha256": "7cedeca2021af5d39af0f823761b660ce7839a9da4402901b1df818df95d8460",
+      "bytes": 1401
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/r1-v1-dev.age.ranks.jsonl",
+      "sha256": "3b314128f7c04eef5b6a00f84dba9d9f03c9a3b7d1b669cb6f90e80a3c9015ed",
+      "bytes": 153434
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/r1-v1-dev.all.ranks.jsonl",
+      "sha256": "5a255a8ba6f37e3d87eac683e3f8592f24c736b4182643d99f8311bf08d0c224",
+      "bytes": 153797
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/r1-v1-dev.excluded.ranks.jsonl",
+      "sha256": "440d65ddd245aba37e899bfe5f4a92f0e6796e1bb25e800e44c919f3daef6b83",
+      "bytes": 152513
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/r1-v1-dev.present.ranks.jsonl",
+      "sha256": "440d65ddd245aba37e899bfe5f4a92f0e6796e1bb25e800e44c919f3daef6b83",
+      "bytes": 152513
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/r1-v1-dev.sex.ranks.jsonl",
+      "sha256": "3f459b5745b774cbfdefecede1a3197c8ff0fb013d0251848555d58037e90900",
+      "bytes": 153062
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/s2.ranks.jsonl",
+      "sha256": "50892e3613c690f14a5a1a5d284a23ea767857ec43975a1f22450f3b8ba0bdec",
+      "bytes": 283226
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/s3-v1-dev.all.ranks.jsonl",
+      "sha256": "e9bdbef005ffacba8a6938210a3bf64d7a2df93ec4423f59fff6232d5106307f",
+      "bytes": 896966
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/s3-v1-dev.present.ranks.jsonl",
+      "sha256": "5276ed6e64a8bff96cdc81e3361aca77f2b5fd52909b087a307c514a390a0f60",
+      "bytes": 901723
+    },
+    {
+      "path": "results/EXP-A-003f/a003f-c4-cov64-lr1e-4-s0/summary.json",
+      "sha256": "be867d2762344dd14c8f907ae722686ca7fa8e0e12c831e367917fbbc4f80883",
+      "bytes": 4166
+    },
+    {
+      "path": "data/interim/models/a003f-c4-cov64-lr1e-4-s0/best.pt",
+      "sha256": "29946a155ae17ff2196590156c39cd8f97d6bcda23570e215242b69c46992651",
+      "bytes": 1373162
+    },
+    {
+      "path": "data/interim/models/a003f-c4-cov64-lr1e-4-s0/last.pt",
+      "sha256": "395cd0a8adc0957c61c69082395066cbd68e96c68d8bf3574292afcd49681662",
+      "bytes": 4088497
+    }
+  ],
+  "notes": "v3.0 frozen (ADR-0010); checkpoints hold the new tensors only and stay local.",
+  "release": ""
+}

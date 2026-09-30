@@ -1,0 +1,193 @@
+{
+ "at_best": {
+  "r1_dev_age": {
+   "ci95": [
+    -0.2652894349292742,
+    -0.1609021250458335
+   ],
+   "delta": -0.21603353803459618,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.556558682952735,
+   "helped": 0.10674455655868295,
+   "mrr": 0.23244169442087692,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.17843866171003717,
+   "top10": 0.3467870419543282,
+   "unrankable": 203
+  },
+  "r1_dev_all": {
+   "ci95": [
+    -0.280477375359734,
+    -0.1775916415663378
+   ],
+   "delta": -0.2309999695155882,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5932023366967605,
+   "helped": 0.10621348911311737,
+   "mrr": 0.21747526293988498,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.1651619755708975,
+   "top10": 0.330323951141795,
+   "unrankable": 203
+  },
+  "r1_dev_excluded": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_present": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_sex": {
+   "ci95": [
+    -0.2724823510258889,
+    -0.1648721030920114
+   ],
+   "delta": -0.22145387348021278,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5634625597450876,
+   "helped": 0.10674455655868295,
+   "mrr": 0.22702135897526038,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.1688794476898566,
+   "top10": 0.34572490706319703,
+   "unrankable": 203
+  },
+  "s2": {
+   "ci95": [
+    -2.3731728941887766e-08,
+    0.0
+   ],
+   "delta": -7.910576313962588e-09,
+   "e0_mrr": 0.8116979580150323,
+   "harmed": 0.00019127773527161438,
+   "helped": 0.0,
+   "mrr": 0.811697950104456,
+   "n": 5228,
+   "resample_unit": "case",
+   "top1": 0.7511476664116297,
+   "top10": 0.9261667941851568,
+   "unrankable": 0
+  },
+  "s3_dev_all": {
+   "ci95": [
+    0.12001140862689375,
+    0.13732372321291247
+   ],
+   "delta": 0.12854848613068784,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.1791380999020568,
+   "helped": 0.5659157688540647,
+   "mrr": 0.45835505802944654,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.377179236043095,
+   "top10": 0.6179236043095004,
+   "unrankable": 0
+  },
+  "s3_dev_present": {
+   "ci95": [
+    -3.342629342863174e-07,
+    5.811742798052197e-07
+   ],
+   "delta": 8.281089593617111e-08,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.0003917727717923604,
+   "helped": 0.0005876591576885406,
+   "mrr": 0.32980665470965465,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.2753183153770813,
+   "top10": 0.43712047012732613,
+   "unrankable": 0
+  }
+ },
+ "best_epoch": 12,
+ "best_epoch_reloaded": 12,
+ "best_sim_val_mrr": 0.30964194903331244,
+ "checkpoints": {
+  "best.pt": 352682,
+  "last.pt": 1027057
+ },
+ "checks": {
+  "base_unchanged": true,
+  "best_base_unchanged": true,
+  "best_positive_types_closed": true,
+  "pass": true,
+  "positive_types_closed": true,
+  "present_only_logits_bit_identical_cpu": {
+   "r1_dev": {
+    "cases": 1883,
+    "identical": 1883,
+    "max_abs_diff": 0.0,
+    "scorable": 1883
+   },
+   "s2": {
+    "cases": 5228,
+    "identical": 5228,
+    "max_abs_diff": 0.0,
+    "scorable": 5228
+   }
+  },
+  "r1_dev_present_ranks_changed_vs_exp000": 0,
+  "s2_ranks_changed_vs_exp000_onnx": 1,
+  "s2_ranks_changed_vs_untrained": 0
+ },
+ "epoch_views": [
+  "present",
+  "sex",
+  "age",
+  "all"
+ ],
+ "epochs_run": 15,
+ "flags": {
+  "simval_up_r1dev_down_at_best": true,
+  "simval_up_r1dev_down_epochs": [
+   1,
+   3,
+   5,
+   9,
+   14
+  ],
+  "view": "all"
+ },
+ "max_gpu_memory_gb": 1.600296448,
+ "sim_val_at_best": {
+  "loss": 13.201625613347153,
+  "mrr": 0.30964194903331244,
+  "n": 20864,
+  "top1": 0.23945552147239263,
+  "top10": 0.4474213957055215,
+  "unscorable": 0
+ },
+ "steps": 5880,
+ "stopped_early": false,
+ "wall_seconds": 378.65799867299995
+}

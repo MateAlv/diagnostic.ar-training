@@ -1,0 +1,121 @@
+{
+  "artifact_id": "ds-sim0.3.1-A-iv-v1",
+  "kind": "interviewed-training-dataset",
+  "created_at": "2026-09-29T20:20:06+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5e5e1ff4cee74c4ce723f8f9f574971e113a8733",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001-excl-v1",
+      "sha256": "9755152a50ed55adc688e8231c7e7026ac52b5dc3d0995db0fa104b9353b065d"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "split:r1-v1 (all parts, keys only)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "artifact:s3-v1-dev-interviews-kb-v5-c10-q7",
+      "sha256": "c4dccbcb9c2541cb5061173f162d89fa5ebfa6fd3f567d3df9af536b22facdc9"
+    }
+  ],
+  "params": {
+    "source": "ds-sim0.3.1-A-n100-s1001",
+    "exclusion": "ds-sim0.3.1-A-n100-s1001-excl-v1",
+    "selection": "per (split, gene): the k smallest sha256(salt:case_id), after the exclusion",
+    "salt": "diagnostic.ar-training/ds-sim0.3.1-A-iv-v1",
+    "per_gene": {
+      "train": 20,
+      "val": 5
+    },
+    "kb": "kb-v5",
+    "kb_heldout_annotations_dropped": "annot-split-v1",
+    "questioner": "eval.s3_run.interview_cases (E0 = production ONNX, as S3)",
+    "initial_presentation": "reported present + sex/age/onset; the simulator's excluded terms dropped",
+    "n_candidates": 10,
+    "n_questions": 7,
+    "cases": {
+      "train": 100217,
+      "val": 20864
+    },
+    "stats": {
+      "train": {
+        "cases": 100217,
+        "genes": 5011,
+        "questions_per_case": 6.965554746200745,
+        "yes_per_case": 0.49221190017661676,
+        "no_per_case": 6.473342846024128,
+        "cases_without_questions": 466,
+        "cases_with_excluded": 99532,
+        "present_per_case": 8.920532444595228,
+        "e0_mrr_initial": 0.16681319049752083,
+        "e0_mrr_answers": 0.17552407331955028
+      },
+      "val": {
+        "cases": 20864,
+        "genes": 4975,
+        "questions_per_case": 6.975364263803681,
+        "yes_per_case": 0.49980828220858897,
+        "no_per_case": 6.475555981595092,
+        "cases_without_questions": 68,
+        "cases_with_excluded": 20752,
+        "present_per_case": 8.916794478527608,
+        "e0_mrr_initial": 0.16686182141802788,
+        "e0_mrr_answers": 0.1758712787186644
+      }
+    },
+    "contamination": {
+      "key": "(gene upper-cased, present set after the interview)",
+      "overlap_before_drop": {
+        "r1-v1 (all parts, keys only)": 0,
+        "s3-data-v1 (raw presentations, all cases)": 3,
+        "s3-v1/dev interviewed": 2
+      },
+      "dropped_case_ids": [
+        "synthetic-gene-CRYAA-medium-000036",
+        "synthetic-gene-XKRY-medium-000062",
+        "synthetic-gene-ZNF141-medium-000076"
+      ],
+      "residual": {
+        "r1-v1 (all parts, keys only)": 0,
+        "s3-data-v1 (raw presentations, all cases)": 0,
+        "s3-v1/dev interviewed": 0
+      }
+    },
+    "residual_overlap": 0,
+    "timing": {
+      "workers": 14,
+      "select_seconds": 5.118903986000078,
+      "interview_seconds": 332.1767283010013
+    },
+    "sha256": "1eae74542918cf28138a86818adbccd6878865c3360d2e03b7aa8d50d7705d7b"
+  },
+  "params_hash": "4e71240ed8fb8ff4b072dd916791f3b1791f8862e8fabc4429040755beb44a06",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/ds-sim0.3.1-A-iv-v1/ds-sim0.3.1-A-iv-v1.jsonl.gz",
+      "sha256": "1eae74542918cf28138a86818adbccd6878865c3360d2e03b7aa8d50d7705d7b",
+      "bytes": 7652013
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

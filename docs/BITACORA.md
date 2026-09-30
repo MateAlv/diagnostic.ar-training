@@ -917,3 +917,56 @@ What they tell us:
   with the same-simulator caveat.
 - **The ladder becomes** A-002f (negation), A-003f (covariates), A-004f
   (both). The PLAN keeps the original table for planned vs actual.
+
+### 2026-09-29/30 — EXP-A-002f, EXP-A-003f, EXP-A-004f — Frozen-base Front A: learned from simulated patients, harmful on real ones
+- **Front / versions:** A (ADR-0010, v3.0 frozen). PR #14.
+  - Interviewed training set `ds-sim0.3.1-A-iv-v1`: 100,217 cases
+    interviewed like S3.
+  - Pre-registrations committed before any run (`7eb5686`, `241acc2`).
+  - Run from `7eb5686`, `241acc2` and `5f1f3f0` (same code); every
+    manifest verifies.
+- **EXP-A-002f (negation):** ❌ no candidate.
+  - The `neg` design never beat the untrained model on sim-val, so early
+    stopping kept exactly E0.
+  - `neg2` gives S3-dev +0.057 to +0.093, but harms 10–23% of S3
+    patients, and on R1-dev "+excluded" −0.14 to −0.28.
+  - "Not a candidate" seeds: S3 +0.0902 ± 0.0020, R1 −0.2539 ± 0.0006.
+  - **Shuffled-negation control:** with another patient's "no" answers,
+    S3 keeps +0.0775 of +0.0925. The model mostly learned "has negated
+    answers", not their content.
+- **EXP-A-003f (sex/age/onset):** ❌ no candidate.
+  - R1-dev "all" −0.21 to −0.23 in all 6 configurations, harmed 55–60%;
+    sex −0.07 to −0.22, age −0.16 to −0.22.
+  - "Not a candidate" seeds: **−0.2074 ± 0.0028**.
+  - S3 +0.10 to +0.13 (circular for covariates).
+- **EXP-A-004f:** not run, by ADR-0010's own rule. It combines selected
+  configurations, and there are none.
+- **Conclusion for Front A:**
+  - **Three pre-registered experiments** (A-001, A-002f, A-003f) show that
+    learning from our simulated patients improves simulated evaluation and
+    hurts real patients.
+  - The simulator matches the calibrated *statistics*, but not the real
+    *relationships* between phenotypes, negations, sex/age and genes.
+  - The one new-input method that survives the harm cap is Front B's
+    knowledge-based denied-finding penalty (EXP-S3-001).
+- **Process:**
+  - **Graceful stop (2026-09-29).** My stop message could not reach the
+    agent inside its batch loop. I stopped its two queue scripts (SIGTERM)
+    and their runs (SIGINT), by exact PID after one over-broad `pkill`.
+    Nothing was lost: completed runs kept their manifests, and interrupted
+    ones left no outputs.
+  - **Recovery (2026-09-30):**
+    - committed the agent's A-002f results;
+    - re-ran the interrupted A-003f configurations under the same ids;
+    - finished the grid and the seeds.
+  - **Slip:** I ran the A-001 `gnn report` command on A-003f, which
+    overwrote `report.json` with the wrong schema. It was restored from git
+    at once, and the right command is `gnn report-frozen`.
+  - A pre-push hook run from a worktree tests the main checkout's code
+    unless `PYTHONPATH` points at the worktree. It failed a push once; this
+    is noted for future agents.
+- **Evidence for the informe:**
+  - §14: the three Front A tables, plus the shuffled control.
+  - §16: "synthetic data calibrated to real statistics still teaches
+    relationships that don't hold on real patients", and the
+    graceful-stop/recovery procedure.

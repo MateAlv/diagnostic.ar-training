@@ -608,7 +608,7 @@ for Front A. This is tested.
 | **1A. Simulator v0.2** | 10-01 → 10-14 | A1 + A2 + `validate` + tests; tag `sim-v0.2.0`; masked dataset + manifest | `validate` report + dataset card |
 | **2A. GNN stack** | 10-09 → 10-16 | `GinV3` + parity (A-000), dataloader, training loop, ONNX export | A-000 == E0 |
 | **2B. Re-ranker v2** | 10-09 → 10-18 | Learned re-ranker on R1-train + sim; selection on dev | EXP-B-00x |
-| **3A. Retraining ladder** | 10-15 → 10-30 | A-001 … A-007 on the local GPU | Ladder table in `BITACORA.md` |
+| **3A. Retraining ladder** | 09-29 → 09-30 ✅ | A-001 (full fine-tune), A-002f, A-003f (frozen, ADR-0010): all fail on real patients; A-004f not run | Tables in `EXP-A-*.md` |
 | **4. Gates + vault** | 10-30 → 11-03 | One pre-registered test read per front's best candidate (and A+B combined); the release decision; the **vault** opened once for the final numbers of the chosen system vs E0 | Release + CHANGELOG + ledger |
 | **5. Integration + evidence** | 11-03 → 11-07 | Optional API fields, frontend inputs (with the web and NLP axes); informe evidence pack | Staging demo; evidence index |
 

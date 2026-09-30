@@ -11,7 +11,7 @@ torch = pytest.importorskip("torch")
 from diagnostic_ar_training.cohorts.schema import Case  # noqa: E402
 from diagnostic_ar_training.gnn import data, experiment, graphs  # noqa: E402
 from diagnostic_ar_training.gnn import train as training  # noqa: E402
-from diagnostic_ar_training.gnn.model import GinV3, is_new_parameter  # noqa: E402
+from diagnostic_ar_training.gnn.model import GinV3, GinV3Extended, is_new_parameter  # noqa: E402
 from diagnostic_ar_training.systems.genphenia_v3 import HpoDag, V3Inputs  # noqa: E402
 
 PARENTS = {"A": [], "B": ["A"], "C": ["B"], "D": ["B"], "E": ["A"], "F": ["E"], "G": ["C", "E"]}
@@ -235,3 +235,115 @@ def test_flags():
     assert f["s2_forgetting_at_best"] and f["s2_forgetting_epochs"] == [2]
     assert not f["no_regression_pass"]
     assert experiment.flags(history, best_epoch=1)["no_regression_pass"]
+
+
+FROZEN_DESIGNS = [
+    {"negated": True},
+    {"negated": True, "neg_readout": True},
+    {"covariates": True},
+    {"negated": True, "neg_readout": True, "covariates": True},
+]
+
+
+def frozen_cfg(**design):
+    return training.TrainConfig(
+        lr_base=0.0,
+        lr_new=5e-2,
+        frozen_base=True,
+        batch_size=4,
+        max_epochs=4,
+        patience=4,
+        warmup_steps=2,
+        num_workers=0,
+        eval_batch_size=8,
+        cov_hidden=8,
+        **design,
+    )
+
+
+def present_only_logits(model, inputs, cases, extended: bool) -> list:
+    out = []
+    with torch.inference_mode():
+        for case in cases:
+            plain = case.model_copy(
+                update={"excluded": (), "sex": "unknown", "age_years": None, "onset_years": None}
+            )
+            g, _ = graphs.case_graph(inputs, plain, negated=extended)
+            x, e = torch.from_numpy(g.x), torch.from_numpy(g.edge_index)
+            if extended:
+                cov = torch.from_numpy(g.covariates)[None] if model.cov_mlp is not None else None
+                out.append(model(x, e, torch.from_numpy(g.node_type), cov))
+            else:
+                out.append(model(x, e))
+    return out
+
+
+def test_frozen_base_config_trains_only_new_parameters():
+    with pytest.raises(ValueError):
+        training.TrainConfig(lr_base=1e-5, lr_new=1e-3, frozen_base=True, negated=True)
+    with pytest.raises(ValueError):
+        training.TrainConfig(lr_base=0.0, lr_new=0.0, frozen_base=True, negated=True)
+    with pytest.raises(ValueError):
+        training.TrainConfig(lr_base=0.0, lr_new=1e-3, frozen_base=True)
+    model = training.build_model(tiny_model(), frozen_cfg(covariates=True))
+    trainable = {n for n, p in model.named_parameters() if p.requires_grad}
+    assert trainable and all(n.startswith("cov_") for n in trainable)
+    groups = training.param_groups(model, frozen_cfg(covariates=True))
+    assert [(g["name"], g["lr"]) for g in groups] == [("new", 5e-2)]
+
+
+@pytest.mark.parametrize("design", FROZEN_DESIGNS)
+def test_frozen_base_learns_yet_present_only_stays_bit_identical_to_v3(inputs, export, tmp_path, design):
+    splits, _ = data.read_export(export)
+    cfg = frozen_cfg(**design)
+    base = tiny_model()
+    table = torch.from_numpy(data.embedding_table(inputs))
+    model = training.build_model(base, cfg)
+    start = {k: v.clone() for k, v in model.state_dict().items()}
+    cases = [c.to_case() for c in splits["val"]]
+    reference = present_only_logits(base, inputs, cases, extended=False)
+    assert all(
+        torch.equal(a, b)
+        for a, b in zip(present_only_logits(model, inputs, cases, True), reference, strict=True)
+    )
+
+    val = data.SimGraphs(inputs, splits["val"], negated=cfg.negated)
+    result = training.train(
+        model,
+        cfg,
+        data.SimGraphs(inputs, splits["train"], negated=cfg.negated),
+        table,
+        torch.device("cpu"),
+        lambda m, epoch: {"sim_val": training.evaluate_sim(m, val, table, torch.device("cpu"), cfg)},
+        tmp_path / "ckpt",
+    )
+    after = model.state_dict()
+    assert any(not torch.equal(after[k], start[k]) for k in start if is_new_parameter(k))
+    assert training.base_unchanged(model, base)
+    assert training.positive_types_closed(model)
+    assert not model.training
+    # With the new inputs the model has moved; without them it is still v3.0, bit for bit.
+    assert all(
+        torch.equal(a, b)
+        for a, b in zip(present_only_logits(model, inputs, cases, True), reference, strict=True)
+    )
+    assert result["history"][-1]["train"]["loss"] < result["history"][1]["train"]["loss"]
+
+    saved = torch.load(tmp_path / "ckpt" / "last.pt", weights_only=True)
+    assert saved["model"] and all(is_new_parameter(k) for k in saved["model"])
+    fresh = training.build_model(tiny_model(), cfg)
+    assert training.load_checkpoint(fresh, tmp_path / "ckpt" / "last.pt") == result["epochs_run"]
+    assert all(torch.equal(v, after[k]) for k, v in fresh.state_dict().items())
+
+
+def test_neutral_covariates_add_exactly_zero_at_any_weights():
+    model = GinV3Extended.from_v3(tiny_model(), covariates=True, cov_neutral_zero=True, cov_hidden=8).eval()
+    with torch.no_grad():
+        model.cov_classifier.weight.normal_()
+    neutral = torch.from_numpy(graphs.NEUTRAL_COVARIATES)[None]
+    known = torch.tensor([[0, 1, 0, 1.0, 1, 0, 0]])
+    x, e = torch.randn(2, 4), torch.tensor([[0], [1]])
+    types = torch.tensor([graphs.NODE_OBSERVED, graphs.NODE_ANCESTOR])
+    with torch.inference_mode():
+        assert torch.equal(model(x, e, types, neutral), tiny_model()(x, e))
+        assert not torch.equal(model(x, e, types, known), tiny_model()(x, e))

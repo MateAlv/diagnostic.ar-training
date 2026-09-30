@@ -1,0 +1,189 @@
+{
+ "at_best": {
+  "r1_dev_age": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_all": {
+   "ci95": [
+    -0.3048391932838535,
+    -0.1951822618335719
+   ],
+   "delta": -0.2531146857563429,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5916091343600637,
+   "helped": 0.12214551248008497,
+   "mrr": 0.19536054669913028,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.15135422198619225,
+   "top10": 0.27137546468401486,
+   "unrankable": 203
+  },
+  "r1_dev_excluded": {
+   "ci95": [
+    -0.3048391932838535,
+    -0.1951822618335719
+   ],
+   "delta": -0.2531146857563429,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5916091343600637,
+   "helped": 0.12214551248008497,
+   "mrr": 0.19536054669913028,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.15135422198619225,
+   "top10": 0.27137546468401486,
+   "unrankable": 203
+  },
+  "r1_dev_present": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_sex": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "s2": {
+   "ci95": [
+    -2.3731728941887766e-08,
+    0.0
+   ],
+   "delta": -7.910576313962588e-09,
+   "e0_mrr": 0.8116979580150323,
+   "harmed": 0.00019127773527161438,
+   "helped": 0.0,
+   "mrr": 0.811697950104456,
+   "n": 5228,
+   "resample_unit": "case",
+   "top1": 0.7511476664116297,
+   "top10": 0.9261667941851568,
+   "unrankable": 0
+  },
+  "s3_dev_all": {
+   "ci95": [
+    0.08121520097126357,
+    0.09657983849791212
+   ],
+   "delta": 0.08892972706781661,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.18560235063663075,
+   "helped": 0.559745347698335,
+   "mrr": 0.4187362989665752,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.34603330068560234,
+   "top10": 0.5653281096963761,
+   "unrankable": 0
+  },
+  "s3_dev_present": {
+   "ci95": [
+    -3.362492516575222e-07,
+    5.792517247863039e-07
+   ],
+   "delta": 8.080784556749933e-08,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.0004897159647404506,
+   "helped": 0.0006856023506366307,
+   "mrr": 0.32980665270660425,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.2753183153770813,
+   "top10": 0.43712047012732613,
+   "unrankable": 0
+  }
+ },
+ "best_epoch": 3,
+ "best_epoch_reloaded": 3,
+ "best_sim_val_mrr": 0.2715230608453725,
+ "checkpoints": {
+  "best.pt": 11252444,
+  "last.pt": 33756153
+ },
+ "checks": {
+  "base_unchanged": true,
+  "best_base_unchanged": true,
+  "best_positive_types_closed": true,
+  "pass": true,
+  "positive_types_closed": true,
+  "present_only_logits_bit_identical_cpu": {
+   "r1_dev": {
+    "cases": 1883,
+    "identical": 1883,
+    "max_abs_diff": 0.0,
+    "scorable": 1883
+   },
+   "s2": {
+    "cases": 5228,
+    "identical": 5228,
+    "max_abs_diff": 0.0,
+    "scorable": 5228
+   }
+  },
+  "r1_dev_present_ranks_changed_vs_exp000": 0,
+  "s2_ranks_changed_vs_exp000_onnx": 1,
+  "s2_ranks_changed_vs_untrained": 0
+ },
+ "epoch_views": [
+  "present",
+  "excluded"
+ ],
+ "epochs_run": 6,
+ "flags": {
+  "simval_up_r1dev_down_at_best": true,
+  "simval_up_r1dev_down_epochs": [
+   1,
+   2,
+   3
+  ],
+  "view": "excluded"
+ },
+ "max_gpu_memory_gb": 1.81462016,
+ "sim_val_at_best": {
+  "loss": 7.497567639029099,
+  "mrr": 0.2715230608453725,
+  "n": 20864,
+  "top1": 0.20882860429447853,
+  "top10": 0.3920628834355828,
+  "unscorable": 0
+ },
+ "steps": 2352,
+ "stopped_early": true,
+ "wall_seconds": 305.3382894030001
+}
