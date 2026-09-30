@@ -1,0 +1,2781 @@
+{
+ "focus": {
+  "OMIM:142900": {
+   "of_which_recount_rows": 25,
+   "phenotype_rows": 98,
+   "rows_after_recount": 46,
+   "rows_left_by_whole_row_masking": 21
+  },
+  "OMIM:162000": {
+   "of_which_recount_rows": 17,
+   "phenotype_rows": 33,
+   "rows_after_recount": 20,
+   "rows_left_by_whole_row_masking": 3
+  },
+  "OMIM:615471": {
+   "of_which_recount_rows": 56,
+   "phenotype_rows": 113,
+   "rows_after_recount": 82,
+   "rows_left_by_whole_row_masking": 26
+  }
+ },
+ "per_disease": {
+  "OMIM:105200": {
+   "dropped": 1,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:105650": {
+   "dropped": 15,
+   "kept": 46,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:117360": {
+   "dropped": 56,
+   "kept": 38,
+   "recount_rows": 47,
+   "recounted": 47
+  },
+  "OMIM:121050": {
+   "dropped": 1,
+   "kept": 33,
+   "recount_rows": 17,
+   "recounted": 17
+  },
+  "OMIM:122470": {
+   "dropped": 21,
+   "kept": 55,
+   "recount_rows": 53,
+   "recounted": 53
+  },
+  "OMIM:123000": {
+   "dropped": 48,
+   "kept": 13,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:129600": {
+   "dropped": 5,
+   "kept": 3,
+   "recount_rows": 16,
+   "recounted": 16
+  },
+  "OMIM:139210": {
+   "dropped": 27,
+   "kept": 63,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:142900": {
+   "dropped": 54,
+   "kept": 22,
+   "recount_rows": 25,
+   "recounted": 25
+  },
+  "OMIM:142946": {
+   "dropped": 14,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:146510": {
+   "dropped": 26,
+   "kept": 46,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:147920": {
+   "dropped": 68,
+   "kept": 81,
+   "recount_rows": 37,
+   "recounted": 37
+  },
+  "OMIM:148600": {
+   "dropped": 5,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:148820": {
+   "dropped": 18,
+   "kept": 21,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:151100": {
+   "dropped": 7,
+   "kept": 30,
+   "recount_rows": 8,
+   "recounted": 8
+  },
+  "OMIM:151660": {
+   "dropped": 40,
+   "kept": 26,
+   "recount_rows": 15,
+   "recounted": 15
+  },
+  "OMIM:154400": {
+   "dropped": 45,
+   "kept": 38,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:154500": {
+   "dropped": 16,
+   "kept": 20,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:156250": {
+   "dropped": 9,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:158810": {
+   "dropped": 41,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:159550": {
+   "dropped": 7,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:159900": {
+   "dropped": 14,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:160150": {
+   "dropped": 14,
+   "kept": 23,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:162000": {
+   "dropped": 18,
+   "kept": 5,
+   "recount_rows": 17,
+   "recounted": 17
+  },
+  "OMIM:162200": {
+   "dropped": 5,
+   "kept": 32,
+   "recount_rows": 25,
+   "recounted": 28
+  },
+  "OMIM:163800": {
+   "dropped": 19,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:174200": {
+   "dropped": 1,
+   "kept": 6,
+   "recount_rows": 14,
+   "recounted": 14
+  },
+  "OMIM:175050": {
+   "dropped": 18,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:175700": {
+   "dropped": 28,
+   "kept": 25,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:181350": {
+   "dropped": 48,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:182290": {
+   "dropped": 34,
+   "kept": 49,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:184900": {
+   "dropped": 15,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:191900": {
+   "dropped": 11,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:200150": {
+   "dropped": 22,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:206700": {
+   "dropped": 19,
+   "kept": 21,
+   "recount_rows": 19,
+   "recounted": 19
+  },
+  "OMIM:210200": {
+   "dropped": 1,
+   "kept": 24,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:210210": {
+   "dropped": 10,
+   "kept": 20,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:215470": {
+   "dropped": 27,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:216400": {
+   "dropped": 21,
+   "kept": 65,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:216550": {
+   "dropped": 27,
+   "kept": 34,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:219100": {
+   "dropped": 9,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:222300": {
+   "dropped": 8,
+   "kept": 25,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:222470": {
+   "dropped": 9,
+   "kept": 51,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:223800": {
+   "dropped": 28,
+   "kept": 37,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:227645": {
+   "dropped": 18,
+   "kept": 24,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:230740": {
+   "dropped": 33,
+   "kept": 31,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:233710": {
+   "dropped": 22,
+   "kept": 18,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:234200": {
+   "dropped": 33,
+   "kept": 24,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:236200": {
+   "dropped": 16,
+   "kept": 35,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:240300": {
+   "dropped": 26,
+   "kept": 27,
+   "recount_rows": 19,
+   "recounted": 26
+  },
+  "OMIM:241850": {
+   "dropped": 9,
+   "kept": 5,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:242840": {
+   "dropped": 47,
+   "kept": 24,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:243700": {
+   "dropped": 22,
+   "kept": 18,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:245800": {
+   "dropped": 9,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:248250": {
+   "dropped": 28,
+   "kept": 17,
+   "recount_rows": 15,
+   "recounted": 15
+  },
+  "OMIM:250410": {
+   "dropped": 48,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:256500": {
+   "dropped": 59,
+   "kept": 45,
+   "recount_rows": 47,
+   "recounted": 47
+  },
+  "OMIM:256810": {
+   "dropped": 85,
+   "kept": 69,
+   "recount_rows": 36,
+   "recounted": 36
+  },
+  "OMIM:258480": {
+   "dropped": 36,
+   "kept": 18,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:260300": {
+   "dropped": 6,
+   "kept": 13,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:266265": {
+   "dropped": 28,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:268310": {
+   "dropped": 17,
+   "kept": 81,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:269840": {
+   "dropped": 4,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:273750": {
+   "dropped": 33,
+   "kept": 19,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:273900": {
+   "dropped": 4,
+   "kept": 11,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:275400": {
+   "dropped": 18,
+   "kept": 23,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:277700": {
+   "dropped": 30,
+   "kept": 4,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:300114": {
+   "dropped": 9,
+   "kept": 23,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:300209": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:300707": {
+   "dropped": 29,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:300804": {
+   "dropped": 31,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:300868": {
+   "dropped": 78,
+   "kept": 114,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:301072": {
+   "dropped": 7,
+   "kept": 5,
+   "recount_rows": 35,
+   "recounted": 35
+  },
+  "OMIM:301109": {
+   "dropped": 50,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301111": {
+   "dropped": 27,
+   "kept": 10,
+   "recount_rows": 6,
+   "recounted": 6
+  },
+  "OMIM:301114": {
+   "dropped": 1,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301115": {
+   "dropped": 12,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301118": {
+   "dropped": 201,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301119": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301127": {
+   "dropped": 16,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301132": {
+   "dropped": 91,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301137": {
+   "dropped": 11,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301142": {
+   "dropped": 24,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:301310": {
+   "dropped": 55,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:302350": {
+   "dropped": 11,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:305400": {
+   "dropped": 15,
+   "kept": 37,
+   "recount_rows": 23,
+   "recounted": 25
+  },
+  "OMIM:500018": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:600373": {
+   "dropped": 29,
+   "kept": 38,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:600920": {
+   "dropped": 10,
+   "kept": 46,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:601553": {
+   "dropped": 19,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:601977": {
+   "dropped": 3,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:602400": {
+   "dropped": 13,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:602849": {
+   "dropped": 24,
+   "kept": 12,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:603553": {
+   "dropped": 9,
+   "kept": 35,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:603554": {
+   "dropped": 68,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:603830": {
+   "dropped": 6,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:604187": {
+   "dropped": 12,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:604377": {
+   "dropped": 95,
+   "kept": 28,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:604804": {
+   "dropped": 6,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:604841": {
+   "dropped": 25,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:605275": {
+   "dropped": 22,
+   "kept": 27,
+   "recount_rows": 36,
+   "recounted": 36
+  },
+  "OMIM:605911": {
+   "dropped": 5,
+   "kept": 7,
+   "recount_rows": 12,
+   "recounted": 12
+  },
+  "OMIM:606217": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:606658": {
+   "dropped": 9,
+   "kept": 20,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:606777": {
+   "dropped": 21,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:606889": {
+   "dropped": 14,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:607330": {
+   "dropped": 15,
+   "kept": 24,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:608194": {
+   "dropped": 6,
+   "kept": 21,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:608415": {
+   "dropped": 6,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:608776": {
+   "dropped": 14,
+   "kept": 30,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:608908": {
+   "dropped": 4,
+   "kept": 3,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:609053": {
+   "dropped": 42,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:609192": {
+   "dropped": 19,
+   "kept": 24,
+   "recount_rows": 24,
+   "recounted": 25
+  },
+  "OMIM:609285": {
+   "dropped": 32,
+   "kept": 18,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:609622": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:609637": {
+   "dropped": 14,
+   "kept": 25,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610042": {
+   "dropped": 40,
+   "kept": 26,
+   "recount_rows": 32,
+   "recounted": 38
+  },
+  "OMIM:610168": {
+   "dropped": 2,
+   "kept": 41,
+   "recount_rows": 37,
+   "recounted": 41
+  },
+  "OMIM:610253": {
+   "dropped": 61,
+   "kept": 28,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610370": {
+   "dropped": 32,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610549": {
+   "dropped": 9,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610687": {
+   "dropped": 33,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610759": {
+   "dropped": 40,
+   "kept": 46,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:610842": {
+   "dropped": 0,
+   "kept": 12,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:611091": {
+   "dropped": 10,
+   "kept": 39,
+   "recount_rows": 3,
+   "recounted": 3
+  },
+  "OMIM:611182": {
+   "dropped": 89,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:611291": {
+   "dropped": 60,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:611556": {
+   "dropped": 32,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:612718": {
+   "dropped": 10,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:612798": {
+   "dropped": 3,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613115": {
+   "dropped": 15,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613162": {
+   "dropped": 14,
+   "kept": 15,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613195": {
+   "dropped": 10,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613205": {
+   "dropped": 20,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613224": {
+   "dropped": 37,
+   "kept": 13,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613254": {
+   "dropped": 5,
+   "kept": 35,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:613268": {
+   "dropped": 2,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613454": {
+   "dropped": 17,
+   "kept": 35,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613477": {
+   "dropped": 15,
+   "kept": 6,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613566": {
+   "dropped": 5,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613630": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613684": {
+   "dropped": 25,
+   "kept": 23,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613717": {
+   "dropped": 8,
+   "kept": 8,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:613721": {
+   "dropped": 9,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:613795": {
+   "dropped": 15,
+   "kept": 48,
+   "recount_rows": 12,
+   "recounted": 12
+  },
+  "OMIM:613826": {
+   "dropped": 19,
+   "kept": 9,
+   "recount_rows": 21,
+   "recounted": 21
+  },
+  "OMIM:613850": {
+   "dropped": 3,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614185": {
+   "dropped": 25,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614199": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614249": {
+   "dropped": 25,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614321": {
+   "dropped": 13,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614325": {
+   "dropped": 1,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614607": {
+   "dropped": 29,
+   "kept": 21,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614609": {
+   "dropped": 36,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614816": {
+   "dropped": 41,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614833": {
+   "dropped": 10,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:614931": {
+   "dropped": 4,
+   "kept": 13,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:614959": {
+   "dropped": 28,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615032": {
+   "dropped": 22,
+   "kept": 27,
+   "recount_rows": 33,
+   "recounted": 33
+  },
+  "OMIM:615066": {
+   "dropped": 16,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615277": {
+   "dropped": 1,
+   "kept": 2,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:615471": {
+   "dropped": 36,
+   "kept": 27,
+   "recount_rows": 56,
+   "recounted": 56
+  },
+  "OMIM:615473": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615502": {
+   "dropped": 110,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615582": {
+   "dropped": 19,
+   "kept": 29,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:615744": {
+   "dropped": 22,
+   "kept": 12,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615829": {
+   "dropped": 66,
+   "kept": 46,
+   "recount_rows": 87,
+   "recounted": 92
+  },
+  "OMIM:615982": {
+   "dropped": 5,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615983": {
+   "dropped": 7,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:615994": {
+   "dropped": 15,
+   "kept": 15,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616247": {
+   "dropped": 11,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616249": {
+   "dropped": 9,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616276": {
+   "dropped": 28,
+   "kept": 22,
+   "recount_rows": 18,
+   "recounted": 21
+  },
+  "OMIM:616325": {
+   "dropped": 27,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616331": {
+   "dropped": 38,
+   "kept": 4,
+   "recount_rows": 31,
+   "recounted": 31
+  },
+  "OMIM:616354": {
+   "dropped": 16,
+   "kept": 37,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616364": {
+   "dropped": 22,
+   "kept": 22,
+   "recount_rows": 94,
+   "recounted": 94
+  },
+  "OMIM:616395": {
+   "dropped": 22,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616409": {
+   "dropped": 11,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616457": {
+   "dropped": 25,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616638": {
+   "dropped": 24,
+   "kept": 19,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616829": {
+   "dropped": 22,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616840": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616873": {
+   "dropped": 2,
+   "kept": 13,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:616878": {
+   "dropped": 45,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616894": {
+   "dropped": 53,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616900": {
+   "dropped": 17,
+   "kept": 52,
+   "recount_rows": 50,
+   "recounted": 50
+  },
+  "OMIM:616907": {
+   "dropped": 6,
+   "kept": 16,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:616914": {
+   "dropped": 26,
+   "kept": 8,
+   "recount_rows": 16,
+   "recounted": 16
+  },
+  "OMIM:616938": {
+   "dropped": 24,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616973": {
+   "dropped": 82,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:616975": {
+   "dropped": 47,
+   "kept": 0,
+   "recount_rows": 43,
+   "recounted": 43
+  },
+  "OMIM:616977": {
+   "dropped": 119,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617056": {
+   "dropped": 44,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617180": {
+   "dropped": 4,
+   "kept": 12,
+   "recount_rows": 23,
+   "recounted": 23
+  },
+  "OMIM:617225": {
+   "dropped": 25,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617232": {
+   "dropped": 14,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617333": {
+   "dropped": 36,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617402": {
+   "dropped": 23,
+   "kept": 36,
+   "recount_rows": 6,
+   "recounted": 6
+  },
+  "OMIM:617425": {
+   "dropped": 52,
+   "kept": 31,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:617433": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617516": {
+   "dropped": 52,
+   "kept": 27,
+   "recount_rows": 11,
+   "recounted": 11
+  },
+  "OMIM:617527": {
+   "dropped": 60,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617560": {
+   "dropped": 18,
+   "kept": 20,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:617622": {
+   "dropped": 32,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617752": {
+   "dropped": 4,
+   "kept": 34,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:617988": {
+   "dropped": 28,
+   "kept": 98,
+   "recount_rows": 13,
+   "recounted": 13
+  },
+  "OMIM:618000": {
+   "dropped": 13,
+   "kept": 39,
+   "recount_rows": 13,
+   "recounted": 13
+  },
+  "OMIM:618050": {
+   "dropped": 33,
+   "kept": 20,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:618089": {
+   "dropped": 84,
+   "kept": 8,
+   "recount_rows": 31,
+   "recounted": 31
+  },
+  "OMIM:618164": {
+   "dropped": 46,
+   "kept": 28,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:618362": {
+   "dropped": 29,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:618505": {
+   "dropped": 234,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:618977": {
+   "dropped": 42,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619375": {
+   "dropped": 18,
+   "kept": 0,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:619472": {
+   "dropped": 70,
+   "kept": 48,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619488": {
+   "dropped": 125,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619598": {
+   "dropped": 29,
+   "kept": 12,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619656": {
+   "dropped": 56,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619657": {
+   "dropped": 48,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619799": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619803": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619805": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619806": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:619826": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620186": {
+   "dropped": 75,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620344": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620367": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620375": {
+   "dropped": 12,
+   "kept": 21,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:620376": {
+   "dropped": 40,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620401": {
+   "dropped": 50,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620402": {
+   "dropped": 10,
+   "kept": 1,
+   "recount_rows": 6,
+   "recounted": 6
+  },
+  "OMIM:620416": {
+   "dropped": 22,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620417": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620427": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620428": {
+   "dropped": 47,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620449": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620450": {
+   "dropped": 101,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620451": {
+   "dropped": 50,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620458": {
+   "dropped": 28,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620459": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620460": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620475": {
+   "dropped": 38,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620494": {
+   "dropped": 85,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620502": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620504": {
+   "dropped": 40,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620511": {
+   "dropped": 40,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620515": {
+   "dropped": 16,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620519": {
+   "dropped": 5,
+   "kept": 5,
+   "recount_rows": 25,
+   "recounted": 25
+  },
+  "OMIM:620528": {
+   "dropped": 7,
+   "kept": 38,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:620535": {
+   "dropped": 25,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620537": {
+   "dropped": 6,
+   "kept": 12,
+   "recount_rows": 14,
+   "recounted": 14
+  },
+  "OMIM:620538": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620540": {
+   "dropped": 32,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620542": {
+   "dropped": 2,
+   "kept": 10,
+   "recount_rows": 17,
+   "recounted": 17
+  },
+  "OMIM:620558": {
+   "dropped": 33,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620565": {
+   "dropped": 35,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620570": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620601": {
+   "dropped": 17,
+   "kept": 13,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620603": {
+   "dropped": 25,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620629": {
+   "dropped": 11,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620632": {
+   "dropped": 33,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620636": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620641": {
+   "dropped": 27,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620642": {
+   "dropped": 21,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620646": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620647": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620653": {
+   "dropped": 25,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620654": {
+   "dropped": 63,
+   "kept": 14,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620655": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620657": {
+   "dropped": 29,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620658": {
+   "dropped": 9,
+   "kept": 6,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:620659": {
+   "dropped": 11,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620662": {
+   "dropped": 56,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620663": {
+   "dropped": 60,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620666": {
+   "dropped": 13,
+   "kept": 3,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:620669": {
+   "dropped": 38,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620674": {
+   "dropped": 25,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620679": {
+   "dropped": 14,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620681": {
+   "dropped": 14,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620683": {
+   "dropped": 49,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620686": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620698": {
+   "dropped": 5,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620699": {
+   "dropped": 6,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620700": {
+   "dropped": 55,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620703": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620704": {
+   "dropped": 31,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620707": {
+   "dropped": 8,
+   "kept": 5,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620711": {
+   "dropped": 16,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620714": {
+   "dropped": 3,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620719": {
+   "dropped": 12,
+   "kept": 23,
+   "recount_rows": 18,
+   "recounted": 18
+  },
+  "OMIM:620725": {
+   "dropped": 5,
+   "kept": 12,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620726": {
+   "dropped": 5,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620727": {
+   "dropped": 34,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620731": {
+   "dropped": 3,
+   "kept": 7,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:620744": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620746": {
+   "dropped": 54,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620747": {
+   "dropped": 26,
+   "kept": 6,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620748": {
+   "dropped": 40,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620755": {
+   "dropped": 11,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620762": {
+   "dropped": 1,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620767": {
+   "dropped": 37,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620772": {
+   "dropped": 25,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620774": {
+   "dropped": 40,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620775": {
+   "dropped": 69,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620776": {
+   "dropped": 25,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620780": {
+   "dropped": 10,
+   "kept": 19,
+   "recount_rows": 19,
+   "recounted": 19
+  },
+  "OMIM:620782": {
+   "dropped": 38,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620783": {
+   "dropped": 22,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620784": {
+   "dropped": 22,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620785": {
+   "dropped": 80,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620790": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620793": {
+   "dropped": 11,
+   "kept": 22,
+   "recount_rows": 13,
+   "recounted": 13
+  },
+  "OMIM:620795": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620796": {
+   "dropped": 35,
+   "kept": 7,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620807": {
+   "dropped": 29,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620813": {
+   "dropped": 10,
+   "kept": 2,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620815": {
+   "dropped": 6,
+   "kept": 15,
+   "recount_rows": 2,
+   "recounted": 2
+  },
+  "OMIM:620816": {
+   "dropped": 4,
+   "kept": 13,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:620817": {
+   "dropped": 5,
+   "kept": 13,
+   "recount_rows": 5,
+   "recounted": 5
+  },
+  "OMIM:620819": {
+   "dropped": 41,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620820": {
+   "dropped": 35,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620825": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620836": {
+   "dropped": 10,
+   "kept": 5,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:620838": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620840": {
+   "dropped": 10,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620848": {
+   "dropped": 10,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620851": {
+   "dropped": 211,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620852": {
+   "dropped": 67,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620854": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620865": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620869": {
+   "dropped": 31,
+   "kept": 4,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620880": {
+   "dropped": 37,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620887": {
+   "dropped": 161,
+   "kept": 27,
+   "recount_rows": 10,
+   "recounted": 10
+  },
+  "OMIM:620888": {
+   "dropped": 40,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620894": {
+   "dropped": 14,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620897": {
+   "dropped": 11,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620901": {
+   "dropped": 11,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620911": {
+   "dropped": 37,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620923": {
+   "dropped": 45,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620926": {
+   "dropped": 48,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620937": {
+   "dropped": 17,
+   "kept": 22,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620938": {
+   "dropped": 45,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620943": {
+   "dropped": 4,
+   "kept": 23,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:620958": {
+   "dropped": 22,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620962": {
+   "dropped": 53,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620964": {
+   "dropped": 52,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620968": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620969": {
+   "dropped": 37,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620971": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620983": {
+   "dropped": 12,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620984": {
+   "dropped": 14,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620985": {
+   "dropped": 125,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620987": {
+   "dropped": 113,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:620988": {
+   "dropped": 15,
+   "kept": 15,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:620990": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621010": {
+   "dropped": 107,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621012": {
+   "dropped": 49,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621018": {
+   "dropped": 18,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621021": {
+   "dropped": 36,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621030": {
+   "dropped": 13,
+   "kept": 17,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621034": {
+   "dropped": 48,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621049": {
+   "dropped": 77,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621060": {
+   "dropped": 70,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621078": {
+   "dropped": 38,
+   "kept": 25,
+   "recount_rows": 11,
+   "recounted": 11
+  },
+  "OMIM:621091": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621093": {
+   "dropped": 2,
+   "kept": 1,
+   "recount_rows": 4,
+   "recounted": 4
+  },
+  "OMIM:621095": {
+   "dropped": 33,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621096": {
+   "dropped": 15,
+   "kept": 31,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:621097": {
+   "dropped": 45,
+   "kept": 35,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:621099": {
+   "dropped": 24,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621101": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621102": {
+   "dropped": 80,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621106": {
+   "dropped": 17,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621129": {
+   "dropped": 31,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621140": {
+   "dropped": 52,
+   "kept": 12,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621150": {
+   "dropped": 47,
+   "kept": 1,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621160": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621164": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621169": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621170": {
+   "dropped": 4,
+   "kept": 3,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621179": {
+   "dropped": 4,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621180": {
+   "dropped": 27,
+   "kept": 59,
+   "recount_rows": 12,
+   "recounted": 12
+  },
+  "OMIM:621182": {
+   "dropped": 36,
+   "kept": 19,
+   "recount_rows": 11,
+   "recounted": 11
+  },
+  "OMIM:621185": {
+   "dropped": 116,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621191": {
+   "dropped": 20,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621192": {
+   "dropped": 9,
+   "kept": 98,
+   "recount_rows": 3,
+   "recounted": 3
+  },
+  "OMIM:621194": {
+   "dropped": 6,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621195": {
+   "dropped": 55,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621199": {
+   "dropped": 62,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621201": {
+   "dropped": 24,
+   "kept": 64,
+   "recount_rows": 23,
+   "recounted": 23
+  },
+  "OMIM:621209": {
+   "dropped": 3,
+   "kept": 0,
+   "recount_rows": 9,
+   "recounted": 9
+  },
+  "OMIM:621214": {
+   "dropped": 39,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621224": {
+   "dropped": 49,
+   "kept": 8,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621226": {
+   "dropped": 45,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621231": {
+   "dropped": 2,
+   "kept": 1,
+   "recount_rows": 3,
+   "recounted": 3
+  },
+  "OMIM:621232": {
+   "dropped": 5,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621233": {
+   "dropped": 50,
+   "kept": 15,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621234": {
+   "dropped": 53,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621235": {
+   "dropped": 16,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621236": {
+   "dropped": 22,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621237": {
+   "dropped": 33,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621248": {
+   "dropped": 28,
+   "kept": 18,
+   "recount_rows": 7,
+   "recounted": 7
+  },
+  "OMIM:621251": {
+   "dropped": 8,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621252": {
+   "dropped": 18,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621254": {
+   "dropped": 151,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621258": {
+   "dropped": 66,
+   "kept": 4,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621259": {
+   "dropped": 10,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621260": {
+   "dropped": 19,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621261": {
+   "dropped": 28,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621262": {
+   "dropped": 54,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621265": {
+   "dropped": 103,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621269": {
+   "dropped": 10,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621270": {
+   "dropped": 23,
+   "kept": 15,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621280": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621295": {
+   "dropped": 22,
+   "kept": 126,
+   "recount_rows": 8,
+   "recounted": 8
+  },
+  "OMIM:621302": {
+   "dropped": 59,
+   "kept": 56,
+   "recount_rows": 38,
+   "recounted": 38
+  },
+  "OMIM:621304": {
+   "dropped": 42,
+   "kept": 112,
+   "recount_rows": 29,
+   "recounted": 29
+  },
+  "OMIM:621307": {
+   "dropped": 79,
+   "kept": 4,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621313": {
+   "dropped": 19,
+   "kept": 11,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621314": {
+   "dropped": 5,
+   "kept": 10,
+   "recount_rows": 1,
+   "recounted": 1
+  },
+  "OMIM:621325": {
+   "dropped": 29,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621328": {
+   "dropped": 72,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621331": {
+   "dropped": 20,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621333": {
+   "dropped": 27,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621336": {
+   "dropped": 2,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621343": {
+   "dropped": 23,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621344": {
+   "dropped": 18,
+   "kept": 88,
+   "recount_rows": 14,
+   "recounted": 14
+  },
+  "OMIM:621367": {
+   "dropped": 24,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621369": {
+   "dropped": 62,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621371": {
+   "dropped": 18,
+   "kept": 4,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621372": {
+   "dropped": 62,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621373": {
+   "dropped": 12,
+   "kept": 31,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621375": {
+   "dropped": 39,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621377": {
+   "dropped": 85,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621384": {
+   "dropped": 104,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621386": {
+   "dropped": 24,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621387": {
+   "dropped": 9,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621390": {
+   "dropped": 70,
+   "kept": 9,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621394": {
+   "dropped": 30,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621400": {
+   "dropped": 13,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621402": {
+   "dropped": 55,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621405": {
+   "dropped": 30,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621414": {
+   "dropped": 10,
+   "kept": 16,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621415": {
+   "dropped": 160,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621417": {
+   "dropped": 7,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621421": {
+   "dropped": 55,
+   "kept": 10,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621424": {
+   "dropped": 15,
+   "kept": 17,
+   "recount_rows": 2,
+   "recounted": 2
+  },
+  "OMIM:621434": {
+   "dropped": 12,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621436": {
+   "dropped": 54,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621439": {
+   "dropped": 51,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621449": {
+   "dropped": 7,
+   "kept": 10,
+   "recount_rows": 3,
+   "recounted": 3
+  },
+  "OMIM:621452": {
+   "dropped": 41,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621460": {
+   "dropped": 45,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621469": {
+   "dropped": 30,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621475": {
+   "dropped": 68,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  },
+  "OMIM:621481": {
+   "dropped": 29,
+   "kept": 0,
+   "recount_rows": 0,
+   "recounted": 0
+  }
+ },
+ "totals": {
+  "diseases_touched": 457,
+  "feature_onset_pairs": 332,
+  "phenotype_rows_citing_heldout": 14327,
+  "recount_rows_with_onset": 116,
+  "recount_rows_written": 1675,
+  "rows_dropped": 13706,
+  "rows_dropped_other_aspect": 1085,
+  "rows_dropped_too_few_patients": 12621,
+  "rows_in": 282723,
+  "rows_kept_unchanged": 267311,
+  "rows_out": 268986,
+  "rows_recounted": 1706,
+  "train_patients": 4103
+ }
+}
