@@ -1,0 +1,883 @@
+shortname	nbk	title	n_genes	n_omim	touches_eval_unit	genes
+a-mannosidosis	NBK1396	Alpha-Mannosidosis	1	2	False	MAN2B1
+a-thal	NBK1435	Alpha-Thalassemia	3	4	False	HBA1;HBA2;HBZ
+aadc-def	NBK595821	Aromatic L-Amino Acid Decarboxylase Deficiency	1	2	False	DDC
+aars2-dis	NBK608563	AARS2-Related Disorder	1	3	False	AARS2
+ab-lipo-p	NBK532447	Abetalipoproteinemia	1	2	False	MTTP
+abs	NBK1419	Cytochrome P450 Oxidoreductase Deficiency	1	3	False	POR
+accpn	NBK1372	Hereditary Motor and Sensory Neuropathy with Agenesis of the Corpus Callosum	1	2	False	SLC12A6
+achm	NBK1418	Achromatopsia	6	12	False	ATF6;CNGA3;CNGB3;GNAT2;PDE6C;PDE6H
+achon1b	NBK1516	Achondrogenesis Type 1B	1	2	False	SLC26A2
+achondroplasia	NBK1152	Achondroplasia	1	2	False	FGFR3
+acp	NBK1493	Aceruloplasminemia	1	2	False	CP
+acpp	NBK1264	Andersen-Tawil Syndrome	2	3	False	KCNJ2;KCNJ5
+actg2-dis	NBK299311	ACTG2 Visceral Myopathy	1	2	False	ACTG2
+ada	NBK1483	Adenosine Deaminase Deficiency	1	2	False	ADA
+ada2-def	NBK544951	Adenosine Deaminase 2 Deficiency	1	2	False	ADA2
+adamtsl4-eyes	NBK84111	ADAMTSL4-Related Eye Disorders	1	3	False	ADAMTSL4
+adcy5-dysk	NBK263441	ADCY5-Related Movement Disorder	1	4	False	ADCY5
+adnfle	NBK1169	Autosomal Dominant Sleep-Related Hypermotor (Hyperkinetic) Epilepsy	10	15	False	CABP4;CHRNA2;CHRNA4;CHRNB2;CRH;DEPDC5;KCNT1;NPRL2;NPRL3;STX1B
+adnp-dis	NBK355518	ADNP-Related Helsmoortel-Van der Aa Syndrome	1	2	False	ADNP
+aec	NBK43797	TP63-Related Disorders	1	8	False	TP63
+aff4-chops	NBK621037	AFF4-Related CHOPS Syndrome	1	2	False	AFF4
+ags	NBK1475	Aicardi-Goutieres Syndrome	7	14	False	ADAR;IFIH1;RNASEH2A;RNASEH2B;RNASEH2C;SAMHD1;TREX1
+agu	NBK599378	Aspartylglucosaminuria	1	2	False	AGA
+ahc	NBK1431	NR0B1-Related Adrenal Hypoplasia Congenita	4	6	True	DMD;GK;IL1RAPL1;NR0B1
+aip	NBK1193	Acute Intermittent Porphyria	1	2	False	HMBS
+alagille	NBK1273	Alagille Syndrome	2	4	False	JAG1;NOTCH2
+alexander	NBK1172	Alexander Disease	1	2	False	GFAP
+alk-nbs	NBK24599	ALK-Related Neuroblastic Tumor Susceptibility	1	2	False	ALK
+alkap	NBK1454	Alkaptonuria	1	2	False	HGD
+alpers	NBK26471	POLG-Related Disorders	1	6	False	POLG
+alpha1-a	NBK1519	Alpha-1 Antitrypsin Deficiency	1	2	False	SERPINA1
+alpk1-auto	NBK604494	ALPK1-Related Autoinflammatory Disease	1	2	False	ALPK1
+alport	NBK1207	Alport Syndrome	3	7	False	COL4A3;COL4A4;COL4A5
+alps	NBK1108	Autoimmune Lymphoproliferative Syndrome	3	5	False	CASP10;FAS;FASLG
+als-ftd	NBK268647	C9orf72-Related Amyotrophic Lateral Sclerosis and/or Frontotemporal Dementia	1	2	False	C9ORF72
+als-overview	NBK1450	Amyotrophic Lateral Sclerosis Overview	31	22	True	ALS2;ANG;ANXA11;C9ORF72;CFAP410;CHCHD10;CHMP2B;DAO;DCTN1;ERBB4;FIG4;FUS;HNRNPA1;MATR3;MOBP;NEK1;OPTN;PFN1;SCFD1;SETX;SOD1;SPG11;SQSTM1;TAF15;TARDBP;TBK1;TUBA4A;UBQLN2;UNC13A;VAPB;VCP
+alstrom	NBK1267	Alstrom Syndrome	1	2	False	ALMS1
+alzheimer	NBK1161	Alzheimer Disease Overview	4	4	False	APOE;APP;PSEN1;PSEN2
+amish-mcph	NBK1365	SLC25A19-Related Thiamine Metabolism Dysfunction	1	3	False	SLC25A19
+amrf	NBK333437	SCARB2-Related Action Myoclonus ? Renal Failure Syndrome	1	2	False	SCARB2
+androgen	NBK1429	Androgen Insensitivity Syndrome	1	2	False	AR
+angelman	NBK1144	Angelman Syndrome	1	2	False	UBE3A
+aniridia	NBK1360	PAX6 Aniridia Syndrome	1	8	False	PAX6
+ankrd17-nds	NBK588029	ANKRD17-Related Neurodevelopmental Syndrome	1	2	False	ANKRD17
+ankrd26	NBK507664	ANKRD26-Related Thrombocytopenia	1	2	False	ANKRD26
+ano5-md	NBK114459	ANO5-Related Muscle Disease	1	3	False	ANO5
+ao2	NBK1317	Atelosteogenesis Type 2	1	2	False	SLC26A2
+aoa2	NBK1154	Ataxia with Oculomotor Apraxia Type 2	1	2	False	SETX
+ap4-def	NBK535153	AP-4-Associated Hereditary Spastic Paraplegia	4	8	True	AP4B1;AP4E1;AP4M1;AP4S1
+apbd	NBK5300	GBE1 Adult Polyglucosan Body Disease	1	2	False	GBE1
+apds	NBK611655	Activated PI3K Delta Syndrome	2	4	False	PIK3CD;PIK3R1
+apert	NBK541728	Apert Syndrome	1	2	False	FGFR2
+apob-hbl	NBK570370	APOB-Related Familial Hypobetalipoproteinemia	1	2	False	APOB
+aprt-def	NBK100238	Adenine Phosphoribosyltransferase Deficiency	1	2	False	APRT
+arg1	NBK1159	Arginase 1 Deficiency	1	2	False	ARG1
+args-aciduria	NBK51784	Argininosuccinate Lyase Deficiency	1	2	False	ASL
+arid1b-dis	NBK541502	ARID1B-Related Disorder	1	2	False	ARID1B
+arsacs	NBK1255	ARSACS	1	2	False	SACS
+arterial-t	NBK253404	Arterial Tortuosity Syndrome	1	2	False	SLC2A10
+arts	NBK2591	Phosphoribosylpyrophosphate Synthetase Deficiency	1	4	False	PRPS1
+arvd	NBK1131	Arrhythmogenic Right Ventricular Cardiomyopathy Overview	8	14	False	DES;DSC2;DSG2;DSP;JUP;PKP2;PLN;TMEM43
+as-def	NBK525916	Asparagine Synthetase Deficiency	1	2	False	ASNS
+asah1	NBK488189	ASAH1-Related Disorders	1	3	False	ASAH1
+aspm-pm	NBK555474	ASPM Primary Microcephaly	1	2	False	ASPM
+asxl3	NBK563693	ASXL3-Related Disorder	1	2	False	ASXL3
+ataxia-telangiectas	NBK26468	Ataxia-Telangiectasia	1	2	False	ATM
+ataxias	NBK1138	Hereditary Ataxia Overview	38	30	True	AFG3L2;ANGPTL3;ANO10;APOB;APTX;ATM;ATN1;ATXN1;ATXN10;ATXN2;ATXN3;ATXN7;ATXN8;ATXN8OS;BEAN1;CACNA1A;COQ2;COQ4;COQ8A;FGF14;FMR1;FXN;ITPR1;KCNC3;KCND3;MTTP;NOP56;PPP2R2B;PRKCG;RFC1;SACS;SETX;SPG7;SPTBN2;SYNE1;TBP;TTPA;ZFHX3
+atm-cpd	NBK623002	ATM-Related Cancer Predisposition	1	2	True	ATM
+atn1-ndd	NBK583218	ATN1-Related Neurodevelopmental Disorder	1	2	False	ATN1
+au-kline	NBK540283	Au-Kline Syndrome	1	2	False	HNRNPK
+aved	NBK1241	Ataxia with Vitamin E Deficiency	1	2	False	TTPA
+ayme-gripp	NBK553534	Ayme-Gripp Syndrome	1	2	False	MAF
+b-mannosidosis	NBK622587	Beta-Mannosidosis	1	2	False	MANBA
+b-thal	NBK1426	Beta-Thalassemia	1	2	False	HBB
+bachmann-bupp	NBK583220	Bachmann-Bupp Syndrome	1	2	False	ODC1
+bap1-tpds	NBK390611	BAP1 Tumor Predisposition Syndrome	1	2	False	BAP1
+baraitser-winter	NBK327153	Baraitser-Winter Cerebrofrontofacial Syndrome	2	4	False	ACTB;ACTG1
+barth	NBK247162	Barth Syndrome	1	2	False	TAFAZZIN
+bbs	NBK1363	Bardet-Biedl Syndrome Overview	25	21	False	ARL6;BBIP1;BBS1;BBS10;BBS12;BBS2;BBS4;BBS5;BBS7;BBS9;CEP164;CEP290;CFAP418;IFT172;IFT27;IFT74;LZTFL1;MKKS;MKS1;SCAPER;SCLT1;SDCCAG8;TRIM32;TTC8;WDPCP
+bcl11a-id	NBK547048	BCL11A-Related Intellectual Disability	1	2	False	BCL11A
+bcns	NBK1151	Nevoid Basal Cell Carcinoma Syndrome	2	3	False	PTCH1;SUFU
+beck-fahrner	NBK591837	TET3-Related Beck-Fahrner Syndrome	1	2	False	TET3
+bethlem	NBK1503	Collagen VI-Related Dystrophies	3	10	False	COL6A1;COL6A2;COL6A3
+bfns	NBK32534	KCNQ2-Related Disorders	1	3	False	KCNQ2
+bgc	NBK1421	Primary Familial Brain Calcification Overview	7	14	False	JAM2;MYORG;NAA60;PDGFB;PDGFRB;SLC20A2;XPR1
+bgd-biotin	NBK169615	Biotin-Thiamine-Responsive Basal Ganglia Disease 	1	2	False	SLC19A3
+bgs	NBK1204	Baller-Gerold Syndrome	1	2	False	RECQL4
+bhd	NBK1522	Birt-Hogg-Dube Syndrome	1	2	False	FLCN
+bietti-cd	NBK91457	Bietti Crystalline Dystrophy	1	2	False	CYP4V2
+biotin	NBK1322	Biotinidase Deficiency	1	2	False	BTD
+bloom	NBK1398	Bloom Syndrome	1	2	False	BLM
+bofs	NBK55063	Branchiooculofacial Syndrome	1	2	False	TFAP2A
+bohring-opitz	NBK481833	ASXL1-Related Bohring-Opitz Syndrome	1	2	False	ASXL1
+bor	NBK1380	Branchiootorenal Spectrum Disorder	2	5	False	EYA1;SIX1
+bpan	NBK424403	Beta-Propeller Protein-Associated Neurodegeneration	1	2	False	WDR45
+bpes	NBK1441	Blepharophimosis, Ptosis, and Epicanthus Inversus Syndrome	1	2	False	FOXL2
+brca1	NBK1247	BRCA1- and BRCA2-Associated Hereditary Breast and Ovarian Cancer	2	7	True	BRCA1;BRCA2
+brugada	NBK1517	Brugada Syndrome	24	33	False	ABCC9;CACNA1C;CACNA2D1;CACNB2;FGF12;GPD1L;HCN4;KCND2;KCND3;KCNE2;KCNE3;KCNE5;KCNH2;KCNJ8;PKP2;RANGRF;SCN10A;SCN1B;SCN2B;SCN3B;SCN5A;SEMA3A;SLMAP;TRPM4
+brylib	NBK595206	Bryant-Li-Bhoj Neurodevelopmental Syndrome	2	4	False	H3-3A;H3-3B
+burn-mckeown	NBK373577	TXNL4A-Related Craniofacial Disorders	1	2	False	TXNL4A
+bvd	NBK1167	Bestrophinopathies	1	4	False	BEST1
+bws	NBK1394	Beckwith-Wiedemann Syndrome	5	7	False	CDKN1C;H19;IGF2;KCNQ1;KCNQ1OT1
+ca5a-def	NBK284774	Carbonic Anhydrase VA Deficiency	1	2	False	CA5A
+cach	NBK1258	Childhood Ataxia with Central Nervous System Hypomyelination / Vanishing White Matter	5	10	False	EIF2B1;EIF2B2;EIF2B3;EIF2B4;EIF2B5
+cact-def	NBK582032	Carnitine-Acylcarnitine Translocase Deficiency	1	2	False	SLC25A20
+cadasil	NBK1500	CADASIL	1	2	False	NOTCH3
+caffey	NBK99168	Caffey Disease	1	2	False	COL1A1
+cah	NBK1171	21-Hydroxylase-Deficient Congenital Adrenal Hyperplasia	1	2	False	CYP21A2
+campo-dysp	NBK1760	Campomelic Dysplasia	1	2	False	SOX9
+canavan	NBK1234	Canavan Disease	1	2	False	ASPA
+cantu	NBK246980	Cantú syndrome	2	3	False	ABCC9;KCNJ8
+carasil	NBK32533	HTRA1 Disorder	1	3	False	HTRA1
+carney	NBK1286	Carney Complex	1	3	False	PRKAR1A
+cask-dis	NBK169825	CASK Disorders	1	3	False	CASK
+cbl	NBK1328	Disorders of Intracellular Cobalamin Metabolism	9	15	False	ABCD4;HCFC1;LMBRD1;MMACHC;MMADHC;MTR;MTRR;THAP11;ZNF143
+cc2-leuk	NBK326661	CLCN2-Related Leukoencephalopathy	1	2	False	CLCN2
+cca	NBK1386	Congenital Contractural Arachnodactyly	1	2	False	FBN2
+ccd	NBK1513	Cleidocranial Dysplasia Spectrum Disorder	1	2	False	RUNX2
+ccfdn	NBK25565	CTDP1-Related Congenital Cataracts, Facial Dysmorphism, and Neuropathy	1	2	False	CTDP1
+ccm	NBK1293	Familial Cerebral Cavernous Malformation	3	6	False	CCM2;KRIT1;PDCD10
+cd-chst3	NBK62112	Chondrodysplasia with Congenital Joint Dislocations, CHST3-Related	1	2	False	CHST3
+cda1	NBK5313	Congenital Dyserythropoietic Anemia Type I	2	4	False	CDAN1;CDIN1
+cdg-1a	NBK1110	PMM2-CDG	1	2	False	PMM2
+cdk13-dis	NBK536784	CDK13-Related Disorder	1	2	False	CDK13
+cdkl5-def	NBK602610	CDKL5 Deficiency Disorder	1	2	False	CDKL5
+cdkn2a-cpd	NBK616232	CDKN2A Cancer Predisposition	1	3	False	CDKN2A
+cdls	NBK1104	Cornelia de Lange Syndrome	7	14	False	BRD4;HDAC8;MAU2;NIPBL;RAD21;SMC1A;SMC3
+cdp1-xlr	NBK1544	Chondrodysplasia Punctata 1, X-Linked	1	2	False	ARSL
+cdsp	NBK84551	Primary Carnitine Deficiency	1	2	False	SLC22A5
+ce-dysp	NBK154653	Cranioectodermal Dysplasia	6	10	False	IFT122;IFT140;IFT43;IFT52;WDR19;WDR35
+cebpa-aml	NBK47457	CEBPA-Associated Familial Acute Myeloid Leukemia	1	2	True	CEBPA
+ced	NBK1156	Camurati-Engelmann Disease	1	3	False	TGFB1
+celiac	NBK1727	Celiac Disease	2	3	False	HLA-DQA1;HLA-DQB1
+cep	NBK154652	Congenital Erythropoietic Porphyria	2	3	False	GATA1;UROS
+cetp-def	NBK614254	CETP-Related Hyperalphalipoproteinemia	1	2	False	CETP
+cf	NBK1250	Cystic Fibrosis	1	2	False	CFTR
+cfc	NBK1186	Cardiofaciocutaneous Syndrome	4	8	False	BRAF;KRAS;MAP2K1;MAP2K2
+cfeom	NBK1348	Congenital Fibrosis of the Extraocular Muscles Overview	5	10	False	-;KIF21A;PHOX2A;TUBB2B;TUBB3
+cgd	NBK99496	Chronic Granulomatous Disease	6	12	False	CYBA;CYBB;CYBC1;NCF1;NCF2;NCF4
+chac	NBK1387	VPS13A Disease	1	2	False	VPS13A
+char	NBK1106	Char Syndrome	1	2	False	TFAP2B
+charge	NBK1117	CHD7 Disorder	1	3	False	CHD7
+chchd10-dis	NBK304142	CHCHD10-Related Disorders	1	4	False	CHCHD10
+chd2-dis	NBK333201	CHD2-Related Neurodevelopmental Disorders	1	2	False	CHD2
+chd4-ndd	NBK561516	CHD4 Neurodevelopmental Disorder	1	2	False	CHD4
+chd8-ndd-og	NBK585456	CHD8-Related Neurodevelopmental Disorder with Overgrowth	1	2	False	CHD8
+chediak-higashi	NBK5188	Chediak-Higashi Syndrome	1	2	False	LYST
+chek2-cpd	NBK615090	CHEK2-Related Cancer Predisposition	1	2	False	CHEK2
+cherubism	NBK1137	Cherubism	2	2	False	OGFRL1;SH3BP2
+chh	NBK84550	Cartilage-Hair Hypoplasia - Anauxetic Dysplasia Spectrum Disorders 	1	4	False	RMRP
+chkb-md	NBK589929	CHKB-Related Muscular Dystrophy	1	2	False	CHKB
+chol-liver-ov	NBK584020	Pediatric Genetic Cholestatic Liver Disease Overview	14	12	True	ABCB11;ABCB4;AKR1D1;AMACR;ATP8B1;BAAT;CYP7B1;HSD3B7;KIF12;LSR;MYO5B;NR1H4;TJP2;USP53
+choroid	NBK1337	Choroideremia	1	2	False	CHM
+christianson	NBK475801	Christianson Syndrome	1	2	False	SLC9A6
+chrom17-lis	NBK5189	PAFAH1B1-Related Lissencephaly / Subcortical Band Heterotopia	1	2	False	PAFAH1B1
+cip-overview	NBK481553	Congenital Insensitivity to Pain Overview	7	11	False	CLTCL1;NGF;NTRK1;PRDM12;SCN11A;SCN9A;ZFHX2
+ciss	NBK52917	Cold-Induced Sweating Syndrome including Crisponi Syndrome	2	4	False	CLCF1;CRLF1
+citrin	NBK1181	Citrin Deficiency	1	3	False	SLC25A13
+clcn4-ndd	NBK575836	CLCN4-Related Neurodevelopmental Disorder	1	2	False	CLCN4
+clcn7	NBK1127	CLCN7-Related Osteopetrosis	1	3	False	CLCN7
+cln3-dis	NBK624593	CLN3-Related Disorder	1	3	False	CLN3
+clpb-def	NBK396257	CLPB Deficiency	1	2	False	CLPB
+cls	NBK1346	RPS6KA3-Related Intellectual Disability	1	3	False	RPS6KA3
+cmr	NBK578949	Chylomicron Retention Disease	1	2	False	SAR1B
+cms	NBK1168	Congenital Myasthenic Syndromes Overview	26	46	False	AGRN;ALG14;ALG2;CHAT;CHRNA1;CHRNB1;CHRND;CHRNE;COL13A1;COLQ;DOK7;DPAGT1;GFPT1;GMPPB;LAMB2;LRP4;MUSK;MYO9A;PLEC;PREPL;RAPSN;SCN4A;SLC25A1;SLC5A7;SNAP25;SYT2
+cmt	NBK1358	Charcot-Marie-Tooth Hereditary Neuropathy Overview	36	72	True	AARS1;AIFM1;DNAJB2;DNM2;DYNC1H1;EGR2;FGD4;FIG4;GARS1;GDAP1;GJB1;GNB4;HSPB1;HSPB8;IGHMBP2;KIF1B;LITAF;LMNA;LRSAM1;MARS1;MFN2;MPZ;MTMR2;NDRG1;NEFL;PDK3;PMP2;PMP22;PNKP;PRPS1;PRX;RAB7A;SBF2;SH3TC2;TRPV4;YARS1
+cmt2a	NBK1511	MFN2 Hereditary Motor and Sensory Neuropathy	1	4	False	MFN2
+cmt2c	NBK201366	Autosomal Dominant TRPV4-Related Disorders	1	10	False	TRPV4
+cmt2d	NBK1242	GARS-Associated Axonal Neuropathy	1	4	False	GARS1
+cmt4c	NBK1340	SH3TC2-Related Hereditary Motor and Sensory Neuropathy	1	2	False	SH3TC2
+cmtc	NBK581081	Isolated and Classic Cutis Marmorata Telangiectatica Congenita	1	2	False	GNA11
+cmtx	NBK1374	GJB1 Disorders: Charcot-Marie-Tooth Neuropathy (CMT1X) and Central Nervous System Phenotypes	1	2	False	GJB1
+cnot1-vibos	NBK621477	CNOT1-Related Vissers-Bodmer Syndrome	1	3	False	CNOT1
+cockayne	NBK1342	Cockayne Syndrome	2	4	False	ERCC6;ERCC8
+coffin-siris	NBK131811	Coffin-Siris Syndrome	12	19	True	ARID1A;ARID1B;ARID2;BICRA;DPF2;SMARCA4;SMARCB1;SMARCC2;SMARCD1;SMARCE1;SOX11;SOX4
+cohen	NBK1482	Cohen Syndrome	1	2	False	VPS13B
+col4a1-dis	NBK7046	COL4A1-Related Disorders	1	3	False	COL4A1
+collagen-2	NBK540447	Type II Collagen Disorders Overview	1	12	False	COL2A1
+coq10-def	NBK410087	Primary Coenzyme Q10 Deficiency Overview	10	19	True	COQ2;COQ4;COQ5;COQ6;COQ7;COQ8A;COQ8B;COQ9;PDSS1;PDSS2
+costello	NBK1507	HRAS-Related Costello Syndrome	1	2	False	HRAS
+cpt1a	NBK1527	Carnitine Palmitoyltransferase 1A Deficiency	1	2	False	CPT1A
+cpt2	NBK1253	Carnitine Palmitoyltransferase II Deficiency	1	4	False	CPT2
+cranio-md	NBK1461	Autosomal Dominant Craniometaphyseal Dysplasia	1	2	False	ANKH
+craniosynostosis	NBK1455	FGFR Craniosynostosis Syndromes Overview	3	11	False	FGFR1;FGFR2;FGFR3
+creatine	NBK3794	Creatine Deficiency Disorders	3	6	False	GAMT;GATM;SLC6A8
+csc-dys	NBK2690	Congenital Stromal Corneal Dystrophy	1	2	False	DCN
+csnb	NBK1245	X-Linked Congenital Stationary Night Blindness	2	4	False	CACNA1F;NYX
+csnk2b-ndd	NBK606532	CSNK2B-Related Neurodevelopmental Disorder	1	2	False	CSNK2B
+ctcf-dis	NBK603087	CTCF-Related Disorder	1	2	False	CTCF
+ctlm	NBK1458	Citrullinemia Type I	1	2	False	ASS1
+ctnnb1-ndd	NBK580527	CTNNB1 Neurodevelopmental Disorder	1	2	False	CTNNB1
+ctns	NBK1400	Cystinosis	1	4	False	CTNS
+ctx	NBK1409	Cerebrotendinous Xanthomatosis	1	2	False	CYP27A1
+cutis-laxa	NBK5200	ATP6V0A2-Related Cutis Laxa	1	3	False	ATP6V0A2
+cvt	NBK1289	Catecholaminergic Polymorphic Ventricular Tachycardia	8	13	False	CALM1;CALM2;CALM3;CASQ2;KCNJ2;RYR2;TECRL;TRDN
+cyclic-n	NBK1533	ELANE-Related Neutropenia	1	3	True	ELANE
+cyld-cs	NBK555820	CYLD Cutaneous Syndrome	1	4	False	CYLD
+cystinuria	NBK619248	Cystinuria	2	3	False	SLC3A1;SLC7A9
+danon	NBK554742	Danon Disease	1	2	True	LAMP2
+dbh	NBK1474	Dopamine Beta-Hydroxylase Deficiency	1	2	False	DBH
+dbmd	NBK1119	Dystrophinopathies	1	4	False	DMD
+dcm-lmna	NBK1674	LMNA-Related Dilated Cardiomyopathy	1	2	True	LMNA
+dcm-ov	NBK1309	Dilated Cardiomyopathy Overview	30	53	True	ACTC1;ACTN2;ANKRD1;BAG3;CSRP3;DES;DMD;DSG2;EYA4;LDB3;LMNA;MYBPC3;MYH6;MYH7;NEXN;PLN;PSEN1;PSEN2;RBM20;SCN5A;SGCD;TAFAZZIN;TCAP;TMPO;TNNC1;TNNI3;TNNT2;TPM1;TTN;VCL
+dcx	NBK1185	DCX-Related Disorders	1	2	False	DCX
+ddon	NBK1216	Deafness-Dystonia-Optic Neuronopathy Syndrome	1	2	False	TIMM8A
+ddx3x-ndd	NBK561282	DDX3X-Related Neurodevelopmental Disorder	1	2	False	DDX3X
+ddx41-mds	NBK574843	DDX41-Associated Familial Myelodysplastic Syndrome and Acute Myeloid Leukemia	1	2	False	DDX41
+deafness-overview	NBK1434	Genetic Hearing Loss Overview	64	112	True	ACTG1;BSND;CCDC50;CDH23;CLDN14;COCH;COL11A2;DIAPH1;DSPP;ENTREP1;ESPN;ESRRB;EYA4;GJB2;GJB3;GJB6;GPSM2;GRHL2;GRXCR1;GSDME;HGF;KCNQ4;LHFPL5;LOXHD1;LRTOMT;MARVELD2;MIR96;MT-CO1;MT-RNR1;MT-TS1;MYH14;MYH9;MYO15A;MYO1A;MYO3A;MYO6;MYO7A;OTOA;OTOF;P2RX2;PCDH15;PJVK;POU3F4;POU4F3;PRPS1;PTPRQ;RDX;SIX1;SLC17A8;SLC26A4;SLC26A5;SMPX;STRC;SYNE4;TECTA;TJP2;TMC1;TMIE;TMPRSS3;TPRN;TRIOBP;USH1C;WFS1;WHRN
+del16p11_2	NBK11167	16p11.2 Recurrent Deletion	0	1	False	
+dent	NBK99494	Dent Disease	2	4	False	CLCN5;OCRL
+depdc5-epilepsy	NBK385626	DEPDC5-Related Epilepsy	1	2	False	DEPDC5
+df-lamm	NBK100664	Congenital Deafness with Labyrinthine Aplasia, Microtia, and Microdontia	1	2	False	FGF3
+dfna2	NBK1209	DFNA2 Nonsyndromic Hearing Loss	1	2	False	KCNQ4
+dfnb1	NBK1272	GJB2-Related Autosomal Recessive Nonsyndromic Hearing Loss	1	2	False	GJB2
+dfnb9	NBK1251	OTOF-Related Hearing Loss	1	2	False	OTOF
+dguok-mtddepl	NBK7040	Deoxyguanosine Kinase Deficiency	1	2	False	DGUOK
+dhpr-def	NBK622830	Dihydropteridine Reductase Deficiency	1	2	False	QDPR
+diamond-b	NBK7047	DBA Syndrome	22	40	True	GATA1;HEATR3;RPL11;RPL15;RPL18;RPL26;RPL27;RPL31;RPL35;RPL35A;RPL5;RPS10;RPS15A;RPS17;RPS19;RPS24;RPS26;RPS27;RPS28;RPS29;RPS7;TSR2
+diastrophic-d	NBK1350	Diastrophic Dysplasia	1	2	False	SLC26A2
+dkc	NBK22301	Dyskeratosis Congenita and Related Telomere Biology Disorders	16	32	True	ACD;CTC1;DKC1;NAF1;NHP2;NOP10;PARN;POT1;RPA1;RTEL1;STN1;TERC;TERT;TINF2;WRAP53;ZCCHC8
+dlg4-synap	NBK592682	DLG4-Related Synaptopathy	1	2	False	DLG4
+dmn	NBK1447	Permanent Neonatal Diabetes Mellitus	16	19	True	ABCC8;EIF2AK3;GATA6;GCK;GLIS3;HNF1B;INS;KCNJ11;MNX1;NEUROD1;NKX2-2;PDX1;PTF1A;RFX6;SLC19A2;SLC2A2
+dmtn	NBK1534	6q24-Related Transient Neonatal Diabetes Mellitus	3	4	False	HYMAI;PLAGL1;ZFP57
+dnajc6-pd	NBK570369	DNAJC6 Parkinson Disease	1	2	False	DNAJC6
+dnmt1-ddsn	NBK84112	DNMT1-Related Disorder	1	2	False	DNMT1
+donnai	NBK1878	Donnai-Barrow Syndrome	1	2	False	LRP2
+drd	NBK1508	GTP Cyclohydrolase 1-Deficient Dopa-Responsive Dystonia	1	2	False	GCH1
+drpla	NBK1491	DRPLA	1	2	False	ATN1
+drrs	NBK1373	SALL4-Related Disorders	1	2	False	SALL4
+duane	NBK1190	Duane Syndrome	3	5	False	CHN1;MAFB;SALL4
+duarte-gal	NBK258640	Duarte Galactosemia	1	2	False	GALT
+dup15q	NBK367946	Maternal 15q Duplication Syndrome	0	1	False	
+dup17q12	NBK344340	17q12 Recurrent Duplication	0	1	False	
+dup7q11_23	NBK327268	7q11.23 Duplication Syndrome	0	1	False	
+dync1h1-dis	NBK601997	DYNC1H1-Related Disorders	1	4	False	DYNC1H1
+dyrk1a-id	NBK333438	DYRK1A Syndrome	1	2	False	DYRK1A
+dystonia	NBK1492	DYT-TOR1A	1	2	False	TOR1A
+dystonia-ov	NBK1155	Monogenic Isolated Dystonia Overview	12	23	False	ANO3;AOPEP;EIF2AK2;EIF4A2;GNAL;HPCA;KMT2B;PRKRA;THAP1;TOR1A;TUBB4A;VPS16
+ea1	NBK25442	Episodic Ataxia Type 1	1	2	False	KCNA1
+eb-pa	NBK1157	Epidermolysis Bullosa with Pyloric Atresia	3	6	False	ITGA6;ITGB4;PLEC
+ebd	NBK1304	Dystrophic Epidermolysis Bullosa	1	8	False	COL7A1
+ebf3-ndd	NBK570204	EBF3 Neurodevelopmental Disorder	1	2	False	EBF3
+ebj	NBK1125	Junctional Epidermolysis Bullosa	5	8	False	COL17A1;ITGB4;LAMA3;LAMB3;LAMC2
+ebs	NBK1369	Epidermolysis Bullosa Simplex	7	21	False	CD151;DST;EXPH5;KLHL24;KRT14;KRT5;PLEC
+eccl	NBK576966	Encephalocraniocutaneous Lipomatosis	2	3	False	FGFR1;KRAS
+echs1-def	NBK542806	Mitochondrial Short-Chain Enoyl-CoA Hydratase Deficiency	1	2	False	ECHS1
+ed2	NBK1200	Hidrotic Ectodermal Dysplasia 2	1	2	False	GJB6
+edm	NBK1306	SLC26A2-Related Multiple Epiphyseal Dysplasia	1	2	False	SLC26A2
+edm-ad	NBK1123	Multiple Epiphyseal Dysplasia, Dominant	5	10	True	COL9A1;COL9A2;COL9A3;COMP;MATN3
+edmd	NBK1436	Emery-Dreifuss Muscular Dystrophy	8	12	True	EMD;FHL1;LMNA;SUN1;SUN2;SYNE1;SYNE2;TMEM43
+eds	NBK1244	Classic Ehlers-Danlos Syndrome	3	4	False	COL1A1;COL5A1;COL5A2
+eds-mc	NBK614472	Musculocontractural Ehlers-Danlos Syndrome	2	4	False	CHST14;DSE
+eds-pd	NBK572429	Periodontal Ehlers-Danlos Syndrome	2	4	False	C1R;C1S
+eds4	NBK1494	Vascular Ehlers-Danlos Syndrome	1	2	False	COL3A1
+eds6	NBK1462	PLOD1-Related Kyphoscoliotic Ehlers-Danlos Syndrome	1	2	False	PLOD1
+ee	NBK453432	Ethylmalonic Encephalopathy	1	2	False	ETHE1
+eed-og	NBK540017	EED-Related Overgrowth	1	2	False	EED
+efemp2-cutis-laxa	NBK54467	EFEMP2-Related Cutis Laxa	1	2	False	EFEMP2
+el-hattab-alkuraya	NBK584547	El-Hattab-Alkuraya Syndrome	1	2	False	WDR45B
+eln-cutis-laxa	NBK584550	ELN-Related Cutis Laxa	1	2	False	ELN
+emc10-ndd	NBK592645	EMC10-Related Neurodevelopmental Disorder	1	2	False	EMC10
+entpd1-ndd	NBK592266	ENTPD1-Related Neurodevelopmental Disorder	1	2	False	ENTPD1
+epas1-gofs	NBK621478	Mosaic EPAS1 Gain-of-Function Spectrum	1	1	False	EPAS1
+epb42-spherocytosis	NBK190102	EPB42-Related Hereditary Spherocytosis	1	2	False	EPB42
+epg5	NBK584989	EPG5-Related Disorder	1	3	False	EPG5
+epm1	NBK1142	Progressive Myoclonic Epilepsy Type 1	1	2	False	CSTB
+epp-ar	NBK100826	Erythropoietic Protoporphyria, Autosomal Recessive	1	2	False	FECH
+epp-xl	NBK121284	X-Linked Protoporphyria	1	2	False	ALAS2
+etha	NBK1163	SCN9A Neuropathic Pain Syndromes	1	3	False	SCN9A
+etv6-tpl	NBK564234	ETV6-Related Thrombocytopenia and Predisposition to Leukemia	1	3	True	ETV6
+evc	NBK596643	Ellis-van Creveld Syndrome	9	10	False	DYNC2H1;DYNC2LI1;EVC;EVC2;GLI1;PRKACA;PRKACB;SMO;WDR35
+exoc6b-semd	NBK592183	EXOC6B-Related Spondyloepimetaphyseal Dysplasia with Joint Laxity	1	2	False	EXOC6B
+exosc3-pc-hypo-p	NBK236968	EXOSC3 Pontocerebellar Hypoplasia	1	2	False	EXOSC3
+ext	NBK1235	Hereditary Multiple Osteochondromas	2	4	False	EXT1;EXT2
+fa	NBK1401	Fanconi Anemia	23	45	True	BRCA1;BRCA2;BRIP1;ERCC4;FAAP100;FANCA;FANCB;FANCC;FANCD2;FANCE;FANCF;FANCG;FANCI;FANCL;FANCM;MAD2L2;PALB2;RAD51;RAD51C;RFWD3;SLX4;UBE2T;XRCC2
+fabry	NBK1292	Fabry Disease	1	2	True	GLA
+factor-v-leiden	NBK1368	Factor V Leiden Thrombophilia	1	2	False	F5
+fahn	NBK56080	Fatty Acid Hydroxylase-Associated Neurodegeneration	1	2	False	FA2H
+fam111a-dysp	NBK590151	FAM111A-Related Skeletal Dysplasias	1	3	False	FAM111A
+fap	NBK1345	APC-Associated Polyposis Conditions	1	4	False	APC
+fars2-def	NBK538658	FARS2 Deficiency	1	3	False	FARS2
+fastkd2-coxpd	NBK619576	FASTKD2-Related Combined Oxidative Phosphorylation Deficiency	1	2	False	FASTKD2
+fbln5-cutis-laxa	NBK5201	FBLN5-Related Cutis Laxa	1	3	False	FBLN5
+fbxl4-mtddepl	NBK425540	FBXL4-Related Encephalomyopathic Mitochondrial DNA Depletion Syndrome	1	2	True	FBXL4
+fch	NBK593236	Familial Combined Hypolipidemia	1	2	False	ANGPTL3
+fcmd	NBK1206	Fukuyama Congenital Muscular Dystrophy	1	2	False	FKTN
+fd	NBK1180	Familial Dysautonomia	1	2	False	ELP1
+feingold	NBK7050	Feingold Syndrome 1	1	2	False	MYCN
+fg	NBK1676	MED12-Related Disorders	1	5	False	MED12
+fgd1-fgd	NBK620763	FGD1-Related Faciogenital Dysplasia (Aarskog-Scott Syndrome)	1	2	False	FGD1
+fgf14-ataxia	NBK599589	GAA-FGF14-Related Ataxia	1	2	False	FGF14
+fhm	NBK1388	Familial Hemiplegic Migraine	3	6	False	ATP1A2;CACNA1A;SCN1A
+fhs	NBK114458	Floating-Harbor Syndrome	1	2	False	SRCAP
+fkbp14-keds	NBK541503	FKBP14 Kyphoscoliotic Ehlers-Danlos Syndrome	1	2	False	FKBP14
+flnb-dis	NBK2534	FLNB-Related Disorders	1	6	False	FLNB
+fmf	NBK1227	Familial Mediterranean Fever	1	2	False	MEFV
+focal-dh	NBK1543	PORCN-Related Developmental Disorders	1	2	False	PORCN
+folate-mal	NBK1673	Hereditary Folate Malabsorption	1	2	False	SLC46A1
+folr1-cft-def	NBK599286	FOLR1-Related Cerebral Folate Transport Deficiency	1	2	False	FOLR1
+fop	NBK558090	Fibrodysplasia Ossificans Progressiva	1	2	False	ACVR1
+foxg1-ndd	NBK604176	FOXG1 Syndrome	1	2	False	FOXG1
+foxp1	NBK594825	FOXP1 Syndrome	1	2	False	FOXP1
+foxp2-sl-dis	NBK368474	FOXP2-Related Speech and Language Disorder	1	2	False	FOXP2
+fragilex	NBK1384	FMR1 Disorders	1	3	False	FMR1
+friedreich	NBK1281	Friedreich Ataxia	1	2	False	FXN
+fructose1-6-def	NBK550349	Fructose-1,6-Bisphosphatase 1 Deficiency	1	2	False	FBP1
+fryns	NBK1459	Fryns Syndrome	1	2	False	PIGN
+fsh	NBK1443	Facioscapulohumeral Muscular Dystrophy	4	8	False	DNMT3B;DUX4L1;LRIF1;SMCHD1
+ftd-chmp2b	NBK1199	CHMP2B-Related Frontotemporal Dementia-Amyotrophic Lateral Sclerosis	1	2	False	CHMP2B
+ftd-grn	NBK1371	GRN Frontotemporal Dementia	1	2	False	GRN
+ftdp-17	NBK1505	MAPT-Related Frontotemporal Dementia	1	4	False	MAPT
+fucosidosis	NBK621565	Fucosidosis	1	2	False	FUCA1
+fum	NBK1506	Fumarate Hydratase Deficiency	1	2	True	FH
+g6pc3-def	NBK285321	G6PC3 Deficiency	1	2	False	G6PC3
+gabriele-devries	NBK541730	Gabriele-de Vries Syndrome	1	2	False	YY1
+gaci	NBK253403	Generalized Arterial Calcification of Infancy	2	4	False	ABCC6;ENPP1
+galactosemia	NBK1518	Classic Galactosemia and Clinical Variant Galactosemia	1	2	False	GALT
+gale-def	NBK51671	Epimerase Deficiency Galactosemia	1	2	False	GALE
+gan	NBK1136	GAN-Related Neurodegeneration	1	2	False	GAN
+gata1	NBK1364	GATA1-Related Cytopenia	1	3	False	GATA1
+gaucher	NBK1269	Gaucher Disease	1	7	False	GBA1
+gcps	NBK1446	GLI3-Related Greig Cephalopolysyndactyly Syndrome	1	2	True	GLI3
+gefs	NBK1318	SCN1A-Related Seizure Disorders	1	4	False	SCN1A
+geleophys-dysp	NBK11168	Geleophysic Dysplasia	3	6	True	ADAMTSL2;FBN1;LTBP3
+glut1	NBK1430	Glucose Transporter Type 1 Deficiency Syndrome	1	4	False	SLC2A1
+glutaric-a1	NBK546575	Glutaric Acidemia Type 1	1	2	False	GCDH
+gm1-ganglio	NBK164500	GLB1-Related Disorders	1	5	False	GLB1
+gm2a-def	NBK583219	GM2 Activator Deficiency	1	2	False	GM2A
+gm3-def	NBK593237	GM3 Synthase Deficiency	1	2	False	ST3GAL5
+gnai1-ndd	NBK605493	GNAI1-Related Neurodevelopmental Disorder	1	2	False	GNAI1
+gnal-dystonia	NBK535640	DYT-GNAL	1	2	False	GNAL
+gnao1-dis	NBK597155	GNAO1-Related Disorder	1	3	False	GNAO1
+gnas-dis	NBK459117	Disorders of GNAS Inactivation	2	8	False	GNAS;STX16
+gnb1-e	NBK554743	GNB1 Encephalopathy	1	2	False	GNB1
+gnb5-ndd	NBK573218	GNB5-Related Neurodevelopmental Disorder 	1	3	False	GNB5
+gonad-dys-46xy	NBK1547	Nonsyndromic Disorders of Testicular Development Overview	8	10	False	DHH;DHX37;DMRT1;MAP3K1;NR5A1;SOX8;SOX9;SRY
+gr_22q11deletion	NBK1523	22q11.2 Deletion Syndrome	1	7	False	TBX1
+gr_22q13_3	NBK1198	Phelan-McDermid Syndrome-SHANK3 Related	1	2	False	SHANK3
+gr_3ms	NBK1481	3-M Syndrome	3	6	False	CCDC8;CUL7;OBSL1
+gria2-ndd	NBK599285	GRIA2-Related Neurodevelopmental Disorder	1	2	False	GRIA2
+grin1-ndd	NBK542807	GRIN1-Related Neurodevelopmental Disorder	1	3	False	GRIN1
+grin2a-dis	NBK385627	GRIN2A-Related Disorders	1	2	False	GRIN2A
+grin2b	NBK501979	GRIN2B-Related Neurodevelopmental Disorder	1	3	False	GRIN2B
+grin2d-dee	NBK582335	GRIN2D-Related Developmental and Epileptic Encephalopathy	1	2	False	GRIN2D
+gsd1	NBK1312	Glycogen Storage Disease Type I	2	4	False	G6PC1;SLC37A4
+gsd2	NBK1261	Pompe Disease	1	3	False	GAA
+gsd3	NBK26372	Glycogen Storage Disease Type III	1	2	False	AGL
+gsd4	NBK115333	Glycogen Storage Disease Type IV	1	2	False	GBE1
+gsd5	NBK1344	Glycogen Storage Disease Type V	1	2	False	PYGM
+gsd6	NBK5941	Glycogen Storage Disease Type VI	1	2	False	PYGL
+gsd9	NBK55061	Phosphorylase Kinase Deficiency	4	8	False	PHKA1;PHKA2;PHKB;PHKG2
+h1-4	NBK564966	HIST1H1E Syndrome	1	2	False	H1-4
+haplo-a20	NBK610430	Haploinsufficiency of A20	1	2	False	TNFAIP3
+hartsfield	NBK349073	FGFR1-Related Hartsfield Syndrome	1	2	False	FGFR1
+hcp	NBK114807	Hereditary Coproporphyria	1	2	False	CPOX
+hd-l2	NBK1529	Huntington Disease-Like 2	1	2	False	JPH3
+hdls	NBK100239	CSF1R-Related Disorder	1	2	False	CSF1R
+hemo-a	NBK1404	Hemophilia A	1	2	True	F8
+hemo-b	NBK1495	Hemophilia B	1	2	False	F9
+hemochromatosis	NBK1440	HFE-Related Hemochromatosis	1	2	False	HFE
+hep	NBK169003	Hepatoerythropoietic Porphyria	1	2	False	UROD
+hered-drta	NBK547595	Hereditary Distal Renal Tubular Acidosis	5	7	False	ATP6V0A4;ATP6V1B1;FOXI1;SLC4A1;WDR72
+hfg	NBK1423	Hand-Foot-Genital Syndrome	1	2	False	HOXA13
+hfi	NBK333439	Hereditary Fructose Intolerance	1	2	False	ALDOB
+hfpoik-tmp	NBK390610	Hereditary Fibrosing Poikiloderma with Tendon Contractures, Myopathy, and Pulmonary Fibrosis	1	2	False	FAM111B
+hgc	NBK1139	Diffuse Gastric and Lobular Breast Cancer Syndrome	2	3	False	CDH1;CTNNA1
+hgps	NBK1121	Hutchinson-Gilford Progeria Syndrome	1	2	True	LMNA
+hhhs	NBK97260	Hyperornithinemia-Hyperammonemia-Homocitrullinuria  Syndrome	1	2	False	SLC25A15
+hht	NBK1351	Hereditary Hemorrhagic Telangiectasia	3	7	False	ACVRL1;ENG;SMAD4
+hi	NBK1375	Nonsyndromic Genetic Hyperinsulinism Overview	12	13	True	ABCC8;GCK;GLUD1;HADH;HK1;HNF1A;HNF4A;INSR;KCNJ11;PMM2;SLC16A1;UCP2
+hibch-def	NBK619246	3-Hydroxyisobutyryl-CoA Hydrolase Deficiency	1	2	False	HIBCH
+higes	NBK25507	STAT3 Hyper IgE Syndrome	1	2	False	STAT3
+hlh	NBK1444	Familial Hemophagocytic Lymphohistiocytosis	4	8	False	PRF1;STX11;STXBP2;UNC13D
+hlrcc	NBK1252	FH Tumor Predisposition Syndrome	1	2	True	FH
+hmdpc	NBK100241	Hypermanganesemia with Dystonia 1	1	2	False	SLC30A10
+hmerf	NBK185330	Hereditary Myopathy with Early Respiratory Failure	1	2	False	TTN
+hnpcc	NBK1211	Lynch Syndrome	5	12	False	EPCAM;MLH1;MSH2;MSH6;PMS2
+hnpp	NBK1392	Hereditary Neuropathy with Liability to Pressure Palsies	1	2	False	PMP22
+hnrnph2-ndd	NBK584018	HNRNPH2-Related Neurodevelopmental Disorder	1	2	False	HNRNPH2
+hnrnpu-ndd	NBK578573	HNRNPU-Related Neurodevelopmental Disorder	1	2	False	HNRNPU
+homocystinuria	NBK1524	Homocystinuria due to Cystathionine Beta-Synthase Deficiency	1	2	False	CBS
+hops	NBK1150	Hypophosphatasia	1	4	False	ALPL
+hos	NBK1111	Holt-Oram Syndrome	1	2	True	TBX5
+hoxa1-dis	NBK609107	HOXA1-Related Disorders	1	2	False	HOXA1
+hpe-overview	NBK1530	Holoprosencephaly Overview	18	23	True	CDON;CNOT1;DISP1;DLL1;FGF8;FGFR1;GLI2;KMT2D;PPP1R12A;RAD21;SHH;SIX3;SMC1A;SMC3;STAG2;STIL;TGIF1;ZIC2
+hpp	NBK1338	Hypokalemic Periodic Paralysis	2	3	False	CACNA1S;SCN4A
+hps	NBK1287	Hermansky-Pudlak Syndrome	11	22	True	AP3B1;AP3D1;BLOC1S3;BLOC1S5;BLOC1S6;DTNBP1;HPS1;HPS3;HPS4;HPS5;HPS6
+hrpt2	NBK3789	CDC73-Related Disorders	1	4	False	CDC73
+hsan2	NBK49247	Hereditary Sensory and Autonomic Neuropathy Type II	4	8	False	KIF1A;RETREG1;SCN9A;WNK1
+hsan4	NBK1769	NTRK1 Congenital Insensitivity to Pain with Anhidrosis	1	2	False	NTRK1
+hsn1	NBK1390	SPTLC1-Related Hereditary Sensory Neuropathy	1	2	False	SPTLC1
+hsp	NBK1509	Uncomplicated (Pure) Hereditary Spastic Paraplegia Overview	23	26	False	ADAR;ALDH18A1;AP5Z1;ATL1;ATP2B4;BSCL2;CPT1C;CYP7B1;DDHD1;DNM2;ERLIN2;HSPD1;KIF1A;KIF5A;NIPA1;REEP1;REEP2;RTN2;SLC33A1;SPAST;SPG7;USP8;WASHC5
+hunter	NBK1274	Mucopolysaccharidosis Type II	1	2	False	IDS
+huntington	NBK1305	Huntington Disease	1	2	False	HTT
+huppke-brendel	NBK542334	Huppke-Brendel Syndrome	1	2	False	SLC33A1
+husa	NBK1367	Genetic Atypical Hemolytic-Uremic Syndrome	11	17	False	C3;CD46;CFB;CFH;CFHR1;CFHR3;CFHR4;CFI;DGKE;THBD;VTN
+hyal2-def	NBK594824	HYAL2 Deficiency	1	1	False	HYAL2
+hyper-card	NBK1768	Nonsyndromic Hypertrophic Cardiomyopathy Overview	30	27	False	ACTC1;ACTN2;ALPK3;ANKRD1;CALR3;CSRP3;JPH2;KLF10;MYBPC3;MYH6;MYH7;MYL2;MYL3;MYLK2;MYOM1;MYOZ2;MYPN;NEXN;OBSCN;PDLIM3;PLN;RYR2;TCAP;TNNC1;TNNI3;TNNT2;TPM1;TRIM63;TTN;VCL
+hyper-ftc	NBK476672	Hyperphosphatemic Familial Tumoral Calcinosis	3	6	False	FGF23;GALNT3;KL
+hyper-nfj2	NBK53700	Autosomal Dominant Tubulointerstitial Kidney Disease -- REN	1	2	False	REN
+hyper-pp	NBK1496	Hyperkalemic Periodic Paralysis	1	2	False	SCN4A
+hyperchol	NBK174884	Familial Hypercholesterolemia	4	8	False	APOB;LDLR;LDLRAP1;PCSK9
+hyperek	NBK1260	Hereditary Hyperekplexia Overview	3	6	False	GLRA1;GLRB;SLC6A5
+hypo-mcc	NBK2587	Hypomyelination and Congenital Cataract	1	2	False	HYCC1
+hypochondroplasia	NBK1477	Hypochondroplasia	1	2	False	FGFR3
+i-p	NBK1472	Incontinentia Pigmenti	1	2	True	IKBKG
+iahsp	NBK1243	ALS2-Related Disorder	1	4	False	ALS2
+ibm	NBK1262	GNE Myopathy	1	2	False	GNE
+ibmpfd	NBK1476	Multisystem Proteinopathy	4	9	True	HNRNPA1;HNRNPA2B1;SQSTM1;VCP
+idednik	NBK609106	IDEDNIK Syndrome	2	4	False	AP1B1;AP1S1
+image	NBK190103	IMAGe Syndrome	1	2	False	CDKN1C
+inad	NBK1675	PLA2G6-Associated Neurodegeneration	1	3	False	PLA2G6
+inppl1-opsmd	NBK615431	INPPL1-Related Opsismodysplasia	1	2	False	INPPL1
+insr-ir	NBK476444	INSR-Related Severe Insulin Resistance Syndrome	1	3	False	INSR
+ipa	NBK97965	AIP Familial Isolated Pituitary Adenomas 	1	2	False	AIP
+ipex	NBK1118	IPEX Syndrome	1	2	False	FOXP3
+irf2bpl-dis	NBK609461	IRF2BPL-Related Disorder	1	2	False	IRF2BPL
+isca1-mmds	NBK547304	ISCA1-Related Multiple Mitochondrial Dysfunctions Syndrome	1	2	False	ISCA1
+isca2-mt-dis	NBK481904	ISCA2-Related Mitochondrial Disorder	1	2	False	ISCA2
+iso-def	NBK453433	Isolated Sulfite Oxidase Deficiency	1	2	False	SUOX
+isovaleric-a	NBK601614	Classic Isovaleric Acidemia	1	2	False	IVD
+issd	NBK1470	Free Sialic Acid Storage Disorder	1	3	False	SLC17A5
+jh	NBK1170	HAMP- and HJV-Related Hemochromatosis	2	4	False	HAMP;HJV
+jln	NBK1405	Jervell and Lange-Nielsen Syndrome	2	4	False	KCNE1;KCNQ1
+jmc	NBK616087	PTH1R-Related Jansen Metaphyseal Chondrodysplasia	1	2	True	PTH1R
+joubert	NBK1325	Joubert Syndrome	34	63	False	AHI1;ARL13B;B9D1;B9D2;C2CD3;CC2D2A;CEP104;CEP120;CEP290;CEP41;CPLANE1;CSPP1;IFT172;INPP5E;KATNIP;KIAA0586;KIF7;MKS1;NPHP1;OFD1;PDE6D;POC1B;RPGRIP1L;TCTN1;TCTN2;TCTN3;TMEM107;TMEM138;TMEM216;TMEM231;TMEM237;TMEM67;TTC21B;ZNF423
+jpd	NBK1478	PRKN-Related Early-Onset Parkinson Disease	1	2	False	PRKN
+jps	NBK1469	Juvenile Polyposis Syndrome	2	4	False	BMPR1A;SMAD4
+kabuki	NBK62111	Kabuki Syndrome	2	4	True	KDM6A;KMT2D
+kat6b-dis	NBK114806	KAT6B Disorders	1	3	False	KAT6B
+kbgs	NBK487886	ANKRD11-Related KBG Syndrome	1	2	False	ANKRD11
+kcnc1-dis	NBK619809	KCNC1-Related Disorders	1	2	False	KCNC1
+kcnk9-is	NBK425128	KCNK9 Imprinting Syndrome	1	2	False	KCNK9
+kcnq3-dis	NBK201978	KCNQ3-Related Disorders	1	2	False	KCNQ3
+kcnt1-epilepsy	NBK525917	KCNT1-Related Epilepsy	1	3	False	KCNT1
+kctd7-epilepsy	NBK619245	KCTD7-Related Progressive Myoclonic Epilepsy	1	2	False	KCTD7
+kennedy	NBK1333	Spinal and Bulbar Muscular Atrophy	1	2	False	AR
+kif1a-ndd	NBK621569	KIF1A-Related Neurodevelopmental Disorder	1	2	False	KIF1A
+kindler	NBK349072	Kindler Syndrome	1	2	False	FERMT1
+kleefstra	NBK47079	Kleefstra Syndrome	1	2	False	EHMT1
+kms	NBK1334	Isolated Gonadotropin-Releasing Hormone (GnRH) Deficiency	28	51	False	ANOS1;AXL;CCDC141;CHD7;DUSP6;FEZF1;FGF17;FGF8;FGFR1;FLRT3;GNRH1;GNRHR;HS6ST1;IL17RD;KISS1;KISS1R;NSMF;POLR3B;PROK2;PROKR2;SEMA3A;SEMA3E;SOX10;SPRY4;SRA1;TAC3;TACR3;WDR11
+kmt2b-dystonia	NBK493766	KMT2B-Related Disorders	1	3	False	KMT2B
+kmt2e-ndd	NBK602945	KMT2E-Related Neurodevelopmental Disorder	1	2	False	KMT2E
+kos	NBK390670	Kaufman Oculocerebrofacial Syndrome	1	2	False	UBE3B
+kptn-dis	NBK605495	KPTN-Related Disorder	1	2	False	KPTN
+krabbe	NBK1238	Krabbe Disease	1	2	False	GALC
+l1cam	NBK1484	L1 Syndrome	1	4	False	L1CAM
+lad-ad	NBK338165	LMNB1-Related Autosomal Dominant Leukodystrophy	1	2	False	LMNB1
+lafora	NBK1389	Progressive Myoclonus Epilepsy, Lafora Type	2	4	True	EPM2A;NHLRC1
+lal-def	NBK305870	Lysosomal Acid Lipase Deficiency	1	3	False	LIPA
+lathosterolosis	NBK597809	Lathosterolosis	1	2	False	SC5D
+lbsl	NBK43417	Leukoencephalopathy with Brain Stem and Spinal Cord Involvement and Lactate Elevation	1	2	False	DARS2
+lca-ov	NBK531510	Nonsyndromic Leber Congenital Amaurosis / Early-Onset Severe Retinal Dystrophy Overview	25	17	True	AIPL1;ALMS1;CABP4;CEP290;CRB1;CRX;DTHD1;GDF6;GUCY2D;IFT140;IFT38;IMPDH1;IQCB1;KCNJ13;LCA5;LRAT;NMNAT1;OTX2;PRPH2;RD3;RDH12;RPE65;RPGRIP1;SPATA7;TULP1
+lchad	NBK583531	Long-Chain Hydroxyacyl-CoA Dehydrogenase Deficiency / Trifunctional Protein Deficiency	2	4	False	HADHA;HADHB
+lds	NBK1457	Lymphedema-Distichiasis Syndrome	1	2	False	FOXC2
+legius	NBK47312	Legius Syndrome	1	2	False	SPRED1
+leigh-nucl-ov	NBK320989	Nuclear Gene-Encoded Leigh Syndrome Spectrum Overview	78	18	True	ATP5MK;ATP5PO;BCS1L;BTD;CLPB;COA6;COQ4;COQ7;COQ9;COX10;COX15;COX4I1;COX8A;COXFA4;DLAT;DLD;DNAJC30;DNM1L;EARS2;ECHS1;ETHE1;FARS2;FASTKD2;FBXL4;FOXRED1;GFM1;GFM2;GTPBP3;HIBCH;HPDL;HTRA2;IARS2;KGD4;L2HGDH;LIAS;LIPT1;LONP1;LRPPRC;MECR;MFF;MFN2;MPC1;MPV17;MRPL3;MRPL39;MRPS34;MTFMT;MTO1;MTRFR;NARS2;NDUFA1;NDUFA10;NDUFA12;NDUFA2;NDUFA9;NDUFAF2;NDUFAF5;NDUFAF6;NDUFS1;NDUFS2;NDUFS3;NDUFS4;NDUFS7;NDUFS8;NDUFV1;PDHB;PDHX;PDSS2;PET100;SCO2;SDHA;SLC19A3;SLC25A19;SURF1;TACO1;TPK1;TTC19;UQCRQ
+leopard	NBK1383	Noonan Syndrome with Multiple Lentigines	4	7	True	BRAF;MAP2K1;PTPN11;RAF1
+lgmd2a	NBK1313	Calpainopathy	1	3	False	CAPN3
+lhon	NBK1174	Leber Hereditary Optic Neuropathy	10	10	False	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6
+li-ar	NBK1420	Autosomal Recessive Congenital Ichthyosis	13	21	False	ABCA12;ALOX12B;ALOXE3;CASP14;CERS3;CYP4F22;LIPN;NIPAL4;PNPLA1;SDR9C7;SLC27A4;SULT2B1;TGM1
+li-fraumeni	NBK1311	Li-Fraumeni Syndrome	1	2	False	TP53
+lipoid-p	NBK338540	Lipoid Proteinosis	1	2	False	ECM1
+lms	NBK368476	NOTCH3-Related Lateral Meningocele Syndrome	1	2	False	NOTCH3
+lns	NBK1149	HPRT1 Disorders	1	3	False	HPRT1
+loeys-dietz	NBK1133	Loeys-Dietz Syndrome	7	14	True	IPO8;SMAD2;SMAD3;TGFB2;TGFB3;TGFBR1;TGFBR2
+lowe	NBK1480	Lowe Syndrome	1	2	False	OCRL
+lpi	NBK1361	Lysinuric Protein Intolerance	1	2	False	SLC7A7
+lpin2-majeed	NBK589480	LPIN2-Related Majeed Syndrome	1	2	False	LPIN2
+lpl	NBK1308	Lipoprotein Lipase Deficiency	1	2	False	LPL
+lrrk2	NBK1208	LRRK2-Related Parkinson Disease	1	3	False	LRRK2
+ltbp4-cutis-laxa	NBK343782	LTBP4-Related Cutis Laxa	1	2	False	LTBP4
+lwd	NBK1215	SHOX Deficiency Disorders	1	3	False	SHOX
+m-sulfatase-def	NBK538937	Multiple Sulfatase Deficiency	1	2	False	SUMF1
+madd	NBK558236	Multiple Acyl-CoA Dehydrogenase Deficiency	3	4	False	ETFA;ETFB;ETFDH
+maps	NBK107219	MUTYH Polyposis	1	2	False	MUTYH
+marfan	NBK1335	FBN1-Related Marfan Syndrome	1	2	True	FBN1
+mbd4-tpds	NBK624097	MBD4-Related Tumor Predisposition Syndrome	1	3	True	MBD4
+mbd5-dis	NBK390803	MBD5 Haploinsufficiency	1	2	False	MBD5
+mbtps1-semd	NBK597768	MBTPS1-Related Spondyloepimetaphyseal Dysplasia with Elevated Lysosomal Enzymes	1	2	False	MBTPS1
+mc-def	NBK575630	Molybdenum Cofactor Deficiency	4	8	False	GPHN;MOCS1;MOCS2;MOCS3
+mcad	NBK1424	Medium-Chain Acyl-Coenzyme A Dehydrogenase Deficiency	1	2	False	ACADM
+mccune-albright	NBK274564	Fibrous Dysplasia / McCune-Albright Syndrome	1	2	False	GNAS
+mckd1	NBK153723	Autosomal Dominant Tubulointerstitial Kidney Disease -- MUC1	1	2	False	MUC1
+mckd2	NBK1356	Autosomal Dominant Tubulointerstitial Kidney Disease -- UMOD	1	2	True	UMOD
+mcleod	NBK1354	McLeod Neuroacanthocytosis Syndrome	1	2	False	XK
+mcm8-mcm9	NBK623157	MCM8/MCM9-Related Syndromes	2	4	False	MCM8;MCM9
+mdef-cmd	NBK97333	LAMA2 Muscular Dystrophy	1	4	False	LAMA2
+mdel15q13_3	NBK50780	15q13.3 Recurrent Deletion	6	4	False	ARHGAP11B;CHRNA7;FAN1;KLF13;OTUD7A;TRPM1
+mdel16p12_2	NBK274565	16p12.2 Recurrent Deletion	8	6	False	CDR2;EEF2K;MOSMO;PDZD9;POLR3E;SDR42E2;UQCRC2;VWA3A
+mdel17q12	NBK401562	17q12 Recurrent Deletion Syndrome	2	4	False	HNF1B;LHX1
+mdel17q21_31	NBK24676	Koolen-de Vries Syndrome	1	2	False	KANSL1
+mdel1q21_1	NBK52787	1q21.1 Recurrent Microdeletion	2	3	False	GJA5;GJA8
+mdel3q29	NBK385289	3q29 Recurrent Deletion	1	1	False	-
+me-ataxia	NBK9674	PRICKLE1-Related Disorders	1	2	False	PRICKLE1
+mecp2-dup	NBK1284	MECP2 Duplication Syndrome	1	2	False	MECP2
+mecr-dis	NBK540959	MECR-Related Neurologic Disorder	1	2	False	MECR
+med13l	NBK613517	MED13L Syndrome	1	2	False	MED13L
+mef2c-dis	NBK610216	MEF2C-Related Disorder	1	2	False	MEF2C
+megdel	NBK195853	SERAC1 Deficiency	1	2	False	SERAC1
+melas	NBK1233	MELAS	17	18	True	MT-CO2;MT-CO3;MT-CYB;MT-ND1;MT-ND5;MT-ND6;MT-TC;MT-TF;MT-TH;MT-TK;MT-TL1;MT-TL2;MT-TQ;MT-TS1;MT-TS2;MT-TV;MT-TW
+men1	NBK1538	Multiple Endocrine Neoplasia Type 1	1	2	False	MEN1
+men2	NBK1257	Multiple Endocrine Neoplasia Type 2	1	4	False	RET
+men4	NBK594826	Multiple Endocrine Neoplasia Type 4	1	2	False	CDKN1B
+menkes	NBK1413	ATP7A-Related Copper Transport Disorders	1	4	False	ATP7A
+merrf	NBK1520	MERRF	8	9	False	MT-TF;MT-TH;MT-TI;MT-TK;MT-TL1;MT-TP;MT-TS1;MT-TS2
+mf-dys-mic	NBK214367	Mandibulofacial Dysostosis with Microcephaly	1	2	False	EFTUD2
+mga3	NBK1473	Costeff Syndrome	1	2	False	OPA3
+mhs	NBK1146	Nonsyndromic Malignant Hyperthermia Susceptibility	3	9	False	CACNA1S;RYR1;STAC3
+miccap-ms	NBK174452	Microcephaly-Capillary Malformation Syndrome	1	2	False	STAMBP
+microph-lsd	NBK7041	Microphthalmia with Linear Skin Defects Syndrome	3	6	False	COX7B;HCCS;NDUFB11
+milroy	NBK1239	Milroy Disease	1	2	False	FLT4
+mirage	NBK564655	MIRAGE Syndrome	1	2	False	SAMD9
+mirror	NBK279760	Congenital Mirror Movements	3	6	False	DCC;NTN1;RAD51
+miyoshi	NBK1303	Dysferlinopathy	1	3	False	DYSF
+mkks	NBK1502	McKusick-Kaufman Syndrome	1	2	False	MKKS
+ml2	NBK1828	GNPTAB-Related Disorders	1	3	False	GNPTAB
+ml3c	NBK24701	Mucolipidosis III Gamma	1	2	False	GNPTG
+ml4	NBK1214	Mucolipidosis IV	1	2	False	MCOLN1
+mlc	NBK1535	Megalencephalic Leukoencephalopathy with Subcortical Cysts	4	7	False	AQP4;GPRC5B;HEPACAM;MLC1
+mld	NBK1130	Arylsulfatase A Deficiency	1	2	False	ARSA
+mlid-maternal	NBK614473	Maternal Effect Gene-Related Multilocus Imprinting Disturbances	5	5	False	KHDC3L;NLRP2;NLRP5;NLRP7;PADI6
+mma	NBK1231	Isolated Methylmalonic Acidemia	5	10	False	MCEE;MMAA;MMAB;MMADHC;MMUT
+mmihs-ov	NBK540960	Megacystis-Microcolon-Intestinal Hypoperistalsis Syndrome Overview	7	2	False	ACTG2;ATP2B4;LMOD1;MYH11;MYL9;MYLK;PDCL3
+mn1-ctt	NBK560443	MN1 C-Terminal Truncation Syndrome	1	2	False	MN1
+mngie	NBK1179	Mitochondrial Neurogastrointestinal Encephalopathy Disease	1	2	False	TYMP
+mody-ov	NBK500456	Maturity-Onset Diabetes of the Young Overview	14	27	True	ABCC8;APPL1;BLK;CEL;GCK;HNF1A;HNF1B;HNF4A;INS;KCNJ11;KLF11;NEUROD1;PAX4;PDX1
+mona	NBK373578	Multicentric Osteolysis Nodulosis and Arthropathy	1	2	False	MMP2
+mopd2	NBK575926	Microcephalic Osteodysplastic Primordial Dwarfism Type II	1	2	False	PCNT
+mota	NBK1728	FREM1 Autosomal Recessive Disorders 	1	3	False	FREM1
+mpd1	NBK1433	Laing Distal Myopathy	1	2	False	MYH7
+mpgn	NBK1425	C3 Glomerulopathy	8	12	False	C3;CD46;CFB;CFH;CFHR1;CFHR5;CFI;DGKE
+mpph	NBK396098	MPPH Syndrome	3	6	False	AKT3;CCND2;PIK3R2
+mps1	NBK1162	Mucopolysaccharidosis Type I	1	4	False	IDUA
+mps3	NBK546574	Mucopolysaccharidosis Type III	4	8	False	GNS;HGSNAT;NAGLU;SGSH
+mps4a	NBK148668	Mucopolysaccharidosis Type IVA 	1	2	False	GALNS
+mps7	NBK598990	Mucopolysaccharidosis Type VII	1	2	False	GUSB
+mpv17-mtdep	NBK92947	MPV17-Related Hepatocerebral Mitochondrial DNA Maintenance Defect	1	2	False	MPV17
+mss	NBK1192	Marinesco-Sjogren Syndrome	1	2	False	SIL1
+msud	NBK1319	Maple Syrup Urine Disease	3	6	False	BCKDHA;BCKDHB;DBT
+msx2	NBK1128	Enlarged Parietal Foramina	2	4	False	ALX4;MSX2
+mt-deafness	NBK1422	Nonsyndromic Hearing Loss and Deafness, Mitochondrial	2	4	False	MT-RNR1;MT-TS1
+mt-mpan	NBK185329	Mitochondrial Membrane Protein-Associated Neurodegeneration	1	2	False	C19ORF12
+mt-overview	NBK1224	Primary Mitochondrial Disorders Overview	22	31	True	MT-ATP6;MT-ND1;MT-ND4;MT-ND5;MT-ND6;MT-TA;MT-TC;MT-TD;MT-TF;MT-TH;MT-TK;MT-TL1;MT-TL2;MT-TM;MT-TQ;MT-TR;MT-TS1;MT-TS2;MT-TT;MT-TV;MT-TW;MT-TY
+mthfr-homocystinuria	NBK615089	Homocystinuria due to Deficiency of N(5,10)-Methylenetetrahydrofolate Reductase Activity	1	2	False	MTHFR
+mtm	NBK1432	X-Linked Myotubular Myopathy	1	2	False	MTM1
+muenke	NBK1415	Muenke Syndrome	1	2	False	FGFR3
+mws	NBK1412	Mowat-Wilson Syndrome	1	2	False	ZEB2
+myh9	NBK2689	MYH9-Related Disease	1	2	False	MYH9
+myhre	NBK425723	Myhre Syndrome	1	2	False	SMAD4
+myo-dystonia	NBK1414	SGCE Myoclonus-Dystonia	1	2	False	SGCE
+myotonia-c	NBK1355	Myotonia Congenita	1	3	False	CLCN1
+myotonic-d	NBK1165	Myotonic Dystrophy Type 1	1	2	False	DMPK
+myotonic-d2	NBK1466	Myotonic Dystrophy Type 2	1	2	False	CNBP
+myrf-cugs	NBK586169	MYRF-Related Cardiac Urogenital Syndrome	1	2	False	MYRF
+nad-def	NBK593504	Congenital NAD Deficiency Disorder	3	6	False	HAAO;KYNU;NADSYN1
+nail-ps	NBK1132	Nail-Patella Syndrome	1	2	False	LMX1B
+narp	NBK1173	Mitochondrial DNA-Associated Leigh Syndrome Spectrum	15	17	True	MT-ATP6;MT-CO1;MT-CO2;MT-CO3;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND5;MT-ND6;MT-TI;MT-TK;MT-TL1;MT-TV;MT-TW
+nars1	NBK612410	NARS1-Related Neurologic Disorders	1	3	False	NARS1
+nbia-ov	NBK121988	Neurodegeneration with Brain Iron Accumulation Disorders Overview	10	19	True	ATP13A2;C19ORF12;COASY;CP;DCAF17;FA2H;FTL;PANK2;PLA2G6;WDR45
+nbs	NBK321516	SMARCA2-Related Nicolaides-Baraitser Syndrome	1	2	False	SMARCA2
+ncl	NBK1428	Neuronal Ceroid Lipofuscinoses Overview	12	26	False	CLN3;CLN5;CLN6;CLN8;CTSD;CTSF;DNAJC5;GRN;KCTD7;MFSD8;PPT1;TPP1
+ndi	NBK1177	Hereditary Nephrogenic Diabetes Insipidus	2	4	False	AQP2;AVPR2
+nephron-ov	NBK368475	Nephronophthisis-Related Ciliopathies	19	36	False	ANKS6;CEP164;CEP290;CEP83;DCDC2;GLIS2;IFT172;INVS;IQCB1;NEK8;NPHP1;NPHP3;NPHP4;RPGRIP1L;SDCCAG8;TMEM67;TTC21B;WDR19;ZNF423
+neurocutaneous	NBK620405	Neurocutaneous Disorders due to Mitochondrial Proline Synthesis Defects	2	6	False	ALDH18A1;PYCR1
+neuroferritin	NBK1141	Neuroferritinopathy	1	2	False	FTL
+nf1	NBK1109	Neurofibromatosis 1	1	2	True	NF1
+nf2	NBK1201	NF2-Related Schwannomatosis	1	2	False	NF2
+nfia-dis	NBK542336	NFIA-Related Disorder	1	2	False	NFIA
+nfix-malan	NBK605494	NFIX-Related Malan Syndrome	1	2	False	NFIX
+ngly1-cddg	NBK481554	NGLY1-Related Congenital Disorder of Deglycosylation	1	2	False	NGLY1
+nijmegen	NBK1176	Nijmegen Breakage Syndrome	1	2	False	NBN
+nkh	NBK1357	Nonketotic Hyperglycinemia	2	4	False	AMT;GLDC
+nkx2-1-dis	NBK185066	NKX2-1-Related Disorders	1	3	False	NKX2-1
+nkx6-2-spax	NBK531509	NKX6-2-Related Disorder	1	2	False	NKX6-2
+noonan	NBK1124	Noonan Syndrome	13	25	True	BRAF;KRAS;LZTR1;MAP2K1;MRAS;NRAS;PTPN11;RAF1;RASA2;RIT1;RRAS2;SOS1;SOS2
+norrie	NBK1331	NDP-Related Retinopathies	1	4	False	NDP
+npab	NBK1370	Acid Sphingomyelinase Deficiency	1	3	False	SMPD1
+npc	NBK1296	Niemann-Pick Disease Type C	2	4	False	NPC1;NPC2
+nr2f1-ndd	NBK587319	NR2F1-Related Neurodevelopmental Disorder	1	2	False	NR2F1
+nr4a2-ndd	NBK624883	NR4A2-Related Neurodevelopmental Disorder and Dopa-Responsive Dystonia	1	2	False	NR4A2
+nsdhl-dis	NBK51754	NSDHL-Related Disorders	1	3	False	NSDHL
+nthl1-ts	NBK555473	NTHL1 Tumor Syndrome	1	2	True	NTHL1
+oca-oa-ov	NBK590568	Oculocutaneous Albinism and Ocular Albinism Overview	8	9	False	DCT;GPR143;LRMDA;OCA2;SLC24A5;SLC45A2;TYR;TYRP1
+oca4	NBK1510	Oculocutaneous Albinism Type 4	1	2	False	SLC45A2
+ofd1	NBK1188	Oral-Facial-Digital Syndrome Type I	1	2	False	OFD1
+og-dysp	NBK602944	Osteoglophonic Dysplasia	1	2	False	FGFR1
+oi	NBK1295	COL1A1- and COL1A2-Related Osteogenesis Imperfecta	2	6	False	COL1A1;COL1A2
+okur-chung	NBK581083	Okur-Chung Neurodevelopmental Syndrome	1	2	False	CSNK2A1
+ondine	NBK1427	Congenital Central Hypoventilation Syndrome	1	2	False	PHOX2B
+opd	NBK1393	FLNA-Related Otopalatodigital Spectrum Disorders	1	6	False	FLNA
+opitz	NBK1327	MID1-Related Opitz G/BBB Syndrome	1	2	False	MID1
+opmd	NBK1126	Oculopharyngeal Muscular Dystrophy	1	2	False	PABPN1
+os-cs	NBK569515	Osteopathia Striata with Cranial Sclerosis	1	2	False	AMER1
+otc-def	NBK154378	Ornithine Transcarbamylase Deficiency	1	2	False	OTC
+pacs1-ndd	NBK559434	PACS1-Related Neurodevelopmental Disorder	1	2	False	PACS1
+pai-1-def	NBK447152	Complete Plasminogen Activator Inhibitor 1 Deficiency	1	2	False	SERPINE1
+pancreatitis-ov	NBK190101	Pancreatitis Overview	13	1	True	CASR;CEL;CFTR;CLDN2;CPA1;CTRC;CTSB;GGT1;PNLIP;PRSS1;SPINK1;TRPV6;UBR1
+papr	NBK1451	PAX2-Related Disorder	1	2	False	PAX2
+paragangliomas	NBK1548	Hereditary Paraganglioma-Pheochromocytoma Syndromes	7	14	False	MAX;SDHA;SDHAF2;SDHB;SDHC;SDHD;TMEM127
+parkinson-overview	NBK1223	Monogenic Parkinson Disease Overview	14	16	False	ATP13A2;DNAJC6;FBXO7;LRRK2;PARK7;PINK1;PLA2G6;PRKN;RAB32;RAB39B;SNCA;SYNJ1;VPS13C;VPS35
+pbd	NBK1448	Zellweger Spectrum Disorder	13	16	False	PEX1;PEX10;PEX11B;PEX12;PEX13;PEX14;PEX16;PEX19;PEX2;PEX26;PEX3;PEX5;PEX6
+pc	NBK1280	Pachyonychia Congenita	5	10	False	KRT16;KRT17;KRT6A;KRT6B;KRT6C
+pc-hypo-p	NBK9673	TSEN54 Pontocerebellar Hypoplasia	1	4	False	TSEN54
+pcd	NBK1122	Primary Ciliary Dyskinesia	58	50	True	CCDC39;CCDC40;CCNO;CFAP221;CFAP298;CFAP300;CFAP54;CFAP57;CFAP74;CLXN;DNAAF1;DNAAF11;DNAAF19;DNAAF2;DNAAF3;DNAAF4;DNAAF5;DNAAF6;DNAH1;DNAH10;DNAH11;DNAH5;DNAH7;DNAH9;DNAI1;DNAI2;DNAJB13;DNAL1;DRC1;DRC2;DRC4;FOXJ1;GAS2L2;HYDIN;IFT74;KIAA0586;LRRC56;MCIDAS;NEK10;NME5;NME8;ODAD1;ODAD2;ODAD3;ODAD4;OFD1;RPGR;RSPH1;RSPH3;RSPH4A;RSPH9;SPAG1;SPEF2;STK36;TP73;TTC12;TUBB4B;ZMYND10
+pdc	NBK6852	Pyruvate Carboxylase Deficiency	1	2	False	PC
+pdhc-def-ov	NBK571223	Primary Pyruvate Dehydrogenase Complex Deficiency Overview	7	10	False	DLAT;DLD;PDHA1;PDHB;PDHX;PDK3;PDP1
+pds	NBK1486	Pyridoxine-Dependent Epilepsy - ALDH7A1	1	2	False	ALDH7A1
+peaf	NBK1537	Autosomal Dominant Epilepsy with Auditory Features	3	5	False	LGI1;MICAL1;RELN
+pendred	NBK1467	SLC26A4-Related Sensorineural Hearing Loss	1	3	False	SLC26A4
+perrault	NBK242617	Perrault Syndrome Overview	12	7	True	CLPP;DAP3;ERAL1;GGPS1;HARS2;HSD17B4;LARS2;MRPL49;PEX6;PRORP;RMND1;TWNK
+perry	NBK47027	DCTN1-Related Neurodegeneration	1	3	False	DCTN1
+peters-plus	NBK1464	Peters Plus Syndrome	1	2	False	B3GLCT
+pf	NBK1230	Pulmonary Fibrosis Predisposition Overview	12	11	True	ABCA3;DKC1;NAF1;PARN;RTEL1;SFTPA1;SFTPA2;SFTPC;TERC;TERT;TINF2;ZCCHC8
+pfcp	NBK395975	Primary Familial and Congenital Erythrocytosis	1	2	False	EPOR
+pfic	NBK1297	ATP8B1 Deficiency	1	3	False	ATP8B1
+ph1	NBK1283	Primary Hyperoxaluria Type 1	1	2	False	AGXT
+ph2	NBK2692	Primary Hyperoxaluria Type 2	1	2	False	GRHPR
+ph3	NBK316514	Primary Hyperoxaluria Type 3	1	2	False	HOGA1
+pha2	NBK65707	Pseudohypoaldosteronism Type II	4	9	False	CUL3;KLHL3;WNK1;WNK4
+phs	NBK1465	GLI3-Related Pallister-Hall Syndrome	1	2	True	GLI3
+phts	NBK1488	PTEN Hamartoma Tumor Syndrome	1	3	False	PTEN
+pi4ka	NBK583038	PI4KA-Related Disorder	1	4	False	PI4KA
+pik3ca-overgrowth	NBK153722	PIK3CA-Related Overgrowth Spectrum	1	7	False	PIK3CA
+pink1-pd	NBK26472	PINK1 Type of Young-Onset Parkinson Disease 	1	2	False	PINK1
+pitt-hopkins	NBK100240	Pitt-Hopkins Syndrome	1	2	False	TCF4
+pjs	NBK1266	Peutz-Jeghers Syndrome	1	2	False	STK11
+pkan	NBK1490	Pantothenate Kinase-Associated Neurodegeneration	1	3	False	PANK2
+pkd-ad	NBK1246	Polycystic Kidney Disease, Autosomal Dominant	7	13	False	ALG5;ALG9;DNAJB11;GANAB;IFT140;PKD1;PKD2
+pkd-ar	NBK1326	Autosomal Recessive Polycystic Kidney Disease ? PKHD1	1	2	False	PKHD1
+pku	NBK1504	Phenylalanine Hydroxylase Deficiency	1	2	False	PAH
+plosl	NBK1197	Polycystic Lipomembranous Osteodysplasia with Sclerosing Leukoencephalopathy	2	4	False	TREM2;TYROBP
+plpbp-def	NBK589231	PLPBP Deficiency	1	2	False	PLPBP
+pmd	NBK1182	PLP1-Related Disorders	1	3	False	PLP1
+pmld1	NBK470716	Pelizaeus-Merzbacher-Like Disease 1	1	2	False	GJC2
+pnknd	NBK1221	Familial Paroxysmal Nonkinesigenic Dyskinesia	1	2	False	PNKD
+pnpla6-dis	NBK247161	PNPLA6 Disorders	1	5	False	PNPLA6
+pnpo-def	NBK581452	PNPO Deficiency	1	2	False	PNPO
+poikiloderma-n	NBK459118	Poikiloderma with Neutropenia	1	2	False	USB1
+pol3-leuk	NBK99167	POLR3-Related Leukodystrophy	3	6	False	POLR1C;POLR3A;POLR3B
+porphyria-ct	NBK143129	Familial Porphyria Cutanea Tarda	1	2	False	UROD
+porphyria-var	NBK121283	Variegate Porphyria	1	2	False	PPOX
+pot1-tpd	NBK563529	POT1 Tumor Predisposition	1	2	False	POT1
+potocki-lupski	NBK447920	Potocki-Lupski Syndrome	3	3	False	-;FLCN;RAI1
+pp-blastoma	NBK196157	DICER1-Related Tumor Predisposition	1	5	False	DICER1
+pph	NBK1485	Heritable Pulmonary Arterial Hypertension Overview	15	4	True	ABCC8;ACVRL1;ATP13A3;BMPR2;CAV1;EIF2AK4;ENG;GDF2;GGCX;KCNK3;KDR;SMAD9;SOX17;TBX4;TET2
+ppp1r12a-ubm	NBK573670	PPP1R12A-Related Urogenital and/or Brain Malformation Syndrome	1	2	False	PPP1R12A
+ppp1r21-ndd	NBK620407	PPP1R21-Related El-Hattab-Schmidts Syndrome	1	2	False	PPP1R21
+ppp2r1a-ndd	NBK580243	PPP2R1A-Related Neurodevelopmental Disorder	1	2	False	PPP2R1A
+ppp2r5d-dis	NBK536360	PPP2R5D-Related Neurodevelopmental Disorder	1	2	False	PPP2R5D
+ppr-dysp	NBK327267	Progressive Pseudorheumatoid Dysplasia	1	2	False	CCN6
+primrose	NBK570205	Primrose Syndrome	1	2	False	ZBTB20
+prion	NBK1229	Genetic Prion Disease	1	6	False	PRNP
+prolidase-def	NBK299584	Prolidase Deficiency	1	2	False	PEPD
+prop1	NBK1347	PROP1-Related Combined Pituitary Hormone Deficiency	1	2	True	PROP1
+propionic-a	NBK92946	Propionic Acidemia	2	3	False	PCCA;PCCB
+proteus	NBK99495	Proteus Syndrome	1	2	False	AKT1
+prrt2-parox	NBK475803	PRRT2-Related Disorder	1	4	False	PRRT2
+prs	NBK1973	Phosphoribosylpyrophosphate Synthetase Superactivity	1	2	False	PRPS1
+prss1-hp	NBK84399	PRSS1-Related Hereditary Pancreatitis	1	2	True	PRSS1
+psach	NBK1487	COMP-Related Pseudoachondroplasia	1	2	False	COMP
+ptdss1-lmhd	NBK621299	PTDSS1-Related Lenz-Majewski Hyperostotic Dysplasia	1	2	False	PTDSS1
+ptps-def	NBK616086	PTS-Related Tetrahydrobiopterin Deficiency (PTPSD)	1	2	False	PTS
+ptt	NBK1148	Prothrombin Thrombophilia	1	2	False	F2
+puf60-dis	NBK623826	PUF60-Related Disorders	1	2	False	PUF60
+pura-dis	NBK426063	PURA-Related Neurodevelopmental Disorders	1	2	False	PURA
+pws	NBK1330	Prader-Willi Syndrome	1	19	False	-
+pxe	NBK1113	Pseudoxanthoma Elasticum	1	3	False	ABCC6
+pycnodys	NBK563694	Pycnodysostosis	1	2	False	CTSK
+rab18-def	NBK475670	RAB18 Deficiency	4	9	False	RAB18;RAB3GAP1;RAB3GAP2;TBC1D20
+rab32-pd	NBK620406	RAB32-Related Parkinson Disease	1	2	False	RAB32
+rapid-odp	NBK1115	ATP1A3-Related Disorder	1	4	False	ATP1A3
+rasa1-rel-dis	NBK52764	Capillary Malformation-Arteriovenous Malformation Syndrome	2	4	False	EPHB4;RASA1
+rbs	NBK1153	ESCO2 Spectrum Disorder	1	2	False	ESCO2
+rcdp	NBK1270	PEX7-Related Rhizomelic Chondrodysplasia Punctata	1	2	False	PEX7
+refsum	NBK1353	Adult Refsum Disease	2	4	False	PEX7;PHYH
+rere-dis	NBK538938	RERE-Related Disorders	1	2	True	RERE
+retinoblastoma	NBK1452	Retinoblastoma	1	2	False	RB1
+retinoschisis	NBK1222	X-Linked Congenital Retinoschisis	1	2	False	RS1
+rett	NBK1497	MECP2 Disorders	1	5	False	MECP2
+rfc1-canvas	NBK564656	RFC1-Related Disorders	1	2	False	RFC1
+riboflavin-tn	NBK299312	Riboflavin Transporter Deficiency	3	7	True	SLC52A1;SLC52A2;SLC52A3
+rickets-xlh	NBK83985	X-Linked Hypophosphatemia	1	2	False	PHEX
+ritscher-schinzel	NBK553049	Ritscher-Schinzel Syndrome	2	4	False	CCDC22;WASHC5
+rnu4-2-ndd	NBK622730	RNU4-2?Related Autosomal Dominant Neurodevelopmental Disorder	1	2	True	RNU4-2
+rnu4atac-dis	NBK589232	RNU4atac-opathy	1	4	False	RNU4ATAC
+rob	NBK1240	ROR2-Related Robinow Syndrome	1	2	False	ROR2
+rob-ad	NBK268648	Autosomal Dominant Robinow Syndrome	3	6	False	DVL1;DVL3;WNT5A
+rotor	NBK114805	Rotor Syndrome	2	3	False	SLCO1B1;SLCO1B3
+rp-overview	NBK1417	Nonsyndromic Retinitis Pigmentosa Overview	80	107	True	ABCA4;ADGRA3;AGBL5;ARL2BP;ARL3;ARL6;BBS1;BBS2;BEST1;CA4;CERKL;CFAP418;CLRN1;CNGA1;CNGB1;CRB1;CRX;CYP4V2;DHDDS;DHX38;EMC1;EYS;FAM161A;FSCN2;GUCA1B;HGSNAT;HK1;IDH3B;IFT140;IFT172;IMPDH1;IMPG2;KIAA1549;KIZ;KLHL7;LRAT;MAK;MERTK;MVK;NEK2;NEUROD1;NR2E3;NRL;OFD1;PCARE;PDE6A;PDE6B;PDE6G;POMGNT1;PRCD;PROM1;PRPF3;PRPF31;PRPF6;PRPF8;PRPH2;RBP3;RDH12;RGR;RHO;RLBP1;ROM1;RP1;RP2;RP9;RPE65;RPGR;SAG;SEMA4A;SLC7A14;SNRNP200;SPATA7;SPP2;TOPORS;TRNT1;TTC8;TULP1;USH2A;ZNF408;ZNF513
+rpe65-lca	NBK549574	Autosomal Recessive RPE65-Related Retinal Degeneration	1	2	False	RPE65
+rrm2b-mtddepl	NBK195854	RRM2B Mitochondrial DNA Maintenance Defects	1	3	False	RRM2B
+rss	NBK1324	Silver-Russell Syndrome	5	9	False	CDKN1C;H19;HMGA2;IGF2;PLAG1
+rsts	NBK1526	Rubinstein-Taybi Syndrome	2	4	False	CREBBP;EP300
+rtps	NBK469816	Rhabdoid Tumor Predisposition Syndrome	2	4	True	SMARCA4;SMARCB1
+rts	NBK1237	Rothmund-Thomson Syndrome	2	4	False	ANAPC1;RECQL4
+runx1	NBK568319	RUNX1 Familial Platelet Disorder with Associated Myeloid Malignancies	1	2	False	RUNX1
+rvcl	NBK546576	Retinal Vasculopathy with Cerebral Leukoencephalopathy and Systemic Manifestations	1	2	False	TREX1
+rws	NBK1129	Long QT Syndrome Overview	12	11	False	CACNA1C;CALM1;CALM2;CALM3;CAV3;KCNE1;KCNE2;KCNH2;KCNJ2;KCNQ1;SCN5A;TRDN
+salih-myo	NBK83297	Salih Myopathy	1	2	False	TTN
+samd9l-ap	NBK435692	SAMD9L-Related Syndrome	1	4	True	SAMD9L
+sandhoff	NBK579484	Sandhoff Disease	1	2	False	HEXB
+satb2-dis	NBK458647	SATB2-Associated Syndrome	1	2	False	SATB2
+saul-wilson	NBK554080	Saul-Wilson Syndrome	1	2	False	COG4
+sca1	NBK1184	Spinocerebellar Ataxia Type  1	1	2	False	ATXN1
+sca10	NBK1175	Spinocerebellar Ataxia Type 10	1	2	False	ATXN10
+sca11	NBK1757	Spinocerebellar Ataxia Type 11	1	2	False	TTBK2
+sca13	NBK1225	Spinocerebellar Ataxia Type 13	1	2	False	KCNC3
+sca14	NBK1399	Spinocerebellar Ataxia Type 14	1	2	False	PRKCG
+sca17	NBK1438	Spinocerebellar Ataxia Type 17	1	2	False	TBP
+sca2	NBK1275	Spinocerebellar Ataxia Type 2	1	2	False	ATXN2
+sca20	NBK1471	Spinocerebellar Ataxia Type 20	1	1	False	-
+sca28	NBK54582	AFG3L2-Related Neurologic Disorders	1	4	False	AFG3L2
+sca3	NBK1196	Spinocerebellar Ataxia Type 3	1	2	False	ATXN3
+sca36	NBK231880	Spinocerebellar Ataxia Type 36	1	2	False	NOP56
+sca37	NBK541729	Spinocerebellar Ataxia Type 37	1	2	False	DAB1
+sca38	NBK543515	Spinocerebellar Ataxia Type 38	1	2	False	ELOVL5
+sca4	NBK610215	Spinocerebellar Ataxia Type 4	1	2	False	ZFHX3
+sca6	NBK1140	Spinocerebellar Ataxia Type 6	1	2	False	CACNA1A
+sca7	NBK1256	Spinocerebellar Ataxia Type 7	1	2	False	ATXN7
+sca8	NBK1268	Spinocerebellar Ataxia Type 8	2	3	False	ATXN8;ATXN8OS
+scad	NBK63582	Short-Chain Acyl-CoA Dehydrogenase Deficiency	1	2	False	ACADS
+scan1	NBK1105	Spinocerebellar Ataxia with Axonal Neuropathy, Autosomal Recessive	1	2	False	TDP1
+schaaf-yang	NBK567492	Schaaf-Yang Syndrome	1	2	False	MAGEL2
+schinzel-giedion	NBK601394	Schinzel-Giedion Syndrome	1	2	False	SETBP1
+schmid-mcd	NBK547823	Schmid Metaphyseal Chondrodysplasia	1	2	False	COL10A1
+schwann	NBK487394	LZTR1- and SMARCB1-Related Schwannomatosis	2	4	True	LZTR1;SMARCB1
+scn3a-ndd	NBK570882	SCN3A-Related Neurodevelopmental Disorder	1	3	False	SCN3A
+scn8a-ee	NBK379665	SCN8A-Related Epilepsy and/or Neurodevelopmental Disorders	1	4	False	SCN8A
+scs	NBK1189	Saethre-Chotzen Syndrome	1	2	False	TWIST1
+sd-thes	NBK475802	Trichohepatoenteric Syndrome	2	4	True	SKIC2;SKIC3
+sds	NBK1756	Shwachman-Diamond Syndrome	4	5	False	DNAJC21;EFL1;SBDS;SRP54
+sedt	NBK1145	X-Linked Spondyloepiphyseal Dysplasia Tarda	1	2	False	TRAPPC2
+serine-def	NBK592681	Serine Deficiency Disorders	3	8	False	PHGDH;PSAT1;PSPH
+setbp1-hd	NBK575336	SETBP1 Haploinsufficiency Disorder	1	2	False	SETBP1
+setd1b-ndd	NBK584549	SETD1B-Related Neurodevelopmental Disorder	1	2	False	SETD1B
+setd2-ndd	NBK575927	SETD2 Neurodevelopmental Disorders	1	4	False	SETD2
+sgbs	NBK1219	Simpson-Golabi-Behmel Syndrome Type 1	1	2	False	GPC3
+sgpl1	NBK562988	Sphingosine Phosphate Lyase Insufficiency Syndrome	1	2	False	SGPL1
+sgs	NBK1277	Shprintzen-Goldberg Syndrome	1	2	False	SKI
+shashi-pena	NBK609017	Shashi-Pena Syndrome	1	2	False	ASXL2
+short	NBK201365	PIK3R1-Related SHORT Syndrome	1	2	False	PIK3R1
+sickle	NBK1377	Sickle Cell Disease	1	2	False	HBB
+siod	NBK1376	Schimke Immunoosseous Dysplasia	1	2	False	SMARCAL1
+slc12a5-e	NBK537476	SLC12A5-Related Epilepsy of Infancy with Migrating Focal Seizures	1	2	False	SLC12A5
+slc19a1-ft-def	NBK617054	SLC19A1-Related Folate Transport Deficiency	1	3	False	SLC19A1
+slc25a24-fps	NBK581082	SLC25A24 Fontaine Progeroid Syndrome	1	2	False	SLC25A24
+slc39a14-def	NBK431123	SLC39A14 Deficiency	1	2	False	SLC39A14
+slc39a8-cdg	NBK590152	SLC39A8-CDG	1	2	False	SLC39A8
+slc6a1-ndd	NBK589173	SLC6A1-Related Neurodevelopmental Disorder	1	2	False	SLC6A1
+slc6a3-dtds	NBK442323	SLC6A3-Related Dopamine Transported Deficiency Syndrome	1	2	False	SLC6A3
+slo	NBK1143	Smith-Lemli-Opitz Syndrome	1	2	False	DHCR7
+sma	NBK1352	Spinal Muscular Atrophy	2	8	False	SMN1;SMN2
+sma-xli	NBK2594	Spinal Muscular Atrophy, X-Linked Infantile	1	2	False	UBA1
+smdcf	NBK555103	Spondylometaphyseal Dysplasia, Corner Fracture Type	2	3	False	COL2A1;FN1
+smith-kingsmore	NBK619247	Smith-Kingsmore Syndrome	1	2	False	MTOR
+sms	NBK1310	Smith-Magenis Syndrome	1	2	False	RAI1
+snyder-robinson	NBK144284	Snyder-Robinson Syndrome	1	2	False	SMS
+sost	NBK587318	SOST-Related Sclerosing Bone Dysplasias	1	3	False	SOST
+sotos	NBK1479	Sotos Syndrome	1	2	False	NSD1
+sox2	NBK1300	SOX2 Disorder	1	2	False	SOX2
+spg11	NBK1210	Spastic Paraplegia 11	1	2	False	SPG11
+spg15	NBK570772	Spastic Paraplegia 15	1	2	False	ZFYVE26
+spg17	NBK1307	BSCL2-Related Neurologic Disorders / Seipinopathy	1	3	False	BSCL2
+spg20	NBK1382	Troyer Syndrome	1	2	False	SPART
+spg3a	NBK45978	Spastic Paraplegia 3A	1	3	False	ATL1
+spg4	NBK1160	Spastic Paraplegia 4	1	2	False	SPAST
+spg7	NBK1107	SPG7-Related Neurologic Disorder	1	2	False	SPG7
+spg8	NBK1827	Spastic Paraplegia 8	1	2	False	WASHC5
+spondylocostal-d	NBK8828	Spondylocostal Dysostosis, Autosomal Recessive	6	12	False	DLL3;HES7;LFNG;MESP2;RIPPLY2;TBX6
+spr-def	NBK304122	Sepiapterin Reductase Deficiency	1	2	False	SPR
+sptbn4	NBK559435	SPTBN4 Disorder	1	2	False	SPTBN4
+ss-def	NBK553533	Squalene Synthase Deficiency	1	2	False	FDFT1
+ssadh	NBK1195	Succinic Semialdehyde Dehydrogenase Deficiency	1	2	False	ALDH5A1
+stac3-dis	NBK542808	STAC3 Disorder	1	2	False	STAC3
+stickler	NBK1302	Stickler Syndrome	6	11	True	COL11A1;COL11A2;COL2A1;COL9A1;COL9A2;COL9A3
+strc-hearing-loss	NBK598310	STRC-Related Autosomal Recessive Hearing Loss	2	4	False	CATSPER2;STRC
+stromme	NBK586170	Strømme Syndrome	1	2	False	CENPF
+stsl	NBK131810	Sitosterolemia	2	3	False	ABCG5;ABCG8
+stxbp1-ee	NBK396561	STXBP1 Encephalopathy with Epilepsy	1	2	False	STXBP1
+sucla2-def	NBK6803	SUCLA2-Related Mitochondrial DNA Depletion Syndrome, Encephalomyopathic Form with Methylmalonic Aciduria	1	2	False	SUCLA2
+suclg1-mtddepl	NBK425223	SUCLG1-Related Mitochondrial DNA Depletion Syndrome, Encephalomyopathic Form with Methylmalonic Aciduria	1	2	False	SUCLG1
+syncrip-ndd	NBK622585	SYNCRIP-Related Neurodevelopmental Disorder	1	1	False	SYNCRIP
+syne1ca-ar	NBK1379	SYNE1 Deficiency	1	2	False	SYNE1
+syngap1-id	NBK537721	SYNGAP1-Related Intellectual Disability	1	2	False	SYNGAP1
+sys-h	NBK1525	Hyaline Fibromatosis Syndrome	1	2	False	ANTXR2
+taa	NBK1120	Heritable Thoracic Aortic Disease Overview	30	18	True	ACTA2;BGN;CBS;COL3A1;COL4A5;EFEMP2;ELN;FBN1;FBN2;FLNA;FOXE3;HCN4;LOX;MAT2A;MFAP5;MYH11;MYLK;NOTCH1;PKD1;PKD2;PRKG1;SKI;SLC2A10;SMAD2;SMAD3;SMAD4;TGFB2;TGFB3;TGFBR1;TGFBR2
+taf8-ndd	NBK619575	TAF8-Related Neurodevelopmental Disorder	1	2	False	TAF8
+tangier	NBK549920	Tangier Disease	1	2	False	ABCA1
+tango2-mea	NBK476443	TANGO2 Deficiency	1	2	False	TANGO2
+tar	NBK23758	Thrombocytopenia Absent Radius Syndrome	1	2	False	RBM8A
+tardbp-als	NBK5942	TARDBP-Related Amyotrophic Lateral Sclerosis-Frontotemporal Dementia	1	2	False	TARDBP
+tay-sachs	NBK1218	HEXA Disorders	1	2	False	HEXA
+tbc1d24-dis	NBK274566	TBC1D24-Related Disorders	1	7	False	TBC1D24
+tbck-ndd	NBK615430	TBCK-Related Neurodevelopmental Disorder	1	2	False	TBCK
+tbrs	NBK581652	Tatton-Brown-Rahman Syndrome	1	2	False	DNMT3A
+tbs	NBK1445	SALL1-Related Townes-Brocks Syndrome	1	2	False	SALL1
+tcirg1-opt	NBK617444	TCIRG1-Related Osteopetrosis	1	2	False	TCIRG1
+tcs	NBK1532	Treacher Collins Syndrome	4	8	False	POLR1B;POLR1C;POLR1D;TCOF1
+td	NBK1366	Thanatophoric Dysplasia	1	3	False	FGFR3
+tecpr2-hsan-id	NBK584409	TECPR2-Related Hereditary Sensory and Autonomic  Neuropathy with Intellectual Disability 	1	2	False	TECPR2
+temple	NBK621564	Temple Syndrome	3	1	False	DLK1;MEG3;RTL1
+tfap	NBK1194	Hereditary Transthyretin  Amyloidosis	1	2	False	TTR
+tfr2	NBK1349	TFR2-Related Hemochromatosis	1	2	False	TFR2
+thctd	NBK26373	Allan-Herndon-Dudley Syndrome	1	2	False	SLC16A2
+thdrd	NBK1437	Tyrosine Hydroxylase Deficiency	1	2	False	TH
+thoc6-id	NBK560442	THOC6 Intellectual Disability Syndrome	1	2	False	THOC6
+timothy	NBK1403	CACNA1C-Related Disorders	1	5	False	CACNA1C
+tk2-mtddepl	NBK114628	TK2-Related Mitochondrial DNA Maintenance Defect, Myopathic Form	1	2	False	TK2
+tnxb-eds	NBK584019	TNXB-Related Classical-Like Ehlers-Danlos Syndrome	1	2	False	TNXB
+tpk1-def	NBK623293	TPK1-Related Thiamine Metabolism Dysfunction Syndrome	1	2	False	TPK1
+tps	NBK425926	Trichorhinophalangeal Syndrome	3	5	False	EXT1;RAD21;TRPS1
+traps	NBK586171	TNF Receptor-Associated Periodic Fever Syndrome	1	2	False	TNFRSF1A
+trimethylaminuria	NBK1103	Primary Trimethylaminuria	1	2	False	FMO3
+trio-id	NBK447257	TRIO-Related Neurodevelopmental Disorder	1	3	False	TRIO
+trma	NBK1282	Thiamine-Responsive Megaloblastic Anemia Syndrome	1	2	True	SLC19A2
+trmu-def	NBK591557	TRMU Deficiency	1	2	False	TRMU
+trpm3-ndd	NBK589387	TRPM3-Related Neurodevelopmental Disorder	1	2	False	TRPM3
+tubb4a-leuk	NBK395611	TUBB4A-Related Neurologic Disorders	1	3	False	TUBB4A
+tuberous-sclerosis	NBK1220	Tuberous Sclerosis Complex	2	4	False	TSC1;TSC2
+tubulin-ov	NBK350554	Tubulinopathies Overview	6	10	False	TUBA1A;TUBB;TUBB2A;TUBB2B;TUBB3;TUBG1
+tyrosinemia	NBK1515	Tyrosinemia Type I	1	2	False	FAH
+tyrosinemia-2	NBK608431	Tyrosinemia Type II	1	2	False	TAT
+ucd-overview	NBK1217	Urea Cycle Disorders Overview	8	17	False	ARG1;ASL;ASS1;CPS1;NAGS;OTC;SLC25A13;SLC25A15
+udd	NBK1323	Udd Distal Myopathy - Tibial Muscular Dystrophy	1	2	False	TTN
+unc80-def	NBK453434	UNC80 Deficiency	1	2	False	UNC80
+urofacial	NBK154138	Urofacial Syndrome	2	4	False	HPSE2;LRIG2
+usher1	NBK1265	Usher Syndrome Type I	5	13	False	CDH23;MYO7A;PCDH15;USH1C;USH1G
+usher2	NBK1341	Usher Syndrome Type II	3	6	False	ADGRV1;USH2A;WHRN
+usp7-ndd	NBK619577	USP7-Related Hao-Fountain Syndrome	1	2	False	USP7
+vexas	NBK614471	VEXAS Syndrome	1	2	False	UBA1
+vhl	NBK1463	Von Hippel-Lindau Syndrome	1	2	False	VHL
+vlcad	NBK6816	Very Long-Chain Acyl-Coenzyme A Dehydrogenase Deficiency	1	2	False	ACADVL
+vldlr-ch	NBK1874	VLDLR Cerebellar Hypoplasia	1	2	False	VLDLR
+vmcm	NBK1967	TEK-Related Venous Malformations	1	2	False	TEK
+vodi	NBK1271	Hepatic Veno-Occlusive Disease with Immunodeficiency	1	2	False	SP110
+von-willebrand	NBK7014	Von Willebrand Disease	1	4	False	VWF
+vps13d-md	NBK537720	VPS13D Movement Disorder	1	2	False	VPS13D
+vps35-pd	NBK447258	VPS35-Related Parkinson Disease	1	2	False	VPS35
+vws	NBK1407	IRF6-Related Disorders	1	3	False	IRF6
+wac-id	NBK465012	WAC-Related Intellectual Disability	1	2	False	WAC
+wagner	NBK3821	VCAN-Related Vitreoretinopathy	1	2	False	VCAN
+wagr	NBK621298	WAGR Spectrum Disorder	2	1	False	PAX6;WT1
+wars2-def	NBK595820	WARS2 Deficiency	1	3	False	WARS2
+warsaw	NBK541972	DDX11-Related Cohesinopathy	1	2	False	DDX11
+was	NBK1178	WAS-Related Disorders	1	4	False	WAS
+wdr26-id	NBK540448	WDR26-Related Intellectual Disability	1	2	False	WDR26
+wdr62-pm	NBK578067	WDR62 Primary Microcephaly	1	2	False	WDR62
+weaver	NBK148820	EZH2-Related Overgrowth	1	2	False	EZH2
+weill-ms	NBK1114	Weill-Marchesani Syndrome	4	8	True	ADAMTS10;ADAMTS17;FBN1;LTBP2
+weiss-kruszka	NBK549204	Weiss-Kruszka Syndrome	1	2	False	ZNF462
+werner	NBK1514	Werner Syndrome	1	2	False	WRN
+wfs	NBK4144	WFS1  Spectrum Disorder	1	6	False	WFS1
+white-sutton	NBK573972	White-Sutton Syndrome	1	2	False	POGZ
+wiedemann-steiner	NBK580718	Wiedemann-Steiner Syndrome	1	2	False	KMT2A
+williams	NBK1249	Williams Syndrome	5	6	False	ELN;GTF2I;GTF2IRD1;LIMK1;NCF1
+wilms-ov	NBK1294	Wilms Tumor Predisposition	7	7	False	CTR9;FBXW7;KDM3B;NYNRIN;REST;TRIM28;WT1
+wilson	NBK1512	Wilson Disease	1	2	False	ATP7B
+ws1	NBK1531	Waardenburg Syndrome Type I	1	2	False	PAX3
+wss	NBK378974	Woodhouse-Sakati Syndrome	1	2	True	DCAF17
+wt1-dis	NBK556455	WT1 Disorder	1	6	False	WT1
+x-ag	NBK476671	X-Linked Acrogigantism	1	2	False	GPR101
+x-ald	NBK1315	X-Linked Adrenoleukodystrophy	1	2	False	ABCD1
+x-dcdp	NBK55062	EBP-Related X-Linked Chondrodysplasia Punctata	1	2	False	EBP
+x-hed	NBK1112	Hypohidrotic Ectodermal Dysplasia	4	8	False	EDA;EDAR;EDARADD;WNT10A
+x-lpd	NBK1406	X-Linked Lymphoproliferative Disease	2	4	False	SH2D1A;XIAP
+x-pvh	NBK1213	FLNA Deficiency	1	4	False	FLNA
+x-scid	NBK1410	X-Linked Severe Combined Immunodeficiency	1	2	False	IL2RG
+xdp	NBK1489	X-Linked Dystonia-Parkinsonism Syndrome	1	2	False	TAF1
+xia-gibbs	NBK575793	Xia-Gibbs Syndrome	1	2	False	AHDC1
+xl-nystag	NBK3822	FRMD7-Related Infantile Nystagmus	1	2	False	FRMD7
+xla	NBK1453	X-Linked Agammaglobulinemia	1	2	False	BTK
+xlhi	NBK1402	CD40 Ligand Deficiency	1	2	False	CD40LG
+xlmr	NBK1449	Alpha-Thalassemia X-Linked Intellectual Disability Syndrome	1	3	False	ATRX
+xp	NBK1397	Xeroderma Pigmentosum	9	17	True	DDB2;ERCC1;ERCC2;ERCC3;ERCC4;ERCC5;POLH;XPA;XPC
+xq28-dup	NBK349624	Xq28 Duplication Syndrome, Int22h1/Int22h2 Mediated	2	3	False	CLIC2;RAB39B
+xxms	NBK1416	Nonsyndromic 46,XX Testicular Disorders/Differences of Sex Development	5	9	False	NR5A1;SOX3;SOX9;SRY;WT1
+yars1-def	NBK615917	YARS1 Deficiency	1	2	False	YARS1
+yci	NBK1339	Y Chromosome Infertility	2	18	True	DDX3Y;USP9Y
+yif1b-ndd	NBK606999	YIF1B-Related Neurodevelopmental Disorder	1	2	False	YIF1B
+zap70-scid	NBK20221	ZAP70 Deficiency	1	2	False	ZAP70
+zttk	NBK618356	Zhu-Tokita-Takenouchi-Kim Syndrome	1	2	False	SON

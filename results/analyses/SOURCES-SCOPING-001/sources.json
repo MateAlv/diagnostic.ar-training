@@ -1,0 +1,63 @@
+{
+ "genereviews_index_files": {
+  "GRshortname_NBKid_genesymbol_dzname.txt": {
+   "url": "https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/GRshortname_NBKid_genesymbol_dzname.txt",
+   "sha256": "dc7d0291faf3aa775d6253ad9a9f5fbe88eed775f1e253f8b70d574bd6b10283",
+   "bytes": 132284,
+   "fetched_utc": "2026-09-30T20:06Z"
+  },
+  "GRtitle_shortname_NBKid.txt": {
+   "url": "https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/GRtitle_shortname_NBKid.txt",
+   "sha256": "0213b3e491306ee096886d303d29320e674882e0f3c5cde56bb1dc81aea9b80a",
+   "bytes": 53109,
+   "fetched_utc": "2026-09-30T20:06Z"
+  },
+  "NBKid_shortname_OMIM.txt": {
+   "url": "https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/NBKid_shortname_OMIM.txt",
+   "sha256": "7a0ccabf881bfb4bdfebd4e2f0599ea492a826ffd3b78ac0e067150bcb35bb0d",
+   "bytes": 96693,
+   "fetched_utc": "2026-09-30T20:06Z"
+  },
+  "NBKid_shortname_genesymbol.txt": {
+   "url": "https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/NBKid_shortname_genesymbol.txt",
+   "sha256": "5efb1822f67545016b3204bc8944ded6f5475b0607b0095fa69368e169f3c645",
+   "bytes": 53830,
+   "fetched_utc": "2026-09-30T20:06Z"
+  },
+  "litarch_file_list.csv": {
+   "url": "https://ftp.ncbi.nlm.nih.gov/pub/litarch/file_list.csv",
+   "sha256": "96278e16754b1fa0228673aa3fc9d5406db6df4d44ab9d9a17bc2474e1ebe909",
+   "bytes": 2245315,
+   "fetched_utc": "2026-09-30T20:06Z"
+  }
+ },
+ "genereviews_bulk_archive": {
+  "url": "https://ftp.ncbi.nlm.nih.gov/pub/litarch/ca/84/gene_NBK1116.tar.gz",
+  "sha256": "53b1e181d4c6d9781f95baf714c1ca16d86312e69efe32234eec8a9c506d7077",
+  "bytes": 638874278,
+  "last_modified": "2026-09-30T06:41:04Z",
+  "note": "The copy downloaded for LITPANEL-v2, outside the repo; sha256 re-checked, and a HEAD request shows the same size and Last-Modified. Only its listing and the 30 sampled chapters were read.",
+  "listing_by_kind": {
+   "other": {
+    "files": 5,
+    "bytes": 1674522
+   },
+   "image": {
+    "files": 814,
+    "bytes": 58059573
+   },
+   "pdf": {
+    "files": 1100,
+    "bytes": 680087097
+   },
+   "nxml": {
+    "files": 1015,
+    "bytes": 201408574
+   }
+  }
+ },
+ "europepmc": {
+  "api": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+  "note": "Search metadata only: hitCount per query, and up to 100 core records per gene for the title query. No full text."
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "inputs": {
+  "genes-v2": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+  "hpoa-recount-v1/phenotype.hpoa": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a",
+  "litpanel-split-v3.tsv": "b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2",
+  "gr_index/GRshortname_NBKid_genesymbol_dzname.txt": "dc7d0291faf3aa775d6253ad9a9f5fbe88eed775f1e253f8b70d574bd6b10283",
+  "gr_index/GRtitle_shortname_NBKid.txt": "0213b3e491306ee096886d303d29320e674882e0f3c5cde56bb1dc81aea9b80a",
+  "gr_index/NBKid_shortname_OMIM.txt": "7a0ccabf881bfb4bdfebd4e2f0599ea492a826ffd3b78ac0e067150bcb35bb0d",
+  "gr_index/NBKid_shortname_genesymbol.txt": "5efb1822f67545016b3204bc8944ded6f5475b0607b0095fa69368e169f3c645"
+ },
+ "params": {
+  "weak_nofreq_share": 0.5,
+  "overview_genes": 10,
+  "min_series": 5
+ },
+ "chapters": {
+  "in_gene_map": 882,
+  "with_nbk": 882,
+  "touching_eval_units": 78,
+  "with_gt_10_genes": 43
+ },
+ "construction": {
+  "genes": 5108,
+  "simulable": 4776,
+  "main_shares_eval_disease": 204,
+  "gr_any_chapter": 1772,
+  "gr_dedicated_chapter": 1126,
+  "gr_chapter_lists_main_disease": 1291,
+  "gr_usable_chapter": 1289,
+  "gr_only_eval_touched_chapters": 483,
+  "weakness": {
+   "W1_mostly_no_frequency": 440,
+   "ok_counts": 2205,
+   "W4_counts_from_small_series_only": 1412,
+   "W3_no_counts_other": 405,
+   "W2_orphanet_bins_only": 314,
+   "W0_no_profile": 332
+  },
+  "profile_source": {
+   "omim": 2697,
+   "omim+orpha": 1765,
+   "orpha_only": 314
+  },
+  "has_count_rows": 3617,
+  "nofreq_share_ge_0.5": 813,
+  "onset": {
+   "hpoa": 3168,
+   "orphanet": 2507,
+   "either": 4133,
+   "neither": 643
+  },
+  "r1_train_bin": {
+   "0": 4811,
+   "1-9": 235,
+   ">=10": 62
+  }
+ },
+ "evaluation": {
+  "genes": 120,
+  "simulable": 116,
+  "main_shares_eval_disease": 0,
+  "gr_any_chapter": 68,
+  "gr_dedicated_chapter": 38,
+  "gr_chapter_lists_main_disease": 54,
+  "gr_usable_chapter": 0,
+  "gr_only_eval_touched_chapters": 68,
+  "weakness": {
+   "W3_no_counts_other": 12,
+   "W1_mostly_no_frequency": 13,
+   "ok_counts": 66,
+   "W4_counts_from_small_series_only": 21,
+   "W0_no_profile": 4,
+   "W2_orphanet_bins_only": 4
+  },
+  "profile_source": {
+   "omim+orpha": 43,
+   "omim": 69,
+   "orpha_only": 4
+  },
+  "has_count_rows": 87,
+  "nofreq_share_ge_0.5": 25,
+  "onset": {
+   "hpoa": 72,
+   "orphanet": 66,
+   "either": 96,
+   "neither": 20
+  },
+  "r1_train_bin": {
+   "0": 84,
+   "1-9": 16,
+   ">=10": 20
+  }
+ }
+}

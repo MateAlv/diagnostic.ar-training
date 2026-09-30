@@ -1976,3 +1976,61 @@ Written and committed before the first candidate 4 pilot run.
   repo) to send only its "no" answers, which reverses its D-18.
 - **Production caveat:** production `/genphenai` currently routes to
   brainy, not the pinned image.
+
+### 2026-09-30 — analysis — SOURCES-SCOPING-001: would GeneReviews or open-access cohorts improve the profiles?
+- **What:** a scoping study of counts, with no extraction and no artifact.
+  Write-up: `docs/analyses/SOURCES-SCOPING-001.md`; raw counts in
+  `results/analyses/SOURCES-SCOPING-001/`; scripts
+  `scripts/analysis/sources_scoping*.py`.
+- **Boundaries:** the 120 `litpanel-split-v3` units (genes and all disease
+  ids) are counted separately and never as construction. R1 held-out PMIDs
+  were used only as a mask. No sealed data was read.
+- **Downloads:** the GeneReviews FTP index files and the litarch file list
+  (URLs and sha256 in `sources.json`), plus Europe PMC search metadata. The
+  GeneReviews bulk archive already downloaded for LITPANEL-v2 was reused:
+  its sha256 was re-checked, and only its listing and 30 sampled chapters
+  were read.
+- **GeneReviews coverage:**
+  - 1,289 of 5,108 construction genes (25.2%) have a usable chapter: one
+    that touches no evaluation unit;
+  - that is 1,279 of the 4,776 simulable genes, over 794 chapters;
+  - 483 construction genes are reachable only through the 78 chapters that
+    touch an evaluation unit, mostly large overviews;
+  - evaluation genes: 68 of 120 have a chapter.
+- **30-chapter sample** (seed 20260930):
+  - numeric feature table: 17/30;
+  - ≥ 5 features with stated numbers: 19/30;
+  - numeric onset or diagnosis age: 14/30;
+  - qualitative age only: 7/30;
+  - 4/30 chapters cite R1 held-out PMIDs. White-Sutton cites 10, pooled in
+    its table.
+- **Europe PMC** (200 construction genes, stratified; `title` query,
+  open access only):
+  - weighted hit bins: 35.7% have 0, 48.8% 1–4, 15.5% 5+;
+  - gene-level precision 22/40, so about 35% of simulable construction
+    genes have ≥ 1 real open-access phenotype series;
+  - licences: CC BY 64.7%, CC BY-NC-ND 19.1%, CC BY-NC 12.6%, other 3.6%;
+  - 3 of 1,066 PMIDs are R1 held-out; 6 are already cited in HPOA.
+- **Weak profiles:**
+  - 2,571 of 4,776 simulable construction genes (53.8%) have no n/m row
+    from a series of ≥ 5 patients;
+  - 606 of them have a usable chapter, which gives about 384 with ≥ 5
+    frequencies;
+  - about 300 more could come from open-access cohorts;
+  - about 73% are unreachable.
+- **Age:** Orphadata onset covers 2,507 genes (classes only). GeneReviews
+  would add a numeric age for about 597 genes (CI 387–817).
+- **Effort** (LITPANEL-v2 throughput: 97 raw rows per agent-hour, 7.1 rows
+  per chapter):
+  - GeneReviews for weak genes: about 1,790 rows, 18 agent-hours (2.3
+    hours of wall time at 8 in parallel);
+  - all usable chapters: about 3,590 rows, 37 agent-hours;
+  - open-access papers for weak genes without a chapter: about 31
+    agent-hours.
+- **Recommendation:** GeneReviews first (weak genes, then all usable
+  chapters), once the licence is confirmed; open-access cohorts second.
+  Pre-register the held-out rule for pooled chapter tables first, and let
+  Mateo decide on overview chapters that touch evaluation units.
+- **Caveat:** the ANALYSIS-004 audit genes are almost all count-rich and
+  still implausible. Literature should also check the truth layer, not only
+  fill empty frequencies.

@@ -1,0 +1,31 @@
+shortname	numeric_feature_table	ge5_numeric_features	numeric_age	qualitative_age_only	note
+agu	Y	Y	N	N	table of bounds (>90%, >50%); no age statement found
+alkap	N	N	Y	N	4 age-conditional figures in text (back pain, renal stones, hypothyroidism); onset of ochronosis/arthritis stated in years
+aniridia	N	N	Y	N	lens opacity range only; "up to" figures rejected; nystagmus by 6 weeks
+arg1	N	N	N	N	spasticity and seizure ranges; the other numbers are trial outcomes
+bofs	N	Y	N	Y	percentages in the Clinical Description list; diagnosed in infancy
+ctx	Y	Y	Y	N	table plus mean age at onset of the movement disorder
+eds-pd	Y	Y	Y	N	table from a 145-148-person cohort; median onset of periodontitis
+g6pc3-def	N	Y	N	Y	percentages in the text from a literature review of 57 persons; "first few months of life"
+gsd4	N	N	N	Y	subtype presentations only
+lms	Y	Y	N	N	n/11 table
+mbtps1-semd	Y	Y	Y	N	n/6 table (very small series); short stature identified by age 3
+mdel1q21_1	Y	Y	N	N	binned-percentage table; CNV chapter, not a single-gene disease
+mopd2	Y	Y	Y	N	table; ages of feature onset (MI, CKD) from a 47-person cohort
+mps1	Y	Y	Y	N	table by severity; mean age at diagnosis
+nfia-dis	N	N	N	N	"approximately half" statements only
+nkh	N	N	Y	N	numbers are subtype shares; onset classes defined in weeks/months
+peaf	Y	N	Y	N	4-row table of ranges; onset 10-30 years
+ppp1r21-ndd	Y	Y	N	N	n/23 table
+pycnodys	Y	Y	Y	N	table; age at first fracture
+sca10	N	N	Y	N	onset range in years; seizure figures vary 20-100%
+schaaf-yang	Y	Y	N	Y	table; manifests at birth; milestone ages are not onset
+setd1b-ndd	Y	Y	N	N	n/38 table
+sgs	Y	Y	N	Y	n/N table; features present at birth
+sptbn4	Y	Y	N	Y	n/14 table; congenital
+timothy	N	N	N	N	frequency table is qualitative (dots); 3 numeric text figures
+traps	Y	Y	Y	N	table; median age at onset 4.3 years
+tubulin-ov	N	N	N	Y	overview organised by malformation type, not by gene
+vhl	N	Y	Y	N	tumour percentages in the text; mean age at detection of retinal hemangioblastoma
+white-sutton	Y	Y	Y	N	n/N table; typical seizure onset 1-4 years; cites 10 R1 held-out PMIDs
+x-ag	N	N	N	N	3 distinct n/N figures plus one pooled sentence
