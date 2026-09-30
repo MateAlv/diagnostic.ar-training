@@ -8,6 +8,7 @@ and `validate_rows` checks and annotates them before they become an artifact.
 """
 
 import csv
+import json
 import math
 import random
 import re
@@ -246,13 +247,13 @@ def split_summary(rows: list[dict], pool: list[Unit]) -> dict:
 # --- Panel rows -----------------------------------------------------------------
 
 SOURCE_KINDS = ("genereviews", "cohort_paper", "orphanet")
-PANEL_COLUMNS = (
-    "gene", "disease_id", "disease_name", "feature_label", "hpo_id", "hpo_label", "prevalence",
-    "prevalence_low", "prevalence_high", "n_affected", "n_assessed", "sex_restriction", "age_note",
-    "source_kind", "citation", "section", "evidence_quote", "access_path", "source_pmids",
-    "source_in_hpoa", "source_r1_part", "independent",
+CURATED_COLUMNS = (
+    "gene", "disease_id", "disease_name", "feature_label", "hpo_id", "prevalence", "prevalence_low",
+    "prevalence_high", "n_affected", "n_assessed", "sex_restriction", "age_note", "population",
+    "source_kind", "citation", "section", "evidence_quote", "access_path",
 )  # fmt: skip
-CURATED_COLUMNS = PANEL_COLUMNS[:18]
+DERIVED_COLUMNS = ("hpo_label", "source_pmids", "source_in_hpoa", "source_r1_part", "independent")
+PANEL_COLUMNS = CURATED_COLUMNS + DERIVED_COLUMNS
 MAX_QUOTE_WORDS = 25
 _PMID = re.compile(r"PMID:?\s*(\d+)")
 
@@ -355,3 +356,81 @@ def agrees(a: dict, b: dict, tolerance: float = 0.10) -> bool:
         return True
     pa, pb = _float(a.get("prevalence", "")), _float(b.get("prevalence", ""))
     return pa is not None and pb is not None and abs(pa - pb) <= tolerance + 1e-9
+
+
+def r1_pmid_parts(all_pmids: set[str], heldout_pmids: set[str]) -> dict[str, str]:
+    """PMID (digits only) -> "heldout" or "train" for every R1 publication."""
+    held = {p.removeprefix("PMID:") for p in heldout_pmids}
+    return {
+        p.removeprefix("PMID:"): ("heldout" if p.removeprefix("PMID:") in held else "train")
+        for p in all_pmids
+    }
+
+
+CROSSCHECK_PROMPT = """You are checking one number in a medical source.
+Read the source file and answer from it only.
+
+Gene: {gene}
+Disease: {disease_name} ({disease_id})
+Clinical feature: {feature_label}
+Citation: {citation}; {section}
+Source file (plain text of the cited document): {source_path}
+
+Question: according to this source, what proportion of affected individuals (people with this disease) have
+this feature? Use only a number the source states (a percentage, a count such as 14/29, a range, or a bound).
+Do not estimate. For a range, report its bounds and their midpoint; for a bound such as ">99%" or "<5%",
+report the bound as the prevalence and 1 or 0 as the open end. If the source gives no number, say so.
+
+Answer with one JSON object on the last line and nothing after it:
+{{"found": true or false, "prevalence": number in [0, 1] or null, "prevalence_low": number or null,
+"prevalence_high": number or null, "quote": "the sentence or table row you used, at most 25 words"}}"""
+PROMPT_FIELDS = ("gene", "disease_name", "disease_id", "feature_label", "citation", "section")
+
+
+def crosscheck_prompt(row: dict, source_path: str) -> str:
+    """The prompt for an independent re-extraction: it never contains our extracted values."""
+    return CROSSCHECK_PROMPT.format(source_path=source_path, **{k: row.get(k, "") for k in PROMPT_FIELDS})
+
+
+def parse_answer(text: str) -> dict:
+    """The last one-line JSON object in a model's answer; absent numbers become ""."""
+    for line in reversed(text.strip().splitlines()):
+        line = line.strip()
+        if line.startswith("{") and line.endswith("}"):
+            data = json.loads(line)
+            return {
+                "found": bool(data.get("found")),
+                **{
+                    k: "" if data.get(k) is None else str(data[k])
+                    for k in ("prevalence", "prevalence_low", "prevalence_high")
+                },
+                "quote": data.get("quote") or "",
+            }
+    raise ValueError("no one-line JSON object in the answer")
+
+
+def panel_summary(rows: list[dict], split_rows_: list[dict], dropped: list[dict]) -> dict:
+    units = {r["gene"]: r for r in split_rows_}
+    genes = sorted({r["gene"] for r in rows}, key=lambda g: int(units[g]["rank"]))
+    kept = [units[g] for g in genes]
+    independent = [r for r in rows if r["independent"] == "true"]
+    dims = (
+        ("organ", "organ_system_label"),
+        ("inheritance", "inheritance"),
+        ("train", "train_bin"),
+        ("role", "role"),
+    )
+    return {
+        "rows": len(rows),
+        "units": len(genes),
+        "rows_per_unit": {g: sum(r["gene"] == g for r in rows) for g in genes},
+        "rows_by_source_kind": dict(sorted(Counter(r["source_kind"] for r in rows).items())),
+        "rows_by_access_path": dict(sorted(Counter(r["access_path"] for r in rows).items())),
+        "rows_independent": len(independent),
+        "units_with_5_independent_rows": sum(sum(r["gene"] == g for r in independent) >= 5 for g in genes),
+        "rows_source_in_hpoa": sum(r["source_in_hpoa"] == "true" for r in rows),
+        "rows_source_r1_train": sum("train" in r["source_r1_part"].split(";") for r in rows),
+        "units_with_dev_ge_10": sum(int(u["r1_dev_patients"]) >= 10 for u in kept),
+        "unit_margins": {d: dict(sorted(Counter(u[c] for u in kept).items())) for d, c in dims},
+        "dropped": dropped,
+    }

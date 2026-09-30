@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 
 import pytest
@@ -159,6 +160,7 @@ def curated(**overrides):
         "n_assessed": "",
         "sex_restriction": "",
         "age_note": "",
+        "population": "all NF1",
         "source_kind": "cohort_paper",
         "citation": "Smith 2020, PMID:111",
         "section": "Table 2",
@@ -264,3 +266,117 @@ def test_crosscheck_sample_is_seeded():
 )
 def test_agrees(a, b, expected):
     assert lp.agrees(a, b) is expected
+
+
+def test_r1_pmid_parts():
+    parts = lp.r1_pmid_parts({"PMID:1", "PMID:2"}, {"PMID:2"})
+    assert parts == {"1": "train", "2": "heldout"}
+
+
+def test_crosscheck_prompt_never_leaks_our_values():
+    row = curated(prevalence="0.4321", prevalence_low="0.1234", prevalence_high="0.9876")
+    prompt = lp.crosscheck_prompt(row, "/tmp/source.txt")
+    assert all(s in prompt for s in ("NF1", "Seizure", "PMID:111", "Table 2", "/tmp/source.txt"))
+    assert not any(v in prompt for v in ("0.4321", "0.1234", "0.9876", "6% of patients"))
+
+
+def test_parse_answer():
+    last = '{"found": true, "prevalence": 0.5, "prevalence_low": null, "prevalence_high": 0.6, "quote": "q"}'
+    assert lp.parse_answer("Reasoning...\n" + last) == {
+        "found": True,
+        "prevalence": "0.5",
+        "prevalence_low": "",
+        "prevalence_high": "0.6",
+        "quote": "q",
+    }
+    with pytest.raises(ValueError):
+        lp.parse_answer("no json here")
+
+
+def test_panel_summary_counts_sources_and_independence():
+    unit = {
+        "gene": "NF1",
+        "rank": "1",
+        "role": "anchor",
+        "organ_system_label": "N",
+        "inheritance": "AD",
+        "train_bin": ">=10",
+        "r1_dev_patients": "151",
+        "disease_ids": "OMIM:162200;ORPHA:636",
+    }
+    curated_rows = [curated(hpo_id="HP:0001250"), curated(hpo_id="HP:0001251")]
+    curated_rows.append(curated(hpo_id="HP:0001631", source_kind="orphanet", citation="ORPHA:636"))
+    rows, problems = lp.validate_rows(curated_rows, [unit], ONTOLOGY, set(), {})
+    assert problems == []
+    s = lp.panel_summary(rows, [unit], [{"gene": "X", "reason": "no numbers"}])
+    assert s["rows"] == 3 and s["units"] == 1 and s["rows_independent"] == 2
+    assert s["rows_by_source_kind"] == {"cohort_paper": 2, "orphanet": 1}
+    assert s["units_with_5_independent_rows"] == 0 and s["dropped"][0]["gene"] == "X"
+
+
+def test_crosscheck_and_build_commands(tmp_path, monkeypatch, clean_tree):
+    from typer.testing import CliRunner
+
+    from diagnostic_ar_training import cli
+    from diagnostic_ar_training.lineage import manifest as manifest_mod
+
+    working = tmp_path / "working.tsv"
+    rows = [curated(hpo_id=h, source_text_file="/tmp/src.txt") for h in ("HP:0001250", "HP:0001251")]
+    lp.write_tsv(rows, (*lp.CURATED_COLUMNS, "source_text_file"), working)
+    answers = iter(
+        [
+            json.dumps({"found": True, "prevalence": 0.06, "prevalence_low": 0.04, "prevalence_high": 0.08}),
+            json.dumps({"found": True, "prevalence": 0.5, "prevalence_low": None, "prevalence_high": None}),
+        ]
+    )
+    seen = []
+
+    def fake_run(args, **kwargs):
+        seen.append(args)
+        return type("R", (), {"stdout": next(answers)})()
+
+    monkeypatch.setattr("subprocess.run", fake_run)
+    out = tmp_path / "extraction" / "crosscheck.tsv"
+    out.parent.mkdir()
+    runner = CliRunner()
+    result = runner.invoke(
+        cli.app,
+        ["litpanel", "crosscheck", "--rows", str(working), "--out", str(out), "--fraction", "1",
+         "--log-dir", str(tmp_path / "logs"), "--command", "fake-model --flag"],
+    )  # fmt: skip
+    assert result.exit_code == 0, result.output
+    assert seen[0][:2] == ["fake-model", "--flag"] and "0.06" not in seen[0][-1]
+    checked = lp.read_tsv(out)
+    assert [r["agree"] for r in checked] == ["true", "false"]
+
+    monkeypatch.setattr(cli, "REALISM_DIR", tmp_path)
+    monkeypatch.setattr(manifest_mod, "MANIFESTS_DIR", tmp_path / "manifests")
+    split_path = tmp_path / "litpanel-split-test.tsv"
+    unit = {"rank": 1, "role": "anchor", "gene": "NF1", "disease_ids": "OMIM:162200", "r1_dev_patients": 151}
+    lp.write_tsv([unit], lp.SPLIT_COLUMNS, split_path)
+    split_manifest = manifest_mod.build_manifest(
+        "litpanel-split-test", "litpanel-split", [], {}, [split_path]
+    )
+    monkeypatch.setattr(manifest_mod, "load_manifest", lambda _id: split_manifest)
+    monkeypatch.setattr(
+        "diagnostic_ar_training.lineage.registry.open_source", lambda name, purpose: tmp_path / name
+    )
+    monkeypatch.setattr(Ontology, "from_json", classmethod(lambda cls, path: ONTOLOGY))
+    monkeypatch.setattr(lp, "hpoa_cited_pmids", lambda path: set())
+    lp.write_tsv([{k: v for k, v in r.items() if k != "source_text_file"} for r in rows], lp.CURATED_COLUMNS,
+                 out.parent / "curated.tsv")  # fmt: skip
+    lp.write_tsv([], ("gene", "reason"), out.parent / "dropped.tsv")
+    lp.write_tsv([], ("source", "access_path", "status", "note"), out.parent / "access-log.tsv")
+    build = ["litpanel", "build", "--id", "literature-panel-test", "--split", "litpanel-split-test",
+             "--extraction", str(out.parent)]  # fmt: skip
+    result = runner.invoke(cli.app, build)
+    assert result.exit_code == 1 and "without a resolution" in str(result.exception)
+    fixed = [
+        dict(r, resolution="source-supports-ours: re-read") if r["agree"] == "false" else r for r in checked
+    ]
+    lp.write_tsv(fixed, cli.CROSSCHECK_COLUMNS, out)
+    result = runner.invoke(cli.app, build)
+    assert result.exit_code == 0, result.output
+    panel = lp.read_tsv(tmp_path / "literature-panel-test.tsv")
+    assert len(panel) == 2 and panel[0]["independent"] == "true"
+    assert (tmp_path / "manifests" / "literature-panel-test.json").exists()
