@@ -5,7 +5,8 @@
 - G2b: mean per-gene Spearman of term frequencies vs R1-dev (genes with >= 10 dev patients);
 - G2c: Wasserstein-1 distance of terms per case to R1-train;
 - G2d: classifier two-sample test against R1-train on source-neutral features;
-- G2e: |E0 MRR on the dataset - E0 in-vocab MRR on R1-train|.
+- G2e: |E0 MRR on the dataset - E0 in-vocab MRR on R1-train patients whose publication HPOA does not
+  cite| (ADR-0012 amendment 1: 0.405; the all-train 0.512 is kept as a secondary number).
 
 R1-dev is read here only as a check (ADR-0011, ADR-0012). Nothing in this module fits a
 simulator parameter.
@@ -28,7 +29,8 @@ from diagnostic_ar_training.ontology import PHENOTYPIC_ABNORMALITY, Ontology
 
 MIN_DEV_PATIENTS = 10
 FREQUENCY_BINS = ((0.0, 0.2), (0.2, 0.4), (0.4, 0.6), (0.6, 0.8), (0.8, 1.0001))
-E0_TARGET_MRR = 0.512
+E0_TARGET_MRR = 0.405
+E0_TARGET_MRR_ALL_TRAIN = 0.512
 C2ST_MAX_AUC = 0.75
 E0_MAX_GAP = 0.10
 
@@ -218,8 +220,11 @@ def read_panel(path: Path) -> tuple[list[dict], bool]:
                 "label": r.get("feature_label", ""),
                 "hpo_id": pick["hpo_id"],
                 "prevalence": float(pick["prevalence"]),
-                "sex": (r.get("sex") or "").strip().lower(),
+                "sex": (r.get("sex") or r.get("sex_restriction") or "").strip().lower(),
                 "source_kind": (r.get("source_kind") or "").strip().lower(),
+                "independent": (r.get("independent") or "").strip().lower()
+                if "independent" in fields
+                else None,
             }
         )
     return out, has_kind
@@ -228,7 +233,8 @@ def read_panel(path: Path) -> tuple[list[dict], bool]:
 def panel_errors(
     rows: list[dict], sim: dict[str, list[SimCase]], closure: Closure, has_source_kind: bool
 ) -> dict:
-    """G2a. Primary: rows not sourced from Orphanet; secondary: all rows."""
+    """G2a. Primary: the rows flagged `independent == "true"` when the panel has that column (panel v2),
+    else the rows not sourced from Orphanet; secondary: all rows."""
     if not has_source_kind:
         print(
             "warning: panel has no source_kind column; every row is treated as independent", file=sys.stderr
@@ -249,10 +255,15 @@ def panel_errors(
         errs = [s["abs_error"] for s in subset if s["abs_error"] is not None]
         return {"rows": len(subset), "rows_scored": len(errs), "mae": float(np.mean(errs)) if errs else None}
 
-    independent = [s for s in scored if s["source_kind"] != "orphanet"]
+    if any(s.get("independent") is not None for s in scored):
+        rule = 'independent == "true"'
+        independent = [s for s in scored if s["independent"] == "true"]
+    else:
+        rule = "source_kind != orphanet"
+        independent = [s for s in scored if s["source_kind"] != "orphanet"]
     return {
         "source_kind_column": has_source_kind,
-        "primary": {"rows": "source_kind != orphanet", **mae(independent)},
+        "primary": {"rule": rule, **mae(independent)},
         "all_rows": mae(scored),
         "per_row": scored,
     }
@@ -423,6 +434,8 @@ def e0_difficulty(system, cases: list[SimCase], target: float = E0_TARGET_MRR) -
         "unscorable": summary["coverage"]["unscorable"],
         "target_mrr": target,
         "gap": None if in_vocab is None else abs(in_vocab - target),
+        "target_mrr_all_train": E0_TARGET_MRR_ALL_TRAIN,
+        "gap_all_train": None if in_vocab is None else abs(in_vocab - E0_TARGET_MRR_ALL_TRAIN),
     }
 
 
@@ -433,26 +446,51 @@ G2 = {
     "b": ("R1-dev mean per-gene rho", "higher"),
     "c": ("W1 terms/case vs R1-train", "lower"),
     "d": ("C2ST AUC vs R1-train", "lower"),
-    "e": ("|E0 MRR - 0.512|", "lower"),
+    "e": (f"|E0 MRR - {E0_TARGET_MRR}|", "lower"),
 }
 
 
-def g2_values(report: dict) -> dict[str, float | None]:
+def e0_gap(e0: dict | None) -> float | None:
+    """The G2e gap to the current target, recomputed so reports written under an older target compare."""
+    if not e0:
+        return None
+    if e0.get("mrr_in_vocab") is None:
+        return e0.get("gap")
+    return abs(e0["mrr_in_vocab"] - E0_TARGET_MRR)
+
+
+def g2_values(report: dict, panel: dict | None = None) -> dict[str, float | None]:
+    """G2 a-e of a realism report; `panel` (a `panel_errors` result) replaces the report's own G2a."""
+    dev = report.get("g2b_dev_rho")
     return {
-        "a": report["g2a_panel"]["primary"]["mae"],
-        "b": report["g2b_dev_rho"]["mean_rho"],
+        "a": (panel or report["g2a_panel"])["primary"]["mae"],
+        "b": dev["mean_rho"] if dev else None,
         "c": report["g2c_terms_per_case"]["present"]["w1_vs_r1_train"],
         "d": report["g2d_c2st"]["auc"] if report.get("g2d_c2st") else None,
-        "e": report["g2e_e0"]["gap"] if report.get("g2e_e0") else None,
+        "e": e0_gap(report.get("g2e_e0")),
     }
 
 
-def gate(baselines: dict[str, dict], candidates: dict[str, dict]) -> dict:
-    """Pass/fail per G2 criterion for each candidate against every baseline (ADR-0012)."""
-    base_values = {label: g2_values(r) for label, r in baselines.items()}
-    table = {"baselines": base_values, "candidates": {}}
+def gate(
+    baselines: dict[str, dict],
+    candidates: dict[str, dict],
+    secondary: dict[str, dict] | None = None,
+    panels: dict[str, dict] | None = None,
+) -> dict:
+    """Pass/fail per G2 criterion for each candidate against every baseline (ADR-0012).
+
+    `secondary` reports are shown next to the baselines but never judged against; `panels` maps a label to
+    a `panel_errors` result that replaces its report's G2a.
+    """
+    panels = panels or {}
+    base_values = {label: g2_values(r, panels.get(label)) for label, r in baselines.items()}
+    table = {
+        "baselines": base_values,
+        "secondary": {label: g2_values(r, panels.get(label)) for label, r in (secondary or {}).items()},
+        "candidates": {},
+    }
     for label, report in candidates.items():
-        values = g2_values(report)
+        values = g2_values(report, panels.get(label))
         verdict = {}
         for k, (_, direction) in G2.items():
             v = values[k]
@@ -480,6 +518,8 @@ def gate_markdown(table: dict) -> str:
     lines = [head, "|" + "---|" * (len(G2) + 3)]
     for label, values in table["baselines"].items():
         lines.append(f"| {label} | baseline | " + " | ".join(fmt(values[k]) for k in G2) + " | — |")
+    for label, values in table.get("secondary", {}).items():
+        lines.append(f"| {label} | secondary | " + " | ".join(fmt(values[k]) for k in G2) + " | — |")
     for label, row in table["candidates"].items():
         cells = []
         for k in G2:
@@ -491,5 +531,10 @@ def gate_markdown(table: dict) -> str:
     notes = [
         "",
         f"G2d also requires AUC <= {C2ST_MAX_AUC}; G2e also requires a gap <= {E0_MAX_GAP} (ADR-0012).",
+        f"G2e's target is E0's MRR on R1-train patients whose publication HPOA does not cite "
+        f"({E0_TARGET_MRR}, ADR-0012 amendment 1).",
+        "Secondary rows are shown for reference; candidates are not judged against them.",
     ]
+    if table.get("panel"):
+        notes.append(f"G2a panel: {table['panel']}.")
     return "\n".join(lines + notes) + "\n"

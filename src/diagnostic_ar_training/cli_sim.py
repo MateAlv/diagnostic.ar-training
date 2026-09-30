@@ -18,6 +18,7 @@ FOCUS_DISEASES = ("OMIM:162000", "OMIM:142900", "OMIM:615471")
 REALISM_DIR = RESULTS_DIR / "realism"
 LEDGER = REALISM_DIR / "LEDGER.md"
 MAX_CANDIDATE_VERSIONS = 3
+PANEL = DATA_DIR / "realism" / "literature-panel-v2.tsv"
 
 
 def _require_clean():
@@ -566,18 +567,24 @@ def sim_realism(
     label: str = typer.Option(..., help="Name of this report, e.g. v0.3-baseline"),
     baseline: bool = typer.Option(False, help="A comparator (UP, V03): does not spend R1-dev budget"),
     sim_version: str = typer.Option("", help="Candidate simulator version, counted against the budget"),
-    panel: Path = typer.Option(DATA_DIR / "realism" / "literature-panel-v1.tsv", help="Evaluation panel TSV"),
+    panel: Path = typer.Option(PANEL, help="Evaluation panel TSV"),
     kb_id: str = typer.Option("kb-v5", "--kb", help="KB for the C2ST gene-annotation features"),
     freq_kb_id: str = typer.Option("kb-v4", "--freq-kb", help="KB masking all R1, for frequency calibration"),
     e0_cases: int = typer.Option(5000, help="Fixed-seed subsample scored by E0 (G2e); 0 skips"),
     seed: int = typer.Option(20260930),
+    no_dev: bool = typer.Option(
+        False,
+        "--no-dev",
+        help="Secondary numbers without R1-dev: G2a, G2c (R1-train), G2d, G2e only; no budget, no ledger row",
+    ),
 ) -> None:
     """ANALYSIS-001 + ADR-0012 G2 metrics of one dataset: results/realism/<label>.json, manifest, ledger."""
     from diagnostic_ar_training.lineage.manifest import ensure_new
 
     ensure_new(f"realism-{label}")
     state = _require_clean()
-    check_budget(sim_version or None, baseline, _ledger_rows())
+    if not no_dev:
+        check_budget(sim_version or None, baseline, _ledger_rows())
     from diagnostic_ar_training import splits
     from diagnostic_ar_training.eval import realism as RZ
     from diagnostic_ar_training.knowledge import report_model as R
@@ -591,7 +598,7 @@ def sim_realism(
     cases, dataset_id, dataset_sha = _dataset(dataset)
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
     closure = RZ.Closure(ontology)
-    dev = splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL)
+    dev = [] if no_dev else splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL)
     train = splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL)
     groups = splits.publication_groups("r1-v1")
 
@@ -625,24 +632,27 @@ def sim_realism(
         "cases": len(cases),
         "genes": len(sim_cases),
         "has_excluded": any(c.excluded is not None for c in cases),
+        "reads_r1_dev": not no_dev,
     }
-    report["g2b_dev_rho"] = RZ.per_gene_rho(dev_by_gene, sim_by_gene, lambda g: g2p.get(g, set()))
-    report["frequency_calibration_dev"] = RZ.frequency_calibration(
-        dev_by_gene, sim_by_gene, lambda g: gene_terms(vocab_upper.get(g, g))
-    )
+    if not no_dev:
+        report["g2b_dev_rho"] = RZ.per_gene_rho(dev_by_gene, sim_by_gene, lambda g: g2p.get(g, set()))
+        report["frequency_calibration_dev"] = RZ.frequency_calibration(
+            dev_by_gene, sim_by_gene, lambda g: gene_terms(vocab_upper.get(g, g))
+        )
 
     sizes = {
         "sim": [len(c.present) for c in cases],
         "train": [len(c.present) for c in train],
-        "dev": [len(c.present) for c in dev],
     }
     present = {
         "sim": RZ.distribution(sizes["sim"]),
         "r1_train": RZ.distribution(sizes["train"]),
-        "r1_dev": RZ.distribution(sizes["dev"]),
         "w1_vs_r1_train": RZ.wasserstein(sizes["sim"], sizes["train"]),
-        "w1_vs_r1_dev": RZ.wasserstein(sizes["sim"], sizes["dev"]),
     }
+    if not no_dev:
+        sizes["dev"] = [len(c.present) for c in dev]
+        present["r1_dev"] = RZ.distribution(sizes["dev"])
+        present["w1_vs_r1_dev"] = RZ.wasserstein(sizes["sim"], sizes["dev"])
     terms_per_case = {"present": present}
     if report["has_excluded"]:
         ex_sim = [len(c.excluded or ()) for c in cases]
@@ -713,19 +723,69 @@ def sim_realism(
     ]
     if e0_cases:
         inputs.append(sources["genphenia_v3"].as_input())
+    role = "secondary" if no_dev else "baseline" if baseline else "candidate"
     params = {
         "label": label,
-        "role": "baseline" if baseline else "candidate",
+        "role": role,
+        "reads_r1_dev": not no_dev,
         "sim_version": sim_version or None,
         "e0_cases": e0_cases,
         "seed": seed,
         "min_dev_patients_rho": RZ.MIN_DEV_PATIENTS,
     }
     write_manifest(build_manifest(f"realism-{label}", "realism-report", inputs, params, [out], state=state))
-    _append_ledger(
-        label, dataset_id, dataset_sha, state.sha, "baseline" if baseline else "candidate", sim_version or "—"
-    )
+    if not no_dev:
+        _append_ledger(label, dataset_id, dataset_sha, state.sha, role, sim_version or "—")
     typer.echo(json.dumps(RZ.g2_values(report), indent=1))
+
+
+def _panel_report_path(label: str, panel: Path) -> Path:
+    return REALISM_DIR / f"{label}.panel-{panel.stem}.json"
+
+
+@sim_app.command("panel-error")
+def sim_panel_error(
+    dataset: str = typer.Option(..., help="Export path, artifact:<id> or source:<name> (UP)"),
+    label: str = typer.Option(..., help="Realism label of the dataset, e.g. v0.3-baseline"),
+    panel: Path = typer.Option(PANEL, help="Evaluation panel TSV"),
+) -> None:
+    """G2a alone: literature-panel error of one dataset. Reads no R1 data and writes no ledger row."""
+    from diagnostic_ar_training.eval import realism as RZ
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+    from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    artifact_id = f"panel-{label}-{panel.stem}"
+    ensure_new(artifact_id)
+    state = _require_clean()
+    cases, dataset_id, dataset_sha = _dataset(dataset)
+    closure = RZ.Closure(Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL)))
+    sim_cases = defaultdict(list)
+    for c in cases:
+        sim_cases[c.gene.upper()].append(c)
+    rows, has_kind = RZ.read_panel(panel)
+    result = {
+        "label": label,
+        "dataset": dataset_id,
+        "dataset_sha256": dataset_sha,
+        "panel": panel.name,
+        "panel_sha256": sha256_file(panel),
+        **RZ.panel_errors(
+            rows, {r["gene"]: sim_cases.get(r["gene"].upper(), []) for r in rows}, closure, has_kind
+        ),
+    }
+    REALISM_DIR.mkdir(parents=True, exist_ok=True)
+    out = _panel_report_path(label, panel)
+    out.write_text(json.dumps(result, indent=1, sort_keys=True, default=float) + "\n")
+    inputs = [
+        {"id": dataset_id, "sha256": dataset_sha},
+        {"id": f"panel:{panel.name}", "sha256": sha256_file(panel)},
+        load_sources()["hpo_ontology"].as_input(),
+    ]
+    params = {"label": label, "panel": panel.name, "reads_r1": False}
+    write_manifest(build_manifest(artifact_id, "panel-error-report", inputs, params, [out], state=state))
+    typer.echo(json.dumps({"primary": result["primary"], "all_rows": result["all_rows"]}, indent=1))
 
 
 def _read_tsv(path: Path) -> list[dict]:
@@ -803,6 +863,8 @@ def sim_report_model_check(
 def sim_gate(
     baseline: list[str] = typer.Option(["up-graphens", "v0.3-baseline"], help="Realism labels of UP and V03"),
     candidate: list[str] = typer.Option([], help="Realism labels of candidate datasets"),
+    secondary: list[str] = typer.Option([], help="Realism labels shown for reference, never judged against"),
+    panel: Path = typer.Option(PANEL, help="G2a panel; reports on another panel need `dxt sim panel-error`"),
     name: str = typer.Option("baselines", help="Stem of results/realism/gate-<name>.{json,md}"),
 ) -> None:
     """ADR-0012 G2 comparison table, with pass/fail per criterion for each candidate."""
@@ -811,7 +873,23 @@ def sim_gate(
     def load(label: str) -> dict:
         return json.loads((REALISM_DIR / f"{label}.json").read_text())
 
-    table = RZ.gate({b: load(b) for b in baseline}, {c: load(c) for c in candidate})
+    labels = [*baseline, *secondary, *candidate]
+    reports = {label: load(label) for label in labels}
+    panels = {}
+    for label, report in reports.items():
+        if report["g2a_panel"].get("panel") == panel.name:
+            continue
+        path = _panel_report_path(label, panel)
+        if not path.is_file():
+            raise typer.BadParameter(f"{label}'s G2a is not on {panel.name}; run `dxt sim panel-error` first")
+        panels[label] = json.loads(path.read_text())
+    table = RZ.gate(
+        {b: reports[b] for b in baseline},
+        {c: reports[c] for c in candidate},
+        secondary={s: reports[s] for s in secondary},
+        panels=panels,
+    )
+    table["panel"] = panel.name
     (REALISM_DIR / f"gate-{name}.json").write_text(json.dumps(table, indent=1, sort_keys=True) + "\n")
     (REALISM_DIR / f"gate-{name}.md").write_text(RZ.gate_markdown(table))
     typer.echo(RZ.gate_markdown(table))

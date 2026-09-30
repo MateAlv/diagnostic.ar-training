@@ -1406,3 +1406,156 @@ What they tell us:
 - **Verdict:** P1, N1 and N2 all pass. rr-v1[neg=0.5] is a release
   candidate. Deployment through `diagnostic.ar-model` is Mateo's decision.
 - **Vault:** untouched.
+
+### 2026-09-30 — pre-registration — Candidate 2 pilot rounds (ADR-0011 amendment 3)
+Written and committed before the first pilot runs.
+- **Generator:** rare-disease-simulator@ddb1ec1 (0.4.2).
+  - Full profiles from hpoa-recount-v1 + genes-v2.
+  - Calibration: `simcal-v04-v3` plus `reporting.noise_share` 0.348, with
+    `reporting.specialize_rate` r and `noise.related_share` s.
+- **Pilot shape:**
+  - genes: the simcal-train-v1 pilot list
+    (`rare-disease-simulator/outputs/cal/pilot-genes.txt`, 523 symbols,
+    sha256 `5c817192…4c082`);
+  - 10 cases per gene, medium, seed 91001.
+- **Measure:** ANALYSIS-002 categories on each pilot export, every record
+  (`scripts/analysis/dataset_term_categories.py`, kb-v4; it reads no R1
+  data). Targets (R1-train): more specific 0.115, related IC ≥ 2 0.108,
+  weak IC < 2 0.239.
+- **Round 1:** r = 0.15, s = 0.30.
+- **Round 2 rule:** each knob is scaled by target / realized share of its
+  own category, capped to [0, 1]:
+  - r₂ = r₁ × 0.115 / more-specific share;
+  - s₂ = s₁ × 0.108 / related (IC ≥ 2) share.
+- **Selection:** the pair with the smallest summed absolute error over the
+  three categories is frozen as `simcal-v04-v4`.
+- **Not used:** R1-dev and E0.
+
+### 2026-09-30 — pilot — Candidate 2 pilot rounds; `simcal-v04-v4` frozen
+- **Setup:** as pre-registered in the entry above; R1-train targets only,
+  no R1-dev, no E0.
+  - Pilot shape: 4,890 cases for 489 genes. On genes-v2 full profiles, 34 of
+    the listed genes are skipped (the simcal-train-v1 pilots had 505).
+  - Categories scored on 4,830 records; 60 have no kb-v4 gene.
+  - Validate: 0 invariant violations in both rounds.
+- **Every pair tried:**
+
+  | Round | r | s | Realized specialised share of profile terms | Realized related share of noise | More specific (0.115) | Related IC ≥ 2 (0.108) | Weak IC < 2 (0.239) | Explained | Summed abs. error |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.15 | 0.30 | 0.0848 | 0.2708 | 0.0815 | 0.0949 | 0.2755 | 0.5482 | 0.0831 |
+  | 2 | 0.2117 | 0.3414 | 0.1194 | 0.3081 | 0.1021 | 0.1025 | 0.2662 | 0.5292 | **0.0456** |
+
+  - Round 2 applies the declared rule: r₂ = 0.15 × 0.115 / 0.0815, and
+    s₂ = 0.30 × 0.108 / 0.0949, rounded to 4 decimals.
+  - Both realized shares stay below their rates, as expected: a
+    specialisation or related draw can find no eligible term.
+- **Selected:** round 2, the smaller summed error. Frozen as
+  `simcal-v04-v4` (`dxt knowledge shrinkage-prior --min-denominator 10
+  --base data/calib/simcal-v04-v3.json`, with `reporting.noise_share`
+  0.348, `reporting.specialize_rate` 0.2117 and `noise.related_share`
+  0.3414).
+- **Remaining gap:** weak (IC < 2) stays 0.027 above R1-train's share, and
+  more specific stays 0.013 below it.
+
+### 2026-09-30 — build + gate — v0.4 candidate 2 (simulator 0.4.2): G1 passes on both datasets; G2 fails on a, b, d and e
+- **Front / versions:** A / rare-disease-simulator@ddb1ec1 (0.4.2),
+  `simcal-v04-v4`, hpoa-recount-v1, genes-v2, report-model-v2, cardinal-v1.
+  Gene-first, 100 per gene, medium, seed 1001. Candidate 2 of 3; R1-dev
+  read 2 of 3.
+
+**Phase A: scoring on the amended criteria (ADR-0012 amendment 1), no R1-dev read**
+- **Code** (`dxt sim`):
+  - the G2e target is 0.405 (the gap to 0.512 is kept as
+    `gap_all_train`), and the gate recomputes the gap for older reports;
+  - G2a's primary rows are literature-panel-v2's `independent == "true"`
+    rows (497 of 531), and panel v2 is the default;
+  - `sim panel-error`: G2a alone; it reads no R1 data and writes no ledger
+    row;
+  - `sim realism --no-dev`: G2a, G2c, G2d and G2e without R1-dev, and no
+    ledger row;
+  - `sim gate --secondary`.
+- **G2a on literature-panel-v2** (panel-only runs):
+
+  | Dataset | Primary MAE (independent rows) | Rows scored | All-rows MAE |
+  |---|---|---|---|
+  | UP | 0.416 | 468 of 497 | 0.419 |
+  | V03 (half A) | 0.418 | 497 | 0.422 |
+  | Candidate 1 | 0.421 | 497 | 0.426 |
+
+- **V03-full baseline** `ds-sim0.3.1-full-n100-s1001`:
+  - Generator: simulator 8ba7430, run from its GitHub tarball (sha256
+    `72aa20e2…`) because this session cannot check out commits in the
+    simulator repo. The run summary therefore records no git sha; the
+    manifest records the tarball's sha.
+  - Profiles: v0.3's full profiles (`outputs/cal/profiles-full.jsonl`, the
+    s3-data-v1 profiles), with simcal-train-v1.
+  - Result: 505,000 cases for 5,050 genes; 0 invariant violations. 206
+    cases excluded by `-excl-v1`.
+  - Its realism run is a baseline and doesn't count against the budget.
+- **gate-baselines recomputed:** UP and V03-full, with V03 (half A) as a
+  secondary row; panel v2; G2e target 0.405.
+
+**Phase B: pilot rounds** (entries above): round 2, r = 0.2117 and s =
+0.3414, was frozen as `simcal-v04-v4`.
+
+**Phase C: datasets**
+- **Profiles:** built at ddb1ec1 from hpoa-recount-v1 + genes-v2.
+  - Full: 9,223 profiles.
+  - Half A: 9,095 profiles, byte-identical to candidate 1's
+    (`ad4476b4…`).
+  - The PMID-mask fallback masked 0 rows in both builds.
+- **G1:**
+
+  | Check | `ds-sim0.4.2-full-n100-s1001` | `ds-sim0.4.2-A-n100-s1001` |
+  |---|---|---|
+  | Cases / genes | 489,200 / 4,892 | 486,800 / 4,868 |
+  | `validate` (cases and export) | 0 violations | 0 violations |
+  | Slice rerun (20 genes, 19 simulated) | cases and export byte-identical, equal to the full run's lines | same |
+  | `dxt lineage verify` | ok | ok |
+  | Overlap with R1 (all parts, keys only) / S3 | 76 / 727 (115 same signature) | 59 / 592 (39) |
+  | Excluded by `-excl-v1`, residual | 792, 0 | 641, 0 |
+  | Release | published | published |
+
+  The S3 overlap is higher than candidate 1's (449). S3 was simulated from
+  full v0.3 profiles, which may explain part of it; not investigated.
+- **Run summaries:**
+  - Specialised share of profile terms: 0.1172 (full) and 0.1168 (A), for a
+    rate of 0.2117.
+  - Related share of noise: 0.3026 and 0.3109, for a rate of 0.3414.
+  - Shown terms per case: 7.38 (full) and 7.01 (A): 4.39 / 4.01 profile
+    terms plus 3.00 noise. The drawn budget mean is 8.71.
+
+**G2** (`dxt sim realism --label v0.4-cand2 --sim-version 0.4.2-cand2` on
+the full dataset, one run with no crash; `results/realism/gate-v0.4-cand2.md`):
+
+| Metric | UP | V03-full | Candidate 2 | Pass | V03 half A (secondary) |
+|---|---|---|---|---|---|
+| a: panel-v2 MAE, independent rows | 0.416 | 0.390 | 0.404 | ❌ (beats UP, not V03-full) | 0.418 |
+| b: R1-dev mean per-gene ρ (38 genes) | 0.231 | 0.095 | 0.193 | ❌ (beats V03-full, not UP) | 0.086 |
+| c: W1 terms per case vs R1-train | 3.717 | 1.653 | 1.315 | ✅ | 1.382 |
+| d: C2ST AUC (≤ 0.75) | 0.840 | 0.819 | 0.792 | ❌ (beats both, above 0.75) | 0.778 |
+| e: \|E0 MRR − 0.405\| (≤ 0.10) | 0.414 | 0.183 | 0.242 | ❌ (beats UP, not V03-full) | 0.237 |
+
+- **E0 MRR:** 0.163 on candidate 2 (0.222 on V03-full), so the candidate
+  is still much harder than R1-train's uncited 0.405. The gap to 0.512 is
+  0.349.
+
+**Secondary numbers** (none read R1-dev):
+
+| | Full (G2 dataset) | Half A (`--no-dev`) | Candidate 1 (half A) |
+|---|---|---|---|
+| G2a panel-v2 MAE | 0.404 | 0.412 | 0.421 |
+| G2c W1 vs R1-train | 1.315 | 1.695 | 1.214 |
+| G2d C2ST AUC | 0.792 | 0.770 | 0.737 |
+| E0 MRR (gap to 0.405) | 0.163 (0.242) | 0.166 (0.239) | 0.092 (0.313) |
+| More specific (target 0.115) | 0.109 | 0.111 | 0.050 |
+| Related, IC ≥ 2 (target 0.108) | 0.100 | 0.101 | 0.049 |
+| Weak, IC < 2 (target 0.239) | 0.255 | 0.266 | 0.406 |
+| Explained | 0.536 | 0.521 | 0.494 |
+
+- Categories are scored on a 5% sample (seed 7) of each export: 24,016 and
+  23,866 records. Candidate 1 is ANALYSIS-002's 1% sample.
+- **Verdict:** ❌ candidate 2 fails the gate (G2a, G2b, G2d, G2e). The term
+  categories now match R1-train within 0.016 each, and E0 MRR rose from
+  0.092 to 0.163. Nothing was tuned after the read. One R1-dev candidate
+  read is left.

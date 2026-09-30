@@ -1,0 +1,39 @@
+{
+  "artifact_id": "panel-v0.3-baseline-literature-panel-v2",
+  "kind": "panel-error-report",
+  "created_at": "2026-09-30T18:00:59+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "84fec4cfa6875de2368fff55b4ee4ddb013050f7",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744"
+    },
+    {
+      "id": "panel:literature-panel-v2.tsv",
+      "sha256": "b7538db73dcc10440f2e6c93ec0485f4270e8e22fe0667cfd11f1786f28a0985"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "label": "v0.3-baseline",
+    "panel": "literature-panel-v2.tsv",
+    "reads_r1": false
+  },
+  "params_hash": "bea6c3f2975b99d11d357b2bff7533f77fff65a8ea6cc96c785bf86142d6df26",
+  "outputs": [
+    {
+      "path": "results/realism/v0.3-baseline.panel-literature-panel-v2.json",
+      "sha256": "364c072f0e2d6b314eb0fa16b0862723559ca697f0e1558ff423ace6781c1a0a",
+      "bytes": 137642
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
