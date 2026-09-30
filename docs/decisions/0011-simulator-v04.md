@@ -119,3 +119,128 @@ them. All of them use R1-train only, never dev, test or vault.
 - Front B's KB can adopt `hpoa-recount-v1` later (a separate decision).
 - S3 v1 stays frozen as it is: its data came from simulator v0.3, which
   slightly reduces the same-generator bias for v0.4-trained models.
+
+## Amendment 1 (2026-09-30): settings for candidate 1
+
+Fixed before any R1-dev realism number exists for a v0.4 candidate. They
+follow from the artifacts built in PR #22.
+
+1. **Shrinkage prior mean μ₀:** the median over count pairs pooled over
+   at least 10 patients (it was the median over all pairs).
+   - **Why:** 18% of HPOA count pairs are 1/1, mostly single case reports.
+     A case report lists what its patient had, so these pairs are biased
+     upward. The all-pairs median (0.667) would shrink a 1/1 to 0.78, above
+     Jeffreys' 0.75, which is the opposite of the intent.
+   - **Evidence the median stabilises:**
+
+     | Pairs with m ≥ | Median |
+     |---|---|
+     | 1 | 0.667 |
+     | 3 | 0.400 |
+     | 5 | 0.364 |
+     | 10 | 0.300 |
+     | 20 | 0.323 |
+
+   - **Rejected alternatives:**
+     - An empirical-Bayes beta-binomial fit on all pairs gave μ₀ 0.59; it
+       has the same bias.
+     - A fit that corrects for HPOA rarely listing unobserved features
+       (zero-truncated) degenerated to α → 0.
+   - **Strength:** stays at 2. With μ₀ = 0.30, 1/1 → 0.53, 2/2 → 0.65 and
+     10/10 → 0.88.
+2. **Cardinal terms are not forced** (`reporting.force_cardinal: false`).
+   - `report-model-v2` already carries a `cardinal_flag` coefficient
+     (+0.447), fitted on R1-train reporting without forcing. Forcing on top
+     would count that effect twice.
+   - Orphadata product 4 lists up to 34 criteria for some diseases (Marfan
+     ORPHA:558), and forcing reports every true one beyond the budget.
+   - Cardinal terms still enter the reporting score. G2a and the G3 cards
+     check whether they end up under-emitted.
+3. **One calibration file:** `simcal-v04-v2` = `simcal-train-v1`'s knobs
+   (negatives, noise, missingness; R1-train only) + μ₀ from rule 1 +
+   `reporting.force_cardinal: false`.
+   - `presets.medium.noise_mean` stays at 3.7. That is R1-train's mean
+     count of present terms per case not explained by the knowledge base,
+     and noise now takes budget slots.
+   - `positive_observation_rate` only acts in observation mode, so it is
+     inert here.
+4. **The candidate dataset is the Front A training shape** (half A of
+   `annot-split-v1`, 100 cases per gene, seed 1001), the same shape as the
+   V03 baseline, so G2 compares like with like.
+5. **Coverage loss is accepted and recorded.** 159 v3.0-vocabulary genes
+   have no simulable entity under `genes-v2`, because all their links lack
+   supporting evidence. With the frozen base (ADR-0010), those genes keep
+   v3.0's behaviour; Front A's new parameters just see no positives for
+   them.
+
+## Amendment 2 (2026-09-30): candidate 1 settings, revised before any R1-dev read
+
+The first full candidate run (simulator 0.4.0) failed G1: 622 cases had a
+`reported_count_mismatch`, caused by a simulator bug. So `dxt sim realism`
+never ran, and nothing was read from R1-dev. The run's R1-train-only
+diagnostics also showed that noise was drawn independently of each
+record's budget: Poisson(3.7) noise slots out of a mean budget of 8.7.
+- **Effect:** 41.6% of cases showed exactly one profile term, and small
+  records were inflated. Cases with at most 2 terms were 2.6% of the
+  candidate vs 11.0% of R1-train; p10 was 4 vs 2.
+- **Changes** (the candidate keeps the name "candidate 1" and still uses
+  R1-dev read 1 of 3):
+  1. **Simulator 0.4.1** (rare-disease-simulator PR #6) fixes the bug. A
+     picked term already shown through a generalized child now leaves its
+     slot to another true term.
+  2. **Noise scales with the record** (`reporting.noise_count:
+     budget_share`). Each of the k budget slots is noise with probability
+     0.4625, at most k − 1.
+     - 0.4625 is R1-train's pooled share of present terms not explained by
+       the knowledge base (kb-v4), from `calib-v1` →
+       `unexplained_present_share`.
+     - That is the same measurement that set `noise_mean` 3.7, so the
+       average noise per case barely changes. What changes is its
+       dependence on record size.
+  3. **Calibration file** `simcal-v04-v3` = `simcal-v04-v2` + rule 2.
+- **Ledger:** realism runs pass `--sim-version <version>-candN` so the
+  3-candidate budget counts correctly.
+
+## Amendment 3 (2026-09-30): candidate 2 design (R1-dev read 2 of 3)
+
+Based on ANALYSIS-002 (R1-train only). Fixed before any candidate 2
+number exists.
+
+1. **Specialisation of reported terms** (simulator
+   `reporting.specialize_rate`).
+   - **Rule:** a reported profile term that was not generalized is
+     replaced, with probability r, by one of its descendants: a uniformly
+     chosen child; then, with probability 0.5, one of that child's
+     children.
+   - **Constraints:** the descendant must be a phenotypic abnormality,
+     allowed for the patient's sex, and not already shown.
+   - **Truth:** the patient truly has the reported descendant, so it
+     joins `true_present`.
+   - **Target:** R1-train's more-specific share, 0.115 of present terms.
+2. **Disease-related noise** (simulator `noise.related_share`).
+   - **Rule:** a share s of the noise slots is drawn near the disease
+     rather than from the vocabulary. Take a uniformly chosen true term,
+     go up to its parent (or, with probability 0.5, its grandparent), and
+     pick a uniformly chosen descendant of that ancestor, at most 2 levels
+     down.
+   - **Exclusions:** the pick must not be one of the profile's terms, a
+     present term or a negative, and must be allowed for the patient's
+     sex. With no eligible term, the slot falls back to vocabulary noise.
+   - **Target:** R1-train's related share, 0.108 of present terms
+     (shared-ancestor IC ≥ 2).
+3. **Noise share 0.348:** R1-train's truly unexplained share, which
+   excludes more-specific terms. It was 0.4625, which counted them.
+4. **Setting r and s by pilot rounds on R1-train targets only.**
+   - At most 2 declared pilot rounds, on the same 505-gene subset as the
+     simcal-train-v1 pilots (seed 91001), using full profiles.
+   - **Starting values:** r = 0.15, s = 0.30.
+   - **Targets:** the ANALYSIS-002 term categories on R1-train, i.e.
+     more-specific 0.115; related (IC ≥ 2) 0.108; weakly related or
+     unrelated 0.239.
+   - **Selection:** the pair minimising the summed absolute error is
+     frozen into `simcal-v04-v4`. Every tried pair is logged. No R1-dev,
+     no E0.
+5. **Scoring:** G2 scores the full-profile run
+   (`ds-sim0.4.2-full-n100-s1001`), per ADR-0012 amendment 1. The Front A
+   training set (`ds-sim0.4.2-A-n100-s1001`) is generated with the same
+   settings and must pass G1.

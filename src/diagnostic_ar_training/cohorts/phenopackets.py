@@ -59,11 +59,15 @@ def parse_packet(packet: dict, drops: Counter) -> Case | None:
         drops["not_single_gene"] += 1
         return None
 
-    present, excluded = set(), set()
+    present, excluded, onsets = set(), set(), {}
     for feature in packet.get("phenotypicFeatures", []):
         term = feature.get("type", {}).get("id", "")
         if term.startswith("HP:"):
             (excluded if feature.get("excluded") else present).add(term)
+            if not feature.get("excluded") and feature.get("onset"):
+                years, onset_class = _time_element(feature["onset"])
+                if years is not None or onset_class:
+                    onsets.setdefault(term, (years, onset_class))
     conflicted = present & excluded
     if conflicted:
         drops["terms_both_present_and_excluded"] += len(conflicted)
@@ -97,6 +101,7 @@ def parse_packet(packet: dict, drops: Counter) -> Case | None:
         onset_term=onset_term,
         disease_ids=tuple(sorted(d for d in disease_ids if d)),
         pmids=tuple(sorted(pmids)),
+        feature_onsets=tuple((t, *onsets[t]) for t in sorted(onsets) if t in present),
     )
 
 

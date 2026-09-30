@@ -1,0 +1,2 @@
+{"set": "R1-train", "terms": 26173, "explained": 0.538, "descendant_of_annotated": 0.115, "unexplained": 0.348, "unexplained_best_lca_ic_quartiles": [0.83, 1.46, 2.22], "unexplained_lca_bins_share_of_all_terms": {"ic<2": 0.239, "2<=ic<4": 0.099, "ic>=4": 0.009}}
+{"set": "cand1 (1% sample)", "terms": 35902, "unexplained": 0.456, "explained": 0.494, "descendant_of_annotated": 0.05, "unexplained_best_lca_ic_quartiles": [0.0, 0.83, 1.42], "unexplained_lca_bins_share_of_all_terms": {"ic<2": 0.406, "2<=ic<4": 0.047, "ic>=4": 0.002}}

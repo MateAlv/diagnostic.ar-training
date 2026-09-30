@@ -1,0 +1,31 @@
+{
+  "artifact_id": "literature-panel-v1",
+  "kind": "literature-panel",
+  "created_at": "2026-09-30T14:35:35+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5fc1a32d7d27eea97ed0a1621d5da3cf2e512191",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "rows": 37,
+    "genes": 8,
+    "checked_against": "hpo_ontology"
+  },
+  "params_hash": "7cc33dfacf05585c25d27823c6b9eb506e5afc641d71644525200161a9571e77",
+  "outputs": [
+    {
+      "path": "data/realism/literature-panel-v1.tsv",
+      "sha256": "0cc7968b5fca73dab7b2836f6f0b0b74d5baa6670db6aee36b937ab84904f4b0",
+      "bytes": 4051
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

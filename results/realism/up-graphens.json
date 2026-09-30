@@ -1,0 +1,838 @@
+{
+ "cases": 52280,
+ "dataset": "source:graphens_sim_20251202@GraPhens@7d861ff",
+ "dataset_sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e",
+ "frequency_calibration_dev": {
+  "bins": [
+   {
+    "hpoa_frequency": "0.0-0.2",
+    "pairs": 4598,
+    "real_rate": 0.049614035000389155,
+    "sim_rate": 0.042061765985210955
+   },
+   {
+    "hpoa_frequency": "0.2-0.4",
+    "pairs": 562,
+    "real_rate": 0.16344888094020793,
+    "sim_rate": 0.09786476868327403
+   },
+   {
+    "hpoa_frequency": "0.4-0.6",
+    "pairs": 318,
+    "real_rate": 0.15543000742382784,
+    "sim_rate": 0.10031446540880502
+   },
+   {
+    "hpoa_frequency": "0.6-0.8",
+    "pairs": 19,
+    "real_rate": 0.2070175438596491,
+    "sim_rate": 0.1473684210526316
+   },
+   {
+    "hpoa_frequency": "0.8-1.0",
+    "pairs": 32,
+    "real_rate": 0.37107843137254903,
+    "sim_rate": 0.296875
+   },
+   {
+    "hpoa_frequency": "unknown",
+    "pairs": 841,
+    "real_rate": 0.040641701897812646,
+    "sim_rate": 0.03579072532699168
+   }
+  ],
+  "genes": 69,
+  "min_dev_patients": 5
+ },
+ "g2a_panel": {
+  "all_rows": {
+   "mae": 0.5041666666666667,
+   "rows": 37,
+   "rows_scored": 36
+  },
+  "panel": "literature-panel-v1.tsv",
+  "panel_sha256": "0cc7968b5fca73dab7b2836f6f0b0b74d5baa6670db6aee36b937ab84904f4b0",
+  "per_row": [
+   {
+    "abs_error": 0.99,
+    "emission": 0.0,
+    "gene": "NF1",
+    "hpo_id": "HP:0000957",
+    "label": "Cafe-au-lait spot",
+    "prevalence": 0.99,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.44999999999999996,
+    "emission": 0.4,
+    "gene": "NF1",
+    "hpo_id": "HP:0001480",
+    "label": "Freckling (skinfold)",
+    "prevalence": 0.85,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.85,
+    "emission": 0.1,
+    "gene": "NF1",
+    "hpo_id": "HP:0009737",
+    "label": "Lisch nodules",
+    "prevalence": 0.95,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.69,
+    "emission": 0.3,
+    "gene": "NF1",
+    "hpo_id": "HP:0001067",
+    "label": "Neurofibroma (cutaneous)",
+    "prevalence": 0.99,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.06,
+    "emission": 0.0,
+    "gene": "NF1",
+    "hpo_id": "HP:0001249",
+    "label": "Intellectual disability",
+    "prevalence": 0.06,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.45000000000000007,
+    "emission": 0.1,
+    "gene": "NF1",
+    "hpo_id": "HP:0001328",
+    "label": "Specific learning disability",
+    "prevalence": 0.55,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.7000000000000001,
+    "emission": 0.1,
+    "gene": "FBN1",
+    "hpo_id": "HP:0002616",
+    "label": "Aortic root aneurysm",
+    "prevalence": 0.8,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.5,
+    "emission": 0.1,
+    "gene": "FBN1",
+    "hpo_id": "HP:0001083",
+    "label": "Ectopia lentis",
+    "prevalence": 0.6,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.4,
+    "emission": 0.1,
+    "gene": "FBN1",
+    "hpo_id": "HP:0000545",
+    "label": "Myopia",
+    "prevalence": 0.5,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.39999999999999997,
+    "emission": 0.2,
+    "gene": "PTPN11",
+    "hpo_id": "HP:0004322",
+    "label": "Short stature",
+    "prevalence": 0.6,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.71,
+    "emission": 0.0,
+    "gene": "PTPN11",
+    "hpo_id": "HP:0001642",
+    "label": "Pulmonic stenosis",
+    "prevalence": 0.71,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": null,
+    "emission": null,
+    "gene": "PTPN11",
+    "hpo_id": "HP:0000028",
+    "label": "Cryptorchidism",
+    "prevalence": 0.7,
+    "sex": "male",
+    "sim_cases": 0,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.05000000000000002,
+    "emission": 0.2,
+    "gene": "PTPN11",
+    "hpo_id": "HP:0001249",
+    "label": "Intellectual disability",
+    "prevalence": 0.15,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.77,
+    "emission": 0.1,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0001249",
+    "label": "Intellectual disability",
+    "prevalence": 0.87,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.72,
+    "emission": 0.1,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0001212",
+    "label": "Prominent fingertip pads",
+    "prevalence": 0.82,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.23,
+    "emission": 0.1,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0000175",
+    "label": "Cleft palate",
+    "prevalence": 0.33,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.75,
+    "emission": 0.0,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0000218",
+    "label": "High palate",
+    "prevalence": 0.75,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.35000000000000003,
+    "emission": 0.2,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0002719",
+    "label": "Recurrent infections",
+    "prevalence": 0.55,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.36,
+    "emission": 0.0,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0003468",
+    "label": "Abnormal vertebral morphology",
+    "prevalence": 0.36,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.2,
+    "emission": 0.0,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0001250",
+    "label": "Seizure",
+    "prevalence": 0.2,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.04999999999999999,
+    "emission": 0.2,
+    "gene": "KMT2D",
+    "hpo_id": "HP:0000077",
+    "label": "Abnormality of the kidney",
+    "prevalence": 0.25,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.30000000000000004,
+    "emission": 0.6,
+    "gene": "TBX5",
+    "hpo_id": "HP:0001627",
+    "label": "Abnormal heart morphology",
+    "prevalence": 0.9,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.52,
+    "emission": 0.1,
+    "gene": "TBX5",
+    "hpo_id": "HP:0001631",
+    "label": "Atrial septal defect",
+    "prevalence": 0.62,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.30000000000000004,
+    "emission": 0.7,
+    "gene": "TBX5",
+    "hpo_id": "HP:0002817",
+    "label": "Abnormality of the upper limb",
+    "prevalence": 1.0,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.5499999999999999,
+    "emission": 0.4,
+    "gene": "UMOD",
+    "hpo_id": "HP:0002149",
+    "label": "Hyperuricemia",
+    "prevalence": 0.95,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.15000000000000002,
+    "emission": 0.4,
+    "gene": "UMOD",
+    "hpo_id": "HP:0001997",
+    "label": "Gout",
+    "prevalence": 0.55,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.5,
+    "emission": 0.5,
+    "gene": "UMOD",
+    "hpo_id": "HP:0012622",
+    "label": "Chronic kidney disease",
+    "prevalence": 1.0,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.25,
+    "emission": 0.0,
+    "gene": "UMOD",
+    "hpo_id": "HP:0000107",
+    "label": "Renal cyst",
+    "prevalence": 0.25,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.9,
+    "emission": 0.1,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0002151",
+    "label": "Increased serum lactate",
+    "prevalence": 1.0,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.53,
+    "emission": 0.4,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0001252",
+    "label": "Hypotonia",
+    "prevalence": 0.93,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.9,
+    "emission": 0.1,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0001263",
+    "label": "Global developmental delay",
+    "prevalence": 1.0,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.87,
+    "emission": 0.0,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0011968",
+    "label": "Feeding difficulties",
+    "prevalence": 0.87,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.66,
+    "emission": 0.1,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0001508",
+    "label": "Failure to thrive",
+    "prevalence": 0.76,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.58,
+    "emission": 0.0,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0001511",
+    "label": "Intrauterine growth retardation",
+    "prevalence": 0.58,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.39,
+    "emission": 0.0,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0000252",
+    "label": "Microcephaly",
+    "prevalence": 0.39,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.5,
+    "emission": 0.0,
+    "gene": "FBXL4",
+    "hpo_id": "HP:0001987",
+    "label": "Hyperammonemia",
+    "prevalence": 0.5,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   },
+   {
+    "abs_error": 0.57,
+    "emission": 0.4,
+    "gene": "ITPR1",
+    "hpo_id": "HP:0001251",
+    "label": "Ataxia",
+    "prevalence": 0.97,
+    "sex": "",
+    "sim_cases": 10,
+    "source_kind": ""
+   }
+  ],
+  "primary": {
+   "mae": 0.5041666666666667,
+   "rows": 37,
+   "rows_scored": 36
+  },
+  "source_kind_column": false
+ },
+ "g2b_dev_rho": {
+  "genes_eligible": 47,
+  "genes_missing_from_dataset": [
+   "EZH1",
+   "MSL2",
+   "RAB3A",
+   "TRA2B",
+   "UBR5"
+  ],
+  "genes_scored": 42,
+  "mean_rho": 0.2308386453220886,
+  "min_dev_patients": 10,
+  "per_gene": {
+   "AHDC1": {
+    "dev_patients": 17,
+    "rho": 0.3678957711955506,
+    "sim_cases": 10,
+    "terms": 194
+   },
+   "ATP2A2": {
+    "dev_patients": 19,
+    "rho": -0.5633516726697853,
+    "sim_cases": 10,
+    "terms": 57
+   },
+   "BRPF1": {
+    "dev_patients": 10,
+    "rho": 0.6642971600925923,
+    "sim_cases": 10,
+    "terms": 51
+   },
+   "CAPRIN1": {
+    "dev_patients": 12,
+    "rho": 0.11731208994510936,
+    "sim_cases": 10,
+    "terms": 50
+   },
+   "CNTNAP2": {
+    "dev_patients": 24,
+    "rho": 0.3123056877453876,
+    "sim_cases": 10,
+    "terms": 114
+   },
+   "COQ4": {
+    "dev_patients": 11,
+    "rho": 0.1942399336978927,
+    "sim_cases": 10,
+    "terms": 75
+   },
+   "CST3": {
+    "dev_patients": 16,
+    "rho": -0.5179737173331092,
+    "sim_cases": 10,
+    "terms": 41
+   },
+   "DOCK8": {
+    "dev_patients": 11,
+    "rho": 0.3848027884845208,
+    "sim_cases": 10,
+    "terms": 49
+   },
+   "FBN1": {
+    "dev_patients": 42,
+    "rho": 0.31368206531927373,
+    "sim_cases": 10,
+    "terms": 304
+   },
+   "FBXL4": {
+    "dev_patients": 50,
+    "rho": 0.09152548096533676,
+    "sim_cases": 10,
+    "terms": 113
+   },
+   "FBXO11": {
+    "dev_patients": 20,
+    "rho": 0.12902250632917373,
+    "sim_cases": 10,
+    "terms": 122
+   },
+   "GLI3": {
+    "dev_patients": 71,
+    "rho": 0.4270359282736068,
+    "sim_cases": 10,
+    "terms": 197
+   },
+   "HNRNPA2B1": {
+    "dev_patients": 11,
+    "rho": 0.12578149839571287,
+    "sim_cases": 10,
+    "terms": 65
+   },
+   "ITPR1": {
+    "dev_patients": 36,
+    "rho": 0.41790641144193436,
+    "sim_cases": 10,
+    "terms": 175
+   },
+   "KDM6B": {
+    "dev_patients": 12,
+    "rho": 0.40624969003581785,
+    "sim_cases": 10,
+    "terms": 230
+   },
+   "KMT2D": {
+    "dev_patients": 29,
+    "rho": 0.23858806604117755,
+    "sim_cases": 10,
+    "terms": 259
+   },
+   "LIM2": {
+    "dev_patients": 15,
+    "rho": 0.8660254037844387,
+    "sim_cases": 10,
+    "terms": 3
+   },
+   "LMNA": {
+    "dev_patients": 171,
+    "rho": 0.21633480860044177,
+    "sim_cases": 10,
+    "terms": 503
+   },
+   "LZTR1": {
+    "dev_patients": 20,
+    "rho": 0.40156574691015323,
+    "sim_cases": 10,
+    "terms": 149
+   },
+   "MT-TV": {
+    "dev_patients": 10,
+    "rho": 0.22727048361673685,
+    "sim_cases": 10,
+    "terms": 74
+   },
+   "NBAS": {
+    "dev_patients": 21,
+    "rho": 0.13180783553680991,
+    "sim_cases": 10,
+    "terms": 45
+   },
+   "NF1": {
+    "dev_patients": 151,
+    "rho": 0.391534200443683,
+    "sim_cases": 10,
+    "terms": 244
+   },
+   "NFU1": {
+    "dev_patients": 19,
+    "rho": 0.11182322182377073,
+    "sim_cases": 10,
+    "terms": 70
+   },
+   "NHLRC1": {
+    "dev_patients": 17,
+    "rho": 0.6189332979603279,
+    "sim_cases": 10,
+    "terms": 39
+   },
+   "PTPN11": {
+    "dev_patients": 29,
+    "rho": 0.38763450023982193,
+    "sim_cases": 10,
+    "terms": 159
+   },
+   "RERE": {
+    "dev_patients": 10,
+    "rho": 0.23192717001022536,
+    "sim_cases": 10,
+    "terms": 178
+   },
+   "RNU4-2": {
+    "dev_patients": 12,
+    "rho": 0.05748931070129723,
+    "sim_cases": 10,
+    "terms": 209
+   },
+   "RPGRIP1": {
+    "dev_patients": 21,
+    "rho": 0.42182811253632513,
+    "sim_cases": 10,
+    "terms": 110
+   },
+   "RPS19": {
+    "dev_patients": 10,
+    "rho": 0.2582281284012031,
+    "sim_cases": 10,
+    "terms": 88
+   },
+   "SAMD9L": {
+    "dev_patients": 10,
+    "rho": 0.3735903178674924,
+    "sim_cases": 10,
+    "terms": 42
+   },
+   "SCO2": {
+    "dev_patients": 14,
+    "rho": 0.03755658751813134,
+    "sim_cases": 10,
+    "terms": 159
+   },
+   "SMARCB1": {
+    "dev_patients": 11,
+    "rho": 0.02363758226654374,
+    "sim_cases": 10,
+    "terms": 187
+   },
+   "SOX17": {
+    "dev_patients": 15,
+    "rho": -0.29986222176459465,
+    "sim_cases": 10,
+    "terms": 55
+   },
+   "SPTAN1": {
+    "dev_patients": 43,
+    "rho": 0.2603862448423084,
+    "sim_cases": 10,
+    "terms": 98
+   },
+   "TAF4": {
+    "dev_patients": 10,
+    "rho": 0.24756517687370147,
+    "sim_cases": 10,
+    "terms": 99
+   },
+   "TBX5": {
+    "dev_patients": 28,
+    "rho": 0.28392544335268793,
+    "sim_cases": 10,
+    "terms": 128
+   },
+   "TGFB2": {
+    "dev_patients": 33,
+    "rho": 0.3123211835504016,
+    "sim_cases": 10,
+    "terms": 106
+   },
+   "TGFB3": {
+    "dev_patients": 41,
+    "rho": 0.4726959176557227,
+    "sim_cases": 10,
+    "terms": 118
+   },
+   "TUBA4A": {
+    "dev_patients": 12,
+    "rho": 0.061760783645313636,
+    "sim_cases": 10,
+    "terms": 66
+   },
+   "UMOD": {
+    "dev_patients": 36,
+    "rho": 0.3673008636952997,
+    "sim_cases": 10,
+    "terms": 33
+   },
+   "UNC13A": {
+    "dev_patients": 20,
+    "rho": 0.11134789567632138,
+    "sim_cases": 10,
+    "terms": 47
+   },
+   "WBP4": {
+    "dev_patients": 10,
+    "rho": 0.011275419822964042,
+    "sim_cases": 10,
+    "terms": 65
+   }
+  }
+ },
+ "g2c_terms_per_case": {
+  "present": {
+   "r1_dev": {
+    "mean": 8.800849707912905,
+    "n": 1883,
+    "percentiles": {
+     "10": 2.0,
+     "25": 4.0,
+     "50": 8.0,
+     "75": 12.0,
+     "90": 16.799999999999955
+    }
+   },
+   "r1_train": {
+    "mean": 8.69948817938094,
+    "n": 4103,
+    "percentiles": {
+     "10": 2.0,
+     "25": 4.0,
+     "50": 7.0,
+     "75": 11.0,
+     "90": 17.0
+    }
+   },
+   "sim": {
+    "mean": 4.987413925019128,
+    "n": 52280,
+    "percentiles": {
+     "10": 2.0,
+     "25": 3.0,
+     "50": 5.0,
+     "75": 6.0,
+     "90": 8.0
+    }
+   },
+   "w1_vs_r1_dev": 3.8183532561504485,
+   "w1_vs_r1_train": 3.717339646042486
+  }
+ },
+ "g2d_c2st": {
+  "auc": 0.8398422699404505,
+  "ci95": [
+   0.8100297371042537,
+   0.8628748763046582
+  ],
+  "ci_resample_unit": "publication",
+  "classifier": "logistic regression on standardised features + squares of the scalar features",
+  "features": [
+   "term_count",
+   "log_term_count",
+   "mean_ic",
+   "mean_depth",
+   "annotated_share",
+   "noise_share",
+   "system:HP:0000119",
+   "system:HP:0000152",
+   "system:HP:0000478",
+   "system:HP:0000598",
+   "system:HP:0000707",
+   "system:HP:0000769",
+   "system:HP:0000818",
+   "system:HP:0001197",
+   "system:HP:0001507",
+   "system:HP:0001574",
+   "system:HP:0001608",
+   "system:HP:0001626",
+   "system:HP:0001871",
+   "system:HP:0001939",
+   "system:HP:0002086",
+   "system:HP:0002664",
+   "system:HP:0002715",
+   "system:HP:0025031",
+   "system:HP:0025142",
+   "system:HP:0025354",
+   "system:HP:0033127",
+   "system:HP:0040064",
+   "system:HP:0045027",
+   "system:other"
+  ],
+  "folds": 5,
+  "gene_matched_pairs": 1659,
+  "kb": "kb-v5",
+  "pairs": 3522,
+  "r1_train_patients_total": 4103,
+  "r1_train_patients_with_gene_in_dataset": 3522
+ },
+ "g2e_e0": {
+  "cases": 5000,
+  "gap": 0.30671625120481316,
+  "gene_not_in_vocab": 0,
+  "mrr": 0.8187162512048132,
+  "mrr_in_vocab": 0.8187162512048132,
+  "seed": 20260930,
+  "target_mrr": 0.512,
+  "unscorable": 0,
+  "view": "present"
+ },
+ "genes": 5228,
+ "has_excluded": false,
+ "label": "up-graphens"
+}

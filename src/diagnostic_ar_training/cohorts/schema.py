@@ -27,6 +27,8 @@ class Case(BaseModel):
     onset_term: str | None = None
     disease_ids: tuple[str, ...] = ()
     pmids: tuple[str, ...] = ()
+    feature_onsets: tuple[tuple[str, float | None, str | None], ...] = ()
+    """(present term, onset in years, HPO onset class) for features whose own onset is recorded."""
 
     def signature(self) -> str:
         """Content identity used to detect the same patient on both sides of a split."""

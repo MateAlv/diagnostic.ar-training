@@ -1,0 +1,59 @@
+{
+  "artifact_id": "report-model-v2",
+  "kind": "report-model",
+  "created_at": "2026-09-30T14:42:47+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "3247274a6fa7057cbb8bc4e3c460c45bbd246b53",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "artifact:cardinal-v1",
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:orphanet_alignments@2026-06-23",
+      "sha256": "df8d562a0c6011af36a74eb4000ce81ca7d723e8031010819fb71727c0962bbb"
+    }
+  ],
+  "params": {
+    "adr": "0011 §3",
+    "kb": "kb-v4",
+    "cardinal": "cardinal-v1",
+    "part": "train",
+    "l2": 0.0001,
+    "format": "rare-disease-simulator report-model v1"
+  },
+  "params_hash": "2d6c99e21931a1cbe0ade4a5dcb9f853ce01667f4ccf7f838f80a9f41026729f",
+  "outputs": [
+    {
+      "path": "data/interim/report-model/report-model-v2/report-model.json",
+      "sha256": "1be9413b8b4b040b4f07c60ffe693879f848d869c8db906e9a858fb827b7f6b4",
+      "bytes": 544399
+    },
+    {
+      "path": "data/report-model/report-model-v2.summary.json",
+      "sha256": "e64baa13e0461c65beab3ac60379e13f497c4a463787b74e79b89591c55cb454",
+      "bytes": 4853
+    }
+  ],
+  "notes": "",
+  "release": "report-model-v2"
+}

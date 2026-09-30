@@ -1,7 +1,8 @@
 """Gene profiles: which diseases each gene causes, how strongly, and with what inheritance.
 
 The rules are in docs/decisions/0008-gene-profiles.md; the constants below are
-that ADR's tables.
+that ADR's tables. Scheme "v2" (ADR-0011 §2) adds R1-train patient counts to the
+evidence and zeroes somatic-only entities and links with no supporting evidence.
 """
 
 import csv
@@ -267,7 +268,12 @@ def build(
     clinvar: Path,
     masked_pmids: set[str],
     vocabulary: list[str],
+    scheme: str = "v1",
+    r1_train_diagnoses: list[tuple[str, tuple[str, ...]]] = (),
 ) -> tuple[dict, dict]:
+    """`r1_train_diagnoses` is (gene symbol, disease ids) per R1-train patient; scheme "v2" only."""
+    if scheme not in ("v1", "v2"):
+        raise ValueError(f"unknown weight scheme {scheme!r}")
     stats: Counter = Counter()
     approved, resolve = parse_hgnc(hgnc)
 
@@ -314,6 +320,10 @@ def build(
         link(symbol, targets[0], "clingen", [classification, moi])
     clinvar_counts = parse_clinvar(clinvar)
     prevalence = parse_orphanet_prevalence(orphanet_prevalence)
+    diagnosed: Counter = Counter()
+    for raw_symbol, disease_ids in r1_train_diagnoses:
+        if symbol := symbol_of(raw_symbol):
+            diagnosed.update((symbol, d) for d in set(disease_ids))
     groups = entities.groups()
     group_of = {i: root for root, ids in groups.items() for i in ids}
 
@@ -347,6 +357,12 @@ def build(
             moi = sorted({CLINGEN_MOI[m] for _, m in ev.get("clingen", []) if m in CLINGEN_MOI})
             inheritance = moi or sorted({t for i in ids for t in hpoa_inheritance.get(i, ())})
             prev = [prevalence[i] for i in ids if i in prevalence]
+            patients = sum(diagnosed.get((symbol, i), 0) for i in ids)
+            if scheme == "v2":
+                weight_raw = v * math.sqrt(1 + clinvar + patients)
+                reason = zero_weight_reason(v, ev, clinvar, patients)
+            else:
+                weight_raw, reason = v * math.sqrt(1 + clinvar), None
             entities_out.append(
                 {
                     "entity": _primary(ids),
@@ -361,7 +377,9 @@ def build(
                     "prevalence": max(prev) if prev else None,
                     "inheritance": inheritance,
                     "inheritance_basis": "clingen" if moi else ("hpoa" if inheritance else None),
-                    "weight_raw": round(v * math.sqrt(1 + clinvar), 6),
+                    **({"r1_train_patients": patients} if scheme == "v2" else {}),
+                    "weight_raw": 0.0 if reason else round(weight_raw, 6),
+                    **({"zero_weight_reason": reason} if scheme == "v2" else {}),
                 }
             )
         for e in entities_out:
@@ -384,6 +402,12 @@ def build(
         stats["entities"] += len(entities_out)
         stats["entities_simulable"] += len(simulable)
         for e in entities_out:
+            if e.get("zero_weight_reason"):
+                stats[f"entities_zero_weight_{e['zero_weight_reason']}"] += 1
+                stats[f"entities_zero_weight_{e['zero_weight_reason']}_with_profile"] += bool(
+                    e["profile_ids"]
+                )
+            stats["entities_with_r1_train_patients"] += e.get("r1_train_patients", 0) > 0
             stats[f"entities_basis_{e['validity_basis']}"] += 1
             stats["entities_zero_validity"] += e["validity"] == 0
             stats["entities_with_clinvar"] += e["clinvar_plp_alleles"] > 0
@@ -396,6 +420,18 @@ def build(
             current and out_genes.get(current, {}).get("simulable_entities")
         )
     return {"genes": out_genes, "vocabulary": vocab_map}, dict(sorted(stats.items()))
+
+
+def zero_weight_reason(validity: float, evidence: dict, clinvar: int, patients: int) -> str | None:
+    """Why a (gene, entity) link gets no weight under scheme v2, or None (ADR-0011 §2)."""
+    orphanet_types = [t for t, _ in evidence.get("orphanet", [])]
+    if orphanet_types and not evidence.get("clingen") and all("somatic" in t for t in orphanet_types):
+        return "somatic_only"
+    if validity == 0:
+        return "validity_zero"
+    if not (clinvar or evidence.get("orphanet") or evidence.get("clingen") or patients):
+        return "no_supporting_evidence"
+    return None
 
 
 def calibration(
@@ -435,4 +471,65 @@ def calibration(
         "mean_entities_per_gene": sum(len(e) for _, e, _ in rows) / len(rows),
         "uniform_mean_p": uniform,
         "by_gamma": {str(g): score(g) for g in gammas},
+    }
+
+
+def calibration_v2(genes: dict, vocabulary: dict, cases, groups: dict) -> dict:
+    """Scheme-v2 weights against R1-train patients' own diseases, with the circularity made visible.
+
+    The v2 weight counts R1-train patients, so scoring it on those same patients is optimistic
+    ("in_sample"). "leave_publication_out" recounts each entity without the scored patient's
+    publication group, and re-applies the no-support rule to the recount, which is what a
+    patient from an unseen publication would meet. "v1_formula" is ADR-0008's weight on the
+    same entities and rows.
+    """
+    rows = []
+    for case in cases:
+        symbol = vocabulary.get(case.gene) or case.gene
+        gene = genes.get(symbol)
+        if not gene:
+            continue
+        ents = [e for e in gene["entities"] if e["simulable"]]
+        truth = [i for i, e in enumerate(ents) if set(e["ids"]) & set(case.disease_ids)]
+        if len(ents) >= 2 and truth:
+            rows.append((case, symbol, ents, truth))
+    same_group: Counter = Counter()
+    for case in cases:
+        symbol = vocabulary.get(case.gene) or case.gene
+        for d in set(case.disease_ids):
+            same_group[(groups[case.case_id], symbol, d)] += 1
+
+    def own_group(case, symbol: str, e: dict) -> int:
+        return sum(same_group.get((groups[case.case_id], symbol, i), 0) for i in e["ids"])
+
+    def weight(variant: str, case, symbol: str, e: dict) -> float:
+        v, c = e["validity"], e["clinvar_plp_alleles"]
+        if variant == "v1_formula":
+            return v * math.sqrt(1 + c)
+        r = e["r1_train_patients"]
+        if variant == "leave_publication_out":
+            r -= own_group(case, symbol, e)
+            if not (c or e["orphanet"] or e["clingen"] or r):
+                return 0.0
+        return v * math.sqrt(1 + c + r)
+
+    def score(variant: str) -> dict:
+        logp, top1, prob = [], [], []
+        for case, symbol, ents, truth in rows:
+            w = [weight(variant, case, symbol, e) for e in ents]
+            total = sum(w)
+            p = sum(w[i] for i in truth) / total if total else 0.0
+            best = max(w)
+            top1.append(best > 0 and any(w[i] == best for i in truth) and w.count(best) == 1)
+            logp.append(math.log(max(p, 1e-6)))
+            prob.append(p)
+        n = len(rows)
+        return {"mean_log_p": sum(logp) / n, "top1": sum(top1) / n, "mean_p": sum(prob) / n}
+
+    return {
+        "cases": len(rows),
+        "publications": len({groups[c.case_id] for c, _, _, _ in rows}),
+        "mean_entities_per_gene": sum(len(e) for _, _, e, _ in rows) / len(rows),
+        "uniform_mean_p": sum(len(t) / len(e) for _, _, e, t in rows) / len(rows),
+        "by_variant": {v: score(v) for v in ("v1_formula", "in_sample", "leave_publication_out")},
     }

@@ -27,7 +27,7 @@ CAND must pass **all** of them.
 
 | # | Metric | Must be |
 |---|---|---|
-| a | Evaluation literature panel (G4): mean absolute error between simulated emission and literature prevalence | lower than UP's and V03's |
+| a | Evaluation literature panel (G4): mean absolute error between simulated emission and literature prevalence, on the rows not sourced from Orphanet. Profiles are built from HPOA, which already carries Orphanet's frequencies, so those rows would not be an independent check. All rows are reported as secondary | lower than UP's and V03's |
 | b | R1-dev aggregate: mean per-gene Spearman of term frequencies (genes with ≥ 10 dev patients) | higher than UP's and V03's |
 | c | Terms per case: Wasserstein distance to R1-train's distribution | lower than UP's and V03's |
 | d | Classifier two-sample test: AUC of a classifier telling R1-train patients from simulated ones (source-neutral features: term count, mean IC and depth, organ-system histogram, share of terms annotated to the gene, noise share; publication-grouped cross-validation) | lower than UP's and V03's, and ≤ 0.75 |
@@ -84,3 +84,37 @@ does retraining resume.
   frozen construction/evaluation disease split.
 - If v0.4 fails the gate, v0.5 adds literature-derived enrichment on the
   construction diseases. The gate is re-run within the 3-version budget.
+
+## Amendment 1 (2026-09-30): two corrections, made after candidate 1's R1-dev read
+
+**Disclosure.** Both corrections were found after candidate 1's realism
+read (ledger row `v0.4-cand1`), by R1-train analysis (ANALYSIS-002) and
+by reading the G2b code. They apply equally to every dataset: baselines
+are recomputed, and neither correction changes candidate 1's verdict. The
+thresholds are unchanged.
+
+1. **G2e target.** It is now E0's in-vocab MRR on R1-train patients whose
+   publication is **not** cited in the pinned HPOA: **0.405** (n = 1,124),
+   replacing 0.512. v3.0 learned from annotations of the cited papers, so
+   the full-train figure is inflated for a simulator built on masked
+   knowledge.
+
+   | Dataset | E0 MRR | Gap to 0.405 | ≤ 0.10? |
+   |---|---|---|---|
+   | UP | 0.819 | 0.414 | no |
+   | V03 | 0.168 | 0.237 | no |
+   | Candidate 1 | 0.092 | 0.313 | no |
+
+2. **Which dataset G2 scores.**
+   - **The problem:** G2b's reference set is each gene's full
+     `hpo_genes_to_phenotype` annotations. A half-A dataset, with 30% of
+     annotations held out for S3 (ADR-0004 / §8), shows a zero rate on
+     every held-out term by construction, while UP samples from that
+     very file.
+   - **The fix:** G2 is scored on a **full-profile** run of the candidate,
+     with the same simulator, settings and seed and no half-B drop. The
+     V03 baseline is regenerated the same way; baselines don't count
+     against the budget.
+   - **The training data:** the half-A Front A training set is the same
+     generator with half B dropped. It must pass G1, and its G2 is
+     reported as secondary.

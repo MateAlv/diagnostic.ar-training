@@ -1,0 +1,37 @@
+{
+ "_provenance": {
+  "artifact": "simcal-v04-v3",
+  "base": {
+   "id": "file:data/calib/simcal-v04-v2.json",
+   "sha256": "d2583fb1e9e63dc3ebb8846ec0d3c740200b8c738de7a299dafca01cde554bdc"
+  },
+  "code_sha": "9a51d3b432a528b7294453de6fc6f4de19b2f8e2",
+  "mean": 0.424815,
+  "min_denominator": 10,
+  "overrides": [
+   "reporting.noise_count=\"budget_share\"",
+   "reporting.noise_share=0.4625"
+  ],
+  "pairs": 18162,
+  "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+  "source": "hpoa-recount-v1 (8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a)"
+ },
+ "frequency.shrinkage_mean": 0.3,
+ "missingness.age_unknown": 0.251,
+ "missingness.no_negatives": 0.075,
+ "missingness.onset_unknown": 0.404,
+ "missingness.sex_unknown": 0.077,
+ "negatives.max_per_case": 40,
+ "negatives.source_weights.confounder": 0.53,
+ "negatives.source_weights.not_annotation": 0.0,
+ "negatives.source_weights.own_disease": 0.44,
+ "negatives.source_weights.own_gene_other_disease": 0.03,
+ "negatives.unfilled_slots": "redistribute",
+ "noise.vocabulary_path": "calib-v1.noise_vocabulary.tsv",
+ "presets.medium.negatives_mean": 13,
+ "presets.medium.noise_mean": 3.7,
+ "presets.medium.positive_observation_rate": 0.59,
+ "reporting.force_cardinal": false,
+ "reporting.noise_count": "budget_share",
+ "reporting.noise_share": 0.4625
+}

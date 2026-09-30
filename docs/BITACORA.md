@@ -1037,6 +1037,236 @@ What they tell us:
   difficulty target is now R1-train's in-vocab E0 MRR, 0.512 (it was the
   all-genes 0.440): simulated genes are all in vocabulary. Gaps become
   UP 0.300 and V03 0.336, both taken from EXP-000 and EXP-A-002f.
+- **Clarification to ADR-0012 G2a,** made before any v0.4 number exists. The primary panel error uses only the rows sourced from GeneReviews or cohort papers. HPOA already carries Orphanet's frequencies, so Orphanet-sourced rows would not be an independent check.
+
+### 2026-09-30 — build — Simulator v0.4 code merged (rare-disease-simulator PR #5, 266472c)
+- **Implemented (ADR-0011):**
+  - merged entity profiles;
+  - Beta shrinkage of count frequencies, with no built-in μ₀;
+  - truth-then-reporting emission, using report-model-v1's R1-train budget histogram and cardinal terms first;
+  - age gating;
+  - new validate checks.
+- **239 tests pass.** Only fixture runs so far; no real data, because the
+  training-repo artifacts are still being built.
+- **Review fix before merge:** noise terms now take slots from the report
+  budget instead of adding to it. The budget comes from R1-train's
+  reported-term counts, which already include noise, so without the fix
+  simulated cases would overshoot terms-per-case (G2c). On the fixture,
+  reported totals follow the histogram with total variation 0.038.
+- **Onset coverage is thin:** 1.2% of positive HPOA rows carry an onset
+  (HPO 2026-02-16), so most terms are not age-gated.
+- **Not tagged or frozen.** Freezing waits for the ADR-0012 gate.
+
+### 2026-09-30 — build + decision — v0.4 artifacts merged (PR #22); ADR-0011 amendment 1
+- **Merged the training-repo artifacts:** `hpoa-recount-v1`, `genes-v2`,
+  `report-model-v2` (v1 superseded by the format change), `cardinal-v1`
+  (new source: Orphadata product 4), `simcal-v04-v1`,
+  `literature-panel-v1`, plus `dxt sim realism|gate`.
+- **Recount restores masked profiles.** Diseases gutted by whole-row
+  masking get their rows back: UMOD 3 → 20 rows, Holt-Oram 21 → 46,
+  FBXL4 26 → 82.
+- **report-model-v2 on R1-dev:** within-gene ρ 0.367, vs 0.185 for HPOA
+  frequency alone (68 genes; ledgered as a check).
+- **G2 baselines** (`results/realism/gate-baselines.md`):
+
+  | Metric | UP | V03 |
+  |---|---|---|
+  | panel-v1 MAE | 0.504 | 0.556 |
+  | dev ρ | 0.231 | 0.086 |
+  | W1 terms per case | 3.717 | 1.382 |
+  | C2ST AUC | 0.840 | 0.778 |
+  | E0 gap to 0.512 | 0.307 | 0.344 |
+
+  The UP ρ is lower than ANALYSIS-001's 0.39: this one covers 42 genes and
+  averages tied ranks.
+- **Amendment 1, fixed before any candidate number:**
+  - μ₀ = median of count pairs with m ≥ 10 (0.30); the all-pairs median of
+    0.667 is inflated by single case reports;
+  - cardinal terms are not forced, since report-model-v2's fitted cardinal
+    coefficient already covers them;
+  - one merged calibration file, `simcal-v04-v2`;
+  - the candidate uses the Front A training shape;
+  - 159 genes lose coverage, which is accepted.
+
+### 2026-09-30 — build — v0.4 candidate 1 dataset: G1 fails (622 invariant violations); G2 not run
+- **Front / versions:** A / rare-disease-simulator@266472c (0.4.0, clean
+  tree), `hpoa-recount-v1`, `genes-v2`, `report-model-v2`, `cardinal-v1`,
+  `simcal-v04-v2`, half A of `annot-split-v1`. Candidate 1 of 3 (ADR-0012).
+- **Profiles:** `build-profiles --from-hpoa` with `--hpoa` hpoa-recount-v1,
+  `--drop-annotations` annot-split-v1, `--gene-profiles` genes-v2, no
+  `--exclude-pmids`.
+  - 9,095 profiles, 5,134 genes; 1,675 recounted rows used.
+  - The simulator's config still supplies the r1-v1 PMID mask as a fallback,
+    so the mask ran: 1,026 references, **0 rows masked**. This confirms
+    hpoa-recount-v1 carries no held-out citation.
+  - Half B: 59,651 of 78,917 listed pairs dropped (59,798 rows); 128
+    diseases left without phenotypes.
+- **Simulate** (gene-first, 100 per gene, medium, seed 1001, 442 s):
+  486,800 cases for **4,868 genes**. 360 of 5,228 vocabulary genes skipped:
+  6 unresolved symbol, 53 no gene record, 277 no simulable entity, **24 no
+  profile available** (ADRB1, CEBPA, FLT3, SF3B1, …), which is the gap to
+  the 4,892 genes expected. Their entities' profiles were not built; the
+  likely cause is the 128 diseases half B leaves without phenotypes (not
+  checked per gene).
+- **G1:**
+
+  | Check | Result |
+  |---|---|
+  | `validate` invariants | **FAIL: 622 violations**, all `reported_count_mismatch`, each off by one |
+  | Rerun byte-identical | pass: a 20-gene slice (19 simulated, 1,900 cases) run twice gives identical bytes, equal to the full run's lines for those genes |
+  | `dxt lineage verify` | ok |
+  | Contamination vs R1 and S3 | not run: `export-training` refuses cases that fail `validate` |
+
+- **Cause of the violations** (simulator `_report`): a reported term whose
+  own id was already shown, because an earlier term was generalized to it,
+  is skipped with no record. Example: A2ML1 case 75 generalizes HP:0000407
+  to HP:0000365, then reports the true HP:0000365 itself. The case shows 9
+  profile terms for a profile budget of 10, and the skipped term is neither
+  a positive, a `recorded_as_generalized` missing term nor an unreported
+  one. An independent count over the cases finds exactly 622 cases below
+  their profile budget with unreported true terms left, and every one has a
+  generalized positive. The fix belongs in the simulator and needs a new
+  commit and a regenerated dataset.
+- **No dataset was registered or published, and G2 was not run.** No
+  R1-dev read and no ledger row, so candidate 1's budget slot is unspent.
+  `scripts/register_sim_dataset.py` (manifest + `-excl-v1`, as for V03) is
+  committed for the rerun; it has not been exercised yet.
+- **Diagnostics without R1-dev** (from the rich cases and the run summary;
+  `present` computed as in export v2):
+
+  | | Candidate | R1-train |
+  |---|---|---|
+  | Present terms per case: mean / median | 7.34 / 7 | 8.70 / 7 |
+  | p10 / p90 / max | 4 / 12 / 51 | 2 / 17 / 66 |
+  | Cases with ≤ 2 terms | 2.6% | 11.0% |
+
+  - W1 of terms per case vs R1-train (G2c's statistic, R1-train only):
+    **2.046**. UP is 3.717 and V03 1.382. The fix touches 622 cases by one
+    term, so this should barely move: the candidate is on course to fail
+    G2c against V03.
+  - Budget: mean drawn 8.70, reported total 7.35 (3.65 profile terms +
+    3.70 noise). TV of reported totals vs the budget histogram 0.234.
+  - **Noise share:** 50.4% of shown terms pooled, 55.3% mean per case.
+    41.6% of cases show exactly one profile term.
+  - **Cardinal:** 0.193 reported cardinal positives per case, 2.6% of shown
+    terms, at least one in 12.3% of cases. `validate`: 110,132 of 228,415
+    true cardinal terms reported (48.2%), counting generalized ones.
+  - Frequency calibration (ungated terms): error 0.0028.
+- **Verdict:** ❌ candidate 1 fails G1. Nothing tuned.
+- **Next:** fix the simulator's generalization collision with a regression
+  test, regenerate with the same settings, and re-run G1, then G2 once as
+  `v0.4-cand1`. Open question for Mateo before that run: noise takes half of
+  the shown terms and the term-count spread is narrower than R1-train's
+  (the W1 above).
+
+### 2026-09-30 — decision — Candidate 1 revised before its R1-dev read (ADR-0011 amendment 2)
+- **Simulator 0.4.1** (rare-disease-simulator PR #6): refills report slots
+  absorbed by a generalized child, the cause of the 622 G1 violations;
+  regression test added. Adds `budget_share` noise.
+- **Noise:** each budget slot is noise with probability 0.4625 (R1-train
+  unexplained share, calib-v1), at most k − 1. This replaces
+  Poisson(3.7) drawn independently of the budget, which left 41.6% of
+  cases with one profile term.
+- **New calibration file:** `simcal-v04-v3`.
+- **Status:** R1-dev still unread; candidate 1 remains read 1 of 3.
+
+### 2026-09-30 — build + gate — v0.4 candidate 1 (simulator 0.4.1): G1 passes, G2 fails on a, b and e
+- **Front / versions:** A / rare-disease-simulator@b645c60 (0.4.1, clean
+  tree), `simcal-v04-v3` (ADR-0011 amendment 2), `hpoa-recount-v1`,
+  `genes-v2`, `report-model-v2`, `cardinal-v1`, half A of `annot-split-v1`.
+  Gene-first, 100 per gene, medium, seed 1001. This is candidate 1 of 3 and
+  spends R1-dev read 1 of 3.
+- **Profiles:** the 266472c → b645c60 diff touches only `simulation/`, docs
+  and tests. A rebuild with 0.4.1 is byte-identical to the 0.4.0 build
+  (sha256 `ad4476b4…`); its PMID-mask fallback again masked 0 rows.
+- **Dataset** `ds-sim0.4.1-A-n100-s1001` (release assets, ADR-0005):
+  - 486,800 cases for 4,868 genes, the same 24 `no_profile_available`
+    genes short of 4,892 as before;
+  - 36.6 MB gz (sha256 `b18df39d…`); sim splits 438,011 train / 24,584 val
+    / 24,205 test.
+- **G1:**
+
+  | Check | Result |
+  |---|---|
+  | `validate` (cases and export) | pass: 0 invariant violations |
+  | Rerun byte-identical | pass: a 20-gene slice (19 simulated) run twice gives identical cases and identical exports, and its cases equal the full run's lines |
+  | `dxt lineage verify` | ok |
+  | Contamination, key (gene, present set) | R1 (all parts, keys only): 58; S3: 449 (42 with the same full signature). **498 cases excluded** by `ds-sim0.4.1-A-n100-s1001-excl-v1`; residual 0 |
+
+  The S3 overlap is higher than V03's (101). These are chance matches on
+  small presentations, likely because 12.7% of this candidate's records
+  have at most 2 terms.
+- **G2** (`dxt sim realism --label v0.4-cand1 --sim-version 0.4.1-cand1`,
+  one run with no crash; `results/realism/gate-v0.4-cand1.md`):
+
+  | Metric | UP | V03 | Candidate | Pass |
+  |---|---|---|---|---|
+  | a: panel-v1 MAE | 0.504 | 0.556 | 0.512 | ❌ (beats V03, not UP) |
+  | b: R1-dev mean per-gene ρ (38 genes scored) | 0.231 | 0.086 | 0.152 | ❌ (beats V03, not UP) |
+  | c: W1 terms per case vs R1-train | 3.717 | 1.382 | 1.214 | ✅ |
+  | d: C2ST AUC (≤ 0.75) | 0.840 | 0.778 | 0.737 | ✅ |
+  | e: \|E0 MRR − 0.512\| (≤ 0.10) | 0.307 | 0.344 | 0.420 | ❌ (worse than both) |
+
+  - **G2e:** E0's MRR on the candidate is 0.092. V03 gave 0.168 and UP
+    0.819, so the candidate's patients are much harder for E0 than real
+    ones.
+  - **G2a:** literature-panel-v1 has no `source_kind` column, so the
+    primary MAE uses all 37 rows, Orphanet-sourced ones included; the
+    baselines were computed the same way. It will be recomputed on
+    literature-panel-v2, which reads no R1-dev.
+- **Diagnostics without R1-dev** (`results/realism/v0.4-cand1.train-diagnostics.json`):
+
+  | | Candidate | R1-train |
+  |---|---|---|
+  | Present terms per case: mean / median | 7.49 / 6 | 8.70 / 7 |
+  | p10 / p90 | 2 / 14 | 2 / 17 |
+  | Cases with ≤ 2 terms | 12.7% | 11.0% |
+  | W1 | 1.214 | — |
+
+  - Profile terms per case: mean 3.51, median 3. **27.2% of cases show
+    exactly one profile term** (41.6% under 0.4.0).
+  - **Noise share:** 53.1% of shown terms pooled, 48.6% mean per case, 3.97
+    noise terms per case. That is above the nominal 0.4625 because profile
+    slots go unfilled when the true phenotype is thinner than the budget:
+    budget mean 8.70, shown 7.49.
+  - Reported totals vs the budget histogram: TV 0.070 (0.234 under 0.4.0).
+  - **Cardinal:** 0.194 reported cardinal positives per case, 2.6% of shown
+    terms, at least one in 12.9% of cases. `validate`: 111,082 of 228,406
+    true cardinal terms reported (48.6%).
+- **Verdict:** ❌ candidate 1 fails the gate (G2a, G2b, G2e). Nothing was
+  tuned after the read.
+- **Next:** Mateo decides candidate 2 (2 R1-dev reads left). The
+  R1-train-only numbers point to a possible source of the G2e difficulty,
+  not tested: about half of each record is noise, and a quarter of cases
+  carry a single profile term.
+
+### 2026-09-30 — analysis + decision — ANALYSIS-002; ADR-0012 amendment 1
+- **Candidate 1** (sim 0.4.1, R1-dev read 1 of 3) passes G1 and fails G2
+  a, b and e (PR #27). E0 MRR on it is 0.092.
+- **ANALYSIS-002** (R1-train only):
+  - Real present terms are 53.8% explained, 11.5% more specific than an
+    annotation, 9.9% related (shared-ancestor IC 2–4), and 23.9% weakly
+    related or unrelated.
+  - Candidate 1 is 49.4% / 5.0% / 4.7% / 40.6%. Its noise is too
+    gene-independent.
+  - E0 in-vocab MRR on R1-train is 0.562 for patients whose paper is cited
+    in HPOA (n 2,398) and 0.405 for uncited ones (n 1,124).
+- **ADR-0012 amendment 1** (disclosed as made after candidate 1's read):
+  - the G2e target becomes 0.405;
+  - G2 scores full-profile runs, because half A zeroes 30% of G2b's
+    reference terms.
+  - Recomputed G2e gaps: UP 0.414, V03 0.237, candidate 1 0.313. None
+    passes.
+- **ADR-0011 amendment 3 (candidate 2 design, fixed before any candidate 2
+  number):**
+  - specialisation of reported terms (rate r);
+  - disease-related noise (share s of noise slots);
+  - noise share 0.348;
+  - r and s chosen in at most 2 declared pilot rounds against ANALYSIS-002's
+    R1-train term categories.
+- **Scoring and budget:** G2 runs on the full-profile dataset. This is
+  R1-dev read 2 of 3.
+
 
 ### 2026-09-30 — ADR-0012 G4 — Evaluation/construction disease split frozen (`litpanel-split-v1`)
 - **Why:** G4 requires the split to be frozen and hashed before any
