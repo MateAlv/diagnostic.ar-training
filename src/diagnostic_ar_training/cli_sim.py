@@ -407,21 +407,23 @@ def knowledge_shrinkage_prior(
     for item in set_:
         key, _, value = item.partition("=")
         body[key] = json.loads(value)
-    body.update({
-        "frequency.shrinkage_mean": round(median, 6),
-        "_provenance": {
-            "artifact": calib_id,
-            "source": f"{recount_id} ({hpoa_sha})",
-            "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive "
-            "phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
-            "pairs": len(freqs),
-            "min_denominator": min_denominator,
-            "mean": round(statistics.fmean(freqs), 6),
-            "base": base_input,
-            "overrides": set_,
-            "code_sha": state.sha,
-        },
-    })
+    body.update(
+        {
+            "frequency.shrinkage_mean": round(median, 6),
+            "_provenance": {
+                "artifact": calib_id,
+                "source": f"{recount_id} ({hpoa_sha})",
+                "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive "
+                "phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+                "pairs": len(freqs),
+                "min_denominator": min_denominator,
+                "mean": round(statistics.fmean(freqs), 6),
+                "base": base_input,
+                "overrides": set_,
+                "code_sha": state.sha,
+            },
+        }
+    )
     out = DATA_DIR / "calib" / f"{calib_id}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(body, indent=1, sort_keys=True) + "\n")
