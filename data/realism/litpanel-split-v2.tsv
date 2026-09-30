@@ -1,0 +1,101 @@
+rank	role	gene	symbol	disease_id	disease_ids	disease_name	organ_system	organ_system_label	inheritance	r1_train_patients	train_bin	r1_dev_patients	orphanet_prevalence	sim_weight
+1	anchor	NF1	NF1	OMIM:162200	OMIM:162200;ORPHA:363700;ORPHA:636	Neurofibromatosis, type 1	HP:0000707	Abnormality of the nervous system	AD	158	>=10	151	0.0003	0.72144
+2	anchor	LMNA	LMNA	OMIM:115200	OMIM:115200;ORPHA:300751	Cardiomyopathy, dilated, 1A	HP:0001626	Abnormality of the cardiovascular system	AD	64	>=10	171		0.180637
+3	anchor	FBN1	FBN1	OMIM:154700	OMIM:154700;ORPHA:284963;ORPHA:558	Marfan syndrome	HP:0033127	Abnormality of the musculoskeletal system	AD	73	>=10	42	0.0003	0.529902
+4	anchor	PTPN11	PTPN11	OMIM:163950	OMIM:163950;ORPHA:648	Noonan syndrome 1	HP:0033127	Abnormality of the musculoskeletal system	AD	13	>=10	29	0.0003	0.405999
+5	anchor	KMT2D	KMT2D	OMIM:147920	OMIM:147920;ORPHA:2322	Kabuki Syndrome 1	HP:0000152	Abnormality of head or neck	AD	12	>=10	29	5e-05	1.0
+6	anchor	TBX5	TBX5	OMIM:142900	OMIM:142900;ORPHA:392	Holt-Oram syndrome	HP:0033127	Abnormality of the musculoskeletal system	AD	55	>=10	28	5e-06	0.9179
+7	anchor	UMOD	UMOD	OMIM:162000	OMIM:162000;ORPHA:88950	Tubulointerstitial kidney disease, autosomal dominant, 1	HP:0000119	Abnormality of the genitourinary system	AD	76	>=10	36	5e-06	1.0
+8	anchor	FBXL4	FBXL4	OMIM:615471	OMIM:615471;ORPHA:369897	Mitochondrial DNA depletion syndrome 13 (encephalomyopathic type)	HP:0000152	Abnormality of head or neck	AR	36	>=10	50	5e-07	0.760353
+9	anchor	SPTAN1	SPTAN1	OMIM:613477	OMIM:613477	Epileptic encephalopathy, early infantile, 5	HP:0000707	Abnormality of the nervous system	other	13	>=10	43		0.607807
+10	anchor	ITPR1	ITPR1	OMIM:117360	OMIM:117360;ORPHA:208513	Spinocerebellar ataxia 29, congenital nonprogressive	HP:0000707	Abnormality of the nervous system	AD	99	>=10	36		0.379549
+11	sampled	NHLRC1	NHLRC1	ORPHA:501	ORPHA:501	Lafora disease	HP:0000707	Abnormality of the nervous system	AR	0	0	17	5e-06	1.0
+12	sampled	CNNM4	CNNM4	OMIM:217080	OMIM:217080;ORPHA:1873	Jalili syndrome	HP:0000478	Abnormality of the eye	AR	0	0	0	5e-07	1.0
+13	sampled	BRPF1	BRPF1	OMIM:617333	OMIM:617333;ORPHA:698090	Intellectual developmental disorder with dysmorphic facies and ptosis	HP:0001507	Growth abnormality	other	0	0	10	5e-07	0.877289
+14	sampled	ARHGEF1	ARHGEF1	OMIM:618459	OMIM:618459;ORPHA:696942	Immunodeficiency 62	HP:0002715	Abnormality of the immune system	AR	0	0	0	5e-07	1.0
+15	sampled	CST3	CST3	OMIM:611953	OMIM:611953	Macular degeneration, age-related, 11	HP:0000478	Abnormality of the eye	other	0	0	16		0.611099
+16	sampled	AFP	AFP	OMIM:615969	OMIM:615969;ORPHA:168612	Alpha-Fetoprotein deficiency	HP:0001939	Abnormality of metabolism/homeostasis	AR	0	0	0	5e-07	0.690983
+17	sampled	RNU4-2	RNU4-2	OMIM:268000	OMIM:268000;ORPHA:791	Retinitis pigmentosa	HP:0000478	Abnormality of the eye	other	0	0	12	0.0003	1.0
+18	sampled	DKC1	DKC1	OMIM:305000	OMIM:305000	Dyskeratosis congenita, X-linked	HP:0001574	Abnormality of the integument	XL	0	0	0		0.413506
+19	sampled	DOCK8	DOCK8	OMIM:243700	OMIM:243700;ORPHA:217390	Hyper-IgE syndrome 2, autosomal recessive, with recurrent infections	HP:0002715	Abnormality of the immune system	AR	2	1-9	11	5e-07	1.0
+20	sampled	HK1	HK1	OMIM:235700	OMIM:235700;ORPHA:90031	Hemolytic anemia, nonspherocytic, due to hexokinase deficiency	HP:0001871	Abnormality of blood and blood-forming tissues	AR	0	0	0	5e-07	0.348821
+21	sampled	MT-TV	MT-TV	OMIM:540000	OMIM:540000;ORPHA:550	Mitochondrial myopathy, encephalopathy, lactic acidosis, and stroke-like episodes	HP:0000707	Abnormality of the nervous system	other	0	0	10	0.002	0.574798
+22	sampled	MYO3A	MYO3A	OMIM:607101	OMIM:607101	Deafness, autosomal recessive 30	HP:0000598	Abnormality of the ear	AR	0	0	0		0.755034
+23	sampled	ATP2A2	ATP2A2	OMIM:124200	OMIM:124200;ORPHA:218	Darier-White disease	HP:0001574	Abnormality of the integument	AD	0	0	19	5e-05	0.742168
+24	sampled	DNAAF6	DNAAF6	OMIM:300991	OMIM:300991	Ciliary dyskinesia, primary, 36, X-linked	HP:0002086	Abnormality of the respiratory system	XL	0	0	0		0.725708
+25	sampled	NFU1	NFU1	OMIM:605711	OMIM:605711;ORPHA:401869	Multiple mitochondrial dysfunctions syndrome 1	HP:0000707	Abnormality of the nervous system	AR	1	1-9	19	5e-07	0.590037
+26	sampled	ERCC4	ERCC4	OMIM:615272	OMIM:615272	Fanconi anemia, complementation group Q	HP:0025031	Abnormality of the digestive system	AR	0	0	0		0.292968
+27	sampled	HNRNPA2B1	HNRNPA2B1	OMIM:615422	OMIM:615422	Inclusion body myopathy with early-onset Paget disease with or without frontotemporal dementia 2	HP:0033127	Abnormality of the musculoskeletal system	AD	0	0	11		0.572949
+28	sampled	ATP11C	ATP11C	OMIM:301015	OMIM:301015	Hemolytic anemia, congenital, X-linked	HP:0000119	Abnormality of the genitourinary system	XL	0	0	0		1.0
+29	sampled	SAMD9L	SAMD9L	OMIM:159550	OMIM:159550;ORPHA:2585	Ataxia-Pancytopenia syndrome	HP:0000707	Abnormality of the nervous system	other	0	0	10	5e-07	0.633975
+30	sampled	GHRHR	GHRHR	OMIM:618157	OMIM:618157;ORPHA:684247	Growth hormone deficiency, isolated, type IV	HP:0000818	Abnormality of the endocrine system	AR	0	0	0		1.0
+31	sampled	TGFB2	TGFB2	OMIM:614816	OMIM:614816	Loeys-Dietz syndrome 4	HP:0000152	Abnormality of head or neck	other	1	1-9	33		0.509178
+32	sampled	NTHL1	NTHL1	OMIM:616415	OMIM:616415;ORPHA:454840	Familial adenomatous polyposis 3	HP:0002664	Neoplasm	AR	0	0	0		1.0
+33	sampled	GLI3	GLI3	OMIM:175700	OMIM:175700;ORPHA:380	Greig cephalopolysyndactyly syndrome	HP:0033127	Abnormality of the musculoskeletal system	AD	6	1-9	71	5e-06	0.376497
+34	sampled	IARS1	IARS1	OMIM:617093	OMIM:617093;ORPHA:541423	Growth retardation, impaired intellectual development, hypotonia, and hepatopathy	HP:0001939	Abnormality of metabolism/homeostasis	AR	0	0	0	5e-07	1.0
+35	sampled	RPS19	RPS19	OMIM:105650	OMIM:105650;ORPHA:124	Diamond-Blackfan anemia 1	HP:0033127	Abnormality of the musculoskeletal system	AD	1	1-9	10	5e-06	1.0
+36	sampled	GLA	GLA	OMIM:301500	OMIM:301500;ORPHA:324	Fabry disease	HP:0001626	Abnormality of the cardiovascular system	XL	0	0	0	5e-06	1.0
+37	sampled	UNC13A	UNC13A	OMIM:105400	OMIM:105400;ORPHA:803	Amyotrophic lateral sclerosis 1	HP:0000707	Abnormality of the nervous system	other	2	1-9	20	5e-05	1.0
+38	sampled	HPS4	HPS4	OMIM:614073	OMIM:614073	Hermansky-Pudlak syndrome 4	HP:0001871	Abnormality of blood and blood-forming tissues	AR	0	0	0		1.0
+39	sampled	TUBA4A	TUBA4A	OMIM:616208	OMIM:616208	Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia	HP:0000707	Abnormality of the nervous system	AD	5	1-9	12		0.512206
+40	sampled	SUN5	SUN5	OMIM:617187	OMIM:617187	Spermatogenic failure 16	HP:0000119	Abnormality of the genitourinary system	AR	0	0	0		0.75
+41	sampled	NBAS	NBAS	OMIM:614800	OMIM:614800;ORPHA:391677	Short stature, optic nerve atrophy, and pelger-huet anomaly	HP:0000152	Abnormality of head or neck	AR	11	>=10	21	5e-07	0.561022
+42	sampled	SMPX	SMPX	OMIM:300066	OMIM:300066	Deafness, X-linked 4	HP:0000598	Abnormality of the ear	XL	0	0	0		0.474068
+43	sampled	COQ4	COQ4	OMIM:616276	OMIM:616276;ORPHA:457185	Coenzyme Q10 deficiency, primary, 7	HP:0001626	Abnormality of the cardiovascular system	AR	17	>=10	11	5e-07	0.695369
+44	sampled	ELANE	ELANE	OMIM:162800	OMIM:162800;ORPHA:2686	Cyclic neutropenia	HP:0002715	Abnormality of the immune system	AD	0	0	0	5e-06	0.57955
+45	sampled	RPGRIP1	RPGRIP1	OMIM:613826	OMIM:613826	Leber congenital amaurosis 6	HP:0000478	Abnormality of the eye	AR	51	>=10	21		0.28649
+46	sampled	RTEL1	RTEL1	OMIM:616373	OMIM:616373	Pulmonary fibrosis and/or bone marrow failure, telomere-related, 3	HP:0002086	Abnormality of the respiratory system	other	0	0	0		0.381082
+47	sampled	SOX17	SOX17	OMIM:613674	OMIM:613674	Vesicoureteral reflux 3	HP:0000119	Abnormality of the genitourinary system	AD	29	>=10	15		0.387995
+48	sampled	PDX1	PDX1	OMIM:260370	OMIM:260370;ORPHA:2805	Pancreatic agenesis, congenital	HP:0025031	Abnormality of the digestive system	AR	0	0	0	5e-07	0.284736
+49	sampled	TGFB3	TGFB3	OMIM:615582	OMIM:615582	Loeys-Dietz syndrome 5	HP:0000152	Abnormality of head or neck	other	29	>=10	41		0.540413
+50	sampled	ATP6AP1	ATP6AP1	OMIM:300972	OMIM:300972;ORPHA:692790	Immunodeficiency 47	HP:0001939	Abnormality of metabolism/homeostasis	XL	0	0	0	5e-07	1.0
+51	sampled	SCO2	SCO2	OMIM:604377	OMIM:604377	Mitochondrial complex IV deficiency, nuclear type 2	HP:0000707	Abnormality of the nervous system	AR	10	>=10	14		0.448077
+52	sampled	KLK11	KLK11	OMIM:620507	OMIM:620507	Ichthyosis with erythrokeratoderma	HP:0001574	Abnormality of the integument	AD	0	0	0		1.0
+53	sampled	RERE	RERE	OMIM:616975	OMIM:616975;ORPHA:494344	Neurodevelopmental disorder with or without anomalies of the brain, eye, or heart	HP:0000478	Abnormality of the eye	other	12	>=10	10	5e-07	0.952606
+54	sampled	PROP1	PROP1	OMIM:262600	OMIM:262600	Pituitary hormone deficiency, combined, 2	HP:0000818	Abnormality of the endocrine system	AR	0	0	0		0.655296
+55	sampled	LZTR1	LZTR1	OMIM:615670	OMIM:615670	Schwannomatosis 2	HP:0000707	Abnormality of the nervous system	AD	16	>=10	20		0.276758
+56	sampled	RHCE	RHCE	OMIM:617970	OMIM:617970	Rh-null disease, amorph type	HP:0001871	Abnormality of blood and blood-forming tissues	AR	0	0	0		0.690983
+57	sampled	FBXO11	FBXO11	OMIM:618089	OMIM:618089	Intellectual developmental disorder with dysmorphic facies and behavioral abnormalities	HP:0000152	Abnormality of head or neck	other	24	>=10	20		1.0
+58	sampled	MBD4	MBD4	OMIM:619975	OMIM:619975;ORPHA:661526	Tumor predisposition syndrome 2	HP:0002664	Neoplasm	AR	0	0	0	5e-07	0.598109
+59	sampled	SMARCB1	SMARCB1	OMIM:162091	OMIM:162091;ORPHA:93921	Schwannomatosis	HP:0000707	Abnormality of the nervous system	AD	11	>=10	11	5e-07	0.246723
+60	sampled	SASH3	SASH3	OMIM:301082	OMIM:301082;ORPHA:653751	Immunodeficiency 102	HP:0002715	Abnormality of the immune system	XL	0	0	0	5e-07	0.75
+61	reserve	ZBTB42	ZBTB42	OMIM:616248	OMIM:616248	Lethal congenital contracture syndrome 6	HP:0001197	Abnormality of prenatal development or birth	AR	0	0	0		1.0
+62	reserve	RB1CC1	RB1CC1	OMIM:114480	OMIM:114480;ORPHA:227535	Breast cancer	HP:0000769	Abnormality of the breast	AD	0	0	0		1.0
+63	reserve	FANCD2	FANCD2	OMIM:227650	OMIM:227650;ORPHA:84	Fanconi anemia	HP:0000119	Abnormality of the genitourinary system	AR	0	0	0	5e-05	0.581835
+64	reserve	NLRP3	NLRP3	OMIM:120100	OMIM:120100	Familial cold inflammatory syndrome 1	HP:0001939	Abnormality of metabolism/homeostasis	AD	0	0	1		0.228649
+65	reserve	MBTPS2	MBTPS2	OMIM:308205	OMIM:308205	IFAP syndrome with or without BRESHECK syndrome	HP:0001574	Abnormality of the integument	XL	0	0	0		0.149857
+66	reserve	ELMOD3	ELMOD3	OMIM:615429	OMIM:615429	Deafness, autosomal recessive 88	HP:0000598	Abnormality of the ear	AR	0	0	0		0.452053
+67	reserve	PTPN2	PTPN2	ORPHA:85408	ORPHA:85408	Rheumatoid factor-negative polyarticular juvenile idiopathic arthritis	HP:0033127	Abnormality of the musculoskeletal system	other	0	0	0	5e-05	0.5
+68	reserve	BMP10	BMP10	OMIM:178600	OMIM:178600;ORPHA:182090;ORPHA:422	Pulmonary hypertension, primary, 1	HP:0001626	Abnormality of the cardiovascular system	AD	0	0	0	5e-05	1.0
+69	reserve	DNAAF2	DNAAF2	OMIM:244400	OMIM:244400;ORPHA:244	Ciliary dyskinesia, primary, 1	HP:0002086	Abnormality of the respiratory system	AR	0	0	0	0.0003	0.658382
+70	reserve	KIF12	KIF12	OMIM:619662	OMIM:619662	Cholestasis, progressive familial intrahepatic, 8	HP:0025031	Abnormality of the digestive system	AR	0	0	0		1.0
+71	reserve	PICALM	PICALM	OMIM:601626	OMIM:601626;ORPHA:519	Leukemia, acute myeloid	HP:0001871	Abnormality of blood and blood-forming tissues	AD	0	0	0	0.0003	1.0
+72	reserve	PSMB10	PSMB10	OMIM:603554	OMIM:603554;ORPHA:39041	Omenn syndrome	HP:0002715	Abnormality of the immune system	other	0	0	0	5e-07	1.0
+73	reserve	BHLHA9	BHLHA9	OMIM:609432	OMIM:609432;ORPHA:157801	Syndactyly, mesoaxial synostotic, with phalangeal reduction	HP:0040064	Abnormality of limbs	AR	0	0	0	5e-07	0.592392
+74	reserve	NR0B1	NR0B1	OMIM:300200	OMIM:300200;ORPHA:95702	Adrenal hypoplasia, congenital	HP:0000818	Abnormality of the endocrine system	XL	0	0	0	5e-05	0.667232
+75	reserve	COL9A3	COL9A3	OMIM:600969	OMIM:600969	Epiphyseal dysplasia, multiple, 3, with or without myopathy	HP:0033127	Abnormality of the musculoskeletal system	AD	0	0	0		0.325751
+76	reserve	LARS2	LARS2	OMIM:615300	OMIM:615300	Perrault syndrome 4	HP:0000119	Abnormality of the genitourinary system	AR	0	0	0		0.454844
+77	reserve	IGF1R	IGF1R	OMIM:270450	OMIM:270450;ORPHA:73273	Insulin-Like growth factor I, resistance to	HP:0000152	Abnormality of head or neck	other	0	0	0		1.0
+78	reserve	SLC52A1	SLC52A1	OMIM:615026	OMIM:615026;ORPHA:411712	Riboflavin deficiency	HP:0001939	Abnormality of metabolism/homeostasis	AD	0	0	0	5e-07	1.0
+79	reserve	COL18A1	COL18A1	OMIM:267750	OMIM:267750;ORPHA:1571	Knobloch syndrome, type 1	HP:0000478	Abnormality of the eye	AR	0	0	0	5e-07	0.710102
+80	reserve	AP4M1	AP4M1	OMIM:612936	OMIM:612936	Spastic paraplegia 50, autosomal recessive	HP:0000707	Abnormality of the nervous system	AR	0	0	0		0.5
+81	reserve	KRT10	KRT10	OMIM:609165	OMIM:609165;ORPHA:281190	Erythroderma, ichthyosiform, congenital reticular	HP:0001574	Abnormality of the integument	AD	2	1-9	1	5e-07	0.285342
+82	reserve	LAMP2	LAMP2	OMIM:300257	OMIM:300257;ORPHA:34587	Danon disease	HP:0001626	Abnormality of the cardiovascular system	XL	0	0	0	5e-07	1.0
+83	reserve	SLC25A32	SLC25A32	OMIM:616839	OMIM:616839	Exercise intolerance, riboflavin-responsive	HP:0025142	Constitutional symptom	AR	0	0	0		1.0
+84	reserve	RAB23	RAB23	ORPHA:65759	ORPHA:65759	Carpenter syndrome	HP:0033127	Abnormality of the musculoskeletal system	other	0	0	0	5e-07	0.563508
+85	reserve	MYO6	MYO6	OMIM:606346	OMIM:606346	Deafness, autosomal dominant 22	HP:0000598	Abnormality of the ear	AD	0	0	0		0.466139
+86	reserve	DCAF17	DCAF17	OMIM:241080	OMIM:241080;ORPHA:3464	Woodhouse-Sakati syndrome	HP:0000707	Abnormality of the nervous system	AR	7	1-9	0	5e-07	1.0
+87	reserve	BLK	BLK	OMIM:613375	OMIM:613375	Maturity-onset diabetes of the young, type 11	HP:0001507	Growth abnormality	AD	0	0	0		0.425473
+88	reserve	VAMP7	VAMP7	ORPHA:251510	ORPHA:251510	46,XY partial gonadal dysgenesis	HP:0000119	Abnormality of the genitourinary system	other	0	0	0		1.0
+89	reserve	ABCA5	ABCA5	OMIM:135400	OMIM:135400;ORPHA:2026	Hypertrichosis terminalis, generalized, with or without gingival hyperplasia	HP:0000152	Abnormality of head or neck	AR	0	0	0		1.0
+90	reserve	F8	F8	OMIM:134500	OMIM:134500;OMIM:306700;ORPHA:98878	Factor VIII deficiency	HP:0001871	Abnormality of blood and blood-forming tissues	XL	8	1-9	0	5e-05	0.767606
+91	reserve	TNFRSF13B	TNFRSF13B	OMIM:240500	OMIM:240500	Immunodeficiency, common variable, 2	HP:0002715	Abnormality of the immune system	AR	0	0	0		0.674653
+92	reserve	FH	FH	OMIM:150800	OMIM:150800;ORPHA:523	Hereditary leiomyomatosis and renal cell cancer	HP:0002664	Neoplasm	AD	0	0	0		0.533663
+93	reserve	MT-TL2	MT-TL2	OMIM:540000	OMIM:540000;ORPHA:550	Mitochondrial myopathy, encephalopathy, lactic acidosis, and stroke-like episodes	HP:0000707	Abnormality of the nervous system	other	0	0	0	0.002	0.637524
+94	reserve	CLRN1	CLRN1	OMIM:614180	OMIM:614180	Retinitis pigmentosa 61	HP:0000478	Abnormality of the eye	AR	0	0	0		0.261012
+95	reserve	MYH3	MYH3	OMIM:178110	OMIM:178110;ORPHA:65743	Contractures, pterygia, and spondylocarpostarsal fusion syndrome 1A	HP:0033127	Abnormality of the musculoskeletal system	AD	2	1-9	0	5e-07	0.231429
+96	reserve	DNAH11	DNAH11	OMIM:244400	OMIM:244400;ORPHA:244	Ciliary dyskinesia, primary, 1	HP:0002086	Abnormality of the respiratory system	AR	0	0	0	0.0003	0.637808
+97	reserve	CTRC	CTRC	OMIM:167800	OMIM:167800;ORPHA:676	Pancreatitis, hereditary	HP:0025031	Abnormality of the digestive system	AD	0	0	0	5e-06	0.59073
+98	reserve	GATB	GATB	OMIM:618838	OMIM:618838	Combined oxidative phosphorylation deficiency 41	HP:0001939	Abnormality of metabolism/homeostasis	AR	0	0	0		1.0
+99	reserve	HSPB8	HSPB8	OMIM:621078	OMIM:621078;ORPHA:476093	Myopathy, myofibrillar, 13, with rimmed vacuoles	HP:0000707	Abnormality of the nervous system	other	8	1-9	2	5e-07	0.402956
+100	reserve	IKBKG	IKBKG	OMIM:308300	OMIM:308300;ORPHA:464	Incontinentia pigmenti	HP:0001574	Abnormality of the integument	XL	0	0	0	5e-06	0.307306
