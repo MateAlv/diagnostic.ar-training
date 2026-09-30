@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Hallmarks are severely underreported: elevated desmosterol appears in 16% and corpus callosum agenesis in 23%, versus 100% each in R1-train. Developmental delay, ventriculomegaly and spasticity are also substantially suppressed, weakening the characteristic biochemical and neurological profile."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 3 combines gout and stage 5 chronic kidney disease with generic neurodevelopmental findings. These are not characteristic of desmosterolosis and, especially in this predominantly pediatric cohort, would teach misleading disease associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "Example 2 includes mandibular aplasia and temporomandibular abnormalities alongside micrognathia-related disease features; this unusually severe craniofacial presentation needs justification and suggests excessive phenotype expansion."
+    }
+  ],
+  "summary": "Sex and age distributions are plausible, and many simulated true features fit desmosterolosis. However, marked loss of reported hallmarks and unrelated severe findings make the simulated records clinically implausible overall."
+}

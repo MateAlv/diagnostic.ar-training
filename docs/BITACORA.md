@@ -1738,7 +1738,7 @@ Written and committed before the first candidate 3 pilot run.
 ### 2026-09-30 — analysis + decision — ANALYSIS-004; candidate 4 design (ADR-0011 amendment 5)
 - **Candidate 3 stopped at the train-side go/no-go** (G2c, d and e fail).
   R1-dev read 3 of 3 is still unspent.
-- **Construction-side audit:** Codex reviewed 16 of 26 cards of genes
+- **Construction-side audit** (complete later: 25 of 26 implausible; ANALYSIS-004 §4): Codex reviewed 16 of 26 cards of genes
   outside the panel; 15 were implausible. The main themes were hallmark
   features under-reported (10) and unrelated noise dominating (9).
 - **ANALYSIS-004:**

@@ -1,0 +1,26 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Osteoarthritis is absent from simulated true and reported phenotypes. Early-onset osteoarthritis is a defining clue to SMAD3-related aneurysms–osteoarthritis syndrome; its complete omission removes an important diagnostic signal."
+    },
+    {
+      "severity": "major",
+      "issue": "The median age of 15.1 years is poorly matched to a cohort with ascending and descending aortic dissection each reported in 20%. Childhood manifestations are possible, but this combination overemphasizes severe pediatric vascular disease."
+    },
+    {
+      "severity": "major",
+      "issue": "The reported phenotype is dominated by generic connective-tissue abnormality and cutis marmorata, while aortic aneurysm/root dilatation and arterial tortuosity are not prominent. This shifts the disease signature away from its characteristic vascular findings."
+    },
+    {
+      "severity": "major",
+      "issue": "Examples contain excessive nonspecific or poorly characteristic findings, particularly iris abnormalities, iridodonesis, pseudophakia, and lobulated tongue. Frequent tissue-level findings such as mucoid extracellular matrix accumulation also require pathology ascertainment. Together these create misleading routine patient records."
+    },
+    {
+      "severity": "minor",
+      "issue": "Associated skeletal and valvular findings are underrepresented relative to R1-train: mitral valve prolapse is reported in 2% versus 55%, scoliosis in 4% versus 55%, and pectus excavatum is absent. Cohort ascertainment may explain some differences, but the combined deficit reduces clinical realism."
+    }
+  ],
+  "summary": "The simulation misses the characteristic joint phenotype and distorts the vascular presentation through a young age distribution, nonspecific dominant terms, and excessive atypical findings. The near-balanced sex distribution is plausible."
+}

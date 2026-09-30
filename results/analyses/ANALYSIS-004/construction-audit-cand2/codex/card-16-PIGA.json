@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "The simulated cohort is 46% female despite PIGA-related MCAHS2 being an X-linked disorder predominantly affecting males. A nearly balanced sex distribution is implausible without explicit modeling of exceptional affected females."
+    },
+    {
+      "severity": "major",
+      "issue": "Records inadequately represent the core developmental and epileptic encephalopathy, particularly hypotonia and severe developmental impairment. Clinically informative findings are also substantially underreported versus R1-train: cerebral visual impairment 4% versus 43%, callosal hypoplasia 9% versus 43%, and contractures 12% versus 50%."
+    },
+    {
+      "severity": "major",
+      "issue": "Example records contain excessive unrelated or nonspecific findings. Short telomere length, verrucous papule, and progressive visual field defects in record 1 are not characteristic; record 2 lacks the defining neurological phenotype altogether. These records would teach misleading disease associations."
+    }
+  ],
+  "summary": "The sex distribution and poorly represented neurological phenotype make these patients implausible. A median age of three years is compatible with this early-onset disorder."
+}

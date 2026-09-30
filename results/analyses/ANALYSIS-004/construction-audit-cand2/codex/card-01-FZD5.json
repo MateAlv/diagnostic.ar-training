@@ -1,0 +1,14 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Example 1 combines absent speech, hypotonia and decreased B-cell count with coloboma, implying a neurodevelopmental–immunologic syndrome that is not characteristic of FZD5-related disease. Example 3 adds unrelated elevated fecal pH. This contamination risks teaching unsupported extraocular associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "Iris coloboma, a hallmark feature, is underreported relative to R1-train (32% versus 52%), although other coloboma types remain well represented."
+    }
+  ],
+  "summary": "The core ocular phenotype and balanced sex distribution are plausible; childhood ascertainment is reasonable for congenital eye anomalies. However, the unsupported syndromic findings undermine clinical plausibility. Without literature-panel rates, true-rate calibration cannot be established."
+}

@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "EEG abnormalities are entirely absent from simulated true and reported phenotypes despite being reported in 88% of R1-train patients. This omits a central diagnostic feature of this epilepsy syndrome."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 1 is dominated by unrelated findings: retinal dystrophy, underdeveloped nasal alae, lower-limb hyporeflexia, and psoriasiform dermatitis. With only one seizure feature and no developmental phenotype, it would teach a misleading disease signature."
+    },
+    {
+      "severity": "minor",
+      "issue": "Epileptic encephalopathy is reported in only 36% of simulations versus 71% of R1-train patients, underrepresenting the defining phenotype despite substantial reporting of seizures and developmental impairment."
+    }
+  ],
+  "summary": "The predominant seizure and developmental features are broadly plausible, but missing EEG abnormalities and the unrelated findings dominating example 1 make the simulated cohort clinically implausible. Age and sex differences alone are not clearly problematic."
+}

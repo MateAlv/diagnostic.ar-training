@@ -1,0 +1,18 @@
+{
+  "verdict": "implausible",
+  "problems": [
+    {
+      "severity": "major",
+      "issue": "Core features are underreported: speech delay 22% versus 58% in R1-train, macrocephaly 19% versus 39%, developmental delay 20% versus 37%, and hypotonia 13% versus 32%. The resulting records inadequately represent the characteristic neurodevelopmental and macrocephaly phenotype."
+    },
+    {
+      "severity": "major",
+      "issue": "Example 1 consists of intellectual disability plus salt craving and decreased CD4+ T-cell proportion, suggesting an unrelated endocrine or immune phenotype. Other examples add pulmonic stenosis or broad hallux while providing little characteristic SETD2 context. Such records could teach misleading disease associations."
+    },
+    {
+      "severity": "minor",
+      "issue": "Short stature in 22% of reported cases is unexpectedly prominent for Luscan-Lumish syndrome, which typically features overgrowth. Although growth is variable, this frequency warrants checking for phenotype mixing or inappropriate feature sampling."
+    }
+  ],
+  "summary": "Age and sex are plausible, but suppression of hallmark findings and prominent unrelated findings make the simulated disease representation implausible. Without literature-panel rows, true-rate calibration cannot be assessed reliably."
+}
