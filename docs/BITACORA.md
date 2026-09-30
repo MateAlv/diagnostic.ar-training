@@ -1961,6 +1961,22 @@ Written and committed before the first candidate 4 pilot run.
   It misses three thresholds narrowly: G2c 1.732 (needs < 1.653), G2d 0.764
   (needs ≤ 0.75), G2e gap 0.142 (needs ≤ 0.10).
 
+### 2026-09-30 — release prep — rr-v1[neg=0.5] packaged for production (diagnostic.ar-model PR #2, not merged)
+- **Module:** `diagnostic_ar_model.rerank`, copied from diagnostic.ar-training
+  with provenance headers; the code is unchanged since EXP-B-003's commit.
+- **KB:** kb-v3 (sha `39d5f921…`), verified whenever it loads. Release
+  asset `rerank-v1.0.tar.gz` (sha `4b83f5e3…`, reproducible).
+- **Parity** over every scorable R1-dev case (1,680; 367 moved by rr-v1):
+  0 rank mismatches, for both E0 and rr-v1. Without negations the output
+  is byte-identical to v3.0.
+- **Latency:** p50 2.46 ms, p95 6.77 ms per case, on top of v3.0.
+- **Nothing is deployed.** App integration is documented in
+  `docs/integracion-app-rerank-v1.md` in diagnostic.ar-model. It needs the
+  API to accept `excluded_hpo_ids`, and the question agent (Mariano's
+  repo) to send only its "no" answers, which reverses its D-18.
+- **Production caveat:** production `/genphenai` currently routes to
+  brainy, not the pinned image.
+
 ### 2026-09-30 — analysis — SOURCES-SCOPING-001: would GeneReviews or open-access cohorts improve the profiles?
 - **What:** a scoping study of counts, with no extraction and no artifact.
   Write-up: `docs/analyses/SOURCES-SCOPING-001.md`; raw counts in
