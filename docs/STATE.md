@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-30, night (v0.4 candidate 2 in the data-quality gate). Disk: about 40 GB free on TARS.
+**Snapshot:** 2026-09-30, late (v0.4 candidate 3 running; Front B release candidate ready). Disk: about 40 GB free on TARS.
 
 ## Where each front stands
 
@@ -17,22 +17,16 @@ at each checkpoint; the history lives in `BITACORA.md`.
 ## In progress: simulator v0.4 data-quality gate (ADR-0011, ADR-0012)
 **Retraining is blocked until the ADR-0012 gate passes.**
 
-**R1-dev realism reads used: 1 of 3** (see `results/realism/LEDGER.md`).
+**R1-dev realism reads used: 2 of 3.** The next is the last.
 
 | Piece | Status |
 |---|---|
-| Candidate 1 (sim 0.4.1) | G1 pass; G2 fails on a, b and e (PR #27) |
-| ANALYSIS-002 | Real "noise" is structured: 11.5% more specific, 10.8% related, 23.9% weak. E0 on R1-train: 0.562 cited in HPOA vs 0.405 uncited |
-| ADR-0012 amendment 1 | G2e target 0.405; G2 scores full-profile runs. Made after candidate 1's read and disclosed; **awaiting Mateo's OK** |
-| Simulator 0.4.2 | Merged (PR #7, ddb1ec1): specialisation plus disease-related noise |
-| G4 literature panel v2 | Merged (PR #29): 56 diseases, 531 rows, 497 independent; Codex cross-check agreement 96.3%. Evaluation split `litpanel-split-v3` (120 units) is never used for construction |
-| Candidate 2 | **Running** (agent, branch `phase3/sim-v04-cand2`). Phase A: G2a on panel v2 and a V03-full baseline. Phase B: ≤ 2 R1-train pilot rounds, then `simcal-v04-v4`. Phase C: full and half-A datasets, G1, then G2 = **R1-dev read 2 of 3** |
-| G3 disease cards | Not started; comes after candidate 2 |
-
-**Next:**
-1. Review candidate 2.
-2. If it passes G2: 30 disease cards (G3) for Mateo, then freeze (G5).
-3. If it fails: one last candidate (read 3 of 3), or write up the simulator's limits.
+| Candidate 1 (sim 0.4.1) | G1 pass; G2 fails on a, b, e |
+| Candidate 2 (sim 0.4.2, `simcal-v04-v4`) | G1 pass; G2c passes; a 0.404, b 0.193, d 0.792, e 0.242 fail (PR #34) |
+| ANALYSIS-003 | Noise causes E0's difficulty (0.163 → 0.472 without it). The kb-v4 reference inflated "unexplained": against kb-v3, new patients have about 24% noise, not 35%. G2a now scores the truth layer (ADR-0012 amendment 3) |
+| Candidate 3 | **Running** (agent, `phase3/sim-v04-cand3`): `calib-v2` (uncited R1-train vs kb-v3), re-piloted, then a **train-side go/no-go before the last R1-dev read** |
+| G3 cards | Tool merged (`scripts/realism_cards.py`). Review: the assistant plus Codex independently; Mateo spot-checks afterwards (ADR-0012 amendment 2) |
+| G4 panel | Done (literature-panel-v2) |
 
 ## Latest analysis
 **ANALYSIS-001 (dataset realism).** The simulator is internally
@@ -43,15 +37,14 @@ simulator. See `docs/analyses/ANALYSIS-001-dataset-realism.md` §6 for the
 proposed fixes.
 
 ## Open decisions for Mateo
-1. **ADR-0012 amendment 1.** It corrects two gate criteria after
-   candidate 1's read, and doesn't change candidate 1's verdict. Accept it,
-   or revert to the original criteria.
-2. **GeneReviews email** (`docs/TODO.md`): request written confirmation
-   for fact extraction.
-3. **Deploy rr-v1[neg=0.5]?** It passed EXP-B-003. A release goes through
+1. **Deploy rr-v1[neg=0.5]?** It passed EXP-B-003. A release goes through
    `diagnostic.ar-model`, with the negation input as an optional API
    field.
-4. **Later:** review the G3 disease cards (30) when they are ready.
+2. **ADR-0012 amendment 3** (G2a on the truth layer), made after
+   candidate 2's read: accept or revert. Amendment 1 is already accepted.
+3. **Spot-check the G3 cards and the two reviewers' verdicts** once they
+   exist.
+4. **GeneReviews email:** Mateo is sending it; not blocking.
 
 ## Artifacts, newest first
 
