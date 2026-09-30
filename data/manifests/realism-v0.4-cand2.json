@@ -1,0 +1,63 @@
+{
+  "artifact_id": "realism-v0.4-cand2",
+  "kind": "realism-report",
+  "created_at": "2026-09-30T18:28:56+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "81f8f0870c3721be254dbfc71608f8a175aaca46",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.4.2-full-n100-s1001",
+      "sha256": "2ab420355fe28a93b0bc19d9dd888c154514519b828c677542728a038c429afa"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "panel:literature-panel-v2.tsv",
+      "sha256": "b7538db73dcc10440f2e6c93ec0485f4270e8e22fe0667cfd11f1786f28a0985"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    }
+  ],
+  "params": {
+    "label": "v0.4-cand2",
+    "role": "candidate",
+    "reads_r1_dev": true,
+    "sim_version": "0.4.2-cand2",
+    "e0_cases": 5000,
+    "seed": 20260930,
+    "min_dev_patients_rho": 10
+  },
+  "params_hash": "1e4a685985712fb6468c4a3677947aa3701e11b3228c48d1e8bae787d1baca18",
+  "outputs": [
+    {
+      "path": "results/realism/v0.4-cand2.json",
+      "sha256": "ef2b2a9b27f1b2dbcddeca1a2ce2b808d3fe7552c9ff3867fc09162d25871648",
+      "bytes": 152386
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
