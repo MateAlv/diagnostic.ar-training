@@ -1,0 +1,44 @@
+{
+  "artifact_id": "panel-v0.4-cand2-literature-panel-v2-truth",
+  "kind": "panel-error-report",
+  "created_at": "2026-09-30T18:45:30+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5e361f3dcc8ed8b9e2671a10a5893327debbd230",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.4.2-full-n100-s1001",
+      "sha256": "2ab420355fe28a93b0bc19d9dd888c154514519b828c677542728a038c429afa"
+    },
+    {
+      "id": "panel:literature-panel-v2.tsv",
+      "sha256": "b7538db73dcc10440f2e6c93ec0485f4270e8e22fe0667cfd11f1786f28a0985"
+    },
+    {
+      "id": "split:r1-v1 (train)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "label": "v0.4-cand2",
+    "panel": "literature-panel-v2.tsv",
+    "layer": "true",
+    "reads": "R1-train"
+  },
+  "params_hash": "f1450b0ebf1a5bfd3881e843e2acc5e9e8108f7c6aade38a2fd54f4464c89f6d",
+  "outputs": [
+    {
+      "path": "results/realism/v0.4-cand2.panel-literature-panel-v2.truth.json",
+      "sha256": "970055e452be92d455a23a2536795e772ecb0d8b620e793e89193288a6a9ab0b",
+      "bytes": 228807
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -1,0 +1,1057 @@
+{
+ "age": {
+  "age_floor_years": 0.1,
+  "genes_eligible": 88,
+  "genes_scored": 69,
+  "genes_without_simulated_ages": [
+   "ARHGAP19",
+   "ELFN1",
+   "GTF3C3",
+   "INPP4A",
+   "KICS2",
+   "MARK2",
+   "MAU2",
+   "MED16",
+   "PGBD5",
+   "RNU2-2",
+   "SEL1L",
+   "SPOUT1",
+   "SRSF1",
+   "TBCB",
+   "TMEM63B",
+   "UGGT1",
+   "WDR83OS",
+   "ZNF808",
+   "ZNF862"
+  ],
+  "median_abs_log_ratio": 0.48804780352705207,
+  "min_real_patients_with_age": 10,
+  "per_gene": {
+   "AHDC1": {
+    "abs_log_ratio": 0.3042898088514416,
+    "median_age_real": 8.5,
+    "median_age_sim": 6.27,
+    "real_patients": 26,
+    "sim_cases": 75
+   },
+   "AIRE": {
+    "abs_log_ratio": 0.22799400544795917,
+    "median_age_real": 15.5,
+    "median_age_sim": 12.34,
+    "real_patients": 10,
+    "sim_cases": 75
+   },
+   "ASPM": {
+    "abs_log_ratio": 0.07191258159028639,
+    "median_age_real": 4.083333333333334,
+    "median_age_sim": 3.8,
+    "real_patients": 22,
+    "sim_cases": 78
+   },
+   "ATP6V0C": {
+    "abs_log_ratio": 0.4036105414553476,
+    "median_age_real": 13.916666666666668,
+    "median_age_sim": 9.295,
+    "real_patients": 24,
+    "sim_cases": 78
+   },
+   "B3GALT6": {
+    "abs_log_ratio": 0.5521437730967217,
+    "median_age_real": 7.0,
+    "median_age_sim": 4.03,
+    "real_patients": 11,
+    "sim_cases": 75
+   },
+   "BBS1": {
+    "abs_log_ratio": 1.2333866895322294,
+    "median_age_real": 23.0,
+    "median_age_sim": 6.699999999999999,
+    "real_patients": 13,
+    "sim_cases": 72
+   },
+   "BRD4": {
+    "abs_log_ratio": 1.0472467947209454,
+    "median_age_real": 11.541666666666668,
+    "median_age_sim": 4.05,
+    "real_patients": 16,
+    "sim_cases": 76
+   },
+   "CHD8": {
+    "abs_log_ratio": 0.764886277714922,
+    "median_age_real": 8.0,
+    "median_age_sim": 17.19,
+    "real_patients": 40,
+    "sim_cases": 79
+   },
+   "CLDN16": {
+    "abs_log_ratio": 0.05448818528406957,
+    "median_age_real": 5.625,
+    "median_age_sim": 5.9399999999999995,
+    "real_patients": 28,
+    "sim_cases": 76
+   },
+   "CLN3": {
+    "abs_log_ratio": 0.9212271383289771,
+    "median_age_real": 33.0,
+    "median_age_sim": 13.135,
+    "real_patients": 10,
+    "sim_cases": 72
+   },
+   "CNTNAP2": {
+    "abs_log_ratio": 0.06733632776191889,
+    "median_age_real": 9.666666666666666,
+    "median_age_sim": 10.34,
+    "real_patients": 11,
+    "sim_cases": 82
+   },
+   "COL3A1": {
+    "abs_log_ratio": 2.094555179489884,
+    "median_age_real": 32.0,
+    "median_age_sim": 3.9399999999999995,
+    "real_patients": 35,
+    "sim_cases": 70
+   },
+   "COQ4": {
+    "abs_log_ratio": 1.2961925264227039,
+    "median_age_real": 14.0,
+    "median_age_sim": 3.83,
+    "real_patients": 17,
+    "sim_cases": 76
+   },
+   "CRELD1": {
+    "abs_log_ratio": 0.24158172528496247,
+    "median_age_real": 6.5,
+    "median_age_sim": 5.105,
+    "real_patients": 18,
+    "sim_cases": 72
+   },
+   "DHX9": {
+    "abs_log_ratio": 1.0634483762104427,
+    "median_age_real": 9.5,
+    "median_age_sim": 3.2800000000000002,
+    "real_patients": 14,
+    "sim_cases": 70
+   },
+   "EIF4A2": {
+    "abs_log_ratio": 0.11653381625595151,
+    "median_age_real": 4.5,
+    "median_age_sim": 4.005,
+    "real_patients": 14,
+    "sim_cases": 78
+   },
+   "EPG5": {
+    "abs_log_ratio": 1.353008383486424,
+    "median_age_real": 13.0,
+    "median_age_sim": 3.36,
+    "real_patients": 15,
+    "sim_cases": 65
+   },
+   "ESAM": {
+    "abs_log_ratio": 0.22225426712932567,
+    "median_age_real": 2.25,
+    "median_age_sim": 2.81,
+    "real_patients": 13,
+    "sim_cases": 71
+   },
+   "FBN1": {
+    "abs_log_ratio": 0.3695111254479819,
+    "median_age_real": 18.5,
+    "median_age_sim": 26.77,
+    "real_patients": 66,
+    "sim_cases": 73
+   },
+   "FBXL4": {
+    "abs_log_ratio": 1.0188473201992472,
+    "median_age_real": 2.0,
+    "median_age_sim": 5.54,
+    "real_patients": 33,
+    "sim_cases": 75
+   },
+   "FBXO11": {
+    "abs_log_ratio": 0.32644856778994,
+    "median_age_real": 10.125,
+    "median_age_sim": 7.305,
+    "real_patients": 22,
+    "sim_cases": 74
+   },
+   "FDXR": {
+    "abs_log_ratio": 0.4632097698243274,
+    "median_age_real": 6.0,
+    "median_age_sim": 9.535,
+    "real_patients": 13,
+    "sim_cases": 82
+   },
+   "FZD5": {
+    "abs_log_ratio": 1.220779922642317,
+    "median_age_real": 20.0,
+    "median_age_sim": 5.9,
+    "real_patients": 17,
+    "sim_cases": 74
+   },
+   "HMGCS2": {
+    "abs_log_ratio": 0.7374158600105314,
+    "median_age_real": 3.1666666666666665,
+    "median_age_sim": 6.62,
+    "real_patients": 15,
+    "sim_cases": 69
+   },
+   "HNRNPC": {
+    "abs_log_ratio": 0.5191938734365074,
+    "median_age_real": 6.0,
+    "median_age_sim": 3.57,
+    "real_patients": 13,
+    "sim_cases": 70
+   },
+   "IKZF1": {
+    "abs_log_ratio": 0.07257069283483537,
+    "median_age_real": 20.0,
+    "median_age_sim": 18.6,
+    "real_patients": 58,
+    "sim_cases": 71
+   },
+   "ISCA2": {
+    "abs_log_ratio": 1.1217898769808154,
+    "median_age_real": 1.2083333333333333,
+    "median_age_sim": 3.71,
+    "real_patients": 14,
+    "sim_cases": 77
+   },
+   "ITPR1": {
+    "abs_log_ratio": 0.01005033585350145,
+    "median_age_real": 16.0,
+    "median_age_sim": 15.84,
+    "real_patients": 45,
+    "sim_cases": 68
+   },
+   "KCNH5": {
+    "abs_log_ratio": 0.42343599342940075,
+    "median_age_real": 6.25,
+    "median_age_sim": 9.545,
+    "real_patients": 16,
+    "sim_cases": 66
+   },
+   "KDM6A": {
+    "abs_log_ratio": 0.06415764130055382,
+    "median_age_real": 7.0,
+    "median_age_sim": 6.5649999999999995,
+    "real_patients": 58,
+    "sim_cases": 74
+   },
+   "KIF1A": {
+    "abs_log_ratio": 1.2039728043259361,
+    "median_age_real": 23.0,
+    "median_age_sim": 6.9,
+    "real_patients": 14,
+    "sim_cases": 65
+   },
+   "KMT2D": {
+    "abs_log_ratio": 1.0109176918888727,
+    "median_age_real": 11.583333333333334,
+    "median_age_sim": 4.215,
+    "real_patients": 11,
+    "sim_cases": 72
+   },
+   "LIM2": {
+    "abs_log_ratio": 1.7192887813935531,
+    "median_age_real": 31.0,
+    "median_age_sim": 5.555,
+    "real_patients": 10,
+    "sim_cases": 80
+   },
+   "LMNA": {
+    "abs_log_ratio": 0.7485679745013533,
+    "median_age_real": 46.0,
+    "median_age_sim": 21.759999999999998,
+    "real_patients": 27,
+    "sim_cases": 76
+   },
+   "LZTR1": {
+    "abs_log_ratio": 0.9409136556251659,
+    "median_age_real": 9.333333333333334,
+    "median_age_sim": 23.915,
+    "real_patients": 15,
+    "sim_cases": 76
+   },
+   "MAPK8IP3": {
+    "abs_log_ratio": 0.4638006851211277,
+    "median_age_real": 6.75,
+    "median_age_sim": 4.245,
+    "real_patients": 14,
+    "sim_cases": 80
+   },
+   "MPV17": {
+    "abs_log_ratio": 0.8125585194404311,
+    "median_age_real": 15.0,
+    "median_age_sim": 33.805,
+    "real_patients": 15,
+    "sim_cases": 78
+   },
+   "NBAS": {
+    "abs_log_ratio": 0.29132506373028194,
+    "median_age_real": 3.6666666666666665,
+    "median_age_sim": 2.74,
+    "real_patients": 11,
+    "sim_cases": 74
+   },
+   "NF1": {
+    "abs_log_ratio": 1.4793847841859027,
+    "median_age_real": 18.0,
+    "median_age_sim": 4.1,
+    "real_patients": 158,
+    "sim_cases": 75
+   },
+   "NIPBL": {
+    "abs_log_ratio": 0.38199275192302223,
+    "median_age_real": 6.0,
+    "median_age_sim": 4.095,
+    "real_patients": 23,
+    "sim_cases": 78
+   },
+   "NOTCH3": {
+    "abs_log_ratio": 0.33346018615122125,
+    "median_age_real": 9.5,
+    "median_age_sim": 13.26,
+    "real_patients": 24,
+    "sim_cases": 78
+   },
+   "NSUN2": {
+    "abs_log_ratio": 1.5398569785955947,
+    "median_age_real": 17.0,
+    "median_age_sim": 3.645,
+    "real_patients": 11,
+    "sim_cases": 72
+   },
+   "PIEZO2": {
+    "abs_log_ratio": 1.3904408770817391,
+    "median_age_real": 14.5,
+    "median_age_sim": 3.61,
+    "real_patients": 10,
+    "sim_cases": 67
+   },
+   "POGZ": {
+    "abs_log_ratio": 0.6733445532637656,
+    "median_age_real": 7.0,
+    "median_age_sim": 3.57,
+    "real_patients": 61,
+    "sim_cases": 81
+   },
+   "POLR1A": {
+    "abs_log_ratio": 0.4333503115977001,
+    "median_age_real": 6.0,
+    "median_age_sim": 3.89,
+    "real_patients": 21,
+    "sim_cases": 75
+   },
+   "PPP2R1A": {
+    "abs_log_ratio": 0.16694045475565236,
+    "median_age_real": 4.0,
+    "median_age_sim": 3.385,
+    "real_patients": 41,
+    "sim_cases": 70
+   },
+   "PTPN11": {
+    "abs_log_ratio": 0.4462871026284193,
+    "median_age_real": 7.5,
+    "median_age_sim": 4.800000000000001,
+    "real_patients": 10,
+    "sim_cases": 70
+   },
+   "RERE": {
+    "abs_log_ratio": 0.5933018455902291,
+    "median_age_real": 8.0,
+    "median_age_sim": 4.42,
+    "real_patients": 12,
+    "sim_cases": 73
+   },
+   "RFXANK": {
+    "abs_log_ratio": 0.04354308463461583,
+    "median_age_real": 5.75,
+    "median_age_sim": 5.505,
+    "real_patients": 16,
+    "sim_cases": 62
+   },
+   "RPGRIP1": {
+    "abs_log_ratio": 0.029815085079185462,
+    "median_age_real": 8.0,
+    "median_age_sim": 7.765000000000001,
+    "real_patients": 33,
+    "sim_cases": 76
+   },
+   "SATB2": {
+    "abs_log_ratio": 0.35057116100071456,
+    "median_age_real": 7.0,
+    "median_age_sim": 4.93,
+    "real_patients": 151,
+    "sim_cases": 85
+   },
+   "SEC61A1": {
+    "abs_log_ratio": 1.0515042106816626,
+    "median_age_real": 17.0,
+    "median_age_sim": 5.94,
+    "real_patients": 11,
+    "sim_cases": 83
+   },
+   "SETD2": {
+    "abs_log_ratio": 0.40589073058745645,
+    "median_age_real": 7.833333333333334,
+    "median_age_sim": 5.22,
+    "real_patients": 38,
+    "sim_cases": 71
+   },
+   "SLC4A1": {
+    "abs_log_ratio": 1.0656257896718033,
+    "median_age_real": 41.0,
+    "median_age_sim": 14.125,
+    "real_patients": 21,
+    "sim_cases": 80
+   },
+   "SMAD3": {
+    "abs_log_ratio": 0.40047756659712525,
+    "median_age_real": 32.0,
+    "median_age_sim": 21.44,
+    "real_patients": 20,
+    "sim_cases": 77
+   },
+   "SMARCB1": {
+    "abs_log_ratio": 0.40162633180099877,
+    "median_age_real": 13.0,
+    "median_age_sim": 8.7,
+    "real_patients": 11,
+    "sim_cases": 73
+   },
+   "SNUPN": {
+    "abs_log_ratio": 1.016111067156366,
+    "median_age_real": 10.0,
+    "median_age_sim": 3.62,
+    "real_patients": 18,
+    "sim_cases": 69
+   },
+   "SPINK5": {
+    "abs_log_ratio": 0.00836824967051658,
+    "median_age_real": 6.0,
+    "median_age_sim": 5.95,
+    "real_patients": 45,
+    "sim_cases": 72
+   },
+   "SPINT2": {
+    "abs_log_ratio": 0.7670170291264008,
+    "median_age_real": 1.5,
+    "median_age_sim": 3.23,
+    "real_patients": 16,
+    "sim_cases": 76
+   },
+   "SPTAN1": {
+    "abs_log_ratio": 1.765583334059783,
+    "median_age_real": 46.0,
+    "median_age_sim": 7.87,
+    "real_patients": 13,
+    "sim_cases": 81
+   },
+   "TBCK": {
+    "abs_log_ratio": 1.1332037334377287,
+    "median_age_real": 10.0,
+    "median_age_sim": 3.22,
+    "real_patients": 32,
+    "sim_cases": 71
+   },
+   "TBX1": {
+    "abs_log_ratio": 0.21584268143570756,
+    "median_age_real": 14.5,
+    "median_age_sim": 11.684999999999999,
+    "real_patients": 10,
+    "sim_cases": 76
+   },
+   "TBX5": {
+    "abs_log_ratio": 1.9011685734118815,
+    "median_age_real": 33.0,
+    "median_age_sim": 4.93,
+    "real_patients": 41,
+    "sim_cases": 74
+   },
+   "TBXAS1": {
+    "abs_log_ratio": 0.46478168526458397,
+    "median_age_real": 3.0,
+    "median_age_sim": 4.775,
+    "real_patients": 12,
+    "sim_cases": 70
+   },
+   "TGFB3": {
+    "abs_log_ratio": 1.0512517173082723,
+    "median_age_real": 30.0,
+    "median_age_sim": 10.485,
+    "real_patients": 27,
+    "sim_cases": 80
+   },
+   "TGFBR2": {
+    "abs_log_ratio": 0.48804780352705207,
+    "median_age_real": 17.0,
+    "median_age_sim": 10.434999999999999,
+    "real_patients": 29,
+    "sim_cases": 76
+   },
+   "UMOD": {
+    "abs_log_ratio": 0.47782903985469977,
+    "median_age_real": 39.0,
+    "median_age_sim": 24.185000000000002,
+    "real_patients": 76,
+    "sim_cases": 70
+   },
+   "WDR26": {
+    "abs_log_ratio": 0.6131044728864089,
+    "median_age_real": 6.0,
+    "median_age_sim": 3.25,
+    "real_patients": 15,
+    "sim_cases": 82
+   },
+   "WWOX": {
+    "abs_log_ratio": 0.3906185999911698,
+    "median_age_real": 3.1666666666666665,
+    "median_age_sim": 4.68,
+    "real_patients": 35,
+    "sim_cases": 83
+   }
+  }
+ },
+ "dataset": "artifact:ds-sim0.4.2-full-n100-s1001",
+ "dataset_sha256": "2ab420355fe28a93b0bc19d9dd888c154514519b828c677542728a038c429afa",
+ "g2b_train_rho": {
+  "genes_eligible": 108,
+  "genes_missing_from_dataset": [
+   "AMOTL1",
+   "ARHGAP19",
+   "CIROZ",
+   "ELFN1",
+   "FBXO22",
+   "GTF3C3",
+   "INPP4A",
+   "KICS2",
+   "MARK2",
+   "MAU2",
+   "MED16",
+   "NR6A1",
+   "PGBD5",
+   "RNU2-2",
+   "RNU5B-1",
+   "SEL1L",
+   "SPOUT1",
+   "SRSF1",
+   "TBCB",
+   "TMEM63B",
+   "UGGT1",
+   "WDR83OS",
+   "ZNF808",
+   "ZNF862"
+  ],
+  "genes_scored": 83,
+  "mean_rho": 0.531209961249464,
+  "min_dev_patients": 10,
+  "per_gene": {
+   "ACTN1": {
+    "dev_patients": 13,
+    "rho": 0.8176298175326768,
+    "sim_cases": 100,
+    "terms": 11
+   },
+   "AHDC1": {
+    "dev_patients": 26,
+    "rho": 0.6065794491266367,
+    "sim_cases": 100,
+    "terms": 194
+   },
+   "AIRE": {
+    "dev_patients": 10,
+    "rho": 0.19748170878293966,
+    "sim_cases": 100,
+    "terms": 76
+   },
+   "ANKRD11": {
+    "dev_patients": 333,
+    "rho": 0.6148173607956176,
+    "sim_cases": 100,
+    "terms": 101
+   },
+   "ASPM": {
+    "dev_patients": 22,
+    "rho": 0.3550637570562772,
+    "sim_cases": 100,
+    "terms": 41
+   },
+   "ATP6V0C": {
+    "dev_patients": 25,
+    "rho": 0.8353626120358825,
+    "sim_cases": 100,
+    "terms": 20
+   },
+   "B3GALT6": {
+    "dev_patients": 11,
+    "rho": 0.45969448519206035,
+    "sim_cases": 100,
+    "terms": 155
+   },
+   "BBS1": {
+    "dev_patients": 13,
+    "rho": 0.2728830710234828,
+    "sim_cases": 100,
+    "terms": 149
+   },
+   "BRD4": {
+    "dev_patients": 18,
+    "rho": 0.7765378773108448,
+    "sim_cases": 100,
+    "terms": 131
+   },
+   "CHD8": {
+    "dev_patients": 40,
+    "rho": 0.8155160949360878,
+    "sim_cases": 100,
+    "terms": 91
+   },
+   "CLDN16": {
+    "dev_patients": 34,
+    "rho": 0.7759098040029785,
+    "sim_cases": 100,
+    "terms": 55
+   },
+   "CLN3": {
+    "dev_patients": 10,
+    "rho": 0.17125600784808495,
+    "sim_cases": 100,
+    "terms": 30
+   },
+   "CNTNAP2": {
+    "dev_patients": 12,
+    "rho": 0.5905996345681023,
+    "sim_cases": 100,
+    "terms": 114
+   },
+   "COL3A1": {
+    "dev_patients": 35,
+    "rho": 0.25714149254559965,
+    "sim_cases": 100,
+    "terms": 181
+   },
+   "COQ4": {
+    "dev_patients": 17,
+    "rho": 0.6581592481860069,
+    "sim_cases": 100,
+    "terms": 75
+   },
+   "CRELD1": {
+    "dev_patients": 18,
+    "rho": 0.7104387115636545,
+    "sim_cases": 100,
+    "terms": 110
+   },
+   "DHCR24": {
+    "dev_patients": 10,
+    "rho": 0.42008277085673285,
+    "sim_cases": 100,
+    "terms": 83
+   },
+   "DHX9": {
+    "dev_patients": 14,
+    "rho": 0.9025672779927789,
+    "sim_cases": 100,
+    "terms": 31
+   },
+   "EIF4A2": {
+    "dev_patients": 15,
+    "rho": 0.6243722317001321,
+    "sim_cases": 100,
+    "terms": 74
+   },
+   "EPG5": {
+    "dev_patients": 15,
+    "rho": 0.26555183966214185,
+    "sim_cases": 100,
+    "terms": 86
+   },
+   "ESAM": {
+    "dev_patients": 14,
+    "rho": 0.6631691134792569,
+    "sim_cases": 100,
+    "terms": 88
+   },
+   "FBN1": {
+    "dev_patients": 73,
+    "rho": 0.48771437246335975,
+    "sim_cases": 100,
+    "terms": 304
+   },
+   "FBXL4": {
+    "dev_patients": 36,
+    "rho": 0.5216747505927364,
+    "sim_cases": 100,
+    "terms": 113
+   },
+   "FBXO11": {
+    "dev_patients": 24,
+    "rho": 0.6704361401022895,
+    "sim_cases": 100,
+    "terms": 122
+   },
+   "FBXO7": {
+    "dev_patients": 10,
+    "rho": 0.1413648178084913,
+    "sim_cases": 100,
+    "terms": 33
+   },
+   "FDXR": {
+    "dev_patients": 13,
+    "rho": 0.5077218923550314,
+    "sim_cases": 100,
+    "terms": 205
+   },
+   "FOSL2": {
+    "dev_patients": 11,
+    "rho": 0.8870430014735273,
+    "sim_cases": 100,
+    "terms": 19
+   },
+   "FZD5": {
+    "dev_patients": 25,
+    "rho": 0.8301882328967028,
+    "sim_cases": 100,
+    "terms": 15
+   },
+   "HMGCS2": {
+    "dev_patients": 30,
+    "rho": 0.8836007829294357,
+    "sim_cases": 100,
+    "terms": 21
+   },
+   "HNRNPC": {
+    "dev_patients": 13,
+    "rho": 0.8391964075507038,
+    "sim_cases": 100,
+    "terms": 31
+   },
+   "IKZF1": {
+    "dev_patients": 59,
+    "rho": 0.5611841888296567,
+    "sim_cases": 100,
+    "terms": 49
+   },
+   "ISCA2": {
+    "dev_patients": 14,
+    "rho": 0.49871819884160284,
+    "sim_cases": 100,
+    "terms": 13
+   },
+   "ITPR1": {
+    "dev_patients": 99,
+    "rho": 0.7152014831744846,
+    "sim_cases": 100,
+    "terms": 175
+   },
+   "KCNH5": {
+    "dev_patients": 17,
+    "rho": 0.7468721303250649,
+    "sim_cases": 100,
+    "terms": 68
+   },
+   "KDM6A": {
+    "dev_patients": 81,
+    "rho": 0.4334653992935774,
+    "sim_cases": 100,
+    "terms": 232
+   },
+   "KIF1A": {
+    "dev_patients": 14,
+    "rho": 0.3905039892752843,
+    "sim_cases": 100,
+    "terms": 91
+   },
+   "KMT2D": {
+    "dev_patients": 12,
+    "rho": 0.5828726490729071,
+    "sim_cases": 100,
+    "terms": 259
+   },
+   "LIM2": {
+    "dev_patients": 10,
+    "rho": 0.8660254037844387,
+    "sim_cases": 100,
+    "terms": 3
+   },
+   "LMNA": {
+    "dev_patients": 64,
+    "rho": 0.38718373852474275,
+    "sim_cases": 100,
+    "terms": 503
+   },
+   "LZTR1": {
+    "dev_patients": 16,
+    "rho": 0.5417314336761804,
+    "sim_cases": 100,
+    "terms": 149
+   },
+   "MAPK8IP3": {
+    "dev_patients": 14,
+    "rho": NaN,
+    "sim_cases": 100,
+    "terms": 0
+   },
+   "MPV17": {
+    "dev_patients": 15,
+    "rho": 0.5990994447681979,
+    "sim_cases": 100,
+    "terms": 188
+   },
+   "NAA60": {
+    "dev_patients": 10,
+    "rho": 0.7537443273062227,
+    "sim_cases": 100,
+    "terms": 78
+   },
+   "NBAS": {
+    "dev_patients": 11,
+    "rho": 0.3147049595490762,
+    "sim_cases": 100,
+    "terms": 45
+   },
+   "NEK8": {
+    "dev_patients": 20,
+    "rho": 0.5863391637868105,
+    "sim_cases": 100,
+    "terms": 76
+   },
+   "NF1": {
+    "dev_patients": 158,
+    "rho": 0.2602607238097627,
+    "sim_cases": 100,
+    "terms": 244
+   },
+   "NIPBL": {
+    "dev_patients": 25,
+    "rho": 0.5213103781828161,
+    "sim_cases": 100,
+    "terms": 169
+   },
+   "NOTCH3": {
+    "dev_patients": 24,
+    "rho": 0.22422814712121322,
+    "sim_cases": 100,
+    "terms": 287
+   },
+   "NSUN2": {
+    "dev_patients": 11,
+    "rho": 0.38174978113230557,
+    "sim_cases": 100,
+    "terms": 137
+   },
+   "PIEZO2": {
+    "dev_patients": 10,
+    "rho": 0.4578247190822522,
+    "sim_cases": 100,
+    "terms": 171
+   },
+   "PIGA": {
+    "dev_patients": 14,
+    "rho": 0.7236172067564108,
+    "sim_cases": 100,
+    "terms": 266
+   },
+   "POGZ": {
+    "dev_patients": 62,
+    "rho": 0.6955558883819366,
+    "sim_cases": 100,
+    "terms": 157
+   },
+   "POLR1A": {
+    "dev_patients": 22,
+    "rho": 0.513261974268612,
+    "sim_cases": 100,
+    "terms": 136
+   },
+   "PPP2R1A": {
+    "dev_patients": 60,
+    "rho": 0.4349772910368022,
+    "sim_cases": 100,
+    "terms": 49
+   },
+   "PTPN11": {
+    "dev_patients": 13,
+    "rho": 0.34586879937689924,
+    "sim_cases": 100,
+    "terms": 159
+   },
+   "RERE": {
+    "dev_patients": 12,
+    "rho": 0.609019474239156,
+    "sim_cases": 100,
+    "terms": 178
+   },
+   "RFXANK": {
+    "dev_patients": 16,
+    "rho": 0.6095893293992187,
+    "sim_cases": 100,
+    "terms": 52
+   },
+   "ROR2": {
+    "dev_patients": 22,
+    "rho": 0.3778791276283783,
+    "sim_cases": 100,
+    "terms": 151
+   },
+   "RPGRIP1": {
+    "dev_patients": 51,
+    "rho": 0.7090186124202902,
+    "sim_cases": 100,
+    "terms": 110
+   },
+   "SATB2": {
+    "dev_patients": 157,
+    "rho": 0.39835982511173584,
+    "sim_cases": 100,
+    "terms": 148
+   },
+   "SCO2": {
+    "dev_patients": 10,
+    "rho": 0.3428689080066547,
+    "sim_cases": 100,
+    "terms": 159
+   },
+   "SEC61A1": {
+    "dev_patients": 12,
+    "rho": 0.7249479288023993,
+    "sim_cases": 100,
+    "terms": 71
+   },
+   "SETD2": {
+    "dev_patients": 38,
+    "rho": 0.35589472301858316,
+    "sim_cases": 100,
+    "terms": 66
+   },
+   "SLC4A1": {
+    "dev_patients": 23,
+    "rho": 0.6378370829754435,
+    "sim_cases": 100,
+    "terms": 77
+   },
+   "SMAD3": {
+    "dev_patients": 20,
+    "rho": 0.1933573553322455,
+    "sim_cases": 100,
+    "terms": 116
+   },
+   "SMARCB1": {
+    "dev_patients": 11,
+    "rho": 0.48352353468293463,
+    "sim_cases": 100,
+    "terms": 187
+   },
+   "SNUPN": {
+    "dev_patients": 18,
+    "rho": 0.8827940935466644,
+    "sim_cases": 100,
+    "terms": 41
+   },
+   "SOX17": {
+    "dev_patients": 29,
+    "rho": 0.7818277544076025,
+    "sim_cases": 100,
+    "terms": 55
+   },
+   "SPINK5": {
+    "dev_patients": 45,
+    "rho": 0.6189249395701797,
+    "sim_cases": 100,
+    "terms": 154
+   },
+   "SPINT2": {
+    "dev_patients": 16,
+    "rho": 0.06843532034329819,
+    "sim_cases": 100,
+    "terms": 16
+   },
+   "SPTAN1": {
+    "dev_patients": 13,
+    "rho": 0.5012973396080147,
+    "sim_cases": 100,
+    "terms": 98
+   },
+   "TBCK": {
+    "dev_patients": 32,
+    "rho": 0.6284261304985015,
+    "sim_cases": 100,
+    "terms": 144
+   },
+   "TBX1": {
+    "dev_patients": 14,
+    "rho": 0.3801325198722175,
+    "sim_cases": 100,
+    "terms": 216
+   },
+   "TBX5": {
+    "dev_patients": 55,
+    "rho": 0.45684000115282153,
+    "sim_cases": 100,
+    "terms": 128
+   },
+   "TBXAS1": {
+    "dev_patients": 12,
+    "rho": 0.2392754117994733,
+    "sim_cases": 100,
+    "terms": 21
+   },
+   "TGFB3": {
+    "dev_patients": 29,
+    "rho": 0.443195399575689,
+    "sim_cases": 100,
+    "terms": 118
+   },
+   "TGFBR1": {
+    "dev_patients": 27,
+    "rho": 0.4555706359222637,
+    "sim_cases": 100,
+    "terms": 103
+   },
+   "TGFBR2": {
+    "dev_patients": 29,
+    "rho": 0.5027908045852937,
+    "sim_cases": 100,
+    "terms": 168
+   },
+   "TMEM216": {
+    "dev_patients": 62,
+    "rho": 0.2742327460616216,
+    "sim_cases": 100,
+    "terms": 179
+   },
+   "UMOD": {
+    "dev_patients": 76,
+    "rho": 0.5844092882645389,
+    "sim_cases": 100,
+    "terms": 33
+   },
+   "WDR26": {
+    "dev_patients": 15,
+    "rho": 0.3883859592836164,
+    "sim_cases": 100,
+    "terms": 93
+   },
+   "WWOX": {
+    "dev_patients": 36,
+    "rho": 0.4601578018315808,
+    "sim_cases": 100,
+    "terms": 113
+   },
+   "ZFPM2": {
+    "dev_patients": 11,
+    "rho": 0.5482642575677866,
+    "sim_cases": 100,
+    "terms": 80
+   },
+   "ZSWIM6": {
+    "dev_patients": 17,
+    "rho": 0.3371142944697963,
+    "sim_cases": 100,
+    "terms": 107
+   }
+  },
+  "reference": "R1-train (optimistic: the report model was fitted on R1-train)"
+ },
+ "label": "v0.4-cand2"
+}

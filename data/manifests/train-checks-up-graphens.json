@@ -1,0 +1,43 @@
+{
+  "artifact_id": "train-checks-up-graphens",
+  "kind": "train-checks-report",
+  "created_at": "2026-09-30T18:45:32+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5e361f3dcc8ed8b9e2671a10a5893327debbd230",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:graphens_sim_20251202@GraPhens@7d861ff",
+      "sha256": "d4e8c416b49d27cad113e0a235ff1caecad9f49e95686c479c7afe80d9fddd8e"
+    },
+    {
+      "id": "split:r1-v1 (train)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_genes_to_phenotype@2026-02-16",
+      "sha256": "25d3e5a40203cbb4cc027747c70fcb5431bcfb26283479608a97f3d810285c7d"
+    }
+  ],
+  "params": {
+    "label": "up-graphens",
+    "reads": "R1-train",
+    "min_real_patients": 10
+  },
+  "params_hash": "b96e34f9a557bda24cdfadbe2db6702c1498caeec5fbee8aab640cd5d0eae7e2",
+  "outputs": [
+    {
+      "path": "results/realism/up-graphens.train-checks.json",
+      "sha256": "e4410ccd6859d5947cee7abea2296995bce24355299e34730080cee21e1506cf",
+      "bytes": 10310
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
