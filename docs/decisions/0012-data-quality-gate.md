@@ -118,3 +118,19 @@ thresholds are unchanged.
    - **The training data:** the half-A Front A training set is the same
      generator with half B dropped. It must pass G1, and its G2 is
      reported as secondary.
+- **Accepted by Mateo, 2026-09-30.**
+
+## Amendment 2 (2026-09-30): who reviews the G3 disease cards
+Mateo delegated the G3 review ("Do it yourself and I'll check when all is
+done").
+- **Two independent reviewers:** the assistant (Claude Code) reviews each
+  of the 30 cards. Codex CLI reviews each card independently, without
+  seeing the first verdict.
+- **Verdicts:** plausible, or implausible with a reason.
+- **Rules:**
+  - a card flagged by either reviewer is either fixed or carries a written,
+    accepted reason;
+  - disagreements are listed;
+  - Mateo spot-checks the cards and both verdicts afterwards, and can
+    overturn any of them before G5.
+- The cards and verdicts are committed as evidence.
