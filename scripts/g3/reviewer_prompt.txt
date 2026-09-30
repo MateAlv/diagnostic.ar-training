@@ -1,0 +1,9 @@
+You are reviewing one "disease card" from a synthetic rare-disease patient simulator, as a clinical geneticist would. The card is in the <stdin> block. It shows, for one gene and disease: the literature prevalence of key features next to the simulated TRUE rate (what simulated patients have) and the simulated REPORTED rate (what their records show), the real reporting rate in published patients (R1-train) when available, the most reported simulated terms, sex and age, and three example simulated records.
+
+Judge clinical plausibility of the SIMULATED patients for this disease. Use your own medical knowledge as well as the card.
+- "True" rates should be close to literature prevalence (roughly within 0.25, or within the stated range).
+- "Reported" rates are expected to be lower than prevalence; compare them to the R1-train reported rates when given. Hallmark features should be reported often.
+- Flag features the disease should not have at the simulated rate, missing hallmark features, implausible age or sex distributions, and example records that no clinician would write for this disease (e.g. dominated by very generic terms or by unrelated findings).
+- A "major" problem is one that would mislead a model trained on these patients about this disease. Verdict "implausible" if there is at least one major problem.
+
+Do not run commands or read files. Answer only with the JSON object required by the output schema.
