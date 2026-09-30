@@ -233,8 +233,8 @@ def write_onsets(path: Path, rows: list[tuple]) -> None:
     path.write_text(header + body)
 
 
-def count_frequencies(rows: list[dict], ontology: Ontology) -> list[float]:
-    """Pooled raw n/m of every (disease, term) with count-notation positive phenotype rows."""
+def count_frequencies(rows: list[dict], ontology: Ontology, min_denominator: int = 1) -> list[float]:
+    """Pooled raw n/m per (disease, term) over count-notation positive rows with m >= min_denominator."""
     from diagnostic_ar_training.rerank.kb import parse_frequency
 
     pooled: dict[tuple[str, str], list[int]] = defaultdict(lambda: [0, 0])
@@ -247,4 +247,4 @@ def count_frequencies(rows: list[dict], ontology: Ontology) -> list[float]:
         acc = pooled[(row["database_id"], term)]
         acc[0] += parsed[1][0]
         acc[1] += parsed[1][1]
-    return [n / m for n, m in pooled.values()]
+    return [n / m for n, m in pooled.values() if m >= min_denominator]

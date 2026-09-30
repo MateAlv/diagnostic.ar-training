@@ -370,6 +370,15 @@ def knowledge_report_model(
 def knowledge_shrinkage_prior(
     calib_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. simcal-v04-v1"),
     recount_id: str = typer.Option("hpoa-recount-v1", "--recount"),
+    min_denominator: int = typer.Option(
+        1, help="Only pairs pooled over at least this many patients (ADR-0011 amendment 1 uses 10)"
+    ),
+    base: Path | None = typer.Option(
+        None, help="Committed calibration JSON whose knobs are carried over (e.g. simcal-train-v1)"
+    ),
+    set_: list[str] = typer.Option(
+        [], "--set", help="Extra KEY=JSON override, e.g. reporting.force_cardinal=false"
+    ),
 ) -> None:
     """Simulator calibration file with frequency.shrinkage_mean: the median count-based frequency
     of an hpoa-recount artifact (ADR-0011, simulator v0.4 step 2)."""
@@ -380,31 +389,53 @@ def knowledge_shrinkage_prior(
     import statistics
 
     from diagnostic_ar_training.knowledge import recount
+    from diagnostic_ar_training.lineage.hashing import sha256_file
     from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
     from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
     from diagnostic_ar_training.ontology import Ontology
 
     hpoa_path, hpoa_sha = _artifact_file(recount_id, "phenotype.hpoa")
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.SIMULATE))
-    freqs = recount.count_frequencies(recount.read_hpoa(hpoa_path)[1], ontology)
+    freqs = recount.count_frequencies(recount.read_hpoa(hpoa_path)[1], ontology, min_denominator)
     median = statistics.median(freqs)
-    body = {
-        "frequency.shrinkage_mean": round(median, 6),
-        "_provenance": {
-            "artifact": calib_id,
-            "source": f"{recount_id} ({hpoa_sha})",
-            "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive "
-            "phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
-            "pairs": len(freqs),
-            "mean": round(statistics.fmean(freqs), 6),
-            "code_sha": state.sha,
-        },
-    }
+    body: dict = {}
+    base_input = None
+    if base is not None:
+        body.update(json.loads(base.read_text()))
+        body = {k: v for k, v in body.items() if not k.startswith("_")}
+        base_input = {"id": f"file:{base.as_posix()}", "sha256": sha256_file(base)}
+    for item in set_:
+        key, _, value = item.partition("=")
+        body[key] = json.loads(value)
+    body.update(
+        {
+            "frequency.shrinkage_mean": round(median, 6),
+            "_provenance": {
+                "artifact": calib_id,
+                "source": f"{recount_id} ({hpoa_sha})",
+                "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive "
+                "phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+                "pairs": len(freqs),
+                "min_denominator": min_denominator,
+                "mean": round(statistics.fmean(freqs), 6),
+                "base": base_input,
+                "overrides": set_,
+                "code_sha": state.sha,
+            },
+        }
+    )
     out = DATA_DIR / "calib" / f"{calib_id}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(body, indent=1, sort_keys=True) + "\n")
     inputs = [{"id": f"artifact:{recount_id}", "sha256": hpoa_sha}, load_sources()["hpo_ontology"].as_input()]
-    params = {"statistic": "median pooled count-based frequency", "recount": recount_id}
+    if base_input:
+        inputs.append(base_input)
+    params = {
+        "statistic": "median pooled count-based frequency",
+        "recount": recount_id,
+        "min_denominator": min_denominator,
+        "overrides": set_,
+    }
     write_manifest(build_manifest(calib_id, "simulator-calibration-file", inputs, params, [out], state=state))
     typer.echo(json.dumps(body, indent=1))
 
