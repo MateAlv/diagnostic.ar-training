@@ -41,9 +41,16 @@ simulator. See `docs/analyses/ANALYSIS-001-dataset-realism.md` §6 for the
 proposed fixes.
 
 ## Open decisions for Mateo
-1. **Deploy rr-v1[neg=0.5]?** It passed EXP-B-003. A release goes through
-   `diagnostic.ar-model`, with the negation input as an optional API
-   field.
+1. **rr-v1[neg=0.5] release:** approved for preparation. diagnostic.ar-model
+   PR #2 is ready for review (parity 0 mismatches; identity without
+   negations). Open points:
+   - merge it and create the GitHub release;
+   - send only the question agent's "no" answers, not free-text negations
+     (this reverses D-18 in Mariano's repo);
+   - production routes to brainy, not the pinned image;
+   - should "Con tus respuestas" show the re-ranked list?
+   - 50 R1-dev cases committed as a parity fixture in the private model
+     repo: is that OK?
 2. **ADR-0012 amendment 3** (G2a on the truth layer), made after
    candidate 2's read: accept or revert. Amendment 1 is already accepted.
 3. **Spot-check the G3 cards and the two reviewers' verdicts** once they
