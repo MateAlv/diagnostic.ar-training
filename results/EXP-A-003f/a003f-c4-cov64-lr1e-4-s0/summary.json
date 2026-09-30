@@ -1,0 +1,200 @@
+{
+ "at_best": {
+  "r1_dev_age": {
+   "ci95": [
+    -0.22985254913958572,
+    -0.12695259049983473
+   ],
+   "delta": -0.17999347708143928,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.5108868826340945,
+   "helped": 0.11630377057886351,
+   "mrr": 0.2684817553740339,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.20499203398831653,
+   "top10": 0.4009559214020181,
+   "unrankable": 203
+  },
+  "r1_dev_all": {
+   "ci95": [
+    -0.28067901327838957,
+    -0.17813316393964837
+   ],
+   "delta": -0.23143377603733067,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.590015932023367,
+   "helped": 0.1088688263409453,
+   "mrr": 0.21704145641814243,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.16675517790759425,
+   "top10": 0.32979288369622944,
+   "unrankable": 203
+  },
+  "r1_dev_excluded": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_present": {
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "delta": 0.0,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.0,
+   "helped": 0.0,
+   "mrr": 0.4484752324554731,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.33935209771641,
+   "top10": 0.6691449814126395,
+   "unrankable": 203
+  },
+  "r1_dev_sex": {
+   "ci95": [
+    -0.17223015168462819,
+    -0.06553551434779169
+   ],
+   "delta": -0.11724752838283242,
+   "e0_mrr": 0.4484752324554731,
+   "harmed": 0.4142326075411577,
+   "helped": 0.14445034519383962,
+   "mrr": 0.33122770407264074,
+   "n": 1883,
+   "resample_unit": "group",
+   "top1": 0.25969198088157197,
+   "top10": 0.4731810939989379,
+   "unrankable": 203
+  },
+  "s2": {
+   "ci95": [
+    -2.3731728941887766e-08,
+    0.0
+   ],
+   "delta": -7.910576313962588e-09,
+   "e0_mrr": 0.8116979580150323,
+   "harmed": 0.00019127773527161438,
+   "helped": 0.0,
+   "mrr": 0.811697950104456,
+   "n": 5228,
+   "resample_unit": "case",
+   "top1": 0.7511476664116297,
+   "top10": 0.9261667941851568,
+   "unrankable": 0
+  },
+  "s3_dev_all": {
+   "ci95": [
+    0.11323210289535895,
+    0.13000955852176288
+   ],
+   "delta": 0.12144453627510664,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.16738491674828598,
+   "helped": 0.570714985308521,
+   "mrr": 0.4512511081738653,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.3744368266405485,
+   "top10": 0.604309500489716,
+   "unrankable": 0
+  },
+  "s3_dev_present": {
+   "ci95": [
+    -3.362492516575222e-07,
+    5.792517247863039e-07
+   ],
+   "delta": 8.080784556749933e-08,
+   "e0_mrr": 0.32980657189875867,
+   "harmed": 0.0004897159647404506,
+   "helped": 0.0006856023506366307,
+   "mrr": 0.32980665270660425,
+   "n": 10210,
+   "resample_unit": "group",
+   "top1": 0.2753183153770813,
+   "top10": 0.43712047012732613,
+   "unrankable": 0
+  }
+ },
+ "best_epoch": 15,
+ "best_epoch_reloaded": 15,
+ "best_sim_val_mrr": 0.2951390725161668,
+ "checkpoints": {
+  "best.pt": 1373162,
+  "last.pt": 4088497
+ },
+ "checks": {
+  "base_unchanged": true,
+  "best_base_unchanged": true,
+  "best_positive_types_closed": true,
+  "pass": true,
+  "positive_types_closed": true,
+  "present_only_logits_bit_identical_cpu": {
+   "r1_dev": {
+    "cases": 1883,
+    "identical": 1883,
+    "max_abs_diff": 0.0,
+    "scorable": 1883
+   },
+   "s2": {
+    "cases": 5228,
+    "identical": 5228,
+    "max_abs_diff": 0.0,
+    "scorable": 5228
+   }
+  },
+  "r1_dev_present_ranks_changed_vs_exp000": 0,
+  "s2_ranks_changed_vs_exp000_onnx": 1,
+  "s2_ranks_changed_vs_untrained": 0
+ },
+ "epoch_views": [
+  "present",
+  "sex",
+  "age",
+  "all"
+ ],
+ "epochs_run": 15,
+ "flags": {
+  "simval_up_r1dev_down_at_best": true,
+  "simval_up_r1dev_down_epochs": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   9,
+   10,
+   11,
+   13,
+   15
+  ],
+  "view": "all"
+ },
+ "max_gpu_memory_gb": 1.605275136,
+ "sim_val_at_best": {
+  "loss": 13.854311328724117,
+  "mrr": 0.2951390725161668,
+  "n": 20864,
+  "top1": 0.22646664110429449,
+  "top10": 0.42695552147239263,
+  "unscorable": 0
+ },
+ "steps": 5880,
+ "stopped_early": false,
+ "wall_seconds": 548.41198669
+}

@@ -2,7 +2,7 @@
 
 - **Front:** A
 - **Registered:** 2026-09-29, by the Front A agent for Mateo Alvarez
-- **Status:** planned
+- **Status:** done (runs 2026-09-29; recorded 2026-09-30 after the graceful stop)
 
 ## Hypothesis
 **H1 (primary):** with v3.0's weights frozen, training only the negation
@@ -136,9 +136,64 @@ candidate and that is reported as such.
 | S2 | Exactly E0's untrained-model ranks |
 
 ## Results
-(filled after running)
+The pre-registration was committed at `7eb5686`; runs are from `7eb5686` and
+`241acc2` (code unchanged between them). Every run's manifest verifies;
+curves, ranks and summaries are in `results/EXP-A-002f/<run-id>/` and
+`results/EXP-A-002f/report.json`.
+- **Training data:** `ds-sim0.3.1-A-iv-v1`, 100,217 interviewed simulated
+  cases.
+- **Identity checks:**
+  - every run's R1-dev "present", "sex" and "age" views equal E0 (Δ 0,
+    harmed 0);
+  - S2 equals E0.
+
+S3-dev Δ is vs E0+answers (genes resampled); R1-dev "+excluded" Δ is vs E0
+(publications resampled):
+
+| Run | Epochs (best) | Sim-val MRR | S3-dev Δ [CI] | S3 harmed | R1-dev "+excluded" Δ [CI] | R1 harmed |
+|---|---|---|---|---|---|---|
+| c1 neg lr 1e-4 | 3 (0) | 0.1759 | +0.0000 | 0.000 | +0.0000 | 0.000 |
+| c2 neg lr 1e-3 | 3 (0) | 0.1759 | +0.0000 | 0.000 | +0.0000 | 0.000 |
+| c3 neg lr 1e-2 | 3 (0) | 0.1759 | +0.0000 | 0.000 | +0.0000 | 0.000 |
+| c4 neg2 lr 1e-4 | 15 (15) | — | +0.0570 [+0.0527, +0.0613] | 0.099 | −0.1365 [−0.1864, −0.0854] | 0.448 |
+| c5 neg2 lr 1e-3 | 6 (3) | 0.2741 | +0.0925 [+0.0845, +0.1001] | 0.175 | −0.2542 [−0.3059, −0.1958] | 0.596 |
+| c6 neg2 lr 1e-2 | 4 (1) | — | +0.0756 [+0.0673, +0.0839] | 0.226 | −0.2788 [−0.3306, −0.2232] | 0.635 |
+
+- **`neg`** (message gates + type projection) trained, but sim-val never
+  rose above the untrained model's 0.1759; at lr 1e-2 it fell to 0.1725.
+  Early stopping therefore kept epoch 0, which is exactly E0.
+- **Median S3-dev Δ** of the 6 configurations: +0.0285.
+- **Seeds, "not a candidate":** c5 had the highest S3 CI lower bound, so
+  per the rule it was re-run with seeds 1 and 2.
+  - S3-dev Δ +0.0925 / +0.0889 / +0.0891, mean **+0.0902 ± 0.0020**, harmed
+    17.5–18.6%.
+  - R1-dev "+excluded" Δ **−0.2539 ± 0.0006**.
+
+**Exploratory control: does neg2 read *which* terms were denied?** In
+`addendum-shuffled-negation-a002f-c5-neg2-lr1e-3-s0.json` (script
+`scripts/exploratory/a002f_shuffled_negation.py`), each case received another
+case's excluded set, by a seeded derangement within its cohort:
+
+| Cohort | Own negations Δ | Shuffled negations Δ |
+|---|---|---|
+| S3-dev | +0.0925 [+0.0845, +0.1001] | **+0.0775** [+0.0700, +0.0845] |
+| R1-dev | −0.2542 | −0.2163 |
 
 ## Verdict
+❌ **No candidate.** No run meets the eligibility rule (S3 CI lower bound > 0
+*and* harmed ≤ 5%): the lowest harmed rate is 9.9% (c4).
+
+What the numbers show:
+- **Most of neg2's S3 gain is not about the content of the negations.**
+  With another patient's "no" answers it keeps +0.0775 of its +0.0925. The
+  model learned a shift keyed on *having* negated answers, which pays off on
+  data from the same simulator.
+- **On real patients** (R1 "+excluded") it is strongly harmful, whether the
+  negations are the patient's own (−0.25) or shuffled (−0.22).
+- **Front B's knowledge-based rr-v1[neg=0.5]** (+0.0045, harmed 4%, S3-dev)
+  stays the only negation method that meets the harm cap. Its S3 number
+  doesn't carry the same-simulator inflation.
+
 (filled after running)
 
 ## Addenda

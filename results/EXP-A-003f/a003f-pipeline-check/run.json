@@ -1,0 +1,70 @@
+{
+ "code": {
+  "dirty": false,
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "241acc26834f733c98f41c2e5830cb169e5fc7dc"
+ },
+ "config": {
+  "amp": false,
+  "batch_size": 256,
+  "bn": "train",
+  "clip_norm": 1.0,
+  "cov_hidden": 16,
+  "covariates": true,
+  "eval_batch_size": 1024,
+  "frozen_base": true,
+  "lr_base": 0.0,
+  "lr_new": 0.001,
+  "max_epochs": 1,
+  "max_train_cases": 2560,
+  "min_delta": 0.0001,
+  "min_lr_ratio": 0.1,
+  "neg_readout": false,
+  "negated": false,
+  "num_workers": 10,
+  "patience": 3,
+  "seed": 0,
+  "warmup_steps": 200,
+  "weight_decay": 0.0005
+ },
+ "contamination": {
+  "certified_by_artifact": {
+   "r1-v1 (all parts, keys only)": 0,
+   "s3-data-v1 (raw presentations, all cases)": 0,
+   "s3-v1/dev interviewed": 0
+  },
+  "r1-v1/dev": {
+   "cases": 1883,
+   "examples": [],
+   "present_set_overlap": 0
+  },
+  "r1-v1/train": {
+   "cases": 4103,
+   "examples": [],
+   "present_set_overlap": 0
+  },
+  "s3-v1/dev": {
+   "cases": 10210,
+   "examples": [],
+   "present_set_overlap": 0
+  }
+ },
+ "data_counts": {
+  "excluded": {},
+  "kept": {
+   "train": 100217,
+   "val": 20864
+  },
+  "read": {
+   "train": 100217,
+   "val": 20864
+  }
+ },
+ "dataset": "ds-sim0.3.1-A-iv-v1",
+ "design": "cov",
+ "device": "NVIDIA GeForce RTX 4070 Ti",
+ "exp": "EXP-A-003f",
+ "run_id": "a003f-pipeline-check",
+ "torch": "2.14.0+cu130",
+ "train_cases": 2560
+}

@@ -2,7 +2,12 @@
 
 - **Front:** A
 - **Registered:** 2026-09-29, by the Front A agent for Mateo Alvarez
-- **Status:** planned
+- **Status:** **paused 2026-09-29 (graceful stop)**; resumes 2026-09-30.
+  - Completed with manifests: `a003f-c1-cov16-lr1e-4-s0`,
+    `a003f-c4-cov64-lr1e-4-s0` and the pipeline check.
+  - Interrupted, no outputs kept: c2 and c5.
+  - Not started: c3 and c6.
+  - No verdict until the pre-registered grid is complete.
 
 ## Hypothesis
 **H1 (primary):** with v3.0's weights frozen, training only a covariate head
