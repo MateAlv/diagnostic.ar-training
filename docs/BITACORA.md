@@ -1397,3 +1397,29 @@ Written and committed before the first pilot runs.
 - **Selection:** the pair with the smallest summed absolute error over the
   three categories is frozen as `simcal-v04-v4`.
 - **Not used:** R1-dev and E0.
+
+### 2026-09-30 — pilot — Candidate 2 pilot rounds; `simcal-v04-v4` frozen
+- **Setup:** as pre-registered in the entry above; R1-train targets only,
+  no R1-dev, no E0.
+  - Pilot shape: 4,890 cases for 489 genes. On genes-v2 full profiles, 34 of
+    the listed genes are skipped (the simcal-train-v1 pilots had 505).
+  - Categories scored on 4,830 records; 60 have no kb-v4 gene.
+  - Validate: 0 invariant violations in both rounds.
+- **Every pair tried:**
+
+  | Round | r | s | Realized specialised share of profile terms | Realized related share of noise | More specific (0.115) | Related IC ≥ 2 (0.108) | Weak IC < 2 (0.239) | Explained | Summed abs. error |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.15 | 0.30 | 0.0848 | 0.2708 | 0.0815 | 0.0949 | 0.2755 | 0.5482 | 0.0831 |
+  | 2 | 0.2117 | 0.3414 | 0.1194 | 0.3081 | 0.1021 | 0.1025 | 0.2662 | 0.5292 | **0.0456** |
+
+  - Round 2 applies the declared rule: r₂ = 0.15 × 0.115 / 0.0815, and
+    s₂ = 0.30 × 0.108 / 0.0949, rounded to 4 decimals.
+  - Both realized shares stay below their rates, as expected: a
+    specialisation or related draw can find no eligible term.
+- **Selected:** round 2, the smaller summed error. Frozen as
+  `simcal-v04-v4` (`dxt knowledge shrinkage-prior --min-denominator 10
+  --base data/calib/simcal-v04-v3.json`, with `reporting.noise_share`
+  0.348, `reporting.specialize_rate` 0.2117 and `noise.related_share`
+  0.3414).
+- **Remaining gap:** weak (IC < 2) stays 0.027 above R1-train's share, and
+  more specific stays 0.013 below it.
