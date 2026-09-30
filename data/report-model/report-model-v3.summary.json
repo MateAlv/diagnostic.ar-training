@@ -1,0 +1,172 @@
+{
+ "artifact_id": "report-model-v3",
+ "features": [
+  {
+   "coefficient": 2.3467116961107144,
+   "description": "HPOA frequency of the term in the disease profile (ADR-0007 estimate); 0 when unknown; unknown_value folds in the frequency_unknown indicator",
+   "kind": "frequency",
+   "name": "frequency",
+   "unknown_value": 0.4536250645768302
+  },
+  {
+   "coefficient": 0.021710476332467598,
+   "description": "-ln((a + 1) / (D + 1)); a = diseases in the masked KB annotating the term or a descendant, D = diseases in the KB (terms.annotated_diseases, annotation_diseases)",
+   "kind": "information_content",
+   "missing_value": 9.45743479744618,
+   "name": "information_content",
+   "source": "table"
+  },
+  {
+   "coefficient": -0.04519286722819721,
+   "description": "number of strict is_a ancestors of the term in HPO (terms.ancestors)",
+   "include_self": false,
+   "kind": "ancestor_count",
+   "name": "ancestor_count"
+  },
+  {
+   "coefficient": 0.4126149959066422,
+   "description": "ln((c + 1) / (N + 1)); c = R1-train patients reporting the term or a descendant, N = R1-train patients (terms.reportability, reportability_patients). While fitting, c and N leave out the scored patient's publication group",
+   "kind": "log_reportability",
+   "name": "log_reportability",
+   "normalize": true,
+   "pseudocount": 1.0
+  },
+  {
+   "coefficient": 0.4942232662416509,
+   "description": "1 if (disease, term) is a cardinal-v1 row, else 0",
+   "kind": "cardinal_flag",
+   "name": "cardinal"
+  }
+ ],
+ "format": "report-model",
+ "format_version": 1,
+ "intercept": -1.6549266867468329,
+ "link": "logistic",
+ "notes": "Fitted with ADR-0007 frequencies from the masked KB; the simulator scores its own merged, shrunk frequencies. Ancestor counts assume HPO 2026-02-16.",
+ "provenance": {
+  "adr": "0011 \u00a73",
+  "cardinal": "cardinal-v1",
+  "cardinal_flag": {
+   "fit_rule": "rows resting on any R1 publication or on R1-train recounts are left out while fitting, so the flag carries no information from the scored patients' papers",
+   "rows_in_artifact": 5920,
+   "rows_used_for_fit": 5500
+  },
+  "code_sha": "129c33edf595b1228a34944d968ac870c7c9b3c9",
+  "fit": {
+   "auc": {
+    "frequency_only": 0.6859178232324108,
+    "full": 0.7652771812385596
+   },
+   "log_loss": {
+    "base_rate": 0.30903138088919013,
+    "frequency_only": 0.29070031259818324,
+    "full": 0.2672628745030413
+   },
+   "note": "log loss and AUC use leave-publication-out reportability and are in-sample for the coefficients. The in-sample within-gene rho uses the population's full reportability; the publications-out rho recomputes reportability without each gene's publication groups. Out-of-sample: dxt sim report-model-check (R1-dev).",
+   "patients": 1193,
+   "patients_with_profile": 1054,
+   "population": {
+    "cases": 1193,
+    "r1_train_cases": 4103,
+    "rule": "uncited"
+   },
+   "positive_rate": 0.09282754810790904,
+   "rows": 54305,
+   "within_gene_rho_r1_train_in_sample": {
+    "frequency": "P(term | gene): disease-weight mixture of the masked KB's known frequencies",
+    "genes": 32,
+    "mean_rho": {
+     "frequency_only": 0.2670597321255603,
+     "full": 0.5089758292638683
+    },
+    "min_patients": 5
+   },
+   "within_gene_rho_r1_train_publications_out": {
+    "genes": 32,
+    "mean_rho": {
+     "frequency_only": 0.2670597321255603,
+     "full": 0.4058802947295754
+    },
+    "min_patients": 5,
+    "reportability": "each gene's publication groups left out"
+   }
+  },
+  "fitted_on": "r1-v1 train, population uncited (1193 of 4103 patients)",
+  "hpo_version": "2026-02-16",
+  "internal_coefficients": {
+   "ancestor_count": -0.04519286722819721,
+   "cardinal": 0.4942232662416509,
+   "frequency": 2.3467116961107144,
+   "frequency_unknown": 1.0645272446914256,
+   "information_content": 0.021710476332467598,
+   "intercept": -1.6549266867468329,
+   "log_reportability": 0.4126149959066422
+  },
+  "kb": "kb-v3",
+  "reference_models": {
+   "frequency_only": {
+    "frequency": 2.612240228687857,
+    "frequency_unknown": 0.961518325841145,
+    "intercept": -3.73745633772127
+   }
+  },
+  "term_budget": {
+   "cases": 1193,
+   "definition": "number of present (reported) terms per R1-train case",
+   "mean": 8.114836546521374,
+   "percentiles": {
+    "10": 3.0,
+    "25": 4.0,
+    "50": 7.0,
+    "75": 10.0,
+    "90": 15.0,
+    "99": 29.23999999999978
+   }
+  },
+  "unit": "(R1-train patient, phenotypic-abnormality term of the patient's disease profile in kb-v3, OMIM and exactly aligned ORPHA ids merged); label 1 if the patient reports the term or a descendant of it"
+ },
+ "reportability": {
+  "closure": "ancestors",
+  "patients": 1193
+ },
+ "term_budget": {
+  "description": "number of present (reported) terms per R1-train case",
+  "histogram": {
+   "1": 29,
+   "10": 67,
+   "11": 55,
+   "12": 49,
+   "13": 41,
+   "14": 24,
+   "15": 26,
+   "16": 23,
+   "17": 15,
+   "18": 15,
+   "19": 7,
+   "2": 74,
+   "20": 10,
+   "21": 4,
+   "22": 3,
+   "23": 2,
+   "24": 2,
+   "25": 3,
+   "26": 2,
+   "27": 1,
+   "28": 1,
+   "29": 2,
+   "3": 100,
+   "32": 3,
+   "33": 4,
+   "35": 1,
+   "36": 1,
+   "38": 2,
+   "39": 1,
+   "4": 113,
+   "5": 101,
+   "6": 125,
+   "7": 116,
+   "8": 100,
+   "9": 71
+  }
+ }
+}
