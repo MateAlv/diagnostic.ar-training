@@ -1,6 +1,7 @@
 """`dxt`: sources, splits and lineage checks. Run `dxt --help`."""
 
 import json
+from collections import Counter
 from pathlib import Path
 
 import typer
@@ -707,6 +708,245 @@ def s3_run_cmd(
             f"{name:28} MRR={r['summary']['mrr']:.4f} d={d['delta']:+.4f} "
             f"[{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] harmed={d['harmed']:.3f} helped={d['helped']:.3f}"
         )
+
+
+litpanel_app = typer.Typer(no_args_is_help=True, help="Evaluation literature panel (ADR-0012 G4).")
+app.add_typer(litpanel_app, name="litpanel")
+REALISM_DIR = DATA_DIR / "realism"
+
+
+@litpanel_app.command("split")
+def litpanel_split(
+    split_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. litpanel-split-v1"),
+    genes_id: str = typer.Option("genes-v1", help="Gene profiles that define each gene's main disease"),
+    size: int = typer.Option(60, help="Panel units, anchors included"),
+    reserves: int = typer.Option(20, help="Ordered reserve units, also evaluation-only"),
+    seed: int = typer.Option(20260930),
+) -> None:
+    """Freeze which (gene, main disease) units are evaluation-only; every other unit is construction."""
+    from diagnostic_ar_training import INTERIM_DIR, splits
+    from diagnostic_ar_training.knowledge import literature_panel as lp
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+
+    ensure_new(split_id)
+    genes_manifest = load_manifest(genes_id)
+    genes_path = INTERIM_DIR / "genes" / genes_id / "genes.json.gz"
+    if sha256_file(genes_path) != genes_manifest.outputs[0].sha256:
+        raise LineageError(f"{genes_path} does not match the {genes_id} manifest")
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
+    mask_path = splits.heldout_pmids_path("r1-v1")
+    splits.write_heldout_pmids("r1-v1")
+    phenotypes, names = lp.hpoa_phenotypes(
+        open_source("hpo_annotations", Purpose.EVAL), ontology, set(mask_path.read_text().split())
+    )
+    train = lp.patients_per_gene(splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL))
+    dev = lp.patients_per_gene(splits.load_part("r1-v1", splits.Part.DEV, Purpose.EVAL))
+    pool = lp.units(kb.read(genes_path), ontology, phenotypes, names, train, dev)
+    chosen = lp.select(pool, size=size, reserves=reserves, seed=seed)
+    rows = lp.split_rows(chosen)
+    out = REALISM_DIR / f"{split_id}.tsv"
+    lp.write_tsv(rows, lp.SPLIT_COLUMNS, out)
+    summary = lp.split_summary(rows, pool)
+    summary_path = REALISM_DIR / f"{split_id}.summary.json"
+    summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
+    sources = registry.load_sources()
+    inputs = [
+        {"id": f"artifact:{genes_id}", "sha256": genes_manifest.outputs[0].sha256},
+        sources["hpo_ontology"].as_input(),
+        sources["hpo_annotations"].as_input(),
+        {"id": "heldout-pmids:r1-v1", "sha256": sha256_file(mask_path)},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+    ]
+    params = {
+        "anchors": list(lp.ANALYSIS_001_GENES),
+        "size": size,
+        "reserves": reserves,
+        "seed": seed,
+        "dev_share": 0.5,
+        "dev_min": 10,
+        "main_disease": "simulable entity with the highest sim_weight",
+        "strata": "organ system (modal child of HP:0000118), inheritance (AD/AR/XL/other), "
+        "R1-train patients (0, 1-9, >=10); square-root allocation per margin",
+        "r1_parts_read": ["train", "dev"],
+    }
+    notes = (
+        "Evaluation units: every row of the TSV (anchor, sampled and reserve). Their genes and all "
+        "their disease ids must never feed literature-derived construction. Every other unit is construction."
+    )
+    write_manifest(build_manifest(split_id, "litpanel-split", inputs, params, [out, summary_path], notes))
+    typer.echo(json.dumps(summary, indent=1))
+
+
+CROSSCHECK_COLUMNS = (
+    "row", "gene", "disease_id", "feature_label", "hpo_id", "citation", "section", "prevalence",
+    "prevalence_low", "prevalence_high", "other_found", "other_prevalence", "other_low", "other_high",
+    "other_quote", "agree", "resolution",
+)  # fmt: skip
+
+
+@litpanel_app.command("crosscheck")
+def litpanel_crosscheck(
+    rows_path: Path = typer.Option(..., "--rows", help="Working TSV: curated columns + source_text_file"),
+    out: Path = typer.Option(..., help="Cross-check TSV to write"),
+    fraction: float = typer.Option(0.1),
+    seed: int = typer.Option(20260930),
+    command: str = typer.Option(
+        "codex exec --skip-git-repo-check --sandbox read-only",
+        help="Re-extractor; the prompt is its last argument",
+    ),
+    log_dir: Path = typer.Option(..., help="Where each raw answer is kept"),
+) -> None:
+    """Re-extract a seeded sample with another model that sees gene, disease, feature, citation only."""
+    import shlex
+    import subprocess
+
+    from diagnostic_ar_training.knowledge import literature_panel as lp
+
+    rows = lp.read_tsv(rows_path)
+    log_dir.mkdir(parents=True, exist_ok=True)
+    results = []
+    for i in lp.crosscheck_sample(rows, fraction, seed):
+        row = rows[i]
+        prompt = lp.crosscheck_prompt(row)
+        source = Path(row["source_text_file"])
+        answer = subprocess.run(
+            [*shlex.split(command), prompt],
+            input=source.read_text(encoding="utf-8"),
+            capture_output=True,
+            text=True,
+            timeout=900,
+            check=False,
+        ).stdout
+        (log_dir / f"row{i:04d}.txt").write_text(
+            f"{prompt}\n\n=== STDIN: {source} ===\n\n=== ANSWER ===\n{answer}"
+        )
+        try:
+            other = lp.parse_answer(answer)
+        except (ValueError, json.JSONDecodeError):
+            other = {
+                "found": False,
+                "prevalence": "",
+                "prevalence_low": "",
+                "prevalence_high": "",
+                "quote": "",
+            }
+        results.append(
+            {
+                **{c: row[c] for c in CROSSCHECK_COLUMNS[1:10]},
+                "row": i,
+                "other_found": str(other["found"]).lower(),
+                "other_prevalence": other["prevalence"],
+                "other_low": other["prevalence_low"],
+                "other_high": other["prevalence_high"],
+                "other_quote": other["quote"],
+                "agree": str(
+                    lp.agrees(
+                        row,
+                        {
+                            "prevalence": other["prevalence"],
+                            "prevalence_low": other["prevalence_low"],
+                            "prevalence_high": other["prevalence_high"],
+                        },
+                    )
+                ).lower(),
+            }
+        )
+        typer.echo(f"row {i} {row['gene']} {row['feature_label']}: agree={results[-1]['agree']}")
+    lp.write_tsv(results, CROSSCHECK_COLUMNS, out)
+    agree = sum(r["agree"] == "true" for r in results)
+    typer.echo(f"{agree}/{len(results)} agree")
+
+
+@litpanel_app.command("build")
+def litpanel_build(
+    panel_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. literature-panel-v2"),
+    split_id: str = typer.Option("litpanel-split-v1", "--split"),
+    extraction: Path = typer.Option(
+        DATA_DIR / "realism" / "extraction", help="curated.tsv, dropped.tsv, access-log.tsv, crosscheck.tsv"
+    ),
+    source_archive: str = typer.Option(
+        "", help="Provenance of the GeneReviews bulk archive: 'url sha256 date'"
+    ),
+) -> None:
+    """Validate the curated rows against the split and HPO, add independence columns, and write the panel."""
+    from diagnostic_ar_training.knowledge import literature_panel as lp
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    ensure_new(panel_id)
+    split_manifest = load_manifest(split_id)
+    split_path = REALISM_DIR / f"{split_id}.tsv"
+    if sha256_file(split_path) != split_manifest.outputs[0].sha256:
+        raise LineageError(f"{split_path} does not match the {split_id} manifest")
+    files = {n: extraction / f"{n}.tsv" for n in ("curated", "dropped", "access-log", "crosscheck")}
+    crosscheck = lp.read_tsv(files["crosscheck"])
+    unresolved = [r["row"] for r in crosscheck if r["agree"] != "true" and not r["resolution"].strip()]
+    if unresolved:
+        raise LineageError(f"cross-check disagreements without a resolution: rows {unresolved}")
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.EVAL))
+    hpoa_path = open_source("hpo_annotations", Purpose.EVAL)
+    r1 = lp.r1_pmid_parts(
+        set((SPLITS_DIR / "r1-v1.all-pmids.txt").read_text().split()),
+        set((SPLITS_DIR / "r1-v1.heldout-pmids.txt").read_text().split()),
+    )
+    split_rows = lp.read_tsv(split_path)
+    rows, problems = lp.validate_rows(
+        lp.read_tsv(files["curated"]), split_rows, ontology, lp.hpoa_cited_pmids(hpoa_path), r1
+    )
+    if problems:
+        for p in problems:
+            typer.echo(p, err=True)
+        raise typer.Exit(1)
+    out = REALISM_DIR / f"{panel_id}.tsv"
+    lp.write_tsv(rows, lp.PANEL_COLUMNS, out)
+    summary = lp.panel_summary(rows, split_rows, lp.read_tsv(files["dropped"]))
+    summary["crosscheck"] = {
+        "rows": len(crosscheck),
+        "agree": sum(r["agree"] == "true" for r in crosscheck),
+        "resolutions": dict(
+            sorted(Counter(r["resolution"].split(":")[0] for r in crosscheck if r["agree"] != "true").items())
+        ),
+    }
+    summary_path = REALISM_DIR / f"{panel_id}.summary.json"
+    summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
+    sources = registry.load_sources()
+    inputs = [
+        {"id": f"artifact:{split_id}", "sha256": split_manifest.outputs[0].sha256},
+        sources["hpo_ontology"].as_input(),
+        sources["hpo_annotations"].as_input(),
+        {"id": "r1-pmids:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.all-pmids.txt")},
+        {"id": "heldout-pmids:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.heldout-pmids.txt")},
+        *({"id": f"extraction:{n}", "sha256": sha256_file(p)} for n, p in files.items()),
+    ]
+    params = {
+        "split": split_id,
+        "independent_rule": "source_kind != orphanet and no cited PMID in phenotype.hpoa or in R1-train",
+        "genereviews_bulk_archive": source_archive,
+        "crosscheck": "10% seeded sample (seed 20260930) re-extracted by Codex CLI from gene, disease, "
+        "feature and citation only; agree = ranges overlap or |point difference| <= 0.10",
+    }
+    notes = (
+        "Evaluation only (ADR-0012 G4): never a fitting target and never an input to simulator profiles. "
+        "Private: short evidence quotes of copyrighted sources; do not publish as a release asset."
+    )
+    write_manifest(build_manifest(panel_id, "literature-panel", inputs, params, [out, summary_path], notes))
+    typer.echo(json.dumps({k: v for k, v in summary.items() if k != "rows_per_unit"}, indent=1))
 
 
 @artifacts_app.command("fetch")

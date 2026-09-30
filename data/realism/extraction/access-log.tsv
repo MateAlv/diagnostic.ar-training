@@ -1,0 +1,552 @@
+batch	source	access_path	status	note
+	GeneReviews NBK1109 (Bookshelf HTML)	ncbi-bookshelf-web	failed	reCAPTCHA challenge page returned to scripts
+	PMC8760211 (PMC article HTML)	pmc-web	failed	reCAPTCHA challenge page returned to scripts
+	NBK1109	ncbi-efetch-books	failed	E-utilities: 'Database: books - is not supported for rettype=full'
+	gene_NBK1116.tar.gz (GeneReviews bulk, 1,015 chapters)	ncbi-litarch-genereviews-bulk	ok	https://ftp.ncbi.nlm.nih.gov/pub/litarch/ca/84/gene_NBK1116.tar.gz; 638874278 bytes; Last-Modified 2026-09-30 06:41:04 GMT; sha256 53b1e181d4c6d9781f95baf714c1ca16d86312e69efe32234eec8a9c506d7077
+	GeneReviews id maps (GRshortname_NBKid_genesymbol_dzname.txt, NBKid_shortname_OMIM.txt)	ncbi-ftp-genereviews	ok	https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/
+	Orphanet disease page ORPHA:501	orphanet-web	failed	bot-check page ('Verification de la connexion'); no Orphanet rows were extracted
+	PMC8760211	europepmc-fulltext	ok	Europe PMC REST fullTextXML
+	PMC8760211	ncbi-efetch-pmc	ok	fallback when Europe PMC has no XML
+b1	NBK1109	ncbi-litarch-genereviews-bulk	ok	NF1 Table 2 + Clinical Description used
+b1	NBK1674	ncbi-litarch-genereviews-bulk	ok	LMNA-DCM chapter: no feature frequencies (only penetrance, detection rates)
+b1	NBK1309	ncbi-litarch-genereviews-bulk	ok	DCM overview: only fraction of DCM due to LMNA; not used
+b1	NBK1389	ncbi-litarch-genereviews-bulk	ok	Lafora chapter: no feature frequencies; not used
+b1	PMC12449980	europepmc-fulltext	ok	Castrichini 2025 LMNA cohort, Table 3 used
+b1	PMC11201013	europepmc-fulltext	ok	Forleo 2024 LMNA cohort n=54 used
+b1	PMC11631308	europepmc-fulltext	ok	Garcia-Pavia 2024 REALM-DCM n=77 used
+b1	PMC6203068	europepmc-fulltext	ok	Captur 2018 pooled LMNA mutation analysis: per-mutation data only; not used
+b1	PMC10474773	europepmc-fulltext	ok	Lafora IPD meta-analysis 2023: genotype/outcome data only; not used
+b1	PMC12369230	europepmc-fulltext	ok	Apulian Lafora cohort: no aggregate figures; not used
+b1	PMC8365996	europepmc-fulltext	ok	Pondrelli 2021 Lafora IPD meta-analysis, Table 1 used
+b1	PMC8166462	ncbi-efetch-pmc	ok	Riva 2021 Italian Lafora cohort used
+b1	PMC7316188	europepmc-fulltext	ok	German Lafora series n=11: no aggregate feature figures; not used
+b1	PMC9580008	europepmc-fulltext	ok	Late-stage Lafora n=5: too small; not used
+b1	PMID15781812	europepmc-abstract	ok	Gomez-Abad 2005 abstract: no feature figures
+b1	PMID16529633	europepmc-abstract	ok	Franceschetti 2006 abstract: no feature figures
+b1	PMID28131202	europepmc-abstract	ok	no feature figures
+b1	PMID25683376	europepmc-abstract	ok	no feature figures
+b1	PMID34117373	europepmc-abstract	ok	Turkish Lafora n=14 abstract: no feature figures
+b1	PMID33152654	europepmc-abstract	ok	no feature figures
+b1	PMC8239732	europepmc-fulltext	ok	Lafora retinal case series: no aggregate figures; not used
+b1	PMC5873517	europepmc-fulltext	ok	Hirji 2018 Jalili n=7 used
+b1	PMC2668026	europepmc-fulltext	ok	Parry 2009 Jalili families used
+b1	PMC8041260	ncbi-efetch-pmc	ok	NEI Jalili n=3: per-patient only; not used
+b1	PMC11585565	europepmc-fulltext	ok	CNNM4 functional study: no phenotype figures
+b1	PMC12635807	europepmc-fulltext	failed	no full text (Europe PMC and NCBI efetch); abstract PMID41280631 has no feature figures
+b1	PMC5108005	europepmc-fulltext	failed	no full text (Europe PMC and NCBI efetch)
+b1	PMC4429266	europepmc-fulltext	failed	no full text (Europe PMC and NCBI efetch)
+b1	PMC2668018	europepmc-fulltext	failed	no full text (Europe PMC and NCBI efetch); also cited_in_hpoa=True
+b1	PMID30705057	europepmc-abstract	ok	Jalili systematic review abstract: no figures; full text not OA
+b1	PMID39522753	europepmc-abstract	ok	single case; not used
+b1	PMID36354001	europepmc-abstract	ok	single family; not used
+b1	PMC11973018	europepmc-fulltext	ok	Colson 2025 BRPF1 n=29, Table 2 used
+b1	EuropePMC search ARHGEF1	europepmc-search	ok	after several 502/503 retries; only 2019 index reports (PMID:30521495, 30714991; 1-2 patients each) and a 2026 single case (PMID:42687834); no cohort
+b1	EuropePMC search/abstract	europepmc	failed	transient HTTP 502/503 and connection resets (~10 min), recovered
+b2	NBK1335	ncbi-litarch-genereviews-bulk	ok	FBN1 Marfan, Table 3 used
+b2	NBK1124	ncbi-litarch-genereviews-bulk	ok	Noonan, Table 2 used (ID row only; other figures not gene-specific)
+b2	NBK22301	ncbi-litarch-genereviews-bulk	ok	DC/TBD; Table 2 has only qualitative frequency categories, no numbers, not DKC1-specific
+b2	NBK622730	ncbi-litarch-genereviews-bulk	ok	RNU4-2 NDD chapter, different disease (not RP); not used
+b2	PMC379142	europepmc-fulltext	failed	Tartaglia 2002 not OA (Europe PMC and NCBI efetch); abstract PMID:11992261 used instead
+b2	PMID:11992261	europepmc-abstract	ok	PS and HCM figures for PTPN11-positive NS
+b2	PMC12027154	europepmc-fulltext	ok	Mussa 2025 Table 4, PTPN11 n=675
+b2	PMC13114569	europepmc-fulltext	ok	Romanian NS cohort; per-patient table only, not used
+b2	PMC12607955	europepmc-fulltext	ok	Transylvania NS cohort; only 2 PTPN11 cases, not used
+b2	PMC13554945	europepmc-fulltext	ok	Colombian NS cohort; not needed
+b2	PMC12643386	europepmc-fulltext	ok	North Indian RASopathy cohort; not needed
+b2	PMID:15280901	europepmc-search	failed	AFP deficiency: only case reports found (5 hits total), no cohort
+b2	PMC12807869	europepmc-fulltext	ok	Quinodoz 2026 RNU4-2/RNU6 RP; only 3 pooled RNU4-2+RNU6 figures, per-case data in Supplementary Table 5 (not retrievable)
+b2	PMC13400782	europepmc-fulltext	ok	snRNA WGS study; single RNU4-2 RP patient
+b2	PMC13332460	europepmc-fulltext	ok	Irish PRPF cohort; no RNU4-2 RP data
+b2	PMC12813686	europepmc-fulltext	ok	DKC1 adult pulmonary fibrosis cohort (n=8, selected for PF); not representative, not used
+b2	PMC8952184	europepmc-fulltext	failed	Niewisch 2022 not available (Europe PMC and NCBI efetch); abstract groups AR/XLR together
+b2	PMC1378074	europepmc-fulltext	failed	Knight 1999 not available; abstract has no DKC1 feature frequencies
+b2	PMC3142998	ncbi-efetch-pmc	ok	DC oral phenotype, 5 DKC1 patients, per-patient tables only; not used
+b2	PMC12012981	europepmc-fulltext	ok	DC tongue ulceration, 6 patients; not used
+b2	PMID:16332973	europepmc-abstract	ok	Vulliamy 2006 abstract; no frequencies
+b2	PMID:41451493	europepmc-abstract	ok	Chinese HH review abstract; no usable frequencies
+b2	PMID:42267950	europepmc-abstract	ok	Canadian DC registry abstract; no DKC1 feature frequencies
+b2	PMID:40613190	europepmc-abstract	ok	DC in children (n=4); not usable
+b2	PMC4530066	ncbi-efetch-pmc	ok	Engelhardt 2015 DOCK8 n=64, Tables 1-3 and Results used
+b2	PMID:25627830	europepmc-abstract	ok	Aydin 2015 DOCK8 n=136; cited_in_hpoa=True and abstract gives few feature counts; not used
+b2	PMC13605561	europepmc-fulltext	ok	Pediatric DOCK8 review; not needed
+b2	PMC12552177	europepmc-fulltext	ok	STAT3/DOCK8 HIES children; not needed
+b2	PMID:38415930	europepmc-abstract	failed	HK1 HNSHA case series + literature review; not OA, no PMCID; abstract has no frequencies
+b2	PMC11675319	europepmc-fulltext	ok	HK1 case report with per-patient literature table only; counts not stated, not used
+b2	PMC12374552	europepmc-fulltext	ok	HK1 single case report; not used
+b3	NBK62111	ncbi-litarch-genereviews-bulk	ok	Kabuki; kidney/urinary row used; cleft/high palate figures are vague words
+b3	NBK1111	ncbi-litarch-genereviews-bulk	ok	Holt-Oram
+b3	NBK1233	ncbi-litarch-genereviews-bulk	ok	MELAS Table 3 (7%-89% band looks garbled, not used)
+b3	NBK1434	ncbi-litarch-genereviews-bulk	ok	deafness overview lists MYO3A only, no figures
+b3	NBK1122	ncbi-litarch-genereviews-bulk	ok	PCD; heterotaxy row used
+b3	PMC8760211	europepmc-fulltext	ok	Di Candia 2022 Kabuki
+b3	PMC11950074	europepmc-fulltext	ok	104 Chinese KS children, KS1 column
+b3	PMC6460573	europepmc-fulltext	failed	not OA (Europe PMC and NCBI efetch)
+b3	PMID30552424	europepmc-abstract	ok	Vanlerberghe 2019 abstract
+b3	PMC13059588	europepmc-fulltext	ok	HOS n=11 clinical, not used
+b3	PMC4245183	europepmc-fulltext	ok	EUROCAT HOS
+b3	PMC11764741	europepmc-fulltext	ok	MYO3A Japanese series n=8 with data
+b3	PMC12695129	europepmc-fulltext	ok	Darier n=26 retrospective, not used (documentation gaps)
+b3	PMC11942685	europepmc-fulltext	ok	Darier n=76 pruritus
+b3	PMID40552524	europepmc-abstract	ok	Darier Ontario n=24
+b3	PMID1619075	europepmc-abstract	ok	Darier n=163
+b3	PMID20456342	europepmc-abstract	ok	Darier neuropsychiatric n=100
+b3	PMID26471493	europepmc-abstract	ok	Darier Israel n=74, not used
+b3	PMID30345710	europepmc-abstract	ok	no prevalence figures
+b3	PMC8222748	europepmc-fulltext	ok	case report, not used
+b3	PMC10399679	europepmc-fulltext	ok	review, vague quantifiers only
+b3	PMC13613360	europepmc-fulltext	ok	DDITF review, secondary figures not used
+b3	PMID27492829	europepmc-abstract	ok	PCD meta-analysis, only CHD 5%, not used
+b3	PMC11306806	europepmc-fulltext	ok	Raidt 2024 PCD, no DNAAF6-specific figures
+b3	PMC5223094	europepmc-fulltext	ok	PIH1D3 AJHG 2017 n=4, cited_in_hpoa, not used
+b3	PMC5309803	europepmc-fulltext	ok	PIH1D3 Nat Commun 2017 n=13
+b3	EuropePMC-search	europepmc-rest	failed	transient HTTP 503 / TLS EOF for several minutes, succeeded on retry
+b3	PMC9735368	europepmc-fulltext	ok	NFU1 continuum n=19 (HSP-like), cited_in_hpoa and heldout, not used
+b3	PMC8393393	europepmc-fulltext	ok	MMDS systematic review 2021, Table 1 rows [48] and [53] used
+b3	PMID42192213	europepmc-abstract	ok	MMDS1 case + review, no figures
+b3	PMC4394698	europepmc-fulltext	ok	NFU1 seven-patient series
+b4	NBK1356	ncbi-litarch-genereviews-bulk	ok	"UMOD; only gout figures (55%, 8% <18 y); hyperuricemia ""almost all"" (not usable)"
+b4	PMC9923703	europepmc-fulltext	ok	Olinger/Mabillard 2021 review; no ~25% cyst figure for UMOD; not used
+b4	PMC7486199	europepmc-fulltext	ok	Kidd 2020; gout only (245/447); GeneReviews row used instead
+b4	PMC12125067	europepmc-fulltext	ok	Japanese ADTKD cohort; hyperuricemia 15/16; not used (Ayasreh larger)
+b4	PMID32450155	europepmc-abstract	ok	Olinger 2020; no feature frequencies in abstract; full text not OA
+b4	PMID21868615	europepmc-abstract	ok	Bollee 2011; renal cysts 24/70 used; full text PMC3359549 not available
+b4	PMC3359549	europepmc-fulltext	failed	no full text available
+b4	PMID29784615	europepmc-abstract	ok	Ayasreh 2018; hyperuricemia 87% used
+b4	PMC7784305	europepmc-fulltext	ok	Onoe 2021; hypertension, ESKD, fibrosis/atrophy used
+b4	PMC12289749	europepmc-fulltext	ok	no usable proportions
+b4	PMC3383240	europepmc-fulltext	ok	Austrian survey; no usable proportions
+b4	PMC9496136	europepmc-fulltext	ok	Taiwan; no usable proportions
+b4	PMC13072683	europepmc-fulltext	ok	3-case series; no usable proportions
+b4	PMID23723338	europepmc-abstract	ok	Moskowitz 2013; ages only
+b4	NBK425540	ncbi-litarch-genereviews-bulk	ok	FBXL4 Table 2 and supportive findings used
+b4	NBK1401	ncbi-litarch-genereviews-bulk	ok	FA; FA-Q <1% of FA, no FA-Q-specific feature frequencies
+b4	NBK1476	ncbi-litarch-genereviews-bulk	ok	MSP; very few HNRNPA2B1 families, no frequencies
+b4	PMC12927860	europepmc-fulltext	ok	Chinese MSP cohort; no HNRNPA2B1 cases
+b4	PMC11021623	europepmc-fulltext	ok	Japanese MSP survey; no HNRNPA2B1 frequencies
+b4	PMC10109322	europepmc-fulltext	ok	Mayo MSP cohort; no HNRNPA2B1 cases
+b4	PMC13382312	europepmc-fulltext	ok	ATP11C 10 individuals; per-patient only, no stated proportions
+b4	PMC12387066	europepmc-fulltext	ok	ATP11C 4 cases; per-patient only
+b4	NBK435692	ncbi-litarch-genereviews-bulk	ok	SAMD9L; no feature frequencies
+b4	PMID39475954	europepmc-abstract	ok	Sahoo 2025 registry; no feature frequencies in abstract
+b4	PMC11826520	europepmc-fulltext	failed	no full text available
+b4	PMC5570676	europepmc-fulltext	ok	Gorcenco 2017; cerebellar atrophy 8/8, WM changes 6/8, cytopenia 8/12
+b4	PMC5940635	europepmc-fulltext	ok	review; no counts
+b4	PMC10075289	europepmc-fulltext	ok	case + literature table; no pooled proportions
+b4	PMC13340485	europepmc-fulltext	ok	single case + database; no proportions
+b4	PMC11145150	europepmc-fulltext	ok	6 cases; no stated proportions
+b4	PMC10828767	europepmc-fulltext	ok	7 children with monosomy 7
+b4	PMID28202457	europepmc-abstract	ok	Tesi 2017; MDS 3 of 10 carriers
+b4	PMC5399482	europepmc-fulltext	failed	no full text available
+b4	PMID27259050	europepmc-abstract	ok	Chen 2016; no counts
+b4	Europe PMC search	europepmc-rest	failed	HTTP 503 for several minutes; retried until it recovered
+b4	PMC9330547	ncbi-efetch-pmc	ok	Sahoo 2021; pooled SAMD9/SAMD9L MDS cohort, no SAMD9L-specific stated proportions; not used
+b4	PMC8554712	europepmc-fulltext	ok	single case; not used
+b4	PMC9778166	europepmc-fulltext	ok	single case; not used
+b4	PMID42143199	europepmc-abstract	ok	Van de Velde 2026; anterior pituitary hypoplasia 6/7 used
+b4	PMC10118753	europepmc-fulltext	ok	Sergipe review; diabetes 15% (primary paper used instead)
+b4	PMC12072800	europepmc-fulltext	ok	ENT systematic review; excludes GHRHR patients
+b4	PMC13290134	europepmc-fulltext	ok	GENHYPOPIT; no GHRHR-specific proportions
+b4	PMC10916835	europepmc-fulltext	ok	Turkish panel; 2 GHRHR cases
+b4	PMC3689269	europepmc-fulltext	ok	Vicente 2013; DM, IGT, IFG used
+b4	PMC4151384	europepmc-fulltext	ok	Diniz 2014; NAFLD, elevated ALT used
+b4	PMC4738236	europepmc-fulltext	ok	CAC scores only; not used
+b4	PMC6454299	europepmc-fulltext	ok	no usable proportions
+b4	PMC6510710	europepmc-fulltext	ok	fetched; not used
+b4	PMC12383713	europepmc-fulltext	ok	review; no GHRHR proportions
+b4	PMID32894409	europepmc-abstract	ok	Indian GHD cohort; APH 72.5% is whole cohort, not GHRHR-specific; not used
+b5	NBK1446	ncbi-litarch-genereviews-bulk	ok	GLI3-GCPS Table 2 used
+b5	NBK1465	ncbi-litarch-genereviews-bulk	not used	Pallister-Hall, different disease
+b5	NBK1292	ncbi-litarch-genereviews-bulk	ok	Fabry clinical description used
+b5	NBK7047	ncbi-litarch-genereviews-bulk	ok	DBA Table 2 used
+b5	NBK555473	ncbi-litarch-genereviews-bulk	ok	read; superseded by 2025 systematic review (n=77)
+b5	NBK1133	ncbi-litarch-genereviews-bulk	ok	LDS; only TGFB2 dissection range usable, Table 4 is +/- only
+b5	NBK1120	ncbi-litarch-genereviews-bulk	not used	HTAD overview
+b5	NBK1138	ncbi-litarch-genereviews-bulk	not used	ataxia overview, no SCA29 figures
+b5	PMC11647742	europepmc-fulltext	ok	DBA NCI cohort (PMID:39691264)
+b5	PMC12535114	europepmc-fulltext	ok	NTHL1 systematic review (PMID:41107869)
+b5	PMC5947146	europepmc-fulltext	ok	TGFB2/3 SMAD2/3 mutation update; Table 5 +/- only, not used
+b5	PMC13547592	europepmc-fulltext	ok	LDS phenotypic variability; TGFB2 excluded by authors, not used
+b5	PMC4033668	ncbi-efetch-pmc	ok	Boileau 2012 TGFB2 Table 1 used (cited_in_hpoa=True, r1 heldout)
+b5	PMC3616632	ncbi-efetch-pmc	ok	Lindsay 2012; Table 1 is +/- only, not used
+b5	PMC10952845	europepmc-fulltext	ok	Tolonen 2024 ITPR1 (draft source); cited_in_hpoa=True, r1 train; not used
+b5	PMC5490223	europepmc-fulltext	ok	Zambonin 2017 SCA29 case series used
+b5	PMC10620943	europepmc-fulltext	ok	SPTAN1 Morsy 2023; DEE subgroup n=5, no stated frequencies
+b5	PMC6248409	europepmc-fulltext	failed	Syrbe 2017 SPTAN1, not OA (NCBI efetch also failed)
+b5	PMID29050398	europepmc-abstract	ok	Syrbe 2017 abstract, no usable feature frequencies
+b5	PMC5785268	europepmc-fulltext	failed	Wang 2018 JCI SPTAN1, no full text via Europe PMC or efetch
+b5	PMC3032058	europepmc-fulltext	failed	Saitsu 2010 SPTAN1, no full text via Europe PMC or efetch
+b5	PMID25631096	europepmc-abstract	ok	Tohyama 2015 SPTAN1 review abstract, no counts
+b5	PMID34590414	europepmc-abstract	ok	SPTAN1 2022 abstract, no feature counts
+b5	PMID40261672	europepmc-abstract	ok	SPTAN1 caregiver survey abstract, no counts
+b5	PMC12243253	europepmc-fulltext	ok	IARS1 case series and review (PMID:40635052) used
+b5	PMC11882346	europepmc-fulltext	ok	ARS1 deficiencies review, fetched, not needed
+b5	PMC10767687	europepmc-fulltext	ok	IARS1 2024 case and review, fetched, not needed
+b6	NBK1450	ncbi-litarch-genereviews-bulk	ok	ALS overview; UNC13A listed only as risk/modifier gene; TUBA4A listed without feature figures
+b6	NBK1287	ncbi-litarch-genereviews-bulk	ok	HPS chapter; no HPS4-specific feature frequencies
+b6	NBK1434	ncbi-litarch-genereviews-bulk	ok	Hearing loss overview; SMPX named only
+b6	NBK410087	ncbi-litarch-genereviews-bulk	ok	CoQ10 deficiency chapter; no COQ4 feature frequencies
+b6	NBK1533	ncbi-litarch-genereviews-bulk	ok	ELANE-related neutropenia; used (cyclic neutropenia bounds)
+b6	PMID17301390	europepmc-abstract	ok	Iranian cyclic neutropenia n=7; used
+b6	PMID8989458	europepmc-abstract	ok	Palmer 1996 ADCH; no numbers in abstract
+b6	PMID3052663	europepmc-abstract	ok	no numbers
+b6	PMID7453561	europepmc-abstract	ok	no numbers
+b6	PMID23463630	europepmc-abstract	ok	ELANE mutation rates only
+b6	PMC11909545	europepmc-fulltext	failed	no full text available
+b6	PMC10573598	europepmc-fulltext	ok	case reports; no cohort numbers
+b6	PMC5286543	europepmc-fulltext	ok	case report; no feature prevalences
+b6	PMC12418289	europepmc-fulltext	ok	systematic review; not pooled per cyclic neutropenia
+b6	PMC12644420	europepmc-fulltext	ok	HPS4 review of 51 cases; features only in supplement (not available)
+b6	PMID12664304	europepmc-abstract	ok	HPS4 n=7; no counts
+b6	PMID33423334	europepmc-abstract	ok	HPS IBD; not HPS4-specific
+b6	PMC13366980	ncbi-efetch-pmc	ok	HPS symptom survey; HPS4 not separated
+b6	PMC11508982	europepmc-fulltext	ok	HPS review; no HPS4 numbers
+b6	PMC13546565	europepmc-fulltext	ok	HPS4 case report; no numbers
+b6	PMC11325792	europepmc-fulltext	ok	Pakistani OCA/HPS families; no HPS4 cases
+b6	PMC12145067	europepmc-fulltext	ok	HPS visual acuity; no HPS4 numbers
+b6	PMC13485168	europepmc-fulltext	failed	no full text available (TUBA4A review)
+b6	PMC4521390	ncbi-efetch-pmc	ok	Smith 2014 TUBA4A; too few features with denominators
+b6	PMID28069311	europepmc-abstract	ok	Belgian TUBA4A screen; 3 carriers, no counts
+b6	PMID26675813	europepmc-abstract	ok	no TUBA4A carriers
+b6	PMC12306721	europepmc-fulltext	ok	SUN5 single patient
+b6	PMC2921285	europepmc-fulltext	ok	Maksimova 2010 SOPH n=34; used (cited_in_hpoa=True)
+b6	PMID31761904	europepmc-abstract	ok	Staufner 2020 NBAS n=110; abstract has no feature numbers; full text not OA
+b6	PMID36843433	europepmc-abstract	ok	SOPH 93 Yakut; abstract has no numbers; full text not OA
+b6	PMID41339337	europepmc-abstract	ok	no feature numbers
+b6	PMID38244286	europepmc-abstract	ok	no feature numbers
+b6	PMC11396341	europepmc-fulltext	ok	X-linked HL China; 2 SMPX probands, no prevalences
+b6	PMC3146715	europepmc-fulltext	failed	no full text available (Schraders 2011 SMPX)
+b6	PMC3146719	europepmc-fulltext	failed	no full text available (Huebner 2011 SMPX)
+b6	PMC9807242	ncbi-efetch-pmc	ok	Laugwitz 2022 COQ4 n=44; used
+b6	PMC11466766	europepmc-fulltext	ok	COQ4 newborn series; fetched, not needed
+b7	NBK531510	ncbi-litarch-genereviews-bulk	ok	LCA overview; RPGRIP1 row has no feature frequencies
+b7	PMC8551679	europepmc-fulltext	ok	RPGRIP1 228-patient review (PMID:34722527; cited_in_hpoa=True, r1 train) used
+b7	PMC8595035	europepmc-fulltext	ok	LCA6 Chinese n=5; too small, not used
+b7	PMID:38768745	europepmc-abstract	ok	RPGRIP1 EOSRD/LCA n=18; full text not OA
+b7	PMID:42102949	europepmc-abstract	ok	Japanese RPGRIP1 cohort; no feature numbers in abstract; not OA
+b7	PMID:36762997	europepmc-abstract	ok	n=4, not used
+b7	NBK22301	ncbi-litarch-genereviews-bulk	ok	DC/TBD; no RTEL1-specific feature frequencies
+b7	NBK1230	ncbi-litarch-genereviews-bulk	ok	PF predisposition; only RTEL1 gene share and mean age
+b7	PMID:30523160	europepmc-abstract	ok	Borie 2019 RTEL1 ILD n=35; only ILD subtype split in abstract; full text not OA
+b7	PMC5433348	ncbi-efetch-pmc	ok	Newton 2016 (PMID:27540018) RTEL1 column n=14 used
+b7	PMID:39279436	europepmc-abstract	ok	RTEL1 TBD NCI cohort; no feature frequencies in abstract
+b7	PMID:41332233	europepmc-abstract	ok	heterozygous RTEL1 carriers (not affected-only); not used
+b7	PMC5410638	europepmc-fulltext	ok	RTEL1 deficiency review; not used
+b7	PMC4414891	ncbi-efetch-pmc	ok	fetched, not used
+b7	NBK1485	ncbi-litarch-genereviews-bulk	ok	listed for SOX17 (PAH), wrong disease; not used
+b7	EuropePMC search SOX17 VUR	europepmc-search	ok	no cohort with feature counts for SOX17 vesicoureteral reflux
+b7	NBK1447	ncbi-litarch-genereviews-bulk	ok	PNDM; PDX1 row has no feature frequencies
+b7	NBK500456	ncbi-litarch-genereviews-bulk	ok	MODY overview; not relevant to AR agenesis
+b7	PMC11575358	europepmc-fulltext	ok	Exeter PDX1-NDM n=19 (PMID:39542526) used
+b7	NBK1133	ncbi-litarch-genereviews-bulk	ok	LDS; no TGFB3 feature frequencies
+b7	NBK1120	ncbi-litarch-genereviews-bulk	ok	HTAD overview; not used
+b7	PMID:39653386	europepmc-abstract	ok	Montalcino TGFB3 n=34 used; full text not OA
+b7	PMID:31898322	europepmc-abstract	ok	Dutch-French TGFB3 n=32 used (r1 train, not in HPOA); full text not OA
+b7	PMC10500191	europepmc-fulltext	ok	Belgian TGFB3 founder; penetrance among carriers only, not used
+b7	PMC9235842	europepmc-fulltext	ok	ATP6AP1 twins + pooled review n=20 (PMID:35732497) used
+b7	PMC10047170	ncbi-efetch-pmc	ok	ATP6AP1-CDG n=11 (PMID:36651831) used
+b7	NBK320989	ncbi-litarch-genereviews-bulk	ok	nuclear Leigh overview; SCO2 row has no frequencies
+b7	PMC4110422	europepmc-fulltext	ok	in silico SCO2 variant review; no clinical numbers
+b7	PMC4967497	ncbi-efetch-pmc	ok	Brazilian case + literature table; no aggregate numbers
+b7	PMC13395627	europepmc-fulltext	ok	single case; not used
+b7	PMID:23719228	europepmc-abstract	ok	Polish SCO2 n=62; no feature numbers in abstract; not OA
+b7	PMID:19879173	europepmc-abstract	ok	Polish SCO2 n=18; complex IV 7/12 used
+b7	PMC9865855	europepmc-fulltext	ok	Russian Leigh cohort, SCO2 n=16 (PMID:36675121) used
+b7	PMID:36689511	europepmc-abstract	ok	KLK11 3 families; no numbers
+b7	PMID:37212630	europepmc-abstract	ok	KLK11; empty abstract; not OA
+b7	PMID:39902525	europepmc-abstract	ok	KLK11 one family; no numbers
+b8	NBK538938	ncbi-litarch-genereviews-bulk	ok	RERE-Related Disorders
+b8	NBK1347	ncbi-litarch-genereviews-bulk	ok	PROP1-related CPHD, Table 2
+b8	NBK487394	ncbi-litarch-genereviews-bulk	ok	Schwannomatosis; only mixed LZTR1/SMARCB1 figure (Plotkin 2012), not used
+b8	NBK624097	ncbi-litarch-genereviews-bulk	ok	MBD4-TPDS, Table 2
+b8	PMC5903952	ncbi-efetch-pmc	ok	RERE Jordan 2018 (r1 train); not used, GeneReviews preferred
+b8	PMID41988794	europepmc-abstract	ok	RERE 54-individual cohort; abstract has no numbers, not OA
+b8	PMC10847174	europepmc-fulltext	ok	PROP1 pediatric cohort PMID:38147295
+b8	PMC10522137	europepmc-fulltext	ok	PROP1 20-year review; no phenotype frequencies
+b8	PMC7499144	europepmc-fulltext	ok	Turkish CPHD cohort; not PROP1-specific, not used
+b8	PMID22024773	europepmc-abstract	ok	PROP1 pituitary MRI series; no usable frequencies
+b8	PMC4336087	europepmc-fulltext	failed	not OA (Smith 2015 LZTR1)
+b8	PMID25480913	europepmc-abstract	ok	LZTR1 Smith 2015; no feature frequencies
+b8	PMC4352302	ncbi-efetch-pmc	ok	Piotrowski 2014 LZTR1; no phenotype frequencies
+b8	PMID29909380	europepmc-abstract	ok	Evans 2018 schwannomatosis epidemiology; no feature numbers
+b8	PMID38925914	europepmc-abstract	ok	Evans 2024; no feature numbers
+b8	PMC5805424	europepmc-fulltext	ok	Jordan 2018 pain/genotype; LZTR1 n=5, SMARCB1 n=15; Table 2 not in text
+b8	PMC13510342	europepmc-fulltext	ok	pediatric schwannomatosis 2026; 1-2 LZTR1 cases only
+b8	PMC11276570	europepmc-fulltext	ok	LZTR1 review; schwannomatosis table lists schwannomas only
+b8	PMC12644159	europepmc-fulltext	ok	schwannomatosis genes review; VS ~5% LZTR1, meningioma ~5% SMARCB1
+b8	PMC12062529	europepmc-fulltext	ok	schwannomatosis review; no frequencies
+b8	PMC12343709	europepmc-fulltext	ok	SMARCB1-SWN review; Table 3 non-NF2 mixed genotypes
+b8	PMC12642202	europepmc-fulltext	ok	schwannomatosis case series; no frequencies
+b8	PMC5258795	europepmc-fulltext	ok	Kehrer-Sawatzki 2017; no phenotype frequencies
+b8	PMC6007397	europepmc-fulltext	failed	not OA (Louvrier 2018)
+b8	PMID40293327	europepmc-abstract	ok	non-NF2 SWN surgery; no LZTR1-specific features
+b8	PMID39937237	europepmc-abstract	ok	no numbers
+b8	PMID41237393	europepmc-abstract	ok	MPNST meta-analysis; no LZTR1/SMARCB1 feature frequencies
+b8	PMC3481897	europepmc-fulltext	failed	not OA (Merker 2012)
+b8	PMID22927469	europepmc-abstract	ok	Merker 2012 mixed-genotype schwannomatosis, n=87; not gene-specific
+b8	PMC6080769	europepmc-fulltext	failed	not OA (Gregor 2018 FBXO11)
+b8	PMC6462006	europepmc-fulltext	failed	not OA (Jansen 2019 FBXO11)
+b8	PMID30057029	europepmc-abstract	ok	Gregor 2018 FBXO11 (cited_in_hpoa=True); not used
+b8	PMID30679813	europepmc-abstract	ok	Jansen 2019 FBXO11 (r1 train); no counts in abstract
+b8	PMC8825234	europepmc-fulltext	ok	FBXO11 2022 cohort, Table 1
+b8	PMID38740982	europepmc-abstract	ok	Chinese FBXO11 cohort, n=12
+b8	PMC12434141	europepmc-fulltext	ok	SASH3 single case report
+b8	PMID33876203	europepmc-abstract	ok	SASH3 Delmonte 2021, n=4, no counts
+b8	PMID42490342	europepmc-abstract	ok	Rh-null scoping review, 8 individuals, no numbers, not OA
+b8	europepmc-search	europepmc-rest	failed	HTTP 503 for about 10 minutes mid-run, recovered on retry
+r1	NBK1401	ncbi-litarch-genereviews-bulk	ok	Fanconi Anemia; Table 2 and Clinical Description used (all-FA figures, none FANCD2-specific)
+r1	GeneReviews NLRP3/MBTPS2/ZBTB42/ELMOD3/RB1CC1/PTPN2	ncbi-litarch-genereviews-bulk	failed	no chapter lists these genes (no CAPS chapter in bulk archive)
+r1	Europe PMC search	europepmc-rest	failed	HTTP 503 for a period; used NCBI esearch/esummary for discovery meanwhile, Europe PMC recovered later
+r1	PMC6730648	ncbi-efetch-pmc	ok	Fiesco-Roa 2019 FA genotype-phenotype review; FANCD2 per-feature figures only in figures, not text; not used
+r1	PMC1852747	europepmc-fulltext	failed	Kalb 2007 FA-D2 cohort; no full text via Europe PMC or NCBI efetch
+r1	PMID:17436244	ncbi-efetch-pubmed-abstract	ok	Kalb 2007 abstract; no per-feature numbers; not used
+r1	PMC4321996	europepmc-fulltext	failed	Hoffman 2001 FCAS phenotype paper; no full text via Europe PMC or NCBI efetch (author manuscript)
+r1	PMID:11590390	ncbi-efetch-pubmed-abstract	ok	Hoffman 2001 abstract; used (Europe PMC abstract endpoint was 503 at the time)
+r1	PMID:12602672	ncbi-efetch-pubmed-abstract	ok	Johnstone 2003 FCAS kindred abstract; no per-feature numbers; not used
+r1	PMC10551459	europepmc-fulltext	ok	Chinese pediatric CAPS cohort; FCAS-subgroup figures only in a figure; not used
+r1	PMC13072506	europepmc-fulltext	ok	Turkish/German pediatric CAPS cohort; no FCAS-specific feature figures; not used
+r1	PMC3127745	europepmc-fulltext	ok	Megarbane 2011 IFAP review (OJRD); no numeric frequencies; not used
+r1	PMC6859747	europepmc-fulltext	ok	IFAP Indian case review; 10 clinically diagnosed, not genetically confirmed cases, counts only in words; not used
+r1	PMC7981912	europepmc-fulltext	ok	Caengprasath 2021 MBTPS2 review; no frequencies; not used
+r1	PMC13087023	europepmc-fulltext	ok	Kumar 2026 IFAP family report; no frequencies; not used
+r1	PMC10108828	europepmc-fulltext	ok	Migliavacca 2023 IFAP case; single case; not used
+r1	PMID:39915684	ncbi-efetch-pubmed-abstract	ok	Bari 2025 IFAP ocular letter; no abstract text; not used
+r1	PMID:31907960	ncbi-efetch-pubmed-abstract	ok	Murase 2020 IFAP letter; no abstract text; not used
+r1	PubMed ZBTB42	ncbi-esearch	ok	only Patel 2014 (PMID:25055871, single family) reports LCCS6; no cohort
+r1	PubMed ELMOD3	ncbi-esearch	ok	only single-family reports (Jaworek 2013, Li 2018, Lahbib 2019); no cohort
+r2	Europe PMC REST search	europepmc-search	failed	HTTP 503 throughout the session; searches done with NCBI esearch/esummary (r2_ncbi.py)
+r2	NCBI E-utilities pubmed esearch/esummary	ncbi-esearch-pubmed	ok	fallback search for all units
+r2	NBK1122	ncbi-litarch-genereviews-bulk	ok	PCD; used (3 rows)
+r2	NBK1431	ncbi-litarch-genereviews-bulk	ok	NR0B1 AHC; only onset-age figures, no feature prevalences; not used
+r2	NBK584020	ncbi-litarch-genereviews-bulk	ok	Pediatric cholestasis overview; KIF12 listed without figures; not used
+r2	NBK1485	ncbi-litarch-genereviews-bulk	ok	Heritable PAH; no BMP10 and no symptom frequencies; not used
+r2	PMC3426911	ncbi-efetch-pmc	ok	Berger 2012 TOPP; used (BMP10 unit)
+r2	PMC3128436	ncbi-efetch-pmc	ok	Barst 2011 review; no symptom counts; not used
+r2	PMID:38514094	ncbi-efetch-pubmed-abstract	ok	Grynblat 2024 GDF2/BMP10 abstract; mostly GDF2 carriers, not used
+r2	PMC9295413	europepmc-fulltext	ok	Peng 2022; used (DNAAF2 unit)
+r2	PMID:38553872	ncbi-efetch-pubmed-abstract	ok	Vogel 2024 KIF12 review abstract (n=25); only 3 features with numbers; full text not OA
+r2	PMC10813742	ncbi-efetch-pmc	ok	Cheng 2024 KIF12 twins; no counts
+r2	PMC13007854	ncbi-efetch-pmc	ok	KIF12 case report; no counts
+r2	PMC13587065	ncbi-efetch-pmc	ok	Seth 2026 KIF12 cell biology; no clinical counts
+r2	PMC6442693	ncbi-efetch-pmc	ok	Unlusoy Aksu 2019 KIF12, 3 patients; no counts
+r2	PMID:34555379	ncbi-efetch-pubmed-abstract	ok	Stalke 2022 KIF12 abstract; no counts
+r2	PMID:42754724	ncbi-efetch-pubmed-abstract	ok	Abdel Gawad 2026 PFIC abstract; 2 KIF12 patients, no counts
+r2	PMC11023912	europepmc-fulltext	failed	van der Made 2024 PSMB10 (n=6): Europe PMC 500, NCBI efetch says publisher disallows XML full text
+r2	PMID:38503300	ncbi-efetch-pubmed-abstract	ok	van der Made 2024 abstract; no counts
+r2	PMC13177760	europepmc-fulltext	ok	Fournier 2026 PSMB10, per-patient table of 10 cases only; no stated counts
+r2	PMC11972880	ncbi-efetch-pmc	ok	Kuehn 2025 PSMB10 single family; no counts
+r2	PMC13064613	europepmc-fulltext	ok	Ghosh 2026 PSMB10 single patient; no counts
+r2	PMC7325958	europepmc-fulltext	ok	Sharapova 2020 RAG cohort; Omenn feature counts only in supplement
+r2	PMC10847812	europepmc-fulltext	ok	Karaatmaca 2024 RAG cohort; only 5 Omenn patients, no feature counts
+r2	PMID:26596586 PMID:17075247 PMID:23527934 PMID:18822103 PMID:26476733	ncbi-efetch-pubmed-abstract	ok	Omenn syndrome abstracts; no feature counts
+r2	PMC4259925	europepmc-fulltext	failed	Malik 2014 BHLHA9 MSSD: no full text from Europe PMC or NCBI efetch
+r2	PMID:25466284 PMID:27041388	ncbi-efetch-pubmed-abstract	ok	BHLHA9 abstracts; family reports, no counts
+r2	PMC10214642	europepmc-fulltext	ok	Zheng 2023 NR0B1 n=42; used
+r2	PMC13090587	europepmc-fulltext	ok	Esquiaveto-Aun 2026 NR0B1 12 families; per-patient table only, not used
+r3	NBK1123	ncbi-litarch-genereviews-bulk	ok	EDM-AD chapter; no per-feature figures for COL9A3 MED
+r3	NBK242617	ncbi-litarch-genereviews-bulk	ok	Perrault chapter; LARS2 section has no per-feature figures
+r3	NBK299312	ncbi-litarch-genereviews-bulk	ok	RTD chapter; SLC52A1 (RTD1) single case report only, figures are RTD2/RTD3
+r3	NBK535153	ncbi-litarch-genereviews-bulk	ok	AP-4-HSP chapter; used for AP4M1
+r3	europepmc-search	europepmc-rest	failed	HTTP 503 for about the first half of the session; NCBI E-utilities (esearch/efetch pubmed) used as fallback via scratchpad/extraction/r3_ncbi.py, then Europe PMC recovered
+r3	PMC12956261	ncbi-efetch-pmc	ok	Lin 2026 LARS2; case report, no frequencies
+r3	PMC7236518	ncbi-efetch-pmc	ok	Carminho-Rodrigues 2020 LARS2 review; only per-patient table, no stated frequencies
+r3	PMC11330641	ncbi-efetch-pmc	ok	Faridi 2022; LARS2 counts only present:NR (sex, SNHL degree, gonadal, neuro), not usable
+r3	PMID:42283975	ncbi-efetch-pubmed	ok	Tlili 2026 Perrault review abstract; no feature frequencies
+r3	PMID:32442335	ncbi-efetch-pubmed	ok	Riley 2020 LARS2 abstract; no frequencies
+r3	PMID:27650058	ncbi-efetch-pubmed	ok	Lerat 2016 abstract; no feature frequencies
+r3	PMID:40119736	ncbi-efetch-pubmed	ok	Adam 2025 LARS2 case report abstract
+r3	PMID:34338890	ncbi-efetch-pubmed	ok	Faridi 2022 abstract
+r3	PMC3557369	europepmc-fulltext	ok	Jackson 2010; COL9A2 families, no COL9A3 figures
+r3	PMC2875749	europepmc-fulltext	ok	skeletal dysplasia myopathy review; no COL9A3 frequencies
+r3	PMC15572	europepmc-fulltext	failed	Bonnemann 2000 COL9A3 family: no full text (Europe PMC and NCBI efetch); abstract has no counts
+r3	PMC1377827	europepmc-fulltext	failed	Paassilta 1999 COL9A3: no full text; abstract has no counts
+r3	PMID:15551337	europepmc-abstract	ok	Nakashima 2005 COL9A3 family abstract; no counts
+r3	PMID:30848790	ncbi-efetch-pubmed	ok	Walenkamp 2019 IGF1R abstract; only feeding problems 15/19, not used (Vimercati covers feeding)
+r3	PMID:38710621	ncbi-efetch-pubmed	ok	Kawashima-Sonoyama 2024 IGF1R abstract; n=13, no usable frequencies
+r3	PMC13115005	europepmc-fulltext	ok	Luppino 2026 IGF1R case report; no pooled frequencies
+r3	PMC12895115	europepmc-fulltext	ok	Park 2026 IGF1R screening in SGA; no P/LP carriers
+r3	PMC8981046	europepmc-fulltext	ok	Kawashima-Sonoyama 2022 IGF1R n=11; no stated frequencies
+r3	PMC5985885	europepmc-fulltext	ok	Janchevska 2018; SGA cohort, not IGF1R carriers
+r3	PMC11913091	europepmc-fulltext	ok	Vimercati 2025 Table 5 IGF1R column; used (11 rows)
+r3	PMID:31586944	europepmc-abstract	ok	Giabicani 2020 n=35; used for short stature; feeding/DD 54.5% skipped (one figure for two features)
+r3	PMID:32356191	europepmc-abstract	ok	IGF1R defects in 50 short children; abstract truncated, no frequencies
+r3	PMC13161747	europepmc-fulltext	ok	Yu 2026 15q26 deletion/duplication; contiguous deletions, not IGF1R resistance proper, not used
+r3	PMID:42710781	europepmc-abstract	ok	Rao 2026 Knobloch n=36; per-patient only occipital defects (no exact HPO), intracranial and skin (ambiguous); eye figures are per eye
+r3	PMID:40374141	europepmc-abstract	ok	Ozdek 2025 Knobloch; figures per eye only
+r3	PMID:38556002	ncbi-efetch-pubmed	ok	Alzaben 2024 Knobloch n=50; occipital bony defects or scalp lesions (combined), RD per eye
+r3	PMID:27259167	ncbi-efetch-pubmed	ok	Hull 2016 Knobloch n=12 (cited_in_hpoa=True); high myopia 12/12, glaucoma 2/12, RD 5/12 only exact features
+r3	PMID:22399687	ncbi-efetch-pubmed	ok	Khan 2012 n=8, mixed COL18A1/ADAMTS18
+r3	PMC5056964	ncbi-efetch-pmc	ok	Caglayan 2014 n=4; no frequencies
+r3	PMC8536191	europepmc-fulltext	ok	Chinese Knobloch n=6; no stated frequencies
+r3	PMC12254427	europepmc-fulltext	ok	prenatal Knobloch case; no frequencies
+r3	PMC12294696	europepmc-fulltext	ok	Saudi myopia/RD cohort; Knobloch figures are secondary citation of Alzaben
+r3	PMC13511546	europepmc-fulltext	ok	Sadat 2026 Knobloch n=4
+r3	PMID:35387550	ncbi-efetch-pubmed	ok	Arepalli 2022 3 siblings
+r3	PMC10378786	europepmc-fulltext	ok	SLC52A1 2023: 7 cases total in literature, no frequencies
+r3	PMC13197719	europepmc-fulltext	ok	transient neonatal MADD-like case; not SLC52A1
+r4	NBK554742 (danon)	ncbi-litarch-genereviews-bulk	ok	Table 2 used
+r4	NBK378974 (wss)	ncbi-litarch-genereviews-bulk	ok	
+r4	NBK1434 (deafness-overview)	ncbi-litarch-genereviews-bulk	ok	lists MYO6 only, no DFNA22 feature figures
+r4	NBK121988 (nbia-ov)	ncbi-litarch-genereviews-bulk	ok	not checked for figures; WSS chapter used instead
+r4	NBK500456 (mody-ov)	ncbi-litarch-genereviews-bulk	ok	BLK listed as <1% of MODY; no feature figures
+r4	PMC4573700	europepmc-fulltext	ok	IWC review (Guschmann 2015); only per-case table, 4/40 hyperreflexia
+r4	PMID25210931	europepmc-abstract	ok	Spoerri 2015 IWC, n=6, no per-feature numbers
+r4	PMID25210951	europepmc-abstract	ok	no abstract text
+r4	PMID32113649	europepmc-abstract	ok	no feature figures
+r4	PMID27664712	europepmc-abstract	ok	no feature figures
+r4	PMC9199913	europepmc-fulltext	ok	IWC case, no cohort figures
+r4	PMC6850952	europepmc-fulltext	ok	functional study, no cohort figures
+r4	PMC7593923	europepmc-fulltext	ok	keratinopathic ichthyoses, no IWC figures
+r4	PMC12308539	europepmc-fulltext	ok	no IWC cases
+r4	PMID34764427	europepmc-abstract	ok	SLC25A32, 3 patients
+r4	PMC11220001	europepmc-fulltext	ok	Watts 2024; RAB23 pooled counts used
+r4	PMC3429868	europepmc-fulltext	ok	Jenkins 2011 RAB23; no feature frequencies
+r4	PMID34748996	europepmc-abstract	ok	2 patients
+r4	PMC11220001 Supplementary Table 2	europepmc-supplementary	not tried	not reachable via lit.py
+r4	PMC7140843	europepmc-fulltext	ok	MYO6 Japanese cohort; only progression 22/29 usable
+r4	PMID25999546	europepmc-abstract	ok	MYO6 7 families, 'all progressive' only
+r4	PMID33710140	europepmc-abstract	ok	no feature figures
+r4	PMID19893302	europepmc-abstract	ok	no feature figures
+r4	PMID23340379	europepmc-abstract	ok	single family
+r4	PMID42345434	europepmc-abstract	ok	review, no figures
+r4	PMC9887781	europepmc-fulltext	ok	Kohil 2023; Table 3 c.436delC row used
+r4	PMID34590781	europepmc-abstract	ok	Ali 2022 Qatar n=58
+r4	Europe PMC search (first two queries)	europepmc-rest	failed then ok	transient HTTP 503 and TLS EOF; retried
+r5	VAMP7 GeneReviews	ncbi-litarch-genereviews-bulk	failed	no chapter lists VAMP7
+r5	PMID:32622737	europepmc-abstract	ok	VAMP7 gene-dosage case series (6 evaluated); CNV association, no feature counts; not used
+r5	ABCA5 GeneReviews	ncbi-litarch-genereviews-bulk	failed	no chapter lists ABCA5
+r5	Europe PMC search ABCA5 hypertrichosis	europepmc-search	ok	only single-family reports (PMID:35150007 not OA); not used
+r5	NBK1404	ncbi-litarch-genereviews-bulk	ok	Hemophilia A chapter: no clinical feature frequencies (inhibitor 30% has no HPO term); not used
+r5	PMC13110028	europepmc-fulltext	ok	El-Ghamrawy 2026 Egyptian bleeding disorders, HA n=64 columns used (Tables 2-3)
+r5	PMC12083209	europepmc-fulltext	ok	Barman 2025 HA n=80: APTT row used; presentation categories are mutually exclusive (sum to 80), not used
+r5	PMC9264493	europepmc-fulltext	ok	Bangladesh moderate/severe hemophilia n=44, mixed A and B; not used
+r5	TNFRSF13B GeneReviews	ncbi-litarch-genereviews-bulk	failed	no chapter lists TNFRSF13B
+r5	PMC12435966	europepmc-fulltext	ok	Abolhassani 2025 TACI cohort n=161, biallelic column (n=18) of Table 1 used
+r5	PMID:39826876	europepmc-abstract	ok	ClinGen PAD curation abstract; no per-gene classification in abstract; not used
+r5	NBK1252	ncbi-litarch-genereviews-bulk	ok	FH tumor predisposition Table 2 used (CLM, ULM)
+r5	PMC7694543	europepmc-fulltext	ok	Sanchez-Heras 2020 Spain n=197 used (renal cysts, RCC, adrenal adenoma)
+r5	PMC10811853	europepmc-fulltext	ok	Spanish founder-variant subset of the same cohort; overlapping, not used
+r5	PMC13458631	europepmc-fulltext	ok	Amsterdam FH surveillance n=77: RCC incidence only; not used
+r5	NBK1233	ncbi-litarch-genereviews-bulk	ok	MELAS Table 3 used (row labelled 7%-89% skipped as likely typo)
+r5	NBK1224	ncbi-litarch-genereviews-bulk	ok	mitochondrial overview: listed for MT-TL2, not needed
+r5	NBK1417	ncbi-litarch-genereviews-bulk	ok	nonsyndromic RP overview: CLRN1 accounts for <=1% of RP, no feature frequencies
+r5	PMC11593374	europepmc-fulltext	ok	CLRN1 nsRP single case report; not used
+r5	Europe PMC search (transient)	europepmc-search	failed	two transient errors (RemoteDisconnected, HTTP 503); retry succeeded
+r6	NBK1472	ncbi-litarch-genereviews-bulk	ok	IP chapter; few usable numbers, cohort papers used instead
+r6	NBK1122	ncbi-litarch-genereviews-bulk	ok	PCD; situs figures used
+r6	NBK190101	ncbi-litarch-genereviews-bulk	ok	pancreatitis overview; CTRC listed as risk/modifier gene -> unit dropped
+r6	NBK1358	ncbi-litarch-genereviews-bulk	ok	CMT overview; no HSPB8 myopathy figures
+r6	MYH3	ncbi-litarch-genereviews-bulk	failed	no GeneReviews chapter
+r6	GATB	ncbi-litarch-genereviews-bulk	failed	no GeneReviews chapter
+r6	PMC11613904	europepmc-fulltext	ok	Herlin 2024 IP Danish cohort
+r6	PMC11110290	europepmc-fulltext	ok	Yin 2024 IP Chinese cohort
+r6	PMC12063519	europepmc-fulltext	ok	Barber 2025 PCD NRD by genotype
+r6	PMC3739700	ncbi-efetch-pmc	ok	Knowles 2012 DNAH11
+r6	PMC12202327	europepmc-fulltext	ok	Zhang 2025 PCD central China
+r6	PMC11306806	europepmc-fulltext	ok	Raidt 2024 PCD registry; no DNAH11-specific clinical figures
+r6	PMC13155666	europepmc-fulltext	ok	DNAH11 3-patient report; not usable
+r6	PMC12578735	europepmc-fulltext	ok	Spanish PCD series; no gene-level clinical figures
+r6	PMC9314966	europepmc-fulltext	ok	PCD airway review; no DNAH11 figures
+r6	PMID33479112	europepmc-abstract	ok	Shoemark 2021; no numbers in abstract, full text not OA
+r6	PMID22184204	europepmc-abstract	ok	Knowles 2012 abstract (full text used)
+r6	PMC6170436	europepmc-fulltext	ok	Friederich 2018 GatCAB; 9 pooled QRSL1/GATB/GATC patients, GATB n<10
+r6	PMC11989117	europepmc-fulltext	ok	HSPB8 review; qualitative only
+r6	PMC12712841	europepmc-fulltext	ok	HSPB8 2-patient report
+r6	PMC12322164	europepmc-fulltext	ok	HSPB8 3 cases
+r6	PMID41951012	europepmc-abstract	ok	HSPB8-fs review; no numbers, not OA
+r6	PMC8847563	europepmc-fulltext	ok	MYH3 17 patients (AD+AR); per-patient table only, no stated frequencies
+r6	PMC7549579	europepmc-fulltext	ok	MYH3 single family; no frequencies
+r6	PMC13408948	europepmc-fulltext	ok	MYH3 sibling pair
+r6	PMC12338174	europepmc-fulltext	ok	MYH3 case report
+r6	PMC10815230	europepmc-fulltext	ok	MYH3 Polish family; no frequencies
+r6	europepmc-search	europepmc-rest	failed	intermittent HTTP 503 / TLS timeouts; retried successfully
+r7	NBK1282	ncbi-litarch-genereviews-bulk	ok	TRMA chapter, Table 2 used (SLC19A2)
+r7	NBK1447	ncbi-litarch-genereviews-bulk	not used	PNDM overview; TRMA covered by NBK1282
+r7	PMC13058307	europepmc-fulltext	ok	Upadhyay 2026 TRMA systematic review; treatment outcomes only, not used
+r7	PMC13409991	europepmc-fulltext	ok	Ingush TRMA series n=10; not used (GeneReviews sufficient)
+r7	NBK410087	ncbi-litarch-genereviews-bulk	ok	Primary CoQ10 deficiency; no COQ6 per-feature figures
+r7	PMC9482153	europepmc-fulltext	ok	Nam 2022 COQ6 cohort n=12; used
+r7	PMID:28117207	europepmc-abstract	ok	Park 2017 COQ6 n=6; overlapping Korean cohort, not used
+r7	PMC7358665	europepmc-fulltext	ok	COQ6 two-sibling case report; not used
+r7	PMC13518395	europepmc-fulltext	ok	Japanese CoQ10 nephropathy cohort; only 1 COQ6 patient, not used
+r7	NBK1309	ncbi-litarch-genereviews-bulk	ok	DCM overview; BAG3 only for DCM, no MFM6 figures
+r7	PMC12678052	europepmc-fulltext	ok	Fernandez-Eulate 2025 BAG3-NMD cohort; used (p.Pro209Leu n=16)
+r7	PMC12688876	europepmc-fulltext	ok	Daire 2025 BAG3 cardiac focus; overlapping French patients, not used
+r7	NBK616087	ncbi-litarch-genereviews-bulk	ok	Jansen metaphyseal chondrodysplasia chapter; not PFE
+r7	PMC5856369	europepmc-fulltext	ok	Hanisch 2018 PFE systematic review; <5 features mappable to HPO with numbers
+r7	PMC8666410	europepmc-fulltext	ok	Grippaudo 2021 PFE/PTH1R; no per-feature prevalences
+r7	PMC9841033	europepmc-fulltext	ok	PFE review; no per-feature prevalences
+r7	PMC10670730	europepmc-fulltext	ok	PFE systematic review; no per-feature prevalences
+r7	PMC13025265	europepmc-fulltext	ok	PTH1R variant review; no per-feature prevalences
+r7	PMC9328488	europepmc-fulltext	ok	PFE CBCT study (tooth-level); not usable
+r7	PMC12229487	europepmc-fulltext	ok	First molar eruption failure; only 3 PFE cases
+r7	PMC11976322	europepmc-fulltext	ok	PFE narrative review; not usable
+r7	PMC3776825	europepmc-fulltext	ok	Risom 2013 PTH1R families; no per-feature prevalences
+r7	PMID:38299863	europepmc-abstract	ok	Lille PFE series n=12 (7 PTH1R+); too few features
+r7	PMID:23771181	europepmc-abstract	ok	Pilz 2014 PTH1R sequencing; no clinical figures
+r7	PMC8288321	europepmc-fulltext	failed	no full text available (Europe PMC and NCBI efetch)
+r7	NBK320989	ncbi-litarch-genereviews-bulk	ok	Leigh nuclear overview; LIPT1 row has no figures
+r7	PMC11351668	europepmc-fulltext	ok	LIPT1 cell-model paper, single patient; not usable
+r8	GeneReviews bulk (CHRDL1, FERMT3, HOXA2, MAPRE2, ATP5F1B, PYROXD1)	ncbi-litarch-genereviews-bulk	failed	no chapter lists these genes
+r8	NBK320989	ncbi-litarch-genereviews-bulk	ok	Leigh nuclear overview; NDUFAF5 only as <5% of Leigh (proportion of cases, not a feature); not used
+r8	Europe PMC REST search	europepmc-search	ok	all units; one transient TLS error on author lookup, retried ok
+r8	PMID:37014583	europepmc-abstract	ok	Kahraman 2023 LAD-III n=12; used (8 rows)
+r8	PMC7772426	europepmc-fulltext	ok	Kambli 2020 India LAD1/LAD3; LAD3 n=5; used (2 rows)
+r8	PMC11897682	europepmc-fulltext	ok	LAD-III Saudi family case series; per-patient data only; not used
+r8	PMC12013113	europepmc-fulltext	ok	LAD-III single case; not used
+r8	PMC6710884	europepmc-fulltext	ok	Lornage 2019 PYROXD1; per-patient table only, no aggregate figures; not used
+r8	PMC10982700	europepmc-fulltext	failed	PYROXD1 2024 case report; no full text (Europe PMC and NCBI efetch)
+r8	PMID:38553017	europepmc-abstract	ok	PYROXD1 two brothers; no figures; not used
+r8	PMID:33694278	europepmc-abstract	ok	PYROXD1 Turkey + systematic review; only variant frequency and a CK count without denominator; not used
+r8	PMC13063348	europepmc-fulltext	ok	PYROXD1 single case; not used
+r8	PMC13142872	europepmc-fulltext	ok	PYROXD1 single case; not used
+r8	PMC10244218	europepmc-fulltext	ok	PYROXD1 two families; not used
+r8	PMC7317439	europepmc-fulltext	ok	PYROXD1 one family; not used
+r8	PMC13059403	europepmc-fulltext	ok	PYROXD1 mouse model; not used
+r8	PMID:34644435	europepmc-abstract	ok	X-linked megalocornea 10 families; no figures in abstract, full text not OA; not used
+r8	PMC9160329	europepmc-fulltext	ok	anterior megalophthalmos, clinically diagnosed, per-eye figures (30 eyes, 15 patients incl. women), no CHRDL1 genotyping; not used
+r8	PMC4122416	europepmc-fulltext	ok	Davidson 2014 CHRDL1; per-patient table; only a zero-count glaucoma/IOP statement; not used
+r8	PMC13056008	europepmc-fulltext	ok	cornea genes review; only ancestry/onset figures by gene; not used
+r8	PMC11003020	europepmc-fulltext	ok	microtia genotype-phenotype review; HOXA2 only as gene frequency (2 cases); not used
+r8	PMID:32649979	europepmc-abstract	ok	HOXA2 two Chinese families; no figures; not used
+r8	PMID:31567444	europepmc-abstract	failed	HOXA2 pedigree; no abstract text
+r8	PMID:23775976	europepmc-abstract	ok	HOXA2 one family; no figures; not used
+r8	PMID:26637975	europepmc-abstract	ok	Isrie 2015 CSC-KT (MAPRE2/TUBB); no figures; full text PMC4678434 not available
+r8	PMC4678434	europepmc-fulltext	failed	no full text available (Europe PMC and NCBI efetch)
+r8	PMC7005612	europepmc-fulltext	ok	MAPRE2 single case; not used
+r8	PMC7925611	europepmc-fulltext	ok	MAPRE2 iPSC functional study; no clinical figures; not used
+r8	PMID:39675204	ncbi-efetch-pubmed	ok	NDUFAF5 Brazil; no abstract; not used
+r8	PMID:37752895	ncbi-efetch-pubmed	ok	Chen 2023 NDUFAF5 Taiwan n=9 (+25 literature); abstract has no feature figures; not in PMC; not used
+r8	PMID:37718619	europepmc-abstract	ok	NDUFAF5 fetal series n=5; no figures; not used
+r8	PMID:34797029	europepmc-abstract	ok	NDUFAF5 case + review; no figures in abstract; not OA; not used
+r8	PMC8801144	europepmc-fulltext	ok	NDUFAF5 single case; not used
+r8	PMC8223072	europepmc-fulltext	ok	NDUFAF5 case + review; only deaths 11/13 and cardiac arrest 10/11; not used
+r8	PMID:36239646	europepmc-abstract	ok	ATP5F1B congenital hypermetabolism (NEJM 2022); identical twin boys only; not used
+r9	NBK475802	ncbi-litarch-genereviews-bulk	ok	THES chapter; used for SKIC2 (trichorrhexis nodosa, woolly hair)
+r9	lit.py gr KDM5D/SLURP1/ZIC3/SCGB3A2/METTL5	ncbi-litarch-genereviews-bulk	ok	no GeneReviews chapter lists these genes
+r9	PMC9007078	europepmc-fulltext	ok	Alsaleem 2022 Saudi THES cohort n=30; used for SKIC2
+r9	PMC11730737	europepmc-fulltext	ok	Bahrain THES report + review; not needed
+r9	PMC3777190	europepmc-fulltext	ok	Tunisian MDM families; per-patient table only, no stated frequencies
+r9	PMC9128877	europepmc-fulltext	ok	SLURP1 3 cases; no frequencies
+r9	PMC10314434	europepmc-fulltext	ok	Chinese MDM families; no feature frequencies
+r9	PMC12490539	europepmc-fulltext	ok	MDM case report + review; no feature frequencies
+r9	PMC9128927	europepmc-fulltext	ok	inherited PPK review; no MDM feature frequencies
+r9	PMC6708247	europepmc-fulltext	ok	Pakistani SLURP1/DSG1 families; no frequencies
+r9	PMC9631252	europepmc-fulltext	ok	MDM case; no frequencies
+r9	PMID:17039733	europepmc-abstract	ok	MDM 16 Tunisian cases; only vague quantifiers
+r9	PMID:11030771	europepmc-abstract	ok	Algerian MDM 14 affected; no frequencies in abstract, full text not OA
+r9	PMID:12483299	europepmc-abstract	ok	MDM four families; no frequencies
+r9	PMID:42384829	europepmc-abstract	ok	Chinese PPK cohort; MDM rare, no MDM feature frequencies
+r9	PMID:39953724	europepmc-abstract	failed	no abstract text returned, not OA
+r9	PMID:38647179	europepmc-abstract	failed	no abstract text returned, not OA
+r9	PMC8445495	ncbi-efetch-pmc	ok	ZIC3 in Heterotaxy review (Bellchambers 2018); no phenotype frequencies
+r9	PMC5117940	europepmc-fulltext	failed	no full text (Europe PMC and NCBI efetch); Paulussen 2016 abstract has no feature frequencies
+r9	PMC3707401	ncbi-efetch-pmc	ok	D'Alessandro 2013 ZIC3; only one pooled figure (heterotaxy+complex CHD in 31/36 males)
+r9	PMC3946352	ncbi-efetch-pmc	ok	Cowan 2014 ZIC3; only pulmonary atresia 40% in carriers, phenotype table is supplementary
+r9	PMC3678527	ncbi-efetch-pmc	ok	heterotaxy cohort n=47 with feature counts, but only 2 ZIC3 carriers; not ZIC3-specific
+r9	PMC11470249	europepmc-fulltext	ok	ZIC3 deep intronic variant family; no frequencies
+r9	PMC6098004	europepmc-fulltext	ok	ZIC3 novel variant family; no patient frequencies
+r9	PMID:42144532	europepmc-abstract	ok	"METTL5 pooled n=16; only ""universal"" and a combined "">90%"" behavioural figure"
+r9	PMID:36305450	europepmc-abstract	ok	METTL5 3 siblings; no frequencies
+r9	PMID:37731250	europepmc-abstract	ok	METTL5 case + review; no frequencies
+r9	PMC12733326	europepmc-fulltext	ok	METTL5 case + review; no frequencies
+r9	europepmc-search KDM5D	europepmc-rest	ok	no KDM5D-specific clinical cohort; AZF deletion literature only

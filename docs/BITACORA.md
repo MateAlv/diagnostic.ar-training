@@ -1266,3 +1266,110 @@ What they tell us:
     R1-train term categories.
 - **Scoring and budget:** G2 runs on the full-profile dataset. This is
   R1-dev read 2 of 3.
+
+
+### 2026-09-30 — ADR-0012 G4 — Evaluation/construction disease split frozen (`litpanel-split-v1`)
+- **Why:** G4 requires the split to be frozen and hashed before any
+  literature extraction.
+- **Frozen at commit `b9be9baae84f47ae6cfcb8f635f25ba273053579`**, built by
+  `dxt litpanel split --id litpanel-split-v1` at code `cb0ccf4` (clean tree).
+  - `data/realism/litpanel-split-v1.tsv` sha256
+    `39ba3b252adc7bf0712d03a0abc6d2fc522d6011fdf77658699f2203737f504c`;
+    manifest `data/manifests/litpanel-split-v1.json`.
+- **Unit:** a vocabulary gene plus its main disease, the simulable
+  `genes-v1` entity with the highest `sim_weight`. Pool: 5,050 units.
+- **Selection (seed 20260930):**
+  - the 10 ANALYSIS-001 genes;
+  - 50 sampled units, with square-root allocation over organ system (modal
+    child of HP:0000118 among the entity's HPOA terms, held-out rows
+    masked), inheritance (AD/AR/XL/other) and R1-train patients (0, 1–9,
+    ≥ 10). Picks alternate with genes that have ≥ 10 R1-dev patients: 25
+    of the 50, 35 of 60 counting anchors;
+  - 20 ordered reserves, drawn only if fewer than 50 units survive
+    extraction.
+- **R1 parts read:** train and dev (patient counts per gene). No sealed data.
+- **Separation:** all 80 listed units (their genes and all their disease
+  ids) are evaluation-only. Every other unit is construction.
+- **Caveat:** `genes-v1` picks some odd main diseases (e.g. UNC13A → ALS1,
+  CST3 → ARMD11). The split keeps them, because the panel evaluates what
+  the simulator emits for that entity.
+
+### 2026-09-30 — ADR-0012 G4 — Reserve list extended (`litpanel-split-v2`)
+- **Why:** after 5 of the 8 extraction batches, 15 of 38 panel units had
+  been dropped (no source with stated numbers for ≥ 5 features, or a
+  susceptibility-only gene–disease link). The 20 reserves of
+  `litpanel-split-v1` might not bring the panel to 50.
+- **Frozen at commit `410c0354bb7e0fbdb3b0232ec85c187bad71d566`**, built at
+  code `25bf214` (clean tree): the same sampler and seed, with 40 reserves.
+  - `data/realism/litpanel-split-v2.tsv` sha256
+    `c9de69c3a2575efaac176a1c4eb65f7c80055c905e87933b13ca0e4b25216543`.
+  - Its first 80 rows are identical to `litpanel-split-v1` (checked with
+    `diff`).
+- **Frozen before any extraction on reserves 81–100.** No
+  construction-side literature extraction has happened yet, so moving
+  these 20 units from construction to evaluation leaks nothing.
+  `litpanel-split-v2` supersedes v1 as the evaluation/construction
+  boundary.
+
+### 2026-09-30 — ADR-0012 G4 — Reserve list extended again (`litpanel-split-v3`)
+- **Why:** of the first 80 units, 43 survive extraction. Reserves 81–100 are
+  still being extracted, and at the survival rate seen so far they may not
+  reach 50.
+- **Frozen at commit `7399bc212cd525ab7d402d49c767c95eb4524f46`**, built at
+  code `4d3da3a` (clean tree): the same sampler and seed, with 60 reserves.
+  - `data/realism/litpanel-split-v3.tsv` sha256
+    `b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2`.
+  - Its first 100 rows are identical to `litpanel-split-v2`.
+- **Frozen before any extraction on reserves 101–120.**
+  `litpanel-split-v3` is now the evaluation/construction boundary. All 120
+  listed units are evaluation-only, whether or not they survive
+  extraction.
+
+### 2026-09-30 — ADR-0012 G4 — `literature-panel-v2` built: 56 units, 531 rows, cross-check 52/54
+- **Built at commit `9e7f13d`** by `dxt litpanel build --id
+  literature-panel-v2 --split litpanel-split-v3`, at code `d9d08ff`,
+  clean tree, `lineage verify` ok. Full write-up:
+  `docs/analyses/LITPANEL-v2.md`.
+- **Panel:**
+  - 56 evaluation units, 531 rows, 5–12 rows per unit;
+  - 164 GeneReviews rows, 367 cohort-paper rows, 0 Orphanet rows;
+  - 497 rows independent of construction, and 52 units have ≥ 5 of them;
+  - all 8 `literature-panel-v1` diseases, and 9 of the 10 ANALYSIS-001
+    genes (SPTAN1 dropped: closed-access cohorts).
+- **Extraction:**
+  - 17 Claude subagent batches under one written spec. Each quote was
+    machine-checked as verbatim in its source text.
+  - The 37-row draft was re-verified row by row. Rows resting on vague
+    quantifiers or penetrance were dropped or replaced.
+  - I excluded 10 more rows in review (a complement, a pooled symptom
+    sentence, hospital-admission shares, an "up to"). NHLRC1 and F8 then
+    fell below 5 rows and were dropped.
+- **Units dropped:** 64 of 120 (51 without stated numbers, 11 not
+  monogenic, 2 after review). This led to the two reserve extensions
+  logged above.
+- **Cross-check:**
+  - 54 rows (10%, seed 20260930) re-extracted by Codex CLI 0.155.1 from
+    gene, disease, feature and citation, with the cited text on stdin
+    (Codex's sandbox cannot read local files here).
+  - 52/54 agree (96.3%).
+  - Both disagreements were re-read, and the source supports the panel in
+    each: RPS19 (Codex declined a DBA-wide figure) and TNFRSF13B (Codex
+    took the total column instead of the biallelic column).
+- **Access:**
+  - Blocked: NCBI Bookshelf/PMC pages (reCAPTCHA), orpha.net (bot check),
+    `efetch db=books`.
+  - Used instead: the GeneReviews litarch bulk archive (sha256 recorded in
+    the manifest), Europe PMC REST, and E-utilities `db=pmc`/`db=pubmed`.
+  - Europe PMC returned intermittent 503s.
+- **Gaps:**
+  - no ear/hearing unit survived;
+  - several units carry disease-level rather than gene-level figures
+    (MELAS, PCD, FA, AP-4, DBA), flagged in `population`.
+- **Evidence for the informe:** the G4 row of the data-quality gate, and
+  the dropped-unit statistics (most vocabulary units have no published
+  frequencies).
+- **History note:** before the first push, three commit messages on this
+  branch were reworded, and the branch was replayed with identical trees.
+  The commit ids quoted above and in the manifests' `code.sha` are the
+  replayed ones, remapped one-to-one; each names exactly the code tree
+  that produced the artifact.

@@ -1,0 +1,65 @@
+rank	role	gene	disease_id	kind	reason
+9	anchor	SPTAN1	OMIM:613477	no_numbers	key DEE5 cohorts not open access; no source with >= 5 features
+11	sampled	NHLRC1	ORPHA:501	post_review	4 rows left after excluding a myoclonus figure computed as a complement (246-4)
+14	sampled	ARHGEF1	OMIM:618459	no_numbers	only index reports of 1-2 patients
+15	sampled	CST3	OMIM:611953	not_monogenic	ARMD11 is a susceptibility association (HPOA: polygenic inheritance)
+16	sampled	AFP	OMIM:615969	no_numbers	isolated case reports only
+17	sampled	RNU4-2	OMIM:268000	no_numbers	3 figures, pooled across RNU4-2 and RNU6; per-case data only in an unreachable supplement
+18	sampled	DKC1	OMIM:305000	no_numbers	no accessible DKC1- or X-linked-specific frequencies; GeneReviews qualitative only
+20	sampled	HK1	OMIM:235700	no_numbers	the one review is closed access; case reports with per-patient tables only
+22	sampled	MYO3A	OMIM:607101	no_numbers	only 4 features with numbers (8-patient series)
+26	sampled	ERCC4	OMIM:615272	no_numbers	FA-Q is <1% of Fanconi anemia; single case reports
+27	sampled	HNRNPA2B1	OMIM:615422	no_numbers	very few families; no frequencies
+28	sampled	ATP11C	OMIM:301015	no_numbers	about 15 patients in per-patient tables; no stated proportions
+29	sampled	SAMD9L	OMIM:159550	no_numbers	only 3-4 features with stated numbers
+37	sampled	UNC13A	OMIM:105400	not_monogenic	risk/modifier gene for ALS (GeneReviews NBK1450)
+38	sampled	HPS4	OMIM:614073	no_numbers	features only in an unreachable supplement
+39	sampled	TUBA4A	OMIM:616208	no_numbers	few carriers; at most 3 features with denominators
+40	sampled	SUN5	OMIM:617187	no_numbers	single patients or families; no proportions
+42	sampled	SMPX	OMIM:300066	no_numbers	families only; no proportions
+47	sampled	SOX17	OMIM:613674	no_numbers	very few individuals; no feature counts
+52	sampled	KLK11	OMIM:620507	no_numbers	3 families and 1 case report
+55	sampled	LZTR1	OMIM:615670	no_numbers	fewer than 5 LZTR1-specific features with numbers
+56	sampled	RHCE	OMIM:617970	no_numbers	case reports only
+59	sampled	SMARCB1	OMIM:162091	no_numbers	fewer than 5 SMARCB1-specific features that map to HPO
+60	sampled	SASH3	OMIM:301082	no_numbers	a series of 4 with no counts, plus single cases
+61	reserve	ZBTB42	OMIM:616248	no_numbers	one family
+62	reserve	RB1CC1	OMIM:114480	not_monogenic	breast cancer susceptibility / somatic association
+65	reserve	MBTPS2	OMIM:308205	no_numbers	no numeric frequencies in reviews; case reports
+66	reserve	ELMOD3	OMIM:615429	no_numbers	single families; nonsyndromic hearing loss
+67	reserve	PTPN2	ORPHA:85408	not_monogenic	JIA susceptibility association
+70	reserve	KIF12	OMIM:619662	no_numbers	only 3 features with numbers; main cohort not open access
+71	reserve	PICALM	OMIM:601626	not_monogenic	somatic PICALM::MLLT10 fusion in AML
+72	reserve	PSMB10	OMIM:603554	no_numbers	per-patient tables only; main paper blocked
+73	reserve	BHLHA9	OMIM:609432	no_numbers	2-6 families; no counts
+75	reserve	COL9A3	OMIM:600969	no_numbers	single families; no COL9A3-specific frequencies
+76	reserve	LARS2	OMIM:615300	no_numbers	fewer than 5 features with usable denominators
+78	reserve	SLC52A1	OMIM:615026	no_numbers	about 7 cases; no frequencies
+79	reserve	COL18A1	OMIM:267750	no_numbers	3 features with per-patient numbers and exact HPO terms
+81	reserve	KRT10	OMIM:609165	no_numbers	per-case tables with many unreported cells
+83	reserve	SLC25A32	OMIM:616839	no_numbers	at most 3 patients per report
+85	reserve	MYO6	OMIM:606346	no_numbers	one usable figure
+87	reserve	BLK	OMIM:613375	not_monogenic	MODY link refuted (Laver 2022, PMID:35108381)
+88	reserve	VAMP7	ORPHA:251510	not_monogenic	CNV/dosage association; one 6-patient series without counts
+89	reserve	ABCA5	OMIM:135400	no_numbers	single-family reports
+90	reserve	F8	OMIM:134500	post_review	4 rows left after excluding hospital-admission shares that are not feature prevalences
+94	reserve	CLRN1	OMIM:614180	no_numbers	nonsyndromic RP from CLRN1 only in case reports
+95	reserve	MYH3	OMIM:178110	no_numbers	per-patient +/- tables only
+97	reserve	CTRC	OMIM:167800	not_monogenic	risk/modifier gene for pancreatitis (GeneReviews NBK190101)
+98	reserve	GATB	OMIM:618838	no_numbers	one 9-patient series pooling QRSL1/GATB/GATC
+99	reserve	HSPB8	OMIM:621078	no_numbers	case reports and small families; reviews without figures
+101	reserve	PTH1R	OMIM:125350	no_numbers	fewer than 5 features that map to HPO; cohorts not gene-specific
+105	reserve	ZFAT	OMIM:608175	not_monogenic	autoimmune thyroid disease susceptibility locus
+106	reserve	LIPT1	OMIM:616299	no_numbers	isolated case reports
+107	reserve	FCGR2B	OMIM:152700	not_monogenic	SLE susceptibility association
+108	reserve	CHRDL1	OMIM:309300	no_numbers	per-patient or per-eye data only
+110	reserve	HOXA2	OMIM:612290	no_numbers	single families
+111	reserve	MAPRE2	OMIM:616734	no_numbers	a handful of families; no numbers
+112	reserve	NDUFAF5	OMIM:618238	no_numbers	case reports; the one series has no figures
+113	reserve	ATP5F1B	OMIM:620085	no_numbers	one pair of twins
+114	reserve	PYROXD1	OMIM:617258	no_numbers	per-patient tables; review behind paywall
+115	reserve	KDM5D	OMIM:415000	no_numbers	no KDM5D-specific cohort; phenotype is spermatogenic failure alone
+116	reserve	SLURP1	OMIM:248300	no_numbers	per-patient tables or vague quantifiers only
+117	reserve	ZIC3	OMIM:306955	no_numbers	at most 2 ZIC3-specific figures
+118	reserve	SCGB3A2	OMIM:600807	not_monogenic	asthma susceptibility association
+119	reserve	METTL5	OMIM:251200	no_numbers	pooled review closed; figures cover several features at once

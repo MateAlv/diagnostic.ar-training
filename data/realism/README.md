@@ -27,5 +27,27 @@ ADR-0012 G2a).
 - **Registered** as the artifact `literature-panel-v1` (`dxt knowledge
   panel`, which re-checks the ids and labels).
 
-The ADR-0012 evaluation panel (`literature-panel-v2`, ≥ 50 diseases) is
-built separately.
+## `litpanel-split-v1` / `-v2` / `-v3`
+The frozen evaluation/construction boundary for literature data (ADR-0012
+G4), built by `dxt litpanel split`. Each version's rows are a prefix of the
+next. **All 120 units of `litpanel-split-v3` are evaluation-only**: their
+genes and every id in `disease_ids`. Every other (gene, disease) unit is
+construction, and only those may feed literature-derived enrichment of
+simulator profiles.
+
+## `literature-panel-v2.tsv`
+The ADR-0012 G4 evaluation panel: 531 rows for 56 units of
+`litpanel-split-v3`, built by `dxt litpanel build` from
+`extraction/curated.tsv`. Method, counts, cross-check and caveats:
+`docs/analyses/LITPANEL-v2.md`.
+
+- **Columns to filter on for the independent subset:** `independent ==
+  "true"`. It is derived from `source_kind != "orphanet"`, `source_in_hpoa ==
+  "false"` and no `train` in `source_r1_part`. G2a's primary error needs
+  only `source_kind != "orphanet"`.
+- **`sex_restriction`:** the row's denominator is one sex.
+- **Private:** it carries short verbatim quotes of copyrighted sources
+  (GeneReviews, journals). Never publish it as a release asset.
+
+`extraction/` holds the curated input rows, the dropped units with reasons,
+the access log and the Codex cross-check.

@@ -1,0 +1,69 @@
+{
+  "artifact_id": "literature-panel-v2",
+  "kind": "literature-panel",
+  "created_at": "2026-09-30T15:42:28+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "d9d08ff723a04f39c40fb3ce9ad4351aea56d625",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:litpanel-split-v3",
+      "sha256": "b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "r1-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "extraction:curated",
+      "sha256": "02a4724753ccc46150df2a6dfbcc595880a129728c5ad4ef477a7198b37f93ab"
+    },
+    {
+      "id": "extraction:dropped",
+      "sha256": "147e0ad07acd334fa1815cf94f5577c08c9f1f4a919c35b943cce09c1051deda"
+    },
+    {
+      "id": "extraction:access-log",
+      "sha256": "9f985a28c1bc9596dedbce0ad59bdaa2b264cd356f9e68305084dc3f59a525f9"
+    },
+    {
+      "id": "extraction:crosscheck",
+      "sha256": "04cff3452bf3ed8eb85f3fd59bbb99ab449794543242fb70412100b452cb8453"
+    }
+  ],
+  "params": {
+    "split": "litpanel-split-v3",
+    "independent_rule": "source_kind != orphanet and no cited PMID in phenotype.hpoa or in R1-train",
+    "genereviews_bulk_archive": "https://ftp.ncbi.nlm.nih.gov/pub/litarch/ca/84/gene_NBK1116.tar.gz sha256=53b1e181d4c6d9781f95baf714c1ca16d86312e69efe32234eec8a9c506d7077 last-modified=2026-09-30T06:41:04Z",
+    "crosscheck": "10% seeded sample (seed 20260930) re-extracted by Codex CLI from gene, disease, feature and citation only; agree = ranges overlap or |point difference| <= 0.10"
+  },
+  "params_hash": "137701364bb11a8238422318c0ac1099ee63c578de009b31cd333b634c397e6f",
+  "outputs": [
+    {
+      "path": "data/realism/literature-panel-v2.tsv",
+      "sha256": "b7538db73dcc10440f2e6c93ec0485f4270e8e22fe0667cfd11f1786f28a0985",
+      "bytes": 228050
+    },
+    {
+      "path": "data/realism/literature-panel-v2.summary.json",
+      "sha256": "019762ef764267184e2bff902877c439945a1ed120df9ffbe2f9afb6b9d7266c",
+      "bytes": 14172
+    }
+  ],
+  "notes": "Evaluation only (ADR-0012 G4): never a fitting target and never an input to simulator profiles. Private: short evidence quotes of copyrighted sources; do not publish as a release asset.",
+  "release": ""
+}

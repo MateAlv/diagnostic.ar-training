@@ -95,6 +95,9 @@ class Ontology:
     def parents(self, term: str) -> tuple[str, ...]:
         return self._parents.get(term, ())
 
+    def children(self, term: str) -> tuple[str, ...]:
+        return self._children.get(term, ())
+
     @lru_cache(maxsize=65536)  # noqa: B019 -- one Ontology per process, cache lives with it
     def ancestors(self, term: str) -> frozenset[str]:
         """Strict ancestors (the term itself excluded)."""

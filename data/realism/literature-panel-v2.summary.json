@@ -1,0 +1,634 @@
+{
+ "crosscheck": {
+  "agree": 52,
+  "resolutions": {
+   "source-supports-ours": 2
+  },
+  "rows": 54
+ },
+ "dropped": [
+  {
+   "disease_id": "OMIM:613477",
+   "gene": "SPTAN1",
+   "kind": "no_numbers",
+   "rank": "9",
+   "reason": "key DEE5 cohorts not open access; no source with >= 5 features",
+   "role": "anchor"
+  },
+  {
+   "disease_id": "ORPHA:501",
+   "gene": "NHLRC1",
+   "kind": "post_review",
+   "rank": "11",
+   "reason": "4 rows left after excluding a myoclonus figure computed as a complement (246-4)",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:618459",
+   "gene": "ARHGEF1",
+   "kind": "no_numbers",
+   "rank": "14",
+   "reason": "only index reports of 1-2 patients",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:611953",
+   "gene": "CST3",
+   "kind": "not_monogenic",
+   "rank": "15",
+   "reason": "ARMD11 is a susceptibility association (HPOA: polygenic inheritance)",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:615969",
+   "gene": "AFP",
+   "kind": "no_numbers",
+   "rank": "16",
+   "reason": "isolated case reports only",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:268000",
+   "gene": "RNU4-2",
+   "kind": "no_numbers",
+   "rank": "17",
+   "reason": "3 figures, pooled across RNU4-2 and RNU6; per-case data only in an unreachable supplement",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:305000",
+   "gene": "DKC1",
+   "kind": "no_numbers",
+   "rank": "18",
+   "reason": "no accessible DKC1- or X-linked-specific frequencies; GeneReviews qualitative only",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:235700",
+   "gene": "HK1",
+   "kind": "no_numbers",
+   "rank": "20",
+   "reason": "the one review is closed access; case reports with per-patient tables only",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:607101",
+   "gene": "MYO3A",
+   "kind": "no_numbers",
+   "rank": "22",
+   "reason": "only 4 features with numbers (8-patient series)",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:615272",
+   "gene": "ERCC4",
+   "kind": "no_numbers",
+   "rank": "26",
+   "reason": "FA-Q is <1% of Fanconi anemia; single case reports",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:615422",
+   "gene": "HNRNPA2B1",
+   "kind": "no_numbers",
+   "rank": "27",
+   "reason": "very few families; no frequencies",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:301015",
+   "gene": "ATP11C",
+   "kind": "no_numbers",
+   "rank": "28",
+   "reason": "about 15 patients in per-patient tables; no stated proportions",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:159550",
+   "gene": "SAMD9L",
+   "kind": "no_numbers",
+   "rank": "29",
+   "reason": "only 3-4 features with stated numbers",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:105400",
+   "gene": "UNC13A",
+   "kind": "not_monogenic",
+   "rank": "37",
+   "reason": "risk/modifier gene for ALS (GeneReviews NBK1450)",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:614073",
+   "gene": "HPS4",
+   "kind": "no_numbers",
+   "rank": "38",
+   "reason": "features only in an unreachable supplement",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:616208",
+   "gene": "TUBA4A",
+   "kind": "no_numbers",
+   "rank": "39",
+   "reason": "few carriers; at most 3 features with denominators",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:617187",
+   "gene": "SUN5",
+   "kind": "no_numbers",
+   "rank": "40",
+   "reason": "single patients or families; no proportions",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:300066",
+   "gene": "SMPX",
+   "kind": "no_numbers",
+   "rank": "42",
+   "reason": "families only; no proportions",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:613674",
+   "gene": "SOX17",
+   "kind": "no_numbers",
+   "rank": "47",
+   "reason": "very few individuals; no feature counts",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:620507",
+   "gene": "KLK11",
+   "kind": "no_numbers",
+   "rank": "52",
+   "reason": "3 families and 1 case report",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:615670",
+   "gene": "LZTR1",
+   "kind": "no_numbers",
+   "rank": "55",
+   "reason": "fewer than 5 LZTR1-specific features with numbers",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:617970",
+   "gene": "RHCE",
+   "kind": "no_numbers",
+   "rank": "56",
+   "reason": "case reports only",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:162091",
+   "gene": "SMARCB1",
+   "kind": "no_numbers",
+   "rank": "59",
+   "reason": "fewer than 5 SMARCB1-specific features that map to HPO",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:301082",
+   "gene": "SASH3",
+   "kind": "no_numbers",
+   "rank": "60",
+   "reason": "a series of 4 with no counts, plus single cases",
+   "role": "sampled"
+  },
+  {
+   "disease_id": "OMIM:616248",
+   "gene": "ZBTB42",
+   "kind": "no_numbers",
+   "rank": "61",
+   "reason": "one family",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:114480",
+   "gene": "RB1CC1",
+   "kind": "not_monogenic",
+   "rank": "62",
+   "reason": "breast cancer susceptibility / somatic association",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:308205",
+   "gene": "MBTPS2",
+   "kind": "no_numbers",
+   "rank": "65",
+   "reason": "no numeric frequencies in reviews; case reports",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:615429",
+   "gene": "ELMOD3",
+   "kind": "no_numbers",
+   "rank": "66",
+   "reason": "single families; nonsyndromic hearing loss",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "ORPHA:85408",
+   "gene": "PTPN2",
+   "kind": "not_monogenic",
+   "rank": "67",
+   "reason": "JIA susceptibility association",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:619662",
+   "gene": "KIF12",
+   "kind": "no_numbers",
+   "rank": "70",
+   "reason": "only 3 features with numbers; main cohort not open access",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:601626",
+   "gene": "PICALM",
+   "kind": "not_monogenic",
+   "rank": "71",
+   "reason": "somatic PICALM::MLLT10 fusion in AML",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:603554",
+   "gene": "PSMB10",
+   "kind": "no_numbers",
+   "rank": "72",
+   "reason": "per-patient tables only; main paper blocked",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:609432",
+   "gene": "BHLHA9",
+   "kind": "no_numbers",
+   "rank": "73",
+   "reason": "2-6 families; no counts",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:600969",
+   "gene": "COL9A3",
+   "kind": "no_numbers",
+   "rank": "75",
+   "reason": "single families; no COL9A3-specific frequencies",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:615300",
+   "gene": "LARS2",
+   "kind": "no_numbers",
+   "rank": "76",
+   "reason": "fewer than 5 features with usable denominators",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:615026",
+   "gene": "SLC52A1",
+   "kind": "no_numbers",
+   "rank": "78",
+   "reason": "about 7 cases; no frequencies",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:267750",
+   "gene": "COL18A1",
+   "kind": "no_numbers",
+   "rank": "79",
+   "reason": "3 features with per-patient numbers and exact HPO terms",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:609165",
+   "gene": "KRT10",
+   "kind": "no_numbers",
+   "rank": "81",
+   "reason": "per-case tables with many unreported cells",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:616839",
+   "gene": "SLC25A32",
+   "kind": "no_numbers",
+   "rank": "83",
+   "reason": "at most 3 patients per report",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:606346",
+   "gene": "MYO6",
+   "kind": "no_numbers",
+   "rank": "85",
+   "reason": "one usable figure",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:613375",
+   "gene": "BLK",
+   "kind": "not_monogenic",
+   "rank": "87",
+   "reason": "MODY link refuted (Laver 2022, PMID:35108381)",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "ORPHA:251510",
+   "gene": "VAMP7",
+   "kind": "not_monogenic",
+   "rank": "88",
+   "reason": "CNV/dosage association; one 6-patient series without counts",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:135400",
+   "gene": "ABCA5",
+   "kind": "no_numbers",
+   "rank": "89",
+   "reason": "single-family reports",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:134500",
+   "gene": "F8",
+   "kind": "post_review",
+   "rank": "90",
+   "reason": "4 rows left after excluding hospital-admission shares that are not feature prevalences",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:614180",
+   "gene": "CLRN1",
+   "kind": "no_numbers",
+   "rank": "94",
+   "reason": "nonsyndromic RP from CLRN1 only in case reports",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:178110",
+   "gene": "MYH3",
+   "kind": "no_numbers",
+   "rank": "95",
+   "reason": "per-patient +/- tables only",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:167800",
+   "gene": "CTRC",
+   "kind": "not_monogenic",
+   "rank": "97",
+   "reason": "risk/modifier gene for pancreatitis (GeneReviews NBK190101)",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:618838",
+   "gene": "GATB",
+   "kind": "no_numbers",
+   "rank": "98",
+   "reason": "one 9-patient series pooling QRSL1/GATB/GATC",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:621078",
+   "gene": "HSPB8",
+   "kind": "no_numbers",
+   "rank": "99",
+   "reason": "case reports and small families; reviews without figures",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:125350",
+   "gene": "PTH1R",
+   "kind": "no_numbers",
+   "rank": "101",
+   "reason": "fewer than 5 features that map to HPO; cohorts not gene-specific",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:608175",
+   "gene": "ZFAT",
+   "kind": "not_monogenic",
+   "rank": "105",
+   "reason": "autoimmune thyroid disease susceptibility locus",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:616299",
+   "gene": "LIPT1",
+   "kind": "no_numbers",
+   "rank": "106",
+   "reason": "isolated case reports",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:152700",
+   "gene": "FCGR2B",
+   "kind": "not_monogenic",
+   "rank": "107",
+   "reason": "SLE susceptibility association",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:309300",
+   "gene": "CHRDL1",
+   "kind": "no_numbers",
+   "rank": "108",
+   "reason": "per-patient or per-eye data only",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:612290",
+   "gene": "HOXA2",
+   "kind": "no_numbers",
+   "rank": "110",
+   "reason": "single families",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:616734",
+   "gene": "MAPRE2",
+   "kind": "no_numbers",
+   "rank": "111",
+   "reason": "a handful of families; no numbers",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:618238",
+   "gene": "NDUFAF5",
+   "kind": "no_numbers",
+   "rank": "112",
+   "reason": "case reports; the one series has no figures",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:620085",
+   "gene": "ATP5F1B",
+   "kind": "no_numbers",
+   "rank": "113",
+   "reason": "one pair of twins",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:617258",
+   "gene": "PYROXD1",
+   "kind": "no_numbers",
+   "rank": "114",
+   "reason": "per-patient tables; review behind paywall",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:415000",
+   "gene": "KDM5D",
+   "kind": "no_numbers",
+   "rank": "115",
+   "reason": "no KDM5D-specific cohort; phenotype is spermatogenic failure alone",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:248300",
+   "gene": "SLURP1",
+   "kind": "no_numbers",
+   "rank": "116",
+   "reason": "per-patient tables or vague quantifiers only",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:306955",
+   "gene": "ZIC3",
+   "kind": "no_numbers",
+   "rank": "117",
+   "reason": "at most 2 ZIC3-specific figures",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:600807",
+   "gene": "SCGB3A2",
+   "kind": "not_monogenic",
+   "rank": "118",
+   "reason": "asthma susceptibility association",
+   "role": "reserve"
+  },
+  {
+   "disease_id": "OMIM:251200",
+   "gene": "METTL5",
+   "kind": "no_numbers",
+   "rank": "119",
+   "reason": "pooled review closed; figures cover several features at once",
+   "role": "reserve"
+  }
+ ],
+ "rows": 531,
+ "rows_by_access_path": {
+  "europepmc-abstract": 43,
+  "europepmc-fulltext": 261,
+  "ncbi-efetch-pmc": 58,
+  "ncbi-efetch-pubmed-abstract": 5,
+  "ncbi-litarch-genereviews-bulk": 164
+ },
+ "rows_by_source_kind": {
+  "cohort_paper": 367,
+  "genereviews": 164
+ },
+ "rows_independent": 497,
+ "rows_per_unit": {
+  "AP4M1": 12,
+  "ATP2A2": 10,
+  "ATP6AP1": 8,
+  "BAG3": 9,
+  "BMP10": 8,
+  "BRPF1": 12,
+  "CNNM4": 6,
+  "COQ4": 12,
+  "COQ6": 7,
+  "DCAF17": 9,
+  "DNAAF2": 11,
+  "DNAAF6": 10,
+  "DNAH11": 7,
+  "DOCK8": 12,
+  "ELANE": 8,
+  "FANCD2": 12,
+  "FBN1": 12,
+  "FBXL4": 12,
+  "FBXO11": 10,
+  "FERMT3": 10,
+  "FH": 5,
+  "GHRHR": 6,
+  "GLA": 8,
+  "GLI3": 8,
+  "IARS1": 12,
+  "IGF1R": 12,
+  "IKBKG": 12,
+  "ITPR1": 12,
+  "KMT2D": 12,
+  "LAMP2": 7,
+  "LMNA": 10,
+  "MBD4": 8,
+  "MT-TL2": 12,
+  "MT-TV": 12,
+  "NBAS": 12,
+  "NF1": 12,
+  "NFU1": 8,
+  "NLRP3": 5,
+  "NR0B1": 8,
+  "NTHL1": 8,
+  "PDX1": 8,
+  "PROP1": 6,
+  "PTPN11": 12,
+  "RAB23": 5,
+  "RERE": 7,
+  "RPGRIP1": 8,
+  "RPS19": 12,
+  "RTEL1": 10,
+  "SCO2": 10,
+  "SKIC2": 12,
+  "SLC19A2": 9,
+  "TBX5": 12,
+  "TGFB2": 12,
+  "TGFB3": 8,
+  "TNFRSF13B": 7,
+  "UMOD": 7
+ },
+ "rows_source_in_hpoa": 30,
+ "rows_source_r1_train": 11,
+ "unit_margins": {
+  "inheritance": {
+   "AD": 16,
+   "AR": 23,
+   "XL": 6,
+   "other": 11
+  },
+  "organ": {
+   "Abnormality of blood and blood-forming tissues": 1,
+   "Abnormality of head or neck": 7,
+   "Abnormality of metabolism/homeostasis": 3,
+   "Abnormality of the cardiovascular system": 6,
+   "Abnormality of the digestive system": 2,
+   "Abnormality of the endocrine system": 3,
+   "Abnormality of the eye": 3,
+   "Abnormality of the genitourinary system": 3,
+   "Abnormality of the immune system": 3,
+   "Abnormality of the integument": 2,
+   "Abnormality of the musculoskeletal system": 7,
+   "Abnormality of the nervous system": 8,
+   "Abnormality of the respiratory system": 4,
+   "Growth abnormality": 1,
+   "Neoplasm": 3
+  },
+  "role": {
+   "anchor": 9,
+   "reserve": 20,
+   "sampled": 27
+  },
+  "train": {
+   "0": 33,
+   "1-9": 7,
+   ">=10": 16
+  }
+ },
+ "units": 56,
+ "units_with_5_independent_rows": 52,
+ "units_with_dev_ge_10": 24
+}
