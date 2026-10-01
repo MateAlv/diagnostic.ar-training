@@ -2910,3 +2910,52 @@ literature-enriched profiles come later, as candidate 6.
     gives 0.036, s = 0.52 gives 0.012 and s = 0.62 gives 0.016. Lowering s
     also moves unexplained terms from related to weak (round 3: 0.099 /
     0.134 vs real 0.082 / 0.157).
+
+### 2026-10-01 — build + go/no-go — v0.5.3 candidate 6b: G1 passes; the train-side go/no-go fails on G2c only; no R1-dev read
+- **Versions:** rare-disease-simulator 0.5.3 (tarball of 6833d2d, sha256
+  `c9a56f79…`), `simcal-v053-v1`, report-model-v3, cardinal-v1,
+  hpoa-recount-v1, genes-v2, no presentation ages; gene-first, 100 per gene,
+  medium, seed 1001; full profiles only.
+- **G1** (`ds-sim0.5.3-full-n100-s1001`): 489,200 cases / 4,892 genes;
+  `validate` 0 violations (cases and export); 20-gene slice (19 simulated)
+  run twice, byte-identical to each other and to the full run's 1,900 lines
+  (cases and export); `dxt lineage verify` ok; overlap R1 keys 147, S3
+  1,492 (246 same signature); `-excl-v1` excludes 1,619, residual 0;
+  dataset and exclusion list published.
+- **Run summary:** total shown 6.89 per case (5.11 profile + 1.79 noise);
+  k mean 8.71, profile target k − n 6.92, TV total vs k 0.114; mean c
+  3.056; `forced_min_one` 16,915 (3.5%); q capped 0.180; related share of
+  noise 0.506.
+- **Go/no-go** (`dxt sim realism --no-dev`, `dxt sim train-checks`;
+  `results/realism/gate-v0.5.3-cand6b-gonogo.md`; no ledger row):
+
+  | Check | UP | V03-full | C3 | C4 | C5 | C6a | **C6b** | Rule | Result |
+  |---|---|---|---|---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | 0.307 | 0.306 | 0.306 | 0.304 | beat both | ✅ |
+  | G2c W1 | 3.717 | 1.653 | 1.732 | 5.754 | 1.908 | 2.955 | 1.816 | beat both | ❌ (V03-full 1.653) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | 0.822 | 0.809 | 0.764 | **0.721** [0.690, 0.755] | beat both, ≤ 0.75 | ✅ (first pass; CI upper end above 0.75) |
+  | G2e gap | 0.414 | 0.183 | 0.142 | 0.204 | 0.049 | 0.011 | 0.077 (E0 0.328) | beat both, ≤ 0.10 | ✅ |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.536 | 0.502 | 0.537 | 0.507 | 0.522 | beat both | ✅ |
+  | Age (69 genes) | — | 0.537 | 0.539 | 0.571 | 0.555 | 0.584 | 0.603 | report only | |
+
+  - Terms per case p10 / p25 / median / p75 / p90: simulated 2 / 3 / 6 / 9 /
+    13, mean 6.88; R1-train 2 / 4 / 7 / 11 / 17, mean 8.70.
+  - Ancestor share (1 in 50, kb-v3): 0.095 (R1-train uncited 0.093;
+    candidate 6a 0.152).
+  - Categories vs kb-v3 (5%): 0.680 / 0.095 / 0.095 / 0.130 (summed error
+    0.042; candidate 6a 0.120).
+  - C2ST top separators (univariate AUC; candidate 6a in brackets):
+    annotated share 0.402 [0.404], noise share 0.576 [0.536], mean depth
+    0.429 [0.386], head/neck share 0.531, limbs 0.476, term count 0.478
+    [0.422].
+  - Record size vs true terms, 84 R1 genes: Spearman 0.770 (real 0.503);
+    real vs simulated size 0.393; median ratio 0.96.
+  - E0 ablation (3,073 kept cases): as exported 0.342, no noise 0.512, no
+    generalisation 0.352, no specialisation 0.384; noise mean IC 5.71.
+- **Housekeeping:** the 3.46 GB rich-cases file was deleted after the
+  analyses; its sha256 `fc4c9904…` (equal to the run summary's) and a
+  1-in-160 sample (3,073 cases) stay in `outputs/v0.5.3-cand6b-full/`.
+- **Verdict:** ❌ stops on G2c alone (records still short: profiles run out of
+  true terms). No R1-dev read; Mateo decides.
+- **Stopped here** (graceful stop requested): all steps done except the
+  STATE update and a fuller write-up; next step is Mateo's decision.
