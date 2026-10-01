@@ -200,11 +200,52 @@ def test_one_percentage_per_disease_and_term_with_the_largest_population(onto):
     assert result["report"]["hpoa_lit"]["by_notation"]["percent_rows_beside_lit_counts"] == 1
 
 
-def test_with_no_stated_population_both_sexes_beat_one(onto):
-    rows = [lit(p="0.8", sex_restriction="male", population="males"), lit(p="0.5")]
+def test_both_sexes_beat_one_even_with_a_larger_stated_n(onto):
+    rows = [lit(p="0.8", m="100", sex_restriction="male", population="males"), lit(p="0.5")]
     result = run(rows, onto)
     assert [(r["frequency"], r["sex"]) for r in result["lit_rows"]] == [("50%", "")]
     assert result["report"]["hpoa_lit"]["by_notation"]["percent_choice_by_both_sexes_over_one"] == 1
+
+
+def test_specificity_breaks_a_tie_left_by_sex_and_n(onto):
+    rows = [lit(p="0.5", flags="pooled_group", units="G1|OMIM:1;G2|OMIM:2"), lit("PMID:2", p="0.6")]
+    out = {r["database_id"]: r["frequency"] for r in run(rows, onto)["lit_rows"]}
+    assert out == {"OMIM:1": "60%", "OMIM:2": "50%"}
+
+
+def test_unstated_populations_more_than_020_apart_drop_the_term_from_that_source(onto):
+    rows = [
+        lit(p="0.2", population="biallelic"),
+        lit(p="0.6", population="heterozygous"),
+        lit("PMID:9", p="0.45", population="all affected"),
+        lit(term=VISION, p="0.3", population="children"),
+        lit(term=VISION, p="0.45", population="adults"),
+    ]
+    result = run(rows, onto)
+    out = {r["hpo_id"]: (r["frequency"], r["reference"]) for r in result["lit_rows"]}
+    assert out == {SEIZURE: ("45%", "PMID:9"), VISION: ("30%", "PMID:1")}
+    outcomes = result["report"]["placements"]["by_outcome"]
+    assert outcomes[LB.DROP_AMBIGUOUS] == 2 and outcomes[LB.DROP_PERCENT] == 1
+
+
+def test_a_stated_n_decides_before_the_guard(onto):
+    rows = [lit(p="0.2", m="40"), lit(p="0.9", population="others")]
+    assert [r["frequency"] for r in run(rows, onto)["lit_rows"]] == ["20%"]
+
+
+def test_equal_denominators_more_than_020_apart_drop_the_source_counts(onto):
+    rows = [
+        lit(n="2", m="20", p="0.1", population="males", sex_restriction="male"),
+        lit(n="12", m="20", p="0.6", population="females", sex_restriction="female"),
+        lit("PMID:2", n="3", m="10", p="0.3"),
+        lit("PMID:3", n="4", m="10", p="0.4", population="a"),
+        lit("PMID:3", n="5", m="10", p="0.5", population="b"),
+    ]
+    result = run(rows, onto)
+    (row,) = result["lit_rows"]
+    assert (row["frequency"], row["reference"]) == ("7/20", "PMID:2;PMID:3")
+    outcomes = result["report"]["placements"]["by_outcome"]
+    assert outcomes[LB.DROP_AMBIGUOUS] == 2 and outcomes[LB.DROP_SAME_SOURCE_COUNT] == 1
 
 
 def test_sex_column_only_when_every_pooled_row_agrees(onto):

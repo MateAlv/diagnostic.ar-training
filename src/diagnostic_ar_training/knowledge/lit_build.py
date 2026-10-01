@@ -7,9 +7,11 @@ Feature rows become HPOA phenotype rows (aspect P) on their unit's disease:
 - rule 3: a `pooled` row stays on its own disease;
 - rule 4: `small_n`, `binned`, `lower_bound` rows are kept with their point estimate;
 - rule 5: a placement whose source HPOA already cites for the same disease and term is dropped;
-- rule 6: per (disease, term), count rows from distinct sources are summed into one row (one row
-  per source: the largest denominator); of the percentage rows, the largest stated population is
-  kept; NOT rows merge into one.
+- rule 6 (amendment 3): per (disease, term), count rows from distinct sources are summed into one
+  row (one per source: the largest denominator); one percentage row is kept, preferring both sexes,
+  then the largest stated n_assessed, then unit > pooled > pooled_group; NOT rows merge into one.
+  When n cannot decide between a source's rows (equal denominators, or no stated n) and their
+  prevalences differ by more than 0.20, the term is dropped from that source (`ambiguous_populations`).
 
 AGE_PRESENTATION rows become one age range per disease (rule 7). Everything here is a pure
 function of its inputs; file access lives in `dxt lit build`.
@@ -35,7 +37,9 @@ USED = "used"
 DROP_GROUP_SKIP = "pooled_group_unit_specific_row"
 DROP_HPOA = "hpoa_double_count"
 DROP_SAME_SOURCE_COUNT = "same_source_smaller_count"
-DROP_PERCENT = "percentage_smaller_population"
+DROP_PERCENT = "percentage_not_chosen"
+DROP_AMBIGUOUS = "ambiguous_populations"
+AMBIGUITY_SPREAD = 0.20
 AGE_OPEN_UPPER = "open_upper_bound"
 AGE_BAD_ID = "disease_id_not_simulator_format"
 AGE_NOT_CHOSEN = "not_chosen"
@@ -222,24 +226,75 @@ def _agreed_sex(group: list[Placement]) -> str:
     return SEX_COLUMN.get(sexes.pop(), "") if len(sexes) == 1 else ""
 
 
-def _percent_rank(pl: Placement) -> tuple:
-    """Largest stated population first; on a tie both sexes before one, then the more specific
-    placement, then source and file order."""
-    return (-pl.population, bool(pl.sex), SPECIFICITY[pl.specificity], pl.source_id, pl.row_id)
+def _undecided_key(pl: Placement) -> tuple:
+    """Amendment 3 steps 1-2: both sexes before one sex, then the largest stated n_assessed."""
+    return (bool(pl.sex), -pl.population)
 
 
-def _decided_by(top: Placement, runner: Placement) -> str:
-    if top.population != runner.population:
-        return "stated_population"
-    if bool(top.sex) != bool(runner.sex):
-        return "both_sexes_over_one"
-    if top.specificity != runner.specificity:
-        return "specificity"
-    return "source_then_file_order"
+def _tiebreak_key(pl: Placement) -> tuple:
+    """After the ambiguity guard: unit before pooled before pooled_group, then source and file order."""
+    return (SPECIFICITY[pl.specificity], pl.source_id, pl.row_id)
+
+
+def _spread(values: list[float]) -> float:
+    return max(values) - min(values)
+
+
+def _ambiguous_count_sources(counts: list[Placement]) -> set[str]:
+    """Sources whose largest denominator is shared by count rows more than AMBIGUITY_SPREAD apart."""
+    out = set()
+    by_source: dict[str, list[Placement]] = defaultdict(list)
+    for pl in counts:
+        by_source[pl.source_id].append(pl)
+    for source, mine in by_source.items():
+        top = max(pl.m for pl in mine)
+        tied = [pl.n / pl.m for pl in mine if pl.m == top]
+        if len(tied) > 1 and _spread(tied) > AMBIGUITY_SPREAD:
+            out.add(source)
+    return out
+
+
+def choose_percent(percents: list[Placement]) -> tuple[Placement | None, set[str], str]:
+    """(winner, sources dropped as ambiguous, what decided) among one (disease, term)'s percentage rows.
+
+    The candidates left after steps 1-2 (sex, stated n) are checked source by source: when one
+    source's tied rows differ by more than AMBIGUITY_SPREAD, that source is dropped and the choice
+    is made again without it. Otherwise the tie-breaks decide.
+    """
+    ambiguous: set[str] = set()
+    while True:
+        cands = [pl for pl in percents if pl.source_id not in ambiguous]
+        if not cands:
+            return None, ambiguous, ""
+        best = min(_undecided_key(pl) for pl in cands)
+        tied = [pl for pl in cands if _undecided_key(pl) == best]
+        by_source: dict[str, list[float]] = defaultdict(list)
+        for pl in tied:
+            by_source[pl.source_id].append(pl.prevalence)
+        newly = {src for src, values in by_source.items() if _spread(values) > AMBIGUITY_SPREAD}
+        if not newly:
+            break
+        ambiguous |= newly
+    winner = min(tied, key=_tiebreak_key)
+    if len(cands) == 1:
+        decided = ""
+    elif len(tied) < len(cands):
+        losers = [pl for pl in cands if _undecided_key(pl) != best]
+        decided = (
+            "both_sexes_over_one" if any(bool(pl.sex) != best[0] for pl in losers) else "stated_population"
+        )
+    elif len({pl.specificity for pl in tied}) > 1:
+        decided = "specificity"
+    elif len(by_source) > 1 and _spread([pl.prevalence for pl in tied]) > AMBIGUITY_SPREAD:
+        decided = "source_order_across_sources_over_spread"
+    else:
+        decided = "source_then_file_order"
+    return winner, ambiguous, decided
 
 
 def pool(placements: list[Placement], names: dict[str, str]) -> tuple[list[dict], dict]:
-    """Rule 6: the surviving placements -> HPOA rows (sorted by disease, term, kind); marks drops in place."""
+    """Rule 6 with amendment 3: the surviving placements -> HPOA rows (sorted by disease, term, kind);
+    marks drops in place."""
     groups: dict[tuple[str, str], list[Placement]] = defaultdict(list)
     for pl in placements:
         if pl.outcome == USED:
@@ -256,7 +311,15 @@ def pool(placements: list[Placement], names: dict[str, str]) -> tuple[list[dict]
             "aspect": "P",
             "biocuration": BIOCURATION,
         }
-        counts = [pl for pl in group if pl.kind == "count"]
+        ambiguous = _ambiguous_count_sources([pl for pl in group if pl.kind == "count"])
+        percents = [pl for pl in group if pl.kind == "percent" and pl.source_id not in ambiguous]
+        top, dropped, decided = choose_percent(percents)
+        ambiguous |= dropped
+        for pl in group:
+            if pl.source_id in ambiguous:
+                pl.outcome = DROP_AMBIGUOUS
+        stats["terms_dropped_from_a_source_as_ambiguous"] += len(ambiguous)
+        counts = [pl for pl in group if pl.kind == "count" and pl.outcome == USED]
         if counts:
             best: dict[str, Placement] = {}
             for pl in sorted(counts, key=lambda x: (-x.m, x.row_id)):
@@ -271,23 +334,22 @@ def pool(placements: list[Placement], names: dict[str, str]) -> tuple[list[dict]
             stats["count_rows"] += 1
             stats["count_rows_pooling_several_sources"] += len(kept) > 1
             stats["count_rows_mixed_sex"] += len({pl.sex for pl in kept}) > 1
-        percents = sorted((pl for pl in group if pl.kind == "percent"), key=_percent_rank)
-        if percents:
-            top = percents[0]
-            for pl in percents[1:]:
-                pl.outcome = DROP_PERCENT
-            if len(percents) > 1:
-                stats[f"percent_choice_by_{_decided_by(top, percents[1])}"] += 1
+        if top is not None:
+            for pl in group:
+                if pl.kind == "percent" and pl.outcome == USED and pl is not top:
+                    pl.outcome = DROP_PERCENT
+            if decided:
+                stats[f"percent_choice_by_{decided}"] += 1
             sex = SEX_COLUMN.get(top.sex, "")
             out.append(base | {"reference": top.source_id, "frequency": _percent(top.prevalence), "sex": sex})
             stats["percent_rows"] += 1
             stats["percent_rows_beside_lit_counts"] += bool(counts)
-        nots = [pl for pl in group if pl.kind == "not"]
+        nots = [pl for pl in group if pl.kind == "not" and pl.outcome == USED]
         if nots:
             refs = ";".join(sorted({pl.source_id for pl in nots}))
             out.append(base | {"qualifier": "NOT", "reference": refs, "sex": _agreed_sex(nots)})
             stats["not_rows"] += 1
-            stats["not_rows_beside_lit_positive"] += bool(counts or percents)
+            stats["not_rows_beside_lit_positive"] += bool(counts or top)
     return out, dict(sorted(stats.items()))
 
 

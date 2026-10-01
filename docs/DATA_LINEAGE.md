@@ -199,8 +199,8 @@ rule.
 artifact id and no manifest. The dry run on main's 37 shards is
 `results/analyses/LIT-INTEGRATION-dryrun.json`.
 
-**Where amendment 2 is silent**, the build does the following. Each choice
-is counted in the report.
+**Where amendment 2 is silent**, the build does the following, as ruled
+in ADR-0013 amendment 3. Each choice is counted in the report.
 - **Rule 5 citations.** Rows carry a `source_id`, not a PMID list. A paper
   is cited by its PMID. A chapter is cited by its NBK id, its own PMID (from
   the GeneReviews index `GRtitle_shortname_NBKid.txt`), a Bookshelf URL
@@ -214,13 +214,18 @@ is counted in the report.
   - Every validated prevalence-0 row without both counts is read as an
     explicit absence (guide v4 §6a). That includes rows with only
     `n_assessed`. Shards extracted before v4 are not told apart.
-- **Rule 6, counts.** From one source, only the count row with the largest
-  denominator is kept ("distinct sources only"). The pooled row lists every
-  source in `reference`, `;`-separated.
-- **Rule 6, percentages.**
-  - The "stated population" is `n_assessed`, or 0 when it is not stated.
-  - Ties are broken in this order: both sexes before one sex, then unit
-    before `pooled` before `pooled_group`, then source id and file order.
+- **Rule 6, counts** (amendment 3). From one source, only the count row
+  with the largest denominator is kept ("distinct sources only"). If two
+  rows share that denominator and their n/m differ by more than 0.20, the
+  term is dropped from that source (`ambiguous_populations`). The pooled
+  row lists every source in `reference`, `;`-separated.
+- **Rule 6, percentages** (amendment 3).
+  - Preference order: both sexes, then the largest stated `n_assessed`
+    (0 when not stated), then unit before `pooled` before `pooled_group`,
+    then source id and file order.
+  - The guard: when one source's rows are still tied after sex and n, and
+    their prevalences differ by more than 0.20, the term is dropped from
+    that source (`ambiguous_populations`).
   - A percentage is still written beside literature counts. The simulator
     ignores it, by its precedence.
 - **Sex.** The `sex` column is `MALE`/`FEMALE`, as HPOA writes it. A pooled
