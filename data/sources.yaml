@@ -286,3 +286,27 @@ medlineplus_genetics:
     including health condition, gene, and chromosome pages". Images on the pages
     are not public domain and are not used. Attribution: "Courtesy of MedlinePlus
     from the National Library of Medicine".
+
+genereviews:
+  role: knowledge
+  version: "2026-10-01"
+  filename: genereviews_nxml_2026-10-01.tar.gz
+  # A lean subset of the litarch bulk archive (overwritten daily upstream):
+  # the 1,015 chapter NXML files and license.txt, byte-identical, plus the four
+  # GeneReviews FTP index files. PDFs, images and media are left out.
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-10-01-genereviews/genereviews_nxml_2026-10-01.tar.gz
+  upstream_url: https://ftp.ncbi.nlm.nih.gov/pub/litarch/ca/84/gene_NBK1116.tar.gz
+  sha256: 5cb3378e5e67be2628fea27c453f2febcaf680f0a18ce6a9a90e059d1b988015
+  license: GeneReviews Copyright Notice (University of Washington); noncommercial research use, with credit and copyright
+  notes: >-
+    Upstream archive sha256 119439c73b2dd9f2d4e715e241589f1abce048b1fb04cd25e6f68facf453763c
+    (638,877,335 bytes, Last-Modified 2026-10-01 06:41:36 GMT). Index files from
+    https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/ (same sha256 as SOURCES-SCOPING-001).
+    Terms: https://www.ncbi.nlm.nih.gov/books/NBK138602/ (GRcopyright_permiss.nxml in the
+    archive), checked 2026-10-01: "Permission is hereby granted to reproduce, distribute, and
+    translate copies of content materials for noncommercial research purposes only, provided
+    that (i) credit for source ... and copyright ... are included with each copy". No clause on
+    ML or AI use. Written confirmation from the publisher is still pending (docs/TODO.md).
+    Facts plus citations only (ADR-0013 rule 4). Chapters citing an R1 held-out PMID or
+    touching an evaluation unit are dropped (lit-sources-v1). Private release asset; never
+    redistribute publicly.
