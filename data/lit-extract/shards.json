@@ -1,0 +1,49 @@
+{
+ "first_last": {
+  "chapters": [
+   "C001",
+   "C070"
+  ],
+  "papers": [
+   "P001",
+   "P085"
+  ]
+ },
+ "genes": {
+  "chapters": 1084,
+  "papers": 775
+ },
+ "inputs": {
+  "genes-v2:genes.json.gz": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+  "lit-sources-v1:chapters.tsv": "0851c1322830ccffc59abe68f949c069b45be8b0823fd417f45e527847f84cd2",
+  "lit-sources-v1:papers.tsv": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c",
+  "litpanel-split-v3.tsv": "b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2"
+ },
+ "rules": {
+  "chapter_units": "per construction gene of the chapter, its simulable genes-v2 entities whose ids meet the chapter's OMIM ids, else its main entity",
+  "chapters": "usable chapters in priority order (P1..P4, then priority_rank), 10 per shard, ids C001...",
+  "excluded": "evaluation genes and every entity sharing an id with a litpanel-split-v3 disease; genes whose main entity does",
+  "paper_units": "every simulable genes-v2 entity of the paper's genes",
+  "papers": "selected papers in papers.tsv order, 12 per shard, ids P001..."
+ },
+ "shards": {
+  "chapters": 70,
+  "papers": 85
+ },
+ "shards_tsv_sha256": "2f32cc9158d6cfb77edf5fca7d4abe1612695c63d11609850c664021d6f89b2b",
+ "sources": {
+  "chapters": 695,
+  "papers": 1011
+ },
+ "sources_per_shard": {
+  "3": 1,
+  "5": 1,
+  "10": 69,
+  "12": 84
+ },
+ "sources_without_units": [],
+ "units": {
+  "chapters": 1493,
+  "papers": 2333
+ }
+}

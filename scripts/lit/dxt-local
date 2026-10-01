@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Runs dxt from this checkout's own src/ and data/, even when .venv was installed from another checkout.
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+exec env PYTHONPATH="$root/src" "$root/.venv/bin/python" -m diagnostic_ar_training.cli "$@"
