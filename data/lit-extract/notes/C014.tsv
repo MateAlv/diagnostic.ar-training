@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK587318	extracted	12	column n=96/n=31 used as n_assessed; 0% cells for van Buchem recorded as stated; no onset ranges stated
+NBK1194	extracted	15	skipped GI and cardiac manifestation rows (bundles), first-manifestation vitreous 4/43, penetrance (carriers), hedged onset ('usually third to fifth decade')
+NBK1326	extracted	4	skipped Table 2 symbol grades (+++ etc., no numbers), KF >50% in two decades and kidney survival figures (age-conditional), respiratory support 23% and KRT/LTx (treatments), splenomegaly 60% (ambiguous), 'nearly one third' presentation after 20 (vague), mortality
+NBK1352	extracted	6	SMN1 units used (SMN2 is a modifier); onset ranges from Table 2 by subtype; SMA 0 has no unit; skipped Table 3 (copy number vs phenotype, not features), survival, SMA IV share, scoliosis 'most' in SMA II
+NBK1756	extracted	8	SDS1 (3 genes) and SDS2 pooled: pooled_group over all 4 units; skipped cytopenia(s) >95% (no single HPO term), skeletal manifestations (bundle), poor weight gain &/or growth delay (two features), height and weight <3rd centile (two features), cumulative MDS/AML rates, bone abnormalities 10/11 (bundle), duodenal inflammation (conditional on symptoms)
+NBK5300	extracted	5	skipped orthostatic hypotension/constipation (Unknown), hedged onset ('most present after age 40'), atypical cases
+NBK555820	extracted	2	CCS spans the 3 historical entities: pooled_group; skipped phenotype classes (predominant tumour type, severe phenotype 6/26: not features), confluent scalp tumours 'up to one in four', pulmonary cylindromas (3 persons, no denominator), hedged onset ('typically at puberty')
+NBK1106	extracted	7	skipped facial dysmorphia rows (bundle), other congenital heart defects 6% (excludes PDA; no fitting term), per-feature counts without denominator
+NBK43417	extracted	3	skipped normal early development (not a phenotype), 'very common'/'uncommon' rows, hedged onset ('usually childhood or adolescence')
+NBK100238	extracted	5	skipped ESRD at diagnosis 15% ('as many as'), 'at least 50% symptoms in adulthood' and ~35% diagnosed before 18 (not ranges)
