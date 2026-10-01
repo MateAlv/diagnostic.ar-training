@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:40678074	not_cohort	0	24 ARG1d patients diagnosed clinically or by NBS, but only 13 molecularly confirmed by WES; confirmed group under 20
+PMID:36195888	not_cohort	0	caregiver survey of 32 children with caregiver-confirmed MLD; no genetic confirmation stated
+PMID:31469252	no_numbers	0	71 ASS1-confirmed CTLN1 (UCDC/E-IMD) qualify, but results are regressions and figures; descriptive data only in supplementary tables
+PMID:24842602	extracted	4	47 typical AHC (45 ATP1A3+) analysed together; unit AHC2 (OMIM 614820, the paper's own id); skipped first-symptom shares (not ages), hedged median onset of eye movements, per-patient Table 1 tallies, flunarizine response; European figures in the dystonia/epilepsy sentence are pooled literature, only the Chinese figure taken
+PMID:25996915	extracted	4	154 ATP1A3+ of 187 AHC; onset means per genotype group from Table 1 (no-mutation group excluded); skipped sitting/walking milestones (figures only) and status epilepticus odds ratios
+PMID:30891744	no_numbers	0	98 ATP1A3+ AHC probands (overlaps PMID:24842602 cohort); mosaicism and parental-origin figures only; Table 2 is 5 per-patient rows
+PMID:24780882	extracted	1	317 affected SCA1 (EUROSCA); onset defined in Methods as onset of gait difficulties; SCA2/3/6 not allowed units; preclinical carriers not affected; model parameters not phenotypes
+PMID:26815532	not_cohort	0	BSCL2 screening of 84 CMT2/dHMN patients found 3 carriers (one family plus one sporadic); no unit reaches 20
+PMID:37219739	extracted	25	240 XLA registry patients, BTK mutation reported in 229 (variant documented in 25); skipped infections overall 92.5% and skin infections (no fitting term), seizures/dermatomyositis/polio (counts without share), allergic symptoms (bundle), age at diagnosis (includes family-history diagnoses from birth), treatment and mortality
+PMID:25308964	not_cohort	0	C9orf72 screening in atypical parkinsonism: 3 expansion carriers among 37 CBS; no unit reaches 20
+PMID:26481318	extracted	1	133 Belgian C9orf72 expansion carriers (72 index); onset of the 51 long-expansion patients on the ALS/FTD1 unit; short-expansion group (6) under 20; methylation and promoter data not phenotypes
+PMID:29264395	extracted	1	333 C9orf72 probands and affected relatives from 133 families (genotype stated per family); onset range on the ALS/FTD1 unit; GRN not an allowed unit; heritability and hazard ratios not extracted
