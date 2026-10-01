@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:24755310	extracted	15	36 suspected MSS, 24 SIL1-positive (column used); skipped milestone attainment, loss of ambulation (conditional), CK range, no cardiac/respiratory problems (two features in one statement), cataract onset (feature onset)
+PMID:34863234	no_numbers	0	49 biallelic SLC22A5 newborns from NBS; only screening carnitine levels and genotypes, no clinical feature figures
+PMID:32910226	not_cohort	0	66 NSEVA/PDS patients, only 23 biallelic SLC26A4 (14 compound het, 9 homozygous) and every figure is for the whole mixed cohort
+PMID:28717662	extracted	4	109 cystinuria patients with clinical data (96 fully genotyped: 74 type A, 22 type B; includes 25 relatives); pooled rows on SLC3A1 (most common); skipped age at diagnosis (cohort includes screened relatives), stone activity rates, urinary cystine
+PMID:30474607	not_cohort	0	selenium supplementation trial in 48 cystinuria patients; no genetic confirmation, no phenotype figures
+PMID:35761184	extracted	6	43 verified SLC6A1 carriers in Simons Searchlight (35 with clinical data), own registry column only; Literature column (116 published/database cases) skipped; OMIM 616421 is the SLC6A1 disorder entry; VABS/SRS scores skipped
+PMID:35811451	not_cohort	0	single NCBRS case followed 10 years plus a summary of 80 published cases (literature review)
+PMID:22998683	extracted	6	65 SMARCAL1 SIOD by physician questionnaire; skipped lung disease and obstructive lung disease (no precise term), asthma or reactive airway disease (or), abstract arteriosclerosis wording (results say cerebral ischemia), deaths, autopsy/cell data
+PMID:28796785	extracted	12	34 SMARCAL1 SIOD (PodoNet, 23 by phenotype + 11 by panel; 6 previously published with updated data); subgroup columns under 20 skipped; skipped recurrent and/or severe infections (no single term), PTLD (post-transplant), steroid resistance (treatment), age at diagnosis and renal onset (renal feature, includes family testing), survival
+PMID:27217339	extracted	1	97 complex HSP probands screened; SPG11 group 30 qualifies (SPG7 5, ZFYVE26 2 too small); SPG11 feature frequencies only in Figure 1B and per-patient Table 1, so only onset age kept; section is the SPG11 'General features' heading
+PMID:24727571	not_cohort	0	68 PEO patients screened; 9 with biallelic SPG7 (largest confirmed group 9)
+PMID:33909990	extracted	17	33 SRCAP truncating outside FLHS locus: proximal group 28 used (distal 5 too small); literature FLHS columns skipped; skipped FLHS gestalt, ID/borderline/special education and joint hypermobility/musculoskeletal (bundles), broad thumbs/fingertips/brachydactyly (bundle), DNAm data

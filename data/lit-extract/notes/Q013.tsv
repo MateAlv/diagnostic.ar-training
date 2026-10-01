@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:34434907	extracted	2	55 PHEX-confirmed (48 index); nontruncating group 9 under 20; skipped initial bow-legs share (first-symptom share; 64.3% not consistent with counts), nephrocalcinosis and surgery at follow-up (on treatment), biochemistry
+PMID:38634985	extracted	7	42 PIK3CD-confirmed APDS1; skipped bronchiectasis 59% (conditional on recurrent infections), GI symptoms (category), IBD (considered), blood autoimmunity (no share), immunophenotype percentages, per-patient table
+PMID:29599784	extracted	9	68 registry patients with functionally validated APDS variants (45 APDS1, 23 APDS2; 29 also in earlier cohort papers), pooled rows as pooled_group; skipped GI manifestations (category), cytopenias (no HPO term), EBV infection (chronic vs CAEBV unclear), lymphoma and short stature counts (denominator 68 or 77 unclear), rapamycin response
+PMID:28296980	not_cohort	0	ARegPKD registry design and enrolment report (395 clinically diagnosed ARPKD); no genetic confirmation reported and no phenotype figures
+PMID:29915780	not_cohort	0	physician survey on gastrostomy practice in ARPKD (196 respondents, 38 patients with procedure data); no genetically confirmed cohort
+PMID:37403138	not_cohort	0	18 INAD and 7 late-onset PLAN with PLA2G6 variants (largest unit group 18)
+PMID:35346287	extracted	40	111 PLP1-confirmed PMD (inclusion required nystagmus, hypotonia and hypomyelination); subgroup rows on the connatal/transitional/classic Orphanet units; skipped milestones (attainment shares), nystagmus decrease, brainstem dysfunction (bundle), hypomyelination (no number), GMFCS, per-feature onset ages other than presenting nystagmus
+PMID:25497157	extracted	19	29 biallelic PMM2-CDG aged >=15; skipped walking attainment, peripheral neuropathy (22 without denominator), venous thrombosis, blood counts, growth retardation and psychiatric counts (no denominator), first-sign timing (all but one), visceral signs (bundle), developmental delay (kept ID only from 'DD and ID')
+PMID:22162478	extracted	3	30 PORD (28 with POR mutations, some partly reported before by the same groups); karyotype-specific DSD denominators kept as sex-limited slices; skipped 17OHP (all but one), steroid ratios, malformation scores (Table 4 per patient)
+PMID:37339871	not_cohort	0	care-guideline review; every frequency cites other studies (literature data on 100 individuals), no own cohort figures
+PMID:33658321	not_cohort	0	12 CLIPPERS patients screened for HLH genes; no confirmed PRF1/UNC13D group of 20, disease is not FHL
+PMID:29603387	extracted	4	25 PRKCG carriers from a screen of 194 ADCA families; skipped complex-phenotype share (not a feature), early/late onset shares, dysphagia (no denominator), Table 1 per-patient signs, SARA
