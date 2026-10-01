@@ -1,0 +1,873 @@
+{
+ "inputs": {
+  "source:hpo_ontology": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243",
+  "source:clingen_validity": "f7df196f67638c536918c5147170a01e2770d4d7149422da008b3b7a42c2525c",
+  "source:gene2phenotype": "0bec18822e3b9ad02734da036b5124336558fd0cabea35af67d37ae9cc2b4bbf",
+  "source:panelapp": "b25b4d8df2b044a34cb9ca598458a04ca277690cb97f07e8cf9b39ed4549d0b7",
+  "source:medlineplus_genetics": "8b5c979b9ff3a2c124603591f9188d4cb714560d00ff343242262328afe57e94",
+  "genes-v2": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+  "hpoa-recount-v1/phenotype.hpoa": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a",
+  "SOURCES-SCOPING-001/genes.tsv": "5d77b4c35612e278721a88f2903cabf56e6c3b9592c209164db34df8d66172b8",
+  "gr_chapters": "0851c1322830ccffc59abe68f949c069b45be8b0823fd417f45e527847f84cd2",
+  "lit_papers": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c"
+ },
+ "params": {
+  "min_label_chars": 6,
+  "max_ngram": 8,
+  "dictionary_phrases": 36722
+ },
+ "source_sizes": {
+  "medlineplus_conditions": 1305,
+  "medlineplus_with_frequency_section": 1304,
+  "g2p_records": 3851,
+  "g2p_records_by_panel": {
+   "DD": 2866,
+   "Eye": 789,
+   "Skeletal": 346,
+   "Skin": 608,
+   "Cancer": 125,
+   "Ear": 98,
+   "Cardiac": 179
+  },
+  "g2p_records_with_hpo": 2544,
+  "g2p_records_by_confidence": {
+   "definitive": 2044,
+   "strong": 885,
+   "limited": 540,
+   "moderate": 326,
+   "refuted": 3,
+   "disputed": 53
+  },
+  "panelapp_gene_entries": 32534,
+  "panelapp_panels": 414,
+  "panelapp_entries_by_evidence": {
+   "red": 9557,
+   "green": 19552,
+   "amber": 3425
+  },
+  "panelapp_entries_with_hpo": 138,
+  "panelapp_entries_with_omim": 20818
+ },
+ "construction": {
+  "genes": 5108,
+  "all": {
+   "medlineplus": {
+    "covered": 2548,
+    "main_disease_matched": 1642,
+    "new_terms_dictionary": 2480,
+    "new_unrelated_terms_dictionary": 2249,
+    "prevalence_section": 2545,
+    "prevalence_numeric": 2007,
+    "age_numeric": 126,
+    "age_qualitative": 243,
+    "inheritance": 2378
+   },
+   "gene2phenotype": {
+    "covered": 2847,
+    "main_disease_matched": 1968,
+    "dd_panel_only": 1493,
+    "any_hpo_terms": 1986,
+    "new_terms": 1445,
+    "new_unrelated_terms": 1049,
+    "confidence_definitive_or_strong": 2371,
+    "cites_heldout_pmid": 150
+   },
+   "panelapp": {
+    "covered": 4562,
+    "green_on_some_panel": 3888,
+    "main_disease_matched": 3448,
+    "any_hpo_terms": 39,
+    "new_terms": 27
+   },
+   "clingen_validity": {
+    "covered": 2786,
+    "definitive_or_strong": 2066
+   },
+   "any_tier1_kb": {
+    "covered": 4700,
+    "new_terms_g2p_or_panelapp": 1458
+   },
+   "genereviews_frozen": {
+    "covered": 1086,
+    "frequency_table": 536,
+    "age_numeric": 719
+   },
+   "tier2_papers_frozen": {
+    "covered": 777,
+    "covered_by_gr_cited_paper": 563
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 1307
+   }
+  },
+  "weak_W1_W4": {
+   "medlineplus": {
+    "covered": 1309,
+    "main_disease_matched": 763,
+    "new_terms_dictionary": 1266,
+    "new_unrelated_terms_dictionary": 1168,
+    "prevalence_section": 1309,
+    "prevalence_numeric": 1050,
+    "age_numeric": 61,
+    "age_qualitative": 137,
+    "inheritance": 1233
+   },
+   "gene2phenotype": {
+    "covered": 1293,
+    "main_disease_matched": 851,
+    "dd_panel_only": 654,
+    "any_hpo_terms": 902,
+    "new_terms": 640,
+    "new_unrelated_terms": 487,
+    "confidence_definitive_or_strong": 1067,
+    "cites_heldout_pmid": 63
+   },
+   "panelapp": {
+    "covered": 2320,
+    "green_on_some_panel": 1910,
+    "main_disease_matched": 1721,
+    "any_hpo_terms": 19,
+    "new_terms": 11
+   },
+   "clingen_validity": {
+    "covered": 1379,
+    "definitive_or_strong": 946
+   },
+   "any_tier1_kb": {
+    "covered": 2379,
+    "new_terms_g2p_or_panelapp": 644
+   },
+   "genereviews_frozen": {
+    "covered": 517,
+    "frequency_table": 249,
+    "age_numeric": 349
+   },
+   "tier2_papers_frozen": {
+    "covered": 476,
+    "covered_by_gr_cited_paper": 263
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 737
+   }
+  },
+  "by_tier": {
+   "W1_mostly_no_frequency": {
+    "genes": 440,
+    "medlineplus": {
+     "covered": 247,
+     "main_disease_matched": 162,
+     "new_terms_dictionary": 234,
+     "new_unrelated_terms_dictionary": 217,
+     "prevalence_section": 247,
+     "prevalence_numeric": 182,
+     "age_numeric": 16,
+     "age_qualitative": 49,
+     "inheritance": 227
+    },
+    "gene2phenotype": {
+     "covered": 219,
+     "main_disease_matched": 159,
+     "dd_panel_only": 74,
+     "any_hpo_terms": 166,
+     "new_terms": 90,
+     "new_unrelated_terms": 75,
+     "confidence_definitive_or_strong": 174,
+     "cites_heldout_pmid": 8
+    },
+    "panelapp": {
+     "covered": 395,
+     "green_on_some_panel": 321,
+     "main_disease_matched": 347,
+     "any_hpo_terms": 2,
+     "new_terms": 2
+    },
+    "clingen_validity": {
+     "covered": 225,
+     "definitive_or_strong": 151
+    },
+    "any_tier1_kb": {
+     "covered": 411,
+     "new_terms_g2p_or_panelapp": 91
+    },
+    "genereviews_frozen": {
+     "covered": 67,
+     "frequency_table": 25,
+     "age_numeric": 39
+    },
+    "tier2_papers_frozen": {
+     "covered": 108,
+     "covered_by_gr_cited_paper": 36
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 139
+    }
+   },
+   "W2_orphanet_bins_only": {
+    "genes": 314,
+    "medlineplus": {
+     "covered": 176,
+     "main_disease_matched": 2,
+     "new_terms_dictionary": 175,
+     "new_unrelated_terms_dictionary": 164,
+     "prevalence_section": 176,
+     "prevalence_numeric": 152,
+     "age_numeric": 13,
+     "age_qualitative": 22,
+     "inheritance": 168
+    },
+    "gene2phenotype": {
+     "covered": 154,
+     "main_disease_matched": 4,
+     "dd_panel_only": 59,
+     "any_hpo_terms": 122,
+     "new_terms": 117,
+     "new_unrelated_terms": 104,
+     "confidence_definitive_or_strong": 127,
+     "cites_heldout_pmid": 19
+    },
+    "panelapp": {
+     "covered": 260,
+     "green_on_some_panel": 188,
+     "main_disease_matched": 5,
+     "any_hpo_terms": 2,
+     "new_terms": 1
+    },
+    "clingen_validity": {
+     "covered": 168,
+     "definitive_or_strong": 109
+    },
+    "any_tier1_kb": {
+     "covered": 276,
+     "new_terms_g2p_or_panelapp": 117
+    },
+    "genereviews_frozen": {
+     "covered": 80,
+     "frequency_table": 38,
+     "age_numeric": 58
+    },
+    "tier2_papers_frozen": {
+     "covered": 76,
+     "covered_by_gr_cited_paper": 54
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 106
+    }
+   },
+   "W3_no_counts_other": {
+    "genes": 405,
+    "medlineplus": {
+     "covered": 261,
+     "main_disease_matched": 208,
+     "new_terms_dictionary": 245,
+     "new_unrelated_terms_dictionary": 212,
+     "prevalence_section": 261,
+     "prevalence_numeric": 206,
+     "age_numeric": 9,
+     "age_qualitative": 19,
+     "inheritance": 245
+    },
+    "gene2phenotype": {
+     "covered": 192,
+     "main_disease_matched": 119,
+     "dd_panel_only": 66,
+     "any_hpo_terms": 160,
+     "new_terms": 108,
+     "new_unrelated_terms": 65,
+     "confidence_definitive_or_strong": 175,
+     "cites_heldout_pmid": 11
+    },
+    "panelapp": {
+     "covered": 372,
+     "green_on_some_panel": 318,
+     "main_disease_matched": 253,
+     "any_hpo_terms": 5,
+     "new_terms": 1
+    },
+    "clingen_validity": {
+     "covered": 231,
+     "definitive_or_strong": 191
+    },
+    "any_tier1_kb": {
+     "covered": 381,
+     "new_terms_g2p_or_panelapp": 109
+    },
+    "genereviews_frozen": {
+     "covered": 147,
+     "frequency_table": 72,
+     "age_numeric": 109
+    },
+    "tier2_papers_frozen": {
+     "covered": 110,
+     "covered_by_gr_cited_paper": 78
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 181
+    }
+   },
+   "W4_counts_from_small_series_only": {
+    "genes": 1412,
+    "medlineplus": {
+     "covered": 625,
+     "main_disease_matched": 391,
+     "new_terms_dictionary": 612,
+     "new_unrelated_terms_dictionary": 575,
+     "prevalence_section": 625,
+     "prevalence_numeric": 510,
+     "age_numeric": 23,
+     "age_qualitative": 47,
+     "inheritance": 593
+    },
+    "gene2phenotype": {
+     "covered": 728,
+     "main_disease_matched": 569,
+     "dd_panel_only": 455,
+     "any_hpo_terms": 454,
+     "new_terms": 325,
+     "new_unrelated_terms": 243,
+     "confidence_definitive_or_strong": 591,
+     "cites_heldout_pmid": 25
+    },
+    "panelapp": {
+     "covered": 1293,
+     "green_on_some_panel": 1083,
+     "main_disease_matched": 1116,
+     "any_hpo_terms": 10,
+     "new_terms": 7
+    },
+    "clingen_validity": {
+     "covered": 755,
+     "definitive_or_strong": 495
+    },
+    "any_tier1_kb": {
+     "covered": 1311,
+     "new_terms_g2p_or_panelapp": 327
+    },
+    "genereviews_frozen": {
+     "covered": 223,
+     "frequency_table": 114,
+     "age_numeric": 143
+    },
+    "tier2_papers_frozen": {
+     "covered": 182,
+     "covered_by_gr_cited_paper": 95
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 311
+    }
+   },
+   "ok_counts": {
+    "genes": 2205,
+    "medlineplus": {
+     "covered": 1165,
+     "main_disease_matched": 879,
+     "new_terms_dictionary": 1141,
+     "new_unrelated_terms_dictionary": 1008,
+     "prevalence_section": 1162,
+     "prevalence_numeric": 902,
+     "age_numeric": 61,
+     "age_qualitative": 104,
+     "inheritance": 1110
+    },
+    "gene2phenotype": {
+     "covered": 1493,
+     "main_disease_matched": 1117,
+     "dd_panel_only": 792,
+     "any_hpo_terms": 1058,
+     "new_terms": 779,
+     "new_unrelated_terms": 536,
+     "confidence_definitive_or_strong": 1289,
+     "cites_heldout_pmid": 63
+    },
+    "panelapp": {
+     "covered": 2076,
+     "green_on_some_panel": 1899,
+     "main_disease_matched": 1727,
+     "any_hpo_terms": 19,
+     "new_terms": 15
+    },
+    "clingen_validity": {
+     "covered": 1344,
+     "definitive_or_strong": 1106
+    },
+    "any_tier1_kb": {
+     "covered": 2114,
+     "new_terms_g2p_or_panelapp": 787
+    },
+    "genereviews_frozen": {
+     "covered": 561,
+     "frequency_table": 284,
+     "age_numeric": 367
+    },
+    "tier2_papers_frozen": {
+     "covered": 297,
+     "covered_by_gr_cited_paper": 296
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 562
+    }
+   },
+   "W0_no_profile": {
+    "genes": 332,
+    "medlineplus": {
+     "covered": 74,
+     "main_disease_matched": 0,
+     "new_terms_dictionary": 73,
+     "new_unrelated_terms_dictionary": 73,
+     "prevalence_section": 74,
+     "prevalence_numeric": 55,
+     "age_numeric": 4,
+     "age_qualitative": 2,
+     "inheritance": 35
+    },
+    "gene2phenotype": {
+     "covered": 61,
+     "main_disease_matched": 0,
+     "dd_panel_only": 47,
+     "any_hpo_terms": 26,
+     "new_terms": 26,
+     "new_unrelated_terms": 26,
+     "confidence_definitive_or_strong": 15,
+     "cites_heldout_pmid": 24
+    },
+    "panelapp": {
+     "covered": 166,
+     "green_on_some_panel": 79,
+     "main_disease_matched": 0,
+     "any_hpo_terms": 1,
+     "new_terms": 1
+    },
+    "clingen_validity": {
+     "covered": 63,
+     "definitive_or_strong": 14
+    },
+    "any_tier1_kb": {
+     "covered": 207,
+     "new_terms_g2p_or_panelapp": 27
+    },
+    "genereviews_frozen": {
+     "covered": 8,
+     "frequency_table": 3,
+     "age_numeric": 3
+    },
+    "tier2_papers_frozen": {
+     "covered": 4,
+     "covered_by_gr_cited_paper": 4
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 8
+    }
+   }
+  }
+ },
+ "evaluation": {
+  "genes": 120,
+  "all": {
+   "medlineplus": {
+    "covered": 82,
+    "main_disease_matched": 55,
+    "new_terms_dictionary": 80,
+    "new_unrelated_terms_dictionary": 69,
+    "prevalence_section": 82,
+    "prevalence_numeric": 61,
+    "age_numeric": 4,
+    "age_qualitative": 8,
+    "inheritance": 78
+   },
+   "gene2phenotype": {
+    "covered": 74,
+    "main_disease_matched": 50,
+    "dd_panel_only": 26,
+    "any_hpo_terms": 60,
+    "new_terms": 49,
+    "new_unrelated_terms": 42,
+    "confidence_definitive_or_strong": 71,
+    "cites_heldout_pmid": 22
+   },
+   "panelapp": {
+    "covered": 108,
+    "green_on_some_panel": 101,
+    "main_disease_matched": 88,
+    "any_hpo_terms": 1,
+    "new_terms": 1
+   },
+   "clingen_validity": {
+    "covered": 80,
+    "definitive_or_strong": 67
+   },
+   "any_tier1_kb": {
+    "covered": 111,
+    "new_terms_g2p_or_panelapp": 50
+   },
+   "genereviews_frozen": {
+    "covered": 0,
+    "frequency_table": 0,
+    "age_numeric": 0
+   },
+   "tier2_papers_frozen": {
+    "covered": 0,
+    "covered_by_gr_cited_paper": 0
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 0
+   }
+  },
+  "weak_W1_W4": {
+   "medlineplus": {
+    "covered": 32,
+    "main_disease_matched": 17,
+    "new_terms_dictionary": 32,
+    "new_unrelated_terms_dictionary": 28,
+    "prevalence_section": 32,
+    "prevalence_numeric": 24,
+    "age_numeric": 1,
+    "age_qualitative": 3,
+    "inheritance": 29
+   },
+   "gene2phenotype": {
+    "covered": 25,
+    "main_disease_matched": 16,
+    "dd_panel_only": 8,
+    "any_hpo_terms": 21,
+    "new_terms": 18,
+    "new_unrelated_terms": 15,
+    "confidence_definitive_or_strong": 23,
+    "cites_heldout_pmid": 5
+   },
+   "panelapp": {
+    "covered": 45,
+    "green_on_some_panel": 40,
+    "main_disease_matched": 33,
+    "any_hpo_terms": 0,
+    "new_terms": 0
+   },
+   "clingen_validity": {
+    "covered": 32,
+    "definitive_or_strong": 25
+   },
+   "any_tier1_kb": {
+    "covered": 46,
+    "new_terms_g2p_or_panelapp": 18
+   },
+   "genereviews_frozen": {
+    "covered": 0,
+    "frequency_table": 0,
+    "age_numeric": 0
+   },
+   "tier2_papers_frozen": {
+    "covered": 0,
+    "covered_by_gr_cited_paper": 0
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 0
+   }
+  },
+  "by_tier": {
+   "W1_mostly_no_frequency": {
+    "genes": 13,
+    "medlineplus": {
+     "covered": 7,
+     "main_disease_matched": 3,
+     "new_terms_dictionary": 7,
+     "new_unrelated_terms_dictionary": 5,
+     "prevalence_section": 7,
+     "prevalence_numeric": 5,
+     "age_numeric": 0,
+     "age_qualitative": 3,
+     "inheritance": 6
+    },
+    "gene2phenotype": {
+     "covered": 5,
+     "main_disease_matched": 4,
+     "dd_panel_only": 2,
+     "any_hpo_terms": 4,
+     "new_terms": 3,
+     "new_unrelated_terms": 3,
+     "confidence_definitive_or_strong": 5,
+     "cites_heldout_pmid": 2
+    },
+    "panelapp": {
+     "covered": 11,
+     "green_on_some_panel": 11,
+     "main_disease_matched": 10,
+     "any_hpo_terms": 0,
+     "new_terms": 0
+    },
+    "clingen_validity": {
+     "covered": 9,
+     "definitive_or_strong": 7
+    },
+    "any_tier1_kb": {
+     "covered": 11,
+     "new_terms_g2p_or_panelapp": 3
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   },
+   "W2_orphanet_bins_only": {
+    "genes": 4,
+    "medlineplus": {
+     "covered": 3,
+     "main_disease_matched": 0,
+     "new_terms_dictionary": 3,
+     "new_unrelated_terms_dictionary": 3,
+     "prevalence_section": 3,
+     "prevalence_numeric": 2,
+     "age_numeric": 0,
+     "age_qualitative": 0,
+     "inheritance": 2
+    },
+    "gene2phenotype": {
+     "covered": 1,
+     "main_disease_matched": 0,
+     "dd_panel_only": 0,
+     "any_hpo_terms": 1,
+     "new_terms": 1,
+     "new_unrelated_terms": 1,
+     "confidence_definitive_or_strong": 1,
+     "cites_heldout_pmid": 0
+    },
+    "panelapp": {
+     "covered": 4,
+     "green_on_some_panel": 3,
+     "main_disease_matched": 0,
+     "any_hpo_terms": 0,
+     "new_terms": 0
+    },
+    "clingen_validity": {
+     "covered": 2,
+     "definitive_or_strong": 2
+    },
+    "any_tier1_kb": {
+     "covered": 4,
+     "new_terms_g2p_or_panelapp": 1
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   },
+   "W3_no_counts_other": {
+    "genes": 12,
+    "medlineplus": {
+     "covered": 9,
+     "main_disease_matched": 8,
+     "new_terms_dictionary": 9,
+     "new_unrelated_terms_dictionary": 7,
+     "prevalence_section": 9,
+     "prevalence_numeric": 6,
+     "age_numeric": 0,
+     "age_qualitative": 0,
+     "inheritance": 9
+    },
+    "gene2phenotype": {
+     "covered": 9,
+     "main_disease_matched": 4,
+     "dd_panel_only": 2,
+     "any_hpo_terms": 7,
+     "new_terms": 6,
+     "new_unrelated_terms": 5,
+     "confidence_definitive_or_strong": 7,
+     "cites_heldout_pmid": 2
+    },
+    "panelapp": {
+     "covered": 11,
+     "green_on_some_panel": 10,
+     "main_disease_matched": 7,
+     "any_hpo_terms": 0,
+     "new_terms": 0
+    },
+    "clingen_validity": {
+     "covered": 8,
+     "definitive_or_strong": 7
+    },
+    "any_tier1_kb": {
+     "covered": 12,
+     "new_terms_g2p_or_panelapp": 6
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   },
+   "W4_counts_from_small_series_only": {
+    "genes": 21,
+    "medlineplus": {
+     "covered": 13,
+     "main_disease_matched": 6,
+     "new_terms_dictionary": 13,
+     "new_unrelated_terms_dictionary": 13,
+     "prevalence_section": 13,
+     "prevalence_numeric": 11,
+     "age_numeric": 1,
+     "age_qualitative": 0,
+     "inheritance": 12
+    },
+    "gene2phenotype": {
+     "covered": 10,
+     "main_disease_matched": 8,
+     "dd_panel_only": 4,
+     "any_hpo_terms": 9,
+     "new_terms": 8,
+     "new_unrelated_terms": 6,
+     "confidence_definitive_or_strong": 10,
+     "cites_heldout_pmid": 1
+    },
+    "panelapp": {
+     "covered": 19,
+     "green_on_some_panel": 16,
+     "main_disease_matched": 16,
+     "any_hpo_terms": 0,
+     "new_terms": 0
+    },
+    "clingen_validity": {
+     "covered": 13,
+     "definitive_or_strong": 9
+    },
+    "any_tier1_kb": {
+     "covered": 19,
+     "new_terms_g2p_or_panelapp": 8
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   },
+   "ok_counts": {
+    "genes": 66,
+    "medlineplus": {
+     "covered": 48,
+     "main_disease_matched": 38,
+     "new_terms_dictionary": 46,
+     "new_unrelated_terms_dictionary": 39,
+     "prevalence_section": 48,
+     "prevalence_numeric": 35,
+     "age_numeric": 3,
+     "age_qualitative": 5,
+     "inheritance": 48
+    },
+    "gene2phenotype": {
+     "covered": 49,
+     "main_disease_matched": 34,
+     "dd_panel_only": 18,
+     "any_hpo_terms": 39,
+     "new_terms": 31,
+     "new_unrelated_terms": 27,
+     "confidence_definitive_or_strong": 48,
+     "cites_heldout_pmid": 17
+    },
+    "panelapp": {
+     "covered": 63,
+     "green_on_some_panel": 61,
+     "main_disease_matched": 55,
+     "any_hpo_terms": 1,
+     "new_terms": 1
+    },
+    "clingen_validity": {
+     "covered": 48,
+     "definitive_or_strong": 42
+    },
+    "any_tier1_kb": {
+     "covered": 63,
+     "new_terms_g2p_or_panelapp": 32
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   },
+   "W0_no_profile": {
+    "genes": 4,
+    "medlineplus": {
+     "covered": 2,
+     "main_disease_matched": 0,
+     "new_terms_dictionary": 2,
+     "new_unrelated_terms_dictionary": 2,
+     "prevalence_section": 2,
+     "prevalence_numeric": 2,
+     "age_numeric": 0,
+     "age_qualitative": 0,
+     "inheritance": 1
+    },
+    "gene2phenotype": {
+     "covered": 0,
+     "main_disease_matched": 0,
+     "dd_panel_only": 0,
+     "any_hpo_terms": 0,
+     "new_terms": 0,
+     "new_unrelated_terms": 0,
+     "confidence_definitive_or_strong": 0,
+     "cites_heldout_pmid": 0
+    },
+    "panelapp": {
+     "covered": 0,
+     "green_on_some_panel": 0,
+     "main_disease_matched": 0,
+     "any_hpo_terms": 0,
+     "new_terms": 0
+    },
+    "clingen_validity": {
+     "covered": 0,
+     "definitive_or_strong": 0
+    },
+    "any_tier1_kb": {
+     "covered": 2,
+     "new_terms_g2p_or_panelapp": 0
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
+    }
+   }
+  }
+ }
+}

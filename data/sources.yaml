@@ -213,3 +213,100 @@ clinvar_variants:
   sha256: 186ad2838a138f0bc7a79b1b7b6dde5533b105175d293e1131652889529804c9
   license: Public domain (NCBI ClinVar)
   notes: Pathogenic/likely pathogenic germline variant counts per (gene, condition), to weight a gene's diseases. Submissions may come from R1 publications; the weight carries no phenotype terms (declared in DATA_LINEAGE §5).
+
+# Tier-1 curated knowledge bases (ADR-0013 amendment 1). Upstream URLs serve the
+# current data, so each is pinned as a snapshot release asset of this repo.
+gene2phenotype:
+  role: knowledge
+  version: "2026-10-01"
+  filename: G2P_all_2026-10-01.csv
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-10-01-g2p/G2P_all_2026-10-01.csv
+  upstream_url: https://www.ebi.ac.uk/gene2phenotype/api/panel/all/download/
+  sha256: 0bec18822e3b9ad02734da036b5124336558fd0cabea35af67d37ae9cc2b4bbf
+  license: CC-BY-4.0 (Gene2Phenotype, EMBL-EBI)
+  notes: >-
+    Curated gene-disease records (3,851; all panels: DD, Eye, Skin, Skeletal,
+    Cardiac, Cancer, Ear) with confidence, allelic requirement, variant
+    consequence, HPO terms and curated PMIDs. Each row keeps its panels
+    (column `panel`). Terms: https://www.ebi.ac.uk/gene2phenotype/responsible-handover
+    (checked 2026-10-01; source EBI-G2P/gene2phenotype_web@6f9de16,
+    src/views/ResponsibleHandoverView.vue): "The G2P dataset is released under
+    the Creative Commons Attribution 4.0 (CC BY 4.0) licence." DDD caveat
+    (ADR-0013 amendment 1): DDG2P (panel DD) was curated partly from the DDD
+    study, a sealed eval cohort; any DDD no-regression result must disclose that
+    G2P contributed. The column `additional mined publications` comes from G2P's
+    ML literature pipeline, is not curator-reviewed, and is ignored by the parser.
+    Phenotypes are per record, not per publication, so held-out PMID masking can
+    only drop whole records.
+
+panelapp:
+  role: knowledge
+  version: "2026-10-01"
+  filename: panelapp-2026-10-01.json.gz
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-10-01-panelapp/panelapp-2026-10-01.json.gz
+  upstream_url: https://panelapp.genomicsengland.co.uk/api/v1/
+  sha256: b25b4d8df2b044a34cb9ca598458a04ca277690cb97f07e8cf9b39ed4549d0b7
+  license: PanelApp Terms of Use, December 2019 (Genomics England; all rights reserved; non-commercial, non-diagnostic use)
+  notes: >-
+    All 433 public panels and 32,534 gene entries (gene, panel, evidence level
+    green/amber/red, mode of inheritance, phenotype strings, PMIDs), built by
+    scripts/sources/snapshot_panelapp.py. Only 138 entries carry HPO ids; 20,818
+    carry an OMIM number in their phenotype text. Terms:
+    https://panelapp.genomicsengland.co.uk/media/files/GEL_-_PanelApp_Terms_of_Use_December_2019.pdf
+    (checked 2026-10-01; the current terms linked from the PanelApp home page).
+    §1.1: "You agree not to use PanelApp for any commercial purposes (including
+    any commercial research), or for diagnostic use, medical decision-making or
+    providing a healthcare service ... unless you have entered into a separate
+    agreement with GEL". §1.2: "you may download extracts, of any page(s) from
+    PanelApp". No clause on ML/AI use or on private storage. RESTRICTION: until
+    Mateo decides (or GEL agrees), PanelApp may feed research analyses only, not
+    any artifact that reaches the production model; its OMIM-derived phenotype
+    strings also fall under §6 (OMIM).
+
+medlineplus_genetics:
+  role: knowledge
+  version: "2026-10-01"
+  filename: medlineplus-genetics-2026-10-01.tar.gz
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-10-01-medlineplus/medlineplus-genetics-2026-10-01.tar.gz
+  upstream_url: https://medlineplus.gov/download/ghr-summaries.xml
+  sha256: 8b5c979b9ff3a2c124603591f9188d4cb714560d00ff343242262328afe57e94
+  license: Public domain (U.S. National Library of Medicine, MedlinePlus Genetics summaries)
+  notes: >-
+    tar.gz of the bulk compendium ghr-summaries.xml (Last-Modified 2026-09-30;
+    1,305 conditions, 1,500 genes; condition-gene links, inheritance codes,
+    OMIM/GTR/MeSH keys, description) plus the 1,305 condition web pages,
+    unmodified, which add the Frequency, Causes and Inheritance sections (the
+    compendium lacks them). Built by scripts/sources/snapshot_medlineplus.py
+    (robots.txt allows /genetics/). The Frequency section is disease prevalence
+    as prose, not feature frequencies. Terms:
+    https://medlineplus.gov/about/using/usingcontent/ (checked 2026-10-01):
+    "Works produced by the federal government are not copyrighted under U.S.
+    law. You may reproduce, redistribute, and link freely to non-copyrighted
+    content", and the public-domain list includes "Summaries on Genetics pages,
+    including health condition, gene, and chromosome pages". Images on the pages
+    are not public domain and are not used. Attribution: "Courtesy of MedlinePlus
+    from the National Library of Medicine".
+
+genereviews:
+  role: knowledge
+  version: "2026-10-01"
+  filename: genereviews_nxml_2026-10-01.tar.gz
+  # A lean subset of the litarch bulk archive (overwritten daily upstream):
+  # the 1,015 chapter NXML files and license.txt, byte-identical, plus the four
+  # GeneReviews FTP index files. PDFs, images and media are left out.
+  url: https://github.com/MateAlv/diagnostic.ar-training/releases/download/data-snapshot-2026-10-01-genereviews/genereviews_nxml_2026-10-01.tar.gz
+  upstream_url: https://ftp.ncbi.nlm.nih.gov/pub/litarch/ca/84/gene_NBK1116.tar.gz
+  sha256: 5cb3378e5e67be2628fea27c453f2febcaf680f0a18ce6a9a90e059d1b988015
+  license: GeneReviews Copyright Notice (University of Washington); noncommercial research use, with credit and copyright
+  notes: >-
+    Upstream archive sha256 119439c73b2dd9f2d4e715e241589f1abce048b1fb04cd25e6f68facf453763c
+    (638,877,335 bytes, Last-Modified 2026-10-01 06:41:36 GMT). Index files from
+    https://ftp.ncbi.nlm.nih.gov/pub/GeneReviews/ (same sha256 as SOURCES-SCOPING-001).
+    Terms: https://www.ncbi.nlm.nih.gov/books/NBK138602/ (GRcopyright_permiss.nxml in the
+    archive), checked 2026-10-01: "Permission is hereby granted to reproduce, distribute, and
+    translate copies of content materials for noncommercial research purposes only, provided
+    that (i) credit for source ... and copyright ... are included with each copy". No clause on
+    ML or AI use. Written confirmation from the publisher is still pending (docs/TODO.md).
+    Facts plus citations only (ADR-0013 rule 4). Chapters citing an R1 held-out PMID or
+    touching an evaluation unit are dropped (lit-sources-v1). Private release asset; never
+    redistribute publicly.

@@ -1,0 +1,63 @@
+{
+ "chapters": {
+  "by_status": {
+   "dropped_eval_unit": 78,
+   "dropped_heldout_pmid": 99,
+   "dropped_no_construction_gene": 10,
+   "usable": 695
+  },
+  "construction_genes_covered": 1084,
+  "in_gene_map": 882,
+  "usable_by_priority_class": {
+   "P1": 157,
+   "P2": 193,
+   "P3": 175,
+   "P4": 170
+  },
+  "usable_with_numeric_age_sentence": 520,
+  "usable_with_numeric_table": 332,
+  "weak_construction_genes_covered": 515
+ },
+ "genes": {
+  "construction_weak_simulable": 2485,
+  "weak_with_chapter_or_paper": 735,
+  "with_chapter_or_paper": 1304
+ },
+ "llm_classification": "none: every paper decision is the deterministic screen",
+ "papers": {
+  "by_status_reason": {
+   "excluded:association_study": 1342,
+   "excluded:gene_not_in_variant_context": 300,
+   "excluded:heldout_pmid": 9,
+   "excluded:in_hpoa": 14,
+   "excluded:licence": 402,
+   "excluded:literature_review": 209,
+   "excluded:mentions_eval_gene": 185,
+   "excluded:n_lt_20": 633,
+   "excluded:n_not_stated": 579,
+   "excluded:no_genetic_confirmation": 4417,
+   "excluded:per_gene_cap_5": 84,
+   "excluded:pub_type": 2743,
+   "excluded:somatic_or_oncology_treatment": 2349,
+   "excluded:title": 55,
+   "selected:n>=20": 1011
+  },
+  "cited_pmids_of_usable_chapters": 27326,
+  "genes_with_selected_paper": 775,
+  "in_hpoa_marked": 108,
+  "open_access_records_screened": 4942,
+  "second_pass_genes": 1970,
+  "second_pass_genes_with_selected_paper": 220,
+  "second_pass_records_screened": 9390,
+  "selected": 1011,
+  "selected_by_licence": {
+   "cc by": 696,
+   "cc by-nc": 101,
+   "cc by-nc-nd": 187,
+   "cc by-nc-sa": 26,
+   "cc0": 1
+  },
+  "selected_cited_by_genereviews": 707,
+  "weak_genes_with_selected_paper": 475
+ }
+}

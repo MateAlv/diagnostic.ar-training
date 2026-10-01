@@ -1,0 +1,112 @@
+{
+  "artifact_id": "lit-sources-v1",
+  "kind": "lit-sources",
+  "created_at": "2026-10-01T13:50:59+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "7474c4c2835067b1719153db6f760fea121604c4",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genereviews@2026-10-01",
+      "sha256": "5cb3378e5e67be2628fea27c453f2febcaf680f0a18ce6a9a90e059d1b988015"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "artifact:genes-v2",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "artifact:litpanel-split-v3",
+      "sha256": "b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "literature-panel-v2:curated.tsv",
+      "sha256": "02a4724753ccc46150df2a6dfbcc595880a129728c5ad4ef477a7198b37f93ab"
+    }
+  ],
+  "params": {
+    "chapter_rule": "drop if the gene map or OMIM ids touch an evaluation unit (litpanel-split-v3 genes and all disease ids), if not in the archive, if any cited PMID is R1 held-out, or if it covers no construction gene (a vocabulary gene that is not an evaluation gene and whose main disease is not an evaluation disease)",
+    "numeric_table": "SOURCES-SCOPING-001 screen: a feature table with >= 1 numeric row",
+    "priority": "P1 weak gene + numeric table, P2 weak gene, P3 numeric table, P4 rest; then more weak genes, more numeric table rows, NBK id",
+    "weak_tiers": [
+      "W1",
+      "W2",
+      "W3",
+      "W4"
+    ],
+    "reuse_licences": [
+      "cc by",
+      "cc0",
+      "cc by-nc",
+      "cc by-nc-sa",
+      "cc by-nc-nd"
+    ],
+    "min_patients": 20,
+    "excluded_pub_types": {
+      "case reports": "case_report",
+      "preprint": "preprint",
+      "review": "review",
+      "systematic review": "review",
+      "meta-analysis": "review",
+      "editorial": "not_primary",
+      "comment": "not_primary",
+      "published erratum": "not_primary",
+      "retraction of publication": "not_primary",
+      "retracted publication": "not_primary",
+      "practice guideline": "not_primary",
+      "guideline": "not_primary",
+      "news": "not_primary"
+    },
+    "screen_order": "held-out PMID; literature-panel source; licence outside\n    REUSE_LICENCES; preprint; excluded publication type (case report, review,\n    meta-analysis, editorial ...); \"case report\" in the title; an evaluation gene\n    symbol in the title or abstract; literature-review wording; association-study\n    or susceptibility wording; somatic or oncology-treatment wording; no\n    germline genetic-confirmation wording; for a gene-query paper (query_symbols\n    given), the gene not named as the carrier of variants (\"SYM-related\",\n    \"variants in SYM\", ...); no patient count stated; fewer than\n    MIN_PATIENTS stated.\n    ",
+    "count_window": 5,
+    "pmid_query": "(EXT_ID:<PMID>) AND SRC:MED AND OPEN_ACCESS:y",
+    "gene_query": "TITLE:\"<SYMBOL>\" AND (TITLE:(cohort OR \"natural history\" OR registry OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\" OR \"genotype-phenotype\" OR \"clinical features\" OR \"clinical characteristics\") OR ABSTRACT:(cohort OR \"natural history\" OR registry OR \"case series\" OR \"clinical spectrum\" OR \"phenotypic spectrum\" OR \"genotype-phenotype\" OR \"clinical features\" OR \"clinical characteristics\")) AND OPEN_ACCESS:y AND SRC:MED",
+    "second_pass_genes": "simulable weak (W1-W4) construction genes with no usable chapter; records kept only if a gene symbol is in the title (case-sensitive)",
+    "in_hpoa": "a selected paper cited by phenotype.hpoa for a main disease of its genes is excluded",
+    "per_gene_cap": "second pass: at most 5 selected papers per gene, largest n first",
+    "europe_pmc": "https://www.ebi.ac.uk/europepmc/webservices/rest/searchPOST"
+  },
+  "params_hash": "ca65e9757bb40b672c18528a9c691253a246b4ebf1207a8fb3bfd377559e1bae",
+  "outputs": [
+    {
+      "path": "data/lit-sources/lit-sources-v1/chapters.tsv",
+      "sha256": "0851c1322830ccffc59abe68f949c069b45be8b0823fd417f45e527847f84cd2",
+      "bytes": 156696
+    },
+    {
+      "path": "data/lit-sources/lit-sources-v1/papers.tsv",
+      "sha256": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c",
+      "bytes": 4677689
+    },
+    {
+      "path": "data/lit-sources/lit-sources-v1/gene-queries.tsv",
+      "sha256": "c1e10513c63722f23daa4a3cdf5ae635a87d93360afdcf5dd827cdfd17a6d13b",
+      "bytes": 1006160
+    },
+    {
+      "path": "data/lit-sources/lit-sources-v1/summary.json",
+      "sha256": "ff4dd9b6f3e6c81ac8ac1deab44063ee5839ace166d502823cef826459ecc1c3",
+      "bytes": 1691
+    },
+    {
+      "path": "data/interim/lit-sources/lit-sources-v1/epmc-cache.jsonl.gz",
+      "sha256": "d4de8ebded81e1181359b1e7eca952d147ab78435d4a86d2fb1c4d66342c799b",
+      "bytes": 29939625
+    }
+  ],
+  "notes": "695 usable chapters, 1011 selected papers. Frozen before any extraction (ADR-0013). The Europe PMC cache holds raw open-access metadata and abstracts; private release only.",
+  "release": "lit-sources-v1"
+}

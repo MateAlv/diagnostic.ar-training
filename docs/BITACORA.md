@@ -2076,3 +2076,61 @@ Written and committed before the first candidate 4 pilot run.
 - **Housekeeping:** deleted candidate 4's rich-cases files and three merged
   agent worktrees (approved). Disk is at 20 GB free; sources and lineage
   verify.
+
+### 2026-10-01 — data — Tier-1 sources registered; lit-sources-v1 frozen (SOURCES-ACQUISITION-001)
+- **Write-up:** `docs/analyses/SOURCES-ACQUISITION-001.md`. Branch
+  `phase3/lit-sources-v1`. No LLM extraction and no LLM classification of
+  papers; no sealed data read; R1 held-out PMIDs used only as a mask.
+- **Sources registered** (private snapshot release assets, licence terms
+  quoted in `sources.yaml`):
+  - `genereviews`: chapter NXML plus index files, 32 MB, noncommercial
+    research use; written confirmation still pending;
+  - `medlineplus_genetics`: public domain;
+  - `gene2phenotype`: all 7 panels, 3,851 records, CC BY 4.0; DDD caveat
+    recorded;
+  - `panelapp`: 433 panels. Its terms forbid "diagnostic use" without an
+    agreement, so it is **restricted to research analyses** until Mateo
+    decides.
+- **ClinGen beyond validity:** nothing added. Actionability has prevalence
+  and penetrance only as prose; dosage has no phenotypes.
+- **Coverage, construction genes** (weak W1–W4 in brackets):
+  - G2P 2,847 (1,293), new HPO terms vs HPOA for 1,445 (640);
+  - MedlinePlus 2,548 (1,309), disease prevalence only, numeric ages rare;
+  - PanelApp 4,562 (2,320), almost no HPO ids;
+  - no Tier-1 KB gives feature frequencies.
+- **lit-sources-v1** (manifest `data/manifests/lit-sources-v1.json`, code
+  `7474c4c`, committed in `6e7ebd7` before any extraction):
+  - **GeneReviews:** 882 chapters screened, **695 usable**. Dropped: 78
+    touch an evaluation unit, 99 cite R1 held-out PMIDs, 10 have no
+    construction gene. The usable chapters cover 1,084 construction genes
+    (515 weak). By priority class: P1 157, P2 193, P3 175, P4 170;
+  - **Tier-2:** **1,011 selected papers**:
+    - 707 cited by usable chapters, from 4,942 open-access records of
+      27,326 cited PMIDs;
+    - 304 from the recorded per-gene Europe PMC query for 1,970 weak
+      genes with no usable chapter (9,390 records);
+  - together: 1,304 construction genes, 735 of the 2,485 simulable weak
+    ones.
+- **Screen revisions before freezing:**
+  - germline-only confirmation words;
+  - somatic/oncology and susceptibility exclusions;
+  - pass-2 variant-context rule;
+  - 5 papers per gene.
+
+  Recorded in `7474c4c`, after reading samples of the first screen's
+  output.
+- **Screen QA** (seeded 40 selected papers, my reading; the list is
+  unchanged): precision 23/40 = 0.58 (CI 0.42–0.72). The false positives
+  are screening or diagnostic-yield cohorts, association studies, trials,
+  and n parsed from a year.
+- **Failures and incidents:**
+  - Europe PMC returned 500/502/503 for a stretch, absorbed by the retries;
+  - the sequential fetch was interrupted and resumed with 4 workers (the
+    cache is resumable);
+  - one `gh release download` returned HTTP 500 and succeeded on retry.
+- **Recommended shards:**
+  - chapters: 10 per shard in priority order (70 shards; P1 + P2 is 35,
+    about 16 agent-hours);
+  - papers: 12 per shard (about 85 shards, about 33 agent-hours);
+  - Codex 10% cross-check: about 630 rows.
+- `dxt lineage verify` passes. Disk: about 15 GB free.

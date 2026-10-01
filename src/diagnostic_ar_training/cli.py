@@ -7,6 +7,7 @@ from pathlib import Path
 import typer
 
 from diagnostic_ar_training import DATA_DIR, MANIFESTS_DIR, SPLITS_DIR
+from diagnostic_ar_training.cli_lit import lit_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
@@ -27,6 +28,7 @@ app.add_typer(kb_app, name="kb")
 app.add_typer(artifacts_app, name="artifacts")
 app.add_typer(knowledge_app, name="knowledge")
 app.add_typer(sim_app, name="sim")
+app.add_typer(lit_app, name="lit-sources")
 
 
 @kb_app.command("build")

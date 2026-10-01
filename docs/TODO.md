@@ -3,6 +3,19 @@
 The newest items are at the top. Mark them done with the date, and log the
 outcome in `BITACORA.md`.
 
+## [ ] PanelApp: decide whether it may feed anything that reaches production
+- **Why:** the PanelApp terms (December 2019, §1.1) forbid use "for
+  diagnostic use, medical decision-making or providing a healthcare service
+  ... unless you have entered into a separate agreement with GEL". The
+  snapshot is registered (`panelapp` in `data/sources.yaml`) and restricted
+  to research analyses (SOURCES-ACQUISITION-001 §1). It offers gene-disease
+  evidence levels, but almost no HPO terms; G2P and ClinGen cover most of
+  the same ground.
+- **Options:**
+  - keep it research-only, which costs little;
+  - ask Genomics England (contact listed on the PanelApp site) whether an
+    academic diagnostic-support tool needs the separate agreement.
+
 ## [ ] GeneReviews: confirm literature-extraction use (Mateo sending; not blocking)
 - **Why:** ADR-0012 extracts facts (feature prevalences, onset) with
   citations from GeneReviews for a non-commercial academic tool. The

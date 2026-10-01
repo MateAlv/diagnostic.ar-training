@@ -1,0 +1,41 @@
+i	pmid	found_by	n_stated	verdict	reason
+1	27752029	gene_query	32	no	population screening for NKX2-5 variants in ASD; few carriers
+2	29619236	gene_query	125	no	candidate-gene screening in bladder exstrophy
+3	30544257	genereviews	248	yes	GRIN2A-related disorders genotype-phenotype cohort
+4	38743206	genereviews	2875	yes	TP53 founder-variant carrier cohort
+5	33077891	genereviews	406	no	diagnostic-yield study; few solved cases per gene
+6	33937142	genereviews	2019	no	multigene craniosynostosis series; n is a year
+7	36130591	genereviews	32	yes	HNRNPK Au-Kline phenotype series
+8	34834549	genereviews	206	yes	Silver-Russell syndrome cohort
+9	31029175	genereviews	2018	yes	GalNet galactosemia registry (509 patients); stated n is a year
+10	39669768	gene_query	2015	yes	SQSTM1 carrier follow-up; n is a year
+11	37705601	gene_query	27	yes	GNAO1 encephalopathy series
+12	38396238	genereviews	358	yes	FXN compound heterozygotes in an FRDA cohort
+13	25200064	genereviews	350	yes	late-onset MADD cohort
+14	34368208	gene_query	250	no	SLC5A5 variants and breast-milk iodine; association
+15	25783594	genereviews	580	no	CHD2 as a photosensitivity risk factor; association
+16	26783197	genereviews	117	no	multigene hearing-loss counselling series
+17	37062836	gene_query	25	yes	KCNT2-related disorders series
+18	36524101	genereviews	39	no	drug trial in FRDA
+19	23621943	genereviews	52	yes	Floating-Harbor syndrome, 52 individuals
+20	35436901	gene_query	197	no	NR1H4 screening in cholestasis of pregnancy; two variants
+21	25491320	genereviews	605	no	14 G6PC3 cases; stated n is the whole registry (605)
+22	21738395	genereviews	75	yes	Usher syndrome molecular epidemiology cohort
+23	39692517	gene_query	35	yes	RBL2 neurodevelopmental disorder series
+24	26766544	genereviews	89	no	multigene retinal-dystrophy panel yield
+25	32193685	genereviews	49	yes	RAD21 phenotype delineation
+26	30885698	genereviews	7632	no	Wilms-tumour gene discovery by exome sequencing
+27	27234567	genereviews	38	yes	HNF1B intragenic vs 17q12 deletion phenotype cohort
+28	30093711	genereviews	180	yes	GATOR1 variant landscape with phenotypes
+29	26910043	gene_query	201	yes	NR2E3 p.Gly56Arg cohort of 24 cases
+30	33728377	genereviews	33	yes	HNRNPH2 phenotype series
+31	39512436	gene_query	21	yes	SLC25A42 clinical spectrum
+32	28574513	genereviews	2603	no	exome CNV calling in a large mixed cohort
+33	28283593	genereviews	25	yes	GJB1 noncoding variants in CMTX
+34	38150853	genereviews	1876	yes	FGF14 GAA-expansion ataxia cohort
+35	31029150	genereviews	1150	no	ADNP methylation episignatures
+36	37849991	genereviews	932	yes	PH1 consortium cohort
+37	40119633	genereviews	219	no	LRRK2 p.L1795F prevalence; few carriers
+38	37051330	genereviews	1990	no	radiotherapy outcomes in NF2
+39	27072915	genereviews	101	yes	Pitt-Hopkins natural history, 101 individuals
+40	29478779	genereviews	79	no	NR2F2 in 46,XX DSD; few carriers
