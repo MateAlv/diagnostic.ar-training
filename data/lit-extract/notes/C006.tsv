@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK547304	extracted	10	Table 2 (n=7, n/m) and MRI white matter finding; skipped seizure onset ages (feature onset), single-case findings, pachygyria counted by families
+NBK214367	extracted	13	skipped DD/ID (two), auditory canal atresia or stenosis and EA/TEF (two features), spine anomalies (bundle), zygomatic arch cleft (no term), ID severity bands and conductive share (conditional), milestone ages
+NBK1874	extracted	16	Table 2 (n/m) plus Hutterite seizure share; skipped dysmorphism 1/53 (bundle), vague text statements
+NBK540283	extracted	25	Table 2 (n/m) plus genotype-specific shares (LoF vs missense); skipped DD/ID (two), CNS malformations and dysmorphic facies (categories), high pain tolerance (no fitting term), ambulation/communication counts (abilities), OCD 1/14 and impulse control (sparse)
+NBK592183	extracted	15	Table 2 (n=7, n/m) plus onset at birth; skipped spine manifestations (bundle), leptodactyly row (ambiguous term), text counts without stated denominator
+NBK1526	extracted	16	pooled over CREBBP/EP300; skipped categories (eye, cardiac, GU, GI, neurologic, dental, skin), respiratory/skeletal 'common', thumb/hallux anomalies (two), adult heights, IQ means, survival
+NBK1185	extracted	14	Table 2 by sex/ascertainment (male % cells with column n=76); skipped neonatal normal and walking abilities, motor impairment (vague), truncal hypotonia or spasticity (two), intractable seizures (no fitting term), asymptomatic share (complement), Lennox-Gastaut shares, seizure onset ages
+NBK1514	extracted	11	skipped premature graying and/or thinning of hair (two features), thin limbs and pinched facial features (no fitting term), hyperlipidemia 'up to 85%', onset/diagnosis ages (hedged or ranges of medians)
+NBK458647	extracted	19	skipped DD/ID (two), craniofacial dysmorphism and dental anomalies (bundles), gait abnormalities/ataxia and hypertonicity/spasticity (two), palatal abnormalities (bundle), dental radiograph timing findings, demineralization 94% (same term as low BMD, different cohort), refractive errors (no term), large-deletion figures
+NBK586170	extracted	8	Table 2 (n/m); skipped atresia segment shares (conditional on atresia), DD/ID (two), structural brain and anterior segment anomalies (category bundles)
