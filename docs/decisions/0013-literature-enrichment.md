@@ -79,3 +79,37 @@ Nothing changes in the gate:
 - G2 and G3 apply as before;
 - the last R1-dev read goes only to a candidate that passes the train-side
   go/no-go (ADR-0011 amendment 4 §5).
+
+## Amendment 1 (2026-10-01): verified sources only
+Mateo: "the actual verified sources around this only, like humanly
+curated, … or important papers around big investigations". Written before
+any acquisition or extraction. It replaces the open-ended OA cohort scope
+above.
+
+- **Tier 1: human-curated knowledge bases.** Each is registered in
+  `data/sources.yaml` as a pinned snapshot, with its licence checked and
+  recorded.
+  - **GeneReviews:** expert-authored, peer-reviewed chapters.
+  - **MedlinePlus Genetics:** NLM editorial review; public domain.
+  - **Gene2Phenotype (EBI G2P):** curated gene–disease–phenotype records
+    with HPO terms.
+  - **Genomics England PanelApp:** expert-reviewed gene–disease panels.
+  - Already in use: HPOA (HPO biocuration), Orphanet / Orphadata, ClinGen,
+    MONDO.
+  - Any other candidate is used only if it is human-curated, has a
+    reuse-compatible licence, and is recorded here first.
+- **Tier 2: major studies only.** Peer-reviewed cohort, registry or
+  natural-history studies with **at least 20 genetically confirmed
+  patients**. Preferably the paper is **cited by a usable GeneReviews
+  chapter**, i.e. selected by expert curators. Otherwise it must be found by
+  a recorded Europe PMC query.
+  - Licences: CC BY, CC0, CC BY-NC, CC BY-NC-SA, CC BY-NC-ND, used as facts
+    plus citations only.
+  - Excluded: case reports, small series (under 20 patients), preprints,
+    and studies that are R1 held-out publications.
+- **The exclusion rules above apply unchanged.** No held-out-citing
+  chapters, no evaluation units, no double counting with HPOA.
+- **DDD caveat.** DDG2P (G2P's developmental-disorders panel) was curated
+  partly from the DDD study, and DDD is a sealed eval cohort used only as a
+  no-regression check. G2P rows are allowed as knowledge (like HPOA), but
+  the DDD no-regression result must disclose that G2P contributed.
