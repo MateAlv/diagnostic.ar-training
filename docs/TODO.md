@@ -64,3 +64,14 @@ outcome in `BITACORA.md`.
 CI jobs on `MateAlv/diagnostic.ar-training` are refused for billing or
 spending-limit reasons. Until this is fixed, `scripts/hooks/pre-push` runs the
 same checks locally. See `BITACORA.md` (2026-09-28).
+
+## [ ] Mariano: send only the question agent's "no" answers to the model (when rr-v1 is enabled)
+- **Why:** rr-v1[neg=0.5] was validated (EXP-B-003) on negations produced
+  the way the question agent produces them: "no" answers to its own
+  questions. Free-text negations resemble R1's author-reported absences,
+  where the effect was about 0 or negative. Mateo approved recommending
+  this on 2026-10-01; it reverses D-18 in the question-agent repo.
+- **What changes:** `model_client.rank` sends `excluded_hpo_ids` = the
+  effective "no" answers. It never sends "No sé" or `absent_hpo_ids`.
+  Details are in diagnostic.ar-model PR #2,
+  `docs/integracion-app-rerank-v1.md`.

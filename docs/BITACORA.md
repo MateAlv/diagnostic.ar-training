@@ -2047,3 +2047,20 @@ Written and committed before the first candidate 4 pilot run.
   R1-dev read is unspent. Mateo is considering better sources
   (SOURCES-SCOPING-001).
 - **Disk:** about 11 GB free.
+
+### 2026-10-01 — decision — Mateo's answers; ADR-0013
+1. **Front A:** literature enrichment of construction profiles **plus** up
+   to two more reporting/noise candidates checked on R1-train only.
+   Time-boxed to about a week. The last R1-dev read goes only to a
+   candidate that passes the train-side go/no-go.
+2. **Literature rules (ADR-0013):**
+   - chapters citing R1 held-out papers are dropped entirely;
+   - overview chapters touching an evaluation unit are excluded;
+   - no-derivatives OA papers are used as facts plus citations only.
+3. **rr-v1 release (diagnostic.ar-model PR #2):** on hold.
+4. **Approved:**
+   - ADR-0012 amendment 3 (G2a on the truth layer);
+   - deleting candidate 4's rich-cases files and merged agent worktrees;
+   - keeping the 50 R1-dev parity fixture in the private model repo;
+   - recommending to Mariano that the question agent send only its "no"
+     answers.
