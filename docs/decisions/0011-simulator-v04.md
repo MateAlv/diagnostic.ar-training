@@ -363,3 +363,25 @@ Based on ANALYSIS-005.
   change, train-side only.
 - **The last R1-dev read** stays reserved. It is spent only on a candidate
   passing every train-side stop condition, and with Mateo informed.
+
+## Amendment 8 (2026-10-01): candidate 6 final design (fixed before any candidate 6 number)
+Based on ANALYSIS-006. Candidate 6a is superseded.
+1. **Simulator 0.5.3:** `reporting.budget_scope: record` in budget-normalised
+   independent mode.
+   - k is drawn from a **total present terms** histogram: report-model-v2's
+     R1-train `term_budget`, mean 8.70.
+   - Noise takes n ~ Binomial(k, ρ), at most k − 1 (`noise_count:
+     budget_share`).
+   - c is solved so that Σ min(1, c·q) = min(k − n, true terms).
+   - ρ = 0.207 (calib-v2 related + weak, minus the 13.5% in-g2p share;
+     ANALYSIS-004).
+2. **Pilots** (at most 3 rounds, R1-train targets; rules written to the
+   BITACORA first):
+   - `presets.medium.ontology_smoothing_rate` → ancestor share 0.093;
+   - r → more-specific share 0.093;
+   - s → noise-only E0 MRR 0.026.
+3. **Profiles:** `hpoa-enriched-v1` plus `presentation-ages-v1` when they
+   exist. Candidate **6b** checks the design on the current profiles,
+   train-side only.
+4. **The last R1-dev read:** only for a candidate passing every train-side
+   stop condition, and only after Mateo is told.

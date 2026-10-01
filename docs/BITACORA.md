@@ -2754,3 +2754,24 @@ profiles; the literature-enriched profiles come later, as candidate 6.
   stay in `rare-disease-simulator/outputs/v0.5.2-cand6a-full/`.
 - **Verdict:** ❌ candidate 6a stops at the train-side go/no-go on G2c and
   G2d, and passes G2a, G2e and G2b-train. No fix was designed here.
+
+### 2026-10-01 — result + analysis — candidate 6a; ANALYSIS-006; ADR-0011 amendment 8
+- **Candidate 6a** (sim 0.5.2, budget-normalised; PR #61):
+  - G2e gap **0.011**; G2d 0.764 (close); G2c 2.955 (records too short,
+    5.74 vs 8.70);
+  - no R1-dev read.
+  - It survived a usage-limit stop and was resumed from its committed
+    worktree.
+- **ANALYSIS-006:** simulated reports generalise to an ancestor in 15.2% of
+  explained terms, vs 9.3% for real uncited patients.
+- **ADR-0011 amendment 8:**
+  - simulator 0.5.3 with a record-level budget (from R1-train's total-terms
+    histogram) and noise inside it;
+  - the generalisation rate piloted to 0.093.
+  - Candidate 6b runs this design on the current profiles; candidate 6 adds
+    the literature profiles.
+- **Literature work:**
+  - guide v4 merged (PR #62);
+  - chapter batches C011–C019 merged (PR #60);
+  - C002–C010 resumed after the usage stop (C002–C008 were already
+    committed).
