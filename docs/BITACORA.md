@@ -2857,3 +2857,56 @@ literature-enriched profiles come later, as candidate 6.
   `c2st_features.py`, terms-per-case percentiles and A on the full
   dataset. **No R1-dev read.**
 - **Not used:** R1-dev.
+
+### 2026-10-01 — pilot — Candidate 6b pilot rounds 1–3; `simcal-v053-v1` frozen
+- **Setup:** as pre-registered above (simulator 0.5.3 from the 6833d2d
+  tarball; 4,890 cases for 489 genes per round; 0 invariant violations in
+  all three rounds). R1-train targets only; no R1-dev. Files:
+  `results/realism/cand6b-pilots/` (per-round calibration, run summary,
+  validate log, categories, exactness, noise signal, record size;
+  `summary.json` from `scripts/analysis/cand6b_pilot_rounds.py`).
+- **Every triple tried:**
+
+  | Round | g (smoothing) | s | r | A: ancestor share (0.093) | S: more specific (0.0929) | M: noise-only E0 MRR (0.026) | Relative errors A / S / M | Score |
+  |---|---|---|---|---|---|---|---|---|
+  | 1 | 0.15 | 1.0 | 0.1676 | 0.1544 | 0.0889 | 0.0357 | 0.660 / 0.043 / 0.373 | 1.076 |
+  | 2 | 0.0903 | 0.5178 | 0.1676 | 0.0968 | 0.0908 | 0.0121 | 0.041 / 0.023 / 0.535 | 0.598 |
+  | 3 | 0.0903 | 0.6198 | 0.1676 | 0.0962 | 0.0915 | 0.0158 | 0.034 / 0.015 / 0.392 | **0.442** |
+
+  Round 2 applies the rules to round 1: g = 0.15 × 0.093 / 0.1544;
+  s = (0.026 − 0.0013) / (0.0490 − 0.0013); r kept (S within 10%). Round 3
+  changes only s: (0.026 − 0.0009) / (0.0414 − 0.0009). The script
+  reprints R1-train's uncited ancestor share as 0.0933 (6,130 explained
+  terms; ANALYSIS-006).
+- **Also per round:**
+
+  | Round | Total shown per case | TV total vs histogram | k drawn / noise / profile target k − n / realised profile | Explained / more specific / related / weak (vs kb-v3) | `forced_min_one` | Mean c | q capped | Related share of noise; MRR vocab / related noise | Spearman size vs true terms, 489 genes |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 7.06 | 0.099 | 8.89 / 1.83 / 7.06 / 5.23 | 0.681 / 0.089 / 0.142 / 0.089 | 167 (3.4%) | 2.948 | 0.172 | 0.807; 0.0013 / 0.049 | 0.706 |
+  | 2 | 7.07 | 0.100 | 8.89 / 1.83 / 7.06 / 5.24 | 0.676 / 0.091 / 0.088 / 0.146 | 167 | 2.948 | 0.172 | 0.435; 0.0009 / 0.041 | 0.700 |
+  | 3 | 7.07 | 0.100 | 8.89 / 1.83 / 7.06 / 5.24 | 0.676 / 0.092 / 0.099 / 0.134 | 167 | 2.948 | 0.172 | 0.512; 0.0009 / 0.043 | 0.700 |
+
+  Targets (uncited R1-train vs kb-v3): 0.668 / 0.093 / 0.082 / 0.157;
+  record-budget-v1 mean 8.70. Share of true terms reported 0.376; mean IC
+  related / vocabulary noise 6.82 / 4.28 (round 3). The 9 pilot genes with
+  ≥ 10 R1-train patients: Spearman size vs true terms 0.133 (real vs the
+  same count 0.683), too few genes to read.
+- **Selected:** round 3, frozen as `simcal-v053-v1`: simcal-v052-v1 +
+  record-budget-v1 + `reporting.budget_scope` "record" +
+  `reporting.noise_count` "budget_share" +
+  `presets.medium.ontology_smoothing_rate` 0.0903 + `noise.related_share`
+  0.6198 (r stays 0.1676). Its knobs equal round 3's calibration except the
+  vocabulary path (relative in the frozen file).
+- **What the pilots show** (R1-train comparisons only):
+  - **The smoothing rate controls the ancestor share almost linearly:**
+    0.15 → 0.0903 moved it from 0.154 to 0.097 (target 0.093).
+  - **Records are still shorter than the budget:** total shown 7.07 per
+    case against k 8.89 drawn (histogram mean 8.70). Noise fills its 1.83
+    slots, but the profile target k − n (7.06) is capped by the sampled true
+    terms: in 1,442 of 4,889 round-1 cases the patient had fewer true terms
+    than k − n, and mean min(k − n, true terms) is 5.18, against 5.24
+    realised. So the shortfall comes from the truth layer, not the rolls.
+  - **Noise-only MRR is again not linear in s** (as candidate 5): s = 1.0
+    gives 0.036, s = 0.52 gives 0.012 and s = 0.62 gives 0.016. Lowering s
+    also moves unexplained terms from related to weak (round 3: 0.099 /
+    0.134 vs real 0.082 / 0.157).

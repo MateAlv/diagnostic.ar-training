@@ -1,0 +1,52 @@
+{
+  "artifact_id": "simcal-v053-v1",
+  "kind": "simulator-calibration-file",
+  "created_at": "2026-10-01T18:03:00+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "ad4579bb500b83a37fd6228a057aea3023d7eb38",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:hpoa-recount-v1",
+      "sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "file:data/calib/simcal-v052-v1.json",
+      "sha256": "2135209a15061707ebf88a27f1d69e747f780f9801d200ce2090ff0fb7062a9e"
+    },
+    {
+      "id": "file:data/calib/record-budget-v1.json",
+      "sha256": "d0d43bc523c84f63481737a1c7842fc336f08629b3189277253ca6585b8272e5"
+    }
+  ],
+  "params": {
+    "statistic": "median pooled count-based frequency",
+    "recount": "hpoa-recount-v1",
+    "min_denominator": 10,
+    "included": [
+      "file:data/calib/record-budget-v1.json"
+    ],
+    "overrides": [
+      "reporting.budget_scope=\"record\"",
+      "reporting.noise_count=\"budget_share\"",
+      "presets.medium.ontology_smoothing_rate=0.0903",
+      "noise.related_share=0.6198"
+    ]
+  },
+  "params_hash": "4e0bade1e5d8a2486e34238f2e2bcfc9b93b0d13b7420714df138557eff40570",
+  "outputs": [
+    {
+      "path": "data/calib/simcal-v053-v1.json",
+      "sha256": "e274e0ec9585e8a0b5d668d4b5f744e9805caf8d5a9dc51d333d8333d8584130",
+      "bytes": 3081
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
