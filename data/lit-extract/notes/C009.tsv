@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK578573	extracted	13	skipped dysmorphic features, eye anomalies, renal anomalies (categories), 'rare' and congenital-hypotonia ('slightly fewer than 50%') figures, seizure-before-24-months share (onset share), renal issues 8% (bundle)
+NBK608563	extracted	11	Table 2 on COXPD8 and Table 3 on LKENP units; skipped spasticity & hyperreflexia and nystagmus/ophthalmoplegia (two features), ocular manifestations (bundle), mortality
+NBK614471	not_about_units	0	VEXAS (OMIM 301054) figures cannot go to the only unit UBA1|301830 (X-linked spinal muscular atrophy 2, a different disease)
+NBK619245	extracted	18	Table 2 with comment sub-percentages taken individually; skipped DD and/or ID (two), speech-language difficulties (bundle), rarer seizure types, neuroimaging sub-findings (conditional on abnormal imaging), onset range ('typically'), presenting-feature shares
+NBK619246	extracted	10	all-ages column (largest denominators) plus basal ganglia MRI count; skipped poor weight gain & growth deficiency (two), ocular manifestations (bundle), per-onset columns (smaller), mortality
+NBK621477	extracted	1	unit is HPE12 (OMIM 618500), so only the p.Arg535Cys (HPE12) pancreatic agenesis count was taken; VIBOS (OMIM 619033) cohort figures are a different disease and were skipped
+NBK1162	extracted	16	severe column on Hurler, attenuated column pooled over Hurler-Scheie/Scheie; skipped ophthalmologic/cardiac/upper airway rows (bundles), 'corneal clouding in all MPS I' (conflicts with 82% attenuated), registry subtype shares, hedged attenuated onset
+NBK1241	extracted	12	Table 2 (n=132) plus onset range and visual acuity count; skipped neuropathy grade shares (neurophysiology subset, complement), wheelchair ages
+NBK1267	extracted	18	Table 3 (n=182) plus text figures; skipped progressive renal disease (no number), hepatic disease 23%-100% (uninformative range), CAD 'up to 10%', scoliosis and kyphosis (two), bronchitis/pneumonia (two), other feature onset ranges
+NBK558090	extracted	9	skipped inflammatory soft-tissue swellings and scalp nodules (no fitting term), distal limb reduction defects <3% (category), hip dysplasia among those with hip pain (conditional), 'up to' text figures
