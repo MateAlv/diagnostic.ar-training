@@ -1,0 +1,39 @@
+{
+  "artifact_id": "ds-sim0.5.2-full-n100-s1001-excl-v1",
+  "kind": "training-exclusion-list",
+  "created_at": "2026-10-01T15:02:11+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "6b19e3836714681172c9f95a3fedb60c199416b9",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ds-sim0.5.2-full-n100-s1001",
+      "sha256": "63813d2f83e698c2c295774de6f798c2db897c2ec45d9112cf1c1c3e88128fde"
+    },
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "split:r1-v1 (all parts, keys only)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "rule": "drop training cases whose (gene, present set) equals any S3 case or any R1 patient",
+    "excluded": 4181,
+    "residual_overlap": 0
+  },
+  "params_hash": "14df143995463256e6745ead94c59f2eabd7daddb25bd5ac492871a866f3494d",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/ds-sim0.5.2-full-n100-s1001-excl-v1/exclude.txt",
+      "sha256": "db6c3c33e85d055f4a3c6415edcbe11cb7b6d953a1a40acd308691902f34aa05",
+      "bytes": 147264
+    }
+  ],
+  "notes": "",
+  "release": "ds-sim0.5.2-full-n100-s1001-excl-v1"
+}
