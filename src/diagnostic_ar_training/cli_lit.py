@@ -8,6 +8,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -143,7 +144,10 @@ def _jobs(b: dict) -> list[tuple[str, str]]:
 
 
 @lit_app.command("fetch")
-def fetch(artifact_id: str = typer.Option(..., "--id")) -> None:
+def fetch(
+    artifact_id: str = typer.Option(..., "--id"),
+    workers: int = typer.Option(4, help="Parallel Europe PMC requests"),
+) -> None:
     """Query Europe PMC for both paper passes and cache the raw responses (resumable)."""
 
     b = _boundary()
@@ -157,14 +161,16 @@ def fetch(artifact_id: str = typer.Option(..., "--id")) -> None:
     typer.echo(
         f"{len(b['cited'])} cited PMIDs, {len(b['second_pass'])} second-pass genes, {len(jobs)} queries"
     )
-    with gzip.open(cache, "at", encoding="utf-8") as h:
-        for n, (key, query) in enumerate(jobs, 1):
-            if key in done:
-                continue
-            hits, results = _search(query)
-            fetched = datetime.now(UTC).isoformat(timespec="seconds")
-            h.write(json.dumps({"key": key, "query": query, "fetched_utc": fetched, "hitCount": hits,
-                                "results": results}) + "\n")  # fmt: skip
+    todo = [(k, q) for k, q in jobs if k not in done]
+
+    def run(job: tuple[str, str]) -> dict:
+        hits, results = _search(job[1])
+        fetched = datetime.now(UTC).isoformat(timespec="seconds")
+        return {"key": job[0], "query": job[1], "fetched_utc": fetched, "hitCount": hits, "results": results}
+
+    with gzip.open(cache, "at", encoding="utf-8") as h, ThreadPoolExecutor(workers) as pool:
+        for n, entry in enumerate(pool.map(run, todo), len(done) + 1):
+            h.write(json.dumps(entry) + "\n")
             h.flush()
             if n % 50 == 0:
                 typer.echo(f"{n}/{len(jobs)}")
