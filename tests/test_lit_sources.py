@@ -143,6 +143,9 @@ def test_screen_paper_rule_order():
         "literature_review"
     )
     assert L.screen_paper(record(abstractText="A GWAS of 3000 patients"), *args)[1] == "association_study"
+    assert L.screen_paper(record(abstractText="EGFR-mutant NSCLC in 80 patients"), *args)[1] == (
+        "somatic_or_oncology_treatment"
+    )
     assert (
         L.screen_paper(record(abstractText="We describe 30 patients."), *args)[1] == "no_genetic_confirmation"
     )
@@ -152,6 +155,15 @@ def test_screen_paper_rule_order():
         12,
     )
     assert L.screen_paper(record(abstractText="Pathogenic variants were found."), *args)[1] == "n_not_stated"
+    assert L.screen_paper(record(), *args, frozenset({"GENEA"}))[0] == "selected"
+    cd4 = record(abstractText="CD4 counts of 90 pathogenic HIV patients")
+    assert L.screen_paper(cd4, *args, frozenset({"CD4"}))[1] == "gene_not_in_variant_context"
+
+
+def test_in_variant_context():
+    assert L.in_variant_context("COCH", "COCH-related hearing loss")
+    assert L.in_variant_context("GENEA", "biallelic variants in GENEA cause")
+    assert not L.in_variant_context("CD4", "CD4 counts fell in HIV")
 
 
 def test_paper_row_marks_in_hpoa():

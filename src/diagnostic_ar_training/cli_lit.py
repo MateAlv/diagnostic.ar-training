@@ -270,10 +270,16 @@ def freeze(
                         )
                     row["found_by"] = ";".join(sorted(set(row["found_by"].split(";")) | {"epmc_gene_query"}))
                 continue
-            status, reason, n = ls.screen_paper(rec, b["heldout"], panel, b["eval_genes"])
+            status, reason, n = ls.screen_paper(rec, b["heldout"], panel, b["eval_genes"], g.symbols)
             papers[pmid] = ls.paper_row(
                 rec, status, reason, n, [g], "query_gene", [], hpoa_pmids, "epmc_gene_query"
             )
+        mine = [p for p in papers.values() if p["genes_from"] == "query_gene" and p["genes"] == g.gene]
+        ranked = sorted(
+            (p for p in mine if p["status"] == "selected"), key=lambda p: (-p["n_stated"], p["pmid"])
+        )
+        for p in ranked[ls.PER_GENE_CAP :]:
+            p["status"], p["reason"] = "excluded", f"per_gene_cap_{ls.PER_GENE_CAP}"
         selected = sum(
             1 for p in papers.values() if p["status"] == "selected" and g.gene in p["genes"].split(";")
         )
@@ -373,6 +379,7 @@ def freeze(
         "second_pass_genes": "simulable weak (W1-W4) construction genes with no usable chapter; records kept "
         "only if a gene symbol is in the title (case-sensitive)",
         "in_hpoa": "a selected paper cited by phenotype.hpoa for a main disease of its genes is excluded",
+        "per_gene_cap": f"second pass: at most {ls.PER_GENE_CAP} selected papers per gene, largest n first",
         "europe_pmc": EPMC_SEARCH,
     }
     outputs = [chapters_path, papers_path, queries_path, summary_path, cache]

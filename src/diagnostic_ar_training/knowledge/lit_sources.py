@@ -79,17 +79,24 @@ COUNT_WINDOW = 5
 _N_EQUALS = re.compile(r"\b[nN]\s?=\s?(\d{2,6})\b")
 CONTROL_WORDS = {"healthy", "control", "controls", "unaffected", "normal", "population", "general"}
 GENETIC = re.compile(
-    r"variant|mutation|mutated|pathogenic|genotyp|sequenc|exome|genome|molecular(?:ly)?\s+(?:confirmed|diagnos)"
-    r"|genetic(?:ally)?\s+(?:confirmed|diagnos|tested|testing|analys)|biallelic|bi-allelic|heterozygous|homozygous"
-    r"|hemizygous|compound heterozyg|deletion|duplication|expansion|de novo",
+    r"pathogenic|biallelic|bi-allelic|heterozyg|homozyg|hemizyg|de novo|germline|autosomal|x-linked"
+    r"|mitochondrial DNA|mtDNA|mutation carriers|repeat expansion"
+    r"|(?:genetically|molecularly) (?:confirmed|diagnosed)"
+    r"|genetic diagnosis|molecular diagnosis|(?:exome|genome|panel) sequencing",
     re.IGNORECASE,
 )
+PER_GENE_CAP = 5
 LITERATURE_REVIEW = re.compile(
     r"review of (?:the )?literature|literature review|systematic review|meta-analys", re.IGNORECASE
 )
 ASSOCIATION = re.compile(
     r"genome-wide association|\bGWAS\b|polygenic|susceptibility locus|risk allele|case-control association"
-    r"|single nucleotide polymorphism|\bSNPs?\b",
+    r"|single nucleotide polymorphism|\bSNPs?\b|polymorphism|susceptibility",
+    re.IGNORECASE,
+)
+ONCOLOGY = re.compile(
+    r"\bsomatic\b|tyrosine kinase inhibitor|\bTKIs?\b|chemotherapy|immunotherapy|\bNSCLC\b|non-small[- ]cell"
+    r"|progression-free|overall survival|radiomic|tumou?r (?:samples|tissues?|specimens)",
     re.IGNORECASE,
 )
 
@@ -442,6 +449,17 @@ def stated_n(text: str) -> int | None:
     return best
 
 
+def in_variant_context(symbol: str, text: str) -> bool:
+    """The symbol names the gene carrying the patients' variants, not a marker or a protein level."""
+    sym = re.escape(symbol)
+    after = r"related|associated|linked|mutations?|variants?|deficiency|disorders?|syndrome|disease|gene"
+    before = r"mutations?|variants?|deficiency|alterations?"
+    pattern = (
+        rf"(?<![A-Za-z0-9]){sym}[- ](?:{after})\b|\b(?:{before}) (?:in|of|on) (?:the )?{sym}(?![A-Za-z0-9])"
+    )
+    return re.search(pattern, text, re.IGNORECASE) is not None
+
+
 def word_in(symbol: str, text: str) -> bool:
     """Case-sensitive whole-symbol match (hyphenated forms like `SYM-related` count)."""
     return re.search(rf"(?<![A-Za-z0-9]){re.escape(symbol)}(?![A-Za-z0-9])", text) is not None
@@ -452,6 +470,7 @@ def screen_paper(
     heldout: set[str],
     panel_pmids: set[str],
     eval_symbols: set[str],
+    query_symbols: frozenset[str] | None = None,
 ) -> tuple[str, str, int | None]:
     """Europe PMC core record -> (status, reason, n). Status is `selected` or `excluded`.
 
@@ -459,7 +478,10 @@ def screen_paper(
     REUSE_LICENCES; preprint; excluded publication type (case report, review,
     meta-analysis, editorial ...); "case report" in the title; an evaluation gene
     symbol in the title or abstract; literature-review wording; association-study
-    wording; no genetic-confirmation wording; no patient count stated; fewer than
+    or susceptibility wording; somatic or oncology-treatment wording; no
+    germline genetic-confirmation wording; for a gene-query paper (query_symbols
+    given), the gene not named as the carrier of variants ("SYM-related",
+    "variants in SYM", ...); no patient count stated; fewer than
     MIN_PATIENTS stated.
     """
     pmid = str(record.get("pmid") or "")
@@ -488,8 +510,12 @@ def screen_paper(
         return "excluded", "literature_review", n
     if ASSOCIATION.search(text):
         return "excluded", "association_study", n
+    if ONCOLOGY.search(text):
+        return "excluded", "somatic_or_oncology_treatment", n
     if not GENETIC.search(text):
         return "excluded", "no_genetic_confirmation", n
+    if query_symbols is not None and not any(in_variant_context(sym, text) for sym in query_symbols):
+        return "excluded", "gene_not_in_variant_context", n
     if n is None:
         return "excluded", "n_not_stated", n
     if n < MIN_PATIENTS:
