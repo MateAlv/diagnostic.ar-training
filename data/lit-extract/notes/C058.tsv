@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1374	extracted	1	onset 'typically' 5-25 y (hedged); stroke-like episodes 'typically younger than 21' hedged; other CNS findings 'on occasion'
+NBK1376	extracted	23	Table 2 used over text where both give a figure (neutropenia ~40% vs 38%, hypothyroidism ~50% vs one third subclinical); skipped IUGR 70% (comment sub-figure), characteristic facial features (bundle), fine &/or sparse hair (two features), academic delay (no HPO term), causes-of-death shares
+NBK1379	extracted	3	only the adult-onset ataxia phenotype matches the unit (AMC is a different disease); Synofzik motor-neuron shares are 'as many as' or mutually exclusive 'pure' categories, skipped; normal CK is a normal finding
+NBK1384	extracted	3	FXS rows only; FXTAS onset 'typically 60-65' hedged, 'almost half' dementia vague, FXTAS/FXPOI shares among premutation carriers are penetrance; macroorchidism 'essentially all' vague
+NBK1396	extracted	8	presentation ages by definition of the mild and moderate forms; skipped treatment outcomes (VA, HSCT), causes-of-death shares, 'most' hearing loss
+NBK1398	extracted	3	Table 2 counts neoplasms (251 in 155 persons), not persons; myelodysplasia 24 and hypothyroidism 14 have no stated denominator; insulin/glucose abnormality in 11 studied is two features
+NBK1402	extracted	11	males; skipped onset shares (>50% by 1 y, >90% by 4 y), PJP as first symptom (>40%), liver disease >80% by age 20 (cumulative), hepatitis and sclerosing cholangitis 6%-10% (one number for two features), mortality shares
+NBK1405	extracted	3	rows pooled over the KCNQ1 and KCNE1 JLNS units; 50% cardiac events before age 3 is cumulative; QTc >500 'usually' (summary) hedged
+NBK1418	extracted	2	rows pooled over the achromatopsia-named units (cone dystrophy units PDE6C|613093 and PDE6H|610024 left out); 'most' complete achromatopsia, 'common' hyperopia skipped
+NBK1424	extracted	1	chronic myopathy 18% is conditional on several decompensations; mortality 18%-25% and 0.6%-2.4% skipped; neurologic disease absence hedged ('typically')
