@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1280	extracted	36	IPCRR Table 2 per gene (n/m from the 'number evaluated' row); skipped age-at-onset bins (distributions, not ranges), keratoderma persistence categories, plantar pain (conditional on keratoderma), cysts (type unspecified), failure to thrive (KRT6A, no number)
+NBK1481	no_numbers	0	no rows: only Yakut CUL7 neonatal asphyxia and respiratory distress 41.9% (two features) and mechanical ventilation 25.6% (treatment); features described without frequencies
+NBK1534	extracted	1	disease-level row on PLAGL1 (6q24 units share OMIM:601410); skipped recurrence 'possibly 50% or more' (hedged), hedged onset ('usually within the first week'), MLID share of TNDM (mechanism)
+NBK154653	extracted	2	CED figures on IFT122|OMIM:218330 (CED disease id shared by most genes; IFT140 unit is SRTD9); Table 2 gives frequency bins (>75%, 50%-75% ...), not per-feature numbers: skipped; mortality 10/65 skipped
+NBK279760	no_numbers	0	no rows: only DCC penetrance 42% (carriers); features described without frequencies
+NBK350554	extracted	12	skipped combined entries (lissencephaly w/cerebellar hypoplasia 15%, lissencephaly w/ACC 3.1%: two features), TUBB/TUBB2A person counts without denominators, seizures <30% (conditional on simplified gyral pattern)
+NBK614473	not_about_units	0	units are maternal reproductive phenotypes (recurrent mole, embryo arrest, preimplantation lethality); the chapter's frequencies are MLID shares among offspring imprinting disorders
+NBK1112	no_numbers	0	no stated numbers for features (classic and mild HED described qualitatively); prevalence only
+NBK1161	extracted	2	APOE unit is assigned to Alzheimer disease 4 (wrong disease for APOE): not used; PSEN1 onset '30s-early 60s' skipped (upper bound would need conversion of 'early 60s'); APOE e4 frequencies are susceptibility data, not features
+NBK1177	no_numbers	0	no rows: 'majority diagnosed in first year' (vague), median height -0.9 SD (not a prevalence), descriptive complications
