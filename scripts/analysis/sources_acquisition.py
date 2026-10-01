@@ -23,7 +23,11 @@ section states a number (disease prevalence, not feature frequency).
 `construction_genes` column (semicolon-separated symbols), plus optional
 `has_frequency_table` and `age_numeric` columns.
 
-Usage: python scripts/analysis/sources_acquisition.py --out DIR [--gr-chapters TSV]
+--lit-papers adds the frozen Tier-2 papers (lit-sources-v1 papers.tsv; only
+`selected` rows count). Given lit-sources-v1 chapters.tsv, --gr-chapters keeps
+only `usable` chapters.
+
+Usage: python scripts/analysis/sources_acquisition.py --out DIR [--gr-chapters TSV] [--lit-papers TSV]
 """
 
 import argparse
@@ -170,6 +174,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--gr-chapters", type=Path)
+    ap.add_argument("--lit-papers", type=Path)
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -196,9 +201,21 @@ def main() -> None:
     if args.gr_chapters:
         with args.gr_chapters.open(encoding="utf-8") as h:
             for row in csv.DictReader(h, delimiter="\t"):
+                if row.get("status", "usable") != "usable":
+                    continue
+                row.setdefault("has_frequency_table", row.get("has_numeric_frequency_table", ""))
+                if "age_numeric_sentences" in row:
+                    row.setdefault("age_numeric", str(int(row["age_numeric_sentences"]) > 0))
                 for g in row["construction_genes"].split(";"):
                     if g:
                         gr_idx[g.upper()].append(row)
+    paper_idx: dict[str, list[dict]] = defaultdict(list)
+    if args.lit_papers:
+        with args.lit_papers.open(encoding="utf-8") as h:
+            for row in csv.DictReader(h, delimiter="\t"):
+                if row["status"] == "selected":
+                    for g in row["genes"].split(";"):
+                        paper_idx[g.upper()].append(row)
 
     rows = []
     for v3, current in sorted(built["vocabulary"].items()):
@@ -288,6 +305,14 @@ def main() -> None:
                 ),
                 "gr_age_numeric": any(c.get("age_numeric") in ("True", "true", "1") for c in chapters),
             }
+        if args.lit_papers:
+            papers = lookup(paper_idx, keys)
+            row |= {
+                "t2_papers": len({p["pmid"] for p in papers}),
+                "t2_papers_cited_by_gr": len(
+                    {p["pmid"] for p in papers if p["cited_by_genereviews"] == "True"}
+                ),
+            }
         rows.append(row)
 
     with (args.out / "genes.tsv").open("w", encoding="utf-8", newline="") as h:
@@ -339,6 +364,15 @@ def main() -> None:
             "frequency_table": lambda r: r["gr_frequency_table"],
             "age_numeric": lambda r: r["gr_age_numeric"],
         }
+    if args.lit_papers:
+        measures["tier2_papers_frozen"] = {
+            "covered": lambda r: r["t2_papers"] > 0,
+            "covered_by_gr_cited_paper": lambda r: r["t2_papers_cited_by_gr"] > 0,
+        }
+    if args.gr_chapters and args.lit_papers:
+        measures["lit_sources_any"] = {
+            "chapter_or_paper": lambda r: bool(r["gr_chapters"]) or r["t2_papers"] > 0,
+        }
 
     def table(rs):
         return {s: {m: sum(bool(f(r)) for r in rs) for m, f in ms.items()} for s, ms in measures.items()}
@@ -350,6 +384,7 @@ def main() -> None:
             "hpoa-recount-v1/phenotype.hpoa": sha256_file(hpoa_path),
             "SOURCES-SCOPING-001/genes.tsv": sha256_file(SCOPING),
             **({"gr_chapters": sha256_file(args.gr_chapters)} if args.gr_chapters else {}),
+            **({"lit_papers": sha256_file(args.lit_papers)} if args.lit_papers else {}),
         },
         "params": {
             "min_label_chars": MIN_LABEL_CHARS,
