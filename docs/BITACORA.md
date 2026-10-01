@@ -2480,3 +2480,51 @@ profiles; the literature-enriched profiles come later, as candidate 6.
   go/no-go (G2a truth layer, G2c, G2d, G2e, G2b-train; age reported) with
   `dxt sim realism --no-dev`, plus `c2st_features.py`. **No R1-dev read.**
 - **Not used:** R1-dev.
+
+### 2026-10-01 — pilot — Candidate 6a pilot round 1; round 2 not triggered; `simcal-v052-v1` frozen
+- **Setup:** as pre-registered above (simulator 0.5.2 from the 40f8896
+  tarball; 4,890 cases for 489 genes; 0 invariant violations). R1-train
+  targets only; no R1-dev. Files: `results/realism/cand6a-pilots/`
+  (calibration, run summary, validate log, categories, noise signal,
+  record size; `summary.json` from `scripts/analysis/cand6a_pilot_rounds.py`).
+- **Round 1** (s = 1.0, r = 0.1676):
+
+  | Round | s | r | S: more specific (0.0929) | M: noise-only E0 MRR (0.026) | Relative errors S / M | Round 2? |
+  |---|---|---|---|---|---|---|
+  | 1 | 1.0 | 0.1676 | 0.0897 | 0.0303 | 0.034 / 0.165 | no (both ≤ 0.20) |
+
+- **Also measured** (candidate 5's pilot round 2 on the same genes and
+  seed in brackets):
+
+  | Measure | Round 1 | [Candidate 5 round 2] |
+  |---|---|---|
+  | Shown terms per case (profile + noise) | 5.84 (4.63 + 1.21) | [7.00 (5.53 + 1.46)] |
+  | k mean drawn / realised profile terms | 5.732 / 4.646 | — |
+  | Total variation, realised vs k | 0.137 | — |
+  | Mean c (`scale_mean`, relative to q_scale · π / f) | 2.683 | — |
+  | Share of true terms reported | 0.334 | [0.399] |
+  | `forced_min_one` | 157 (3.2%) | [643 (13.1%)] |
+  | q_mean / q capped share | 0.332 / 0.128 | [0.392 / 0.089] |
+  | Explained / more specific / related / weak (vs kb-v3) | 0.722 / 0.090 / 0.115 / 0.073 | [0.714 / 0.093 / 0.117 / 0.075] |
+  | Explained terms per record (candidate 5's E target 5.377) | 4.219 | [4.998] |
+  | Related share of noise; MRR vocabulary / related noise | 0.818; 0.0008 / 0.038 | [0.803; 0.0012 / 0.0358] |
+  | Mean IC related / vocabulary noise | 6.83 / 4.26 | [6.77 / 4.37] |
+  | Spearman, simulated record size vs true-term count, 489 genes | **0.676** | [0.956] |
+  | Same, the 9 pilot genes with ≥ 10 R1-train patients (real vs the same true-term count) | 0.167 (0.667) | [0.950 (0.683)] |
+
+  Targets (uncited R1-train vs kb-v3): 0.668 / 0.093 / 0.082 / 0.157;
+  8.05 terms per case.
+- **Selected:** round 1, frozen as `simcal-v052-v1`: simcal-v051-v1 +
+  `reporting.budget_normalize` true + `profile-budget-v1`'s
+  `reporting.profile_budget_histogram`.
+- **What the pilot shows** (R1-train comparisons only):
+  - **Budget normalisation decouples record size from profile richness:**
+    the per-gene Spearman over the 489 pilot genes falls from 0.956 to
+    0.676. The 9-gene R1 subset is too small to read.
+  - **Records got shorter, not longer:** realised profile terms 4.65
+    against a drawn k of 5.73. min(k, true terms) caps small profiles, the
+    rolls realise fewer than k on average, and specialised terms leave
+    the explained category, so explained terms per record are 4.22
+    against the uncited real 5.38. `forced_min_one` falls to 3.2%.
+  - The realised count is wider than k (TV 0.137, close to the 0.133 the
+    simulator's fixture showed).

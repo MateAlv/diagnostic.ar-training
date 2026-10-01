@@ -1,0 +1,33 @@
+{
+ "export": "/home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.2-cand6a/pilot-r1/pilot.jsonl.gz",
+ "sample": 1.0,
+ "records": 4890,
+ "records_without_kb_gene": 0,
+ "terms": 28577,
+ "per_record": {
+  "terms": 5.844,
+  "explained": 4.219,
+  "more_specific": 0.5243,
+  "related_ic_ge_2": 0.6722,
+  "weak_ic_lt_2": 0.4284
+ },
+ "shares": {
+  "explained": 0.7219,
+  "more_specific": 0.0897,
+  "related_ic_ge_2": 0.115,
+  "weak_ic_lt_2": 0.0733
+ },
+ "kb": "kb-v3",
+ "targets": {
+  "more_specific": 0.09294976571864444,
+  "related_ic_ge_2": 0.08216192655551924,
+  "weak_ic_lt_2": 0.15691402419091205
+ },
+ "targets_file": "data/calib/calib-v2.targets.json",
+ "abs_errors": {
+  "more_specific": 0.0032,
+  "related_ic_ge_2": 0.0329,
+  "weak_ic_lt_2": 0.0836
+ },
+ "summed_abs_error": 0.1197
+}

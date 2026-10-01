@@ -1,0 +1,8 @@
+{
+ "export": "/home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.1-cand5/pilot-r2/pilot.jsonl.gz",
+ "genes": 489,
+ "gene_rule": "every simulated gene",
+ "mean_terms_per_case_sim": 7.0,
+ "mean_true_terms_per_case_sim": 16.76,
+ "spearman_sim_record_size_vs_sim_true_terms": 0.956
+}
