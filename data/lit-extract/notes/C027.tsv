@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1426	extracted	1	presentation age of beta-thalassemia major kept; skipped cardiac share of deaths, survival, Hb fractions, modifier effects
+NBK1429	extracted	2	PAIS 'all' statement kept; heterozygous female 10% (carriers) and CAIS 'typically' presentations skipped
+NBK1437	extracted	5	Table 2 onsets per phenotype; diurnal fluctuation ~1/3 (no HPO term), levodopa response (treatment), 'most'/'many' statements skipped
+NBK1440	extracted	1	skipped diabetes 50% and CHF/arrhythmia 15% (conditional on cirrhosis), liver cancer risk, biochemical-HC asymptomatic share, onset 'usually' 40-60, hepatitis prevalences, penetrance
+NBK1451	extracted	4	skipped kidney abnormalities 159/173 and retinal findings 23/173 (categories), renal hypodysplasia 114/173 (no HPO term), ESRD age (feature), penetrance minima
+NBK1452	extracted	2	uni/bilateral shares have no HPO term (laterality); mean ages at diagnosis kept; family-history shares, deletion yields, SMN incidence after radiation skipped
+NBK1455	extracted	20	Pfeiffer/Jackson-Weiss rows on FGFR2 (main gene, Table 3) flagged pooled; skipped DD/ID 50% (two features; Table 1 ID ~50% kept), tonsillar herniation 73%/2% (no exact term), Chiari in 50% of cloverleaf (conditional), ventilation 100% (treatment); bent bone dysplasia and isolated coronal synostosis have no numbers
+NBK1477	extracted	4	skipped neurocognitive difficulties 8/13 (category), adult height ranges, quality-of-life cohorts
+NBK1480	extracted	7	males only; skipped ambulation ages, ID bands (borderline/mild-moderate/severe-profound spans), thrombocytopenia/low-normal platelets ~20% (two states), heterozygous female lens findings
+NBK1492	extracted	2	onset median kept (IQR not a range); skipped 5% onset after 30, generalized-or-multifocal 60%-70% (two categories), arm-onset subgroup shares (conditional), penetrance 30%

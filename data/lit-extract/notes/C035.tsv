@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK592681	extracted	11	infantile-onset figures pooled over the three non-lethal deficiency units (pooled_group); Neu-Laxova units get nothing (no numbers); skipped refractory seizures 'almost all' (vague), seizure counts per day, gene-domain shares
+NBK593236	no_numbers	0	disorder has no clinical signs; only lipid levels and a population-level steatosis comparison
+NBK594826	extracted	9	skipped first-manifestation shares (56% PHPT, 23% pituitary), within-tumor subtype shares (conditional), multiglandular/recurrent PHPT (conditional), metastatic GEP-NETs (conditional), feature-specific median ages, CDKN1B share in Cushing cohorts
+NBK598310	extracted	5	Table 3 baseline column only (follow-up is the same cohort later); skipped moderate-to-severe 3% and severe-to-profound 0% (between/combined categories), normal 6%; male infertility for the CATSPER2 contiguous deletion has no numbers
+NBK610215	not_about_units	0	only allowed unit is ZFHX3 | prostate cancer; all figures describe spinocerebellar ataxia type 4
+NBK614254	no_numbers	0	asymptomatic lipid trait; only HDL-C fold changes, CETP activity and carrier frequencies
+NBK615090	not_about_units	0	only allowed unit is CHEK2 | Li-Fraumeni syndrome 2, which the chapter states CHEK2 does not cause; all figures are cancer risks among carriers
+NBK615917	extracted	6	most other features only 'some'/'many'/'most'; speech delay in all with impaired cognition is conditional
+NBK621298	extracted	8	rows on PAX6|OMIM:194072 (first unit of the deletion disease), pooled; skipped 'more than half' kidney findings and functional kidney issues (bundles), metabolic syndrome 12% (composite), auditory processing disorder 22% (no HPO term), aniridia 'nearly always' (vague), hedged Wilms and obesity onset
+NBK624593	extracted	2	Table 2 onset for classic and protracted forms; isolated CLN3 retinal degeneration not recorded (not the neuronal ceroid lipofuscinosis unit); seizure onset ages are feature onsets

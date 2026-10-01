@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK7014	no_numbers	0	only qualitative bleeding descriptions per VWD type; anti-VWF alloantibodies 5%-10% in type 3 is a treatment complication; population prevalence not a feature
+NBK20221	extracted	12	skipped first-manifestation shares (49% respiratory infection, 21% cutaneous: presenting shares), cutaneous manifestations 58% (category bundle), neurologic abnormalities 13.9% (heterogeneous category), SCID classification 73.5%, cutaneous median onset (not the main presenting feature), duplicate 'about 32%/19%' restatements
+NBK24599	extracted	1	only the familial-NB mean tumor age (pooled over genes); penetrance 45%-50%/40%, 98% of tumors by age 10 (share of tumors), variant and familial shares skipped
+NBK24701	extracted	4	cognitive impairment 'probably <5%' is hedged; other features unquantified ('common', 'most')
+NBK25442	no_numbers	0	onset 'typically first or second decade' and 'usually childhood' are hedged; myokymia 'almost all' is vague; attack counts per day have no HPO term
+NBK26372	extracted	2	IIIa/IIIb subtype shares (~85%/~15%) are not features; other features unquantified
+NBK32534	extracted	3	skipped ~30% later seizures and childhood/adolescent seizure shares (no distinct HPO term), 10% (5/48) KCNQ2 share of burst-suppression EE, penetrance 77%-85%, rarer phenotypes (not units), seizure cessation ages
+NBK47079	extracted	3	skipped renal defects 10%-30% and male genital defects 30% (category bundles listing contents)
+NBK51784	extracted	10	skipped 64% neonatal-onset share (onset subtype), US cohort abnormal EEG 6/13 (same term, smaller cohort than Austrian 4/17), IQ average/low-average shares (not phenotypes), hedged neonatal onset ('first few days')
+NBK55061	extracted	1	only the absence of liver involvement in PHKA1 disease; liver PhK deficiency features unquantified; 25% share of GSDs is not a feature

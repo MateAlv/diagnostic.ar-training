@@ -2422,6 +2422,13 @@ only: **no R1-dev read in this task, whatever the result.**
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
 
+### 2026-10-01 — data — lit-extract shards C029–C035 (ADR-0013)
+
+- Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
+
+### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
+- Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
+
 ### 2026-10-01 — lit-extract — lit-papers-v2 re-screen, guide v3, pilot Q001
 - **Branch** `phase3/lit-papers-v2`. No sealed data read; no LLM
   classification (every paper decision is the deterministic rule); no
