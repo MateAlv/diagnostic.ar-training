@@ -1,0 +1,12 @@
+{
+ "r1_train_uncited": {
+  "explained_terms": 6130,
+  "exact_share": 0.907,
+  "ancestor_share": 0.093
+ },
+ "simulated": {
+  "explained_terms": 41376,
+  "exact_share": 0.848,
+  "ancestor_share": 0.152
+ }
+}
