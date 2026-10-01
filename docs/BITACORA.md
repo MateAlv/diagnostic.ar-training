@@ -2405,3 +2405,6 @@ only: **no R1-dev read in this task, whatever the result.**
     penetrance vs tumour risk among affected; decades and period spans for
     ages; quote word counts ignore table pipes.
 - `dxt lineage verify` passes.
+
+### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
+- Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
