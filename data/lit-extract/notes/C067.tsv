@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK470716	no_numbers	0	onset and features hedged ('typically', 'often', 'most'); nystagmus 'not present in all'
+NBK475801	extracted	1	skipped ~1/3 prior Angelman diagnosis (not a feature), epileptic encephalopathy 'up to 20%', 'nearly universal' ataxia; seizure and regression onset hedged ('typically')
+NBK475803	extracted	3	onset per phenotype; Table 2 symbols (+/++/+++) not numeric; aura ~10% (no HPO term), PKD with SeLIE history ~30% (subtype share), non-kinesigenic triggers 'up to 40%', HM onset (no HM unit)
+NBK481554	extracted	8	skipped low lipids ~1/3 (one number, three analytes), 'most'/'majority' features, seizure onset range (not in the quoted sentence)
+NBK501979	extracted	13	Platzer cohort pooled over both GRIN2B units; skipped severe-or-profound ID 33/54 (no single term) and seizure types (conditional on epilepsy)
+NBK507664	extracted	1	thrombocytopenia only as penetrance among carriers; AML 24-fold risk skipped
+NBK537720	extracted	1	only the onset range; counts (11 childhood, 8 adult, 4 mild ID, 3 seizures) lack a stated denominator in the same statement
+NBK537721	extracted	3	skipped ASD 'as high as 50%', Doose 3/17 (subset of epilepsy), seizure onset ages (feature onset)
+NBK540447	extracted	7	Table 1 diagnosis ages per phenotype; skipped SED with metatarsal shortening ('before adolescence', no mapping), Stickler ('variable'), symbol columns; no unit for avascular necrosis
+NBK540448	extracted	9	skipped severe DD ~30% (not stated as global), FTT and feeding difficulties 6/15 (two features), strabismus and/or amblyopia 9/14 and otitis/eustachian 5/15 (no single term), single-case findings

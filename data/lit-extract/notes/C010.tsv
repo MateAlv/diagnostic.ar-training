@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK569515	extracted	15	Table 2 (females and mildly affected males) plus male-subgroup text shares; skipped characteristic facial features (bundle), Wilms tumor ~5% (stated as extrapolated), cancer case counts, hedged onset ('can be present at birth')
+NBK572429	extracted	7	Table 2 pooled over pEDS1/pEDS2 plus periodontitis onset range; skipped lack of attached gingiva (no term), skin fragility/scarring/wound healing (three features), aneurysms/dissections and organ rupture (multi-feature), receding gums 87.1% in text (table kept)
+NBK599378	extracted	3	only DD, ID and recurrent infections; other Table 2 rows are category bundles (neurologic, behavioral, craniofacial, musculoskeletal, skin, GI, cytopenias)
+NBK602945	extracted	11	Table 2 (n/m) plus sex- and variant-specific epilepsy counts; skipped brain abnormalities and GI issues (categories), protein-truncating 'about 14%' (subset), behavior 17% (bundle)
+NBK615089	extracted	8	only the delayed/no-treatment column (natural history); early-treated column skipped as treatment-conditional; motor & gait and psychiatric rows (bundles) skipped; adolescent/adult onset has no numbers
+NBK619576	extracted	12	Table 2 (n/m), neuroimaging count and onset range; skipped seizure-type and status epilepticus shares (conditional on seizures), stroke-like episodes (no denominator)
+NBK622587	extracted	9	Table 2; skipped facial dysmorphism (bundle), normal MRI 60% (complement), 'up to 9.4%' feeding as first manifestation
+NBK1284	extracted	10	Table 2 (males) plus text speech/walking/respiratory infection shares; skipped DD/ID (two), walking ability row, constipation 'more than one third' (table kept), seizure-resistance share (conditional), mortality
+NBK1366	extracted	11	pooled TD1/TD2 rows plus subtype-specific cloverleaf skull and femoral bowing; skipped hydrocephalus or ventriculomegaly (two), facial features (bundle), survival counts, tube feeding (treatment)
+NBK1399	extracted	9	Table 2 plus onset range; skipped decreased sensation (no clean term), depression and hearing counts without denominators, French family cognitive bundle
