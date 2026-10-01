@@ -34,23 +34,19 @@ that passes every train-side stop condition, and Mateo is told first.
 **Literature (ADR-0013 and amendments 1–2):**
 - Merged: 53 shard files, 3108 rows. That covers all P1/P2 chapters
   (C001–C035), C063–C070, P001 and Q001, plus Q019–Q026.
-- **Open PRs waiting to merge** (resolve BITACORA by keeping both sides;
-  check that only shard files changed):
-  - #71: candidate 6b;
-  - #72: Q002–Q005, 213 rows; next shard Q006;
-  - #73: C045–C051, 592 rows; next shard C052.
-- Stopped gracefully mid-batch (each agent commits per shard; resume via
-  their branches or PRs). At writing, Q011–Q018, C036–C044 and C054–C062
-  had not yet reported where they stopped.
+- **All agents stopped. Open PRs waiting to merge** (resolve BITACORA by
+  keeping both sides; check that only shard files changed):
 
-  | Batch | Branch |
-  |---|---|
-  | Q002–Q010 | `phase3/lit-extract-Q002-Q010` |
-  | Q011–Q018 | `phase3/lit-extract-Q011-Q018` |
-  | C036–C044 | `phase3/lit-extract-C036-C044` |
-  | C045–C053 | `phase3/lit-extract-C045-C053` |
-  | C054–C062 | `phase3/lit-extract-C054-C062` |
+  | PR | Content | Resume at |
+  |---|---|---|
+  | #71 | Candidate 6b | — |
+  | #72 | Q002–Q005, 213 rows | Q006 (Q006–Q010 left) |
+  | #73 | C045–C051, 592 rows | C052 (C052–C053 left) |
+  | #74 | Q011–Q015, 337 rows | Q016 (Q016–Q018 left) |
+  | #76 | C054–C062, 424 rows, complete | — |
+  | #77 | C036–C040, 1,254 rows | C041 (C041–C044 left). C036 alone has 457 rows: audit it closely |
 
+- **Shards still to extract:** Q006–Q010, Q016–Q018, C041–C044, C052–C053.
 - **Integration tooling** (`dxt lit build`): PR #67, **merged** with
   amendment 3. It is being
   updated with my rule-6 ruling as ADR-0013 amendment 3:
