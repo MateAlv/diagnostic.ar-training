@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1272	extracted	5	severe-to-profound shares (84%-92%, 34%-47%, one in five) skipped: no single HPO term for a severe-to-profound span; >40% newborns with normal hearing is a complement; sib concordance not a feature
+NBK1281	extracted	19	scoliosis: 49/77 kept (clinical 'two thirds' and radiographic 100% are other methods); skipped airway compromise/silent aspiration (no fitting term), lower urinary tract involvement 82%, sleep apnea 21% (bundle), EF reduced 12% and 20% (two studies), 'up to' diabetes/IGT, subtype shares
+NBK1294	extracted	2	Wilms onset ranges for TRIM28 and REST; WT1 risks are among carriers; FBXW7 and KDM3B units are other diseases; symptom bundle 25%-30% skipped
+NBK1297	no_numbers	0	Table 3 uses 'near universal/common/rare' only; onset 'typically' first year
+NBK1304	extracted	4	Table 2 onsets per subtype; SCC lifetime risk >90% skipped (cumulative risk, not prevalence); 'individuals with RDEB lack lingual papillae' unquantified
+NBK1305	extracted	4	skipped 'up to 75%' oculomotor, 'two thirds present with neurologic manifestations' (no HPO term), 25% onset after 50 (not a range), juvenile share, penetrance
+NBK1306	extracted	2	'approximately 50% have an abnormal finding at birth' is a bundle; adult height range not a feature
+NBK1307	extracted	1	onset recorded as pooled_group over SPG17 and dHMN-VC units; p.Ser90Trp sensory loss 73% skipped (CMT2 family, no matching unit); penetrance 24.4% skipped
+NBK1308	extracted	1	Table 2 qualitative; 25% with symptoms before age 1 is not a range
+NBK1311	extracted	4	kept tumor prevalences among individuals with LFS; skipped lifetime/cumulative risks (breast 80%-90%, CNS, bone, STS by age 70), shares of all LFS cancers, colorectal 2.8% (no exact HPO term), esophageal-or-gastric 1.3% (two sites)

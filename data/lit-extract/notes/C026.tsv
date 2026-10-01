@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1382	extracted	7	skipped learning difficulties 56/63 (no HPO term short of specific learning disability), walking/talking age ranges (milestone ages, not onset), onset 'usually early childhood' hedged
+NBK1388	extracted	1	only CACNA1A onset range; skipped 'up to' cerebellar-sign figures, p.Asp715Glu attack frequency, penetrance, gene shares; ATP1A2 and SCN1A units have no numbers
+NBK1390	extracted	1	onset 'teens to sixth decade' recorded with teens as 13; 'all advanced cases' weakness/wasting is a subgroup with two features
+NBK1392	extracted	4	skipped episode-level recovery shares (50% of occurrences), electrophysiologic criterion 89%, 'three quarters' neuropathic pain (conditional on persistent pain)
+NBK1400	extracted	2	growth onset 'generally 6-9 months' hedged (Dx 6-12 months kept); juvenile onset 'mostly adolescence' hedged; corneal crystals 'most'/'virtually all'
+NBK1410	extracted	4	Table 1 B-cell 95% skipped (B cells usually normal; meaning unclear); presentation age 'most' hedged; SCID incidence skipped
+NBK1413	extracted	2	OHS 'early-to-middle childhood' not mappable; Menkes diagnosis age 'usually' hedged; heterozygous female pili torti 50% (carriers)
+NBK1419	no_numbers	0	DSD ~75% has no single HPO term; skeletal malformations ~85% is a category; severe/partial cortisol deficiency 43%/40% map to one term (not additive); hypertension onset 'typically'
+NBK1421	extracted	35	per-gene onset from Table 1 (median; text says mean and differs for PDGFRB); per-gene features as printed (denominators per source); skipped calcification-region shares (no HPO term), PDGFRB motor 42% and SLC20A2 motor 78% (categories), heterozygote figures, gene shares, penetrance
+NBK1422	not_about_units	0	only unit is MT-RNR1 -> MERRF (worksheet fallback); the chapter is about MT-RNR1/MT-TS1 nonsyndromic hearing loss

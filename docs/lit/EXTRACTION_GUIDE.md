@@ -1,7 +1,10 @@
 # Literature extraction guide (lit-extract-v1, ADR-0013)
 
 You are a shard agent. You get one shard id, such as `C007` (10 GeneReviews
-chapters) or `P031` (12 open-access papers). You read each source of the
+chapters) or `Q003` (12 open-access papers). `C` and `P` shards are listed in
+`data/lit-extract/shards.tsv`; `Q` shards, the papers that passed the
+`lit-papers-v2` re-screen, in `data/lit-extract/shards-papers-v2.tsv`. Paper
+shards from now on are `Q` shards; the `P` shards are kept only for P001. You read each source of the
 shard and write down, as rows of a TSV, the facts it **states**: how often a
 clinical feature occurs among affected individuals, and at what age the
 disease starts or is diagnosed. A validator then checks every row against the
@@ -82,18 +85,82 @@ pathogenic variants in gene", detection rates), `Management`, `Genetic
 Counseling`, `Differential Diagnosis` and `Molecular Genetics`: none of them
 gives feature frequencies among affected individuals.
 
-**Paper.** First read the abstract and the methods' patient description. The
-paper must be a cohort, registry or natural-history series of **at least 20
-genetically confirmed patients** with the disease of one of its units. If it
-is not (a screening or diagnostic-yield study where most participants have no
-variant, an association study, a drug trial, a case report, an animal or
-cell study, fewer than 20 confirmed patients), extract nothing and record
-`not_cohort` in the notes (§12). Otherwise read the results text and every
-table. Supplementary files are out of scope.
+**Paper.** Follow "Papers" below: first the per-unit check, then only the
+paper's own results. Supplementary files are out of scope.
 
 Work source by source, in worksheet order. In the pilot (C001, 10 GeneReviews
 chapters, 100 rows) reading and writing took 1-3 minutes per chapter; budget
 up to 10 minutes for a rich source and stop at 20.
+
+### Papers
+
+**1. The per-unit check (do it first, from the abstract and Methods).** A
+paper feeds a unit only through a group of **at least 20 genetically
+confirmed patients of that unit** (gene, disease), or of that disease for a
+`pooled` disease-level figure (§4).
+- The n that counts is the size of the confirmed group the figure describes.
+  It is not the number screened, sequenced or referred, nor the size of a
+  whole registry or series.
+- **A subgroup under 20 is never extracted,** even inside a qualifying paper.
+  P001: the ENPP1 group (84) qualified, the ABCC6 group (19) and the ARHR2
+  subgroup (≤ 11) did not.
+- A figure for a smaller slice of a qualifying group (e.g. "34 of 48
+  assessed" in an ENPP1 group of 84) is fine: the group qualifies, the
+  denominator is what was assessed.
+- No unit reaches 20: extract nothing, outcome `not_cohort`, and say in the
+  note what the largest confirmed group was ("27 ARCI confirmed over 6
+  genes; largest ALOX12B n=9").
+- Typical dead ends, all `not_cohort`:
+  - diagnostic-yield and NGS-panel or exome studies (n = those tested);
+  - screening studies with few positives per gene;
+  - association, susceptibility, predisposition or risk-factor designs;
+  - penetrance in unaffected carriers;
+  - drug trials, case reports, animal or cell studies.
+- Other dead ends: a variant database (`no_numbers` if it has no phenotype
+  numbers); a mixed multi-disease series or registry whose n counts the whole
+  series and gives no per-gene or per-disease figure (`not_about_units`).
+
+**2. Only the paper's own cohort.** Extract numbers from the Results, the
+tables, and Abstract or Discussion sentences that restate the paper's own
+results ("Seizures were reported in 13% ... of our ENPP1 cohort").
+- Never extract an Introduction or Background figure.
+- Never extract a sentence that cites other studies (a reference marker,
+  "et al", "previously reported", "in the literature"), even in the Results.
+- Never extract a literature-review table that pools published cases with
+  the paper's own.
+
+**3. Definitions come from Methods.** When Methods defines a term used in the
+results ("symptomatic: signs of myelopathy"), map the HPO term to that
+definition, not to the bare word. Write the definition in the note. The quote
+stays the sentence or table row with the number (§10).
+
+**4. Yes/no cells.** A table whose column says "Yes/no (% yes of assessed)"
+and gives "36/38 (48.6)" counts yes against no, not n/m.
+- Take the printed percentage as `prevalence`.
+- Leave both counts empty: n_assessed would be yes + no, which you never add
+  up (§0).
+- If a cell is ambiguous between yes/no and n/m, skip it and say so in the
+  note.
+
+**5. Prenatal ages.** Ages are never negative (the validator requires
+[0, 120]).
+- A range that starts before birth ("-4.7 to 137 months", "from the prenatal
+  period") keeps its high end, leaves the low end empty, and says `range
+  starts prenatally` in `age_note`.
+- A presentation stated only as prenatal ("diagnosed in utero") is low 0,
+  high 0, `age_note` `stated: prenatal`, flag `named_period`.
+
+**6. Screening age is not presentation age.** Age at newborn screening, at
+a screening sample, or at cascade or predictive testing is not
+`AGE_PRESENTATION`: skip it. Age at clinical diagnosis of a symptomatic
+patient counts.
+
+**7. Empty tables.** Some fetched texts have a table caption with no rows
+(the table is an image).
+- You cannot extract from it; never fall back to a PDF or a web page.
+- Name it in the note ("Tables 1-5 empty in fetched text").
+- If every number you would have used is in empty tables, the outcome is
+  `no_numbers`.
 
 ## 4. Which unit a fact belongs to
 
@@ -340,7 +407,7 @@ File: `data/lit-extract/notes/<SHARD>.tsv`, header
 |---|---|
 | `extracted` | at least one row |
 | `no_numbers` | read, but no stated number for an allowed unit |
-| `not_cohort` | paper fails the §3 cohort check |
+| `not_cohort` | paper fails the per-unit check (§3, Papers) |
 | `not_about_units` | the numbers are all about genes or diseases not allowed |
 | `no_text` | the text is missing or unreadable (should not happen; say why) |
 
@@ -430,3 +497,14 @@ epilepsy`, the umbrella disease itself, so the rows go there with `pooled`.
 615625) | Very early; average age 4 yrs` → `AGE_ONSET` on `REEP2|OMIM:615625`,
 low 4, high 4, `age_note mean`; `ATL1 |  | Infantile to childhood (rarely,
 adult onset)` → low 0.08, high 5, `named_period`.
+
+## Changelog
+
+- v1 (`769412e`): first guide, with the tooling.
+- v2 (`182ee6e`): after the C001 pilot: `pooled_group` rows, umbrella units,
+  checking each unit's disease, multi-cohort tables, bundle and conditional
+  skip rules, decades and period spans.
+- v3 (lit-papers-v2, after the P001 pilot): `Q` paper shards; a "Papers"
+  section in §3: the per-unit 20-patient rule, own-cohort data only,
+  definitions from Methods, yes/no cells, prenatal ages, screening age is not
+  presentation age, empty tables.

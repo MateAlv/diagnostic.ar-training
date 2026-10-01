@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1496	extracted	4	skipped prolonged attacks 20% and breathing musculature 26% (no fitting term), paramyotonia ~45% (no HPO term), fibromyalgia half (no HPO term), myotonia '>50% of the time' (not a share of people), myopathy shares conditional on myotonia, onset 'usually first decade'
+NBK1505	extracted	1	onset recorded once as pooled_group over the three MAPT units; Table 2 uses +/++/+++ grades; diagnosis shares (<5% PPA/AD) not features
+NBK1508	no_numbers	0	only penetrance by sex; levodopa response is treatment; onset qualitative
+NBK1511	extracted	4	HMSN VIA unit (601152) not used separately (optic-atrophy figures are given by inheritance); wheelchair 'nearly 27%' skipped; onset 'before age ten' suggestive only
+NBK1513	extracted	7	skipped 'up to 94%' dental findings, second permanent molar with primary dentition 80% (no HPO term), adult height means
+NBK1516	no_numbers	0	clinical description qualitative (perinatal lethal); allelic table figure is about SLC26A2-MED
+NBK1527	no_numbers	0	onset 'can vary from newborn to adulthood' (variable); feature statements qualitative; carrier/homozygosity frequencies skipped
+NBK1529	extracted	2	onset mean and range kept; 'more than half' from South Africa is ancestry, not a feature
+NBK1827	extracted	1	onset range kept (family ranges 18-26, 35-53, 22-60 not added); wheelchair counts not phenotypes
+NBK2534	extracted	6	Larsen rows only; skipped large-joint dislocations or subluxations (80%/80%/65%, two states per figure), spinal abnormalities 16/19 and craniofacial anomalies (categories), height <10th centile 14/20 (no exact term)
