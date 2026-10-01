@@ -1,0 +1,369 @@
+{
+ "adr": "0013 amendment 2",
+ "age_onset_coverage": {
+  "by_source_kind": {
+   "cohort_paper": 11,
+   "genereviews": 194
+  },
+  "diseases": 215,
+  "diseases_also_with_presentation_age": 8,
+  "diseases_only_onset": 207,
+  "rows": 205,
+  "units": 224
+ },
+ "artifact_ids": {},
+ "code": {
+  "dirty": false,
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "cc86be311bd8e82849f916e3aacac9c9c71643ba"
+ },
+ "dry_run": true,
+ "feature_rows_by_outcome": {
+  "ambiguous_populations": 80,
+  "hpoa_double_count": 13,
+  "percentage_not_chosen": 71,
+  "same_source_smaller_count": 10,
+  "used": 2273
+ },
+ "hpoa_enriched": {
+  "lit_rows": 3004,
+  "recount_rows": 268986,
+  "rows": 271990
+ },
+ "hpoa_lit": {
+  "by_notation": {
+   "count_rows": 666,
+   "count_rows_mixed_sex": 0,
+   "count_rows_pooling_several_sources": 8,
+   "not_rows": 15,
+   "not_rows_beside_lit_positive": 2,
+   "percent_choice_by_both_sexes_over_one": 5,
+   "percent_choice_by_source_then_file_order": 56,
+   "percent_choice_by_specificity": 1,
+   "percent_choice_by_stated_population": 23,
+   "percent_rows": 2323,
+   "percent_rows_beside_lit_counts": 23,
+   "terms_dropped_from_a_source_as_ambiguous": 47
+  },
+  "diseases": 456,
+  "diseases_not_in_hpoa_recount": 0,
+  "effects": {
+   "counts_pooled_with_hpoa_counts": 129,
+   "lit_counts_override_hpoa_category": 17,
+   "lit_counts_override_hpoa_none": 79,
+   "lit_percent_overrides_hpoa_category": 49,
+   "lit_percent_overrides_hpoa_none": 409,
+   "lit_percent_shadowed_by_hpoa_counts": 337,
+   "new_term": 1941,
+   "percent_averaged_with_hpoa_percent": 5
+  },
+  "not_pairs": 15,
+  "not_pairs_conflicting_with_hpoa_positive": 2,
+  "positive_pairs": 2966,
+  "rows_out": 3004,
+  "sources_used": 278,
+  "terms": {
+   "existing": 1025,
+   "new": 1941
+  },
+  "units_enriched": 475,
+  "units_in": 480
+ },
+ "inputs": {
+  "recount": {
+   "id": "hpoa-recount-v1",
+   "phenotype_hpoa_sha256": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a",
+   "rows": 268986
+  },
+  "shards_accepted": {
+   "C001": {
+    "notes_sha256": "07b80e3de0b0f5ac40cd91dd023c702358e5c5b82a20aef269d53b6393606009",
+    "rows": 100,
+    "rows_sha256": "9e8ec1c892c55f927da3862d05882116cdb16836ca56194d35dcccdd4ec38bb0"
+   },
+   "C002": {
+    "notes_sha256": "cb868cda1b6a75242f2cd23136afe007e95c32f7485466ab96b676b5c21b613b",
+    "rows": 93,
+    "rows_sha256": "218e6f283973a57e635f38453536544e19966c77661557fcf880b7815a0eeb92"
+   },
+   "C003": {
+    "notes_sha256": "bd4c10d03ed25589f8141bde437a1caa1369fa5aed8ba580c65ce66e5902bf1a",
+    "rows": 99,
+    "rows_sha256": "882f9819ed580eb922c56b61539a0aef74342b3965ac9edf4b4d53e21cad1c88"
+   },
+   "C004": {
+    "notes_sha256": "6c2d9bed76c30b21daa01e48191881129a1141a672119bd9b8311828d19a5db6",
+    "rows": 246,
+    "rows_sha256": "8cdbe00cfbb8eadfc61ca61499851602f925b838630dea3f3b958554a220b6d5"
+   },
+   "C005": {
+    "notes_sha256": "76abc159d5a6eecccfaa15e5bbd2b553f24a1ec60f8fab0c2393a39f9a26ad40",
+    "rows": 222,
+    "rows_sha256": "7746d94b00d3adf6adf80e6c0c009045b2f2c29bdcd8e006028e2c461ee80048"
+   },
+   "C006": {
+    "notes_sha256": "8a32ec02e047ea4677981f8f3403bc95fb279034858f2fc5415a4a64da0a59a7",
+    "rows": 147,
+    "rows_sha256": "74d1e3bf47c28d1deaec9844ff66dff44275e81fa01b0c95c4867db6da4a3cd5"
+   },
+   "C007": {
+    "notes_sha256": "4e911850b2e064d40563da61870f814f18a8c7969fdebb37b5f685b6d281b52c",
+    "rows": 130,
+    "rows_sha256": "ef367412d451281a4626457105ff807dba15c10ea1cb00ac5c40301a2623665a"
+   },
+   "C008": {
+    "notes_sha256": "a6b11e169a94a4cb18f77d450e820d8bf8aacdc26bc1e868cd2b2f72e8057363",
+    "rows": 87,
+    "rows_sha256": "c57cfb1d72273e997ea05bf7b4874557261695f390e3e468f4ecc077dea7b4c6"
+   },
+   "C009": {
+    "notes_sha256": "6fac99ab1eef62b05ece662bc622ea5f61a0b64af1d99a9948ee43dd55ac9a10",
+    "rows": 108,
+    "rows_sha256": "db2ef5ce8b8389eadbbeead05f2e394570ce666cbbb259bd89faea0d4929a030"
+   },
+   "C010": {
+    "notes_sha256": "bf92004b3676367b910d59965995f85ffed30fb8d6057429543a8dc9a13a4b4f",
+    "rows": 95,
+    "rows_sha256": "78d511942b1f92f788b0e58f18752d9ffb9e67f32d667c85a37d5d19241ce8f3"
+   },
+   "C011": {
+    "notes_sha256": "fa48f693dc702aea2b5067a560f3b024678b20b5ff9ae6990112d8df8437f96b",
+    "rows": 97,
+    "rows_sha256": "cb770e8283920af67193edcaabb600dad6508882c042f7b91085d1563fe40e99"
+   },
+   "C012": {
+    "notes_sha256": "747e0a19437f29657d4e5445e589c7346d204b3e905a6bb4e3d79bc9ea3bc84d",
+    "rows": 95,
+    "rows_sha256": "427dd3d8d47bda3285fd1de5370ac5147deaf2f1bec41ff2dbfab8a2e44cc432"
+   },
+   "C013": {
+    "notes_sha256": "e3b7901d634966c3346726373618a1c392104dfd3c63993c4a34512855a0bcd1",
+    "rows": 110,
+    "rows_sha256": "c04a78910f48123ecfb0d7ae676225aa5de8f2b701d09ab6170f7634e7106c3f"
+   },
+   "C014": {
+    "notes_sha256": "d6d5141e459afea0a28f7897e9fa738d563343a9df451a1ad95153ce02e649d6",
+    "rows": 67,
+    "rows_sha256": "1eb9b477a91c606cc69e899c9bacb761c6abbb3643873c655d06911749a46c31"
+   },
+   "C015": {
+    "notes_sha256": "6bbaed36e438bc4ecf5c1b0f91f800bcc8f2a227417e6ce30f6c682990c576b6",
+    "rows": 38,
+    "rows_sha256": "9f41452a23c85931972f6f7a6d7519db69161b1353a18639b2993328d5986381"
+   },
+   "C016": {
+    "notes_sha256": "4afbdaf415cb1717176268d6558f34d84df1ddc53f700da8a94f588778bd3e7c",
+    "rows": 42,
+    "rows_sha256": "8640c739826b486a20e75764fe0b36ebcfc9ee31a7cf4582b2dde089404810f1"
+   },
+   "C017": {
+    "notes_sha256": "024ba66b1fcd89e93d6a02ae58fa813334fa15842d4f9947c9afc8df1986b91f",
+    "rows": 9,
+    "rows_sha256": "e9dafa6870aa0bba7bee9d66ae2f75763ae9321fe0cc06d4eda55b9d7ecebbf9"
+   },
+   "C018": {
+    "notes_sha256": "fe914304ee56c8c77773f3db7911b3cac3ce54896cd106d2058deba2dbbb4d3e",
+    "rows": 34,
+    "rows_sha256": "3790f35be866df0780e20896916a1a9523a355f4383b10bd76b274d5327cad8f"
+   },
+   "C019": {
+    "notes_sha256": "c1fc70e33b03cddf64e02a584f7e9a97a6fa6775cb1ae94561f1b607b6cd97a8",
+    "rows": 53,
+    "rows_sha256": "8fff6126323eccac99a3a0f5bdd9c5501080094f2063cf6fa1e50cf13b1279e8"
+   },
+   "C020": {
+    "notes_sha256": "1d83ae773e24edb4e0c876cca9bdc75aeec7d4b1af49d858bb960c7d1f2813d2",
+    "rows": 6,
+    "rows_sha256": "bb8084f2588f84abd7da1d4fd63e467a18b0bc750acdb2755579358b77123610"
+   },
+   "C021": {
+    "notes_sha256": "6a14029951e68eae55cbe73a19dae79f97144a0386cddde72b860eb917289cbe",
+    "rows": 23,
+    "rows_sha256": "04ec848f2394c130c4b866f99ee7937e89d6a00a1242e3b39c3ecd432dbd8d9b"
+   },
+   "C022": {
+    "notes_sha256": "e196b14f070a7f13fa65be3facaef66ed0bae20cf45cba209bc5727fc34aa848",
+    "rows": 25,
+    "rows_sha256": "8843f944a2c707b817b72bf15dbb5c5f96de06fb0580ac5c011565b5487892a1"
+   },
+   "C023": {
+    "notes_sha256": "2968257c777ae7c6197984afc12825d01b2ae7b22d5ad0f99189665d792d39ce",
+    "rows": 37,
+    "rows_sha256": "9a772ba5ccdae7db2e47281b3ea76af307401de1de81b67f34be4d7d2b635d6a"
+   },
+   "C024": {
+    "notes_sha256": "aa497b7273f7cea1c684071a47991d08ead8e47ed1726514ebc143ed1687b484",
+    "rows": 42,
+    "rows_sha256": "1926f17d78a92291e15b14579b2878f847c8b55b4ea04d9573347977b0b66aa7"
+   },
+   "C025": {
+    "notes_sha256": "fe5d6403d2b22d0847c7624b88611f151f049d6f7cc3e6e449457e040694eb72",
+    "rows": 31,
+    "rows_sha256": "774d9ca13c6fcfafcdd38b278c90c11abb655c54fa85bf3ccb031367def206f0"
+   },
+   "C026": {
+    "notes_sha256": "0273b5a4c9e4a6c2e4f7ab17721f3d1281ca7b37b6f36f2665c1cbf002c927a2",
+    "rows": 56,
+    "rows_sha256": "705505ae723e1df6124de967e6de00980a9fc6d47d1026649bb136d915600958"
+   },
+   "C027": {
+    "notes_sha256": "98705d4620f5eefefb9208c402372c0c613bbcacb2f6506cc5cf8c0fa3e78185",
+    "rows": 48,
+    "rows_sha256": "866ca0a58fd36625ed2d28649fbc939cea893d0c2cb5cf6af98e9c92693f4586"
+   },
+   "C028": {
+    "notes_sha256": "f2ed6ad6d185dd0add1fc91bc80076787694e1d2ddf0df93d1379107398842b8",
+    "rows": 25,
+    "rows_sha256": "29abf0be8d0de41c6c01ceba33a52e77c3971d85d1360a6d28550e83cdd8b382"
+   },
+   "C029": {
+    "notes_sha256": "e48daee8e2b297a6af09a25eddcdeabc922b39d4bf0c8b0fa0e4dc63f163a41d",
+    "rows": 43,
+    "rows_sha256": "02cfd7bbd6e8e852aa5fc72677e5fffc74111dab8cb3477a7afb6610ac9507a9"
+   },
+   "C030": {
+    "notes_sha256": "3b8ce1308f107edf47c75c6bea3fa0667c1eb98e65d7b6a3923d8aaa5c0c0991",
+    "rows": 36,
+    "rows_sha256": "6305af44f5628a144f65c294ccbb88d4169df4cefbe6e92126177caf2d711d9a"
+   },
+   "C031": {
+    "notes_sha256": "f977f8cae65a2ede50b8c6ecd066366efd0bd079b9b3588aa6987332a80d7554",
+    "rows": 20,
+    "rows_sha256": "e9a95da5d59a430c0e6ac558514dba015cb271501b193702fb96801daec5005d"
+   },
+   "C032": {
+    "notes_sha256": "3a8f033b5af832bd3b0d53536457365289afad4987062f38f298e464efa1ada3",
+    "rows": 15,
+    "rows_sha256": "0df675c27a4138ab51040990a43be2156e49544b188ccb5c4125996790826225"
+   },
+   "C033": {
+    "notes_sha256": "0a2f3168878407fb8ab124b8df1d271bf76016767fe7a136bf9a15990523010d",
+    "rows": 47,
+    "rows_sha256": "94dc0d994702b4fef4815191a425195f9ccbcdb4cd20ec7c9dc13080c1a49297"
+   },
+   "C034": {
+    "notes_sha256": "08b55b631b40133bdbc3cfab65a92b46e0e046a356d80ec0ddb3c0f9208ec78d",
+    "rows": 48,
+    "rows_sha256": "8db4e03e716b7025f14cc6f8716613f626f917acec0a81da60af1e0bb7bc7493"
+   },
+   "C035": {
+    "notes_sha256": "b355cc68debc1fde0fb85e2b17cd42b906f62490d97b784180eaa2e16bf84c02",
+    "rows": 41,
+    "rows_sha256": "5e238a12b8118555d22ba95e2f7244bf06986b767550e1a025a560bba44c2ea5"
+   },
+   "P001": {
+    "notes_sha256": "f89373ac72224f33131215e4a856072959c5ec415b99a8e9281df9f51715b521",
+    "rows": 12,
+    "rows_sha256": "ca25bd6624efb6026cefbe6be82bcd36c307a314dbce8364a203a743016aaccb"
+   },
+   "Q001": {
+    "notes_sha256": "4cfbd4b089641a320a986c876a3ad90b5015d2a93f9a3a7fe37d8b319095c32d",
+    "rows": 140,
+    "rows_sha256": "2b9607f4f305f4b55a6927b82d4dbfea4639fcb4457ee3590a753f8a1011f067"
+   },
+   "Q019": {
+    "notes_sha256": "c8bd1f106007f096544a42afa2d8f40ae54360a9717d6f9040f5d9ecfb05cd7d",
+    "rows": 12,
+    "rows_sha256": "c10aeb503c0364aa150a0636c6843b8f2d1a0d292553f16240ebdbe2713c86bd"
+   },
+   "Q020": {
+    "notes_sha256": "2ca44f4c4a458d2b30420d807350dd9a8abcba19d3e4ccf95d60bb9c1b78c496",
+    "rows": 4,
+    "rows_sha256": "75f5c471cc805b15bd3c5a3e75496c0947de4c3f3834fea6329a9dec93b20c40"
+   },
+   "Q021": {
+    "notes_sha256": "28556a6fa0e603d93b2ad25fce7adc85286d4d9dcaee53a50a5ade05d94b643c",
+    "rows": 2,
+    "rows_sha256": "f268ad3a1c94d376f4b7f48195abc1155632225d65d10ffb05f00c6bf6896feb"
+   },
+   "Q022": {
+    "notes_sha256": "ee0b276ac410040b86349e1d0948d59aa9fdc952ca7b037c00aee8829a04b582",
+    "rows": 25,
+    "rows_sha256": "3ce680363f8fb295d16cfb2059e5bf6ed929169553e33a1b2ce50d4c7b81061f"
+   },
+   "Q023": {
+    "notes_sha256": "81423087cea6729cb5ad37174e98ff4f373a43b1b473b287977f124195a1722d",
+    "rows": 27,
+    "rows_sha256": "e65e9fd049f4a9785a013bf9d09f5265e55aa1ad3870c0e8e3748b6fdb5f93d2"
+   },
+   "Q024": {
+    "notes_sha256": "d3af2fbbbaa275b4e988a321fba7de79eaf8d185443b5ac7c756e3fe3bac351f",
+    "rows": 8,
+    "rows_sha256": "d4c0d0a4b01a5ec1a1a36e11d52e7b07fea5da999abd9080190000493705ec12"
+   },
+   "Q025": {
+    "notes_sha256": "23c076fe18bee423b761eeb024adf806c389187776924efcd2328070c7b0b545",
+    "rows": 42,
+    "rows_sha256": "cb68e3f2b0e5f8321d5da42cc6cb9da44cf761a83e005602755a6b980f39a20d"
+   },
+   "Q026": {
+    "notes_sha256": "34a897b26fdcb494a7f5e8e9aeea26f343e098250873fd8dc5e2e2e5bfa15a6a",
+    "rows": 1,
+    "rows_sha256": "98fcefd327f6c56d9a415d754ffa6a12117e56009c540f758f6d6895e86609e1"
+   }
+  },
+  "shards_refused": {}
+ },
+ "outputs": {
+  "hpoa-enriched": {
+   "bytes": 33527809,
+   "file": "phenotype.hpoa",
+   "sha256": "57fb1b790a255f058f86413982de2aeb8e3387c01a0bd7db33e79e655f8427e8"
+  },
+  "hpoa-lit": {
+   "bytes": 362983,
+   "file": "hpoa-lit.hpoa",
+   "sha256": "08e41b736f606cb3f1710c2e429baba62d59459146cac25141e5e10433db9deb"
+  },
+  "presentation-ages": {
+   "bytes": 1249,
+   "file": "presentation-ages.tsv",
+   "sha256": "8d87e12e62c3ab45f810d96366382c3206c73d9352d0c50043456992f717e54a"
+  }
+ },
+ "placements": {
+  "by_kind": {
+   "count": 687,
+   "not": 16,
+   "percent": 2544
+  },
+  "by_outcome": {
+   "ambiguous_populations": 102,
+   "hpoa_double_count": 13,
+   "percentage_not_chosen": 100,
+   "pooled_group_unit_specific_row": 10,
+   "same_source_smaller_count": 10,
+   "used": 3012
+  },
+  "pooled_group_placements": 1161,
+  "pooled_group_rows": 361,
+  "total": 3247
+ },
+ "presentation_ages": {
+  "by_row_specificity": {
+   "pooled": 2,
+   "pooled_group": 15,
+   "unit": 23
+  },
+  "by_source_kind": {
+   "cohort_paper": 12,
+   "genereviews": 28
+  },
+  "diseases": 40,
+  "placements_by_outcome": {
+   "not_chosen": 7,
+   "open_upper_bound": 6,
+   "used": 40
+  },
+  "rows_in": 36,
+  "single_values_widened": 18
+ },
+ "residual_dependency": "GeneReviews chapters synthesise literature HPOA may also cite; patient-level overlap is not detectable (rule 5)",
+ "rows_dropped_failed_validation": 0,
+ "rows_in": {
+  "age_onset": 205,
+  "age_presentation": 36,
+  "feature": 2447,
+  "total": 2688
+ }
+}

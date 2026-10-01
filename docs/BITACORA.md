@@ -2791,11 +2791,122 @@ profiles; the literature-enriched profiles come later, as candidate 6.
   shards, 2,567 rows, 417 units. Simulator 0.5.3 is merged. Candidate 6b
   (train-side) is running.
 
+### 2026-10-01 — tooling + dry run — `dxt lit build` (ADR-0013 amendment 2)
+- **What:** `dxt lit build` turns the shard rows into `hpoa-lit-vN`,
+  `hpoa-enriched-vN` and `presentation-ages-vN` (DATA_LINEAGE §8).
+  - Every shard with a passing report is re-validated first.
+  - `validate-shard` shares that code.
+  - 30 mocked tests, one or more per rule.
+  - Check: a scratch copy with one corrupted quote and one failing report
+    had both shards refused.
+- **Dry run** on main's 37 shards (code `1cf985d`, clean tree; no artifact
+  id, no manifest): `results/analyses/LIT-INTEGRATION-dryrun.json`.
+  - **Shards:** 37 accepted, 0 refused.
+  - **Rows in:** 2,567, of which 2,344 feature, 27 `AGE_PRESENTATION` and
+    196 `AGE_ONSET`.
+  - **Feature rows by outcome:**
+    - 2,210 used;
+    - 13 dropped as an HPOA double count;
+    - 111 lost the one-percentage choice;
+    - 10 were a smaller same-source count;
+    - 0 failed validation.
+  - **Placements:** 3,084, from 336 `pooled_group` rows giving 1,076
+    placements. 10 were skipped because the same source had a
+    unit-specific row.
+  - **`hpoa-lit`:** 2,892 rows:
+    - 635 count rows, 8 of them pooling several sources;
+    - 2,242 percentage rows;
+    - 15 NOT rows.
+  - **Reach:** 434 diseases, all already in `hpoa-recount-v1`. 454 of
+    455 units enriched (455 counts every unit a `pooled_group` row
+    lists). 264 sources used.
+  - **Terms:** 1,847 new (disease, term) pairs and 1,004 existing.
+  - **What the 1,004 existing pairs do in the simulator** (precedence
+    counts > % > category):
+
+    | Effect | Pairs |
+    |---|---|
+    | Literature % overrides an HPOA row with no frequency | 398 |
+    | Literature % shadowed by HPOA counts | 334 |
+    | Counts pooled with HPOA counts | 126 |
+    | Literature counts override an HPOA row with no frequency | 77 |
+    | Literature % overrides an HPOA category | 51 |
+    | Literature counts override an HPOA category | 13 |
+    | % averaged with an HPOA % | 5 |
+
+  - **NOT pairs:** 2 conflict with an HPOA positive, so the simulator
+    drops them.
+  - **`hpoa-enriched`:** 271,878 rows (268,986 + 2,892).
+  - **Presentation ages:** 30 diseases (28 GeneReviews, 2 papers).
+    - 12 of the 30 come from `pooled_group` rows of 2 chapters.
+    - 16 single values were widened.
+    - 6 placements had an open upper bound.
+  - **`AGE_ONSET`:** 196 rows reach 202 diseases; only 5 of those also
+    have a presentation age.
+- **Simulator check** (rare-disease-simulator `6833d2d`, source copied
+  read-only into a scratch dir):
+  - `build-profiles --from-hpoa --hpoa` on a 28-disease slice of the
+    dry-run `phenotype.hpoa` built 28 profiles, with 0 masked rows. All
+    170 positive literature rows of the slice appear in the profiles, with
+    their source cited. Of 3 NOT rows, 2 became negatives and 1 was
+    dropped for a positive conflict.
+  - `load_presentation_ages` read all 30 rows.
+- **Ambiguities found** (resolved as in DATA_LINEAGE §8; flagged for
+  Mateo):
+  - **Rule 6, percentages.** 132 (disease, term) pairs had several
+    percentages.
+    - 150 of the 152 losers are the same source giving several
+      populations.
+    - 120 losers had no stated n on either side, so 102 choices fell to
+      source and file order. 62 losers differ from the winner by more
+      than 20 points.
+  - **Rule 5.** Rows have no `source_pmids`. Chapters are matched by NBK
+    id, chapter PMID and Bookshelf URL.
+  - **Rule 7.** `pooled_group` age rows and open-ended ranges are not
+    covered by the rule.
+  - **Zeros.** A zero `pooled_group` row becomes NOT. A prevalence-0 row
+    in a pre-v4 shard is treated as an explicit absence.
+- **Not done:** no artifact registered or published. The real build waits
+  for the extraction to finish.
+
 ### 2026-10-01 — data — lit-extract paper shards Q019–Q026 (ADR-0013)
 - Branch `phase3/lit-extract-Q019-Q026`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **121 rows (103 feature, 18 age, 9 of them `AGE_PRESENTATION`) from 19 of 89 papers** (Q019 12, Q020 4, Q021 2, Q022 25, Q023 27, Q024 8, Q025 42, Q026 1); 70 papers with 0 rows (62 `not_cohort`: screening/yield studies, somatic tumour cohorts, single families, own cohorts under 20 pooled with literature, confirmed P/LP groups under 20 once VUS carriers are removed; 6 `no_numbers`; 2 `not_about_units`: MT-TT LHON cohort vs lethal infantile myopathy unit, SLCO2A1 enteropathy vs hypertrophic osteoarthropathy units). Guide ambiguities (VUS-majority groups, carrier vs affected denominators, pooled_group per-unit n, genetic-confirmation age as presentation age) listed in the PR; `dxt lineage verify` passes.
 
 ### 2026-10-01 — data — lit-extract chapter shards C063–C070 (ADR-0013)
 - Branch `phase3/lit-extract-C063-C070`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **420 rows (356 feature, 64 age, 16 of them `AGE_PRESENTATION`) from 67 of 75 chapters** (C063 30, C064 38, C065 32, C066 62, C067 46, C068 110, C069 45, C070 57); 8 chapters with 0 rows (6 `no_numbers`: SCADD, variegate porphyria, SLC39A14, ethylmalonic encephalopathy, PMLD1, ALPK1; 2 `not_about_units`: Duarte galactosemia → unit is classic galactosemia, CMTC → unit GNA11|OMIM:145981 is FHH2). Open points for the guide: spectrum chapters whose other phenotype is not a unit (DNMT1 cohort put on HSAN1E with `pooled`; PUF60 figures on Verheij OMIM:615583), CNV syndrome with two genes on one disease id (Potocki-Lupski on RAI1, `pooled`), and explicit-absence wording ("have not been reported/documented") recorded as prevalence 0.
+
+### 2026-10-01 — decision + dry run — ADR-0013 amendment 3: rule-6 choice and the ambiguity guard
+- **Ruling (coordinator):**
+  - percentages are chosen by both sexes, then the largest stated
+    `n_assessed`, then unit > `pooled` > `pooled_group`;
+  - if one source's rows are still tied after sex and n and differ by
+    more than 0.20, the term is dropped from that source
+    (`ambiguous_populations`);
+  - the same guard applies to equal count denominators;
+  - the other amendment 2 resolutions are accepted.
+- **Implemented in PR #67;** 34 mocked tests.
+- **Effect on main's 37 shards** (code `c10788b` vs `1cf985d`):
+  - 80 rows (102 placements, 47 disease–term–source triples) are dropped
+    as `ambiguous_populations`;
+  - "not chosen" falls from 111 to 71 rows;
+  - file-order choices fall from 102 to 56;
+  - `hpoa-lit` falls from 2,892 to 2,841 rows on 431 diseases;
+  - the count guard never fires (same-source smaller counts stay at 10).
+- **Dry run after merging main** (45 shards with Q019–Q026; code
+  `cc86be3`, clean): `results/analyses/LIT-INTEGRATION-dryrun.json`.
+  - **Rows in:** 2,688, with 0 failed validation. Feature rows: 2,273 used,
+    80 ambiguous, 71 not chosen, 13 HPOA double count, 10 smaller
+    same-source count.
+  - **`hpoa-lit`:** 3,004 rows (666 count, 2,323 %, 15 NOT) on 456
+    diseases. 475 of 480 units enriched.
+  - **Terms:** 1,941 new and 1,025 existing.
+  - **Presentation ages:** 40 diseases. `AGE_ONSET` reaches 215 diseases.
+- **Simulator check (`6833d2d`, read-only copy):**
+  - `build-profiles --from-hpoa --hpoa … --gene-profiles genes-v2` on a
+    28-disease slice built 28 profiles. All 168 positive and 4 NOT
+    literature rows of the slice arrive.
+  - `load_presentation_ages` reads 40 rows.
+  - Still no artifact registered.
 
 ### 2026-10-01 — data — lit-extract paper shards Q011–Q018 (ADR-0013)
 - Branch `phase3/lit-extract-Q011-Q018`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **481 rows (446 feature, 35 age, 9 of them `AGE_PRESENTATION`) from 47 of 96 papers** (Q011 41, Q012 71, Q013 84, Q014 80, Q015 61, Q016 50, Q017 27, Q018 67). Q011–Q015 were done first; after a pause, Q016–Q018 were resumed in the same PR. Q011 has one follow-up commit that drops a sub-20 female bone-age row. The Q015 commit message miscounts its sources as "8 of 12"; 7 of 12 were extracted (the notes file is right, history not rewritten). Dead ends: diagnostic-yield/screening studies, unit-disease mismatches (MT-RNR1 = MERRF, CTSA = galactosialidosis, COL6A3 neuromyopathy), series that pool literature cases (RAD21, PURA, RRM2B, ALG13, ACAD9, Primrose), registries of clinically diagnosed patients (TOSCA, XLH survey), guidelines and trials.
