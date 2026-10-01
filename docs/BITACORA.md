@@ -2134,3 +2134,48 @@ Written and committed before the first candidate 4 pilot run.
   - papers: 12 per shard (about 85 shards, about 33 agent-hours);
   - Codex 10% cross-check: about 630 rows.
 - `dxt lineage verify` passes. Disk: about 15 GB free.
+
+### 2026-10-01 — pre-registration — Candidate 5 pilot rounds (ADR-0011 amendment 6)
+Written and committed before the first candidate 5 pilot run. Train-side
+only: **no R1-dev read in this task, whatever the result.**
+- **Generator:** rare-disease-simulator 0.5.1, run from the GitHub tarball
+  of 09e5802 (sha256 `3d125ec2…`), never the shared checkout.
+  - Full profiles rebuilt with 0.5.1 from hpoa-recount-v1 + genes-v2: 9,223
+    profiles, byte-identical to candidates 2–4 (`d44e1586…`).
+  - report-model-v3; cardinal-v1; no presentation ages.
+  - Calibration per round: `simcal-v05-v2` + `noise.related_up_levels` 1 +
+    `noise.related_down_levels` 1, with `reporting.q_scale`,
+    `noise.related_share` (s) and `reporting.specialize_rate` (r) set per
+    round.
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`,
+  sha256 `5c817192…`), 10 cases per gene, medium, seed 91001.
+- **Targets** (all R1-train):
+  - **E** = mean reported terms per record that kb-v3 explains =
+    **5.3772**: uncited R1-train patients with a kb-v3 gene (1,140), by
+    `uncited_categories.py kb-v3` (now also printing per-case means;
+    `results/realism/cand5-pilots/target-uncited-kb-v3.json`). ANALYSIS-003's
+    5.53 was against kb-v4. Simulated value: `dataset_term_categories.py
+    --kb kb-v3`, `per_record.explained`.
+  - **M** = E0 in-vocab MRR on the noise terms alone = **0.026**, by
+    `noise_signal.py`, every case;
+  - **S** = more-specific share vs kb-v3 = **0.0929** (calib-v2).
+- **Round 1:** q_scale = 2.0, s = 0.6, r = 0.18.
+- **Update rules** (round k+1 from round k's measurements, rounded to 4
+  decimals):
+  - q_scale_{k+1} = q_scale_k × 5.3772 / E_k, capped to [1, 10];
+  - s_{k+1} = (0.026 − MRR_voc,k) / (MRR_rel,k − MRR_voc,k), clipped to
+    [0, 1], where MRR_voc and MRR_rel are E0's MRR on vocabulary noise
+    alone and related noise alone; s_{k+1} = s_k if MRR_rel,k ≤ MRR_voc,k;
+  - r_{k+1} = r_k × 0.0929 / S_k, capped to [0, 1].
+- **Rounds:** at most 3. Rounds 2 and 3 run unless, after a round, all
+  three relative errors (below) are ≤ 0.05; then the remaining rounds are
+  skipped.
+- **Selection:** the round with the smallest
+  |E − 5.3772| / 5.3772 + |M − 0.026| / 0.026 + |S − 0.0929| / 0.0929 is
+  frozen as `simcal-v051-v1` (`dxt knowledge shrinkage-prior
+  --min-denominator 10 --base data/calib/simcal-v05-v2.json --set …`).
+- **Also reported per round:** the four categories vs kb-v3; shown terms
+  per case (profile + noise); `forced_min_one`; `q_mean` and the capped
+  share; the q-calibration error; the mean IC of related and vocabulary
+  noise (`noise_signal.py`, e0_ablation's kb-v4 IC); every tried triple.
+- **Not used:** R1-dev.

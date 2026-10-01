@@ -310,3 +310,37 @@ Based on ANALYSIS-003, ANALYSIS-004 and the construction-side card audit
      result is recorded as unmet, and Mateo decides how to proceed.
 6. **Run hygiene:** runs use a dedicated simulator worktree or tarball
    pinned at the release commit, never the shared checkout.
+
+## Amendment 6 (2026-10-01): candidate 5 design (train-side only)
+
+Mateo's 2026-10-01 decision allows up to two more reporting/noise
+candidates, checked on R1-train only. Fixed before any candidate 5 number
+exists.
+
+1. **Simulator 0.5.1** (rare-disease-simulator PR #9, 09e5802), run from
+   the GitHub tarball of that commit.
+   - `reporting.q_scale`: independent mode reports each true term with
+     `q = min(1, q_scale · π / f)`.
+   - `noise.related_up_levels` 1 and `noise.related_down_levels` 1: related
+     noise is a child of a true term's parent (a sibling), not up to two
+     levels up and two down. Candidate 4's noise (87% related) had mean IC
+     6.78, against 4.14 for R1-train's present terms.
+   - No presentation ages (they come with candidate 6).
+2. **Base calibration:** `simcal-v05-v2` (independent reporting,
+   report-model-v3, proportional noise ρ 0.207, calib-v2 vocabulary, age
+   durations by onset).
+3. **Three knobs, set by at most 3 pilot rounds on R1-train targets only:**
+   - `reporting.q_scale`: mean reported terms per case that kb-v3
+     explains = the uncited R1-train value against kb-v3;
+   - `noise.related_share`: E0 in-vocab MRR on noise-only terms = 0.026
+     (ANALYSIS-004);
+   - `reporting.specialize_rate`: more-specific share = 0.093 (calib-v2).
+
+   The rules are in the BITACORA pre-registration entry. The winner is
+   frozen as `simcal-v051-v1`.
+4. **Dataset:** the full-profile run only (`ds-sim0.5.1-full-n100-s1001`);
+   disk does not allow the half-A run as well.
+5. **Go/no-go:** as in amendment 5 (G2a truth layer, G2c, G2d, G2e,
+   G2b-train; age reported), with `dxt sim realism --no-dev`. **No R1-dev
+   read in this round, whatever the result.** The last R1-dev read goes to
+   the better of candidates 5 and 6, when Mateo decides.
