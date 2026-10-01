@@ -3,40 +3,77 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-01, morning. Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-01, paused (graceful stop, usage). Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
 
 **Deadline:** 2026-11-07 (38 days left).
 
-## TL;DR (2026-10-01)
-- **Mateo's decisions today:**
-  - Front A goes ahead with **verified-source enrichment plus up to 2 more
-    reporting/noise candidates**, time-boxed to about 2026-10-08;
-  - literature rules as recommended (ADR-0013 and its amendment 1, verified
-    sources only);
-  - rr-v1 release **on hold** (diagnostic.ar-model PR #2 stays open);
-  - ADR-0012 amendment 3 accepted;
-  - disk freed (20 GB free now);
-  - the 50-case dev fixture is OK;
-  - TODO for Mariano: send only the question agent's "no" answers.
-- **Running:**
-  - **Source acquisition** (branch `phase3/lit-sources-v1`): Tier-1 curated
-    knowledge bases (MedlinePlus Genetics, Gene2Phenotype, PanelApp, a
-    ClinGen check), licence checks, pinned snapshots, coverage, and the
-    frozen `lit-sources-v1` lists (GeneReviews chapters plus major studies
-    with ≥ 20 patients).
-  - **Simulator 0.5.1** (`feat/v0.5.1`): `reporting.q_scale`, related-noise
-    reach, presentation ages.
-- **Next:**
-  1. Extraction shards over `lit-sources-v1` (Claude, with a 10% blind Codex
-     cross-check).
-  2. `hpoa-lit-v1` / `hpoa-enriched-v1` plus `presentation-ages-v1`.
-  3. Candidate 5: current profiles plus the 0.5.1 fixes, train-side.
-  4. Candidate 6: enriched profiles plus the best reporting.
-  5. The go/no-go, and only then the last R1-dev read.
-- **R1-dev realism reads: 2 of 3 used.**
+## TL;DR (2026-10-01, paused at about 81% session usage)
+**R1-dev realism reads: 2 of 3 used.** The last read waits for a candidate
+that passes every train-side stop condition, and Mateo is told first.
+
+**Simulator** (rare-disease-simulator main 6833d2d = 0.5.3):
+
+| Candidate | Passes | Fails |
+|---|---|---|
+| 5 | G2e gap 0.049 | G2c 1.908, G2d 0.809 |
+| 6a | G2e gap 0.011 | G2c 2.955 (records too short), G2d 0.764 |
+
+- **Candidate 6b** (0.5.3 record budget + generalisation pilot,
+  ADR-0011 amendment 8) was stopped gracefully. See its PR / branch
+  `phase3/sim-v053-cand6b` for the last completed step.
+
+**Literature (ADR-0013 and amendments 1–2):**
+- Merged: 53 shard files, 3108 rows. That covers all P1/P2 chapters
+  (C001–C035), C063–C070, P001 and Q001, plus Q019–Q026.
+- Stopped gracefully mid-batch (each agent commits per shard; resume via
+  their branches or PRs):
+
+  | Batch | Branch |
+  |---|---|
+  | Q002–Q010 | `phase3/lit-extract-Q002-Q010` |
+  | Q011–Q018 | `phase3/lit-extract-Q011-Q018` |
+  | C036–C044 | `phase3/lit-extract-C036-C044` |
+  | C045–C053 | `phase3/lit-extract-C045-C053` |
+  | C054–C062 | `phase3/lit-extract-C054-C062` |
+
+- **Integration tooling** (`dxt lit build`): PR #67, open. It is being
+  updated with my rule-6 ruling as ADR-0013 amendment 3:
+  - prefer both sexes, then the largest n;
+  - drop a term if same-source percentages differ by more than 0.20 with
+    no n to decide.
+
+  The dry run on 37 shards gave 2,892 HPOA rows over 434 diseases, 1,847
+  new disease–term pairs, and **presentation ages for only 30 diseases**.
+
+**Pending rulings, to decide in one batch:**
+- **"has not been reported/described"**: do **not** treat it as an
+  explicit absence, so it never becomes a NOT row.
+- **Age at genetic confirmation**: exclude it from presentation ages.
+- **Family-cohort carriers** (some unaffected): need a rule.
+- **High VUS share**: need a rule.
+- **`pooled_group` with sub-20 member units**: need a rule.
+- **Spectrum chapters with a single unit**, and **two genes on one disease
+  id**: fine as `pooled`.
+- **Proposal for Mateo:** use the literature `AGE_ONSET` rows (about 200
+  diseases) to improve onset, because presentation ages cover only about 30
+  diseases.
+
+**Next steps, in order, economising usage:**
+1. Collect the stopped agents' final states. Merge their PRs (resolve the
+   BITACORA conflicts by keeping both sides; check that only shard files
+   changed).
+2. Finish the remaining shards later, in smaller batches.
+3. Merge PR #67 after amendment 3. Write the pending rulings as amendment 4,
+   then run the final `dxt lit build --version 1 --publish`.
+4. Codex cross-check (10%) plus a recall and unit audit (about 5% of
+   sources).
+5. Candidate 6b result → candidate 6 (enriched profiles + 0.5.3 design) →
+   train-side go/no-go. Then **ask Mateo** before the last R1-dev read.
+6. If it passes: the G3 cards (assistant + Codex), then G5 freeze. Only
+   then can Front A retraining be pre-registered.
 
 ## Decisions still open
 - **Deploying rr-v1** (on hold): when the time comes, merge PR #2 and
@@ -181,5 +218,6 @@ target 0.405).
 - **Train-side go/no-go before any R1-dev realism read:** G2a, c, d, e and
   G2b-train.
 - No AI mention in commits or PRs.
+- **Usage limits stop every agent.** Keep agent worktrees until their PR is merged *and* they won't be resumed. Agents commit after each unit of work; resume them with SendMessage.
 - **Graceful stop:** message the agents, then stop queue scripts before
   their runs (by exact PID). Interrupted runs must leave no manifest.

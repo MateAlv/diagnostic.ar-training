@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:29666556	not_cohort	0	HNF1A screening of 477 young adults with diabetes; 8 HNF1A-MODY diagnoses; no unit reaches 20
+PMID:37798422	not_cohort	0	HNF1A screening of 615 antibody-negative paediatric diabetes cases; 19 carriers (9 VUS/LP); no unit reaches 20
+PMID:17407387	extracted	2	54 heterozygous HNF4A carriers from 15 MODY families (figures are over carriers, as the paper reports them); macrosomia defined in text as birthweight > 4,000 g; skipped extreme macrosomia (no HPO term), centile medians, macrosomia and hypoglycaemia by parent of origin (subgroup sizes not stated for macrosomia; kept the whole group), HNF1A carriers (not a unit of this source), mouse data
+PMID:36128131	not_cohort	0	imaging study of 108 gliomas by somatic IDH1 status; not a germline cohort of the IDH1 unit
+PMID:29619236	not_cohort	0	ISL1 screening of 125 bladder exstrophy patients; no pathogenic variant found
+PMID:37062836	not_cohort	0	12 own KCNT2 patients pooled with 13 published cases (25); own cohort under 20 and pooled figures include literature
+PMID:32850863	not_cohort	0	SNV association study of KIT and AR in cryptorchidism and testicular tumour cases vs controls
+PMID:42703425	not_cohort	0	prognosis and adjuvant-imatinib study of 647 sporadic GISTs with somatic KIT exon 11 mutations; tumour risk and survival only, not a germline cohort
+PMID:39518997	not_cohort	0	46 heterozygous LIPC carriers compared with controls on lipid levels; the unit (hepatic lipase deficiency) is biallelic; no confirmed patients of the unit
+PMID:26788538	not_cohort	0	MC4R variant frequencies and BMI association in 297 population participants
+PMID:34059105	not_cohort	0	MORC2 screening of 284 CMT2 families; 4 positive families
+PMID:42051546	not_cohort	0	single MSTO1 patient with functional studies

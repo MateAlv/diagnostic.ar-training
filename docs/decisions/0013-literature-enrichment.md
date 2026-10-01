@@ -113,3 +113,50 @@ above.
   partly from the DDD study, and DDD is a sealed eval cohort used only as a
   no-regression check. G2P rows are allowed as knowledge (like HPOA), but
   the DDD no-regression result must disclose that G2P contributed.
+
+## Amendment 2 (2026-10-01): integration rules, fixed before any enriched profile is built
+These rules turn `data/lit-extract/rows/*.tsv` into `hpoa-lit-v1` (an HPOA-
+format layer), `hpoa-enriched-v1` (`hpoa-recount-v1` + `hpoa-lit-v1`) and
+`presentation-ages-v1`. They are written before any enriched profile or
+gate number exists.
+
+1. **Feature rows → HPOA phenotype rows** (aspect P) on the unit's disease
+   id. The reference is the row's `source_id`: `PMID:…`, or `NBK…` for
+   GeneReviews.
+   - With `n_affected`/`n_assessed` → count notation `n/m`.
+   - With a prevalence only → percentage notation (`X%`). Its precedence is
+     below counts, by the simulator's existing rule (counts > percentages >
+     categories).
+   - `prevalence 0` with counts → `0/m`. With no counts → the row is
+     recorded as an excluded (NOT) annotation only when the source states an
+     explicit absence (guide v4 §6a).
+2. **`pooled_group` rows** (one figure for several units' diseases) → a
+   **percentage** row on every listed unit's disease. Never counts, so the
+   same patients are not counted once per unit. Skipped for a unit that
+   already has a unit-specific row from the same source for the same term.
+3. **`pooled` rows** (a disease-level figure placed on one unit) → kept on
+   that unit's disease id only.
+4. **`small_n`, `binned`, `lower_bound`** → kept. `binned` and
+   `lower_bound` use the stated point estimate; the simulator's shrinkage
+   tempers small denominators.
+5. **No double counting with HPOA.** A literature row whose `source_pmids`
+   are already cited by an HPOA row for the same disease and term is dropped
+   (ADR-0013 rule 3). GeneReviews chapters synthesise literature that HPOA
+   may also cite; overlap at the patient level cannot be detected, so it is
+   declared as a residual dependency.
+6. **Several literature rows for the same disease and term** → count rows
+   pool by summing n/m (distinct sources only). For percentage rows, the
+   one with the largest stated population is kept.
+7. **Ages → `presentation-ages-v1`** (disease_id, age_low_years,
+   age_high_years, source), from `AGE_PRESENTATION` rows only:
+   - one row per disease;
+   - prefer a GeneReviews row, then the row with the largest population;
+   - a single-value age is widened to ±10% (at least ±1 year), so a case
+     doesn't get one exact age.
+
+   `AGE_ONSET` rows are not used for presentation ages; onset stays with
+   Orphadata. Their coverage is reported, as a possible later use.
+8. **Never used:** rows for evaluation units (the validator already blocks
+   them) and any row failing `validate-shard`.
+9. **Every artifact gets a manifest** listing the shard files and their
+   sha256. A dropped row is counted by reason.

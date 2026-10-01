@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK593504	extracted	6	Table 2 pooled over VCRL1-3 (n/m); skipped DD/ID (two), renal/limb/neuromuscular anomalies and facial dysmorphisms (categories), SNHL/inner ear and nuchal redundancy/cystic hygroma (two), other brain findings, text case counts without denominators
+NBK1140	extracted	4	Table 2 nystagmus/diplopia rows and stated onset range; skipped multi-feature rows (gait/incoordination/tremor/dysarthria; hyperreflexia & extensor plantar; dystonia & blepharospasm), initial-symptom share
+NBK1271	extracted	10	skipped normal T & B cell numbers (normal), CMV infection (no fitting term), immune dysregulation and other neurologic features (bundles), neurologic involvement 30%, leukodystrophy 20% in text (table 10% kept), mortality
+NBK390803	extracted	16	skipped skeletal abnormalities and dysmorphic features (bundles), self-injury and aggression (two), ~9% behavior bundle, small hands and feet and short fifth digits (two), seizure onset (hedged)
+NBK425926	extracted	25	TRPS I column (n=133) on TRPS1|190350 and TRPS II column (n=22) on EXT1|150230 (pooled); 'both' column skipped; characteristic facial features (bundle) skipped; small breasts 4/15 stated as 36% (n/m inconsistent) skipped
+NBK476444	extracted	21	Donohue and RMS columns on their units; '+' cells (incidence unknown) skipped; genital enlargement (no term), dysmorphic/integument (bundles), rectal hypertrophy and/or prolapse (two) skipped
+NBK583038	extracted	11	Table 2 pooled over the three PI4KA units; skipped hypomyelinating leukodystrophy/delayed myelination and cerebellar hypoplasia/atrophy (two features), text counts without denominators, hedged onset
+NBK584549	extracted	11	Table 2 (n/m); skipped speech delay/speech disorders (two), mild facial dysmorphism, seizure-type and behavior counts without denominators, seizure onset (hedged)
+NBK592682	extracted	16	Table 2 (n/m) plus text nonverbal, scoliosis and imaging shares; skipped ophthalmologic findings (bundle), seizure-onset age (feature onset), regression-by-epilepsy shares (conditional)
+NBK1393	extracted	10	Table 4 rows per subtype/sex; skipped digital anomalies (category), 'unknown' cells, erosive changes on radiographs (vague), hedged onset ('most manifestations')

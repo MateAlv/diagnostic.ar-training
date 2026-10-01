@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK349073	extracted	5	only the biallelic subgroup tallies (n=2); 'diminished cortical thickening', 'median cleft' and DD+growth bundle skipped; heterozygous features 'common' without numbers
+NBK390610	extracted	1	poikiloderma onset only; nail dysplasia in 4 has no stated denominator; other features vague
+NBK390611	extracted	8	proband figures only (relatives are carriers: penetrance); skipped RCC 10% of probands and relatives, onychopapilloma (no HPO term), cancer ages (tumour-specific), 88% with cancer (penetrance section)
+NBK395975	extracted	1	only the detection-age range; hyperviscosity 'majority' and single-case complications skipped
+NBK424403	extracted	1	dementia onset is not disease onset; ophthalmologic bundle 7/23 skipped
+NBK426063	extracted	27	skipped ambulation/speech achievement (not features), nonepileptic-movement bundle 30/60, atrophy and/or ventriculomegaly, white-matter items, gonadotropin/cortisol/precocious-puberty treatment, persisting apnea 43% (no denominator); minimum prevalences (x/223) not used
+NBK431123	no_numbers	0	onset hedged ('typically'); 'learning disability in all children' has no fitting HPO term; single late-onset case
+NBK447920	extracted	5	disease-level rows on RAI1 (dosage gene of the 17p11.2 duplication); short stature 5/7 (original report) not used, larger 1/10 cohort kept; 'vast majority' items skipped
+NBK453432	no_numbers	0	all features 'common'/'typically'/'usually'; atypical cases are single reports
+NBK465012	extracted	14	skipped nonverbal ~2/3 at 18 months (hedged), moderate-to-severe ID 3/18 (no single term), ADHD and anxiety 30%-40% (one number, two features), single-occasion findings
