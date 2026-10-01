@@ -2405,3 +2405,19 @@ only: **no R1-dev read in this task, whatever the result.**
     penetrance vs tumour risk among affected; decades and period spans for
     ages; quote word counts ignore table pipes.
 - `dxt lineage verify` passes.
+
+### 2026-10-01 — lit-extract — P001 pilot paper shard; per-unit ≥ 20 rule
+- **P001:** 12 papers; **3 qualified** (25%, not the 0.58 screen precision).
+  - The 9 dead ends are diagnostic-yield or screening studies, association
+    studies, penetrance in carriers, a variant database, and a mixed
+    registry.
+- **Rule decision (conservative, in line with ADR-0013 amendment 1):**
+  - The ≥ 20-patient minimum applies **per unit**: a subgroup under 20 in a
+    qualifying paper is not extracted. This removed the ARHR2 (≤ 11) and
+    ABCC6 (19) rows.
+  - Age at newborn screening is **not** age at presentation; that row was
+    removed.
+  - P001 now has 12 rows.
+- **Before the other 84 paper shards:** a deterministic re-screen of the
+  paper list on title and abstract signatures (the dead-end types above),
+  then one more pilot.
