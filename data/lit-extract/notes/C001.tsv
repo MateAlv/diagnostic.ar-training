@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1168	no_numbers	0	only shares of CMS by gene (Tables 1-2); the onset statement is pooled over all CMS types and hedged ('usually'); no feature frequencies
+NBK1334	extracted	3	skipped: reversal in ~10% of all IGD men (not a phenotype, pooled over all IGD types); KS share of IGD and sex ratio (not features)
+NBK1509	extracted	18	onset per gene from Tables 1-2; skipped KIF1A (unit is AR SPG30, figure is AD SPG30A), AP5Z1 ('typically'), ADAR and DNM2 (units are other diseases); gene shares are not features
+NBK1169	extracted	6	pooled ADSHE figures on the umbrella unit CRH|ORPHA:98784; skipped penetrance 70%, seizure frequency (no HPO term), gene shares
+NBK596643	extracted	11	skipped comment sub-figures (bilateral >95%, ASD >80% of CHD: conditional; prenatal limb shortening 36%: same HPO term), 'about one third' perinatal growth deficiency (mapping ambiguous), the <5% and <1-in-4 lists (one number for a list)
+NBK1548	extracted	1	Table 2 bilateral/multiple/metastatic figures have no HPO term; penetrance (Table 3) and ccRCC lifetime risk are among carriers; 'up to' figures skipped
+NBK590568	extracted	5	figures pooled over all albinism types recorded once as pooled_group over the 9 units; skipped absence of nystagmus 'up to 7.7%' (complement), OCA1 strabismus 'as high as 100%', gene shares
+NBK1394	extracted	19	skipped ear creases/pits and umbilical hernia/diastasis (one number for two features), 'as high as 50%' prenatal figures, mortality, Table 3 IC1/IC2/UPD rows (H19 and KCNQ1OT1 units are isolated hemihyperplasia)
+NBK1520	extracted	19	Table 2 has three cohorts: largest denominator per feature; family history and normal early development are not phenotypes; MT-TK (main MERRF gene) is not an allowed unit, rows on MT-TH|OMIM:545000
+NBK1324	extracted	18	skipped category bundles (growth, skeletal, dysmorphic & skin, craniofacial, GU in males), 'up to' figures (sweating, scoliosis), scoliosis-or-kyphosis (two features), normal neurocognition (complement); CDKN1C/H19 units are BWS/hemihyperplasia
