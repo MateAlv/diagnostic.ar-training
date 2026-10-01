@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1244	no_numbers	0	clinical description is qualitative; only gene shares and penetrance (presumed 100%); COL1A1 unit is OI type I
+NBK1268	extracted	1	Table 2 uses +/++/+++ grades only; onset 'typically adulthood' hedged, the stated range kept; repeat frequencies and share of AD ataxia skipped
+NBK1338	extracted	1	trigger shares (exercise 67%, meals 45% ...) are not phenotypes; interictal weakness 28% has no specific HPO term; 90% fatigue survey is clinical-diagnosis and bundles two complaints; penetrance skipped
+NBK1348	extracted	1	Table 1 qualitative; Table 2a gene shares only; congenital onset recorded once as pooled_group over CFEOM units (TUBB2B|610031 cortical dysplasia left out)
+NBK1357	extracted	1	GLDC is the main cause (80%), AMT unit is ORPHA:407 same disease; skipped onset ('majority'), severe/attenuated outcome shares (not features), retrocerebellar cyst with hydrocephalus 3% (two features), hypokalemia <1% (bundled event)
+NBK1435	no_numbers	0	lab values and carrier frequencies only; age at diagnosis 'usually ... often 1.5-3.5 y' hedged; 'one third transfusion dependent' is treatment
+NBK1727	not_about_units	0	units are HLA-DQA1 -> idiopathic achalasia and HLA-DQB1 -> narcolepsy type 1 (worksheet fallback); the chapter is about celiac disease
+NBK5313	extracted	2	CDA I figures recorded as pooled_group over Ia/Ib units; skipped neonatal hepatomegaly/jaundice/SGA (conditional on symptomatic neonates), distal limb anomalies 4%-14% (category bundle), osteoporosis 'majority', offspring birth weight, mortality
+NBK49247	no_numbers	0	Table 2 uses +/++/+++ grades; onset 'typically in the first two decades' hedged
+NBK65707	no_numbers	0	only family counts per gene (Table 1); clinical description qualitative
