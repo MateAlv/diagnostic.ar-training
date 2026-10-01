@@ -1,0 +1,45 @@
+{
+  "artifact_id": "profile-budget-v1",
+  "kind": "simulator-calibration-keys",
+  "created_at": "2026-10-01T14:48:52+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "99c397aecb6172189315c2dd41e03ef3637e01fc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "part": "train",
+    "population": "uncited in hpo_annotations, gene in KB",
+    "statistic": "histogram of explained present terms per patient",
+    "kb": "kb-v3",
+    "zero_bin": "kept"
+  },
+  "params_hash": "b3a60b0fa65cb39654f3de1956da3ec37b2e2fddb72c2194210deee685b59cc8",
+  "outputs": [
+    {
+      "path": "data/calib/profile-budget-v1.json",
+      "sha256": "c1df9997cd42d02182acfc2fd71622319b978540ecb2ee2e01d2bff9f6f3cd79",
+      "bytes": 908
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

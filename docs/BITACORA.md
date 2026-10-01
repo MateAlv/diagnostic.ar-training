@@ -2421,3 +2421,62 @@ only: **no R1-dev read in this task, whatever the result.**
 - **Before the other 84 paper shards:** a deterministic re-screen of the
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
+
+### 2026-10-01 — pre-registration — Candidate 6a pilot rounds (ADR-0011 amendment 7, current profiles)
+Written and committed before the first candidate 6a pilot run. Train-side
+only: **no R1-dev read in this task, whatever the result.** Candidate 6a
+checks amendment 7's budget-normalised reporting on the **current**
+profiles; the literature-enriched profiles come later, as candidate 6.
+- **Generator:** rare-disease-simulator 0.5.2, run from the GitHub tarball
+  of 40f8896 (sha256 `ce272645…`), never the shared checkout.
+  - Full profiles rebuilt with 0.5.2 from hpoa-recount-v1 + genes-v2: 9,223
+    profiles, byte-identical to candidates 2–5 (`d44e1586…`).
+  - report-model-v3; cardinal-v1; no presentation ages.
+- **Budget histogram:** `profile-budget-v1` (manifest committed;
+  `scripts/analysis/profile_budget_histogram.py`): explained terms per
+  patient vs kb-v3 over the 1,140 uncited R1-train patients with a kb-v3
+  gene (the `uncited_categories.py` population and rule). Mean 5.3772
+  (equal to candidate 5's E target), median 5, p10 / p90 = 1 / 10, max 26;
+  54 patients have 0 explained terms. The simulator ignores the 0 bin, so
+  the effective k mean is 5.6446.
+- **Calibration per round:** `simcal-v051-v1` + `reporting.budget_normalize`
+  true + `reporting.profile_budget_histogram` from `profile-budget-v1`, with
+  `noise.related_share` (s) and `reporting.specialize_rate` (r) set per
+  round. Everything else unchanged (proportional noise ρ 0.207, calib-v2
+  vocabulary, related levels 1/1, age durations by onset). `q_scale` stays
+  2.8855 in the file; in this mode c absorbs it.
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`,
+  sha256 `5c817192…`), 10 cases per gene, medium, seed 91001, full
+  profiles.
+- **Targets** (R1-train, as candidate 5):
+  - **S** = more-specific share vs kb-v3 = **0.0929** (calib-v2);
+  - **M** = E0 in-vocab MRR on the noise terms alone = **0.026**
+    (`noise_signal.py`).
+- **Round 1:** s = 1.0, r = 0.1676 (candidate 5's values); no knob changes.
+- **Round 2** runs only if, after round 1, |S − 0.0929| / 0.0929 > 0.20 or
+  |M − 0.026| / 0.026 > 0.20. It changes only the drifted knob(s), with
+  candidate 5's update rules (rounded to 4 decimals):
+  - r₂ = r₁ × 0.0929 / S₁, capped to [0, 1];
+  - s₂ = (0.026 − MRR_voc,1) / (MRR_rel,1 − MRR_voc,1), clipped to [0, 1]
+    (s₂ = s₁ if MRR_rel,1 ≤ MRR_voc,1).
+  At most 2 rounds.
+- **Selection:** round 1 if round 2 does not run; otherwise the round with
+  the smaller |S − 0.0929| / 0.0929 + |M − 0.026| / 0.026. Frozen as
+  `simcal-v052-v1` (`dxt knowledge shrinkage-prior --min-denominator 10
+  --base data/calib/simcal-v051-v1.json --include
+  data/calib/profile-budget-v1.json --set reporting.budget_normalize=true`,
+  plus `--set` for any changed knob).
+- **Reported per round** (not targets): shown terms per case (profile +
+  noise); realised profile terms vs k (means and total variation); the four
+  categories vs kb-v3 and explained terms per record (candidate 5's E,
+  5.3772); `forced_min_one`; mean c (`scale_mean`); the capped share; the
+  per-gene Spearman of simulated record size vs simulated true-term count
+  (`scripts/analysis/record_size_by_gene.py`, ANALYSIS-005's method: over
+  every pilot gene with `--no-r1`, and over the pilot genes with ≥ 10
+  R1-train patients, where the real record size is also compared;
+  candidate 5's full dataset: 0.966, real 0.532 over 84 genes).
+- **Then:** `ds-sim0.5.2-full-n100-s1001` (gene-first, all genes, 100 per
+  gene, medium, seed 1001; full profiles only), G1, and the train-side
+  go/no-go (G2a truth layer, G2c, G2d, G2e, G2b-train; age reported) with
+  `dxt sim realism --no-dev`, plus `c2st_features.py`. **No R1-dev read.**
+- **Not used:** R1-dev.
