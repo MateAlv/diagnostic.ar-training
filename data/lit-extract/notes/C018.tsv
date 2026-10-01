@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1443	extracted	3	FSHD figures on the umbrella unit DUX4L1|ORPHA:269 (pooled); DNMT3B unit is ICF syndrome; skipped wheelchair 20% (aid), respiratory 'up to 50%', audiogram 'up to 32%' (large contraction), hedged onset ('typically teens'), penetrance
+NBK1444	no_numbers	0	no rows: onset statements hedged ('usually first months or years'), colitis/bleeding/hypogammaglobulinemia 'one third' (one number for several features), survival figures
+NBK1547	no_numbers	0	no rows: overview gives only gene shares of DSD/CGD and descriptive manifestations without frequencies
+NBK99496	extracted	2	CGD (6 OMIM entries) pooled_group; skipped IBD 'up to 50%', liver abscess 'up to 35%', infection rate per year, survival figures, median age at diagnosis without range (kept as note)
+NBK481553	extracted	2	skipped Charcot joints 'almost universal' (vague), gene-specific features in Table 1 without numbers
+NBK1108	extracted	6	ALPS-FAS cohort figures on FAS|OMIM:601859; skipped hypersplenism 73% (denominator ambiguous), severe autoimmune 37% within 2 y (composite), cumulative lymphoma risk 15% by 30 y, median onset without range, penetrance
+NBK1146	no_numbers	0	no rows: MH reactions only occur on anesthetic exposure; figures are complication/mortality rates, dantrolene side effects (treatment), penetrance and variant prevalence
+NBK1155	extracted	18	onset ranges per gene from the text (MDSGene); EIF2AK2 on Dystonia 33 unit (not DYT1); EIF4A2 unit is an NDD (skipped); GNAL, KMT2B and TOR1A paragraphs sit under the preceding heading in the text file; skipped DD and/or cognitive impairment one third (two features), EIF4A2 cognitive or behavioral half (two features)
+NBK1217	extracted	1	skipped seizures 'about 50% of neonates with severe hyperammonemia may' (conditional, hedged), descriptive per-disorder features without numbers, incidence
+NBK1260	extracted	2	skipped apnea 50/89 and delayed development 47/92 (cohort mixes molecularly confirmed and unconfirmed), stiffness normalization age (not onset), relative risks
