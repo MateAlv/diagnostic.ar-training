@@ -2179,3 +2179,51 @@ only: **no R1-dev read in this task, whatever the result.**
   share; the q-calibration error; the mean IC of related and vocabulary
   noise (`noise_signal.py`, e0_ablation's kb-v4 IC); every tried triple.
 - **Not used:** R1-dev.
+
+### 2026-10-01 — pilot — Candidate 5 pilot rounds; `simcal-v051-v1` frozen
+- **Setup:** as pre-registered above (simulator 0.5.1 from the 09e5802
+  tarball; 4,890 cases for 489 genes per round; 0 invariant violations in
+  all three rounds). R1-train targets only; no R1-dev.
+  Files: `results/realism/cand5-pilots/` (per-round calibration, run
+  summary, validate log, categories, noise signal; `summary.json` from
+  `scripts/analysis/cand5_pilot_rounds.py`).
+- **Every triple tried:**
+
+  | Round | q_scale | s | r | E: explained per record (5.3772) | M: noise-only E0 MRR (0.026) | S: more specific (0.0929) | Score |
+  |---|---|---|---|---|---|---|---|
+  | 1 | 2.0 | 0.6 | 0.18 | 3.727 | 0.0117 | 0.0998 | 0.931 |
+  | 2 | 2.8855 | 1.0 | 0.1676 | 4.998 | 0.0276 | 0.0932 | **0.135** |
+  | 3 | 3.1042 | 0.7168 | 0.1671 | 5.284 | 0.0169 | 0.0942 | 0.381 |
+
+  Round 2 applies the rules to round 1: q = 2.0 × 5.3772 / 3.727;
+  s = (0.026 − 0.0011) / (0.0227 − 0.0011) = 1.15, clipped to 1;
+  r = 0.18 × 0.0929 / 0.0998. Round 3 applies them to round 2:
+  s = (0.026 − 0.0012) / (0.0358 − 0.0012).
+- **Also per round:**
+
+  | Round | Explained / more specific / related / weak (vs kb-v3) | Shown terms per case (profile + noise) | True terms reported | `forced_min_one` | q_mean | q capped | q-calibration error | Related share of noise | MRR vocabulary / related noise | Mean IC related / vocabulary noise |
+  |---|---|---|---|---|---|---|---|---|---|---|
+  | 1 | 0.714 / 0.100 / 0.079 / 0.108 | 5.22 (4.14 + 1.08) | 0.298 | 896 | 0.288 | 0.024 | 0.0046 | 0.467 | 0.0011 / 0.0227 | 6.76 / 4.39 |
+  | 2 | 0.714 / 0.093 / 0.117 / 0.075 | 7.00 (5.53 + 1.46) | 0.399 | 643 | 0.392 | 0.089 | 0.0040 | 0.803 | 0.0012 / 0.0358 | 6.77 / 4.37 |
+  | 3 | 0.717 / 0.094 / 0.091 / 0.097 | 7.37 (5.84 + 1.53) | 0.421 | 592 | 0.414 | 0.101 | 0.0041 | 0.570 | 0.0013 / 0.0324 | 6.78 / 4.37 |
+
+  Targets (uncited R1-train vs kb-v3): 0.668 / 0.093 / 0.082 / 0.157;
+  8.05 terms per case. Candidate 4's round 2 for comparison: 2.97 shown
+  terms per case, 1,579 `forced_min_one`, 0.169 of true terms reported.
+- **Selected:** round 2, frozen as `simcal-v051-v1`: simcal-v05-v2 +
+  `reporting.q_scale` 2.8855, `noise.related_share` 1.0,
+  `reporting.specialize_rate` 0.1676, `noise.related_up_levels` 1,
+  `noise.related_down_levels` 1.
+- **What the pilots show** (R1-train comparisons only):
+  - **q_scale fixes record length.** Shown terms per case go from 2.97
+    (candidate 4) to 7.00, and `forced_min_one` from 32% to 13% of cases.
+  - **Sibling-only related noise is no less specific.** Its mean IC stays
+    6.76–6.78 (candidate 4's noise: 6.78; R1-train present terms: 4.14).
+    The reach knobs did not change specificity; `noise.related_max_ic` was
+    not part of this design.
+  - **Noise-only MRR is not linear in s.** At s = 0.7168 it fell to 0.0169,
+    not the 0.026 the interpolation aimed for: vocabulary noise in a case
+    dilutes the related noise's signal. The interpolation rule assumed
+    linearity.
+  - Explained share stays about 0.71 against 0.668 real; weak (IC < 2)
+    stays below the real share at s = 1 (0.075 vs 0.157).
