@@ -77,6 +77,7 @@ Mateo's OK).
 | 2 | 0.4.2 / simcal-v04-v4 | pass | 0.304 | 0.193 | 1.315 | 0.792 | 0.242 | read 2; fail |
 | 3 | 0.4.2 / simcal-v04-v5 (calib-v2) | pass | 0.305 | not read (train 0.536) | 1.732 | 0.764 | 0.142 | stopped before read 3 |
 | 4 | 0.5.0 / simcal-v05-v2 | pass | 0.307 | not read (train 0.502) | 5.754 | 0.822 | 0.204 | stopped before read 3 |
+| 5 | 0.5.1 / simcal-v051-v1 | pass | 0.306 | not read (train 0.537) | 1.908 | 0.809 | 0.049 | train-side only; fails c, d |
 
 Candidate 1's a and e are recomputed on today's definitions (truth layer;
 target 0.405).

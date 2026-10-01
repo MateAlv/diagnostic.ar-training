@@ -35,18 +35,19 @@ with open(open_source("hpo_annotations", Purpose.KB)) as f:
             cited.update(re.findall(r"PMID:(\d+)", line))
 out = {}
 for group in ("uncited", "cited"):
-    cat, n, per_case = Counter(), 0, []
+    cat, n, per_case, explained_per_case = Counter(), 0, [], []
     for c in splits.load_part("r1-v1", splits.Part.TRAIN, Purpose.EVAL):
         is_cited = bool({p.replace("PMID:", "") for p in c.pmids} & cited)
         if (group == "cited") != is_cited or not know.diseases(c.gene):
             continue
         annotated = {t for d in know.diseases(c.gene) for t in K["diseases"][d]["phenotypes"]}
-        u = 0
+        u = e = 0
         for t in c.present:
             t = onto.resolve(t) or t
             n += 1
             if know.term_probability(c.gene, t) > 0:
                 cat["explained"] += 1
+                e += 1
             elif onto.ancestors(t) & annotated:
                 cat["more_specific"] += 1
             else:
@@ -59,6 +60,10 @@ for group in ("uncited", "cited"):
                         best = max(best, max(ic(x) for x in common))
                 cat["related_ic>=2" if best >= 2 else "weak_ic<2"] += 1
         per_case.append(u)
+        explained_per_case.append(e)
     out[group] = {"terms": n, **{k: round(v / n, 3) for k, v in sorted(cat.items())},
+                  "cases": len(per_case),
+                  "terms_per_case_mean": round(n / len(per_case), 4),
+                  "explained_per_case_mean": round(sum(explained_per_case) / len(per_case), 4),
                   "unexplained_per_case_mean": round(sum(per_case) / len(per_case), 2)}
 print(json.dumps({"kb": sys.argv[1], **out}, indent=1))

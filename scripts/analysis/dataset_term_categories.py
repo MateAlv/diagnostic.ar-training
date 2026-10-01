@@ -74,6 +74,10 @@ def main() -> None:
         "records": records,
         "records_without_kb_gene": skipped,
         "terms": terms,
+        "per_record": {
+            "terms": round(terms / records, 4),
+            **{k: round(tally[k] / records, 4) for k in ("explained", *TARGETS)},
+        },
         "shares": {k: round(v, 4) for k, v in shares.items()},
         "kb": args.kb,
         "targets": targets,

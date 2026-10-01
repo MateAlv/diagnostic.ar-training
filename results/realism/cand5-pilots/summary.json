@@ -1,0 +1,131 @@
+[
+ {
+  "round": 1,
+  "q_scale": 2.0,
+  "s": 0.6,
+  "r": 0.18,
+  "E_explained_per_record": 3.727,
+  "M_noise_mrr": 0.0117,
+  "S_more_specific": 0.0998,
+  "shares": {
+   "explained": 0.7138,
+   "more_specific": 0.0998,
+   "related_ic_ge_2": 0.0788,
+   "weak_ic_lt_2": 0.1076
+  },
+  "terms_per_record": 5.2213,
+  "profile_per_case": 4.1429,
+  "noise_per_case": 1.0783,
+  "true_terms_reported_share": 0.2981,
+  "forced_min_one": 896,
+  "q_mean": 0.2881,
+  "q_capped_share": 0.0237,
+  "q_calibration_error": 0.0046,
+  "invariant_violations": 0,
+  "related_share_of_noise": 0.4671,
+  "specialized_share_of_profile_terms": 0.1091,
+  "mrr_vocabulary": 0.0011,
+  "mrr_related": 0.0227,
+  "mean_ic_vocabulary": 4.385,
+  "mean_ic_related": 6.757,
+  "mean_ic_all_noise": 5.493,
+  "relative_errors": [
+   0.3069,
+   0.55,
+   0.0743
+  ],
+  "score": 0.9312,
+  "all_within_0.05": false,
+  "next_round_rule": {
+   "q_scale": 2.8855,
+   "s": 1.0,
+   "r": 0.1676
+  }
+ },
+ {
+  "round": 2,
+  "q_scale": 2.8855,
+  "s": 1.0,
+  "r": 0.1676,
+  "E_explained_per_record": 4.9984,
+  "M_noise_mrr": 0.0276,
+  "S_more_specific": 0.0932,
+  "shares": {
+   "explained": 0.7144,
+   "more_specific": 0.0932,
+   "related_ic_ge_2": 0.1171,
+   "weak_ic_lt_2": 0.0753
+  },
+  "terms_per_record": 6.9967,
+  "profile_per_case": 5.5319,
+  "noise_per_case": 1.4648,
+  "true_terms_reported_share": 0.3985,
+  "forced_min_one": 643,
+  "q_mean": 0.3917,
+  "q_capped_share": 0.0892,
+  "q_calibration_error": 0.004,
+  "invariant_violations": 0,
+  "related_share_of_noise": 0.8034,
+  "specialized_share_of_profile_terms": 0.1026,
+  "mrr_vocabulary": 0.0012,
+  "mrr_related": 0.0358,
+  "mean_ic_vocabulary": 4.366,
+  "mean_ic_related": 6.768,
+  "mean_ic_all_noise": 6.296,
+  "relative_errors": [
+   0.0704,
+   0.0615,
+   0.0032
+  ],
+  "score": 0.1352,
+  "all_within_0.05": false,
+  "next_round_rule": {
+   "q_scale": 3.1042,
+   "s": 0.7168,
+   "r": 0.1671
+  }
+ },
+ {
+  "round": 3,
+  "q_scale": 3.1042,
+  "s": 0.7168,
+  "r": 0.1671,
+  "E_explained_per_record": 5.2838,
+  "M_noise_mrr": 0.0169,
+  "S_more_specific": 0.0942,
+  "shares": {
+   "explained": 0.7173,
+   "more_specific": 0.0942,
+   "related_ic_ge_2": 0.0914,
+   "weak_ic_lt_2": 0.0971
+  },
+  "terms_per_record": 7.3665,
+  "profile_per_case": 5.837,
+  "noise_per_case": 1.5294,
+  "true_terms_reported_share": 0.4206,
+  "forced_min_one": 592,
+  "q_mean": 0.4143,
+  "q_capped_share": 0.1006,
+  "q_calibration_error": 0.0041,
+  "invariant_violations": 0,
+  "related_share_of_noise": 0.5703,
+  "specialized_share_of_profile_terms": 0.1015,
+  "mrr_vocabulary": 0.0013,
+  "mrr_related": 0.0324,
+  "mean_ic_vocabulary": 4.373,
+  "mean_ic_related": 6.779,
+  "mean_ic_all_noise": 5.745,
+  "relative_errors": [
+   0.0174,
+   0.35,
+   0.014
+  ],
+  "score": 0.3814,
+  "all_within_0.05": false,
+  "next_round_rule": {
+   "q_scale": 3.1591,
+   "s": 0.7942,
+   "r": 0.1648
+  }
+ }
+]
