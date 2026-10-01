@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK540959	extracted	3	onset and explicit absences only; cognition 'unaffected in five of seven' is a normal finding; optic atrophy has no stated frequency
+NBK541503	extracted	15	Giunta cohort counts; skipped large-joint hypermobility 21/23 (same HPO as small joints), dislocations/sprains or pain 5/23 (bundle), kyphoscoliosis before age 1 in 2/3 (age-specific), conductive hearing loss 'up to one quarter', scarring/bruising 'fewer than half'
+NBK541728	extracted	21	skipped coronal 'near 100%', tooth agenesis and enamel opacities >40% (two features), keratopathy and scarring 8% (two features), Chiari I and/or low tonsils 17% (no single term), tonsillar herniation 2%, Crouzon comparisons
+NBK541729	extracted	5	onset from the n=30 Portuguese cohort (Spanish kindreds mean 43.3, range 25-64, n not stated); explicit absences recorded; 'sensory deficits' not mapped (no fitting term)
+NBK541730	extracted	10	skipped neurologic problems 'about half' (bundle), strabismus and refraction >half (two features), counts without denominators (short stature in two, endocrine in three)
+NBK542334	extracted	7	skipped 'none could sit/walk/speak' (absence of milestones), feeding support (treatment), seizures in two children (no denominator in statement), single-adult findings
+NBK542807	extracted	19	percentages of the 62 with sufficient data (n not repeated in quotes); skipped seizure types and movement subtypes ('where specified'), growth restriction or short stature 11% (two features), cerebral atrophy 23% (in those without MCD), refractory seizures 17/27 (treated subset)
+NBK543515	extracted	11	Borroni cohort; skipped ADL/assistance figures (not features), incontinence 1/8 (type not specified), mortality
+NBK544951	extracted	10	skipped death before 30 (mortality), myalgia/arthralgia 22% (two features), '<5%' list (several features), case-finding share 9/60, vasculitis onset hedged ('usually')
+NBK546575	extracted	9	skipped treated-population figures (10%-30%, 70%-90% asymptomatic, 25% of treated), insidious onset shares, CSF spaces/ventriculomegaly 9/18 (two findings)
