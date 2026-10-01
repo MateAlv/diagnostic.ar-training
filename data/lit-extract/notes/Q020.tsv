@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:37008944	not_cohort	0	one family (5 CH siblings) plus a polyalanine-tract association study in 1752 individuals; no confirmed FOXE1 group of 20
+PMID:37046432	not_cohort	0	heterozygous FREM2 variants in 8 of 122 patients with extra teeth; no unit reaches 20
+PMID:42268433	not_cohort	0	FUS screening of 650 ALS patients; 11 probands plus 5 relatives (16) with FUS variants; no unit reaches 20
+PMID:32042914	not_cohort	0	modifier-gene screen in 153 SMA patients; 2 FUS exonic variant carriers; SMA is not a unit of this source
+PMID:35394490	extracted	1	84 FZD4 FEVR probands plus 50 family members; skipped retinal folds, detachment, foveal hypoplasia and TEMPVIA (per-eye denominators of 168 eyes), FEVR stages (per eye), asymmetry (no HPO term), family-member figures (mixed affected status)
+PMID:38706142	extracted	1	35 FZD4 variant-positive family members, 24 with FEVR findings; figures over all 35 include unaffected carriers (penetrance), so skipped; onset age from the 10 symptomatic with data; first-symptom shares skipped
+PMID:25015100	extracted	2	30 homozygous GCK: 28 neonatal diabetes (PNDM unit) and 2 childhood-onset; skipped diagnosis-within-3-months share (age bin, range kept), preserved C-peptide 3/13 (no HPO term), insulin treatment, kinetics data
+PMID:37362385	not_cohort	0	GCM2 p.Tyr394Ser tested in 40 PHPT patients; 2 heterozygous carriers
+PMID:38473983	not_cohort	0	WES of 69 PAH patients; 3 GDF2 variant carriers; the GDF2 units are HHT, not PAH
+PMID:27607449	not_cohort	0	GNAI3 screening of 26 ocular albinism patients with variants of uncertain effect; units are auriculocondylar syndrome
+PMID:37705601	not_cohort	0	10 own GNAO1 patients pooled with 17 published cases (27); own cohort under 20 and pooled figures include literature
+PMID:36631813	not_cohort	0	genetic-yield study of 165 46,XY DSD; HHAT variant in a single patient
