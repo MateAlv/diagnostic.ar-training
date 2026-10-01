@@ -2422,6 +2422,9 @@ only: **no R1-dev read in this task, whatever the result.**
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
 
+### 2026-10-01 — data — lit-extract shards C002–C010 (ADR-0013)
+- Branch `phase3/lit-extract-C002-C010`, guide v2, one commit per shard, each `validate-shard` 0 problems (re-checked after merging main); no Codex cross-check yet (central). **1,227 rows (1,188 feature, 39 age) from 86 of 90 chapters** (C002 93, C003 99, C004 246, C005 222, C006 147, C007 130, C008 87, C009 108, C010 95); 4 chapters with 0 rows (1 `no_numbers`: Rotor; 3 `not_about_units`, worksheet fallbacks for another disease: 16p12.2 deletion → UQCRC2 complex III deficiency, Xq28 int22h duplication → CLIC2/RAB39B, VEXAS → UBA1 SMAX2). Other wrong-disease fallback units skipped (e.g. SUFU→medulloblastoma in NBCCS, SMAD4→JPS in HHT, MYH11/MYLK→aortic aneurysm in MMIHS, CSF1R early-onset column = BANDDOS); guide ambiguities listed in the PR; `dxt lineage verify` passes.
+
 ### 2026-10-01 — data — lit-extract shards C029–C035 (ADR-0013)
 
 - Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
@@ -2775,3 +2778,21 @@ profiles; the literature-enriched profiles come later, as candidate 6.
   - chapter batches C011–C019 merged (PR #60);
   - C002–C010 resumed after the usage stop (C002–C008 were already
     committed).
+
+### 2026-10-01 — decision — ADR-0013 amendment 2: literature integration rules
+- **Fixed before any enriched profile exists:**
+  - counts → `n/m`, prevalence-only → `%` (below counts);
+  - `pooled_group` rows → a percentage on each listed unit (no counts);
+  - rows citing a PMID HPOA already cites for the same disease and term are
+    dropped;
+  - presentation ages come from `AGE_PRESENTATION` rows only (GeneReviews
+    first, single values widened by ±10%).
+- **Progress:** the C002–C010 batch is merged (1,227 rows). Main now has 37
+  shards, 2,567 rows, 417 units. Simulator 0.5.3 is merged. Candidate 6b
+  (train-side) is running.
+
+### 2026-10-01 — data — lit-extract paper shards Q019–Q026 (ADR-0013)
+- Branch `phase3/lit-extract-Q019-Q026`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **121 rows (103 feature, 18 age, 9 of them `AGE_PRESENTATION`) from 19 of 89 papers** (Q019 12, Q020 4, Q021 2, Q022 25, Q023 27, Q024 8, Q025 42, Q026 1); 70 papers with 0 rows (62 `not_cohort`: screening/yield studies, somatic tumour cohorts, single families, own cohorts under 20 pooled with literature, confirmed P/LP groups under 20 once VUS carriers are removed; 6 `no_numbers`; 2 `not_about_units`: MT-TT LHON cohort vs lethal infantile myopathy unit, SLCO2A1 enteropathy vs hypertrophic osteoarthropathy units). Guide ambiguities (VUS-majority groups, carrier vs affected denominators, pooled_group per-unit n, genetic-confirmation age as presentation age) listed in the PR; `dxt lineage verify` passes.
+
+### 2026-10-01 — data — lit-extract chapter shards C063–C070 (ADR-0013)
+- Branch `phase3/lit-extract-C063-C070`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **420 rows (356 feature, 64 age, 16 of them `AGE_PRESENTATION`) from 67 of 75 chapters** (C063 30, C064 38, C065 32, C066 62, C067 46, C068 110, C069 45, C070 57); 8 chapters with 0 rows (6 `no_numbers`: SCADD, variegate porphyria, SLC39A14, ethylmalonic encephalopathy, PMLD1, ALPK1; 2 `not_about_units`: Duarte galactosemia → unit is classic galactosemia, CMTC → unit GNA11|OMIM:145981 is FHH2). Open points for the guide: spectrum chapters whose other phenotype is not a unit (DNMT1 cohort put on HSAN1E with `pooled`; PUF60 figures on Verheij OMIM:615583), CNV syndrome with two genes on one disease id (Potocki-Lupski on RAI1, `pooled`), and explicit-absence wording ("have not been reported/documented") recorded as prevalence 0.

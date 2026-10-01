@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:40172514	not_cohort	0	20 RP1L1 patients over several phenotypes; largest group OMD n=12
+PMID:40017499	not_cohort	0	single SEPSECS patient plus literature review
+PMID:41888834	not_cohort	0	23 antithrombin-deficiency probands; 3 without mutation and several carrying only synonymous changes or a 5' UTR polymorphism; confirmed group under 20 and figures span all 23
+PMID:27056980	not_cohort	0	familial otosclerosis exome study; SERPINF1 variants in 7 patients; the units are osteogenesis imperfecta types, not otosclerosis
+PMID:28663576	not_cohort	0	somatic SETD2 loss in systemic mastocytosis; not a germline cohort of any SETD2 unit
+PMID:34389731	no_numbers	0	161 genetically confirmed Gitelman probands from 130 families, but only mutation spectrum and assay validation; no phenotype figures
+PMID:18577546	extracted	2	25 SLC2A1 carriers (22 symptomatic) from one large family and 3 nuclear families; unit GLUT1DS2 (paroxysmal exertion-induced dyskinesia); skipped PED and epilepsy onset ages (feature onset, not stated as disease onset), PED and seizure-type shares (conditional), EEG subsets, CSF/serum glucose (would need inference from a range), normal exam (complement)
+PMID:34368208	not_cohort	0	SLC5A5 variant association with breast-milk iodine in healthy lactating women
+PMID:29313109	not_about_units	0	46 genetically confirmed CEAS (chronic enteropathy associated with SLCO2A1); the allowed units are hypertrophic osteoarthropathy, a different disease; figures describe CEAS
+PMID:27275741	not_cohort	0	SQSTM1 case-control screening in normal-tension glaucoma; glaucoma is not a unit
+PMID:39669768	not_cohort	0	follow-up of 21 unaffected SQSTM1 carriers for incident Paget disease (penetrance in carriers)
+PMID:36568968	extracted	6	31 own SYN1 individuals (22 with truncating, start-loss or splice variants; 9 missense/in-frame, mostly VUS) as pooled_group over both SYN1 units; skipped all totals pooling the 52 published cases, seizure triggers (conditional on epilepsy), regression and macrocephaly (no denominator), normal MRI/exam (complement)
