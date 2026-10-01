@@ -7,7 +7,9 @@
   "source:medlineplus_genetics": "8b5c979b9ff3a2c124603591f9188d4cb714560d00ff343242262328afe57e94",
   "genes-v2": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
   "hpoa-recount-v1/phenotype.hpoa": "8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a",
-  "SOURCES-SCOPING-001/genes.tsv": "5d77b4c35612e278721a88f2903cabf56e6c3b9592c209164db34df8d66172b8"
+  "SOURCES-SCOPING-001/genes.tsv": "5d77b4c35612e278721a88f2903cabf56e6c3b9592c209164db34df8d66172b8",
+  "gr_chapters": "0851c1322830ccffc59abe68f949c069b45be8b0823fd417f45e527847f84cd2",
+  "lit_papers": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c"
  },
  "params": {
   "min_label_chars": 6,
@@ -84,6 +86,18 @@
    "any_tier1_kb": {
     "covered": 4700,
     "new_terms_g2p_or_panelapp": 1458
+   },
+   "genereviews_frozen": {
+    "covered": 1086,
+    "frequency_table": 536,
+    "age_numeric": 719
+   },
+   "tier2_papers_frozen": {
+    "covered": 777,
+    "covered_by_gr_cited_paper": 563
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 1307
    }
   },
   "weak_W1_W4": {
@@ -122,6 +136,18 @@
    "any_tier1_kb": {
     "covered": 2379,
     "new_terms_g2p_or_panelapp": 644
+   },
+   "genereviews_frozen": {
+    "covered": 517,
+    "frequency_table": 249,
+    "age_numeric": 349
+   },
+   "tier2_papers_frozen": {
+    "covered": 476,
+    "covered_by_gr_cited_paper": 263
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 737
    }
   },
   "by_tier": {
@@ -162,6 +188,18 @@
     "any_tier1_kb": {
      "covered": 411,
      "new_terms_g2p_or_panelapp": 91
+    },
+    "genereviews_frozen": {
+     "covered": 67,
+     "frequency_table": 25,
+     "age_numeric": 39
+    },
+    "tier2_papers_frozen": {
+     "covered": 108,
+     "covered_by_gr_cited_paper": 36
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 139
     }
    },
    "W2_orphanet_bins_only": {
@@ -201,6 +239,18 @@
     "any_tier1_kb": {
      "covered": 276,
      "new_terms_g2p_or_panelapp": 117
+    },
+    "genereviews_frozen": {
+     "covered": 80,
+     "frequency_table": 38,
+     "age_numeric": 58
+    },
+    "tier2_papers_frozen": {
+     "covered": 76,
+     "covered_by_gr_cited_paper": 54
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 106
     }
    },
    "W3_no_counts_other": {
@@ -240,6 +290,18 @@
     "any_tier1_kb": {
      "covered": 381,
      "new_terms_g2p_or_panelapp": 109
+    },
+    "genereviews_frozen": {
+     "covered": 147,
+     "frequency_table": 72,
+     "age_numeric": 109
+    },
+    "tier2_papers_frozen": {
+     "covered": 110,
+     "covered_by_gr_cited_paper": 78
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 181
     }
    },
    "W4_counts_from_small_series_only": {
@@ -279,6 +341,18 @@
     "any_tier1_kb": {
      "covered": 1311,
      "new_terms_g2p_or_panelapp": 327
+    },
+    "genereviews_frozen": {
+     "covered": 223,
+     "frequency_table": 114,
+     "age_numeric": 143
+    },
+    "tier2_papers_frozen": {
+     "covered": 182,
+     "covered_by_gr_cited_paper": 95
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 311
     }
    },
    "ok_counts": {
@@ -318,6 +392,18 @@
     "any_tier1_kb": {
      "covered": 2114,
      "new_terms_g2p_or_panelapp": 787
+    },
+    "genereviews_frozen": {
+     "covered": 561,
+     "frequency_table": 284,
+     "age_numeric": 367
+    },
+    "tier2_papers_frozen": {
+     "covered": 297,
+     "covered_by_gr_cited_paper": 296
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 562
     }
    },
    "W0_no_profile": {
@@ -357,6 +443,18 @@
     "any_tier1_kb": {
      "covered": 207,
      "new_terms_g2p_or_panelapp": 27
+    },
+    "genereviews_frozen": {
+     "covered": 8,
+     "frequency_table": 3,
+     "age_numeric": 3
+    },
+    "tier2_papers_frozen": {
+     "covered": 4,
+     "covered_by_gr_cited_paper": 4
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 8
     }
    }
   }
@@ -399,6 +497,18 @@
    "any_tier1_kb": {
     "covered": 111,
     "new_terms_g2p_or_panelapp": 50
+   },
+   "genereviews_frozen": {
+    "covered": 0,
+    "frequency_table": 0,
+    "age_numeric": 0
+   },
+   "tier2_papers_frozen": {
+    "covered": 0,
+    "covered_by_gr_cited_paper": 0
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 0
    }
   },
   "weak_W1_W4": {
@@ -437,6 +547,18 @@
    "any_tier1_kb": {
     "covered": 46,
     "new_terms_g2p_or_panelapp": 18
+   },
+   "genereviews_frozen": {
+    "covered": 0,
+    "frequency_table": 0,
+    "age_numeric": 0
+   },
+   "tier2_papers_frozen": {
+    "covered": 0,
+    "covered_by_gr_cited_paper": 0
+   },
+   "lit_sources_any": {
+    "chapter_or_paper": 0
    }
   },
   "by_tier": {
@@ -477,6 +599,18 @@
     "any_tier1_kb": {
      "covered": 11,
      "new_terms_g2p_or_panelapp": 3
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    },
    "W2_orphanet_bins_only": {
@@ -516,6 +650,18 @@
     "any_tier1_kb": {
      "covered": 4,
      "new_terms_g2p_or_panelapp": 1
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    },
    "W3_no_counts_other": {
@@ -555,6 +701,18 @@
     "any_tier1_kb": {
      "covered": 12,
      "new_terms_g2p_or_panelapp": 6
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    },
    "W4_counts_from_small_series_only": {
@@ -594,6 +752,18 @@
     "any_tier1_kb": {
      "covered": 19,
      "new_terms_g2p_or_panelapp": 8
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    },
    "ok_counts": {
@@ -633,6 +803,18 @@
     "any_tier1_kb": {
      "covered": 63,
      "new_terms_g2p_or_panelapp": 32
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    },
    "W0_no_profile": {
@@ -672,6 +854,18 @@
     "any_tier1_kb": {
      "covered": 2,
      "new_terms_g2p_or_panelapp": 0
+    },
+    "genereviews_frozen": {
+     "covered": 0,
+     "frequency_table": 0,
+     "age_numeric": 0
+    },
+    "tier2_papers_frozen": {
+     "covered": 0,
+     "covered_by_gr_cited_paper": 0
+    },
+    "lit_sources_any": {
+     "chapter_or_paper": 0
     }
    }
   }
