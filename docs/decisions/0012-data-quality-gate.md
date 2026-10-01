@@ -152,3 +152,4 @@ and baselines are recomputed.
 - **Why:** the literature describes what patients have. Real patients'
   reports miss it by about 0.3, so scoring reports against prevalence
   penalises a correct reporting layer.
+- **Amendment 3 accepted by Mateo, 2026-10-01.**
