@@ -2421,3 +2421,7 @@ only: **no R1-dev read in this task, whatever the result.**
 - **Before the other 84 paper shards:** a deterministic re-screen of the
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
+
+### 2026-10-01 — data — lit-extract shards C029–C035 (ADR-0013)
+
+- Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.

@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK99168	extracted	1	onset from the summary sentence (the body's version is hedged); recurrences and adult findings unquantified (single family/individuals)
+NBK99494	extracted	1	ESRD figure covers Dent disease 1 and 2 (pooled_group); height SDs are not prevalences; Lowe syndrome figures (allelic, not a unit) and OCRL share of Dent disease skipped
+NBK99495	not_about_units	0	only allowed unit is AKT1 | Cowden syndrome; all figures describe Proteus syndrome
+NBK100826	extracted	3	skipped 'up to 5%' advanced liver disease, hedged onset ('typically'), 96% compound heterozygotes (genotype share)
+NBK115333	extracted	1	subtype descriptions only; other subtype onsets hedged ('typically', 'first few months'); 3% share of GSDs not a feature
+NBK121284	extracted	7	EPP-AR comparison figures (FECH, not a unit here) skipped; hedged male onset ('typically infancy or childhood')
+NBK148668	extracted	6	skipped tricuspid regurgitation 35% (stated among those with valvular regurgitation), ophthalmologic findings >50% (category), lower-extremity involvement (category), mean adult heights, hedged onset; >95% IVA share of MPS IV not a feature
+NBK153722	not_about_units	0	units are somatic macrodactyly, somatic epidermal nevus and germline Cowden 5; all figures are PROS-wide or MCAP-specific (epilepsy 30%-40%, MEG >90%, Wilms 1.4%-3.3%, MCAP cohorts)
+NBK153723	extracted	1	skipped hyperuricemia shares (conditional on CKD/ESRD), median ESRD age (feature onset, not disease onset)
+NBK169003	not_about_units	0	only allowed unit is UROD | porphyria cutanea tarda; HEP figures and onset do not apply; F-PCT onset only hedged and in Differential Diagnosis
