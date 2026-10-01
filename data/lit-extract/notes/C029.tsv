@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK2591	no_numbers	0	spectrum description pooled over Arts/CMTX5/DFNX1 with per-feature onset ages only (none stated as presenting); 12/15 deaths is mortality; female late onset is hedged
+NBK2594	extracted	1	only the congenital onset of hypotonia; prenatal weakness is hedged ('often'); other features unquantified
+NBK3789	extracted	3	skipped 'up to' PHPT 95% and kidney 20%, 'at least 10%-15%' carcinoma, carcinoma and single-gland shares among PHPT (conditional), penetrance, hedged onset, range of study medians for diagnosis age, 45.1% uterine lesions (literature review, same organ as the 38% series); FIHP unit has no numbers
+NBK3794	extracted	28	skipped Table 2 dot grades, severe and mild-to-moderate ID bundles (DD or ID), muscle weakness/myopathy (two features), wide-based gait or ataxia and dystonia or athetosis (pairs), dysmorphic and GI bundles, bare counts without denominator, AGAT epilepsy none (same HPO as the 10% seizure figure), feature-only onset ages; QTc row keeps 39% without the count 7 (no stated denominator)
+NBK3821	extracted	3	skipped 43% of eyes (per-eye), cataract surgery share (treatment), retinal detachment incidence at age 20 (age-conditional risk), 10/60 family members dysgenetic angle (not all affected), hedged onset
+NBK3822	extracted	2	penetrance by sex skipped; no other figures
+NBK5189	extracted	3	skipped gastrostomy share (treatment), survival to age 10 (mortality), feature-only seizure onset age, daily seizures on polytherapy (treatment response), generic Table 2 severity grades, drug-resistant seizures >65% (no current HPO term)
+NBK5941	extracted	3	Table 2 'Common'/'Infrequent' columns not numbers; onset 'almost all ... in infancy' and 'most ... 6-12 months' are vague
+NBK5942	no_numbers	0	Table 2 'nearly all'/'common'/'infrequent' not numbers; spinal/bulbar onset shares have no fitting HPO term
+NBK6816	no_numbers	0	only hedged presentation statements ('typically'); 81% of truncating variants is a genotype share, not a feature
