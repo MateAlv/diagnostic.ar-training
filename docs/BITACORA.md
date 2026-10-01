@@ -2790,3 +2790,81 @@ profiles; the literature-enriched profiles come later, as candidate 6.
 - **Progress:** the C002–C010 batch is merged (1,227 rows). Main now has 37
   shards, 2,567 rows, 417 units. Simulator 0.5.3 is merged. Candidate 6b
   (train-side) is running.
+
+### 2026-10-01 — tooling + dry run — `dxt lit build` (ADR-0013 amendment 2)
+- **What:** `dxt lit build` turns the shard rows into `hpoa-lit-vN`,
+  `hpoa-enriched-vN` and `presentation-ages-vN` (DATA_LINEAGE §8).
+  - Every shard with a passing report is re-validated first.
+  - `validate-shard` shares that code.
+  - 30 mocked tests, one or more per rule.
+  - Check: a scratch copy with one corrupted quote and one failing report
+    had both shards refused.
+- **Dry run** on main's 37 shards (code `1cf985d`, clean tree; no artifact
+  id, no manifest): `results/analyses/LIT-INTEGRATION-dryrun.json`.
+  - **Shards:** 37 accepted, 0 refused.
+  - **Rows in:** 2,567, of which 2,344 feature, 27 `AGE_PRESENTATION` and
+    196 `AGE_ONSET`.
+  - **Feature rows by outcome:**
+    - 2,210 used;
+    - 13 dropped as an HPOA double count;
+    - 111 lost the one-percentage choice;
+    - 10 were a smaller same-source count;
+    - 0 failed validation.
+  - **Placements:** 3,084, from 336 `pooled_group` rows giving 1,076
+    placements. 10 were skipped because the same source had a
+    unit-specific row.
+  - **`hpoa-lit`:** 2,892 rows:
+    - 635 count rows, 8 of them pooling several sources;
+    - 2,242 percentage rows;
+    - 15 NOT rows.
+  - **Reach:** 434 diseases, all already in `hpoa-recount-v1`. 454 of
+    455 units enriched (455 counts every unit a `pooled_group` row
+    lists). 264 sources used.
+  - **Terms:** 1,847 new (disease, term) pairs and 1,004 existing.
+  - **What the 1,004 existing pairs do in the simulator** (precedence
+    counts > % > category):
+
+    | Effect | Pairs |
+    |---|---|
+    | Literature % overrides an HPOA row with no frequency | 398 |
+    | Literature % shadowed by HPOA counts | 334 |
+    | Counts pooled with HPOA counts | 126 |
+    | Literature counts override an HPOA row with no frequency | 77 |
+    | Literature % overrides an HPOA category | 51 |
+    | Literature counts override an HPOA category | 13 |
+    | % averaged with an HPOA % | 5 |
+
+  - **NOT pairs:** 2 conflict with an HPOA positive, so the simulator
+    drops them.
+  - **`hpoa-enriched`:** 271,878 rows (268,986 + 2,892).
+  - **Presentation ages:** 30 diseases (28 GeneReviews, 2 papers).
+    - 12 of the 30 come from `pooled_group` rows of 2 chapters.
+    - 16 single values were widened.
+    - 6 placements had an open upper bound.
+  - **`AGE_ONSET`:** 196 rows reach 202 diseases; only 5 of those also
+    have a presentation age.
+- **Simulator check** (rare-disease-simulator `6833d2d`, source copied
+  read-only into a scratch dir):
+  - `build-profiles --from-hpoa --hpoa` on a 28-disease slice of the
+    dry-run `phenotype.hpoa` built 28 profiles, with 0 masked rows. All
+    170 positive literature rows of the slice appear in the profiles, with
+    their source cited. Of 3 NOT rows, 2 became negatives and 1 was
+    dropped for a positive conflict.
+  - `load_presentation_ages` read all 30 rows.
+- **Ambiguities found** (resolved as in DATA_LINEAGE §8; flagged for
+  Mateo):
+  - **Rule 6, percentages.** 132 (disease, term) pairs had several
+    percentages.
+    - 150 of the 152 losers are the same source giving several
+      populations.
+    - 120 losers had no stated n on either side, so 102 choices fell to
+      source and file order. 62 losers differ from the winner by more
+      than 20 points.
+  - **Rule 5.** Rows have no `source_pmids`. Chapters are matched by NBK
+    id, chapter PMID and Bookshelf URL.
+  - **Rule 7.** `pooled_group` age rows and open-ended ranges are not
+    covered by the rule.
+  - **Zeros.** A zero `pooled_group` row becomes NOT. A prevalence-0 row
+    in a pre-v4 shard is treated as an explicit absence.
+- **Not done:** no artifact registered or published. The real build waits
+  for the extraction to finish.
