@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK546574	extracted	2	MPS III-wide figures recorded once as pooled_group over the four subtype units; onset 'typically before age ten' hedged; 'almost all' hyperactivity vague
+NBK549920	no_numbers	0	only qualitative and hedged statements ('typically', 'usually'); no stated frequencies
+NBK550349	no_numbers	0	'nearly half' with neonatal hypoglycemia/presentation in first four days treated as vague; onset 'classically' first year hedged
+NBK553533	extracted	7	three individuals only: 'all three' features and neonatal seizure onset; skipped optic nerve hypoplasia (2 present + 1 absent would need a tally), sib-only findings, single-individual findings
+NBK554080	extracted	14	skipped short distal phalanges of fingers and toes 12/14 (one number for two features), macular cystic changes 2/4 (no clear term), osteoarticular pain in three adults (no clear term), growth z-scores, 'several' IUGR
+NBK574843	no_numbers	0	MDS/AML onset only as 'average in the sixth decade' (no range); lymphoid 3/33, solid tumor 6/33 and 9% prior malignancy are among those with MDS/AML and lack a fitting HPO term; penetrance and family-history shares skipped
+NBK578949	extracted	2	Table 2 'nearly all'/'common'/'infrequent' not numbers; cardiomyopathy prevalence unknown; onset 'typically in infancy' hedged
+NBK582335	extracted	15	skipped severe/profound ID 13/22 (two categories), seizure types at onset (/18, conditional on seizures), seizure onset age (feature onset), multiple seizure types 11/19 (conditional), single-individual microcephaly
+NBK583219	extracted	6	Table 2 counts over the 13 reported individuals; skipped hypotonia 12 and hyperreflexia 4 (table comments say the denominators are smaller than 13), juvenile form (two families)
+NBK584550	extracted	2	Table 2 'nearly all'/'common' marks not numbers; 'up to 55%' aortic and 'up to 35%' COPD skipped
