@@ -12,6 +12,7 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
+from functools import lru_cache
 from pathlib import Path
 
 import typer
@@ -345,16 +346,33 @@ def hpo(
 # --- Validation -----------------------------------------------------------------
 
 
-@extract_app.command("validate-shard")
-def validate_shard(shard: str) -> None:
-    """Check a shard's rows (HPO, counts, verbatim quotes, units, held-out PMIDs) and write its report."""
+@lru_cache(maxsize=1)
+def _genereviews_snapshot():
+    from diagnostic_ar_training.knowledge import lit_sources as ls
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+
+    return ls.read_snapshot(open_source("genereviews", Purpose.KB))
+
+
+@lru_cache(maxsize=1)
+def _validation_context():
+    """What every shard is checked against: ontology, evaluation boundary, held-out PMIDs, chapter list."""
     from diagnostic_ar_training.cli_lit import _verified
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    eval_genes, eval_diseases = _eval_boundary()
+    chapters = {r["nbk"]: r for r in _read_tsv(_verified(SOURCES_ID, "chapters.tsv"))}
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    return ontology, eval_genes, eval_diseases, _heldout(), chapters
+
+
+def _validate(shard: str) -> tuple[list[str], dict, list[dict]]:
+    """(problems, report, rows) of a shard; writes nothing."""
     from diagnostic_ar_training.knowledge import lit_extract as le
     from diagnostic_ar_training.knowledge import lit_sources as ls
     from diagnostic_ar_training.lineage.gitinfo import code_state
     from diagnostic_ar_training.lineage.hashing import sha256_file
-    from diagnostic_ar_training.lineage.registry import Purpose, open_source
-    from diagnostic_ar_training.ontology import Ontology
 
     shard_rows = _shard_rows(shard)
     rows_path = ROWS_DIR / f"{shard}.tsv"
@@ -373,18 +391,15 @@ def validate_shard(shard: str) -> None:
         )
         for r in shard_rows
     }
-    eval_genes, eval_diseases = _eval_boundary()
-    heldout = _heldout()
+    ontology, eval_genes, eval_diseases, heldout, chapters = _validation_context()
     chapter_heldout = {}
-    chapters = {r["nbk"]: r for r in _read_tsv(_verified(SOURCES_ID, "chapters.tsv"))}
     nbk = [r for r in shard_rows if r["kind"] == "chapters"]
     if nbk:
-        _, nxml = ls.read_snapshot(open_source("genereviews", Purpose.KB))
+        _, nxml = _genereviews_snapshot()
         for r in nbk:
             cited = ls.screen_chapter(nxml[r["alt_id"]]).pmids & heldout
             if cited or chapters[r["source_id"]]["status"] != "usable":
                 chapter_heldout[r["source_id"]] = sorted(cited) or ["status not usable"]
-    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
     boundary = le.Boundary(ontology, eval_genes, eval_diseases, heldout, chapter_heldout)
     problems += le.check_rows(rows, sources, texts, boundary)
     notes_path = NOTES_DIR / f"{shard}.tsv"
@@ -395,12 +410,11 @@ def validate_shard(shard: str) -> None:
         if notes and tuple(notes[0]) != le.NOTES_COLUMNS:
             problems.append(f"notes header must be exactly: {chr(9).join(le.NOTES_COLUMNS)}")
         problems += le.check_notes(notes, [r["source_id"] for r in shard_rows], rows)
-    state = code_state()
     report = {
         "shard": shard,
         "status": "fail" if problems else "pass",
         "validated_utc": datetime.now(UTC).isoformat(timespec="seconds"),
-        "code": state.as_dict(),
+        "code": code_state().as_dict(),
         "rows_sha256": sha256_file(rows_path),
         "notes_sha256": sha256_file(notes_path) if notes_path.is_file() else "",
         "stats": le.row_stats(rows) if rows and tuple(header) == le.ROW_COLUMNS else {},
@@ -415,6 +429,13 @@ def validate_shard(shard: str) -> None:
         },
         "problems": problems,
     }
+    return problems, report, rows
+
+
+@extract_app.command("validate-shard")
+def validate_shard(shard: str) -> None:
+    """Check a shard's rows (HPO, counts, verbatim quotes, units, held-out PMIDs) and write its report."""
+    problems, report, rows = _validate(shard)
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     out = REPORTS_DIR / f"{shard}.json"
     out.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
@@ -597,3 +618,220 @@ def crosscheck_score(name: str = typer.Option(...)) -> None:
     }
     (CROSSCHECK_DIR / f"{name}.summary.json").write_text(json.dumps(summary, indent=1) + "\n")
     typer.echo(json.dumps(summary, indent=1))
+
+
+# --- Build ----------------------------------------------------------------------
+
+BUILD_DIR = DATA_DIR / "lit-build"
+GR_TITLES = "GRtitle_shortname_NBKid.txt"
+BUILD_KINDS = ("hpoa-lit", "hpoa-enriched", "presentation-ages")
+
+
+def _chapter_index() -> dict[str, tuple[str, str]]:
+    import tarfile
+
+    from diagnostic_ar_training.knowledge import lit_build as lb
+    from diagnostic_ar_training.knowledge import lit_sources as ls
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+
+    with tarfile.open(open_source("genereviews", Purpose.KB), "r:gz") as tar:
+        for member in tar:
+            if member.name == f"{ls.INDEX_DIR}/{GR_TITLES}":
+                return lb.chapter_index(tar.extractfile(member).read().decode("latin-1"))
+    raise LineageError(f"{GR_TITLES} is not in the GeneReviews snapshot")
+
+
+def _build_shards() -> tuple[list[dict], dict, dict]:
+    """(rows of every accepted shard, accepted shard -> hashes, refused shard -> reason and rows).
+
+    A shard is accepted when its committed report passes and it re-validates with no problem now.
+    """
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+
+    listed = []
+    for path in (SHARDS_PATH, _shards_path("papers-v2")):
+        listed += sorted({r["shard"] for r in _read_tsv(path)})
+    rows, accepted, refused = [], {}, {}
+    for shard in listed:
+        rows_path = ROWS_DIR / f"{shard}.tsv"
+        if not rows_path.is_file():
+            continue
+        report_path = REPORTS_DIR / f"{shard}.json"
+        status = json.loads(report_path.read_text())["status"] if report_path.is_file() else "missing"
+        if status != "pass":
+            refused[shard] = {"reason": f"report status {status}", "rows": len(_read_tsv(rows_path))}
+            continue
+        problems, _, shard_rows = _validate(shard)
+        if problems:
+            refused[shard] = {
+                "reason": "re-validation failed",
+                "problems": len(problems),
+                "rows": len(shard_rows),
+            }
+            continue
+        accepted[shard] = {
+            "rows": len(shard_rows),
+            "rows_sha256": sha256_file(rows_path),
+            "notes_sha256": sha256_file(NOTES_DIR / f"{shard}.tsv"),
+        }
+        rows += shard_rows
+    return rows, accepted, refused
+
+
+def _build_paths(dry_run: bool, out_dir: Path | None, ids: dict[str, str]) -> dict[str, Path]:
+    if dry_run:
+        names = {"hpoa-lit": "hpoa-lit.hpoa", "hpoa-enriched": "phenotype.hpoa"}
+        return {k: out_dir / names.get(k, "presentation-ages.tsv") for k in BUILD_KINDS}
+    base = INTERIM_DIR / "lit-build"
+    return {
+        "hpoa-lit": base / ids["hpoa-lit"] / "phenotype.hpoa",
+        "hpoa-enriched": base / ids["hpoa-enriched"] / "phenotype.hpoa",
+        "presentation-ages": base / ids["presentation-ages"] / "presentation-ages.tsv",
+    }
+
+
+def _build_manifests(
+    ids, paths, report_path, accepted, recount_id, recount_sha, lit_sha, state, publish
+) -> None:
+    from diagnostic_ar_training.knowledge import lit_build as lb
+    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.manifest import publish as publish_release
+    from diagnostic_ar_training.lineage.registry import load_sources
+
+    sources = load_sources()
+    shard_inputs = [
+        {"id": f"lit-extract:{s}:{kind}", "sha256": h[f"{kind}_sha256"]}
+        for s, h in accepted.items()
+        for kind in ("rows", "notes")
+    ]
+    recount_input = {"id": f"artifact:{recount_id}", "sha256": recount_sha}
+    params = {"adr": "0013 amendment 2", "recount": recount_id, "evidence": lb.EVIDENCE,
+              "biocuration": lb.BIOCURATION, "shards": sorted(accepted)}  # fmt: skip
+    plan = {
+        "hpoa-lit": (
+            [
+                *shard_inputs,
+                recount_input,
+                sources["genereviews"].as_input(),
+                sources["hpo_ontology"].as_input(),
+            ],
+            [paths["hpoa-lit"], report_path],
+        ),
+        "hpoa-enriched": (
+            [recount_input, {"id": f"artifact:{ids['hpoa-lit']}", "sha256": lit_sha}],
+            [paths["hpoa-enriched"]],
+        ),
+        "presentation-ages": (shard_inputs, [paths["presentation-ages"]]),
+    }
+    for kind, (inputs, outputs) in plan.items():
+        manifest = build_manifest(ids[kind], kind, inputs, params, outputs, state=state)
+        if publish:
+            manifest = publish_release(manifest, ids[kind])
+        write_manifest(manifest)
+
+
+@extract_app.command("build")
+def build(
+    version: int = typer.Option(0, help="N of hpoa-lit-vN, hpoa-enriched-vN, presentation-ages-vN"),
+    recount_id: str = typer.Option(
+        "hpoa-recount-v1", "--recount", help="hpoa-recount artifact the layer joins"
+    ),
+    dry_run: bool = typer.Option(False, help="Files and report only: no artifact ids, no manifests"),
+    out_dir: Path = typer.Option(None, help="With --dry-run: directory for the three files"),
+    report_path: Path = typer.Option(
+        None, "--report", help="Report JSON (default data/lit-build/<id>.report.json)"
+    ),
+    publish: bool = typer.Option(False, help="Upload the three artifacts as releases (ADR-0005)"),
+) -> None:
+    """hpoa-lit, hpoa-enriched and presentation-ages from every validated shard (ADR-0013 amendment 2)."""
+    from diagnostic_ar_training.cli_lit import _verified
+    from diagnostic_ar_training.knowledge import lit_build as lb
+    from diagnostic_ar_training.knowledge import recount
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+
+    if dry_run == bool(version):
+        raise typer.BadParameter("give either --version N (a real build) or --dry-run")
+    if dry_run and (out_dir is None or report_path is None or publish):
+        raise typer.BadParameter("--dry-run needs --out-dir and --report, and never publishes")
+    ids = {k: f"{k}-v{version}" for k in BUILD_KINDS}
+    state = code_state()
+    if not dry_run:
+        from diagnostic_ar_training.lineage.manifest import ensure_new
+
+        for i in ids.values():
+            ensure_new(i)
+        if state.dirty:
+            raise typer.BadParameter("commit your code first: artifacts must be reproducible from a SHA")
+    label = {k: f"{k} (dry run)" for k in ids} if dry_run else ids
+
+    rows, accepted, refused = _build_shards()
+    recount_path = _verified(recount_id, "phenotype.hpoa")
+    recount_sha = sha256_file(recount_path)
+    comments, hpoa_rows = recount.read_hpoa(recount_path)
+    result = lb.build(rows, hpoa_rows, _validation_context()[0], _chapter_index())
+
+    paths = _build_paths(dry_run, out_dir, ids)
+    for p in paths.values():
+        p.parent.mkdir(parents=True, exist_ok=True)
+    header = "\t".join(recount.COLUMNS) + "\n"
+    lit_lines = lb.hpoa_lines(result["lit_rows"])
+    lit_comments = [
+        f"#description: {label['hpoa-lit']}: lit-extract rows as HPOA phenotype rows (ADR-0013 am. 2)\n",
+        *(c for c in comments if c.startswith("#hpo-version:")),
+        f"#derived: {len(accepted)} validated shards, {len(rows)} rows; biocuration {lb.BIOCURATION}\n",
+    ]
+    paths["hpoa-lit"].write_text("".join(lit_comments) + header + "".join(lit_lines), encoding="utf-8")
+    lit_sha = sha256_file(paths["hpoa-lit"])
+    body = recount_path.read_text(encoding="utf-8").split(header, 1)
+    if len(body) != 2 or not body[1].endswith("\n"):
+        raise LineageError(f"{recount_id}: unexpected phenotype.hpoa layout")
+    enriched_note = (
+        f"#derived: {label['hpoa-enriched']} = {recount_id} (phenotype.hpoa sha256 {recount_sha}) + "
+        f"{label['hpoa-lit']} (sha256 {lit_sha}), concatenated\n"
+    )
+    paths["hpoa-enriched"].write_text(
+        "".join(comments) + enriched_note + header + body[1] + "".join(lit_lines), encoding="utf-8"
+    )
+    paths["presentation-ages"].write_text(
+        "".join(lb.presentation_lines(result["presentation_ages"])), encoding="utf-8"
+    )
+
+    report = {
+        "adr": "0013 amendment 2",
+        "dry_run": dry_run,
+        "artifact_ids": {} if dry_run else ids,
+        "code": state.as_dict(),
+        "inputs": {
+            "recount": {"id": recount_id, "phenotype_hpoa_sha256": recount_sha, "rows": len(hpoa_rows)},
+            "shards_accepted": accepted,
+            "shards_refused": refused,
+        },
+        **result["report"],
+        "rows_dropped_failed_validation": sum(v["rows"] for v in refused.values()),
+        "hpoa_enriched": {
+            "rows": len(hpoa_rows) + len(result["lit_rows"]),
+            "recount_rows": len(hpoa_rows),
+            "lit_rows": len(result["lit_rows"]),
+        },
+        "outputs": {
+            k: {"file": p.name, "sha256": sha256_file(p), "bytes": p.stat().st_size} for k, p in paths.items()
+        },
+        "residual_dependency": (
+            "GeneReviews chapters synthesise literature HPOA may also cite; patient-level overlap "
+            "is not detectable (rule 5)"
+        ),
+    }
+    report_path = report_path or BUILD_DIR / f"{ids['hpoa-lit']}.report.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    if not dry_run:
+        _build_manifests(ids, paths, report_path, accepted, recount_id, recount_sha, lit_sha, state, publish)
+    summary = {
+        "shards": {"accepted": len(accepted), "refused": len(refused)},
+        "rows_in": result["report"]["rows_in"],
+        "hpoa_lit_rows": len(result["lit_rows"]),
+        "presentation_age_diseases": len(result["presentation_ages"]),
+    }
+    typer.echo(json.dumps(summary, indent=1))
+    typer.echo(f"report: {report_path}")
