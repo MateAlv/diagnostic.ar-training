@@ -3,57 +3,86 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-01, afternoon. Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-01, paused (graceful stop, usage). Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
 
 **Deadline:** 2026-11-07 (38 days left).
 
-## TL;DR (2026-10-01, afternoon)
+## TL;DR (2026-10-01, paused at about 81% session usage)
 **R1-dev realism reads: 2 of 3 used.** The last read waits for a candidate
 that passes every train-side stop condition, and Mateo is told first.
 
-**Simulator candidates, all train-side:**
+**Simulator** (rare-disease-simulator main 6833d2d = 0.5.3):
 
 | Candidate | Passes | Fails |
 |---|---|---|
-| 5 (sim 0.5.1) | G2e (gap 0.049) | G2c 1.908, G2d 0.809 |
-| 6a (sim 0.5.2, budget-normalised) | G2e (gap 0.011) | G2c 2.955 (records too short: 5.74 vs 8.70 terms), G2d 0.764 |
+| 5 | G2e gap 0.049 | G2c 1.908, G2d 0.809 |
+| 6a | G2e gap 0.011 | G2c 2.955 (records too short), G2d 0.764 |
 
-- **ANALYSIS-006:** simulated reports generalise too often (ancestor share
-  0.152 vs 0.093 real).
-- **ADR-0011 amendment 8 (candidate 6 design):** simulator 0.5.3 with a
-  record-level budget (R1-train total-terms histogram, noise inside it),
-  plus the generalisation rate piloted to 0.093. Candidate 6b runs it on the
-  current profiles; candidate 6 adds the literature profiles.
+- **Candidate 6b** (0.5.3 record budget + generalisation pilot; PR #71,
+  open) **finished**:
+  - **passes** G2a 0.304, **G2d 0.721** (the first G2d pass), G2e gap 0.077
+    and G2b-train 0.522;
+  - **fails only G2c**, 1.816 vs the 1.653 needed. Records average 6.88
+    terms vs 8.70, because truth can't fill the budget for sparse profiles.
+  - No R1-dev read.
+  - Candidate 6 (the same design on the literature-enriched profiles)
+    could close G2c, since richer profiles give more true terms.
 
-**Literature (ADR-0013, verified sources only):**
-- Curated sources registered: GeneReviews, MedlinePlus, Gene2Phenotype.
-  PanelApp is registered but kept out of the profiles (diagnostic-use
-  clause).
-- Frozen lists: `lit-sources-v1`, plus `lit-papers-v2` (re-screened; 305
-  papers in 26 Q shards).
-- Extraction guide **v4** (§6a rulings).
-- **Merged shards:** C001, C011–C035, P001, Q001 (about 1,390 rows).
+**Literature (ADR-0013 and amendments 1–2):**
+- Merged: 53 shard files, 3108 rows. That covers all P1/P2 chapters
+  (C001–C035), C063–C070, P001 and Q001, plus Q019–Q026.
+- **All agents stopped. Open PRs waiting to merge** (resolve BITACORA by
+  keeping both sides; check that only shard files changed):
 
-**Running** (each agent commits after every shard and keeps its worktree, so
-it can be resumed with SendMessage after a usage-limit stop):
+  | PR | Content | Resume at |
+  |---|---|---|
+  | #71 | Candidate 6b | — |
+  | #72 | Q002–Q005, 213 rows | Q006 (Q006–Q010 left) |
+  | #73 | C045–C051, 592 rows | C052 (C052–C053 left) |
+  | #74 | Q011–Q015, 337 rows | Q016 (Q016–Q018 left) |
+  | #76 | C054–C062, 424 rows, complete | — |
+  | #77 | C036–C040, 1,254 rows | C041 (C041–C044 left). C036 alone has 457 rows: audit it closely |
 
-| Work | State |
-|---|---|
-| C002–C010 | C002–C008 committed; finishing C009–C010 |
-| Q002–Q010, Q011–Q018, Q019–Q026 | Paper shards |
-| C036–C044, C045–C053, C054–C062, C063–C070 | Lower-priority chapter shards |
-| Simulator 0.5.3 | Record-level budget |
+- **Shards still to extract:** Q006–Q010, Q016–Q018, C041–C044, C052–C053.
+- **Integration tooling** (`dxt lit build`): PR #67, **merged** with
+  amendment 3. It is being
+  updated with my rule-6 ruling as ADR-0013 amendment 3:
+  - prefer both sexes, then the largest n;
+  - drop a term if same-source percentages differ by more than 0.20 with
+    no n to decide.
 
-**Next:**
-1. Merge the batches. The pattern each time: resolve the BITACORA conflict
-   by keeping both entries, and check that only shard files changed.
-2. Run the central Codex cross-check, and a recall and unit audit.
-3. Build `hpoa-lit-v1` / `hpoa-enriched-v1` plus `presentation-ages-v1`,
-   with the rule for `pooled_group` rows fixed first.
-4. Candidate 6b, then candidate 6.
+  The dry run on 37 shards gave 2,892 HPOA rows over 434 diseases, 1,847
+  new disease–term pairs, and **presentation ages for only 30 diseases**.
+
+**Pending rulings, to decide in one batch:**
+- **"has not been reported/described"**: do **not** treat it as an
+  explicit absence, so it never becomes a NOT row.
+- **Age at genetic confirmation**: exclude it from presentation ages.
+- **Family-cohort carriers** (some unaffected): need a rule.
+- **High VUS share**: need a rule.
+- **`pooled_group` with sub-20 member units**: need a rule.
+- **Spectrum chapters with a single unit**, and **two genes on one disease
+  id**: fine as `pooled`.
+- **Proposal for Mateo:** use the literature `AGE_ONSET` rows (about 200
+  diseases) to improve onset, because presentation ages cover only about 30
+  diseases.
+
+**Next steps, in order, economising usage:**
+1. Collect the stopped agents' final states. Merge their PRs (resolve the
+   BITACORA conflicts by keeping both sides; check that only shard files
+   changed).
+2. Finish the remaining shards later, in smaller batches.
+3. Merge PR #67 after amendment 3. Write the pending rulings as amendment 4,
+   then run the final `dxt lit build --version 1 --publish`.
+4. Codex cross-check (10%) plus a recall and unit audit (about 5% of
+   sources).
+5. Candidate 6b result → candidate 6 (enriched profiles + 0.5.3 design) →
+   train-side go/no-go. Then **ask Mateo** before the last R1-dev read.
+6. If it passes: the G3 cards (assistant + Codex), then G5 freeze. Only
+   then can Front A retraining be pre-registered.
 
 ## Decisions still open
 - **Deploying rr-v1** (on hold): when the time comes, merge PR #2 and
