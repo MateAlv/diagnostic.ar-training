@@ -2923,3 +2923,184 @@ profiles; the literature-enriched profiles come later, as candidate 6.
 
 ### 2026-10-01 — data — lit-extract paper shards Q011–Q018 (ADR-0013)
 - Branch `phase3/lit-extract-Q011-Q018`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **481 rows (446 feature, 35 age, 9 of them `AGE_PRESENTATION`) from 47 of 96 papers** (Q011 41, Q012 71, Q013 84, Q014 80, Q015 61, Q016 50, Q017 27, Q018 67). Q011–Q015 were done first; after a pause, Q016–Q018 were resumed in the same PR. Q011 has one follow-up commit that drops a sub-20 female bone-age row. The Q015 commit message miscounts its sources as "8 of 12"; 7 of 12 were extracted (the notes file is right, history not rewritten). Dead ends: diagnostic-yield/screening studies, unit-disease mismatches (MT-RNR1 = MERRF, CTSA = galactosialidosis, COL6A3 neuromyopathy), series that pool literature cases (RAD21, PURA, RRM2B, ALG13, ACAD9, Primrose), registries of clinically diagnosed patients (TOSCA, XLH survey), guidelines and trials.
+
+### 2026-10-01 — pre-registration — Candidate 6b pilot rounds (ADR-0011 amendment 8, current profiles)
+Written and committed before the first candidate 6b pilot run. Train-side
+only: **no R1-dev read in this task, whatever the result.** Candidate 6b
+checks amendment 8's record-level budget on the **current** profiles; the
+literature-enriched profiles come later, as candidate 6.
+- **Generator:** rare-disease-simulator 0.5.3, run from the GitHub tarball
+  of 6833d2d (sha256 `c9a56f79e1b91ddd62b465cb474e0e17beddf5bb82f3f3467f5eeb1b8e55f105`;
+  the tarball's pax comment is the full commit `6833d2d4db8a…`), never the
+  shared checkout.
+  - Full profiles rebuilt with 0.5.3 from hpoa-recount-v1 + genes-v2: 9,223
+    profiles, byte-identical to candidates 2–6a (`d44e1586…`).
+  - report-model-v3; cardinal-v1; no presentation ages.
+- **Budget histogram:** `record-budget-v1` (manifest committed;
+  `scripts/analysis/record_budget_histogram.py`): report-model-v2's
+  `term_budget` histogram, copied as is (present terms per R1-train case,
+  all 4,103 R1-train patients; report-model-v2 sha256 `1be9413b…`). Mean
+  8.6995, p10 / p25 / median / p75 / p90 = 2 / 4 / 7 / 11 / 17, min 1, max
+  66, no 0 bin. With `reporting.budget_scope: record`, 0.5.3 reads it as
+  total present terms per case, noise included.
+- **Calibration per round:** `simcal-v052-v1` + `record-budget-v1`'s
+  `reporting.profile_budget_histogram` (replacing profile-budget-v1's) +
+  `reporting.budget_scope` "record" + `reporting.noise_count`
+  "budget_share" + `reporting.noise_share` 0.207, with
+  `presets.medium.ontology_smoothing_rate` (g), `noise.related_share` (s)
+  and `reporting.specialize_rate` (r) set per round. Everything else
+  unchanged (independent mode, budget_normalize, calib-v2 vocabulary,
+  related levels 1/1, age durations by onset; `q_scale` stays in the file
+  and c absorbs it).
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`,
+  sha256 `5c817192…`), 10 cases per gene, medium, seed 91001, full
+  profiles.
+- **Targets** (all R1-train):
+  - **A** = ancestor share of explained terms vs kb-v3 = **0.093**
+    (ANALYSIS-006, uncited R1-train patients), measured with
+    `explained_exactness.py` on every pilot record (`keep_one_in` 1; the
+    script also reprints the R1-train value);
+  - **S** = more-specific share vs kb-v3 = **0.0929** (calib-v2),
+    `dataset_term_categories.py --kb kb-v3`;
+  - **M** = E0 in-vocab MRR on the noise terms alone = **0.026**
+    (`noise_signal.py`, every case).
+- **Round 1 measures the current values first:** g = 0.15 (the medium
+  preset, used by candidates 1–6a; candidate 6a gave A = 0.152), s = 1.0,
+  r = 0.1676 (candidate 6a's).
+- **Next-round rule** (round k+1 from round k, rounded to 4 decimals). A
+  knob changes only if its target drifted: relative error above **0.10** for
+  A and S, above **0.20** for M (noise-only MRR is noisy at 10 cases per
+  gene and not linear in s, as candidate 5 showed):
+  - g_{k+1} = g_k × 0.093 / A_k, capped to [0, 1];
+  - r_{k+1} = r_k × 0.0929 / S_k, capped to [0, 1];
+  - s_{k+1} = (0.026 − MRR_voc,k) / (MRR_rel,k − MRR_voc,k), clipped to
+    [0, 1] (s_{k+1} = s_k if MRR_rel,k ≤ MRR_voc,k).
+- **Rounds:** at most 3. Round k+1 runs only if some target drifted after
+  round k.
+- **Selection:** the round with the smallest
+  |A − 0.093| / 0.093 + |S − 0.0929| / 0.0929 + |M − 0.026| / 0.026 (ties:
+  the earlier round), frozen as `simcal-v053-v1` with
+  `dxt knowledge shrinkage-prior --min-denominator 10 --base
+  data/calib/simcal-v052-v1.json --include data/calib/record-budget-v1.json
+  --set reporting.budget_scope='"record"' --set
+  reporting.noise_count='"budget_share"' --set
+  presets.medium.ontology_smoothing_rate=<g>`, plus `--set` for s or r if
+  they changed. `scripts/analysis/cand6b_pilot_rounds.py` applies the
+  rules.
+- **Reported per round** (not targets): total shown terms per case and its
+  total variation vs the record-budget histogram (run summary); k drawn,
+  noise slots, profile target and realised profile terms; the four
+  categories vs kb-v3; A; `forced_min_one`; mean c; the q capped share;
+  the per-gene Spearman of record size vs true-term count
+  (`record_size_by_gene.py`, all pilot genes with `--no-r1`, and the pilot
+  genes with ≥ 10 R1-train patients).
+- **Then:** `ds-sim0.5.3-full-n100-s1001` (gene-first, all genes, 100 per
+  gene, medium, seed 1001; full profiles only), G1, registration with
+  `--publish` and the contamination exclusion, and the train-side go/no-go
+  (G2a truth layer, G2c, G2d, G2e, G2b-train; age reported) with
+  `dxt sim realism --no-dev` and `dxt sim train-checks`, plus
+  `c2st_features.py`, terms-per-case percentiles and A on the full
+  dataset. **No R1-dev read.**
+- **Not used:** R1-dev.
+
+### 2026-10-01 — pilot — Candidate 6b pilot rounds 1–3; `simcal-v053-v1` frozen
+- **Setup:** as pre-registered above (simulator 0.5.3 from the 6833d2d
+  tarball; 4,890 cases for 489 genes per round; 0 invariant violations in
+  all three rounds). R1-train targets only; no R1-dev. Files:
+  `results/realism/cand6b-pilots/` (per-round calibration, run summary,
+  validate log, categories, exactness, noise signal, record size;
+  `summary.json` from `scripts/analysis/cand6b_pilot_rounds.py`).
+- **Every triple tried:**
+
+  | Round | g (smoothing) | s | r | A: ancestor share (0.093) | S: more specific (0.0929) | M: noise-only E0 MRR (0.026) | Relative errors A / S / M | Score |
+  |---|---|---|---|---|---|---|---|---|
+  | 1 | 0.15 | 1.0 | 0.1676 | 0.1544 | 0.0889 | 0.0357 | 0.660 / 0.043 / 0.373 | 1.076 |
+  | 2 | 0.0903 | 0.5178 | 0.1676 | 0.0968 | 0.0908 | 0.0121 | 0.041 / 0.023 / 0.535 | 0.598 |
+  | 3 | 0.0903 | 0.6198 | 0.1676 | 0.0962 | 0.0915 | 0.0158 | 0.034 / 0.015 / 0.392 | **0.442** |
+
+  Round 2 applies the rules to round 1: g = 0.15 × 0.093 / 0.1544;
+  s = (0.026 − 0.0013) / (0.0490 − 0.0013); r kept (S within 10%). Round 3
+  changes only s: (0.026 − 0.0009) / (0.0414 − 0.0009). The script
+  reprints R1-train's uncited ancestor share as 0.0933 (6,130 explained
+  terms; ANALYSIS-006).
+- **Also per round:**
+
+  | Round | Total shown per case | TV total vs histogram | k drawn / noise / profile target k − n / realised profile | Explained / more specific / related / weak (vs kb-v3) | `forced_min_one` | Mean c | q capped | Related share of noise; MRR vocab / related noise | Spearman size vs true terms, 489 genes |
+  |---|---|---|---|---|---|---|---|---|---|
+  | 1 | 7.06 | 0.099 | 8.89 / 1.83 / 7.06 / 5.23 | 0.681 / 0.089 / 0.142 / 0.089 | 167 (3.4%) | 2.948 | 0.172 | 0.807; 0.0013 / 0.049 | 0.706 |
+  | 2 | 7.07 | 0.100 | 8.89 / 1.83 / 7.06 / 5.24 | 0.676 / 0.091 / 0.088 / 0.146 | 167 | 2.948 | 0.172 | 0.435; 0.0009 / 0.041 | 0.700 |
+  | 3 | 7.07 | 0.100 | 8.89 / 1.83 / 7.06 / 5.24 | 0.676 / 0.092 / 0.099 / 0.134 | 167 | 2.948 | 0.172 | 0.512; 0.0009 / 0.043 | 0.700 |
+
+  Targets (uncited R1-train vs kb-v3): 0.668 / 0.093 / 0.082 / 0.157;
+  record-budget-v1 mean 8.70. Share of true terms reported 0.376; mean IC
+  related / vocabulary noise 6.82 / 4.28 (round 3). The 9 pilot genes with
+  ≥ 10 R1-train patients: Spearman size vs true terms 0.133 (real vs the
+  same count 0.683), too few genes to read.
+- **Selected:** round 3, frozen as `simcal-v053-v1`: simcal-v052-v1 +
+  record-budget-v1 + `reporting.budget_scope` "record" +
+  `reporting.noise_count` "budget_share" +
+  `presets.medium.ontology_smoothing_rate` 0.0903 + `noise.related_share`
+  0.6198 (r stays 0.1676). Its knobs equal round 3's calibration except the
+  vocabulary path (relative in the frozen file).
+- **What the pilots show** (R1-train comparisons only):
+  - **The smoothing rate controls the ancestor share almost linearly:**
+    0.15 → 0.0903 moved it from 0.154 to 0.097 (target 0.093).
+  - **Records are still shorter than the budget:** total shown 7.07 per
+    case against k 8.89 drawn (histogram mean 8.70). Noise fills its 1.83
+    slots, but the profile target k − n (7.06) is capped by the sampled true
+    terms: in 1,442 of 4,889 round-1 cases the patient had fewer true terms
+    than k − n, and mean min(k − n, true terms) is 5.18, against 5.24
+    realised. So the shortfall comes from the truth layer, not the rolls.
+  - **Noise-only MRR is again not linear in s** (as candidate 5): s = 1.0
+    gives 0.036, s = 0.52 gives 0.012 and s = 0.62 gives 0.016. Lowering s
+    also moves unexplained terms from related to weak (round 3: 0.099 /
+    0.134 vs real 0.082 / 0.157).
+
+### 2026-10-01 — build + go/no-go — v0.5.3 candidate 6b: G1 passes; the train-side go/no-go fails on G2c only; no R1-dev read
+- **Versions:** rare-disease-simulator 0.5.3 (tarball of 6833d2d, sha256
+  `c9a56f79…`), `simcal-v053-v1`, report-model-v3, cardinal-v1,
+  hpoa-recount-v1, genes-v2, no presentation ages; gene-first, 100 per gene,
+  medium, seed 1001; full profiles only.
+- **G1** (`ds-sim0.5.3-full-n100-s1001`): 489,200 cases / 4,892 genes;
+  `validate` 0 violations (cases and export); 20-gene slice (19 simulated)
+  run twice, byte-identical to each other and to the full run's 1,900 lines
+  (cases and export); `dxt lineage verify` ok; overlap R1 keys 147, S3
+  1,492 (246 same signature); `-excl-v1` excludes 1,619, residual 0;
+  dataset and exclusion list published.
+- **Run summary:** total shown 6.89 per case (5.11 profile + 1.79 noise);
+  k mean 8.71, profile target k − n 6.92, TV total vs k 0.114; mean c
+  3.056; `forced_min_one` 16,915 (3.5%); q capped 0.180; related share of
+  noise 0.506.
+- **Go/no-go** (`dxt sim realism --no-dev`, `dxt sim train-checks`;
+  `results/realism/gate-v0.5.3-cand6b-gonogo.md`; no ledger row):
+
+  | Check | UP | V03-full | C3 | C4 | C5 | C6a | **C6b** | Rule | Result |
+  |---|---|---|---|---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | 0.307 | 0.306 | 0.306 | 0.304 | beat both | ✅ |
+  | G2c W1 | 3.717 | 1.653 | 1.732 | 5.754 | 1.908 | 2.955 | 1.816 | beat both | ❌ (V03-full 1.653) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | 0.822 | 0.809 | 0.764 | **0.721** [0.690, 0.755] | beat both, ≤ 0.75 | ✅ (first pass; CI upper end above 0.75) |
+  | G2e gap | 0.414 | 0.183 | 0.142 | 0.204 | 0.049 | 0.011 | 0.077 (E0 0.328) | beat both, ≤ 0.10 | ✅ |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.536 | 0.502 | 0.537 | 0.507 | 0.522 | beat both | ✅ |
+  | Age (69 genes) | — | 0.537 | 0.539 | 0.571 | 0.555 | 0.584 | 0.603 | report only | |
+
+  - Terms per case p10 / p25 / median / p75 / p90: simulated 2 / 3 / 6 / 9 /
+    13, mean 6.88; R1-train 2 / 4 / 7 / 11 / 17, mean 8.70.
+  - Ancestor share (1 in 50, kb-v3): 0.095 (R1-train uncited 0.093;
+    candidate 6a 0.152).
+  - Categories vs kb-v3 (5%): 0.680 / 0.095 / 0.095 / 0.130 (summed error
+    0.042; candidate 6a 0.120).
+  - C2ST top separators (univariate AUC; candidate 6a in brackets):
+    annotated share 0.402 [0.404], noise share 0.576 [0.536], mean depth
+    0.429 [0.386], head/neck share 0.531, limbs 0.476, term count 0.478
+    [0.422].
+  - Record size vs true terms, 84 R1 genes: Spearman 0.770 (real 0.503);
+    real vs simulated size 0.393; median ratio 0.96.
+  - E0 ablation (3,073 kept cases): as exported 0.342, no noise 0.512, no
+    generalisation 0.352, no specialisation 0.384; noise mean IC 5.71.
+- **Housekeeping:** the 3.46 GB rich-cases file was deleted after the
+  analyses; its sha256 `fc4c9904…` (equal to the run summary's) and a
+  1-in-160 sample (3,073 cases) stay in `outputs/v0.5.3-cand6b-full/`.
+- **Verdict:** ❌ stops on G2c alone (records still short: profiles run out of
+  true terms). No R1-dev read; Mateo decides.
+- **Stopped here** (graceful stop requested): all steps done except the
+  STATE update and a fuller write-up; next step is Mateo's decision.

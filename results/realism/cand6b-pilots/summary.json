@@ -1,0 +1,257 @@
+{
+ "targets": {
+  "A": 0.093,
+  "S": 0.0929,
+  "M": 0.026
+ },
+ "tolerances": {
+  "A": 0.1,
+  "S": 0.1,
+  "M": 0.2
+ },
+ "rounds": [
+  {
+   "round": 1,
+   "ontology_smoothing_rate": 0.15,
+   "s": 1.0,
+   "r": 0.1676,
+   "A_ancestor_share": 0.1544,
+   "S_more_specific": 0.0889,
+   "M_noise_mrr": 0.0357,
+   "relative_errors": {
+    "A": 0.6602,
+    "S": 0.0431,
+    "M": 0.3731
+   },
+   "score": 1.0763,
+   "drift": {
+    "A": true,
+    "S": false,
+    "M": true
+   },
+   "next_round_rule": {
+    "ontology_smoothing_rate": 0.0903,
+    "s": 0.5178,
+    "r": 0.1676
+   },
+   "r1_train_uncited_ancestor_share": 0.0933,
+   "explained_terms_scored": 23459,
+   "record": {
+    "k_mean": 8.8867,
+    "noise_mean": 1.8305,
+    "profile_target_mean": 7.0562,
+    "realized_profile_mean": 5.2335,
+    "total_shown_mean": 7.064,
+    "total_variation_total_vs_histogram": 0.0993
+   },
+   "shown_per_case": 7.0481,
+   "profile_per_case": 5.2176,
+   "noise_per_case": 1.8305,
+   "k_mean": 8.8867,
+   "realized_profile_mean": 5.2335,
+   "mean_c": 2.9482,
+   "shares": {
+    "explained": 0.6807,
+    "more_specific": 0.0889,
+    "related_ic_ge_2": 0.142,
+    "weak_ic_lt_2": 0.0885
+   },
+   "per_record": {
+    "terms": 7.0481,
+    "explained": 4.7973,
+    "more_specific": 0.6266,
+    "related_ic_ge_2": 1.0006,
+    "weak_ic_lt_2": 0.6235
+   },
+   "true_terms_reported_share": 0.3758,
+   "forced_min_one": 167,
+   "cases": 4890,
+   "q_mean": 0.3713,
+   "q_capped_share": 0.1718,
+   "invariant_violations": 0,
+   "specialized_share_of_profile_terms": 0.0937,
+   "mrr_vocabulary": 0.0013,
+   "mrr_related": 0.049,
+   "mean_ic_vocabulary": 4.229,
+   "mean_ic_related": 6.879,
+   "record_size_spearman_all_genes": {
+    "genes": 489,
+    "sim_size_vs_sim_true": 0.706
+   },
+   "record_size_r1_genes": {
+    "genes": 9,
+    "gene_rule": ">= 10 R1-train patients and simulated",
+    "mean_terms_per_case_sim": 6.77,
+    "mean_true_terms_per_case_sim": 19.0,
+    "spearman_sim_record_size_vs_sim_true_terms": 0.133,
+    "mean_terms_per_case_real": 6.36,
+    "spearman_real_vs_sim_record_size_by_gene": 0.617,
+    "spearman_real_record_size_vs_sim_true_terms": 0.683,
+    "sim_over_real_ratio_median": 1.17
+   }
+  },
+  {
+   "round": 2,
+   "ontology_smoothing_rate": 0.0903,
+   "s": 0.5178,
+   "r": 0.1676,
+   "A_ancestor_share": 0.0968,
+   "S_more_specific": 0.0908,
+   "M_noise_mrr": 0.0121,
+   "relative_errors": {
+    "A": 0.0409,
+    "S": 0.0226,
+    "M": 0.5346
+   },
+   "score": 0.5981,
+   "drift": {
+    "A": false,
+    "S": false,
+    "M": true
+   },
+   "next_round_rule": {
+    "ontology_smoothing_rate": 0.0903,
+    "s": 0.6198,
+    "r": 0.1676
+   },
+   "r1_train_uncited_ancestor_share": 0.0933,
+   "explained_terms_scored": 23335,
+   "record": {
+    "k_mean": 8.8867,
+    "noise_mean": 1.8305,
+    "profile_target_mean": 7.0562,
+    "realized_profile_mean": 5.2358,
+    "total_shown_mean": 7.0663,
+    "total_variation_total_vs_histogram": 0.0995
+   },
+   "shown_per_case": 7.0571,
+   "profile_per_case": 5.2266,
+   "noise_per_case": 1.8305,
+   "k_mean": 8.8867,
+   "realized_profile_mean": 5.2358,
+   "mean_c": 2.9482,
+   "shares": {
+    "explained": 0.6762,
+    "more_specific": 0.0908,
+    "related_ic_ge_2": 0.0875,
+    "weak_ic_lt_2": 0.1455
+   },
+   "per_record": {
+    "terms": 7.0571,
+    "explained": 4.772,
+    "more_specific": 0.6409,
+    "related_ic_ge_2": 0.6172,
+    "weak_ic_lt_2": 1.027
+   },
+   "true_terms_reported_share": 0.3758,
+   "forced_min_one": 167,
+   "cases": 4890,
+   "q_mean": 0.3713,
+   "q_capped_share": 0.1718,
+   "invariant_violations": 0,
+   "specialized_share_of_profile_terms": 0.0998,
+   "mrr_vocabulary": 0.0009,
+   "mrr_related": 0.0414,
+   "mean_ic_vocabulary": 4.283,
+   "mean_ic_related": 6.796,
+   "record_size_spearman_all_genes": {
+    "genes": 489,
+    "sim_size_vs_sim_true": 0.7
+   },
+   "record_size_r1_genes": {
+    "genes": 9,
+    "gene_rule": ">= 10 R1-train patients and simulated",
+    "mean_terms_per_case_sim": 6.77,
+    "mean_true_terms_per_case_sim": 18.86,
+    "spearman_sim_record_size_vs_sim_true_terms": 0.133,
+    "mean_terms_per_case_real": 6.36,
+    "spearman_real_vs_sim_record_size_by_gene": 0.617,
+    "spearman_real_record_size_vs_sim_true_terms": 0.683,
+    "sim_over_real_ratio_median": 1.17
+   }
+  },
+  {
+   "round": 3,
+   "ontology_smoothing_rate": 0.0903,
+   "s": 0.6198,
+   "r": 0.1676,
+   "A_ancestor_share": 0.0962,
+   "S_more_specific": 0.0915,
+   "M_noise_mrr": 0.0158,
+   "relative_errors": {
+    "A": 0.0344,
+    "S": 0.0151,
+    "M": 0.3923
+   },
+   "score": 0.4418,
+   "drift": {
+    "A": false,
+    "S": false,
+    "M": true
+   },
+   "next_round_rule": {
+    "ontology_smoothing_rate": 0.0903,
+    "s": 0.5962,
+    "r": 0.1676
+   },
+   "r1_train_uncited_ancestor_share": 0.0933,
+   "explained_terms_scored": 23325,
+   "record": {
+    "k_mean": 8.8867,
+    "noise_mean": 1.8305,
+    "profile_target_mean": 7.0562,
+    "realized_profile_mean": 5.2358,
+    "total_shown_mean": 7.0663,
+    "total_variation_total_vs_histogram": 0.0995
+   },
+   "shown_per_case": 7.0571,
+   "profile_per_case": 5.2266,
+   "noise_per_case": 1.8305,
+   "k_mean": 8.8867,
+   "realized_profile_mean": 5.2358,
+   "mean_c": 2.9482,
+   "shares": {
+    "explained": 0.6759,
+    "more_specific": 0.0915,
+    "related_ic_ge_2": 0.0989,
+    "weak_ic_lt_2": 0.1337
+   },
+   "per_record": {
+    "terms": 7.0571,
+    "explained": 4.7699,
+    "more_specific": 0.6458,
+    "related_ic_ge_2": 0.6978,
+    "weak_ic_lt_2": 0.9436
+   },
+   "true_terms_reported_share": 0.3758,
+   "forced_min_one": 167,
+   "cases": 4890,
+   "q_mean": 0.3713,
+   "q_capped_share": 0.1718,
+   "invariant_violations": 0,
+   "specialized_share_of_profile_terms": 0.0998,
+   "mrr_vocabulary": 0.0009,
+   "mrr_related": 0.043,
+   "mean_ic_vocabulary": 4.276,
+   "mean_ic_related": 6.818,
+   "record_size_spearman_all_genes": {
+    "genes": 489,
+    "sim_size_vs_sim_true": 0.7
+   },
+   "record_size_r1_genes": {
+    "genes": 9,
+    "gene_rule": ">= 10 R1-train patients and simulated",
+    "mean_terms_per_case_sim": 6.77,
+    "mean_true_terms_per_case_sim": 18.86,
+    "spearman_sim_record_size_vs_sim_true_terms": 0.133,
+    "mean_terms_per_case_real": 6.36,
+    "spearman_real_vs_sim_record_size_by_gene": 0.617,
+    "spearman_real_record_size_vs_sim_true_terms": 0.683,
+    "sim_over_real_ratio_median": 1.17
+   }
+  }
+ ],
+ "next_round_runs": false,
+ "next_round_knobs": null,
+ "selected_round": 3
+}
