@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1432	extracted	12	severe/classic males; skipped form shares (~80%), length >90th centile (no HPO threshold match), long fingers and/or toes (two features), 'up to 5%' peliosis, ventilation/G-tube needs (treatment), myotubularin western blot counts
+NBK1441	extracted	7	eyelid tetrad 'present at birth in all individuals'; skipped strabismus subtypes and refractive subtypes (conditional), amblyopia bilateral 21%/unilateral 20% (exclusive categories, no laterality terms), POI 'minority'
+NBK1453	extracted	3	males; onset from the unhedged summary (first two years; Suggestive Findings says before age 5); skipped 60% recognized at a severe infection (presentation mode), ~10% recognized after 10 y, polio 5%-10% after vaccine, ~10% infections despite therapy
+NBK1454	extracted	3	skipped cumulative figures (low back pain 49% by 30 / 94% by 40, joint replacement 50% by 55, renal stones 50% by 64), prostate stones 8/27 (no HPO term), feature onsets (ochronosis after 30)
+NBK1457	extracted	8	onset of lymphedema (range 7-40 y) as the defining feature; skipped ocular problems ~75% (bundle), 25% without distichiasis symptoms, penetrance 80% by age 30
+NBK1463	extracted	3	RCC ~70% is 'by age 60' (cumulative), skipped; hemangioblastoma location and growth-pattern shares are conditional; penetrance by 65 skipped
+NBK1464	extracted	6	skipped 'almost all' eye anomalies, CHD 'up to 40%', GI anomalies ~50% (structural plus functional bundle)
+NBK1467	extracted	3	rows pooled over the Pendred and DFNB4 units; SNHL 'nearly all' vague; caloric/rotational/cVEMP shares are sub-items of vestibular dysfunction; goiter onset hedged
+NBK1473	extracted	6	Elpeleg 36-patient counts used where a single group is stated; spasticity and 6/21 visual-acuity groups would need summing; ataxia and dysarthria 18/36 is one number for two features; 'seizures are not typical' hedged
+NBK1478	extracted	5	onset as IQR per §6a (median 31); skipped 'common' hyperreflexia wording in summary (body gives half), dementia 'very rarely' (Suggestive Findings <3% used), preserved smell (normal finding)

@@ -2910,3 +2910,6 @@ profiles; the literature-enriched profiles come later, as candidate 6.
     literature rows of the slice arrive.
   - `load_presentation_ages` reads 40 rows.
   - Still no artifact registered.
+
+### 2026-10-01 — data — lit-extract chapter shards C054–C062 (ADR-0013)
+- Branch `phase3/lit-extract-C054-C062`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **424 rows (350 feature, 74 age, 7 of them `AGE_PRESENTATION`) from 84 of 90 chapters** (C054 42, C055 31, C056 41, C057 39, C058 58, C059 56, C060 58, C061 51, C062 48); 6 chapters with 0 rows, all `no_numbers` (enlarged parietal foramina, Baller-Gerold, PNKD, choroideremia, hemophilia B, PAH deficiency). Phenotypes without a matching unit skipped (e.g. adult PLAN, PLP1 null syndrome, SYNE1 AMC) and cone-dystrophy units left out of the achromatopsia pooled group. Open points for the guide (undefined age phrases such as "toddler years", phenotype-definition onsets, "consistent/constant" as always, Table legends with "++ = always present") listed in the PR.

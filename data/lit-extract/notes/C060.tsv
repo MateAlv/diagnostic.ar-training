@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1479	extracted	15	Table 2 bins (≥90%, 15%-89%) used as binned only where the text gives no figure; skipped characteristic facial appearance (gestalt bundle), maternal preeclampsia 15% (no HPO term), associated-feature list (≥2% and <15%, one bin for a list), Table 2 overgrowth (text ~90% in children used)
+NBK1486	extracted	4	classic onset 'soon after birth' coded neonatal; atypical onset from body (after 2 months, as late as adolescence; summary says late infancy to 3 y); 'common' ID skipped; ~33% is an allele share
+NBK1487	extracted	2	'consistent' read as always present for delayed epiphyseal ossification; presenting waddling gait 'often'; ~50% hip replacement is treatment
+NBK1489	extracted	2	onset by sex; parkinsonism as initial sign 'almost universally' (vague); sonography hyperechogenicity 79%/81% have no HPO term
+NBK1491	extracted	3	overall, juvenile (initial DD/ID) and adult-onset series onset ages; Table 2 onset bins by repeat size skipped; no feature frequencies stated
+NBK1495	no_numbers	0	Table 2 'usual age at diagnosis' by severity is hedged; inhibitor rates are treatment complications; carrier factor IX levels are lab values in heterozygotes
+NBK1500	extracted	6	ischemic-episode onset (mean 47, 20-70) is a feature onset, skipped; 'up to 75%' dementia, 'nearly 25%' MI, conditional migraine-with-aura 80%-90% skipped; microbleeds 34% of 125 have no HPO term; lifetime depression/mania risks skipped
+NBK1504	no_numbers	0	numbers are about MPKU offspring (risks by maternal Phe control) or treated cohorts; no feature frequencies for affected individuals
+NBK1524	extracted	10	B6-responsiveness groups at diagnosis kept separate; E-HOD anxiety (51%) taken over the other study (32%); distractibility maps to the same HPO term as short attention span (one row); late-detected seizures 21% and NBS-detected 1/55 skipped
+NBK1538	extracted	16	pituitary subtype shares are of pituitary tumors (conditional); gastrinoma 40%, VIPoma 3%, somatostatinoma, bronchial and gastric carcinoids have no matching HPO term; adrenocortical 40% sits ambiguously on a subtype row (text 20%-73%), skipped; PHPT 100% by 50 and penetrance are cumulative; thyroid tumors >25% is a bundle
