@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1238	extracted	4	onset per form (infantile <12 months by definition; later-onset 12-36 months to 7th decade); 85%-90%/10%-15% are form shares; infantile neuropathy 'nearly all' (vague); survival figures skipped
+NBK1239	extracted	6	lymphedema onset hedged ('usually present from birth'; 'present at birth or develops soon after' has no upper bound); 85%-90% by age 3 is penetrance among carriers
+NBK1242	extracted	3	HMSN rows pooled over CMT2D and dSMA-V units; iSMA onset 'neonatal period to the toddler years' skipped (toddler not in the age-phrase rulings); 75% in 2nd decade is an onset share; EMG items 'most individuals'
+NBK1243	extracted	5	one unit per phenotype (IAHSP, JPLS, JALS); skipped 'cognitive function is preserved' (normal finding), JPLS speech-deterioration onset (feature onset), bedridden ages in one family
+NBK1245	extracted	2	rows pooled over the NYX and CACNA1F units; nystagmus and strabismus 50%-70% is one number for two features in the body (Suggestive Findings attaches it to strabismus only), skipped; Mennonite 72% is an 'at least one absent' composite; 17 with no paradoxic pupils hedged ('clearly')
+NBK1262	extracted	1	onset 'typically 20-40 y' hedged; used unhedged 'presenting in young adults'; no frequencies
+NBK1264	extracted	4	KCNJ2 is the main ATS gene (pooled rows); skipped characteristic triad 58%-78% (composite), 4/10 ICD (treatment), French series syncope 4/36 (follow-up events), gene-detection shares, non-penetrance 6%-20%
+NBK1266	extracted	3	perianal (94%) and digital (73%) macules have no fitting HPO term; Table 2 and cancer figures are cumulative risks; Dutch ovarian series would need summing (2+1 of 69), not used; exon 7 polyp dysplasia 9/10 has no HPO term
+NBK1296	extracted	12	rows pooled over NPC1 and NPC2 units; Table 2 symbols (usually/sometimes) skipped; psychosis drug resistance 8/9 is conditional and a treatment response; impaired social cognition 11/13 has no fitting HPO term; age groups are arbitrary classification
+NBK1300	extracted	1	Table 2 counts term mentions in case reports, not patients; bilateral anophthalmia 76/174 has no bilateral-specific HPO term (Anophthalmia would undercount the 23 with unilateral anophthalmia); HH 20, seizures 22, spasticity 13, SNHL 7 have no denominator
