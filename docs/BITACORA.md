@@ -2421,3 +2421,89 @@ only: **no R1-dev read in this task, whatever the result.**
 - **Before the other 84 paper shards:** a deterministic re-screen of the
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
+
+### 2026-10-01 — lit-extract — lit-papers-v2 re-screen, guide v3, pilot Q001
+- **Branch** `phase3/lit-papers-v2`. No sealed data read; no LLM
+  classification (every paper decision is the deterministic rule); no
+  evaluation unit can be written (validator).
+- **Re-screen** (`knowledge/lit_papers.py`; `dxt lit-sources
+  rescreen-fetch|rescreen`):
+  - **Input:** the 1,011 selected papers of `lit-sources-v1`. Title,
+    abstract and publication type re-fetched from Europe PMC (7 queries,
+    0 missing), cached in `data/interim/lit-sources/lit-papers-v2/`.
+  - **Rule** (first failing check sets the reason):
+    1. publication type case report, review or trial;
+    2. title signatures: review; case, family or sibling report; a single
+       patient; database; screening or method title (sequencing, panel,
+       NGS, molecular or genetic testing, screening other than newborn
+       screening, mutation analysis, "for mutations in", variant prevalence,
+       diagnostic yield, unsolved, suspected, prenatal diagnosis, "is a
+       frequent cause"); carriers or penetrance; variant-level work (novel
+       variants, reclassification, in silico, functional studies, copy
+       number); treatment; biomarker; model organism; a plural disease group
+       with no gene symbol; a title count under 20;
+    3. abstract signatures: diagnostic yield or negative-tested cohorts,
+       sequencing applied to a series of N, association designs
+       (susceptibility, predisposition, odds or hazard ratio, case-control,
+       risk factors, polymorphism, comparison with healthy individuals),
+       penetrance in carriers, variant databases; positives reported as a
+       share of those screened, all under 20;
+    4. positive per-unit evidence: a count ≥ 20 bound to a gene symbol of
+       the paper or to one disease (a defined abbreviation whose long form
+       is not a plural group, or a disease noun), or a bare count when the
+       title names a single disease or gene.
+  - **Deviation from the brief, on purpose:** bare "associated with",
+    "association" and "risk of" are not exclusions. Two of the three P001
+    qualifiers contain them ("associated with more disability", "the risk
+    of complication remains"). Narrower association forms are used instead.
+  - **Calibration on P001's 12 known outcomes:** qualified→pass 3,
+    qualified→fail 0, dead end→pass 0, dead end→fail 9.
+  - **Revisions before freezing,** after reading P001 and seeded samples of
+    40 passing titles (seeds 11, 99) plus failure samples: added the review,
+    single-patient, sibling, variant-level, treatment, biomarker and
+    "frequent cause" title signatures; exempted newborn screening; added
+    "unsolved". The first draft passed 439 of 999 and failed one P001 dead
+    end (the PXE CNV study).
+- **`lit-papers-v2`** (manifest from `04c506a`, clean tree; release
+  `lit-papers-v2`; committed `182eadb` before any further extraction):
+  - **305 of 999** re-screened papers pass; 197 have a weak gene; 304 genes.
+  - Pass reasons: bare count with a single-unit title 183, count bound to a
+    unit phrase 82, count next to a unit term 31, unit cohort of N 9.
+  - Top fail reasons: screening/method title 160, association 97,
+    variant-level title 73, no per-unit n ≥ 20 71, diagnostic yield 36.
+- **Q shards** (`dxt lit shards --set papers-v2`,
+  `data/lit-extract/shards-papers-v2.tsv`): **26 shards** (Q001–Q025 of
+  12, Q026 of 5), 305 papers, 942 units.
+  - Same units as each paper's P row; list order kept; no P001 paper.
+  - `shards.tsv` rebuilds byte-identical.
+  - `fetch-text`, `validate-shard` and the cross-check route `Q` ids to
+    the new file (tests added).
+- **Guide v3** (`edf1b20`): a "Papers" section with the per-unit rule,
+  own-cohort data only, definitions from Methods, yes/no cells, prenatal
+  ages, screening age, empty tables; a changelog.
+- **Pilot Q001** (12 papers), extracted by me following guide v3;
+  `validate-shard` 0 problems:
+  - **9 of 12 qualified** (75%, Wilson 95% CI 0.47–0.91; P001: 25%).
+  - **140 rows:** 136 feature rows and 4 age rows; 116 with counts.
+  - Rows per paper: 7, 15, 4, 9, 11, 68, 14, 11, 1. One table (KBG,
+    `PMID:35970914`) gives 68.
+  - Dead ends:
+    - 1 not about units: an infantile-hypercalcaemia cohort attributed to
+      AGXT through its citing chapter, a gene-attribution issue rather than
+      the screen;
+    - 2 screen false positives: a WES/WGS diagnostic-yield study (the
+      abstract says "unexplained" and "diagnosis rate", outside the
+      patterns); a linkage study ("association analyses", plural, outside
+      the pattern).
+
+    The rule stays frozen; these misses are recorded here.
+  - **Time:** about 10 minutes of wall time from `fetch-text` to a passing
+    validation.
+- **Estimate for Q002–Q026** (293 papers):
+  - **Rows:** at 0.75 qualifying and a median of 11 rows per qualifying
+    paper, about 2,400. Range about 1,250 (0.47 × 9 rows) to 4,200
+    (0.91 × 15.6 rows).
+  - **Agent-hours:** about 5 at the pilot pace (10–12 minutes per shard);
+    about 25 at the LITPANEL-v2 rate (97 rows per agent-hour).
+  - **Cross-check:** a 10% Codex sample, about 240 rows, about 30 minutes.
+- `dxt lineage verify` passes.
