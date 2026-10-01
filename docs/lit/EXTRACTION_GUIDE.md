@@ -91,25 +91,44 @@ cell study, fewer than 20 confirmed patients), extract nothing and record
 `not_cohort` in the notes (§12). Otherwise read the results text and every
 table. Supplementary files are out of scope.
 
-Work source by source, in worksheet order. Budget about 5 minutes per source
-with little numeric content and about 10 for a rich one.
+Work source by source, in worksheet order. In the pilot (C001, 10 GeneReviews
+chapters, 100 rows) reading and writing took 1-3 minutes per chapter; budget
+up to 10 minutes for a rich source and stop at 20.
 
 ## 4. Which unit a fact belongs to
 
-- A fact about patients with pathogenic variants in gene G goes to G's unit.
-  If G has several allowed units, choose the disease the figure describes.
-- A fact about the disease as a whole, pooled over its genes (typical for a
-  GeneReviews "frequency of select features" table), goes to **one** row per
-  feature for that `disease_id`: use the unit of the gene the source names as
-  the most common cause; if it names none, the first unit with that
-  `disease_id` in the worksheet. Set `population` to say it is pooled
-  ("all EVC syndrome, pooled across genes") and add the flag `pooled`.
-- A figure pooled over **several different diseases** among the units (for
-  example, one table for all forms of an overview's group) is **not**
-  extracted. Note it in the notes as skipped.
-- If no allowed unit is about the disease a figure describes, skip the
-  figure. A gene listed for the source does not make every figure in the
-  source about that gene.
+**Check the disease name of every unit before you use it.** The worksheet
+lists, for each gene the source covers, the disease(s) that gene has in our
+gene table. When none of a gene's diseases is among the chapter's OMIM ids,
+the gene's main disease is listed instead, and that may be a different
+disease: in the Silver-Russell chapter, CDKN1C's unit is Beckwith-Wiedemann
+syndrome and H19's is isolated hemihyperplasia. A unit whose disease is not
+the one a figure describes never gets that figure.
+
+Then, in this order:
+1. **Gene-specific figure** (patients with variants in gene G): G's unit. If
+   G has several allowed units, the one whose disease the figure describes
+   (match the source's subtype or OMIM number, e.g. "SPG72A (OMIM 615625)").
+2. **Disease-level figure, one disease** (pooled over the genes of a single
+   disease, typical for a GeneReviews "frequency of select features" table):
+   **one** row per feature on a unit with that `disease_id`: the gene the
+   source names as the most common cause if it is listed, else the first unit
+   with that `disease_id` in the worksheet (the gene does not matter for a
+   disease-level row; the disease does). Flag `pooled`, and say so in
+   `population` ("all EVC syndrome, pooled across genes").
+3. **Figure for an umbrella disease that is itself a unit**: if one unit's
+   disease *is* the group the source describes (often an Orphanet id named
+   like the chapter, e.g. `CRH | ORPHA:98784 | Sleep-related hypermotor
+   epilepsy` in the ADSHE chapter), put the pooled figure there, flag
+   `pooled`.
+4. **Figure pooled over several diseases** (an overview's "individuals with
+   albinism", covering OCA1A, OCA2, OA1 …) with no umbrella unit: **one** row
+   per feature, flag `pooled_group`, and list in `construction_unit` every
+   unit of this source the group covers, `;`-separated, starting with the
+   row's own unit (`TYR|OMIM:203100;OCA2|OMIM:203200;…`). Leave out units
+   whose disease is not part of the group. `population` names the group.
+   Do not copy the row to each unit.
+5. Otherwise skip the figure and say so in the notes.
 
 ## 5. The row
 
@@ -128,7 +147,7 @@ source_id gene disease_id construction_unit disease_name feature_label hpo_id pr
 |---|---|
 | `source_id` | `NBK1234` for a chapter, `PMID:12345678` for a paper, exactly as in the worksheet |
 | `gene`, `disease_id` | the unit, exactly as in the worksheet (`EVC`, `OMIM:225500`) |
-| `construction_unit` | `gene|disease_id`, e.g. `EVC|OMIM:225500` |
+| `construction_unit` | `gene|disease_id`, e.g. `EVC|OMIM:225500`; for a `pooled_group` row, the group's units `;`-separated, own unit first (§4) |
 | `disease_name` | the worksheet's name for the disease (informative only) |
 | `feature_label` | the source's own name for the feature (short), or `AGE_ONSET` / `AGE_PRESENTATION` for an age row |
 | `hpo_id` | the HPO id (§7); empty on age rows |
@@ -139,7 +158,7 @@ source_id gene disease_id construction_unit disease_name feature_label hpo_id pr
 | `population` | who the figure is about, in a few words: `all affected`, `probands`, `males`, `biallelic CHRNE`, `all EVC syndrome, pooled across genes`, `adults (≥18 y)` |
 | `age_onset_low_years` … `age_presentation_high_years` | ages in years (§9); on feature rows only if the quote states the feature's onset age |
 | `age_note` | short: `median`, `mean`, `stated: infancy`, `onset of seizures` |
-| `flags` | `;`-separated, from: `small_n`, `pooled`, `named_period`; else empty |
+| `flags` | `;`-separated, from: `small_n`, `pooled`, `pooled_group`, `named_period`; else empty |
 | `source_kind`, `licence`, `access_path` | copy from the worksheet |
 | `citation` | chapter: `GeneReviews NBK1234 (Chapter Title)`; paper: `PMID:12345678 (PMC1234567)` |
 | `section` | the heading the quote is under, exactly as printed in the text file without the `#`s (deepest heading), or the table label (`Table 2`) |
@@ -164,25 +183,39 @@ source_id gene disease_id construction_unit disease_name feature_label hpo_id pr
   "rare", "a few", "some", "occasionally", "typically", "usually";
 - "up to x%", "as many as x%" (a maximum across studies, not a prevalence);
 - complements: "absent in 4/246" does **not** give "present in 242/246";
-- one number for a list of features ("gingivitis, fever and fatigue in 20%"):
-  ambiguous between "each" and "any". If the list has an umbrella name
-  ("genitourinary anomalies (hypospadias, cryptorchidism) in 5%"), extract
-  the umbrella term only;
+- one number for several features ("gingivitis, fever and fatigue in 20%",
+  "Umbilical hernia / diastasis recti | 22%-44%", "rare features (<5%)
+  include: A, B, C"): ambiguous between "each" and "any";
+- category bundles: a table row naming a heterogeneous category and listing
+  its contents ("Skeletal features | 75% | Incl hypoplastic elbow joints,
+  clinodactyly, contractures, scoliosis", "Craniofacial anomalies",
+  "Dysmorphic & skin features"); a single feature with a definition is fine
+  ("Macrosomia | 45%-65% | Defined as pre- &/or postnatal overgrowth");
+- figures with no fitting HPO term (e.g. "bilateral pheochromocytoma",
+  "metastatic", seizure counts per month);
 - tallies of per-patient tables (one row per patient): do not count them
   yourself;
-- penetrance among unselected carriers ("40% of SDHB heterozygotes develop
-  a paraganglioma"): that is not the share of *affected* individuals with a
-  feature;
+- penetrance or lifetime risk among unselected carriers ("40% of SDHB
+  heterozygotes develop a paraganglioma"): that is not the share of
+  *affected* individuals with a feature. A tumour risk stated among affected
+  individuals of a subgroup ("BWS with CDKN1C variants: neuroblastoma 4.2%")
+  is a prevalence and counts;
+- conditional shares ("atrial septal defect in >80% of those with CHD",
+  "bilateral in >95%" of those with polydactyly): the denominator is not the
+  affected population;
 - the share of a disease caused by a gene, detection rates, carrier
   frequencies, birth prevalence, mortality or treatment response;
 - numbers about an evaluation unit or any gene or disease not in your
   worksheet for this source.
 
 If the same feature has several figures in one source for the same
-population, take the one with the largest stated denominator (or the
-chapter's summary table) and write one row. Different populations of the same
-feature (males vs females, biallelic vs heterozygous, EVC vs EVC2) are
-separate rows.
+population, take the chapter's summary table; if the table itself has several
+cohort columns ("% of 62 persons", "% of 34", "% of 321"), take the column with
+the largest denominator that has a value for that feature, put its size in
+`n_assessed`, name the cohort in `population`, and quote the column header
+and the row joined with ` ... ` (§10). Write one row. Different populations
+of the same feature (males vs females, biallelic vs heterozygous, 11p15 LOM vs
+all SRS, adults vs children) are separate rows.
 
 ## 7. Mapping a feature to HPO
 
@@ -218,7 +251,8 @@ for the same population are one row (keep the better-supported figure).
   `n_assessed` only. Never compute `n_affected` from a percentage.
 - **Pooled tables:** record who is pooled in `population` (all genes, both
   sexes, all ages, probands plus relatives) and add `pooled` when it pools
-  genes or subtypes (§4).
+  genes or subtypes of one disease, `pooled_group` when it pools several
+  diseases (§4).
 - **Small denominators:** keep them. If `n_assessed` < 5, add the flag
   `small_n` (the validator requires it exactly then).
 - **Sex-specific features** (cryptorchidism, amenorrhea) or sex-specific
@@ -245,7 +279,15 @@ summarises, if stated.
 | "onset in infancy" | 0.08 | 1 | stated: infancy | `named_period` |
 | "onset in (early) childhood" | 1 | 5 | stated: childhood | `named_period` |
 | "juvenile onset", "onset in adolescence" | 5 | 15 | stated: … | `named_period` |
-| "adult onset" | 16 | | stated: adulthood | `named_period` |
+| "adult onset", "adulthood" | 16 | | stated: adulthood | `named_period` |
+| "early adulthood", "young adult" | 16 | 40 | stated: early adulthood | `named_period` |
+| "late onset", "after age 60" | 60 | | stated: … | `named_period` only if no number |
+| "2nd to 7th decades" | 10 | 70 | stated: 2nd to 7th decades | |
+| "infancy to 7th decade" | 0.08 | 70 | stated: … | `named_period` |
+| "from childhood to adulthood", "juvenile to adulthood" | 1 (5) | | stated: … | `named_period` |
+
+A span between two periods takes the low end of the first and the high end of
+the last (an open end stays empty). The n-th decade is ages 10(n−1) to 10n.
 
 Units: months / 12, weeks / 52, days / 365, rounded to 2 decimals. Ages are
 in [0, 120].
@@ -256,12 +298,17 @@ in [0, 120].
   `age_note`. Otherwise skip it.
 - One age row per (unit, kind, population, sex) per source. Prefer a stated
   range; put a stated median or mean in `age_note`.
-- Do not record "variable", "any age", "wide range" or decades written as
-  vague words ("in later life").
+- Do not record "variable", "any age", "wide range", vague words ("in later
+  life") or hedged statements ("typically adulthood", "usually in the first
+  two years").
+- Overview tables often give onset per gene ("REEP1 | SPG31 (OMIM 610250) |
+  2nd to 7th decades"): one `AGE_ONSET` row per gene, on the unit whose
+  disease matches the row's subtype.
 
 ## 10. The evidence quote
 
-- Copy it from the text file; do not retype. At most 25 words.
+- Copy it from the text file; do not retype, and keep the source's typos.
+  At most 25 words (table pipes `|` and the ` ... ` gap do not count).
 - It must contain the number you extracted, and enough words to show what
   it is about.
 - For a table row, quote the row line as printed, e.g.
@@ -329,11 +376,10 @@ push unless told to.
 outcomes, time taken, and anything in this guide that did not fit what you
 met.
 
-## 14. Worked examples
+## 14. Worked examples (from the pilot, shard C001)
 
-From `NBK596643` (Ellis-van Creveld syndrome), whose units are the EVC
-syndrome genes (`OMIM:225500`) plus DYNC2H1, SMO and WDR35 with their own
-diseases:
+**Disease-level table** (`NBK596643`, Ellis-van Creveld syndrome; seven
+genes share `OMIM:225500`, and EVC is the most common cause):
 
 ```
 [Table 2] Ellis-van Creveld Syndrome: Frequency of Select Features
@@ -341,16 +387,46 @@ Feature | % of Persons w/Feature | Comment
 Postaxial polydactyly (hands) | 98% | Bilateral in >95%
 ```
 
-- The table pools the EVC syndrome genes, so it is a disease-level figure.
-  EVC and EVC2 cause most cases; the worksheet lists `EVC|OMIM:225500`.
-- Row: `gene EVC`, `disease_id OMIM:225500`, `feature_label Postaxial
-  polydactyly (hands)`, `hpo_id HP:0001162`, `prevalence 0.98`, `population
-  all EVC syndrome, pooled across genes`, `flags pooled`, `section Table 2`,
-  `evidence_quote Postaxial polydactyly (hands) | 98% | Bilateral in >95%`.
+- Row: `gene EVC`, `disease_id OMIM:225500`, `construction_unit
+  EVC|OMIM:225500`, `feature_label Postaxial polydactyly (hands)`, `hpo_id
+  HP:0001162`, `prevalence 0.98`, `population all EVC syndrome, pooled across
+  genes`, `flags pooled`, `section Table 2`, `evidence_quote Postaxial
+  polydactyly (hands) | 98% | Bilateral in >95%`.
+- "Bilateral in >95%" → nothing (conditional on having polydactyly).
 - "About one third of individuals manifest growth deficiency in the perinatal
-  setting" → prevalence 0.3333 for the perinatal growth deficiency term.
-- "Other rare features (described in <5% of individuals …) include:
-  Genitourinary abnormalities (…)" → one row for the umbrella
-  (`HP:0000119`, prevalence 0.05, low 0, high 0.05), none for the listed
-  sub-features.
+  setting" → nothing: no HPO term says exactly that.
+- "Other rare features (described in <5% …) include: genitourinary
+  abnormalities, CNS malformations, sensorineural deafness" → nothing (one
+  number for several features).
 - "Almost all individuals have hexadactyly" → nothing (vague).
+
+**Several cohort columns** (`NBK1520`, MERRF):
+
+```
+Feature | % of 62 Persons w/Feature ^1 | % of 34 Persons w/Feature ^2 | % of 321 Persons w/Feature ^3
+Myoclonus | 100% | 24% | 61%
+Lactic acidosis | 83% | 65% |
+```
+
+- Myoclonus: the 321 column → `prevalence 0.61`, `n_assessed 321`,
+  `evidence_quote % of 321 Persons w/Feature ^3 ... Myoclonus | 100% | 24% |
+  61%`.
+- Lactic acidosis has no 321 value → the 62 column: `prevalence 0.83`,
+  `n_assessed 62`, quote `Feature | % of 62 Persons w/Feature ^1 ... Lactic
+  acidosis | 83% | 65%`.
+
+**Pooled over several diseases** (`NBK590568`, albinism overview: "Strabismus
+is observed in approximately 71% of individuals with albinism"): one row,
+`gene TYR`, `disease_id OMIM:203100`, `construction_unit` = all nine
+albinism units starting with `TYR|OMIM:203100`, `flags pooled_group`,
+`population individuals with albinism (OCA and OA types pooled)`,
+`prevalence 0.71`.
+
+**Umbrella unit** (`NBK1169`, ADSHE): the frequency table pools all ADSHE
+genes; the worksheet lists `CRH | ORPHA:98784 | Sleep-related hypermotor
+epilepsy`, the umbrella disease itself, so the rows go there with `pooled`.
+
+**Onset per gene** (`NBK1509`, HSP overview, Table 1): `REEP2 | SPG72A (OMIM
+615625) | Very early; average age 4 yrs` → `AGE_ONSET` on `REEP2|OMIM:615625`,
+low 4, high 4, `age_note mean`; `ATL1 |  | Infantile to childhood (rarely,
+adult onset)` → low 0.08, high 5, `named_period`.

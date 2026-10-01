@@ -32,7 +32,7 @@ MAX_QUOTE_WORDS = 25
 SMALL_N = 5
 QUOTE_GAP = " ... "
 AGE_FEATURES = ("AGE_ONSET", "AGE_PRESENTATION")
-FLAGS = ("small_n", "pooled", "named_period")
+FLAGS = ("small_n", "pooled", "pooled_group", "named_period")
 SEXES = ("", "male", "female")
 SOURCE_KINDS = {"chapters": "genereviews", "papers": "cohort_paper"}
 ACCESS_PATHS = ("genereviews-snapshot", "europepmc-fulltext", "europepmc-abstract")
@@ -429,7 +429,8 @@ def quote_found(quote: str, text: str) -> bool:
 
 
 def quote_words(quote: str) -> int:
-    return len([w for w in normalise(quote.replace(QUOTE_GAP.strip(), " ")).split(" ") if w])
+    """Words of a quote: tokens with a letter or digit (table pipes and the ` ... ` gap do not count)."""
+    return sum(bool(re.search(r"\w", w)) for w in normalise(quote).split(" "))
 
 
 # --- Row checks -----------------------------------------------------------------
@@ -500,14 +501,25 @@ def check_rows(
             bad("source_id is not a source of this shard")
             continue
         gene, disease = row["gene"].strip(), row["disease_id"].strip()
-        if row["construction_unit"] != f"{gene}|{disease}":
+        flags = [f for f in row["flags"].split(";") if f]
+        units = [tuple(u.split("|", 1)) for u in row["construction_unit"].split(";") if u]
+        if "pooled_group" in flags:
+            if len(units) < 2 or units[0] != (gene, disease) or len({u[1] for u in units}) < 2:
+                bad(
+                    "a pooled_group row lists its group in construction_unit: 'gene|disease_id;...', "
+                    "starting with the row's own unit, covering at least two diseases"
+                )
+            if len(set(units)) != len(units):
+                bad("construction_unit lists a unit twice")
+        elif units != [(gene, disease)]:
             bad(f"construction_unit must be '{gene}|{disease}'")
-        if gene.upper() in b.eval_genes:
-            bad(f"{gene} is an evaluation gene (litpanel-split-v3)")
-        if disease in b.eval_diseases:
-            bad(f"{disease} is an evaluation disease (litpanel-split-v3)")
-        if (gene, disease) not in src.units:
-            bad(f"{gene}|{disease} is not a unit this source may feed (shards.tsv)")
+        for g, d in dict.fromkeys([(gene, disease), *(u for u in units if len(u) == 2)]):
+            if g.upper() in b.eval_genes:
+                bad(f"{g} is an evaluation gene (litpanel-split-v3)")
+            if d in b.eval_diseases:
+                bad(f"{d} is an evaluation disease (litpanel-split-v3)")
+            if (g, d) not in src.units:
+                bad(f"{g}|{d} is not a unit this source may feed (shards.tsv)")
         if row["source_kind"] != src.source_kind:
             bad(f"source_kind must be {src.source_kind}")
         if row["licence"] != src.licence:
@@ -519,7 +531,6 @@ def check_rows(
             bad(f"chapter cites R1 held-out PMIDs {b.chapter_heldout[row['source_id']]}")
         if row["source_id"] not in row["citation"]:
             bad("citation must contain the source_id")
-        flags = [f for f in row["flags"].split(";") if f]
         if set(flags) - set(FLAGS):
             bad(f"unknown flags {sorted(set(flags) - set(FLAGS))}; allowed {FLAGS}")
         if row["sex_restriction"] not in SEXES:

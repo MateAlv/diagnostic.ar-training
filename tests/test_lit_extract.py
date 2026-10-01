@@ -52,7 +52,7 @@ def test_render_sections_and_quotes():
     assert le.quote_found("Seizures   occur in 12/20", desc)
     assert le.quote_found("Feature | % ... Ataxia | >99%", table)
     assert not le.quote_found("Ataxia | >99% ... Feature | %", table)
-    assert le.quote_words("a b ... c") == 3
+    assert le.quote_words("a b ... c | 4%") == 4
 
 
 def test_construction_entities_and_shards():
@@ -133,7 +133,7 @@ def check(rows, **boundary):
     text = le.render_jats(NXML)
     sources = {
         "NBK10": le.ShardSource(
-            "NBK10", "chapters", "genereviews", le.GENEREVIEWS_LICENCE, {("GA", "OMIM:1")}
+            "NBK10", "chapters", "genereviews", le.GENEREVIEWS_LICENCE, {("GA", "OMIM:1"), ("GB", "OMIM:3")}
         ),
         "PMID:5": le.ShardSource("PMID:5", "papers", "cohort_paper", "cc by", {("GA", "OMIM:1")}),
     }
@@ -183,6 +183,14 @@ def test_check_rows_passes_and_fails():
         problems = check(rows)
         assert any(message in p for p in problems), (message, problems)
     assert any("evaluation gene" in p for p in check([base_row()], eval_genes={"GA"}))
+    group = base_row(construction_unit="GA|OMIM:1;GB|OMIM:3", flags="pooled_group", population="all types")
+    assert check([group]) == []
+    assert any(
+        "starting with the row's own unit" in p for p in check([dict(group, construction_unit="GA|OMIM:1")])
+    )
+    assert any(
+        "GC|OMIM:4 is not a unit" in p for p in check([dict(group, construction_unit="GA|OMIM:1;GC|OMIM:4")])
+    )
     paper = base_row(source_id="PMID:5", citation="PMID:5 (PMC5)", source_kind="cohort_paper",
                      licence="cc by", access_path="europepmc-fulltext")  # fmt: skip
     assert check([paper]) == []
