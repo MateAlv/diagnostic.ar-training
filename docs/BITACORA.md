@@ -2429,6 +2429,9 @@ only: **no R1-dev read in this task, whatever the result.**
 
 - Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
 
+### 2026-10-01 — data — lit-extract shards C036–C044 (ADR-0013)
+- Branch `phase3/lit-extract-C036-C044`, guide v4, one commit per shard, each `validate-shard` 0 problems (re-checked after merging main); C036–C040 first, C041–C044 after a pause; no Codex cross-check (central). **1,809 rows from 88 of 90 chapters** (C036 457, C037 235, C038 210, C039 170, C040 182, C041 145, C042 143, C043 129, C044 138); 2 `not_about_units` (worksheet fallbacks: ECCL → FGFR1 HH2, Temple → Kagami-Ogata units); `dxt lineage verify` passes.
+
 ### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
 - Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
 
@@ -2907,6 +2910,9 @@ profiles; the literature-enriched profiles come later, as candidate 6.
     literature rows of the slice arrive.
   - `load_presentation_ages` reads 40 rows.
   - Still no artifact registered.
+
+### 2026-10-01 — data — lit-extract chapter shards C054–C062 (ADR-0013)
+- Branch `phase3/lit-extract-C054-C062`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **424 rows (350 feature, 74 age, 7 of them `AGE_PRESENTATION`) from 84 of 90 chapters** (C054 42, C055 31, C056 41, C057 39, C058 58, C059 56, C060 58, C061 51, C062 48); 6 chapters with 0 rows, all `no_numbers` (enlarged parietal foramina, Baller-Gerold, PNKD, choroideremia, hemophilia B, PAH deficiency). Phenotypes without a matching unit skipped (e.g. adult PLAN, PLP1 null syndrome, SYNE1 AMC) and cone-dystrophy units left out of the achromatopsia pooled group. Open points for the guide (undefined age phrases such as "toddler years", phenotype-definition onsets, "consistent/constant" as always, Table legends with "++ = always present") listed in the PR.
 
 ### 2026-10-01 — data — lit-extract chapter shards C045–C053 (ADR-0013)
 - Branch `phase3/lit-extract-C045-C053`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **704 rows (660 feature, 44 age, 12 of them `AGE_PRESENTATION`) from 86 of 90 chapters** (C045 104, C046 100, C047 102, C048 90, C049 81, C050 74, C051 41, C052 58, C053 54); 4 chapters with 0 rows: NBK621478 (`not_about_units`: the EPAS1 unit is familial erythrocytosis 4, the chapter covers mosaic Pacak-Zhuang syndrome), NBK1129 (`no_numbers`: LQTS per-gene event shares come from a treated registry with genotype-positive relatives, the rest is cumulative risk), NBK1110 (`no_numbers`: PMM2-CDG table is verbal only) and NBK1118 (`no_numbers`: IPEX gives only an onset distribution and vague quantifiers). Work paused after C051 on request and resumed for C052–C053. Ambiguities found are listed in PR #73.

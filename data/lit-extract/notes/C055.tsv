@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1196	extracted	1	Table 2 frequency columns are verbal (nearly all/common/infrequent), no numeric legend; onset range 'most commonly' 2nd-5th decade hedged; Azores mean (large cohort) taken over Brazil mean 36 y
+NBK1197	extracted	3	rows pooled over TYROBP and TREM2 PLOSL units; skipped fracture age (feature onset, mean 27 y), 4th-decade dementia/personality onset (feature onsets), 'common' parkinsonism
+NBK1204	no_numbers	0	fewer than 40 reported; only feature lists and 'typically'/'most if not all' statements; no frequencies or stated onset
+NBK1210	extracted	2	onset 'mainly during infancy or adolescence (age 1-31)' is hedged, skipped; 'majority'/'most' cognitive decline and ID skipped; 60% figure is a gene share
+NBK1216	extracted	3	onset from the unhedged summary (early childhood); body gives mean hearing-loss onset ~18 months; 'seizures are not characteristic' (hedged) skipped; feature onsets (dystonia teens, vision ~20 y, dementia ~40 y) not disease onset
+NBK1221	no_numbers	0	onset hedged ('typically') and contradictory (Suggestive Findings: infancy; body: infancy or childhood; summary: childhood or early teens); 50%-60% is a change in attack frequency; penetrance 98% skipped
+NBK1222	extracted	5	males; foveal lesion-type shares (3%, 34%, 8%, 31%) are mutually exclusive categories with a combinations bin, skipped; carrier females not extracted
+NBK1225	extracted	7	'in all affected individuals' list of the congenital-onset form; onset of that form skipped (heading says congenital, summary says infantile); childhood-onset family (8 persons) has no stated counts
+NBK1227	extracted	5	skipped prodromal symptoms 30%-50% (bundle), scrotal swelling 2%-5% of males (no HPO term), AA amyloidosis kidney >90% (conditional), onset 'typically' early childhood (hedged)
+NBK1237	extracted	5	rows pooled over the RTS type 1 and type 2 units; skipped 75% 'at least one major skeletal abnormality' (bundle), cataract 'as high as 50%', median osteosarcoma age (feature onset), rash onset 3-6 months ('usually')

@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1128	no_numbers	0	no frequencies or onset ages; features only 'usually', 'occasionally', 'a minority'
+NBK1137	extracted	1	onset 'usually' age 2-7 skipped (hedged), used unhedged 'childhood-onset'; orbital involvement age range is a feature onset among rare cases
+NBK1142	extracted	2	skipped first-manifestation shares ('more than half' myoclonus, 'almost half' GTCS), one third wheelchair bound (no HPO term), hedged statements
+NBK1149	extracted	3	Table 1 symbols have no numeric legend; skipped one third gastrostomy (treatment), 'almost all' self-injury (vague), hedged onset of self-injury; no numbers for HRH (gout) unit
+NBK1150	extracted	1	only the infantile onset window; 50% respiratory death is mortality; adult and childhood ages hedged or vague ('middle age', 'later in childhood')
+NBK1154	extracted	13	largest cohort per feature (Anheim n=90 for strabismus and OMA; Italian 20% and Algerian 32%/37% noted); onset from the chapter summary (3-30 y; body gives 7-25 y mean 14.6 in Anheim); movement disorders 14% is one number for several features; extrapyramidal 20% overlaps it, skipped
+NBK1159	extracted	6	onset from unhedged 'starting at age one to three years'; trial ID categories taken as stated for the trial population (average/below average/borderline have no HPO term); skipped treatment outcomes (37/39, 84%) and 'about half' living independently
+NBK1165	extracted	7	Table 2 onset per phenotype; skipped personality traits 58% (no exact HPO term), 27% psychiatric risk, 'up to 18%' hyperparathyroidism, 'nearly all' cataract, 50% wheelchair before death, penetrance
+NBK1178	extracted	6	skipped autoimmune 25%-40% (risk among survivors), cumulative bleeding and infection risks by age, mortality shares, XLN MDS/AML risk, Table 2 (scoring system)
+NBK1182	extracted	3	Table 2 onset per phenotype; PLP1 null syndrome not clearly PMD or SPG2, skipped; uncomplicated SPG2 onset hedged ('usually')
