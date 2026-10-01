@@ -1,0 +1,59 @@
+{
+ "base": "lit-sources-v1",
+ "by_status_reason": {
+  "fail:abstract:association": 97,
+  "fail:abstract:database": 7,
+  "fail:abstract:diagnostic_yield": 36,
+  "fail:abstract:few_positives": 14,
+  "fail:abstract:penetrance": 29,
+  "fail:abstract:sequenced_cohort": 21,
+  "fail:no_per_unit_n_ge_20": 71,
+  "fail:pub_type:trial": 24,
+  "fail:title:biomarker": 16,
+  "fail:title:carriers": 26,
+  "fail:title:database": 7,
+  "fail:title:disease_group": 29,
+  "fail:title:family_report": 14,
+  "fail:title:model_organism": 9,
+  "fail:title:n_lt_20": 10,
+  "fail:title:review": 5,
+  "fail:title:screening_method": 160,
+  "fail:title:single_patient": 18,
+  "fail:title:treatment": 28,
+  "fail:title:variant_level": 73,
+  "pass:bare_count_single_unit_title": 183,
+  "pass:count_noun_with_unit": 82,
+  "pass:count_unit_noun": 31,
+  "pass:unit_cohort_of_n": 9
+ },
+ "calibration": {
+  "dead_end_fail": 9,
+  "dead_end_pass": 0,
+  "papers": 12,
+  "per_paper": {
+   "PMID:23842438": "extracted -> pass (bare_count_single_unit_title)",
+   "PMID:26029710": "not_cohort -> fail (title:variant_level)",
+   "PMID:26762237": "not_cohort -> fail (title:screening_method)",
+   "PMID:27081547": "not_cohort -> fail (abstract:diagnostic_yield)",
+   "PMID:30732635": "extracted -> pass (bare_count_single_unit_title)",
+   "PMID:32228044": "not_about_units -> fail (pub_type:trial)",
+   "PMID:32731933": "not_cohort -> fail (title:carriers)",
+   "PMID:32793418": "not_cohort -> fail (title:disease_group)",
+   "PMID:34355424": "extracted -> pass (count_noun_with_unit)",
+   "PMID:35053399": "no_numbers -> fail (title:database)",
+   "PMID:41577745": "not_cohort -> fail (abstract:diagnostic_yield)",
+   "PMID:41751611": "not_cohort -> fail (abstract:diagnostic_yield)"
+  },
+  "qualified_fail": 0,
+  "qualified_pass": 3
+ },
+ "calibration_shards": [
+  "P001"
+ ],
+ "llm_classification": "none: every paper decision is the deterministic re-screen",
+ "rescreened": 999,
+ "selected_in_base": 1011,
+ "subset": 305,
+ "subset_genes": 304,
+ "subset_with_weak_gene": 197
+}
