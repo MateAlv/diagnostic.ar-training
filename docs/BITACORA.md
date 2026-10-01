@@ -2333,3 +2333,18 @@ only: **no R1-dev read in this task, whatever the result.**
   `cases.keep160.jsonl`) stay in `rare-disease-simulator/outputs/v0.5.1-cand5-full/`.
 - **Verdict:** ❌ candidate 5 stops at the train-side go/no-go on G2c and
   G2d, and passes G2a, G2e and G2b-train. No fix was designed here.
+
+### 2026-10-01 — result + analysis — candidate 5 (train-side) and ANALYSIS-005
+- **Candidate 5** (sim 0.5.1, `simcal-v051-v1`; PR #53):
+  - passes G1, G2a (0.306), G2e (gap **0.049**, the first pass) and
+    G2b-train (0.537);
+  - fails G2c (1.908) and G2d (0.809).
+  - No R1-dev read.
+- **ANALYSIS-005:**
+  - The strongest separating feature is term count. Simulated records for
+    R1 genes average 14.3 terms vs 8.1 real.
+  - Simulated record size follows the profile's true-term count
+    (ρ 0.966); real record size only partly does (0.532).
+- **ADR-0011 amendment 7:** candidate 6 uses budget-normalised independent
+  reporting (simulator 0.5.2), plus the enriched profiles and presentation
+  ages when ready.

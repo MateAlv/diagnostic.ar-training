@@ -1,0 +1,9 @@
+{
+ "genes_with_>=10_r1_train": 84,
+ "mean_terms_per_case_real": 8.6,
+ "mean_terms_per_case_sim": 13.38,
+ "spearman_real_vs_sim_record_size_by_gene": 0.552,
+ "spearman_sim_record_size_vs_sim_true_terms": 0.966,
+ "spearman_real_record_size_vs_sim_true_terms": 0.532,
+ "sim_over_real_ratio_median": 1.33
+}

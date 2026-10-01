@@ -344,3 +344,22 @@ exists.
    G2b-train; age reported), with `dxt sim realism --no-dev`. **No R1-dev
    read in this round, whatever the result.** The last R1-dev read goes to
    the better of candidates 5 and 6, when Mateo decides.
+
+## Amendment 7 (2026-10-01): candidate 6 reporting (fixed before any candidate 6 number)
+Based on ANALYSIS-005.
+- **Simulator 0.5.2 adds budget-normalised independent reporting.** Per
+  case:
+  1. draw k from `reporting.profile_budget_histogram`, i.e. the histogram
+     of explained terms per uncited R1-train patient (vs kb-v3);
+  2. find c by bisection so that Σ_t min(1, c·q_t) = min(k, number of true
+     terms), where q_t = π_t / f_t;
+  3. report each true term with probability min(1, c·q_t).
+- **Noise:** proportional, as in candidate 5.
+- **Pilots:** `q_scale` no longer matters in this mode. r and s are piloted
+  as in amendment 6 (at most 3 rounds, R1-train targets).
+- **Profiles:** candidate 6 uses `hpoa-enriched-v1` and
+  `presentation-ages-v1` (ADR-0013) once they exist. If the literature is
+  late, candidate 6a may run on the current profiles to check the reporting
+  change, train-side only.
+- **The last R1-dev read** stays reserved. It is spent only on a candidate
+  passing every train-side stop condition, and with Mateo informed.
