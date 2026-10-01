@@ -1,0 +1,11 @@
+item	shard	row	source_id	gene	disease_id	disease_name	feature_label	hpo_id	population	sex_restriction	citation	section	passage_chars
+0001	C001	2	NBK1334	ANOS1	OMIM:308700	Hypogonadotropic hypogonadism 1 with or without anosmia	Digital synkinesia	HP:0001335	males with ANOS1 variants	male	GeneReviews NBK1334 (Isolated Gonadotropin-Releasing Hormone (GnRH) Deficiency)	Table 3	3966
+0002	C001	14	NBK1509	REEP2	OMIM:615625	Spastic paraplegia 72, autosomal recessive	AGE_ONSET		all affected		GeneReviews NBK1509 (Uncomplicated (Pure) Hereditary Spastic Paraplegia Overview)	Table 1	4245
+0003	C001	34	NBK596643	EVC	OMIM:225500	Ellis-Van creveld syndrome	Thoracic narrowing	HP:0000774	all EVC syndrome, pooled across genes		GeneReviews NBK596643 (Ellis-van Creveld Syndrome)	Table 2	711
+0004	C001	35	NBK596643	EVC	OMIM:225500	Ellis-Van creveld syndrome	Dental anomalies	HP:0000164	all EVC syndrome, pooled across genes		GeneReviews NBK596643 (Ellis-van Creveld Syndrome)	Table 2	711
+0005	C001	67	NBK1520	MT-TH	OMIM:545000	Myoclonic epilepsy associated with ragged-red fibers	Ragged red fibers	HP:0003200	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		GeneReviews NBK1520 (MERRF)	Table 2	917
+0006	C001	74	NBK1520	MT-TH	OMIM:545000	Myoclonic epilepsy associated with ragged-red fibers	Impaired sensation	HP:0003474	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		GeneReviews NBK1520 (MERRF)	Table 2	917
+0007	C001	77	NBK1520	MT-TH	OMIM:545000	Myoclonic epilepsy associated with ragged-red fibers	Arrhythmia	HP:0011675	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		GeneReviews NBK1520 (MERRF)	Table 2	917
+0008	C001	80	NBK1520	MT-TH	OMIM:545000	Myoclonic epilepsy associated with ragged-red fibers	Ophthalmoparesis	HP:0000597	MERRF cohort of 321 (Mancuso 2013 literature review), pooled		GeneReviews NBK1520 (MERRF)	Table 2	917
+0009	C001	82	NBK1520	MT-TH	OMIM:545000	Myoclonic epilepsy associated with ragged-red fibers	Diabetes mellitus	HP:0000819	MERRF cohort of 321 (Mancuso 2013 literature review), pooled		GeneReviews NBK1520 (MERRF)	Table 2	917
+0010	C001	98	NBK1324	IGF2	OMIM:180860	Silver-Russell syndrome 1	Asymmetry	HP:0100555	SRS with 11p15.5 LOM (Lin 2021)		GeneReviews NBK1324 (Silver-Russell Syndrome)	Genotype-Phenotype Correlations	3547
