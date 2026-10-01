@@ -12,6 +12,7 @@
 | Actions only Mateo or the team can take (licenses, billing) | [TODO.md](TODO.md) |
 | Why things are the way they are | [decisions/](decisions/README.md) |
 | An experiment's hypothesis, gate, configs tried, results | `experiments/<EXP-id>.md` ([template](experiments/TEMPLATE.md)) |
+| How a shard agent extracts literature facts (ADR-0013) | [lit/EXTRACTION_GUIDE.md](lit/EXTRACTION_GUIDE.md) |
 | Agent rules (Claude, Codex, …) | [../CLAUDE.md](../CLAUDE.md) (`AGENTS.md` is a symlink to it) |
 
 ## Glossary

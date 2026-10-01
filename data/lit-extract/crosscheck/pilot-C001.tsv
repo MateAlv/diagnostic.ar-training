@@ -1,0 +1,11 @@
+item	shard	row	source_id	gene	disease_id	feature_label	hpo_id	population	sex_restriction	section	ours_low	ours_point	ours_high	other_found	other_low	other_point	other_high	other_n	other_quote	agree	resolution
+0001	C001	2	NBK1334	ANOS1	OMIM:308700	Digital synkinesia	HP:0001335	males with ANOS1 variants	male	Table 3		0.8		true		0.8			Digital synkinesia (in ~80% males)	true	
+0002	C001	14	NBK1509	REEP2	OMIM:615625	AGE_ONSET		all affected		Table 1	4	4.0	4	true	4.0	4.0	4.0		REEP2 | SPG72A (OMIM 615625) | Very early; average age 4 yrs	true	
+0003	C001	34	NBK596643	EVC	OMIM:225500	Thoracic narrowing	HP:0000774	all EVC syndrome, pooled across genes		Table 2		0.66		true		0.66			Thoracic narrowing | 66% | Typically symmetric	true	
+0004	C001	35	NBK596643	EVC	OMIM:225500	Dental anomalies	HP:0000164	all EVC syndrome, pooled across genes		Table 2		0.59		true		0.59			Dental anomalies | 59% |	true	
+0005	C001	67	NBK1520	MT-TH	OMIM:545000	Ragged red fibers	HP:0003200	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		Table 2		0.92		true		0.92			Ragged red fibers | 92% | 96% |	true	
+0006	C001	74	NBK1520	MT-TH	OMIM:545000	Impaired sensation	HP:0003474	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		Table 2		0.5		true		0.5			Impaired sensation | 50% |  |	true	
+0007	C001	77	NBK1520	MT-TH	OMIM:545000	Arrhythmia	HP:0011675	MERRF cohort of 62 (Hirano & DiMauro 1996), pooled		Table 2		0.22		true		0.22			Arrhythmia | 22% | 18% |	true	
+0008	C001	80	NBK1520	MT-TH	OMIM:545000	Ophthalmoparesis	HP:0000597	MERRF cohort of 321 (Mancuso 2013 literature review), pooled		Table 2		0.06		true		0.06			Ophthalmoparesis | 11% | 6% | 6%	true	
+0009	C001	82	NBK1520	MT-TH	OMIM:545000	Diabetes mellitus	HP:0000819	MERRF cohort of 321 (Mancuso 2013 literature review), pooled		Table 2		0.03		true		0.03			Diabetes mellitus |  | 12% | 3%	true	
+0010	C001	98	NBK1324	IGF2	OMIM:180860	Asymmetry	HP:0100555	SRS with 11p15.5 LOM (Lin 2021)		Genotype-Phenotype Correlations		0.76		true		0.76			Asymmetry was seen in 76% of individuals with 11p15.5 LOM vs 50% of individuals with upd(7)mat.	true	

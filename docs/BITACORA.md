@@ -2348,3 +2348,60 @@ only: **no R1-dev read in this task, whatever the result.**
 - **ADR-0011 amendment 7:** candidate 6 uses budget-normalised independent
   reporting (simulator 0.5.2), plus the enriched profiles and presentation
   ages when ready.
+
+### 2026-10-01 — data — lit-extract tooling; pilot shard C001 (ADR-0013)
+- **Branch** `phase3/lit-extract-tooling`. No sealed data read; R1 held-out
+  PMIDs used only as a mask; no evaluation unit can be written (validator).
+- **Tooling** (`src/diagnostic_ar_training/{cli_lit_extract,knowledge/lit_extract}.py`,
+  guide `docs/lit/EXTRACTION_GUIDE.md`, wrapper `scripts/lit/dxt-local`):
+  - `dxt lit shards`: `data/lit-extract/shards.tsv` from `lit-sources-v1`:
+    **70 chapter shards** (C001–C070, 10 each in P1→P4 order; last has 5)
+    and **85 paper shards** (P001–P085, 12 each in list order; last has 3).
+    Each source lists the (gene, disease) units it may feed: 1,493 for
+    chapters, 2,333 for papers; no source is left without a unit;
+  - `dxt lit fetch-text`: plain text of each source, rendered from the
+    GeneReviews snapshot NXML or Europe PMC `fullTextXML` (abstract
+    fallback), cached in `data/interim/lit-text/` (gitignored), plus a
+    per-shard worksheet;
+  - `dxt lit hpo`: label/synonym lookup in the pinned HPO;
+  - `dxt lit validate-shard`: HPO current and under HP:0000118; counts and
+    prevalence consistent; quote ≤ 25 words and verbatim **inside the named
+    section or table**; unit allowed by `shards.tsv` and not a
+    `litpanel-split-v3` gene or disease; no held-out PMID; notes cover every
+    source. Writes `data/lit-extract/reports/<shard>.json`, exits 1;
+  - `dxt lit crosscheck prepare|run|score`: seeded per-shard 10% sample
+    (seed 20261001), blind prompt (unit, feature, population, citation,
+    never our numbers or quote) with the cited section on stdin,
+    `codex exec --ephemeral -s read-only --output-schema`, panel agreement
+    rule (ages: overlap or within max(1 y, 10%)).
+- **Pilot C001** (the 10 first P1 chapters), extracted by me following the
+  guide; `validate-shard` 0 problems:
+  - **100 rows** from 9 of 10 chapters: 80 feature rows, 20 age rows;
+    27 units; 23 rows with counts, 11 with ranges;
+  - per chapter: CMS 0 (gene shares only), GnRH deficiency 3, HSP 18 (onset
+    per gene), ADSHE 6, EVC 11, PGL/PCC 1, albinism 5, BWS 19, MERRF 19,
+    Silver-Russell 18;
+  - about 12 minutes of wall time to a passing validation, plus about 3
+    minutes spent reading EVC while writing the guide.
+- **Cross-check** (`data/lit-extract/crosscheck/pilot-C001.*`): 10 of 100
+  rows; Codex 0.155.1, about 8 s per item. **10/10 agree** (Wilson 95% CI
+  0.72–1.00). Caveat: the passage is the cited section and the population
+  is named, so this checks the number, not the unit, population or HPO
+  choice, nor what was missed.
+- **Problems met and guide changes (v1 → v2, commit `182ee6e`):**
+  - figures pooled over several diseases (albinism overview) would have
+    been dropped: added `pooled_group` rows, recorded once with the group's
+    units listed in `construction_unit`; propagation is left to the
+    `hpoa-lit-v1` build;
+  - a pooled table can belong to an umbrella unit (ADSHE →
+    `CRH|ORPHA:98784`): added the rule;
+  - worksheet units can be another disease (main-entity fallback: CDKN1C →
+    BWS in the Silver-Russell chapter; ADAR, DNM2 in HSP; AD vs AR SPG30):
+    agents must check each unit's disease name;
+  - multi-cohort tables (MERRF: 62 / 34 / 321): largest denominator with
+    a header-plus-row quote;
+  - added skip rules for category bundles, one number for several
+    features, conditional shares, features with no HPO term; carrier
+    penetrance vs tumour risk among affected; decades and period spans for
+    ages; quote word counts ignore table pipes.
+- `dxt lineage verify` passes.
