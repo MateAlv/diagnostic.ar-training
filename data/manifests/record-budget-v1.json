@@ -1,0 +1,31 @@
+{
+  "artifact_id": "record-budget-v1",
+  "kind": "simulator-calibration-keys",
+  "created_at": "2026-10-01T17:59:14+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "751eb7a3eb40549d119101fac488d2d53f9725fd",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:report-model-v2",
+      "sha256": "1be9413b8b4b040b4f07c60ffe693879f848d869c8db906e9a858fb827b7f6b4"
+    }
+  ],
+  "params": {
+    "statistic": "report-model term_budget histogram, copied as is",
+    "reads": "R1-train (through the report model's term_budget)",
+    "report_model": "report-model-v2"
+  },
+  "params_hash": "685c4c7c6bca40da53e994eecb677bc2412773e3bd595db6694ec62f392a6d53",
+  "outputs": [
+    {
+      "path": "data/calib/record-budget-v1.json",
+      "sha256": "d0d43bc523c84f63481737a1c7842fc336f08629b3189277253ca6585b8272e5",
+      "bytes": 1329
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
