@@ -1,0 +1,99 @@
+{
+ "code": {
+  "dirty": false,
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "010990a6c972572f5714cae07fba336d826db1c0"
+ },
+ "notes_sha256": "a552cdf8e4d332c4fc67012bc891504c830d85d8b74aed14d3f6e883008d323e",
+ "problems": [],
+ "rows_sha256": "e4c48cd6e3b58a5f1c6072ad6d1fb71f0cdc179edc992000dc821943e7f5df37",
+ "shard": "C066",
+ "sources": {
+  "NBK349073": {
+   "access_path": "genereviews-snapshot",
+   "rows": 5,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "dd5047b3224133098efe55759872beb304821c309fa43518f2e35ecc814b788f"
+  },
+  "NBK390610": {
+   "access_path": "genereviews-snapshot",
+   "rows": 1,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "11c1dd69691827f7943b2788eaf5561b3b7dc62f503018efac6789449388217d"
+  },
+  "NBK390611": {
+   "access_path": "genereviews-snapshot",
+   "rows": 8,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "16902a45ceb82bd9e86a294a81512827efd4c1d6c475ba1752bf9e7e22d87c1f"
+  },
+  "NBK395975": {
+   "access_path": "genereviews-snapshot",
+   "rows": 1,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "a75e8e71ada97bce2b3b62e9d8644133a427086d678fdcf13162c3f8b4a24ee0"
+  },
+  "NBK424403": {
+   "access_path": "genereviews-snapshot",
+   "rows": 1,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "45fbc3c357f0189bd07ffcffc710020b67e62399f0546c53d7e1fe41e201c825"
+  },
+  "NBK426063": {
+   "access_path": "genereviews-snapshot",
+   "rows": 27,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "fed4c421e0def35243dbf3eda2518bee8ba5507464079fb2d734cb81f52d41f3"
+  },
+  "NBK431123": {
+   "access_path": "genereviews-snapshot",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "8ea18f6dd828e05f5234ba1d9e9e5d2eb34f7d49a5b2c887ad81c4ce6c1190a0"
+  },
+  "NBK447920": {
+   "access_path": "genereviews-snapshot",
+   "rows": 5,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "056475a1e394a92a5b84a659781b07e88949f9ef642858cf6caca4718bdde688"
+  },
+  "NBK453432": {
+   "access_path": "genereviews-snapshot",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "4cde5c0a2a9612040361fef419310392e59f74303bf545bded6464d4c8507831"
+  },
+  "NBK465012": {
+   "access_path": "genereviews-snapshot",
+   "rows": 14,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "b1958b112c27f09280591f27a8130a9587fbd77244999857cc12fa9d65310f0c"
+  }
+ },
+ "stats": {
+  "age_rows": 2,
+  "feature_rows": 60,
+  "flags": {
+   "named_period": 1,
+   "pooled": 5,
+   "small_n": 5
+  },
+  "rows": 62,
+  "rows_per_source": {
+   "NBK349073": 5,
+   "NBK390610": 1,
+   "NBK390611": 8,
+   "NBK395975": 1,
+   "NBK424403": 1,
+   "NBK426063": 27,
+   "NBK447920": 5,
+   "NBK465012": 14
+  },
+  "rows_with_counts": 42,
+  "rows_with_range": 1,
+  "sex_restricted": 2,
+  "units": 8
+ },
+ "status": "pass",
+ "validated_utc": "2026-10-01T17:59:37+00:00"
+}

@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK100241	extracted	3	Table 2 uses symbols without numeric legend; hypermanganesemia 'all' vs 'majority' conflict skipped; normal intellect hedged ('appears')
+NBK100664	extracted	6	skipped p.Arg95Trp microtia/inner-ear counts (absence counts, complements); 'most' microtia
+NBK107219	extracted	12	skipped lifetime/cumulative cancer risks (Table 3), right-sided and synchronous CRC (conditional), 'up to one third'; for same population took the largest cohort (endometrial 2/118 not 4/45, skin 13/276 not 8/81, thyroid cancer 2/276 not 3/24, thyroid nodules 2/82 not 16/24)
+NBK114459	extracted	4	LGMD-R12 mean onset 35 (Suggestive Findings) not used, range from Clinical Description kept; cardiac figures pooled over the ANO5 cohort
+NBK114806	extracted	5	skipped 'nearly all'/'majority' features, growth bundle 18%, malrotation in 8 (no denominator)
+NBK114807	extracted	2	summary photosensitivity ~20% skipped in favour of the cohort's 13% cutaneous findings; acute attack ages hedged ('mainly'); penetrance figures skipped
+NBK121283	no_numbers	0	only penetrance figures (share of heterozygotes with attacks) and hedged onset ('typically adulthood', 'any age after puberty')
+NBK154378	extracted	2	skipped neonatal vs post-neonatal shares (not features), 15% symptomatic heterozygotes (penetrance), 'internalizing problems' ~50% (bundle, no HPO term)
+NBK154652	extracted	1	only photosensitivity onset; feature frequencies are vague ('common', 'most')
+NBK169615	extracted	3	onset per phenotype from the definitional ages; 'nearly always' dystonia and infantile spasms in four (no denominator) skipped
