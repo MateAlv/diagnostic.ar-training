@@ -284,6 +284,33 @@ and the row joined with ` ... ` (§10). Write one row. Different populations
 of the same feature (males vs females, biallelic vs heterozygous, 11p15 LOM vs
 all SRS, adults vs children) are separate rows.
 
+## 6a. Rulings on edge cases (v4)
+These settle the ambiguities that the C002–C035 batches reported. When in
+doubt, skip and write a note.
+
+| Case | Ruling |
+|---|---|
+| Several separate cohorts of the **same** population in one source (e.g. onset in cohorts of 28 vs 29) | Take the largest cohort; name the others in the notes |
+| Explicit, unhedged absence ("not observed in any of the 40", "is absent", "never") | `prevalence 0`, with counts if stated. Hedged absence ("rarely if ever") is skipped. "All normal" is never read as a complement |
+| A hedge in the body, but unhedged wording in a summary or table | Use the unhedged statement and quote it. If every statement is hedged, skip |
+| Frequency-bin tables with a legend that gives numbers (">75% / 25–75% / <25%") | `prevalence` = the bin midpoint, `low`/`high` = the bin limits, flag `binned`. "+++ = always present" gives 1 **only if** the legend says so. Symbols with no numeric legend are skipped |
+| An organ-level category | Keep it when one HPO term covers the whole category (renal anomalies → HP:0000077). Multi-system or mixed categories are bundles (§6), so skip them |
+| "A and/or B" with one number | Record it only when a single HPO term covers both; otherwise skip |
+| Sub-items listed under a parent percentage ("neurologic signs 68%: ataxia 71%") | Skip the sub-items (conditional), unless the source says they are shares of all affected individuals |
+| "invariable", "universal", "always" | `prevalence 1` |
+| "at least X%" | `prevalence X`, `low X`, `high 1`, flag `lower_bound` |
+| "nearly X", "almost X", "nearly half", "upward of" | Skip (vague) |
+| Lifetime or cumulative risk by an age, among affected **or** carriers (cancer by 50, SCC in RDEB) | Skip; it is not a prevalence among the affected. A stated tumour prevalence in an affected cohort still counts |
+| Diagnosis → Suggestive Findings with a stated prevalence | Allowed (skip only gene-share tables there) |
+| One gene, one chapter, several OMIM diseases (WT1, FLNA, CYLD spectra) | `pooled_group` over those units |
+| One disease under two unit ids (NKH via AMT/ORPHA and GLDC/OMIM) | One `pooled_group` row listing both units |
+| Populations defined by treatment status or time of diagnosis | Use the untreated or at-diagnosis population; skip treated-subgroup outcomes |
+| Table and text disagree | Use the table; note the difference |
+| Onset of the defining feature used as disease onset (first Wilms tumour, first paralytic attack) | Allowed as `AGE_ONSET` when the source presents it as the disease's onset |
+| Age phrases | "teens" → 13–19; "Xs" (a decade) → X–X+9; "early Xs" → X–X+3; "late Xs" → X+7–X+9; "within the first year" → 0–1; "neonatal" or "perinatal" → 0–0.08; mean or median only → low = high = that value; a median with IQR → low/high = the IQR |
+| `n_affected` with no stated `n_assessed` | Leave both counts empty and keep the prevalence |
+| A sub-heading missing from the text file | `section` = the nearest heading present in the text file |
+
 ## 7. Mapping a feature to HPO
 
 Use the **most specific current HPO term that the text supports**, no more
@@ -508,3 +535,9 @@ adult onset)` → low 0.08, high 5, `named_period`.
   section in §3: the per-unit 20-patient rule, own-cohort data only,
   definitions from Methods, yes/no cells, prenatal ages, screening age is not
   presentation age, empty tables.
+- v4 (after batches C002–C035): §6a rulings on cohorts of one population,
+  absence, hedges, frequency bins, organ categories, "and/or", sub-items,
+  quantifiers, lifetime risk, Suggestive Findings, gene spectra, duplicate
+  disease ids, treatment-defined populations, table vs text, defining-feature
+  onset, age phrases, missing denominators and missing headings. Shards
+  extracted before v4 are not re-extracted; the audit checks them against v4.
