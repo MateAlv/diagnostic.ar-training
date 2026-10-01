@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK55063	extracted	11	skipped infra/supra-auricular defects 60% (no HPO term), cleft lip or philtral pillars 99% (ambiguous bundle), vague psychomotor/growth items; Lam review counts not summed
+NBK56080	extracted	1	only the onset criterion; clinical findings described without numbers
+NBK62112	extracted	1	onset at birth only; adult heights and birth length are not feature frequencies
+NBK63582	no_numbers	0	SCADD described as a biochemical phenotype; follow-up counts are of absent findings and ages are NBS ascertainment
+NBK83297	extracted	1	onset of muscle weakness only; cardiomyopathy onset hedged ('usually'), scoliosis age is a feature onset
+NBK84112	extracted	1	cohort mean onset pooled over the DNMT1 spectrum (only HSAN1E is a unit); skipped initial-manifestation shares (not prevalences) and acropathy 'ulcers and/or amputations' ~50% (no single HPO term)
+NBK84550	extracted	9	skipped severe anemia 6% (no HPO term), transfusion need and lymphoma mortality, Kaplan-Meier cancer risk by 65, adult heights
+NBK84551	extracted	1	Table 3 uses +/- symbols without numeric legend; presentation ages hedged ('typically', 'can')
+NBK97333	extracted	4	skipped enteral feeding 17/46 (treatment need), independent ambulation 15% (absence of a feature), 'majority'/'nearly all' MRI findings
+NBK99167	extracted	1	short stature pooled over POLR3 genes (POLR3B|OMIM:607694 left out: HLD7 is the POLR3A disease); 10% later onset is not a feature; onset hedged

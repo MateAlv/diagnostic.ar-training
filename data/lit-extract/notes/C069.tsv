@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK546576	extracted	10	Stam et al counts; skipped focal neurologic symptoms 40/72 (no fitting term), lifelong retinopathy in all carriers (penetrance), pseudotumor lesions 36/51 (no fitting term), psychiatric manifestations 26/62 (no single term), deceased migraine 12/16, age of death
+NBK547048	extracted	9	skipped 'majority' hypotonia, 'more than half' normal growth (complement), counts without denominators (three with ataxia, sleep disturbance)
+NBK549574	extracted	1	only the onset criterion; legal-blindness proportions by age are cumulative; other features hedged ('frequently', 'typically')
+NBK555474	extracted	5	skipped normal early motor development ~50% (not a feature), rare coincidental findings
+NBK558236	extracted	2	disease-level rows on ETFDH (majority of late-onset cases); skipped acute decompensation 33.1% (no fitting term), musculoskeletal symptoms 85.3% (bundle), type II and III onset hedged
+NBK570370	extracted	2	severe NASH 5%-10% of heterozygotes skipped (no HPO term for steatohepatitis); Tables 2-3 symbols without numeric legend; neuromuscular onset hedged ('typically')
+NBK579484	extracted	3	onset per phenotype from the summary definitions; cherry-red macula 'virtually all' (vague)
+NBK581081	not_about_units	0	only unit is GNA11|OMIM:145981 (familial hypocalciuric hypercalcemia type II), not CMTC; figures (body asymmetry 37.7%, leg length 13.6%) not used
+NBK589232	extracted	2	growth restriction and microcephaly 'in all' skipped (text gives an exception; table shows borderline microcephaly in Roifman); tables use '+++ = nearly all' (vague)
+NBK595820	extracted	11	DEE counts on the NEMMLAS unit, movement-disorder counts on PKDYS3; skipped onset (hedged), neuropsychiatric bundles 4/13 and 5/16, deaths 7/13, seizures in two (no denominator)

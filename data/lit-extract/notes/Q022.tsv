@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:33365504	not_about_units	0	LHON cohort (putative MT-TT variants in 20 probands); the only allowed unit is lethal infantile mitochondrial myopathy, a different disease
+PMID:30911575	not_cohort	0	8 new MTFMT patients pooled with 30 published cases (38); own cohort under 20 and all figures pool literature
+PMID:34681017	not_cohort	0	MYH14 screening of 8074 hearing-loss patients; 11 families; no unit reaches 20
+PMID:35346193	not_cohort	0	81 MYO15A cases but only 36 biallelic P/LP; every figure is over all 81, of whom 45 carry a VUS allele, so no figure describes a confirmed group; skipped
+PMID:40275102	extracted	2	37 affected from 26 families with P/LP MYO15A; skipped cochlear-implant outcomes (treatment), per-patient Table 1 (no tallies), normal temporal-bone imaging ('typical', complement)
+PMID:40887432	not_cohort	0	NARS2 screening of 397 early-onset diabetes cases; 8 homozygous; no unit reaches 20
+PMID:39482827	extracted	6	31 biallelic NEU1 sialidosis type I; skipped first-symptom shares, per-symptom onset IQRs (not disease onset), mobility counts without stated denominator, cognitive impairment (all but one, complement), MRI/EEG subsets (vague), published-cases column
+PMID:30941118	not_cohort	0	15 new NFKB2 patients pooled with 35 published cases; own cohort under 20 and cohort figures pool literature
+PMID:28623311	not_cohort	0	exome study of familial MS; NLRP1 variants in single families; MS is not a unit of this source
+PMID:38174310	extracted	17	32 NPHP1 homozygous-deletion patients (23 isolated, 9 syndromic): whole-cohort rows as pooled_group over NPH1, Senior-Loken 1 and Joubert 4; Table 3 used where it differs from text (oculomotor apraxia); skipped uremic-symptom bundle, proteinuria/haematuria/hypertension (counts without denominator), vermis hypoplasia (3% of 32 but MRI in 4), ESRD ages and clinical forms (not disease onset), transplant outcomes
+PMID:34859019	not_cohort	0	30 NPHS1 children, but only 19 with biallelic P/LP (11 carry a VUS, 1 monoallelic); every figure is over all 30; confirmed group under 20
+PMID:32189863	not_cohort	0	PCDH19 screening of 35 girls with early-onset epilepsy; 4 positive

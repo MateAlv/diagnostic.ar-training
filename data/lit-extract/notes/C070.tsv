@@ -1,0 +1,6 @@
+source_id	outcome	rows	note
+NBK599285	extracted	8	Table 2 counts (n=33) used over text where they differ (speech 25/33 vs 'all'; movement disorders 6 vs two); skipped Rett-like findings 16 (no HPO term), hypotonia in three (no denominator), seizure control 2/12
+NBK604494	no_numbers	0	Table 2 uses ++/+ ('often'/'rarely') without numeric legend; text frequencies vague ('most', 'common')
+NBK612410	extracted	15	Table 2 bins (legend <50% / >50% / 100%) for the NDD column pooled over both NARS1 units, flag binned; neuropathy column (n=11) has no unit; GDD/ID 'nearly all' text not used
+NBK622830	extracted	2	skipped microcephaly 'up to 25%', 'most' mild-to-moderate ID; onset hedged ('frequently', 'usually')
+NBK623826	extracted	32	unit is Verheij syndrome (OMIM:615583, the only PUF60 disease); chapter figures are for the whole PUF60 spectrum; skipped feeding difficulties and dysphagia 44% (two features), CHD list 4%-8% and '<20%' list (several features)

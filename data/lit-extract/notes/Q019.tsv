@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:27668283	not_cohort	0	one ANCL family (4 affected sibs, homozygous CTSF) plus 2 heterozygous FTD carriers; no unit reaches 20
+PMID:41624452	extracted	6	52 biallelic CUBN with isolated proteinuria (chronic benign proteinuria unit); skipped age at first proteinuria detection (mass urinary screening age), minor glomerular abnormality (no HPO term), normal kidney function except 1 (complement), RAS-inhibitor response (treatment)
+PMID:27508083	no_numbers	0	23 CYP1B1 PCG families (about 86 affecteds); only per-patient Table 1 (no tallies) and vague 'common symptoms'; first-year vision onset is stated for the whole enrolled cohort, not the CYP1B1 families, so skipped
+PMID:41819808	no_numbers	0	41 DSPP families qualify, but phenotypes only in vague terms (commonly, often, typically) and supplementary tables; detection rate not a feature
+PMID:33490161	no_numbers	0	20 biallelic DUOX2 CH; only transient vs permanent course and L-T4 dosing (treatment outcomes), per-patient Table 2, lab means; CH onset is newborn-screening age
+PMID:42181674	extracted	1	71 biallelic DUOX2 CH; delayed bone maturation per Methods DFEA < 0.22 cm2; skipped outcome-group shares (treatment course), severe-allele distribution (genotype), confirmatory-visit age (newborn-screening referral), lab means
+PMID:41678173	not_cohort	0	AI pathology study of somatic EGFR mutations in 2098 lung adenocarcinomas; not a germline cohort of either EGFR unit
+PMID:40626125	not_cohort	0	one new ERCC5 case plus a literature review of 59 published cases; no own cohort
+PMID:41533940	not_cohort	0	17 affected with bony CNLDO in total; largest confirmed group FGF10 about 12 (including 3 previously published families); IGSF3 3
+PMID:32342672	extracted	5	305 genetically confirmed LGMDR9 (registry); skipped homozygous-group onset ('appeared to present', hedged), presenting-symptom counts without denominator, wheelchair use (part-time vs full-time, no exact term), ventilation (treatment), running ability, other FKRP MDs (n=15)
+PMID:39408683	not_cohort	0	FKRP screening of 153 Duchenne/Becker-like patients; 16 positives; no unit reaches 20
+PMID:41440871	not_cohort	0	25 FLNC carriers (3 VUS-only) with mixed cardiomyopathy diagnoses; largest disease group DCM n=6, HCM 2, LVNC 1; no single unit reaches 20
