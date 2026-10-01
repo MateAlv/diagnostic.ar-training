@@ -24,6 +24,7 @@ PAGE_SIZE = 1000
 GENES_ID = "genes-v2"
 RECOUNT_ID = "hpoa-recount-v1"
 SPLIT_ID = "litpanel-split-v3"
+SOURCES_ID_V1 = "lit-sources-v1"
 PANEL_ROWS = DATA_DIR / "realism" / "extraction" / "curated.tsv"
 CHAPTER_COLUMNS = (
     "priority_rank", "priority_class", "shortname", "nbk", "title", "status", "n_index_genes",
@@ -183,6 +184,62 @@ def _write_tsv(rows: list[dict], columns: tuple[str, ...], path: Path) -> None:
         w = csv.DictWriter(h, fieldnames=list(columns), delimiter="\t", lineterminator="\n")
         w.writeheader()
         w.writerows({c: r[c] for c in columns} for r in rows)
+
+
+def _read_tsv(path: Path) -> list[dict]:
+    with path.open(encoding="utf-8", newline="") as h:
+        return list(csv.DictReader(h, delimiter="\t", quoting=csv.QUOTE_NONE))
+
+
+def _records_path(artifact_id: str) -> Path:
+    return INTERIM_DIR / "lit-sources" / artifact_id / "epmc-records.jsonl.gz"
+
+
+def _selected_pmids(base_id: str) -> list[str]:
+    return [p["pmid"] for p in _read_tsv(_verified(base_id, "papers.tsv")) if p["status"] == "selected"]
+
+
+@lit_app.command("rescreen-fetch")
+def rescreen_fetch(
+    artifact_id: str = typer.Option(..., "--id", help="The re-screen artifact, e.g. lit-papers-v2"),
+    base_id: str = typer.Option(
+        SOURCES_ID_V1, "--base", help="The frozen list whose selected papers are re-screened"
+    ),
+) -> None:
+    """Fetch title, abstract and publication type of each selected paper from Europe PMC (resumable)."""
+    from diagnostic_ar_training.knowledge import lit_papers as lp
+
+    pmids = _selected_pmids(base_id)
+    cache = _records_path(artifact_id)
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    done = set()
+    if cache.exists():
+        with gzip.open(cache, "rt", encoding="utf-8") as h:
+            done = {json.loads(line)["key"] for line in h}
+    batches = [pmids[i : i + PMID_BATCH] for i in range(0, len(pmids), PMID_BATCH)]
+    with gzip.open(cache, "at", encoding="utf-8") as h:
+        for i, batch in enumerate(batches):
+            key = f"pmids:{i}"
+            if key in done:
+                continue
+            query = lp.epmc_record_query(batch)
+            hits, results = _search(query)
+            entry = {
+                "key": key,
+                "query": query,
+                "fetched_utc": datetime.now(UTC).isoformat(timespec="seconds"),
+                "hitCount": hits,
+                "results": [{k: r[k] for k in lp.RECORD_FIELDS if k in r} for r in results],
+            }
+            h.write(json.dumps(entry) + "\n")
+            h.flush()
+            typer.echo(f"{key}: {len(batch)} PMIDs, {hits} hits")
+    got = set()
+    with gzip.open(cache, "rt", encoding="utf-8") as h:
+        for line in h:
+            got |= {str(r.get("pmid")) for r in json.loads(line)["results"]}
+    missing = sorted(set(pmids) - got, key=int)
+    typer.echo(f"{len(pmids)} selected papers, {len(missing)} without a record; cache: {cache}")
 
 
 @lit_app.command("freeze")
@@ -388,6 +445,96 @@ def freeze(
         "(ADR-0013). The Europe PMC cache holds raw open-access metadata and abstracts; private release only."
     )
     manifest = build_manifest(artifact_id, "lit-sources", inputs, params, outputs, notes=notes, state=state)
+    if publish:
+        manifest = publish_release(manifest, artifact_id)
+    write_manifest(manifest)
+    typer.echo(json.dumps(summary, indent=1))
+    typer.echo(str(Path(manifest.path).relative_to(REPO_ROOT)))
+
+
+@lit_app.command("rescreen")
+def rescreen(
+    artifact_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. lit-papers-v2"),
+    base_id: str = typer.Option(SOURCES_ID_V1, "--base"),
+    calibration_shard: list[str] = typer.Option(
+        ["P001"], "--calibration", help="Extracted shards to check against"
+    ),
+    publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
+) -> None:
+    """Re-screen the selected papers of a frozen list and freeze the passing subset with a manifest."""
+    from collections import Counter
+
+    from diagnostic_ar_training.knowledge import lit_papers as lp
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+    from diagnostic_ar_training.lineage.manifest import publish as publish_release
+
+    ensure_new(artifact_id)
+    state = code_state()
+    if state.dirty:
+        raise LineageError("commit first: the re-screen must be reproducible from a SHA")
+    papers_path = _verified(base_id, "papers.tsv")
+    papers = [p for p in _read_tsv(papers_path) if p["status"] == "selected"]
+    cache = _records_path(artifact_id)
+    records, queries = {}, []
+    with gzip.open(cache, "rt", encoding="utf-8") as h:
+        for line in h:
+            entry = json.loads(line)
+            queries.append(entry["query"])
+            records |= {str(r.get("pmid")): r for r in entry["results"]}
+    pmids = [p["pmid"] for p in papers]
+    expected = [lp.epmc_record_query(pmids[i : i + PMID_BATCH]) for i in range(0, len(pmids), PMID_BATCH)]
+    if queries != expected or set(pmids) - set(records):
+        raise LineageError("the record cache does not match the selected papers; re-run rescreen-fetch")
+    calibration, notes_inputs = {}, []
+    for shard in calibration_shard:
+        path = DATA_DIR / "lit-extract" / "notes" / f"{shard}.tsv"
+        for n in _read_tsv(path):
+            calibration[n["source_id"].removeprefix("PMID:")] = (shard, n["outcome"])
+        notes_inputs.append({"id": f"lit-extract:notes/{shard}.tsv", "sha256": sha256_file(path)})
+
+    rows = lp.rescreen_rows(papers, records, calibration)
+    out = _out_dir(artifact_id)
+    rows_path, summary_path = out / "papers.tsv", out / "summary.json"
+    _write_tsv(rows, lp.RESCREEN_COLUMNS, rows_path)
+    subset = [r for r in rows if r["in_subset"]]
+    rescreened = [r for r in rows if not r["calibration_shard"]]
+    summary = {
+        "base": base_id,
+        "selected_in_base": len(rows),
+        "calibration_shards": calibration_shard,
+        "rescreened": len(rescreened),
+        "subset": len(subset),
+        "subset_with_weak_gene": sum(bool(r["weak_genes"]) for r in subset),
+        "subset_genes": len({g for r in subset for g in r["genes"].split(";") if g}),
+        "by_status_reason": dict(Counter(f"{r['status']}:{r['reason']}" for r in rescreened).most_common()),
+        "calibration": lp.confusion(rows),
+        "llm_classification": "none: every paper decision is the deterministic re-screen",
+    }
+    summary_path.write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    inputs = [{"id": f"artifact:{base_id}:papers.tsv", "sha256": sha256_file(papers_path)}, *notes_inputs]
+    params = {
+        "rule": lp.__doc__.split("(the first failing check sets the reason):\n")[1].strip(),
+        "min_per_unit": lp.MIN_PER_UNIT,
+        "pub_types": lp.PUB_TYPES,
+        "title_signatures": dict(lp.TITLE_SIGNATURES),
+        "title_disease_group": lp.GROUP_PLURAL,
+        "abstract_signatures": dict(lp.ABSTRACT_SIGNATURES),
+        "few_positives": lp.POSITIVE_SHARE.pattern,
+        "disease_head": lp.DISEASE_HEAD.pattern,
+        "record_query": lp.epmc_record_query(["<PMID>"]),
+        "record_fields": list(lp.RECORD_FIELDS),
+        "subset": f"selected papers of {base_id} that pass, minus the calibration shards' papers",
+        "europe_pmc": EPMC_SEARCH,
+    }
+    notes = (
+        f"{len(subset)} of {len(rescreened)} re-screened papers pass; a subset of {base_id}. Frozen "
+        "before any further paper extraction (ADR-0013). The record cache holds abstracts; "
+        "private release only."
+    )
+    outputs = [rows_path, summary_path, cache]
+    manifest = build_manifest(artifact_id, "lit-papers", inputs, params, outputs, notes=notes, state=state)
     if publish:
         manifest = publish_release(manifest, artifact_id)
     write_manifest(manifest)
