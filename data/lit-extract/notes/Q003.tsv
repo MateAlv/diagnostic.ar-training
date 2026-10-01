@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:26339676	not_cohort	0	single consanguineous family with a PRIMA1 variant; screening of 300 other NFLE cases found none; no allowed unit has a confirmed group
+PMID:27011640	not_cohort	0	founder-allele diagnostic study of 29 Agarwal LGMD patients (26 with founder alleles, 2 of them monoallelic, 2 DYSF); clinical figures pool the 29 incl. LGMD2B; biallelic CAPN3 count not stated; Tables 1-2 empty
+PMID:26446658	not_cohort	0	pathology/MRI comparison of 8 radiation-induced and 10 de novo cavernous hemangiomas; no genetic testing
+PMID:36622578	extracted	2	own PUMCH cohort of 52 genetically diagnosed PPRD; skipped all combined figures (joints, stature, onset shares) and Tables 2-3 because they pool 44 literature-derived cases; 'intellectually normal' (no abnormality term); vague 'most patients' features
+PMID:25215306	extracted	10	20 CD40LG-confirmed XHIGM; skipped CNS involvement 3/20 (no fitting CNS term), anemia 7 and BCGitis 6 (no stated denominator or share), elevated IgM 17 vs normal 3 (would need adding), diagnosis lag, per-patient Table 1 tallies other than the printed Total row
+PMID:29324469	not_cohort	0	parafibromin-negative parathyroid tumours in 40 patients; germline CDC73 confirmed in only 16 (tumour mutations are somatic); figures describe the IHC-negative group
+PMID:19168852	not_cohort	0	CDH1 deletion screening of 93 mutation-negative HDGC probands; 6 deletion families; detection-rate study, no phenotype figures per confirmed group
+PMID:24366306	not_cohort	0	CDH1 screening of 50 bilateral LCIS/ILC cases found 4 germline carriers; no unit reaches 20
+PMID:27811364	not_cohort	0	TCGA invasive lobular carcinoma with somatic CDH1 tumour alterations; not germline-confirmed patients of any allowed unit
+PMID:28688938	not_cohort	0	endoscopic surveillance of 54 CDH1 carriers, mostly unaffected at enrolment; SRCC yield is a screening finding in carriers (penetrance-type), not a feature share among affected
+PMID:25657822	no_numbers	0	127 CDKL5 confirmed (109 F, 18 M) qualify on DEE2, but all figures are milestone attainment (Kaplan-Meier, Table 3-4 by current age); the phenotype would be a complement
+PMID:35978140	no_numbers	0	350 CDKL5 confirmed qualify on DEE2, but results are milestone attainment and Cox models; descriptive data in supplementary tables; seizure onset only as share at or before 1.5 months, not an age range

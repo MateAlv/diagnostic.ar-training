@@ -1,0 +1,103 @@
+{
+ "code": {
+  "dirty": false,
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "2ea9eee07e3700dcfdc5f32d75f4b4c78e2f7f52"
+ },
+ "notes_sha256": "2f75c07065d560eedbc5e73c1d70ebc2ac3f2dd37515839a9138a3595145fee6",
+ "problems": [],
+ "rows_sha256": "adafe3da4f6dd1f122bef6b209ff99f9d8b2f9304cb19af9b6b9e42691cdbfe9",
+ "shard": "Q016",
+ "sources": {
+  "PMID:24886362": {
+   "access_path": "europepmc-fulltext",
+   "rows": 13,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "377cf416fa7fff11d4c7644f9b76375921386ce3d4cc659d2955e6aa47484681"
+  },
+  "PMID:25112388": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "f584c7b5d724a19a8b2d2d5aa5aa5ec5b8bd75e713ef7e6f12b502abf3936324"
+  },
+  "PMID:27072915": {
+   "access_path": "europepmc-fulltext",
+   "rows": 19,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "567bac9bc19bcf973dd4611b3ac6c446ec13db8ddadb08a8500fd19714c79a24"
+  },
+  "PMID:28057044": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "8c48be9b63e3b45fc23548ac52ab168768e6c73aca8a496a30f45d3fdda0316f"
+  },
+  "PMID:29229810": {
+   "access_path": "europepmc-fulltext",
+   "rows": 1,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "0ec96099ed3b5b9a3acf57fecbf5bdcc4ba27062bc5a1be125815df402fb446f"
+  },
+  "PMID:29691892": {
+   "access_path": "europepmc-fulltext",
+   "rows": 17,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "03d211a88024faaf57505e54eb161424b3a345b0a095af3fbf352bc1db9a5472"
+  },
+  "PMID:30744648": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "bb912e1c933df5eb7ca31d6641c28cffa33c1376390d6ad09520a92207e7ef59"
+  },
+  "PMID:31358905": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "f55f05f56e22a6f9fd62b9852e0622b7917e7e847fc35394ac8887ce80e246ed"
+  },
+  "PMID:33986365": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "498d3fbb4e4f4f7b1363611faf563b316a6241e8f8c0db7991c751b6b4facf3e"
+  },
+  "PMID:34750377": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "9bf2da78e137eae69118e5cbd4da2ff12e0acecfdb1cd6d78e4dfd6357b90e1d"
+  },
+  "PMID:35260199": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "84b667e0ff886ca036d30d96b891e058e8951540cfa1e31df30484c817239ba7"
+  },
+  "PMID:35932023": {
+   "access_path": "europepmc-fulltext",
+   "rows": 0,
+   "text_renderer": "lit-text-1",
+   "text_sha256": "691ad498debb3c07ba260b61871fb62e64dea1af053e68b57a96afc89253d499"
+  }
+ },
+ "stats": {
+  "age_rows": 2,
+  "feature_rows": 48,
+  "flags": {},
+  "rows": 50,
+  "rows_per_source": {
+   "PMID:24886362": 13,
+   "PMID:27072915": 19,
+   "PMID:29229810": 1,
+   "PMID:29691892": 17
+  },
+  "rows_with_counts": 12,
+  "rows_with_range": 0,
+  "sex_restricted": 1,
+  "units": 4
+ },
+ "status": "pass",
+ "validated_utc": "2026-10-01T22:54:16+00:00"
+}

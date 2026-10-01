@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1519	extracted	7	skipped bronchiectasis on CT ~90%/~95% (imaging, PI*ZZ subset; clinical 27% kept), cough and phlegm 50% (two features), Swedish newborn-screening PI*ZZ cohort 18%/2.4% (unselected genotype carriers), age-band liver risks, lifetime emphysema risk (Table 4), GPA odds ratio
+NBK1522	extracted	4	Table 2 skipped: its column is lifetime risk (cutaneous, lung cysts, pneumothorax, RCC); skipped renal oncocytosis 50%-58% (conditional on tumours), pneumothorax onset (often but not always first sign), thyroid nodules in 9/10 families (family-level)
+NBK1537	extracted	5	table pools ETL1 (LGI1, MICAL1) and ETL7 (RELN) families plus families without a variant (pooled_group over the allowed units); skipped seizure-type sub-shares under epilepsy (sub-items), 'up to two thirds' EEG, penetrance figures
+NBK114458	extracted	6	skipped counts without a denominator (conductive hearing loss 11, seizures 7, anterior chamber 2), early puberty (no data), cardiac single cases
+NBK425128	extracted	4	skipped 'rare' rows (decreased lacrimation, seizures, sleep disturbance, neonatal hypoglycemia) and 'most' pilonidal dimple
+NBK568319	extracted	1	skipped MDS/AML 20%-50% (lifetime risk; two diseases), lymphoid malignancy (family-level 25%), eczema 'up to 50%', transfusion need 20%-25% (treatment)
+NBK573670	extracted	4	12 reported individuals; skipped single-case findings and holoprosencephaly 2 / corpus callosum 2 (counts without a stated denominator beyond the cohort)
+NBK1129	no_numbers	0	per-gene syncope / aborted arrest shares (Table 2) come from a treated LQTS Registry cohort including genotype-positive relatives (skipped as treated / carrier-based); cardiac events are cumulative by age; normal-QTc shares are complements; TRDN unit is CPVT1 (chapter covers TRDN LQTS overlap, OMIM 615441); KCNJ2/CACNA1C syndromic features have no numbers
+NBK1139	extracted	2	skipped cumulative cancer risks by age 80 (Table 2, Penetrance), CDH1 DGC onset 'average ranges from 42 to 49' across cohorts (range of means), cancer-type shares among cancer-tested carriers (selected population), family-level cleft 19%
+NBK1184	extracted	8	skipped extrapyramidal sub-items (conditional), gait-ataxia-first two thirds (presenting share), pain ~half (all SCA types pooled), onset 'typically' third-fourth decade (hedged), penetrance

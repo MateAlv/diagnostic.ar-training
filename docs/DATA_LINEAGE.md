@@ -179,3 +179,62 @@ R1-dev and appends a row to `results/realism/LEDGER.md`; baselines (UP,
 V03) and checks do not count against the 3-candidate budget, and the
 command refuses a fourth candidate version. `dxt sim gate` writes the G2
 comparison table (`gate-<name>.json`, `.md`).
+
+## 8. Literature-enriched profiles (ADR-0013 amendment 2)
+
+`dxt lit build --version N` turns `data/lit-extract/rows/*.tsv` into three
+artifacts. It reads every C/P shard of `shards.tsv` and every Q shard of
+`shards-papers-v2.tsv` that has a passing report, re-validates each one in
+memory, and refuses any shard that fails. Code:
+`knowledge/lit_build.py`; tests: `tests/test_lit_build.py`, one or more per
+rule.
+
+| Artifact | What | File the simulator reads |
+|---|---|---|
+| `hpoa-lit-vN` | Feature rows as HPOA phenotype rows (aspect P, evidence `PCS`, biocuration `diagnostic.ar-training:lit-extract`, reference = `source_id`) | `phenotype.hpoa`, plus `data/lit-build/hpoa-lit-vN.report.json` |
+| `hpoa-enriched-vN` | `hpoa-recount-v1` with `hpoa-lit-vN` appended; a `#derived` header line records both sha256 | `phenotype.hpoa` (`build-profiles --hpoa`) |
+| `presentation-ages-vN` | One age range per disease from `AGE_PRESENTATION` rows | `presentation-ages.tsv` (`simulate --presentation-ages`, sim ≥ 0.5.1) |
+
+`--dry-run --out-dir … --report …` writes the files and the report with no
+artifact id and no manifest. The latest dry run (45 shards, amendment 3) is
+`results/analyses/LIT-INTEGRATION-dryrun.json`.
+
+**Where amendment 2 is silent**, the build does the following, as ruled
+in ADR-0013 amendment 3. Each choice is counted in the report.
+- **Rule 5 citations.** Rows carry a `source_id`, not a PMID list. A paper
+  is cited by its PMID. A chapter is cited by its NBK id, its own PMID (from
+  the GeneReviews index `GRtitle_shortname_NBKid.txt`), a Bookshelf URL
+  `…/books/NBK…/`, or `br.fcgi?book=gene&part=<shortname>`; HPOA writes the
+  last two forms. Terms are compared after resolving alternative ids.
+- **Rule 2 skip.** A "unit-specific row" is any non-`pooled_group` row from
+  the same source, for the same term, on the same disease id.
+- **Zeros.**
+  - A `pooled_group` row with prevalence 0 becomes NOT on every listed
+    disease. A `0%` row would be a positive annotation.
+  - Every validated prevalence-0 row without both counts is read as an
+    explicit absence (guide v4 §6a). That includes rows with only
+    `n_assessed`. Shards extracted before v4 are not told apart.
+- **Rule 6, counts** (amendment 3). From one source, only the count row
+  with the largest denominator is kept ("distinct sources only"). If two
+  rows share that denominator and their n/m differ by more than 0.20, the
+  term is dropped from that source (`ambiguous_populations`). The pooled
+  row lists every source in `reference`, `;`-separated.
+- **Rule 6, percentages** (amendment 3).
+  - Preference order: both sexes, then the largest stated `n_assessed`
+    (0 when not stated), then unit before `pooled` before `pooled_group`,
+    then source id and file order.
+  - The guard: when one source's rows are still tied after sex and n, and
+    their prevalences differ by more than 0.20, the term is dropped from
+    that source (`ambiguous_populations`).
+  - A percentage is still written beside literature counts. The simulator
+    ignores it, by its precedence.
+- **Sex.** The `sex` column is `MALE`/`FEMALE`, as HPOA writes it. A pooled
+  row keeps it only when every pooled row agrees, as the simulator does.
+- **Rule 7.**
+  - A missing low end is 0 ("before X", or a range that starts prenatally).
+  - A missing high end gives no range, so the row is not used.
+  - A `pooled_group` age row applies to each listed disease that has no
+    other `AGE_PRESENTATION` row from the same source.
+  - After population size, a row for both sexes beats a sex-restricted
+    row.
+- **Onset column** stays empty: no feature row carries a feature onset age.

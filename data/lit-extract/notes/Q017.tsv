@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:32792659	no_numbers	0	250 AS individuals across genetic subtypes; only developmental and severity scale scores, no feature prevalences
+PMID:40539388	extracted	10	26 genetically confirmed DYT-VPS16 selected for DBS (medically refractory), baseline features only; skipped site-of-onset shares, generalized dystonia (all but 3), fixed skeletal deformities (no term), myoclonus (no share), DBS outcomes
+PMID:26986123	no_numbers	0	1167 VWD patients characterised by laboratory phenotype and genotype only; no clinical feature figures
+PMID:34758185	extracted	5	50 VWD type 2M with VWF A1 variants (46 with bleeding scores); A3 group 2 too small; menorrhagia denominator taken as women; skipped bleeding from minor wounds (no term), abnormal bleeding score shares (score thresholds), postpartum and surgical bleeding (untreated-procedure subsets), laboratory ratios, WiN comparison cohort
+PMID:35523118	not_cohort	0	75 patients with low VWF levels in a desmopressin study; not genetically confirmed
+PMID:29945639	not_cohort	0	40 'confirmed' Wolfram syndrome patients from a registry clinic; genetic (WFS1) confirmation is not stated, so the per-unit check cannot be confirmed
+PMID:39698353	extracted	5	43 Dutch carriers of pathogenic WT1 variants; pooled_group over Wilms tumour, Denys-Drash, Frasier and NPHS4 units; variant-type subgroups under 20 skipped; skipped bilateral Wilms (conditional), individual urogenital counts (sex denominators not given), age at variant identification (includes screening), deaths
+PMID:32266967	not_cohort	0	42 Primrose syndrome patients = 13 new + 29 published cases summarised together (own-cohort rule); own group 13
+PMID:35894240	not_cohort	0	diagnostic testing of 356 adults with liver disease; 35 carry ABCB11 variants, mostly heterozygous and of uncertain pathogenicity, so not genetically confirmed PFIC/BRIC (susceptibility design)
+PMID:30025539	not_cohort	0	70 ACAD9 patients = 29 unpublished + 41 published, all frequencies pooled (own-cohort rule)
+PMID:42199298	not_cohort	0	199 iCAVD screened for CFTR/ADGRG2; ADGRG2 carriers are few and phenotype comparisons are by CFTR variant group
+PMID:41973717	extracted	7	30 genetically confirmed ADSS1 myopathy; proximal (9) and distal (20) onset subgroups: proximal under 20 skipped, distal-only figures not used; initial-symptom shares skipped; MRI scores and CK skipped

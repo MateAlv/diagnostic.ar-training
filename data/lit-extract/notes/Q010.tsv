@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:36034301	not_cohort	0	photosensitive epilepsy yield study, 35 diagnosed over many genes; KCNC1 and KCTD7 one patient each
+PMID:23692823	not_cohort	0	KCNQ2 screening of 71 EOEE patients found 16 de novo carriers; under 20
+PMID:35296332	not_cohort	0	review of 55 MLID families, mostly published; each maternal-effect gene under 20 families; offspring phenotypes are imprinting disorders, not the listed units
+PMID:30305169	not_cohort	0	14 new Chinese WSS patients (16 with 2 published); French comparison cohort is literature
+PMID:26053668	extracted	7	23 LMNB1 duplication carriers, 22 symptomatic (Table 3 denominator); skipped bladder dysfunction and/or obstipation (no single term), erectile dysfunction as early symptom (4 of 10 men, conditional), pseudoexacerbations (no term), nystagmus in 2 (denominator unclear), neurophysiology subsets; onset = autonomic symptoms, presenting manifestation in 20/22
+PMID:40133296	not_cohort	0	LRRK2 p.L1795F: 17 carriers, 14 affected; under 20
+PMID:30302899	extracted	18	Table 1 New (n = 35) column only (unpublished, questionnaire); Totals pool 43 published patients (34 literature-only) so skipped; intubation, ventilation, tracheostomy and tube feeding are treatments; Table 2 milestone and centile averages skipped
+PMID:41235131	not_cohort	0	6 new beta-mannosidosis patients plus literature review
+PMID:31810826	no_numbers	0	3403 genetic FTD (791 MAPT) qualify, but every figure pools FPI centre data with literature-review cases; no own-cohort-only figure
+PMID:34158384	no_numbers	0	GENFI: 25 symptomatic MAPT carriers qualify, but only imaging-subtype shares and model associations; Tables 1, 4, 5 empty in fetched text
+PMID:31196119	not_cohort	0	NGS panel on 20 BBS patients, 12 resolved over several genes; MKKS group tiny
+PMID:29661901	extracted	1	187 MLC1, 17 MLC2A, 38 MLC2B (GLIALCAM not an allowed unit); Tables 1-2 empty in fetched text; skipped figures pooled over MLC1 and MLC2A (motor deterioration, internal capsule, cerebellar WM), whole-cohort seizure count, walking complement, vague shares
