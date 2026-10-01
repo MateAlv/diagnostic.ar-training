@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1420	extracted	4	Table 1 per-gene collodion shares and LIPN onset; skipped gene shares, CIE >90% collodion (phenotype subgroup, no unit), self-improving 10% (conditional), HI survival (mortality), hedged onset ('typically')
+NBK1535	extracted	18	Table 2 classic column as pooled_group over MLC1/MLC2A, improving column on HEPACAM MLC2B; skipped text figures duplicating the table, severe decline 15% (no HPO), complements (normal cognition 75%, no seizures 90%); AQP4/GPRC5B units are MLC1 by fallback
+NBK571223	extracted	2	only the pooled mean age at diagnosis (stated with 'typically') and PDK3 onset; feature list uses vague words only; gene shares skipped
+NBK575630	extracted	17	Tables 2-3 pooled over MoCD A/B/C; skipped DD/ID (two features), craniofacial dysmorphic features (bundle), Apgar 'up to 40%', mortality, ectopia lentis age (feature onset)
+NBK1293	extracted	7	Table 2 pooled over CCM1-3; skipped focal neurologic deficits and spinal cord cavernous malformations (no HPO term), penetrance figures, hemorrhage rates per person-year, per-gene hemorrhage ages (feature, not disease onset), 'up to' figures
+NBK1351	extracted	9	Table 2 pooled over HHT1/HHT2; SMAD4 unit is JPS (JP-HHT figures not for that disease); skipped pancreatic vascular lesions (no HPO term), hepatic study-specific figures (table used), onset cumulative shares
+NBK1231	extracted	4	skipped IQ>90 shares (normal trait), metabolic stroke 17-30% (no fitting HPO term), arrhythmia-or-cardiomyopathy (two features), cblA treated CRF (treatment-conditional), mortality, hedged onset statements
+NBK1341	extracted	4	Table 2 pooled over USH2 types; RP onset hedged ('typically'); penetrance skipped
+NBK174884	extracted	2	skipped penetrance, CAD risks (risk among carriers), early-MI share (gene yield), vague HoFH statements in Table 2
+NBK246980	extracted	26	skipped valvular defects and skeletal abnormalities (category bundles; individual valve figures taken from text), macrosomia-and-macrocephaly 38% (two features), text figures duplicating Table 2 (aortic root 'two thirds')
