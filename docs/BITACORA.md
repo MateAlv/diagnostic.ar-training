@@ -2868,3 +2868,6 @@ profiles; the literature-enriched profiles come later, as candidate 6.
     in a pre-v4 shard is treated as an explicit absence.
 - **Not done:** no artifact registered or published. The real build waits
   for the extraction to finish.
+
+### 2026-10-01 — data — lit-extract paper shards Q019–Q026 (ADR-0013)
+- Branch `phase3/lit-extract-Q019-Q026`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **121 rows (103 feature, 18 age, 9 of them `AGE_PRESENTATION`) from 19 of 89 papers** (Q019 12, Q020 4, Q021 2, Q022 25, Q023 27, Q024 8, Q025 42, Q026 1); 70 papers with 0 rows (62 `not_cohort`: screening/yield studies, somatic tumour cohorts, single families, own cohorts under 20 pooled with literature, confirmed P/LP groups under 20 once VUS carriers are removed; 6 `no_numbers`; 2 `not_about_units`: MT-TT LHON cohort vs lethal infantile myopathy unit, SLCO2A1 enteropathy vs hypertrophic osteoarthropathy units). Guide ambiguities (VUS-majority groups, carrier vs affected denominators, pooled_group per-unit n, genetic-confirmation age as presentation age) listed in the PR; `dxt lineage verify` passes.

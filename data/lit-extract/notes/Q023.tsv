@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:34046058	not_cohort	0	13 novel PIGT individuals pooled with 12 published (25); own cohort under 20 and figures pool literature
+PMID:39082157	not_cohort	0	14 new PNPLA8 individuals pooled with published cases (25); own cohort under 20; organoid study
+PMID:34607897	not_cohort	0	tumour study of somatic POLE mutations (47 tumours); not a germline cohort of any POLE unit
+PMID:37874375	not_cohort	0	assay-validation study of somatic POLE mutations in endometrial carcinoma
+PMID:39865420	not_cohort	0	genomic landscape of somatic POLE mutations in 596 endometrial carcinomas; not a germline cohort
+PMID:38822839	extracted	5	195 genetically confirmed POLG disease (AR and AD), whole-cohort figures as pooled_group over the core POLG units; skipped every figure among those with SE or epilepsy (conditional), onset-age bins, genotype shares, survival
+PMID:32893856	extracted	12	30 homozygous PTF1A enhancer (pancreatic agenesis 2), 6 previously described in the same centres; IUGR and short stature per Methods SDS < -2; skipped developmental delay and epilepsy (not systematically assessed, no denominator), HbA1c and insulin (treatment), transfusion, consanguinity
+PMID:39692517	no_numbers	0	29 new RBL2 patients plus 6 published; every total in Table 1 and text pools the published cases; own-only counts would need tallying per-patient columns
+PMID:35994252	extracted	5	29 biallelic RDH12; severe-form group of 24 (LCA/EOSRD/arRP) on the LCA13 unit; CORD group n=5 skipped; skipped BCVA thresholds (no HPO mapping), diagnosis-before-3 share (age bin), literature review of 425 families
+PMID:39693083	no_numbers	0	46 RDH12-LCA patients; only quantitative natural-history slopes and FST mediation categories; no feature prevalences
+PMID:34970297	not_cohort	0	RHD genotyping of 76 RhD-negative pregnant women; not a cohort of either RHD disease unit
+PMID:38265784	extracted	5	51 monoallelic RP1L1 OMD (EAOMD consortium cohort); onset defined in Table 1 note as first visual symptoms or diagnosis; skipped reduced vision as main complaint (presenting-symptom share), mfERG/SD-OCT classes (no HPO term), BCVA survival
