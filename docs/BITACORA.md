@@ -2778,3 +2778,15 @@ profiles; the literature-enriched profiles come later, as candidate 6.
   - chapter batches C011–C019 merged (PR #60);
   - C002–C010 resumed after the usage stop (C002–C008 were already
     committed).
+
+### 2026-10-01 — decision — ADR-0013 amendment 2: literature integration rules
+- **Fixed before any enriched profile exists:**
+  - counts → `n/m`, prevalence-only → `%` (below counts);
+  - `pooled_group` rows → a percentage on each listed unit (no counts);
+  - rows citing a PMID HPOA already cites for the same disease and term are
+    dropped;
+  - presentation ages come from `AGE_PRESENTATION` rows only (GeneReviews
+    first, single values widened by ±10%).
+- **Progress:** the C002–C010 batch is merged (1,227 rows). Main now has 37
+  shards, 2,567 rows, 417 units. Simulator 0.5.3 is merged. Candidate 6b
+  (train-side) is running.
