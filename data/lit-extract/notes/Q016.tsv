@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:29229810	extracted	1	140 XDP patients with the TAF1 SVA haplotype; only onset age kept; initial-presentation shares (dystonia/parkinsonism) skipped as first-symptom shares; repeat-length and reporter data skipped
+PMID:25112388	not_cohort	0	34 genetically confirmed BTHS measured for cardiolipin, but clinical figures describe only the atypical subgroup of 7 (under 20)
+PMID:30744648	no_numbers	0	33 BTHS individuals; only continuous strength, 6MWT, balance and reaction-time measures, no feature prevalences
+PMID:35260199	not_cohort	0	genome screen of 900 Colombians with AD/FTLD-MND/EOD; few carriers per gene, TARDBP group far below 20
+PMID:35932023	not_cohort	0	TARDBP G298S founder study: 16 carriers (8 FALS, 8 SALS) from a screen; largest confirmed group 16
+PMID:33986365	no_numbers	0	4 ADHL families with TBC1D24 variants (29 affected); only per-family onset and audiograms, no group figures
+PMID:31358905	no_numbers	0	334 22q11.2 deletion carriers (deletion, not TBX1 variants); only continuous DTI measures
+PMID:27072915	extracted	19	101 parent-reported PTHS (eligibility molecular confirmation; Table 2 lists 92% TCF4, 2.2% NRXN1, 5.6% unsure) pooled; age-stratified columns under 20 skipped; skipped epilepsy and breathing counts (no share), burping, hand biting (no term), clapping/flashing/hand washing (bundle), milestones, Apgar
+PMID:34750377	no_numbers	0	TET3-deficiency DNA methylation episignature study; affected individuals listed per sample, no feature prevalences
+PMID:28057044	not_cohort	0	TOSCA registry of 2093 clinically diagnosed TSC; 749 with a TSC1/TSC2 mutation (178 TSC1) but all prevalence figures describe the whole clinically diagnosed registry, none the TSC1 group
+PMID:24886362	extracted	13	33 PCH2A (31 homozygous p.A307S, 2 affected sibs; 4 also in an earlier report); definitions from Methods; skipped pure spasticity (4, remainder), jitteriness (no term), respiratory difficulties and/or apnea (bundle), excessive vomiting (31 vs 91% inconsistent), milestones, language, survival, feature onset ages
+PMID:29691892	extracted	17	30 biallelic truncating TTN; Table 1 empty in fetched text, figures from Results text; skipped reduced fetal movements (almost 60%), neck flexion weakness (all but 1), neck extension weakness (no HPO term), sucking/chewing/swallowing difficulties (and/or), tube feeding, onset (all but four)
