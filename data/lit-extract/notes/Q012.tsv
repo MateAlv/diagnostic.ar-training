@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:40004556	not_cohort	0	10 new Italian SHMS patients (largest confirmed group 10)
+PMID:34828281	no_numbers	0	124 biallelic PAH patients; only biochemical severity classes (cPKU/mPKU/MHP), NBS share, genotypes and BH4 predictions; no clinical feature figures
+PMID:34101622	extracted	6	86 PAX6 aniridia; eye-level figures (foveal hypoplasia, iris, cataract, glaucoma, ARK, ptosis, ON hypoplasia etc. over 172 eyes) skipped as not per-patient; learning difficulties (UK term, ID vs specific LD unclear); feature diagnosis ages
+PMID:24665329	not_cohort	0	10 Iranian PA patients, diagnosis biochemical (largest group 10)
+PMID:30705822	extracted	2	84 PA (68 PCCA, 16 PCCB); p.Gly142Asp group (59) summary only; neonatal symptom list skipped (one statement for several features), other observations hedged (often, commonly); PCCB group 16 under 20; mutation spectrum skipped
+PMID:35331292	extracted	41	60 PA (58 sequenced: 24 PCCA, 34 PCCB); pooled rows on PCCB (most frequent gene here); skipped liver involvement Table 1 (14 vs 25.0% inconsistent; text says 15), cardiac and haematological bundles, hemocytopenia (bundle), PCCA hyperammonemia cell (0.38 format unclear), neonatal-symptom share, deaths, NBS cases
+PMID:36393899	extracted	4	38 Amish PA, 33 with molecular confirmation, pooled; cardiomyopathy count from Table 6 (abstract says 22); skipped DD/ID (table 15 (42.1%) vs text 39.5%), basal ganglia metabolic strokes (no fitting term), age at diagnosis (mixes cascade testing), feature diagnosis ages, NBS and treatment data
+PMID:34229749	not_cohort	0	genetic-epidemiology model of RCDP incidence and prevalence; no patient cohort
+PMID:29460029	extracted	7	59 adults with PHEX mutations; skipped surgical procedures, knee and ankle OCD/arthritis (slash bundles), Achilles enthesopathy (no HPO term), OLF/OPLL (conditional on 7 investigated), short stature (no number), neoplasms, pregnancy
+PMID:30352126	extracted	6	44 XLHR children, 36 with PHEX mutation, pooled; CI<75% mapped to dolichocephaly per Methods; yes/no cells used with the printed n column; skipped age at diagnosis (familial cases likely surveillance-diagnosed), neurosurgery, Table 3/4 subgroup cells, CT measurements
+PMID:31259293	not_cohort	0	online burden-of-disease survey with self-reported diagnosis; PHEX confirmation self-reported in 53/90 children and 90/232 adults, unverified, and figures pool all respondents
+PMID:33639975	extracted	5	48 PHEX-confirmed children; Table 2 P/A/U shares taken as printed present %; growth retardation from text 22/40 (table 46% counts unreported); skipped age at diagnosis (includes 10 family-screened), nephrocalcinosis and hyperparathyroidism at follow-up (on treatment), biochemistry
