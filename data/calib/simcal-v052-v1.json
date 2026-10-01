@@ -1,0 +1,84 @@
+{
+ "_provenance": {
+  "artifact": "simcal-v052-v1",
+  "base": {
+   "id": "file:data/calib/simcal-v051-v1.json",
+   "sha256": "000998306b82c8a7c032790ccc5b13697aea4a954b13bbbc08e929cabf1fb374"
+  },
+  "code_sha": "6d3693af6729a35af607e64367517bf401600424",
+  "included": [
+   {
+    "id": "file:data/calib/profile-budget-v1.json",
+    "keys": [
+     "reporting.profile_budget_histogram"
+    ],
+    "sha256": "c1df9997cd42d02182acfc2fd71622319b978540ecb2ee2e01d2bff9f6f3cd79"
+   }
+  ],
+  "mean": 0.424815,
+  "min_denominator": 10,
+  "overrides": [
+   "reporting.budget_normalize=true"
+  ],
+  "pairs": 18162,
+  "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+  "source": "hpoa-recount-v1 (8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a)"
+ },
+ "age.duration_mean_by_onset.adult": 12.3793,
+ "age.duration_mean_by_onset.antenatal": 2.4078,
+ "age.duration_mean_by_onset.childhood": 10.3451,
+ "age.duration_mean_by_onset.childhood_or_adolescent": 9.8211,
+ "age.duration_mean_by_onset.infantile": 7.5595,
+ "age.duration_mean_by_onset.juvenile": 14.6048,
+ "age.duration_mean_by_onset.neonatal": 4.7133,
+ "age.duration_mean_by_onset.variable": 9.8211,
+ "frequency.shrinkage_mean": 0.3,
+ "missingness.age_unknown": 0.251,
+ "missingness.no_negatives": 0.075,
+ "missingness.onset_unknown": 0.404,
+ "missingness.sex_unknown": 0.077,
+ "negatives.max_per_case": 40,
+ "negatives.source_weights.confounder": 0.53,
+ "negatives.source_weights.not_annotation": 0.0,
+ "negatives.source_weights.own_disease": 0.44,
+ "negatives.source_weights.own_gene_other_disease": 0.03,
+ "negatives.unfilled_slots": "redistribute",
+ "noise.related_down_levels": 1,
+ "noise.related_share": 1.0,
+ "noise.related_up_levels": 1,
+ "noise.vocabulary_path": "calib-v2.noise_vocabulary.tsv",
+ "presets.medium.negatives_mean": 13,
+ "presets.medium.noise_mean": 3.7,
+ "presets.medium.positive_observation_rate": 0.59,
+ "reporting.budget_normalize": true,
+ "reporting.force_cardinal": false,
+ "reporting.mode": "independent",
+ "reporting.noise_count": "proportional",
+ "reporting.noise_share": 0.207,
+ "reporting.profile_budget_histogram": {
+  "0": 54,
+  "1": 74,
+  "10": 50,
+  "11": 28,
+  "12": 25,
+  "13": 14,
+  "14": 9,
+  "15": 6,
+  "16": 1,
+  "17": 3,
+  "18": 1,
+  "2": 119,
+  "20": 1,
+  "23": 1,
+  "26": 1,
+  "3": 135,
+  "4": 132,
+  "5": 122,
+  "6": 126,
+  "7": 99,
+  "8": 85,
+  "9": 54
+ },
+ "reporting.q_scale": 2.8855,
+ "reporting.specialize_rate": 0.1676
+}

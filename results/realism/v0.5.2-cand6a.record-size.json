@@ -1,0 +1,12 @@
+{
+ "export": "data/interim/datasets/ds-sim0.5.2-full-n100-s1001/ds-sim0.5.2-full-n100-s1001.jsonl.gz",
+ "genes": 84,
+ "gene_rule": ">= 10 R1-train patients and simulated",
+ "mean_terms_per_case_sim": 6.51,
+ "mean_true_terms_per_case_sim": 26.0,
+ "spearman_sim_record_size_vs_sim_true_terms": 0.658,
+ "mean_terms_per_case_real": 8.6,
+ "spearman_real_vs_sim_record_size_by_gene": 0.266,
+ "spearman_real_record_size_vs_sim_true_terms": 0.502,
+ "sim_over_real_ratio_median": 0.83
+}
