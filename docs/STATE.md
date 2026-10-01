@@ -3,84 +3,46 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-09-30, end of day. Stopped cleanly for the night:
+**Snapshot:** 2026-10-01, morning. Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
 
 **Deadline:** 2026-11-07 (38 days left).
 
-## TL;DR for tomorrow
-- **Front B: done and validated.** rr-v1[neg=0.5] passed its sealed gate
-  (EXP-B-003). A production package is ready for review in
-  **diagnostic.ar-model PR #2** (not merged, nothing deployed).
-- **Front A: blocked by design.** The ADR-0012 data-quality gate is
-  **unmet after 4 simulator candidates**; candidate 3 came closest.
-  **R1-dev realism reads used: 2 of 3.** The last one is still unspent,
-  because candidates 3 and 4 were stopped by the train-side go/no-go.
-- **Mateo asked:** would better sources improve the profiles? The scoping
-  study (SOURCES-SCOPING-001) says yes, for a minority of genes:
-  - GeneReviews could give about 800 genes literature frequencies and about
-    600 a numeric age;
-  - open-access cohort papers about 300 more weak genes;
-  - about 73% of weak profiles have no stated numbers in any reachable
-    source.
+## TL;DR (2026-10-01)
+- **Mateo's decisions today:**
+  - Front A goes ahead with **verified-source enrichment plus up to 2 more
+    reporting/noise candidates**, time-boxed to about 2026-10-08;
+  - literature rules as recommended (ADR-0013 and its amendment 1, verified
+    sources only);
+  - rr-v1 release **on hold** (diagnostic.ar-model PR #2 stays open);
+  - ADR-0012 amendment 3 accepted;
+  - disk freed (20 GB free now);
+  - the 50-case dev fixture is OK;
+  - TODO for Mariano: send only the question agent's "no" answers.
+- **Running:**
+  - **Source acquisition** (branch `phase3/lit-sources-v1`): Tier-1 curated
+    knowledge bases (MedlinePlus Genetics, Gene2Phenotype, PanelApp, a
+    ClinGen check), licence checks, pinned snapshots, coverage, and the
+    frozen `lit-sources-v1` lists (GeneReviews chapters plus major studies
+    with ≥ 20 patients).
+  - **Simulator 0.5.1** (`feat/v0.5.1`): `reporting.q_scale`, related-noise
+    reach, presentation ages.
+- **Next:**
+  1. Extraction shards over `lit-sources-v1` (Claude, with a 10% blind Codex
+     cross-check).
+  2. `hpoa-lit-v1` / `hpoa-enriched-v1` plus `presentation-ages-v1`.
+  3. Candidate 5: current profiles plus the 0.5.1 fixes, train-side.
+  4. Candidate 6: enriched profiles plus the best reporting.
+  5. The go/no-go, and only then the last R1-dev read.
+- **R1-dev realism reads: 2 of 3 used.**
 
-  Sources fix the **truth layer** (missing or over-produced features, age),
-  not the **reporting and noise** structure that fails G2c, d and e.
-
-## Decisions waiting for Mateo (in suggested order)
-1. **How Front A continues.** My recommendation is (a) + (b) together,
-   time-boxed:
-   - **(a) Literature enrichment of construction profiles.** GeneReviews
-     first, once the licence answer arrives; OA cohort papers second. It
-     needs two rules pre-registered before any extraction (see 2).
-     Effort: about 37 agent-hours for all usable GeneReviews chapters,
-     about 5 wall-hours at 8 agents in parallel; OA papers about 31
-     agent-hours more.
-   - **(b) Two more reporting/noise candidates, checked on R1-train only.**
-     Starting points from candidate 4:
-     - one global factor on q so reported explained terms per case match
-       uncited R1-train (about 5.5), replacing raw π/f, which gave 2.95
-       terms per case;
-     - related noise restricted to closer relatives (its IC is 6.8 vs 4.1
-       for real terms);
-     - age from GeneReviews age at diagnosis where available.
-   - **(c) Fallback, A-005:** train the new sex/age/negation parameters
-     (frozen v3.0) on real R1-train patients, and stop depending on the
-     simulator.
-   - **(d) Stop Front A:** write up the negative results plus the simulator
-     analysis as the contribution.
-   - **Mateo's last message** leaned towards improving sources.
-2. **Rules for literature enrichment** (only if (a)):
-   - **Held-out patients inside pooled GeneReviews tables.** About 13% of
-     chapters cite R1 held-out papers. Options: drop those chapters, or keep
-     only rows whose cited sources are clean. I recommend dropping the whole
-     chapter; it is simplest and safe.
-   - **Overview chapters that touch an evaluation unit** (RP, Leigh, hearing
-     loss, PCD, CMT; up to 426 construction genes). Strict: exclude them. Or
-     allow them to feed only construction genes' own rows. I recommend
-     strict at first.
-   - **No-derivatives OA licences** (CC BY-NC-ND, 19% of hits): include
-     them (facts plus citations, never text), or exclude them.
-3. **rr-v1 release** (diagnostic.ar-model PR #2):
-   - **merge it** and create the GitHub release (`gh release create
-     rerank-v1.0.0`, as written in the PR);
-   - **pass only the question agent's "no" answers**, not free-text
-     negations. That is what was validated; it reverses D-18 in Mariano's
-     question-agent repo;
-   - **production `/genphenai` routes to brainy, not the pinned image.**
-     Enabling the re-ranker needs brainy updated or production re-routed;
-   - **the web's "Con tus respuestas"** list showing the re-ranked order is a
-     product call;
-   - **OK to keep 50 R1-dev cases** as a parity fixture in the private model
-     repo?
-4. **ADR-0012 amendment 3** (G2a scores the truth layer), made after
-   candidate 2's read: accept or revert. Amendment 1 is already accepted.
-5. **GeneReviews email:** Mateo is sending it. If the answer is no, see
-   `docs/TODO.md` for the fallback.
-6. **Later:** spot-check the G3 cards and the two reviewers' verdicts, once
-   a candidate reaches G3.
+## Decisions still open
+- **Deploying rr-v1** (on hold): when the time comes, merge PR #2 and
+  create the release. Production routes to brainy, not the pinned image.
+- **"Con tus respuestas"** showing the re-ranked list: a product call.
+- **The GeneReviews email:** Mateo is sending it; not blocking.
 
 ## Where each front stands
 | Front | Status | Evidence |
