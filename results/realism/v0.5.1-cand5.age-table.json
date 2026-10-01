@@ -1,0 +1,90 @@
+{
+ "NF1": {
+  "r1_train_n": 158,
+  "r1_train_median": 18.0,
+  "v03full": 5.65,
+  "cand3": 3.94,
+  "cand4": 4.68,
+  "cand5": 4.68
+ },
+ "LMNA": {
+  "r1_train_n": 27,
+  "r1_train_median": 46.0,
+  "v03full": 22.14,
+  "cand3": 21.48,
+  "cand4": 23.53,
+  "cand5": 30.19
+ },
+ "FBN1": {
+  "r1_train_n": 66,
+  "r1_train_median": 18.5,
+  "v03full": 26.45,
+  "cand3": 24.17,
+  "cand4": 28.79,
+  "cand5": 29.0
+ },
+ "PTPN11": {
+  "r1_train_n": 10,
+  "r1_train_median": 7.5,
+  "v03full": 5.28,
+  "cand3": 4.69,
+  "cand4": 6.42,
+  "cand5": 4.26
+ },
+ "KMT2D": {
+  "r1_train_n": 11,
+  "r1_train_median": 11.583333333333334,
+  "v03full": 3.99,
+  "cand3": 4.21,
+  "cand4": 3.4,
+  "cand5": 3.52
+ },
+ "TBX5": {
+  "r1_train_n": 41,
+  "r1_train_median": 33.0,
+  "v03full": 3.67,
+  "cand3": 5.12,
+  "cand4": 2.41,
+  "cand5": 2.55
+ },
+ "UMOD": {
+  "r1_train_n": 76,
+  "r1_train_median": 39.0,
+  "v03full": 23.84,
+  "cand3": 23.75,
+  "cand4": 34.88,
+  "cand5": 30.68
+ },
+ "FBXL4": {
+  "r1_train_n": 33,
+  "r1_train_median": 2.0,
+  "v03full": 4.45,
+  "cand3": 5.49,
+  "cand4": 7.38,
+  "cand5": 6.78
+ },
+ "SPTAN1": {
+  "r1_train_n": 13,
+  "r1_train_median": 46.0,
+  "v03full": 7.46,
+  "cand3": 8.18,
+  "cand4": 12.64,
+  "cand5": 13.06
+ },
+ "ITPR1": {
+  "r1_train_n": 45,
+  "r1_train_median": 16.0,
+  "v03full": 14.94,
+  "cand3": 15.38,
+  "cand4": 18.98,
+  "cand5": 20.67
+ },
+ "COL3A1": {
+  "r1_train_n": 35,
+  "r1_train_median": 32.0,
+  "v03full": 3.88,
+  "cand3": 4.02,
+  "cand4": 4.59,
+  "cand5": 3.62
+ }
+}
