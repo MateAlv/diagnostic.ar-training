@@ -1,0 +1,6 @@
+source_id	outcome	rows	note
+PMID:35792653	not_cohort	0	TWNK screening of 263 PD patients (6 carriers) plus 18 TWNK-adPEO patients selected for parkinsonism; no unselected unit group of 20
+PMID:40229738	extracted	1	patient-reported VCP registry (79; 62 self-reported genetic diagnosis, 6 clinical, 11 unreported); only the 49 who reported their VCP variant used; skipped Table 1 and diagnosis shares over the mixed-confirmation symptomatic group, onset decade bins, PROM slopes, QOL
+PMID:17888180	not_cohort	0	WNT3A sequencing in 50 congenital vertebral malformation patients; one missense variant, no evidence of causality
+PMID:23680354	not_cohort	0	brittle cornea syndrome cohort of 23: 18 ZNF469, 4 PRDM5; largest unit group under 20
+PMID:35460069	not_cohort	0	oocyte maturation defect cohort of 27; 5 with the recurrent ZP1 variant

@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:41463395	not_cohort	0	multi-omics study of two TANGO2 siblings
+PMID:28361097	not_cohort	0	TEAD1/OCEL1 sequencing in 38 Aicardi syndrome girls; no deleterious variants; Aicardi syndrome is not the TEAD1 unit
+PMID:28946916	not_cohort	0	TECTA screening of 67 mid-frequency hearing-loss patients; 4 positive
+PMID:31554319	not_cohort	0	TECTA in 812 ADSNHL probands: 26 carriers but only 15 with P/LP variants (11 VUS); confirmed group under 20
+PMID:38820174	not_cohort	0	TIE1 screening of 755 lymphedema patients; 3 variant carriers
+PMID:29861108	extracted	40	38 unrelated TLK2 probands plus 2 affected mothers (5 probands re-phenotyped from an earlier report); percentages over probands, denominators not stated; skipped tantrums/ASD/ADHD counts (no denominator), craniosynostosis 11% ('of them' ambiguous), microcephaly onset breakdown, pointed and tall chin (two features, one number), IQ normal share
+PMID:15447792	not_cohort	0	TMPRSS3 linkage families: 4 Pakistani families and one Newfoundland pedigree (10 affected described); no unit group of 20 with figures
+PMID:35163840	not_cohort	0	diagnostic-test study; 20 IRIDA patients of whom only 11 biallelic TMPRSS6 (9 monoallelic for a recessive disease); confirmed group under 20
+PMID:30541466	not_cohort	0	22 enzymatically confirmed NCL2, but TPP1 variants found in 19 (one only heterozygous, 3 none); figures (Table 1) cover all 22; confirmed group under 20
+PMID:38974612	extracted	2	48 biallelic TPP1 CLN2; classical late-infantile group of 41 used; late-onset group (7) skipped; first-manifestation shares skipped; seizure onset taken as disease onset as the paper presents it ('age of manifestation (seizure)')
+PMID:30372544	not_cohort	0	TSHR screening of 78 adults with non-autoimmune hyperthyroidism; no pathogenic variant
+PMID:34377013	not_cohort	0	TSHR screening of 125 CH patients; 14 heterozygous missense carriers, mostly uncertain
