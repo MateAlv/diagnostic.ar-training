@@ -1,0 +1,34 @@
+Cases: 4890 across 749 disease(s) and 489 gene(s)
+Per case (mean): positive 5.218, negative 11.461, missing 5.204, unknown 3.506, noise 1.83
+Negatives: 11.461 per case, 0.0937 of cases without any; by source negative_confounder 0.63, negative_own_disease 0.3361, negative_own_gene_other_disease 0.0339
+Missingness: missing_rate 0.3736, unknown_rate 0.2518, sex_unknown_share 0.0789, age_unknown_share 0.2528, onset_unknown_share 0.4025
+Noise: 1.83 per case (related share 0.8068); specialized share of positives 0.0937; forced positives in 167 case(s)
+Sex: female 2282, male 2222, unknown 386
+  male_biased: male share 0.9351 (expected 0.9, n=77)
+  male_limited: male share 1.0 (expected 1.0, n=9)
+  unbiased: male share 0.485 (expected 0.5, n=4408)
+  x_linked_dominant: male share 0.3 (expected 0.33, n=10)
+Age: known 0.7472, mean 16.611 y, median 8.23 y; <28d 10, 28d-1y 294, 1-5y 1018, 5-16y 1139, 16-40y 670, 40-60y 344, >=60y 179
+Onset: known 0.5975, mean 8.417 y, median 0.68 y; <28d 1019, 28d-1y 662, 1-5y 451, 5-16y 252, 16-40y 294, 40-60y 244, >=60y 0
+  onset adult: observed 0.1386, expected None
+  onset antenatal: observed 0.0661, expected None
+  onset childhood: observed 0.1496, expected None
+  onset infantile: observed 0.2225, expected None
+  onset juvenile: observed 0.0763, expected None
+  onset neonatal: observed 0.2868, expected None
+  onset variable: observed 0.0602, expected None
+Independent reporting (4890 cases): 5.234 profile terms and 1.83 noise per case; 0.3758 of true terms reported; q capped 0.1718; forced_min_one 167; q calibration error 0.0032
+  q [0.0, 0.1): mean q 0.0523, reported 0.0544 (n=19403)
+  q [0.1, 0.2): mean q 0.1445, reported 0.1473 (n=12899)
+  q [0.2, 0.3): mean q 0.2463, reported 0.2433 (n=7640)
+  q [0.3, 0.4): mean q 0.3474, reported 0.3436 (n=4942)
+  q [0.4, 0.5): mean q 0.4471, reported 0.4575 (n=3580)
+  q [0.5, 0.6): mean q 0.5481, reported 0.548 (n=2540)
+  q [0.6, 0.7): mean q 0.6479, reported 0.6503 (n=1996)
+  q [0.7, 0.8): mean q 0.7479, reported 0.7723 (n=1458)
+  q [0.8, 0.9): mean q 0.8482, reported 0.8638 (n=1109)
+  q [0.9, 1.0): mean q 0.9965, reported 0.997 (n=12539)
+  budget-normalized (4890 cases): k mean 8.887, realized profile terms 5.234, TV 0.255, mean c 2.9488
+  record scope: total shown 7.064 per case (noise 1.83, profile target 7.056), TV vs k 0.1096
+Invariant violations: 0
+Validation report: /home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.3-cand6b/pilot-r1/cases.validation.json
