@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1136	extracted	2	Table 2 uses +/++/+++ grades; CNS signs 'majority'; hair 'most'
+NBK1145	extracted	1	males only; adult height range and hip replacement age are not features; scoliosis/odontoid incidence unpublished
+NBK1148	no_numbers	0	relative risks among carriers and variant frequencies only; PE 32% is conditional on DVT; recurrence incidences per year
+NBK1152	extracted	5	skipped surgery rates (decompression, pharyngeal, ear tubes, laminectomy, lower limb), infant death 'as high as 7.5%', kyphosis non-resolution 'about 10%' (conditional), 'most' statements
+NBK1157	no_numbers	0	gene shares, mortality among those with aplasia cutis (50%), qualitative features; pyloric atresia detected in utero or at birth not a stated disease onset
+NBK1160	extracted	8	skipped urologic involvement 91.2% (no specific HPO term; sphincter 77% kept), flatulence/fecal incontinence and urodynamics (all-HSP cohorts), walking-aid shares, penetrance
+NBK1163	extracted	1	EM and SFN onsets hedged ('usually', 'typically'); SFN 8/28 is a diagnostic yield; survey 5% family history skipped
+NBK1172	extracted	1	form shares (42%/22%/33%) are not features; Table 4 'typical' ages and juvenile 'usually' hedged; neonatal-form onset kept
+NBK1175	extracted	5	seizure figures kept per population; age-onset 11-48 in the repeat-size subcohort not added (overall 12-83 kept)
+NBK1179	extracted	2	skipped first-symptom shares (57%/19%/14%/5%: share of presenting symptom, not prevalence), demyelinating/axonal subtypes (conditional on neuropathy), 'virtually all' GI dysmotility, 60% onset before 20 (not a range)
