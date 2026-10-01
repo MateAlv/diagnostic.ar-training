@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK562988	extracted	8	skipped testicular insufficiency 33% of males (defined by cryptorchidism and/or micropenis; no single HPO term), ichthyosis/acanthosis (two features), immunodeficiency 93% of ten evaluated in a literature review (table 36% kept), microcephaly n=4 (no denominator), survival rates
+NBK563693	extracted	11	n=89 (published plus authors' cohort); skipped first word in 32% (milestone, not a phenotype), dental abnormalities 'nearly 50%' (vague), seizures 'about one third' (table 38% kept)
+NBK564966	extracted	11	skipped congenital cardiac anomalies / abnormal echocardiogram (two features, no single HPO term), counts without a denominator (seizures, strabismus, skeletal and ectodermal items, hearing loss), mean height
+NBK587319	extracted	15	Table 2 epilepsy 46% and ASD 38% recorded from the text sentences that give the same figures with counts; skipped Jurkute optic atrophy 77% and hypoplastic optic nerves 46% (table kept), autistic traits in an 'additional' 14% (not a share of the feature), milestone ages
+NBK590152	extracted	9	15 reported individuals; text statements are vague ('several', 'majority', 'frequently'); seizure onset 'first months' not recorded (feature onset)
+NBK610216	extracted	11	skipped feeding/gastrointestinal issues (mixed category), neurobehavioral/psychiatric manifestations (mixed category), 'up to 86%' seizures (table kept), walking age range
+NBK616086	extracted	9	Table 3 describes the severe form; skipped dystonia / involuntary movements (no single HPO term covers both), DD onset 'usually' around 1 month (hedged); mild form has no numbers
+NBK623293	extracted	9	text 'approximately half' encephalopathy conflicts with Table 2 24/34 (table used); encephalopathy onset range 2 days-7 years not recorded as disease onset (not presented as such; 30% had prior DD); MRI 'almost all' (vague)
+NBK1195	extracted	10	skipped DD/cognitive impairment 'nearly 100%' (vague), drug-resistant epilepsy 15%-20% (no HPO term), IQ<50 in 10%-20% (no exact term), walking support 10%, milestone ages, diagnosis age 'often' ~3.5 y (hedged), SUDEP 'nearly 15%'
+NBK1327	extracted	7	Table 2 is males only; skipped laryngotracheoesophageal defects 70% (mixed clefts, fistulae and dysmotility; no single HPO term); heterozygous females have no numbers
