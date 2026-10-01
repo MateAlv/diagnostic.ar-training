@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK131810	no_numbers	0	clinical description lists case reports only; atherosclerosis onset (5-33 y, 10 cases) is a feature onset, not disease onset
+NBK476672	extracted	2	vascular calcification counts per gene kept (source warns not all were evaluated); onset 'typically first two decades' hedged; other features are case counts without denominators
+NBK532447	no_numbers	0	presentation 'typically in infancy' hedged; no frequencies; MT-TP unit is MERRF (worksheet fallback)
+NBK547595	extracted	4	pooled_group over dRTA units (FOXI1 unit is DFNB4/EVA and WDR72 unit is amelogenesis imperfecta: left out); skipped Dx bone manifestations 10%-23% (bundle), hypokalemia 'majority', short stature 'majority', rickets-series share, hedged onsets
+NBK553049	extracted	4	pooled_group over RSS1/RSS2; skipped <10% list (one number for many features), 'most'/'majority' statements
+NBK1103	no_numbers	0	symptoms 'usually present from birth' hedged; only TMA excretion thresholds and carrier frequencies
+NBK1105	extracted	1	onset of ataxic gait (presenting sign) from 7 reported individuals; nothing else quantified
+NBK1119	extracted	2	skipped 'up to 17%' and 'up to 70%' cardiac figures, fracture 'nearly half' and 64% by age 20 (cumulative risk), heterozygote lifetime risk, survival; BMD onset 'may be' hedged
+NBK1130	extracted	6	onset per subtype (late-infantile, juvenile, adult); skipped subtype shares, 'dementia and behavioral difficulties' 72% (two features), loss of motor skills ages
+NBK1131	extracted	4	pooled_group over ARVC units (DES and PLN units are myofibrillar myopathy / DCM: left out); skipped DSP LV-predominant cardiomyopathy 55% (no fitting HPO term), AF onset median 51 (feature onset), survival, gene shares
