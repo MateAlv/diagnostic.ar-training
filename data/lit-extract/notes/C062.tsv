@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK6852	extracted	3	Table 3 onset per type (B: 1-3 days = 0.00-0.01 y); Table 3 symbols '+ = present' have no numeric legend; ~15 of ~75 reported are type C (subtype share)
+NBK7041	extracted	7	rows pooled over all LSDMCA units (HCCS main gene); genitourinary or lower intestinal malformations 14/64 is a bundle; minor-criteria lists (<70%) have one bound for many features
+NBK7046	extracted	5	HANAC rows only (14 individuals); 2/14 cerebrovascular symptoms is a composite; aneurysms in six has no stated denominator; cramp onset 'usually' before 3 hedged; porencephaly/SVD unit has no numbers
+NBK9674	extracted	1	onset from the unhedged summary (5-10 y); body ataxia 'typically around 4-5' and seizures 'usually after 4' hedged; heterozygous phenotypes have no unit
+NBK26468	extracted	12	Table 2 '++ = always present' rows recorded as 1 per §6a; '+ usually / ± sometimes' skipped; 'Ab = absent' only for variant immunodeficiency (infection and pulmonary disease have no clean HPO match); ~10% hyper-IgM is conditional; dysphagia/feeding/nutrition is a bundle
+NBK32533	extracted	3	CARASIL stroke-like episodes 44% 'before age 40' (cumulative) skipped; CSVD onset 'typically after 40' hedged; spondylosis deformans 36% has no general HPO term (only lumbar/cervical)
+NBK45978	extracted	1	'more than 80% before age 10' is an onset share; HSN1D unit: only a variant screen (2 of 115), no feature numbers
+NBK47027	extracted	7	parkinsonism component shares read as shares of all Perry individuals (Konno/Mishima reviews); hypoventilation absent in 4 of 31 families (family-level complement) skipped; dHMN7B onset hedged
+NBK51754	extracted	6	CK syndrome rows ('all affected males', 25 reported); CHILD laterality two-thirds is conditional, intellect 'usually normal' hedged
+NBK55062	extracted	3	stippling 'almost 100%' vague; ≥95% female is a sex ratio; kyphoscoliosis 'common'
