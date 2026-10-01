@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK169825	extracted	5	skipped walking 20%-25% (not a feature), OFC normal at birth in ~2/3 of females (complement), 'nearly all' ID, XLID males without numbers
+NBK174452	extracted	4	single-individual features skipped (no stated denominator per feature); tracheostomy 3/18 is treatment; microcephaly at birth 'in most cases'
+NBK185330	extracted	1	only the onset range; other features hedged ('usually', 'most')
+NBK201366	extracted	7	onset per phenotype from Table 1 and the skeletal descriptions; Table 1/2 symbols not used; parastremmatic dwarfism and brachyolmia without numbers; Kozlowski onset hedged ('usually')
+NBK231880	extracted	5	retired chapter (historical); skipped tongue atrophy 'up to 60%-70%', 'virtually all' appendicular signs, penetrance-section onset (typically) in favour of the stated cohort range
+NBK258640	not_about_units	0	figures describe Duarte galactosemia (normal developmental outcomes), while the only unit is classic galactosemia OMIM:230400
+NBK285321	extracted	6	suggestive-list CHD ~77% not used (same figure as 44/57 in text); nonsyndromic share ~10% and deaths 4/14 not features; IUGR/FTT 'common'
+NBK338165	extracted	1	only onset; autonomic dysfunction 'nearly universal' (vague)
+NBK338540	extracted	1	Table 2 symbols without numeric legend; vesicles 'up to 50%' of neonates skipped
+NBK349072	extracted	2	Table 2 symbols without legend; SCC 'about half ... in their lifetime' is lifetime risk; poikiloderma onset hedged ('frequently')
