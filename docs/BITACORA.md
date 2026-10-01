@@ -2422,6 +2422,9 @@ only: **no R1-dev read in this task, whatever the result.**
   paper list on title and abstract signatures (the dead-end types above),
   then one more pilot.
 
+### 2026-10-01 — data — lit-extract shards C002–C010 (ADR-0013)
+- Branch `phase3/lit-extract-C002-C010`, guide v2, one commit per shard, each `validate-shard` 0 problems (re-checked after merging main); no Codex cross-check yet (central). **1,227 rows (1,188 feature, 39 age) from 86 of 90 chapters** (C002 93, C003 99, C004 246, C005 222, C006 147, C007 130, C008 87, C009 108, C010 95); 4 chapters with 0 rows (1 `no_numbers`: Rotor; 3 `not_about_units`, worksheet fallbacks for another disease: 16p12.2 deletion → UQCRC2 complex III deficiency, Xq28 int22h duplication → CLIC2/RAB39B, VEXAS → UBA1 SMAX2). Other wrong-disease fallback units skipped (e.g. SUFU→medulloblastoma in NBCCS, SMAD4→JPS in HHT, MYH11/MYLK→aortic aneurysm in MMIHS, CSF1R early-onset column = BANDDOS); guide ambiguities listed in the PR; `dxt lineage verify` passes.
+
 ### 2026-10-01 — data — lit-extract shards C029–C035 (ADR-0013)
 
 - Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
