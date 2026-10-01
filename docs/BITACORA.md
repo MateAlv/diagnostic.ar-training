@@ -2429,8 +2429,8 @@ only: **no R1-dev read in this task, whatever the result.**
 
 - Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
 
-### 2026-10-01 — data — lit-extract shards C036–C040 (ADR-0013)
-- Branch `phase3/lit-extract-C036-C044`, guide v4, one commit per shard, each `validate-shard` 0 problems (re-checked after merging main); stopped early on request, C041–C044 not started; no Codex cross-check (central). **1,254 rows from 48 of 50 chapters** (C036 457, C037 235, C038 210, C039 170, C040 182); 2 `not_about_units` (worksheet fallbacks: ECCL → FGFR1 HH2, Temple → Kagami-Ogata units); `dxt lineage verify` passes.
+### 2026-10-01 — data — lit-extract shards C036–C044 (ADR-0013)
+- Branch `phase3/lit-extract-C036-C044`, guide v4, one commit per shard, each `validate-shard` 0 problems (re-checked after merging main); C036–C040 first, C041–C044 after a pause; no Codex cross-check (central). **1,809 rows from 88 of 90 chapters** (C036 457, C037 235, C038 210, C039 170, C040 182, C041 145, C042 143, C043 129, C044 138); 2 `not_about_units` (worksheet fallbacks: ECCL → FGFR1 HH2, Temple → Kagami-Ogata units); `dxt lineage verify` passes.
 
 ### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
 - Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
