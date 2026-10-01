@@ -2064,3 +2064,15 @@ Written and committed before the first candidate 4 pilot run.
    - keeping the 50 R1-dev parity fixture in the private model repo;
    - recommending to Mariano that the question agent send only its "no"
      answers.
+
+### 2026-10-01 — decision — ADR-0013 amendment 1: verified sources only
+- **Mateo's rule:** only human-curated sources or major studies.
+- **Tier 1, curated knowledge bases:** GeneReviews, MedlinePlus Genetics,
+  Gene2Phenotype, PanelApp (plus the existing HPOA, Orphanet, ClinGen and
+  MONDO).
+- **Tier 2, major studies:** peer-reviewed cohort or natural-history studies
+  with ≥ 20 confirmed patients, preferably cited by a usable GeneReviews
+  chapter.
+- **Housekeeping:** deleted candidate 4's rich-cases files and three merged
+  agent worktrees (approved). Disk is at 20 GB free; sources and lineage
+  verify.
