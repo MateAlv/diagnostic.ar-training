@@ -196,7 +196,7 @@ rule.
 | `presentation-ages-vN` | One age range per disease from `AGE_PRESENTATION` rows | `presentation-ages.tsv` (`simulate --presentation-ages`, sim ≥ 0.5.1) |
 
 `--dry-run --out-dir … --report …` writes the files and the report with no
-artifact id and no manifest. The dry run on main's 37 shards is
+artifact id and no manifest. The latest dry run (45 shards, amendment 3) is
 `results/analyses/LIT-INTEGRATION-dryrun.json`.
 
 **Where amendment 2 is silent**, the build does the following, as ruled

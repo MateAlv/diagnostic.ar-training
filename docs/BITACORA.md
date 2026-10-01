@@ -2871,3 +2871,36 @@ profiles; the literature-enriched profiles come later, as candidate 6.
 
 ### 2026-10-01 — data — lit-extract paper shards Q019–Q026 (ADR-0013)
 - Branch `phase3/lit-extract-Q019-Q026`, guide v4, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check (central). **121 rows (103 feature, 18 age, 9 of them `AGE_PRESENTATION`) from 19 of 89 papers** (Q019 12, Q020 4, Q021 2, Q022 25, Q023 27, Q024 8, Q025 42, Q026 1); 70 papers with 0 rows (62 `not_cohort`: screening/yield studies, somatic tumour cohorts, single families, own cohorts under 20 pooled with literature, confirmed P/LP groups under 20 once VUS carriers are removed; 6 `no_numbers`; 2 `not_about_units`: MT-TT LHON cohort vs lethal infantile myopathy unit, SLCO2A1 enteropathy vs hypertrophic osteoarthropathy units). Guide ambiguities (VUS-majority groups, carrier vs affected denominators, pooled_group per-unit n, genetic-confirmation age as presentation age) listed in the PR; `dxt lineage verify` passes.
+
+### 2026-10-01 — decision + dry run — ADR-0013 amendment 3: rule-6 choice and the ambiguity guard
+- **Ruling (coordinator):**
+  - percentages are chosen by both sexes, then the largest stated
+    `n_assessed`, then unit > `pooled` > `pooled_group`;
+  - if one source's rows are still tied after sex and n and differ by
+    more than 0.20, the term is dropped from that source
+    (`ambiguous_populations`);
+  - the same guard applies to equal count denominators;
+  - the other amendment 2 resolutions are accepted.
+- **Implemented in PR #67;** 34 mocked tests.
+- **Effect on main's 37 shards** (code `c10788b` vs `1cf985d`):
+  - 80 rows (102 placements, 47 disease–term–source triples) are dropped
+    as `ambiguous_populations`;
+  - "not chosen" falls from 111 to 71 rows;
+  - file-order choices fall from 102 to 56;
+  - `hpoa-lit` falls from 2,892 to 2,841 rows on 431 diseases;
+  - the count guard never fires (same-source smaller counts stay at 10).
+- **Dry run after merging main** (45 shards with Q019–Q026; code
+  `cc86be3`, clean): `results/analyses/LIT-INTEGRATION-dryrun.json`.
+  - **Rows in:** 2,688, with 0 failed validation. Feature rows: 2,273 used,
+    80 ambiguous, 71 not chosen, 13 HPOA double count, 10 smaller
+    same-source count.
+  - **`hpoa-lit`:** 3,004 rows (666 count, 2,323 %, 15 NOT) on 456
+    diseases. 475 of 480 units enriched.
+  - **Terms:** 1,941 new and 1,025 existing.
+  - **Presentation ages:** 40 diseases. `AGE_ONSET` reaches 215 diseases.
+- **Simulator check (`6833d2d`, read-only copy):**
+  - `build-profiles --from-hpoa --hpoa … --gene-profiles genes-v2` on a
+    28-disease slice built 28 profiles. All 168 positive and 4 NOT
+    literature rows of the slice arrive.
+  - `load_presentation_ages` reads 40 rows.
+  - Still no artifact registered.
