@@ -1,0 +1,1012 @@
+pmid	pmcid	status	reason	per_unit_n	in_subset	calibration_shard	calibration_outcome	licence	n_stated	genes	weak_genes	title
+26762237	PMC4712481	fail	title:screening_method	64	False	P001	not_cohort	cc by	64	ABCA12;ALOX12B;ALOXE3;CASP14;CERS3;CYP4F22;LIPN;NIPAL4;PNPLA1;SDR9C7;SLC27A4;SULT2B1;TGM1	CASP14;CYP4F22;NIPAL4;SDR9C7	Role of molecular testing in the multidisciplinary diagnostic approach of ichthyosis.
+26029710	PMC4444165	fail	title:variant_level	212	False	P001	not_cohort	cc by	212	ABCC6		Copy number variation in the ATP-binding cassette transporter ABCC6 gene and ABCC6 pseudogenes in patients with pseudoxanthoma elasticum.
+41577745	PMC12852805	fail	abstract:diagnostic_yield		False	P001	not_cohort	cc by-nc-nd	158	ABCC6		ABCC6 pathogenic variants are associated with hemorrhagic phenotypes in Japanese patients with severe cerebral small vessel disease.
+41751611	PMC12941355	fail	abstract:diagnostic_yield	143	False	P001	not_cohort	cc by	143	ABCC6		ABCC6 Heterozygosity as Genetic Predisposition to Cerebrovascular Disease Across Ages.
+34355424	PMC8595532	pass	count_noun_with_unit	247	False	P001	extracted	cc by	247	ABCC6;ENPP1	ENPP1	Ectopic Calcification and Hypophosphatemic Rickets: Natural History of ENPP1 and ABCC6 Deficiencies.
+30732635	PMC6367840	pass	bare_count_single_unit_title	46	False	P001	extracted	cc by	46	ABCD1	ABCD1	Disease progression in women with X-linked adrenoleukodystrophy is slow.
+35053399	PMC8773697	fail	title:database	3400	False	P001	no_numbers	cc by	3400	ABCD1	ABCD1	Structure and Function of the ABCD1 Variant Database: 20 Years, 940 Pathogenic Variants, and 3400 Cases of Adrenoleukodystrophy.
+23842438	PMC3718718	pass	bare_count_single_unit_title	45	False	P001	extracted	cc by	45	ACADM		Newborn screening for medium-chain acyl-CoA dehydrogenase deficiency: regional experience and high incidence of carnitine deficiency.
+32793418	PMC7414009	fail	title:disease_group		False	P001	not_cohort	cc by-nc-nd	4316	ACADS		Diagnosis, genetic characterization and clinical follow up of mitochondrial fatty acid oxidation disorders in the new era of expanded newborn screening: A single centre experience.
+32228044	PMC7182243	fail	pub_type:trial	6793	False	P001	not_about_units	cc by	6793	ACTC1;ACTN2;ALPK3;ANKRD1;CALR3;CSRP3;JPH2;KLF10;MYBPC3;MYH6;MYH7;MYL2;MYL3;MYLK2;MYOM1;MYOZ2;MYPN;NEXN;OBSCN;PLN;RYR2;TCAP;TNNC1;TNNI3;TNNT2;TPM1;TRIM63;TTN;VCL	ACTN2;ANKRD1;CSRP3;JPH2;MYH6;MYH7;MYLK2;MYPN;TCAP;TPM1;VCL	Hypertrophic Cardiomyopathy With Left Ventricular Systolic Dysfunction: Insights From the SHaRe Registry.
+32731933	PMC7397507	fail	title:carriers	285	False	P001	not_cohort	cc by	285	ACTC1;MYBPC3;MYH7;MYL2;TNNI3;TNNT2;TPM1	MYH7;TPM1	Penetrance of Hypertrophic Cardiomyopathy in Sarcomere Protein Mutation Carriers.
+27081547	PMC4785548	fail	abstract:diagnostic_yield	93	False	P001	not_cohort	cc by	93	ACVRL1;ENG;GDF2;SMAD4	ACVRL1;ENG;GDF2;SMAD4	Mutations in RASA1 and GDF2 identified in patients with clinical features of hereditary hemorrhagic telangiectasia.
+32675221	PMC8327711	fail	title:treatment	238	False			cc by-nc	238	ACVRL1;ENG;SMAD4	ACVRL1;ENG;SMAD4	An international, multicenter study of intravenous bevacizumab for bleeding in hereditary hemorrhagic telangiectasia: the InHIBIT-Bleed study.
+35165143	PMC9120382	fail	abstract:diagnostic_yield	152	False			cc by-nc	152	ACVRL1;ENG;SMAD4	ACVRL1;ENG;SMAD4	Pulmonary arteriovenous malformations may be the only clinical criterion present in genetically confirmed hereditary haemorrhagic telangiectasia.
+21738395	PMC3130723	fail	abstract:diagnostic_yield	75	False			cc by	75	ADGRV1;CDH23;MYO7A;PCDH15;USH1C;USH1G;USH2A;WHRN	ADGRV1;CDH23;MYO7A;PCDH15;USH1C;USH1G;USH2A;WHRN	Molecular epidemiology of Usher syndrome in Italy.
+31029150	PMC6487024	fail	abstract:diagnostic_yield	22	False			cc by	1150	ADNP		Gene domain-specific DNA methylation episignatures highlight distinct molecular entities of ADNP syndrome.
+36114283	PMC9822884	fail	title:screening_method	45	False			cc by	45	ADNP;AFF4;CNOT1;IRF2BPL;KCNK9;KIF1A;MED13L;MEF2C;NR4A2;PACS1;PPP1R21;PURA;SATB2;USP7	AFF4;CNOT1;MED13L;NR4A2;PACS1;SATB2	The performance of genome sequencing as a first-tier test for neurodevelopmental disorders.
+33099630	PMC8311581	pass	bare_count_single_unit_title	42	True			cc by-nc	42	AGXT	AGXT	Long-term outcome of the survivors of infantile hypercalcaemia with CYP24A1 and SLC34A1 mutations.
+34082749	PMC8176596	fail	title:screening_method		False			cc by	45	AGXT	AGXT	Molecular analysis of the AGXT gene in Syrian patients suspected with primary hyperoxaluria type 1.
+34805638	PMC8589729	fail	abstract:diagnostic_yield	59	False			cc by-nc-nd	59	AGXT	AGXT	Comprehensive Genetic Analysis Reveals Complexity of Monogenic Urinary Stone Disease.
+35812297	PMC9263236	fail	abstract:penetrance	95	False			cc by-nc-nd	95	AGXT	AGXT	Improved Outcome of Infantile Oxalosis Over Time in Europe: Data From the OxalEurope Registry.
+37849991	PMC10577369	fail	abstract:association		False			cc by	932	AGXT	AGXT	Determinants of Kidney Failure in Primary Hyperoxaluria Type 1: Findings of the European Hyperoxaluria Consortium.
+38737343	PMC11087826	pass	bare_count_single_unit_title	52	True			cc by	52	AGXT	AGXT	Primary hyperoxaluria in adults and children: a nationwide cohort highlights a persistent diagnostic delay.
+31996917	PMC7137887	fail	title:screening_method	167	False			cc by	1477	AIP		Significant Benefits of AIP Testing and Clinical Screening in Familial Isolated and Young-onset Pituitary Tumors.
+37149543	PMC10558361	fail	title:screening_method		False			cc by	218	AIP		Low frequency of AIP mutations in patients with young-onset sporadic pituitary macroadenomas.
+37388215	PMC10303134	fail	abstract:database		False			cc by	299	AIP		Germline loss-of-function PAM variants are enriched in subjects with pituitary hypersecretion.
+37711900	PMC10498111	fail	title:treatment	39	False			cc by	41	AIP		The clinical and therapeutic profiles of prolactinomas associated with germline pathogenic variants in the aryl hydrocarbon receptor interacting protein (AIP) gene.
+38658850	PMC11044349	pass	count_unit_noun	62	True			cc by	62	ALDH5A1		Clinical and molecular outcomes from the 5-Year natural history study of SSADH Deficiency, a model metabolic neurodevelopmental disorder.
+31591370	PMC6835214	fail	no_per_unit_n_ge_20		False			cc by	48	ALDOB	ALDOB	Daily Fructose Traces Intake and Liver Injury in Children with Hereditary Fructose Intolerance.
+26104972	PMC4483224	pass	count_noun_with_unit	26	True			cc by	26	ALMS1	ALMS1	Diffuse left ventricular interstitial fibrosis is associated with sub-clinical myocardial dysfunction in Alström Syndrome: an observational study.
+22669413	PMC3522203	fail	abstract:association	145	False			cc by-nc-nd	145	ALMS1;ANAPC1;RECQL4	ALMS1	An urgent need for a change in policy revealed by a study on prenatal testing for Duchenne muscular dystrophy.
+35868845	PMC9484401	pass	count_noun_with_unit	27	True			cc by	27	ALPK1		Gain-of-function mutations in ALPK1 cause an NF-κB-mediated autoinflammatory disease: functional assessment, clinical phenotyping and disease course of patients with ROSAH syndrome.
+33414559	PMC8115635	fail	abstract:diagnostic_yield	64	False			cc by	64	ALS2		Genetic analysis of ALS cases in the isolated island population of Malta.
+33589474	PMC8053339	fail	title:screening_method	100	False			cc by-nc	100	ALS2		Value of systematic genetic screening of patients with amyotrophic lateral sclerosis.
+27667800	PMC5435101	pass	bare_count_single_unit_title	32	True			cc by	32	ANKRD11		Clinical and genetic aspects of KBG syndrome.
+35970914	PMC9626563	pass	bare_count_single_unit_title	25	True			cc by	25	ANKRD11		KBG syndrome: videoconferencing and use of artificial intelligence driven facial phenotyping in 25 new patients.
+36440975	PMC10117159	fail	abstract:diagnostic_yield	28	False			cc by-nc	28	ANKRD11		ANKRD11 pathogenic variants and 16q24.3 microdeletions share an altered DNA methylation signature in patients with KBG syndrome.
+37501353	PMC10690702	pass	count_noun_with_unit	75	True			cc by	75	ANKRD11		Epilepsy is an important feature of KBG syndrome associated with poorer developmental outcome.
+28100250	PMC5242010	fail	abstract:association		False			cc by	250	ANKRD26		5'UTR point substitutions and N-terminal truncating mutations of ANKRD26 in acute myeloid leukemia.
+31273088	PMC7049343	fail	pub_type:trial	24	False			cc by-nc	24	ANKRD26;MYH9		Eltrombopag for the treatment of inherited thrombocytopenias: a phase II clinical trial.
+39825153	PMC11835725	fail	abstract:diagnostic_yield	6447	False			cc by-nc-nd	6447	ANO3;AOPEP;EIF2AK2;EIF4A2;GNAL;HPCA;KMT2B;PRKRA;THAP1;TOR1A;TUBB4A;VPS16	GNAL;HPCA;TOR1A	Genomic reanalysis of a pan-European rare-disease resource yields new diagnoses.
+39937650	PMC12316014	pass	bare_count_single_unit_title	1877	True			cc by-nc	1877	ANO3;AOPEP;EIF2AK2;EIF4A2;GNAL;HPCA;KMT2B;PRKRA;THAP1;TOR1A;TUBB4A;VPS16	GNAL;HPCA;TOR1A	Combined genomics and proteomics unveils elusive variants and vast aetiologic heterogeneity in dystonia.
+40533913	PMC12343315	fail	title:screening_method	1924	False			cc by	1924	ANO3;AOPEP;EIF2AK2;EIF4A2;GNAL;HPCA;KMT2B;PRKRA;THAP1;TOR1A;TUBB4A;VPS16	GNAL;HPCA;TOR1A	Genetic Diversity and Expanded Phenotypes in Dystonia: Insights From Large-Scale Exome Sequencing.
+30564623	PMC6292381	fail	abstract:diagnostic_yield	4656	False			cc by-nc-nd	4656	ANO5		Genetic landscape and novel disease mechanisms from a large LGMD cohort of 4656 patients.
+20223039	PMC2837297	fail	abstract:diagnostic_yield	1166	False			cc by	1166	APC		Familial adenomatous polyposis: experience from a study of 1164 unrelated german polyposis patients.
+30939045	PMC7044908	fail	abstract:association	973	False			cc by	973	APOB		Rare Protein-Truncating Variants in APOB, Lower Low-Density Lipoprotein Cholesterol, and Protection Against Coronary Heart Disease.
+38856678	PMC11242450	fail	pub_type:trial	116	False			cc by-nc	116	APOB;LDLR;LDLRAP1;PCSK9	LDLR;LDLRAP1;PCSK9	Evinacumab in homozygous familial hypercholesterolaemia: long-term safety and efficacy.
+25333068	PMC4190878	pass	bare_count_single_unit_title	183	True			cc by	183	APP;PSEN1;PSEN2	APP	Disease-related mutations among Caribbean Hispanics with familial dementia.
+30976394	PMC6452213	fail	no_per_unit_n_ge_20		False			cc by-nc	36	AQP2;AVPR2	AQP2;AVPR2	Long-term outcome in inherited nephrogenic diabetes insipidus.
+19846582	PMC2792370	fail	abstract:association	57	False			cc by-nc	57	AR	AR	Clinical features of spinal and bulbar muscular atrophy.
+30838350	PMC6390113	pass	bare_count_single_unit_title	47	True			cc by-nc-nd	47	AR	AR	Prevalence of metabolic syndrome and non-alcoholic fatty liver disease in a cohort of italian patients with spinal-bulbar muscular atrophy.
+34250227	PMC8267784	pass	bare_count_single_unit_title	21	True			cc by-nc-nd	21	AR	AR	Highly Elevated Prevalence of Spinobulbar Muscular Atrophy in Indigenous Communities in Canada Due to a Founder Effect.
+35132468	PMC9217903	fail	title:disease_group	30	False			cc by	1030	AR	AR	J wave syndromes in patients with spinal and bulbar muscular atrophy.
+36797998	PMC10316764	fail	title:screening_method	6887	False			cc by	6887	AR	AR	Unexpected frequency of the pathogenic AR CAG repeat expansion in the general population.
+39669610	PMC11613747	fail	abstract:penetrance		False			cc by	302	ARG1		ACMG/AMP variant classification framework in arginase 1 deficiency: Implications for birth prevalence estimates and diagnostics.
+40678074	PMC12267995	pass	count_unit_noun	24	True			cc by	24	ARG1		Arginase deficiency in Mexico: Insights from the experience of a metabolic reference center.
+23780642	PMC3889631	fail	title:disease_group		False			cc by-nc	208	ARG1;ASL;ASS1;CPS1;NAGS;OTC;SLC25A13;SLC25A15	ASL;CPS1;NAGS	Cross-sectional observational study of 208 patients with non-classical urea cycle disorders.
+36195888	PMC9531467	pass	count_noun_with_unit	32	True			cc by	32	ARSA	ARSA	Understanding caregiver descriptions of initial signs and symptoms to improve diagnosis of metachromatic leukodystrophy.
+37480112	PMC10360315	fail	title:single_patient	489	False			cc by	489	ARSA	ARSA	Predicting disease severity in metachromatic leukodystrophy using protein activity and a patient phenotype matrix.
+37107695	PMC10137689	fail	title:screening_method		False			cc by	118	ASL;GNPTG	ASL;GNPTG	Comprehensive Genetic Analysis of Druze Provides Insights into Carrier Screening.
+25657773	PMC4307371	fail	title:single_patient	45	False			cc by	45	ASPA		The Clinical Features and Diagnosis of Canavan's Disease: A Case Series of Iranian Patients.
+31469252	PMC6764635	pass	count_noun_with_unit	71	True			cc by	71	ASS1		Early prediction of phenotypic severity in Citrullinemia Type 1.
+25529582	PMC4392068	fail	title:disease_group		False			cc by	1133	ASXL3		Genetic diagnosis of developmental disorders in the DDD study: a scalable analysis of genome-wide research data.
+26063662	PMC4529463	fail	abstract:database		False			cc by	130	ATF6;CNGA3;CNGB3;GNAT2;PDE6C;PDE6H		Mutation of ATF6 causes autosomal recessive achromatopsia.
+26766544	PMC4713063	fail	title:screening_method		False			cc by	89	ATF6;CNGA3;CNGB3;GNAT2;PDE6C;PDE6H		Mutation Detection in Patients with Retinal Dystrophies Using Targeted Next Generation Sequencing.
+29343940	PMC5749571	fail	title:screening_method		False			cc by-nc	69	ATF6;CNGA3;CNGB3;GNAT2;PDE6C;PDE6H		Prescreening whole exome sequencing results from patients with retinal degeneration for variants in genes associated with retinal degeneration.
+15942625	PMC2361547	fail	abstract:association	75	False			cc by	1445	ATM		Breast and other cancers in 1445 blood relatives of 75 Nordic patients with ataxia telangiectasia.
+26645295	PMC4673730	fail	pub_type:trial	25	False			cc by	25	ATM		Body composition, muscle strength and hormonal status in patients with ataxia telangiectasia: a cohort study.
+32733823	PMC7363802	fail	abstract:association	39	False			cc by	39	ATM		Diabetes in Patients With Ataxia Telangiectasia: A National Cohort Study.
+31469254	PMC6790319	fail	abstract:diagnostic_yield	385	False			cc by	385	ATN1		Childhood-onset cerebellar ataxia in Japan: A questionnaire-based survey.
+35182509	PMC8850201	fail	title:screening_method		False			cc by	3000	ATN1;FXN	FXN	Whole genome sequencing for the diagnosis of neurological repeat expansion disorders in the UK: a retrospective diagnostic accuracy and prospective clinical validation study.
+24842602	PMC4026576	pass	bare_count_single_unit_title	41	True			cc by	41	ATP1A3		ATP1A3 mutations and genotype-phenotype correlation of alternating hemiplegia of childhood in Chinese patients.
+25996915	PMC4440742	pass	bare_count_single_unit_title	187	True			cc by	187	ATP1A3		Alternating Hemiplegia of Childhood: Retrospective Genetic Study and Genotype-Phenotype Correlations in 187 Subjects from the US AHCF Registry.
+30891744	PMC6850116	pass	bare_count_single_unit_title	105	True			cc by	105	ATP1A3		ATP1A3 mosaicism in families with alternating hemiplegia of childhood.
+33762331	PMC7990330	fail	abstract:sequenced_cohort		False			cc by-nc	124	ATP1A3		De novo ATP1A3 variants cause polymicrogyria.
+34459253	PMC8649289	fail	abstract:association	62	False			cc by-nc	62	ATP1A3		ATP1A3 -Encoded Sodium-Potassium ATPase Subunit Alpha 3 D801N Variant Is Associated With Shortened QT Interval and Predisposition to Ventricular Fibrillation Preceded by Bradycardia.
+33083013	PMC7536406	fail	title:screening_method		False			cc by	1019	ATP6V0A4;ATP6V1B1;FOXI1;SLC4A1;WDR72	ATP6V1B1;WDR72	Genomic testing in 1019 individuals from 349 Pakistani families results in high diagnostic yield and clinical utility.
+32528851	PMC7283148	fail	title:database	8664	False			cc by-nc-nd	7246	ATP7A	ATP7A	Estimated birth prevalence of Menkes disease and ATP7A-related disorders based on the Genome Aggregation Database (gnomAD).
+32714836	PMC7378272	fail	title:screening_method		False			cc by-nc-nd	22	ATP7A	ATP7A	Targeted next generation sequencing for newborn screening of Menkes disease.
+28924228	PMC5603585	fail	title:screening_method	545	False			cc by	545	ATP8B1	ATP8B1	An expanded role for heterozygous mutations of ABCB4, ABCB11, ATP8B1, ABCC2 and TJP2 in intrahepatic cholestasis of pregnancy.
+33666275	PMC8456904	fail	title:treatment		False			cc by-nc-nd	130	ATP8B1	ATP8B1	Impact of Genotype, Serum Bile Acids, and Surgical Biliary Diversion on Native Liver Survival in FIC1 Deficiency.
+24780882	PMC4078703	pass	bare_count_single_unit_title	1187	True			cc by-nc	1187	ATXN1		Prediction of the age at onset in spinocerebellar ataxia type 1, 2, 3 and 6.
+25221404	PMC4162021	fail	no_per_unit_n_ge_20		False			cc by-nc-sa	43	ATXN1		Multimodal evoked potentials in spinocerebellar ataxia types 1, 2, and 3.
+35188716	PMC8935317	fail	title:disease_group		False			cc by-nc-nd	677	ATXN1		Evolution of disability in spinocerebellar ataxias type 1, 2, 3, and 6.
+32224865	PMC7230952	fail	abstract:sequenced_cohort	24	False			cc by	24	B3GLCT		Spectrum of Genetic Variants Associated with Anterior Segment Dysgenesis in South Florida.
+29096039	PMC5836855	fail	title:screening_method		False			cc by	29	B3GLCT;ETFA;ETFB;ETFDH		Diagnosis of lethal or prenatal-onset autosomal recessive disorders by parental exome sequencing.
+26683624	PMC4686043	fail	abstract:association	106	False			cc by	106	BAP1		Combined Genetic and Genealogic Studies Uncover a Large BAP1 Cancer Syndrome Kindred Tracing Back Nine Generations to a Common Ancestor from the 1700s.
+28062663	PMC5409081	fail	title:screening_method	22	False			cc by	22	BAP1		A population-based analysis of germline BAP1 mutations in melanoma.
+30228974	PMC6140420	fail	title:variant_level	31	False			cc by-nc-nd	31	BCKDHA;BCKDHB;DBT	BCKDHB;DBT	Fourteen new mutations of BCKDHA , BCKDHB and DBT genes associated with maple syrup urine disease (MSUD) in Malaysian population.
+33822054	PMC8804886	fail	abstract:association	25	False			cc by	25	BMPR1A	BMPR1A	mTOR inhibitors reduce enteropathy, intestinal bleeding and colectomy rate in patients with juvenile polyposis of infancy with PTEN-BMPR1A deletion.
+32398773	PMC7462743	fail	title:carriers	694	False			cc by-nc-nd	694	BMPR1A;SMAD4	BMPR1A;SMAD4	Disease expression in juvenile polyposis syndrome: a retrospective survey on a cohort of 221 European patients and comparison with a literature-derived cohort of 473 SMAD4/BMPR1A pathogenic variant carriers.
+36623243	PMC10022863	fail	title:carriers	15104	False			cc by-nc-nd	15104	BRCA1;BRCA2;CHEK2	BRCA1;BRCA2;CHEK2	Contralateral Breast Cancer Risk Among Carriers of Germline Pathogenic Variants in ATM , BRCA1 , BRCA2 , CHEK2 , and PALB2 .
+26815532	PMC4729478	pass	count_noun_with_unit	76	True			cc by	348	BSCL2	BSCL2	Clinical and Molecular Characterization of BSCL2 Mutations in a Taiwanese Cohort with Hereditary Neuropathy.
+30937141	PMC6439403	fail	title:treatment	783	False			cc by-nc-nd	783	BTK		X-linked agammaglobulinemia (XLA):Phenotype, diagnosis, and therapeutic challenges around the world.
+37219739	PMC10354121	pass	count_noun_with_unit	240	True			cc by	240	BTK		A Registry Study of 240 Patients with X-Linked Agammaglobulinemia Living in the USA.
+22406228	PMC3322422	fail	title:screening_method	4448	False			cc by	4448	C9orf72	C9orf72	Frequency of the C9orf72 hexanucleotide repeat expansion in patients with amyotrophic lateral sclerosis and frontotemporal dementia: a cross-sectional study.
+24706941	PMC4033024	fail	title:screening_method	78	False			cc by-nc	78	C9orf72	C9orf72	A blinded international study on the reliability of genetic testing for GGGGCC-repeat expansions in C9orf72 reveals marked differences in results among 14 laboratories.
+25308964	PMC4321829	pass	unit_cohort_of_n	177	True			cc by	177	C9orf72	C9orf72	Analysis of C9orf72 repeat expansions in a large series of clinically and pathologically diagnosed cases with atypical parkinsonism.
+26481318	PMC4960451	pass	count_noun_with_unit	72	True			cc by-nc-nd	72	C9orf72	C9orf72	The C9orf72 repeat size correlates with onset age of disease, DNA methylation and transcriptional downregulation of the promoter.
+28522837	PMC5437033	fail	title:carriers	1170	False			cc by	1170	C9orf72	C9orf72	Age-related penetrance of the C9orf72 repeat expansion.
+29172163	PMC5759893	fail	abstract:penetrance	319	False			cc by	144	C9orf72	C9orf72	Patterns of gray matter atrophy in genetic frontotemporal dementia: results from the GENFI study.
+29264395	PMC5730818	pass	bare_count_single_unit_title	504	True			cc by-nc-nd	504	C9orf72	C9orf72	Factors influencing the age at onset in familial frontotemporal lobar dementia: Important weight of genetics.
+32000838	PMC6993399	fail	title:carriers	75	False			cc by	75	C9orf72	C9orf72	Elevated methylation levels, reduced expression levels, and frequent contractions in a clinical cohort of C9orf72 expansion carriers.
+26339676	PMC4554443	pass	count_unit_noun	300	True			cc by-nc-nd	300	CABP4;CHRNA2;CHRNA4;CHRNB2;CRH;DEPDC5;KCNT1;NPRL2;NPRL3;STX1B	CABP4;CHRNA4;CHRNB2;CRH;DEPDC5;KCNT1;NPRL2;STX1B	PRIMA1 mutation: a new cause of nocturnal frontal lobe epilepsy.
+25135358	PMC4145250	fail	title:disease_group		False			cc by	218	CAPN3		Autosomal recessive limb-girdle muscular dystrophies in the Czech Republic.
+27011640	PMC4782525	pass	count_noun_with_unit	29	True			cc by-nc-sa	29	CAPN3		Limb-girdle muscular dystrophy in the Agarwals: Utility of founder mutations in CAPN3 gene.
+27081656	PMC4818744	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	85	CAPN3		Natural history of LGMD2A for delineating outcome measures in clinical trials.
+27142102	PMC4855345	fail	title:disease_group		False			cc by	60	CAPN3		Robust genotyping tool for autosomal recessive type of limb-girdle muscular dystrophies.
+26969326	PMC4796320	fail	title:screening_method		False			cc by	1119	CATSPER2;GJB2;KCNQ4;OTOF;SLC26A4;STRC	GJB2;KCNQ4;OTOF;STRC	Comprehensive genetic testing in the clinical evaluation of 1119 patients with hearing loss.
+35022556	PMC8755823	fail	title:screening_method	9956	False			cc by	9956	CATSPER2;STRC	STRC	Frequency of the STRC-CATSPER2 deletion in STRC-associated hearing loss patients.
+24689081	PMC3960060	fail	title:screening_method		False			cc by	105	CCM2;KRIT1;PDCD10	CCM2;KRIT1;PDCD10	High mutation detection rates in cerebral cavernous malformation upon stringent inclusion criteria: one-third of probands are minors.
+25354366	PMC4212902	fail	abstract:penetrance	87	False			cc by	87	CCM2;KRIT1;PDCD10	CCM2;KRIT1;PDCD10	PDCD10 gene mutations in multiple cerebral cavernous malformations.
+26446658	PMC4630064	pass	bare_count_single_unit_title	89	True			cc by-nc	89	CCM2;KRIT1;PDCD10	CCM2;KRIT1;PDCD10	Pathological Evaluation of Radiation-Induced Vascular Lesions of the Brain: Distinct from De Novo Cavernous Hemangioma.
+36695309	PMC9973654	fail	abstract:association	386	False			cc by-nc-nd	386	CCM2;KRIT1;PDCD10	CCM2;KRIT1;PDCD10	Intracranial Hemorrhage Rate and Lesion Burden in Patients With Familial Cerebral Cavernous Malformation.
+36622578	PMC10258178	pass	bare_count_single_unit_title	105	True			cc by	105	CCN6	CCN6	Unique mutation spectrum of progressive pseudorheumatoid dysplasia in the Chinese population: a retrospective genotype-phenotype analysis of 105 patients.
+33095945	PMC7984089	fail	abstract:diagnostic_yield	464	False			cc by-nc	464	CD151;DST;EXPH5;KLHL24;KRT14;KRT5;PLEC	CD151;DST;EXPH5;KRT14	Novel insights into the epidemiology of epidermolysis bullosa (EB) from the Dutch EB Registry: EB more common than previously assumed?
+25215306	PMC4158165	pass	count_noun_with_unit	20	True			cc by	20	CD40LG		Clinical features and genetic analysis of 20 Chinese patients with X-linked hyper-IgM syndrome.
+29324469	PMC6296846	pass	bare_count_single_unit_title	789	True			cc by-nc-nd	789	CDC73	CDC73	Parafibromin-deficient (HPT-JT Type, CDC73 Mutated) Parathyroid Tumors Demonstrate Distinctive Morphologic Features.
+19168852	PMC2667284	pass	bare_count_single_unit_title	93	True			cc by-nc	160	CDH1		Germline CDH1 deletions in hereditary diffuse gastric cancer families.
+20591882	PMC2991043	fail	abstract:association		False			cc by-nc	35	CDH1		Hereditary diffuse gastric cancer: updated consensus guidelines for clinical management and directions for future research.
+24366306	PMC3929874	pass	count_noun_with_unit	50	True			cc by-nc-sa	50	CDH1		Germline CDH1 mutations in bilateral lobular carcinoma in situ.
+27811364	PMC5340256	pass	count_unit_noun	169	True			cc by	169	CDH1		ERBB2 mutation is associated with a worse prognosis in patients with CDH1 altered invasive lobular cancer of the breast.
+28688938	PMC5780354	pass	bare_count_single_unit_title	85	True			cc by	85	CDH1		Comparative study of endoscopic surveillance in hereditary diffuse gastric cancer according to CDH1 mutation status.
+29589180	PMC6323075	fail	title:screening_method	94	False			cc by	94	CDH1		Germline CDH1 mutations are a significant contributor to the high frequency of early-onset diffuse gastric cancer cases in New Zealand Māori.
+36246616	PMC9554356	fail	abstract:penetrance	299	False			cc by	299	CDH1		Frequent cleft lip and palate in families with pathogenic germline CDH1 variants.
+36436516	PMC9810541	fail	abstract:association	854	False			cc by-nc-nd	854	CDH1		Genotype-first approach to identify associations between CDH1 germline variants and cancer phenotypes: a multicentre study by the European Reference Network on Genetic Tumour Risk Syndromes.
+27460420	PMC5117943	fail	title:screening_method	427	False			cc by	427	CDH23;MYO7A;PCDH15;USH1C;USH1G	CDH23;MYO7A;PCDH15;USH1C;USH1G	An innovative strategy for the molecular diagnosis of Usher syndrome identifies causal biallelic mutations in 93% of European patients.
+28944237	PMC5606877	fail	title:screening_method	138	False			cc by	138	CDH23;MYO7A;PCDH15;USH1C;USH1G	CDH23;MYO7A;PCDH15;USH1C;USH1G	Next-generation sequencing reveals the mutational landscape of clinically diagnosed Usher syndrome: copy number variations, phenocopies, a predominant target for translational read-through, and PEX26 mutated in Heimler syndrome.
+25657822	PMC4318547	pass	bare_count_single_unit_title	109	True			cc by	109	CDKL5		There is variability in the attainment of developmental milestones in the CDKL5 disorder.
+35978140	PMC9905550	pass	count_noun_with_unit	350	True			cc by	350	CDKL5		Factors influencing the attainment of major motor milestones in CDKL5 deficiency disorder.
+28837158	PMC5895461	fail	title:screening_method	893	False			cc by	893	CDKL5;GRIN2B;KCNQ2	KCNQ2	High frequency of mosaic pathogenic variants in genes causing epilepsy-related neurodevelopmental disorders.
+30428914	PMC6237029	fail	title:database	145	False			cc by	145	CDKN1B	CDKN1B	Multiple endocrine neoplasia type 1: extensive analysis of a large database of Florentine patients.
+32938577	PMC7947721	pass	count_unit_noun	73	True			cc by	73	CDKN1C	CDKN1C	Pediatric Primary Adrenal Insufficiency: A 21-year Single Center Experience
+36859312	PMC9979536	fail	abstract:association	36	False			cc by	36	CDKN1C;H19;HMGA2;IGF2;KHDC3L;NLRP2;NLRP5;NLRP7;PADI6;PLAG1	CDKN1C;H19;HMGA2;IGF2;KHDC3L;NLRP5;PADI6	Molecular characterisation of 36 multilocus imprinting disturbance (MLID) patients: a comprehensive approach.
+20685669	PMC2976034	fail	abstract:penetrance		False			cc by-nc	64	CDKN1C;H19;HMGA2;IGF2;PLAG1	CDKN1C;H19;HMGA2;IGF2	Epigenotype-phenotype correlations in Silver-Russell syndrome.
+25951829	PMC4501172	pass	bare_count_single_unit_title	69	True			cc by-nc	69	CDKN1C;H19;HMGA2;IGF2;PLAG1	CDKN1C;H19;HMGA2;IGF2	A prospective study validating a clinical scoring system and demonstrating phenotypical-genotypical correlations in Silver-Russell syndrome.
+32451468	PMC7434760	fail	abstract:association	321	False			cc by	321	CDKN1C;H19;IGF2;KCNQ1;KCNQ1OT1	CDKN1C;H19;IGF2;KCNQ1OT1	Cancer incidence and spectrum among children with genetically confirmed Beckwith-Wiedemann spectrum in Germany: a retrospective cohort study.
+35954470	PMC9367242	pass	count_noun_with_unit	21	True			cc by	21	CDKN1C;KCNQ1OT1	CDKN1C;KCNQ1OT1	Clinical Spectrum and Tumour Risk Analysis in Patients with Beckwith-Wiedemann Syndrome Due to CDKN1C Pathogenic Variants.
+24935963	PMC4112445	fail	abstract:association	120	False			cc by-nc	3976	CDKN2A	CDKN2A	High risk of tobacco-related cancers in CDKN2A mutation-positive melanoma families.
+32482799	PMC8005797	fail	abstract:penetrance	649	False			cc by	649	CDKN2A	CDKN2A	Genotype-phenotype correlations for pancreatic cancer risk in Dutch melanoma families with pathogenic CDKN2A variants.
+36785917	PMC10039795	fail	abstract:penetrance	347	False			cc by-nc-nd	347	CDKN2A	CDKN2A	Cost-effectiveness of pancreas surveillance: The CDKN2A-p16-Leiden cohort.
+30919572	PMC6916397	fail	title:screening_method		False			cc by-nc-nd	509	CENPF	CENPF	Clinical exome sequencing in 509 Middle Eastern families with suspected Mendelian diseases: The Qatari experience.
+32047491	PMC6996488	fail	title:variant_level	20	False			cc by	20	CFTR		Identification of Novel Genetic Variants in CVID Patients With Autoimmunity, Autoinflammation, or Malignancy.
+33095972	PMC7894542	pass	bare_count_single_unit_title	639	True			cc by	639	CFTR		Prevalence of CBAVD in azoospermic men carrying pathogenic CFTR mutations - Evaluated in a cohort of 639 non-vasectomized azoospermic men.
+29189923	PMC5760613	fail	title:n_lt_20		False			cc by	97	CHAT;RAPSN;SLC5A7		Congenital myasthenic syndrome with episodic apnoea: clinical, neurophysiological and genetic features in the long-term follow-up of 19 patients.
+24768552	PMC4067558	fail	title:disease_group		False			cc by-nc-nd	2446	CHD2		Convergence of genes and cellular pathways dysregulated in autism spectrum disorders.
+25783594	PMC4407192	fail	abstract:association	580	False			cc by	580	CHD2		CHD2 variants are a risk factor for photosensitivity in epilepsy.
+31993860	PMC7066089	fail	abstract:association	6473	False			cc by	6473	CHEK2	CHEK2	High risk of breast cancer in women with biallelic pathogenic variants in CHEK2.
+32782288	PMC7419503	fail	title:screening_method		False			cc by	844	CHEK2	CHEK2	Prevalence of pathogenic variants in DNA damage response and repair genes in patients undergoing cancer risk assessment and reporting a personal history of early-onset renal cancer.
+36136322	PMC9501803	fail	abstract:association	3783	False			cc by-nc-nd	3783	CHEK2	CHEK2	Differences in Cancer Phenotypes Among Frequent CHEK2 Variants and Implications for Clinical Care-Checking CHEK2.
+39745704	PMC11696452	fail	abstract:association	1566	False			cc by	2167	CHEK2	CHEK2	Double CHEK2 Pathogenic and Low-Risk Variants and Associated Cancer Phenotypes.
+32914449	PMC7693230	pass	bare_count_single_unit_title	56	True			cc by-nc-nd	56	CHKB;FKRP	FKRP	Cardiomyopathy in limb girdle muscular dystrophy R9, FKRP related.
+34815299	PMC9411915	pass	count_noun_with_unit	66	True			cc by-nc	66	CHST14;DSE		Clinical and molecular features of 66 patients with musculocontractural Ehlers-Danlos syndrome caused by pathogenic variants in CHST14 (mcEDS- CHST14 ).
+24349310	PMC3859631	fail	title:variant_level	51	False			cc by	51	CLCN1	CLCN1	CLCN1 mutations in Czech patients with myotonia congenita, in silico analysis of novel and known mutations in the human dimeric skeletal muscle chloride channel.
+33263785	PMC8068660	fail	no_per_unit_n_ge_20		False			cc by	70	CLCN1;SCN4A	CLCN1;SCN4A	Non-dystrophic myotonias: clinical and mutation spectrum of 70 German patients.
+30867839	PMC6401512	fail	no_per_unit_n_ge_20		False			cc by-nc	80	CLCN7		ClC-7 Regulates the Pattern and Early Development of Craniofacial Bone and Tooth.
+35699772	PMC9474504	fail	title:biomarker	35	False			cc by	35	CLN3	CLN3	Natural history of MRI brain volumes in patients with neuronal ceroid lipofuscinosis 3: a sensitive imaging biomarker.
+27322473	PMC4909324	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	42	CNBP	CNBP	A Molecular Signature of Myalgia in Myotonic Dystrophy 2.
+31159885	PMC6547518	pass	count_unit_noun	3000	True			cc by	3000	CNBP	CNBP	The DM-scope registry: a rare disease innovative framework bridging the gap between research and medical care.
+39703464	PMC11658809	pass	bare_count_single_unit_title	80	True			cc by-nc-nd	168	CNBP	CNBP	Updated Structure of CNBP Repeat Expansions in Patients With Myotonic Dystrophy Type 2 and Its Implication for Standard Diagnostics.
+27479814	PMC4978151	pass	count_noun_with_unit	51	True			cc by-nc-nd	51	CNGB3		Residual Foveal Cone Structure in CNGB3-Associated Achromatopsia.
+31447884	PMC6696896	pass	bare_count_single_unit_title	143	True			cc by	143	COL1A1	COL1A1	COL1A1/2 Pathogenic Variants and Phenotype Characteristics in Ukrainian Osteogenesis Imperfecta Patients.
+37810882	PMC10556695	fail	title:screening_method	197	False			cc by	197	COL1A1;COL1A2	COL1A1;COL1A2	NGS analysis of collagen type I genes in Polish patients with Osteogenesis imperfecta: a nationwide multicenter study.
+39012717	PMC11371902	fail	pub_type:trial	110	False			cc by	110	COL1A1;COL1A2	COL1A1;COL1A2	Setrusumab for the treatment of osteogenesis imperfecta: 12-month results from the phase 2b asteroid study.
+29270492	PMC5733817	pass	bare_count_single_unit_title	336	True			cc by-nc-nd	336	COL4A3		Natural History and Genotype-Phenotype Correlation in Female X-Linked Alport Syndrome.
+33772369	PMC8370956	pass	count_noun_with_unit	101	True			cc by	101	COL4A3;COL4A4	COL4A4	Genotype-phenotype correlations and nephroprotective effects of RAAS inhibition in patients with autosomal recessive Alport syndrome.
+31364286	PMC6732293	fail	pub_type:trial	441	False			cc by	441	COL4A3;COL4A4;COL4A5	COL4A4	Comparison between conventional and comprehensive sequencing approaches for genetic diagnosis of Alport syndrome.
+30577881	PMC6303895	pass	bare_count_single_unit_title	87	True			cc by	87	COL4A5		X-linked Alport syndrome: pathogenic variant features and further auditory genotype-phenotype correlations in males.
+24595329	PMC4051597	pass	count_unit_noun	250	True			cc by-nc-nd	250	COMP		Genotype to phenotype correlations in cartilage oligomeric matrix protein associated chondrodysplasias.
+34869124	PMC8633485	fail	no_per_unit_n_ge_20		False			cc by	2018	CPT1A	CPT1A	Three Novel and One Potential Hotspot CPT1A Variants in Chinese Patients With Carnitine Palmitoyltransferase 1A Deficiency.
+35822099	PMC9259392	fail	no_per_unit_n_ge_20		False			cc by	22	CPT1A	CPT1A	Genotype-phenotype correlations in CPT1A deficiency detected by newborn screening in Pacific populations.
+31566936	PMC6825870	fail	title:variant_level	39	False			cc by-nc-nd	39	CREBBP;EP300	EP300	New insights into genetic variant spectrum and genotype-phenotype correlations of Rubinstein-Taybi syndrome in 39 CREBBP-positive patients.
+37013606	PMC10337270	fail	title:variant_level		False			cc by	15051	CREBBP;EP300	EP300	Clinical outcomes of fetuses with chromosome 16 short arm copy number variants.
+27680516	PMC5215554	fail	abstract:penetrance	122	False			cc by-nc	122	CSF1R	CSF1R	Clinical and genetic characterization of adult-onset leukoencephalopathy with axonal spheroids and pigmented glia associated with CSF1R mutation.
+35721475	PMC9198639	fail	title:family_report	27	False			cc by	27	CSF1R	CSF1R	Two Novel Intronic Mutations in the CSF1R Gene in Two Families With CSF1R-Microglial Encephalopathy.
+28333917	PMC5589982	fail	title:screening_method		False			cc by-nc-nd	150	CSNK2A1		A clinical utility study of exome sequencing versus conventional genetic testing in pediatric neurology.
+32901917	PMC7756481	fail	title:screening_method		False			cc by	330	CSNK2A1		Diagnostic yield and clinical utility of whole exome sequencing using an automated variant prioritization system, EVIDENCE.
+31784560	PMC6884442	pass	bare_count_single_unit_title	816	True			cc by	816	CSNK2B	CSNK2B	Germline de novo variants in CSNK2B in Chinese patients with epilepsy.
+26060356	PMC4427823	pass	count_unit_noun	22	True			cc by	22	CTDP1	CTDP1	Cognitive Impairment and Brain Imaging Characteristics of Patients with Congenital Cataracts, Facial Dysmorphism, Neuropathy Syndrome.
+32727395	PMC7392712	fail	abstract:few_positives	21	False			cc by	21	CTNS	CTNS	Cystinosis beyond kidneys: gastrointestinal system and muscle involvement.
+33717137	PMC7946827	fail	abstract:few_positives	236	False			cc by	236	CYBA;CYBB;NCF1;NCF2	CYBA;CYBB;NCF2	Clinical, Immunological, and Molecular Profile of Chronic Granulomatous Disease: A Multi-Centric Study of 236 Patients From India.
+19381301	PMC2668749	pass	bare_count_single_unit_title	429	True			cc by	429	CYBB	CYBB	Chronic granulomatous disease: the European experience.
+30716179	PMC6850071	pass	count_noun_with_unit	159	True			cc by-nc	159	CYBB	CYBB	Clinical and genetic characteristics of Chinese pediatric patients with chronic granulomatous disease.
+32793533	PMC7393978	fail	title:screening_method		False			cc by	22	CYP27A1	CYP27A1	Targeted Next-Generation Sequencing in Diagnostic Approach to Monogenic Cholestatic Liver Disorders-Single-Center Experience.
+31814314	PMC6952319	pass	count_noun_with_unit	20	True			cc by-nc-nd	20	DARS2;RARS1	DARS2;RARS1	RARS1-related hypomyelinating leukodystrophy: Expanding the spectrum.
+32744312	PMC7645707	fail	no_per_unit_n_ge_20		False			cc by	511	DCT;GPR143;LRMDA;OCA2;SLC24A5;SLC45A2;TYR;TYRP1	DCT;OCA2;SLC24A5;TYR;TYRP1	SLC38A8 mutations result in arrested retinal development with loss of cone photoreceptor specialization.
+32942840	PMC7840237	pass	bare_count_single_unit_title	22	True			cc by-nc	22	DCTN1		Perry Disease: Concept of a New Disease and Clinical Diagnostic Criteria.
+32369189	PMC7540529	pass	bare_count_single_unit_title	63	True			cc by-nc	63	DDC		AADC deficiency from infancy to adulthood: Symptoms and developmental outcome in an international cohort of 63 patients.
+30349862	PMC6186933	pass	bare_count_single_unit_title	47	True			cc by-nc-nd	47	DDX3X		Phenotypic expansion in DDX3X - a common cause of intellectual disability in females.
+33585199	PMC7878971	fail	title:screening_method	5801	False			cc by	5801	DDX41	DDX41	Next-Generation Sequencing of DDX41 in Myeloid Neoplasms Leads to Increased Detection of Germline Alterations.
+30093711	PMC6292495	fail	no_per_unit_n_ge_20		False			cc by	180	DEPDC5;NPRL2;NPRL3	DEPDC5;NPRL2	The landscape of epilepsy-related GATOR1 variants.
+35947370	PMC9366660	fail	title:screening_method	4782	False			cc by-nc-nd	4782	DES;DSC2;DSG2;DSP;JUP;PKP2;PLN;TMEM43	TMEM43	Assessment of the Diagnostic Yield of Combined Cardiomyopathy and Arrhythmia Genetic Testing.
+27053961	PMC4822234	fail	title:biomarker	33	False			cc by	33	DHCR7		Development, behavior, and biomarker characterization of Smith-Lemli-Opitz syndrome: an update.
+31745530	PMC6855215	fail	title:screening_method	400	False			cc by	400	DHH;DHX37;DMRT1;NR5A1;SRY	DHH;DMRT1;NR5A1;SRY	Next-Generation Sequencing Reveals Novel Genetic Variants (SRY, DMRT1, NR5A1, DHH, DHX37) in Adults With 46,XY DSD.
+26925222	PMC4712775	fail	abstract:association	124	False			cc by	124	DICER1		Temporal order of RNase IIIb and loss-of-function mutations during development determines phenotype in pleuropulmonary blastoma / DICER1 syndrome: a unique variant of the two-hit tumor suppression model.
+33630087	PMC7907958	fail	title:carriers	4600	False			cc by	4600	DICER1		A Genome-First Approach to Characterize DICER1 Pathogenic Variant Prevalence, Penetrance, and Phenotype.
+39070603	PMC11271802	fail	title:carriers	57	False			cc by-nc-nd	57	DICER1		A genome-first approach to characterize DICER1 pathogenic variant prevalence, penetrance and cancer, thyroid, and other phenotypes in 2 population-scale cohorts.
+28640239	PMC5729347	pass	bare_count_single_unit_title	32	True			cc by-nc-nd	356	DLK1;MEG3;RTL1		Temple syndrome: comprehensive molecular and clinical findings in 32 Japanese patients.
+39693239	PMC12342376	pass	bare_count_single_unit_title	60	True			cc by	60	DLK1;MEG3;RTL1		Temple Syndrome: Comprehensive Clinical Study in Genetically Confirmed 60 Japanese Patients.
+24359596	PMC3896985	pass	bare_count_single_unit_title	5000	True			cc by	5000	DMD	DMD	Prevalence and distribution of late gadolinium enhancement in a large population of patients with Duchenne muscular dystrophy: effect of age and left ventricular systolic function.
+34539555	PMC8446520	fail	abstract:association		False			cc by	53	DMD	DMD	Quantitative Muscle MRI and Clinical Findings in Women With Pathogenic Dystrophin Gene Variants.
+40035839	PMC11880153	fail	abstract:penetrance	47	False			cc by	47	DMD	DMD	Deep characterization of females with heterozygous Duchenne muscular dystrophy mutations.
+25424323	PMC4247010	pass	bare_count_single_unit_title	151	True			cc by	151	DMPK		Comparisons of intellectual capacities between mild and classic adult-onset phenotypes of myotonic dystrophy type 1 (DM1).
+29378790	PMC6031283	pass	count_noun_with_unit	1893	True			cc by	1893	DNAJC6	DNAJC6	Features of GBA -associated Parkinson's disease at presentation in the UK Tracking Parkinson's study.
+32472658	PMC8425408	pass	count_noun_with_unit	25	True			cc by	25	DNAJC6	DNAJC6	DNAJC6 Mutations Disrupt Dopamine Homeostasis in Juvenile Parkinsonism-Dystonia.
+26733561	PMC4716236	fail	title:carriers	66	False			cc by-nc	66	DNMT3B;DUX4L1;LRIF1;SMCHD1	DNMT3B;DUX4L1;LRIF1;SMCHD1	Clinical expression of facioscapulohumeral muscular dystrophy in carriers of 1-3 D4Z4 reduced alleles: experience of the FSHD Italian National Registry.
+36154167	PMC9555763	fail	abstract:association	336	False			cc by	1053	DSP		Genetic Architecture of Acute Myocarditis and the Overlap With Inherited Cardiomyopathy.
+23243261	PMC3595148	pass	bare_count_single_unit_title	40	True			cc by-nc	40	DYSF		Clinical features and a mutation with late onset of limb girdle muscular dystrophy 2B.
+23406536	PMC3617000	fail	pub_type:trial	25	False			cc by	25	DYSF		Treatment of dysferlinopathy with deflazacort: a double-blind, placebo-controlled clinical trial.
+27602406	PMC4994875	pass	count_noun_with_unit	193	True			cc by	193	DYSF		The Clinical Outcome Study for dysferlinopathy: An international multicenter study.
+31019989	PMC6469257	fail	title:variant_level		False			cc by-nc-nd	23	DYSF		Correction of pseudoexon splicing caused by a novel intronic dysferlin mutation.
+31924237	PMC6954509	pass	bare_count_single_unit_title	25	True			cc by	25	EDA	EDA	Natural history of X-linked hypohidrotic ectodermal dysplasia: a 5-year follow-up study.
+23991204	PMC3750013	fail	title:variant_level	58	False			cc by	127	EDA;EDAR;EDARADD;WNT10A	EDA;EDAR	Candidate gene analysis of tooth agenesis identifies novel mutations in six genes and suggests significant role for WNT and EDA signaling and allele combinations.
+35982159	PMC9470534	fail	abstract:association	42607	False			cc by	42607	EED;KCNC1	EED	Integrating de novo and inherited variants in 42,607 autism cases identifies mutations in new moderate-risk genes.
+28475857	PMC5420355	fail	title:screening_method		False			cc by	710	EED;NSD1	EED	Mutations in Epigenetic Regulation Genes Are a Major Cause of Overgrowth with Intellectual Disability.
+22943132	PMC3598868	fail	title:variant_level	22	False			cc by	2011	EFEMP2		Characterization of a distinct lethal arteriopathy syndrome in twenty-two infants associated with an identical, novel mutation in FBLN4 gene, confirms fibulin-4 as a critical determinant of human vascular elastogenesis.
+33236446	PMC7986743	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	191	EIF2AK2;PRKRA		EIF2AK2 Missense Variants Associated with Early Onset Generalized Dystonia.
+30014503	PMC6175238	pass	count_unit_noun	296	True			cc by-nc-nd	296	EIF2B1;EIF2B2;EIF2B3;EIF2B4;EIF2B5	EIF2B1;EIF2B2;EIF2B3;EIF2B4;EIF2B5	Natural History of Vanishing White Matter.
+28334938	PMC5405235	fail	abstract:sequenced_cohort		False			cc by	100	EIF2B5	EIF2B5	Clinical and genetic characterization of leukoencephalopathies in adults.
+23442826	PMC3599008	fail	no_per_unit_n_ge_20		False			cc by	20	ELN	ELN	Twenty patients including 7 probands with autosomal dominant cutis laxa confirm clinical and molecular homogeneity.
+27104174	PMC4835556	pass	bare_count_single_unit_title	26	True			cc by-nc	26	ELN;GTF2I;GTF2IRD1;LIMK1;NCF1	ELN	Endocrine dysfunctions in children with Williams-Beuren syndrome.
+40176950	PMC11961066	pass	count_noun_with_unit	84	True			cc by	84	ENPP1	ENPP1	Phenotypic characterization of ENPP1 deficiency: generalized arterial calcification of infancy and autosomal recessive hypophosphatemic rickets type 2.
+41251406	PMC13084927	fail	title:treatment	25	False			cc by-nc	25	ENPP1	ENPP1	The prevalence of ENPP1 deficiency in humans with Ossification of the Posterior Longitudinal Ligament and the preclinical efficacy of ENPP1 enzyme therapy in murine Ossification of the Posterior Longitudinal Ligament.
+37153042	PMC10157349	fail	title:screening_method	527	False			cc by	527	EPCAM;MLH1;MSH2;MSH6;PMS2	MLH1;MSH2;MSH6;PMS2	Germline multigene panel testing of patients with endometrial cancer.
+25200064	PMC4222585	pass	count_noun_with_unit	350	True			cc by	350	ETFA;ETFB;ETFDH		Clinical and genetical heterogeneity of late-onset multiple acyl-coenzyme A dehydrogenase deficiency.
+24524299	PMC3928094	fail	title:variant_level	99	False			cc by	99	EXOSC3	EXOSC3	EXOSC3 mutations in pontocerebellar hypoplasia type 1: novel mutations and genotype-phenotype correlations.
+23439489	PMC3581825	pass	bare_count_single_unit_title	39	True			cc by-nc-nd	39	EXT1;EXT2		Mutations in the EXT1 and EXT2 genes in Spanish patients with multiple osteochondromas.
+29126381	PMC5681804	pass	count_unit_noun	46	True			cc by	46	EXT1;EXT2		A genotype-phenotype study of hereditary multiple exostoses in forty-six Chinese patients.
+36598218	PMC9885788	pass	bare_count_single_unit_title	22	True			cc by-nc	22	EXT1;TRPS1	TRPS1	The Clinical and Molecular Spectrum of Trichorhinophalangeal Syndrome Types I and II in a Turkish Cohort Involving 22 Patients.
+35046468	PMC8770796	pass	bare_count_single_unit_title	35	True			cc by	35	EYA1;SIX1	SIX1	Phenotype-genotype correlation in patients with typical and atypical branchio-oto-renal syndrome.
+25099282	PMC4143912	fail	abstract:association		False			cc by-nc-nd	35	FBXW7;KDM3B;REST;TRIM28;WT1	WT1	Germline mutations in the PAF1 complex gene CTR9 predispose to Wilms tumour.
+30885698	PMC6472290	fail	title:screening_method		False			cc by	7632	FBXW7;KDM3B;TRIM28		Identification of new Wilms tumour predisposition genes: an exome sequencing study.
+28887402	PMC5668946	pass	count_unit_noun	3001	True			cc by	3001	FGF14		Detection of long repeat expansions from PCR-free whole-genome sequence data.
+37322040	PMC10272173	fail	abstract:diagnostic_yield	53	False			cc by	53	FGF14		Optimized testing strategy for the diagnosis of GAA-FGF14 ataxia/spinocerebellar ataxia 27B.
+37399286	PMC10850669	fail	title:screening_method		False			cc by	45	FGF14		Intronic FGF14 GAA repeat expansions are a common cause of ataxia syndromes with neuropathy and bilateral vestibulopathy.
+37646005	PMC10461713	fail	title:screening_method	93	False			cc by	93	FGF14		Frequency of GAA- FGF14 Ataxia in a Large Cohort of Brazilian Patients With Unsolved Adult-Onset Cerebellar Ataxia.
+37916889	PMC10791012	fail	abstract:diagnostic_yield	940	False			cc by-nc-nd	940	FGF14		Clinical variability associated with intronic FGF14 GAA repeat expansion in Japan.
+38150853	PMC10784672	pass	bare_count_single_unit_title	1876	True			cc by-nc-nd	1876	FGF14		Clinical and genetic keys to cerebellar ataxia due to FGF14 GAA expansions.
+38507876	PMC10960126	pass	count_noun_with_unit	170	True			cc by	250	FGF14		GAA-FGF14 disease: defining its frequency, molecular basis, and 4-aminopyridine response in a large downbeat nystagmus cohort.
+18463157	PMC2434956	fail	title:screening_method	100	False			cc by-nc	100	FGFR1;GNRH1;GNRHR;KISS1R;NSMF	GNRH1;GNRHR;NSMF	The prevalence of intragenic deletions in patients with idiopathic hypogonadotropic hypogonadism and Kallmann syndrome.
+25728633	PMC4657458	fail	title:screening_method	72	False			cc by-nc-nd	72	FGFR3	FGFR3	Non-invasive prenatal diagnosis of achondroplasia and thanatophoric dysplasia: next-generation sequencing allows for a safer, more accurate, and comprehensive approach.
+34341520	PMC8327889	fail	pub_type:trial		False			cc by	104	FGFR3	FGFR3	Safe and persistent growth-promoting effects of vosoritide in children with achondroplasia: 2-year results from an open-label, phase 3 extension study.
+37823031	PMC10562841	pass	bare_count_single_unit_title	42	True			cc by-nc-nd	2021	FGFR3	FGFR3	Once-weekly TransCon CNP (navepegritide) in children with achondroplasia (ACcomplisH): a phase 2, multicentre, randomised, double-blind, placebo-controlled, dose-escalation trial.
+38813446	PMC11133798	fail	title:treatment	26	False			cc by	26	FGFR3	FGFR3	Vosoritide treatment for children with hypochondroplasia: a phase 2 trial.
+28617417	PMC5763155	fail	title:n_lt_20	23	False			cc by-nc-sa	23	FKBP14		A cohort of 17 patients with kyphoscoliotic Ehlers-Danlos syndrome caused by biallelic mutations in FKBP14: expansion of the clinical and mutational spectrum and description of the natural history.
+20413710	PMC2981024	pass	bare_count_single_unit_title	36	True			cc by-nc	36	FLCN		Clinical and genetic spectrum of Birt-Hogg-Dube syndrome patients in whom pneumothorax and/or multiple lung cysts are the presenting feature.
+22146830	PMC3251884	fail	title:carriers	115	False			cc by	115	FLCN		Renal cancer and pneumothorax risk in Birt-Hogg-Dubé syndrome; an analysis of 115 FLCN mutation carriers from 35 BHD families.
+27652079	PMC5014776	fail	abstract:association	190	False			cc by	190	FLCN		Risk of spontaneous pneumothorax due to air travel and diving in patients with Birt-Hogg-Dubé syndrome.
+26471271	PMC4608144	fail	abstract:association	47	False			cc by	47	FLNA	FLNA	47 patients with FLNA associated periventricular nodular heterotopia.
+29738522	PMC5965900	fail	abstract:diagnostic_yield	202	False			cc by	202	FLNA	FLNA	De novo and inherited private variants in MAP1B in periventricular nodular heterotopia.
+34491919	PMC8747482	fail	title:screening_method	1000	False			cc by-nc-nd	1157	FLNB	FLNB	Whole Exome Sequencing in Individuals with Idiopathic Clubfoot Reveals a Recurrent Filamin B (FLNB) Deletion.
+25153074	PMC4143194	fail	title:carriers	21	False			cc by	21	FMR1		Elevated levels of FMR1 mRNA in granulosa cells are associated with low ovarian reserve in FMR1 premutation carriers.
+31178126	PMC6612530	fail	title:disease_group		False			cc by	456	FMR1		Expansion of Human-Specific GGC Repeat in Neuronal Intranuclear Inclusion Disease-Related Disorders.
+30533527	PMC6244024	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	45	FOXG1		Delineating FOXG1 syndrome: From congenital microcephaly to hyperkinetic encephalopathy.
+31019990	PMC6469254	fail	title:model_organism	34	False			cc by-nc-nd	34	FOXG1		Structural brain anomalies in patients with FOXG1 syndrome and in Foxg1+/- mice.
+37308910	PMC10262363	fail	title:single_patient	122	False			cc by	122	FOXG1		Expanding genotype-phenotype correlations in FOXG1 syndrome: results from a patient registry.
+19543368	PMC2689649	fail	title:screening_method	57	False			cc by	57	FOXL2		Disease-causing 7.4 kb cis-regulatory deletion disrupting conserved non-coding sequences and their interaction with the FOXL2 promotor: implications for mutation screening.
+32962729	PMC7510158	fail	title:screening_method	24	False			cc by	29	FOXL2		Whole-exome sequencing in patients with premature ovarian insufficiency: early detection and early intervention.
+36793102	PMC9930292	fail	title:screening_method		False			cc by	500	FOXL2		Next-generation sequencing of 500 POI patients identified novel responsible monogenic and oligogenic variants.
+42100494	PMC13147215	fail	title:variant_level	864	False			cc by	864	FOXL2		Variant Curation of the Largest Compendium of FOXL2 Coding and Noncoding Sequence and Structural Variants in BPES.
+34588003	PMC8482569	pass	bare_count_single_unit_title	75	True			cc by	75	FOXP1		Individuals with FOXP1 syndrome present with a complex neurobehavioral profile with high rates of ADHD, anxiety, repetitive behaviors, and sensory symptoms.
+18931102	PMC2606841	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	26	FOXP3		Clinical heterogeneity in patients with FOXP3 mutations presenting with permanent neonatal diabetes.
+21931569	PMC3169541	fail	title:model_organism	109	False			cc by	109	FREM1		Heterozygous mutations of FREM1 are associated with an increased risk of isolated metopic craniosynostosis in humans and mice.
+33937142	PMC8085561	pass	count_unit_noun	28	True			cc by	2019	FREM1		Clinical and Genetic Characterization of Craniosynostosis in Saudi Arabia.
+38097983	PMC10720098	fail	title:variant_level	23	False			cc by	23	FREM1		Two novel mutations within FREM1 gene in patients with bifid nose.
+31589614	PMC6797235	fail	title:screening_method		False			cc by	5845	FTL		Optimizing clinical exome design and parallel gene-testing for recessive genetic conditions in preconception carrier screening: Translational research genomic data from 14,125 exomes.
+28904984	PMC5590524	fail	abstract:association	811	False			cc by-nc-nd	811	FXN	FXN	Impact of diabetes in the Friedreich ataxia clinical outcome measures study.
+29951702	PMC6132658	pass	bare_count_single_unit_title	20	True			cc by	50	FXN	FXN	Autonomic function testing in Friedreich's ataxia.
+32746884	PMC7397644	pass	bare_count_single_unit_title	554	True			cc by	554	FXN	FXN	Onset features and time to diagnosis in Friedreich's Ataxia.
+34299126	PMC8307455	fail	no_per_unit_n_ge_20		False			cc by	101	FXN	FXN	Interruptions of the FXN GAA Repeat Tract Delay the Age at Onset of Friedreich's Ataxia in a Location Dependent Manner.
+36524101	PMC9747094	fail	title:treatment	39	False			cc by-nc-nd	39	FXN	FXN	Efficacy and Safety of Leriglitazone in Patients With Friedreich Ataxia: A Phase 2 Double-Blind, Randomized Controlled Trial (FRAMES).
+38396238	PMC11093247	pass	bare_count_single_unit_title	358	True			cc by	358	FXN	FXN	Phenotypic variation of FXN compound heterozygotes in a Friedreich ataxia cohort.
+32420371	PMC7201721	fail	title:variant_level	50	False			cc by	50	FZD4;NDP	FZD4;NDP	Role of NDP - and FZD4 -Related Novel Mutations Identified in Patients with FEVR in Norrin/ β -Catenin Signaling Pathway.
+25491320	PMC4279596	fail	title:n_lt_20	605	False			cc by	605	G6PC3		Clinical spectrum and long-term follow-up of 14 cases with G6PC3 mutations from the French Severe Congenital Neutropenia Registry.
+36310651	PMC9597184	pass	bare_count_single_unit_title	39	True			cc by-nc-nd	39	GAA		Newborn screening for Pompe disease in Italy: Long-term results and future challenges.
+22704718	PMC3404939	fail	abstract:diagnostic_yield	33	False			cc by	33	GALC		Array CGH improves detection of mutations in the GALC gene associated with Krabbe disease.
+30089515	PMC6083585	fail	title:single_patient	35	False			cc by	35	GALC		A prospective natural history study of Krabbe disease in a patient cohort with onset between 6 months and 3 years of life.
+30809705	PMC6459791	fail	pub_type:trial	71	False			cc by	71	GALNS	GALNS	Molecular diagnosis of patients affected by mucopolysaccharidosis: a multicenter study.
+31029175	PMC6486996	pass	bare_count_single_unit_title	509	True			cc by	2018	GALT		The natural history of classic galactosemia: lessons from the GalNet registry.
+26244500	PMC4526224	fail	title:variant_level	340	False			cc by	340	GARS1		Two Novel De Novo GARS Mutations Cause Early-Onset Axonal Charcot-Marie-Tooth Disease.
+31827005	PMC7011687	fail	title:screening_method	220	False			cc by	220	GARS1		Targeted next-generation sequencing panels in the diagnosis of Charcot-Marie-Tooth disease.
+28283593	PMC5386440	fail	title:screening_method	25	False			cc by	25	GJB1		Mutations in noncoding regions of GJB1 are a major cause of X-linked CMT.
+28469099	PMC5421174	pass	bare_count_single_unit_title	22	True			cc by-nc-sa	22	GJB1		Clinical and Genetic Features of Chinese X-linked Charcot-Marie-Tooth Type 1 Disease.
+28768847	PMC5577965	fail	pub_type:trial	160	False			cc by	160	GJB1		Cross-sectional analysis of a large cohort with X-linked Charcot-Marie-Tooth disease (CMTX1).
+37284795	PMC10545504	pass	bare_count_single_unit_title	387	True			cc by-nc	387	GJB1		Genetic analysis and natural history of Charcot-Marie-Tooth disease CMTX1 due to GJB1 variants.
+31211173	PMC6562034	pass	count_noun_with_unit	427	True			cc by-nc-nd	427	GJB1;MFN2	MFN2	Mutation spectrum of Charcot-Marie-Tooth disease among the Han Chinese in Taiwan.
+32067424	PMC7196463	pass	count_noun_with_unit	318	True			cc by-nc-nd	2376	GJB2	GJB2	Analyses of del(GJB6-D13S1830) and del(GJB6-D13S1834) deletions in a large cohort with hearing loss: Caveats to interpretation of molecular test results in multiplex families.
+32071837	PMC7012745	pass	count_noun_with_unit	63	True			cc by	62	GLB1		Morquio-B disease: Clinical and genetic characteristics of a distinct GLB1 -related dysostosis multiplex.
+30631341	PMC6315145	fail	title:single_patient	20	False			cc by	20	GNB5		A NGS-Targeted Autism/ID Panel Reveals Compound Heterozygous GNB5 Variants in a Novel Patient.
+32477400	PMC7237723	fail	title:single_patient	27	False			cc by	27	GNB5		Severe Phenotype in a Patient With Homozygous 15q21.2 Microdeletion Involving BCL2L10 , GNB5 , and MYO5C Genes, Resembling Infantile Developmental Disorder With Cardiac Arrhythmias (IDDCA).
+33172956	PMC8639930	pass	bare_count_single_unit_title	44	True			cc by	44	GNB5		Inhibition of G-protein signalling in cardiac dysfunction of intellectual developmental disorder with cardiac arrhythmia (IDDCA) syndrome.
+27858732	PMC5278624	fail	title:variant_level	32	False			cc by-nc	32	GNE		Novel Pathogenic Variants in a French Cohort Widen the Mutational Spectrum of GNE Myopathy.
+31286697	PMC6620453	pass	count_noun_with_unit	44	True			cc by-nc	44	GNE		Progression of GNE Myopathy Based on the Patient-Reported Outcome.
+36359385	PMC9687899	fail	title:disease_group		False			cc by	400	GRIA2;NR2F1;SATB2	SATB2	Estimating the Prevalence of De Novo Monogenic Neurodevelopmental Disorders from Large Cohort Studies.
+27164704	PMC4898312	pass	bare_count_single_unit_title	23	True			cc by-nc-nd	23	GRIN1		Delineating the GRIN1 phenotypic spectrum: A distinct genetic NMDA receptor encephalopathy.
+29190809	PMC5708701	fail	title:screening_method	87	False			cc by	87	GRIN1		Molecular diagnosis of patients with epilepsy and developmental delay using a customized panel of epilepsy genes.
+29720203	PMC5932755	fail	title:screening_method	151	False			cc by	151	GRIN1		Detection rate of causal variants in severe childhood epilepsy is highest in patients with seizure onset within the first four weeks of life.
+30544257	PMC6308310	pass	count_noun_with_unit	92	True			cc by	248	GRIN2A	GRIN2A	GRIN2A-related disorders: genotype and functional consequence predict phenotype.
+22833210	PMC3309470	fail	title:disease_group	429	False			cc by-nc-nd	568	GRIN2B		Rare mutations in N-methyl-D-aspartate glutamate receptors in autism spectrum disorders and schizophrenia.
+26544041	PMC4636363	fail	title:screening_method	46	False			cc by	253	GRIN2B		Gene Mutation Analysis in 253 Chinese Children with Unexplained Epilepsy and Intellectual/Developmental Disabilities.
+26350204	PMC4833192	fail	title:screening_method	986	False			cc by	1000	GRIN2B;KCNQ3		Targeted Next-Generation Sequencing Analysis of 1,000 Individuals with Intellectual Disability.
+25356899	PMC4214635	fail	abstract:diagnostic_yield		False			cc by	41	GRIN2B;WAC		De novo mutations in moderate or severe intellectual disability.
+32860008	PMC7852664	fail	title:screening_method	358	False			cc by	1007	GRIN2D	GRIN2D	Successful application of genome sequencing in a diagnostic setting: 1007 index cases from a clinically heterogeneous cohort.
+19158106	PMC2664450	fail	title:biomarker	219	False			cc by-nc	219	GRN	GRN	Plasma progranulin levels predict progranulin mutation status in frontotemporal dementia patients and asymptomatic family members.
+34834549	PMC8624617	pass	bare_count_single_unit_title	206	True			cc by	206	H19	H19	Epigenotype, Genotype, and Phenotype Analysis of Taiwanese Patients with Silver-Russell Syndrome.
+32054688	PMC7525777	fail	no_per_unit_n_ge_20		False			cc by	33	H19;IGF2	H19;IGF2	Phenotype of genetically confirmed Silver-Russell syndrome beyond childhood.
+33920573	PMC8073552	fail	title:n_lt_20	21	False			cc by	21	H19;IGF2	H19;IGF2	Maternal Uniparental Disomy of Chromosome 20 (UPD(20)mat) as Differential Diagnosis of Silver Russell Syndrome: Identification of Three New Cases.
+35261046	PMC9545243	fail	title:treatment	71	False			cc by	71	H19;IGF2	H19;IGF2	Height and body mass index in molecularly confirmed Silver-Russell syndrome and the long-term effects of growth hormone treatment.
+32885845	PMC7891391	fail	pub_type:trial		False			cc by	75	HADHA;HADHB	HADHA;HADHB	Effects of triheptanoin (UX007) in patients with long-chain fatty acid oxidation disorders: Results from an open-label, long-term extension study.
+25125236	PMC4173748	pass	bare_count_single_unit_title	163	True			cc by	163	HDAC8;NIPBL;RAD21;SMC1A;SMC3	SMC1A	Genetic heterogeneity in Cornelia de Lange syndrome (CdLS) and CdLS-like phenotypes with observed and predicted levels of mosaicism.
+24498621	PMC3865593	fail	title:screening_method	74	False			cc by	74	HEXA	HEXA	Next-generation DNA sequencing of HEXA: a step in the right direction for carrier screening.
+20814896	PMC3034044	fail	title:treatment	49	False			cc by	49	HFE	HFE	A phase 1/2, dose-escalation trial of deferasirox for the treatment of iron overload in HFE-related hereditary hemochromatosis.
+33062844	PMC7531770	fail	title:treatment	29	False			cc by-nc-nd	29	HFE	HFE	Long-term Outcome of Orthotopic Liver Transplantation in Patients With Hemochromatosis: A Summary of a 30-year Transplant Program.
+32202644	PMC7090965	fail	abstract:penetrance	130	False			cc by	130	HGD		Assessment of Thyroid Function in Patients With Alkaptonuria.
+27435318	PMC4950750	fail	title:screening_method	31	False			cc by	31	HIBCH	HIBCH	Exome sequencing in mostly consanguineous Arab families with neurologic disease provides a high potential molecular diagnosis rate.
+33762937	PMC7982470	fail	title:n_lt_20	181	False			cc by	181	HIBCH	HIBCH	Cinical, Metabolic, and Genetic Analysis and Follow-Up of Eight Patients With HIBCH Mutations Presenting With Leigh/Leigh-Like Syndrome.
+34447000	PMC8370149	fail	title:variant_level	22	False			cc by-nc-sa	22	HIBCH	HIBCH	3-Hydroxyisobutyryl-CoA Hydrolase (HIBCH) Deficiency Cases Diagnosed by Only HIBCH Gene Analysis and Novel Pathogenic Mutation.
+27234567	PMC4915913	fail	abstract:association	38	False			cc by	38	HNF1B		Chromosome 17q12 microdeletions but not intragenic HNF1B mutations link developmental kidney disease and psychiatric disorder.
+30021660	PMC6052548	fail	no_per_unit_n_ge_20		False			cc by	60	HNF1B		Genome-wide methylomic analysis in individuals with HNF1B intragenic mutation and 17q12 microdeletion.
+31066763	PMC10522195	fail	title:screening_method		False			cc by	28	HNF1B		Searching for mutations in the HNF1B gene in a Brazilian cohort with renal cysts and hyperglycemia.
+31198537	PMC6543961	fail	abstract:penetrance		False			cc by-nc	60	HNF1B		Variable phenotype in HNF1B mutations: extrarenal manifestations distinguish affected individuals from the population with congenital anomalies of the kidney and urinary tract.
+31825128	PMC7217165	fail	title:screening_method	36	False			cc by-nc-nd	50	HNF1B		A cross-sectional study of patients referred for HNF1B-MODY genetic testing due to cystic kidneys and diabetes.
+32778765	PMC7852900	fail	title:disease_group		False			cc by	12252	HNF1B;LHX1	LHX1	Population prevalence and inheritance pattern of recurrent CNVs associated with neurodevelopmental disorders in 12,252 newborns and their parents.
+38922630	PMC11209205	fail	title:screening_method	50	False			cc by	735	HNF1B;LHX1	LHX1	Population-Based Risk of Psychiatric Disorders Associated With Recurrent Copy Number Variants.
+33728377	PMC7954461	pass	bare_count_single_unit_title	33	True			cc by-nc-nd	33	HNRNPH2		Detailed Clinical and Psychological Phenotype of the X-linked HNRNPH2 -Related Neurodevelopmental Disorder.
+36130591	PMC9606382	pass	count_noun_with_unit	32	True			cc by-nc-nd	32	HNRNPK	HNRNPK	An HNRNPK-specific DNA methylation signature makes sense of missense variants and expands the phenotypic spectrum of Au-Kline syndrome.
+27652284	PMC5023942	fail	title:screening_method	360	False			cc by	360	HNRNPU	HNRNPU	Targeted sequencing of 351 candidate genes for epileptic encephalopathy in a large cohort of patients.
+32913952	PMC7469791	fail	abstract:diagnostic_yield	29	False			cc by	29	HNRNPU	HNRNPU	Clinical and genetic characteristics of patients with Doose syndrome.
+30885509	PMC6481288	pass	count_noun_with_unit	155	True			cc by	155	HPSE2;LRIG2	HPSE2;LRIG2	Lrig2 and Hpse2, mutated in urofacial syndrome, pattern nerves in the urinary bladder.
+16914060	PMC1586197	pass	bare_count_single_unit_title	295	True			cc by	352	HTT	HTT	Genome-wide significance for a modifier of age at neurological onset in Huntington's disease at 6q23-24: the HD MAPS study.
+28601473	PMC5507767	fail	title:biomarker	201	False			cc by	201	HTT	HTT	Neurofilament light protein in blood as a potential biomarker of neurodegeneration in Huntington's disease: a retrospective cohort analysis.
+32038165	PMC6989488	fail	title:biomarker	85	False			cc by	85	HTT	HTT	Evaluation of Biochemical and Epigenetic Measures of Peripheral Brain-Derived Neurotrophic Factor (BDNF) as a Biomarker in Huntington's Disease Patients.
+33495376	PMC8055326	pass	bare_count_single_unit_title	132	True			cc by	132	HTT	HTT	Natural History, Phenotypic Spectrum, and Discriminative Features of Multisystemic RFC1 Disease.
+33766994	PMC8166441	fail	pub_type:trial	6316	False			cc by	6316	HTT	HTT	Timing and Impact of Psychiatric, Cognitive, and Motor Abnormalities in Huntington Disease.
+34867769	PMC8639701	fail	title:biomarker	57	False			cc by	57	HTT	HTT	Evaluation of Blood Glial Fibrillary Acidic Protein as a Potential Marker in Huntington's Disease.
+35357736	PMC9324106	fail	abstract:association	5053	False			cc by-nc-nd	5053	HTT	HTT	Clinical and genetic characteristics of late-onset Huntington's disease in a large European cohort.
+39354197	PMC11564083	fail	title:screening_method		False			cc by	82176	HTT	HTT	Increased frequency of repeat expansion mutations across different populations.
+40719829	PMC12827290	fail	abstract:association	20	False			cc by	20	HTT	HTT	Silent destruction: hidden muscle wasting and body decline in early Huntington's disease.
+29574422	PMC6047157	fail	abstract:sequenced_cohort		False			cc by	38	HYMAI;PLAGL1;ZFP57	HYMAI;PLAGL1;ZFP57	Maternal variants in NLRP and other maternal effect proteins are associated with multilocus imprinting disturbance in offspring.
+40302951	PMC12020819	fail	abstract:diagnostic_yield		False			cc by	33	HYMAI;PLAGL1;ZFP57	HYMAI;PLAGL1;ZFP57	Clinical Characteristics and Remission Monitoring of 6q24-Related Transient Neonatal Diabetes.
+24955330	PMC4060980	fail	abstract:association		False			cc by-nc-nd	111	IDS		Growth charts for patients with Hunter syndrome.
+27349225	PMC4924312	pass	count_noun_with_unit	34	True			cc by	34	IDS		Causes of death and clinical characteristics of 34 patients with Mucopolysaccharidosis II in Taiwan from 1995-2012.
+28974237	PMC5627440	pass	bare_count_single_unit_title	639	True			cc by	639	IDS		Clinical outcomes in idursulfase-treated patients with mucopolysaccharidosis type II: 3-year data from the hunter outcome survey (HOS).
+37974184	PMC10652632	pass	bare_count_single_unit_title	55	True			cc by	55	IDS		Neurodevelopmental status and adaptive behavior of pediatric patients with mucopolysaccharidosis II: a longitudinal observational study.
+31194252	PMC6852151	pass	bare_count_single_unit_title	538	True			cc by	538	IDUA	IDUA	Genotype-phenotype relationships in mucopolysaccharidosis type I (MPS I): Insights from the International MPS I Registry.
+25358339	PMC4369119	pass	count_noun_with_unit	33	True			cc by	33	INSR	INSR	Insulin Receptor and the Kidney: Nephrocalcinosis in Patients with Recessive INSR Mutations.
+30608578	PMC6452208	fail	abstract:sequenced_cohort	67	False			cc by	67	IRF2BPL		EAP1 regulation of GnRH promoter activity is important for human pubertal timing.
+38650104	PMC11187836	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	300	IRF2BPL		Genetic analysis of IRF2BPL in a Taiwanese dystonia cohort: The genotype and phenotype correlation.
+23154523	PMC3723330	fail	title:database	549	False			cc by-nc-nd	549	IRF6		Comparative analysis of IRF6 variants in families with Van der Woude syndrome and popliteal pterygium syndrome using public whole-exome databases.
+32222156	PMC7210719	fail	pub_type:trial	332	False			cc by-nc-nd	332	ITGA6;ITGB4;PLEC	ITGA6	Gentamicin Induces Laminin 332 and Improves Wound Healing in Junctional Epidermolysis Bullosa Patients with Nonsense Mutations.
+31343788	PMC6899717	fail	title:variant_level	401	False			cc by	401	JAG1;NOTCH2		Alagille syndrome mutation update: Comprehensive overview of JAG1 and NOTCH2 mutation frequencies and insight into missense variant classification.
+33077891	PMC7862053	fail	title:screening_method	406	False			cc by-nc-nd	406	JAG1;NOTCH2		Genome sequencing increases diagnostic yield in clinically diagnosed Alagille syndrome patients with previously negative test results.
+36036223	PMC9869940	fail	abstract:association	1433	False			cc by-nc	1433	JAG1;NOTCH2		Natural history of liver disease in a large international cohort of children with Alagille syndrome: Results from the GALA study.
+31780880	PMC6856296	fail	abstract:sequenced_cohort	246	False			cc by	246	KCNC1		Rare Variants in 48 Genes Account for 42% of Cases of Epilepsy With or Without Neurodevelopmental Delay in 246 Pediatric Patients.
+32695065	PMC7338758	fail	title:screening_method		False			cc by	384	KCNC1		Reanalysis of Genomic Sequencing Results in a Clinical Laboratory: Advantages and Limitations.
+36028527	PMC9418234	fail	title:disease_group		False			cc by	177	KCNC1		Whole-exome analysis of 177 pediatric patients with undiagnosed diseases.
+37645600	PMC10461058	fail	title:disease_group		False			cc by	1213	KCNC1		Epilepsy phenotype and gene ontology analysis of the 129 genes in a large neurodevelopmental disorders cohort.
+36034301	PMC9416002	pass	bare_count_single_unit_title	35	True			cc by	35	KCNC1;KCTD7	KCTD7	Genetic and phenotypic spectrum of Chinese patients with epilepsy and photosensitivity.
+21479265	PMC3066194	fail	title:screening_method	327	False			cc0	327	KCNC3		Frequency of KCNC3 DNA variants as causes of spinocerebellar ataxia 13 (SCA13).
+24030952	PMC3784284	fail	title:screening_method	50	False			cc by-nc	50	KCNC3		Next generation sequencing for molecular diagnosis of neurological disorders using ataxias as a model.
+25756792	PMC4355074	fail	title:variant_level		False			cc by	848	KCNC3		Functional analysis helps to define KCNC3 mutational spectrum in Dutch ataxia cases.
+35698242	PMC9195326	fail	title:variant_level	47	False			cc by	47	KCNK9		Gain and loss of TASK3 channel function and its regulation by novel variation cause KCNK9 imprinting syndrome.
+24552659	PMC3942207	fail	abstract:penetrance	86	False			cc by	101	KCNQ1		Phenotype, origin and estimated prevalence of a common long QT syndrome mutation: a clinical, genealogical and molecular genetics study including Swedish R518X/KCNQ1 families.
+23692823	PMC3670812	pass	bare_count_single_unit_title	71	True			cc by	71	KCNQ2	KCNQ2	Similar early characteristics but variable neurological outcome of patients with a de novo mutation of KCNQ2.
+24463883	PMC4030775	fail	title:screening_method	500	False			cc by	500	KCNQ2	KCNQ2	Clinical whole-genome sequencing in severe early-onset epilepsy reveals new genes and improves molecular diagnosis.
+27602407	PMC4995058	fail	title:treatment	70	False			cc by-nc-nd	70	KCNQ2	KCNQ2	KCNQ2 encephalopathy: Features, mutational hot spots, and ezogabine treatment of 11 patients.
+31302675	PMC6658850	fail	title:screening_method		False			cc by-nc	343	KCNQ2	KCNQ2	Incidence and phenotypes of childhood-onset genetic epilepsies: a prospective population-based national cohort.
+34163418	PMC8215605	fail	abstract:few_positives	50	False			cc by	50	KCNQ2	KCNQ2	Gene and Phenotype Expansion of Unexplained Early Infantile Epileptic Encephalopathy.
+34948243	PMC8707363	fail	pub_type:trial	60	False			cc by	60	KCNQ2	KCNQ2	New Candidates for Autism/Intellectual Disability Identified by Whole-Exome Sequencing.
+31238879	PMC6593513	fail	title:variant_level		False			cc by	4351	KCNQ3		Novel pathogenic variants and multiple molecular diagnoses in neurodevelopmental disorders.
+33004838	PMC7530681	fail	title:screening_method		False			cc by	16294	KCNQ3		Large-scale targeted sequencing identifies risk genes for neurodevelopmental disorders.
+25116015	PMC4130520	fail	title:family_report	30	False			cc by	30	KCNQ4	KCNQ4	Targeted high-throughput sequencing identifies pathogenic mutations in KCNQ4 in two large Chinese families with autosomal dominant hearing loss.
+39369220	PMC11452994	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	783	KHDC3L;NLRP2;NLRP5;NLRP7;PADI6	KHDC3L;NLRP5;PADI6	Comprehensive molecular and clinical findings in 29 patients with multi-locus imprinting disturbance.
+35296332	PMC8928698	pass	bare_count_single_unit_title	55	True			cc by	55	KHDC3L;NLRP2;NLRP5;NLRP7;PADI6;ZFP57	KHDC3L;NLRP5;PADI6;ZFP57	Trans-acting genetic variants causing multilocus imprinting disturbance (MLID): common mechanisms and consequences.
+31488895	PMC6906463	fail	title:screening_method	347	False			cc by	347	KIF1A		KIF1A variants are a frequent cause of autosomal dominant hereditary spastic paraplegia.
+31512412	PMC6825848	fail	abstract:diagnostic_yield	44	False			cc by-nc-nd	44	KIF1A		Rett and Rett-like syndrome: Expanding the genetic spectrum to KIF1A and GRIN1 gene.
+36284339	PMC9597953	fail	abstract:association	941	False			cc by	941	KIF1A		Association of variants in the KIF1A gene with amyotrophic lateral sclerosis.
+39076207	PMC11284166	fail	title:screening_method	1068	False			cc by	1068	KIF1A		Genetic link between KIF1A mutations and amyotrophic lateral sclerosis: evidence from whole-exome sequencing.
+30305169	PMC6180513	pass	bare_count_single_unit_title	33	True			cc by	33	KMT2A		Description of the molecular and phenotypic spectrum of Wiedemann-Steiner syndrome in Chinese patients.
+36054588	PMC9804670	fail	title:disease_group		False			cc by	40	KMT2B		The Genetic Landscape of Complex Childhood-Onset Hyperkinetic Movement Disorders.
+35937050	PMC9354570	fail	no_per_unit_n_ge_20		False			cc by	28	KMT2E	KMT2E	Whole genomic approach in mutation discovery of infantile spasms patients.
+37437211	PMC10629792	fail	no_per_unit_n_ge_20		False			cc by	24	KPTN		Models of KPTN-related disorder implicate mTOR signalling in cognitive and overgrowth phenotypes.
+26432462	PMC4830863	fail	title:variant_level	46	False			cc by	47	KRT14;KRT5	KRT14	Novel sporadic and recurrent mutations in KRT5 and KRT14 genes in Polish epidermolysis bullosa simplex patients: further insights into epidemiology and genotype-phenotype correlation.
+33533259	PMC7955325	fail	abstract:association	232	False			cc by-nc	232	LDLR;PCSK9	LDLR;PCSK9	Patients With LDLR and PCSK9 Gene Variants Experienced Higher Incidence of Cardiovascular Outcomes in Heterozygous Familial Hypercholesterolemia.
+29649218	PMC5978987	fail	title:screening_method	198	False			cc by	198	LGI1;MICAL1;RELN		Global characterization of copy number variants in epilepsy patients from whole genome sequencing.
+33767182	PMC7994713	fail	title:screening_method		False			cc by	1412	LGI1;MICAL1;RELN		Comparison of the diagnostic yield of aCGH and genome-wide sequencing across different neurodevelopmental disorders.
+28142128	PMC5378904	fail	abstract:few_positives	40	False			cc by-nc-nd	40	LGI1;RELN		The clinical phenotype of autosomal dominant lateral temporal lobe epilepsy related to reelin mutations.
+23954021	PMC3847609	fail	title:variant_level	112	False			cc by	112	LHX1	LHX1	TBX6, LHX1 and copy number variations in the complex genetics of Müllerian aplasia.
+33964214	PMC9432115	fail	title:review	206	False			cc by-nc-nd	206	LIPA	LIPA	Lysosomal acid lipase deficiency in pediatric patients: a scoping review.
+26053668	PMC5054845	pass	bare_count_single_unit_title	23	True			cc by-nc	23	LMNB1		LMNB1-related autosomal-dominant leukodystrophy: Clinical and radiological course.
+30697589	PMC6340331	fail	abstract:diagnostic_yield	93	False			cc by-nc-nd	93	LMNB1		Duplication and deletion upstream of LMNB1 in autosomal dominant adult-onset leukodystrophy.
+18539534	PMC2832754	fail	title:single_patient	543	False			cc by	1045	LRRK2	LRRK2	Phenotype, genotype, and worldwide genetic penetrance of LRRK2-associated Parkinson's disease: a case-control study.
+25493281	PMC4241794	fail	title:carriers	126	False			cc by-nc-nd	126	LRRK2	LRRK2	Olfactory identification in LRRK2 G2019S mutation carriers: a relevant marker?
+29568677	PMC5853627	fail	title:carriers	830	False			cc by	830	LRRK2	LRRK2	Exploring cancer in LRRK2 mutation carriers and idiopathic Parkinson's disease.
+39074992	PMC11292896	fail	abstract:association	510	False			cc by	8301	LRRK2	LRRK2	Parkinson's disease variant detection and disclosure: PD GENEration, a North American study.
+39175765	PMC11340503	fail	title:carriers	138	False			cc by	138	LRRK2	LRRK2	Multiple sclerosis in LRRK2 G2019S Parkinson's disease and isolated nigral degeneration in a homozygous variant carrier.
+40114783	PMC11925012	fail	title:biomarker	148	False			cc by	148	LRRK2	LRRK2	LRRK2 -associated parkinsonism with and without in vivo evidence of alpha-synuclein aggregates: longitudinal clinical and biomarker characterization.
+40119633	PMC12371444	fail	abstract:association	93	False			cc by	219	LRRK2	LRRK2	Prevalence and Clinical Characteristics of the LRRK2 p.L1795F Variant in Central Europeans with Early-Onset and Familial Parkinson's Disease.
+40133296	PMC11937388	pass	bare_count_single_unit_title	50000	True			cc by	50000	LRRK2	LRRK2	The LRRK2 p.L1795F variant causes Parkinson's disease in the European population.
+30302899	PMC6585857	pass	bare_count_single_unit_title	78	True			cc by-nc-nd	78	MAGEL2		Schaaf-Yang syndrome overview: Report of 78 individuals.
+29859105	PMC5984778	fail	abstract:few_positives	32	False			cc by	32	MAN2B1		Retinal and optic nerve degeneration in α-mannosidosis.
+35242565	PMC8856903	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	26	MAN2B1		Long-term outcome of patients with alpha-mannosidosis - A single center study.
+36873087	PMC9981422	fail	title:treatment	33	False			cc by	33	MAN2B1		Relationship between MAN2B1 genotype/subcellular localization subgroups, antidrug antibody detection, and long-term velmanase alfa treatment outcomes in patients with alpha-mannosidosis.
+32847582	PMC7448337	fail	title:variant_level	23	False			cc by	23	MANBA	MANBA	Variant c.2158-2A>G in MANBA is an important and frequent cause of hereditary hearing loss and beta-mannosidosis among the Czech and Slovak Roma population- evidence for a new ethnic-specific variant.
+41235131	PMC12608049	pass	bare_count_single_unit_title	46	True			cc by-nc-nd	46	MANBA	MANBA	Expanding the Phenotype Spectrum of β-Mannosidosis.
+31810826	PMC7007771	pass	bare_count_single_unit_title	3403	True			cc by-nc-nd	3403	MAPT	MAPT	Age at symptom onset and death and disease duration in genetic frontotemporal dementia: an international retrospective cohort study.
+34158384	PMC8408507	pass	count_unit_noun	82	True			cc by	82	MAPT	MAPT	Characterizing the Clinical Features and Atrophy Patterns of MAPT -Related Frontotemporal Dementia With Disease Progression Modeling.
+35171114	PMC8942340	fail	title:biomarker		False			cc by	244	MAX;SDHA;SDHAF2;SDHB;SDHC;SDHD;TMEM127	MAX;SDHA;SDHAF2;SDHD;TMEM127	Head/neck paragangliomas: focus on tumor location, mutational status and plasma methoxytyramine.
+30682498	PMC6525113	fail	title:variant_level	150	False			cc by	150	MCEE	MCEE	Genetic, structural, and functional analysis of pathogenic variations causing methylmalonyl-CoA epimerase deficiency.
+34635114	PMC8507242	fail	pub_type:trial	38	False			cc by	38	MCEE;MMAA;MMAB;MMADHC;MMUT;PCCA;PCCB	MCEE;MMAA;MMADHC	Long-term effectiveness of carglumic acid in patients with propionic acidemia (PA) and methylmalonic acidemia (MMA): a randomized clinical trial.
+29104469	PMC5666546	fail	abstract:penetrance		False			cc by-nc	200	MEF2C		MEF2C loss-of-function mutation contributes to congenital heart defects.
+30376817	PMC6208086	fail	title:variant_level	112	False			cc by	112	MEF2C		Novel MEF2C point mutations in Chinese patients with Rett (-like) syndrome or non-syndromic intellectual disability: insights into genotype-phenotype correlation.
+28660751	PMC5697682	fail	title:single_patient	79	False			cc by	1334	MFN2	MFN2	Clinical and genetic diversities of Charcot-Marie-Tooth disease with MFN2 mutations in a large case study.
+33415332	PMC7805791	fail	no_per_unit_n_ge_20		False			cc by	196	MFN2	MFN2	Natural history of Charcot-Marie-Tooth disease type 2A: a large international multicentre study.
+31196119	PMC6567512	pass	count_unit_noun	20	True			cc by	20	MKKS	MKKS	Mutation profile of BBS genes in patients with Bardet-Biedl syndrome: an Italian study.
+29661901	PMC5902784	pass	count_noun_with_unit	204	True			cc by-nc-nd	204	MLC1	MLC1	Megalencephalic leukoencephalopathy with subcortical cysts: Characterization of disease variants.
+31998307	PMC6970202	fail	abstract:association	35	False			cc by	35	MLH1	MLH1	Distinct Immunological Landscapes Characterize Inherited and Sporadic Mismatch Repair Deficient Endometrial Cancer.
+32917768	PMC8479746	fail	no_per_unit_n_ge_20		False			cc by	20	MLH1	MLH1	Assessment of mismatch repair deficiency in ovarian cancer.
+40865030	PMC12406993	fail	abstract:association		False			cc by-nc-nd	36	MLH1	MLH1	Association of RPS20 Loss-of-Function Variants With Colorectal Cancer Risk in a Cohort of Over 950,000 Individuals.
+31337882	PMC7371626	fail	title:database	6350	False			cc by-nc-sa	6350	MLH1;MSH2;MSH6;PMS2	MLH1;MSH2;MSH6;PMS2	Cancer risks by gene, age, and gender in 6350 carriers of pathogenic mismatch repair variants: findings from the Prospective Lynch Syndrome Database.
+38404296	PMC10884743	fail	abstract:association	39	False			cc by-nc-nd	1002	MLH1;MSH2;MSH6;PMS2	MLH1;MSH2;MSH6;PMS2	Gastric and duodenal cancer in individuals with Lynch syndrome: a nationwide cohort study.
+41583364	PMC12828513	fail	abstract:penetrance	2605	False			cc by	2605	MLH1;MSH2;MSH6;PMS2	MLH1;MSH2;MSH6;PMS2	Pancreatic cancer risk and survival in patients with Lynch syndrome: a nationwide Dutch cohort study.
+34796408	PMC9262797	fail	title:treatment	97	False			cc by	97	MMAB;MMUT		Spectrum and characterization of bi-allelic variants in MMAB causing cblB-type methylmalonic aciduria.
+33413471	PMC7792044	pass	bare_count_single_unit_title	30	True			cc by	328	MMUT		A rare mutation c.1663G > A (p.A555T) in the MMUT gene associated with mild clinical and biochemical phenotypes of methylmalonic acidemia in 30 Chinese patients.
+37181409	PMC10166779	fail	title:database		False			cc by	8500	MSH2;MSH6;PMS2	MSH2;MSH6;PMS2	Mortality by age, gene and gender in carriers of pathogenic mismatch repair gene variants receiving surveillance for early cancer diagnosis and treatment: a report from the prospective Lynch syndrome database.
+19525327	PMC2732267	fail	abstract:penetrance	125	False			cc by-nc	125	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6	MT-CO3;MT-CYB;MT-ND2;MT-ND4L;MT-ND5;MT-ND6	Gene-environment interactions in Leber hereditary optic neuropathy.
+21788663	PMC3170530	fail	pub_type:trial	85	False			cc by-nc	85	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6	MT-CO3;MT-CYB;MT-ND2;MT-ND4L;MT-ND5;MT-ND6	A randomized placebo-controlled trial of idebenone in Leber's hereditary optic neuropathy.
+25338955	PMC4212093	fail	abstract:penetrance	89	False			cc by	89	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6	MT-CO3;MT-CYB;MT-ND2;MT-ND4L;MT-ND5;MT-ND6	Leber's hereditary optic neuropathy with late disease onset: clinical and molecular characteristics of 20 patients.
+32991388	PMC7657145	fail	pub_type:trial	111	False			cc by-nc-nd	111	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6	MT-CO3;MT-CYB;MT-ND2;MT-ND4L;MT-ND5;MT-ND6	Real-World Clinical Experience With Idebenone in the Treatment of Leber Hereditary Optic Neuropathy.
+25652200	PMC4737121	fail	title:screening_method	100000	False			cc by	100000	MT-ATP6;MT-CO3;MT-CYB;MT-ND1;MT-ND2;MT-ND3;MT-ND4;MT-ND4L;MT-ND5;MT-ND6;MT-TH;MT-TI;MT-TP;MT-TS2	MT-CO3;MT-CYB;MT-ND2;MT-ND4L;MT-ND5;MT-ND6;MT-TH;MT-TI;MT-TP;MT-TS2	Prevalence of nuclear and mitochondrial DNA mutations related to adult mitochondrial disease.
+21811586	PMC3139636	fail	title:screening_method		False			cc by	1017	MT-RNR1	MT-RNR1	Newborn genetic screening for hearing impairment: a preliminary study at a tertiary center.
+22384008	PMC3286470	fail	title:screening_method		False			cc by	264	MT-RNR1	MT-RNR1	Simultaneous screening of multiple mutations by invader assay improves molecular diagnosis of hereditary hearing loss: a multicenter study.
+23826813	PMC3706284	pass	count_noun_with_unit	658	True			cc by	658	MT-RNR1	MT-RNR1	Genetic mutations of GJB2 and mitochondrial 12S rRNA in nonsyndromic hearing loss in Jiangsu Province of China.
+24401907	PMC3970901	fail	pub_type:trial		False			cc by-nc-sa	394	MT-RNR1	MT-RNR1	Frequency of mitochondrial mutations in non-syndromic hearing loss as well as possibly responsible variants found by whole mitochondrial genome screening.
+24612839	PMC3975227	fail	no_per_unit_n_ge_20		False			cc by	701	MT-RNR1	MT-RNR1	Developing regional genetic counseling for southern Chinese with nonsyndromic hearing impairment: a unique mutational spectrum.
+26252218	PMC4529078	fail	no_per_unit_n_ge_20		False			cc by	155	MT-RNR1	MT-RNR1	Mutation Spectrum of Common Deafness-Causing Genes in Patients with Non-Syndromic Deafness in the Xiamen Area, China.
+26783197	PMC4769003	pass	count_unit_noun	117	True			cc by-nc-nd	117	MT-RNR1	MT-RNR1	Genetic counseling for patients with nonsyndromic hearing impairment directed by gene analysis.
+28842446	PMC5649758	pass	count_noun_with_unit	76	True			cc by-nc-nd	76	MTM1		A natural history study of X-linked myotubular myopathy.
+27535533	PMC5018207	fail	no_per_unit_n_ge_20		False			cc by	60706	MTM1;SIL1;TRIO;WAC		Analysis of protein-coding genetic variation in 60,706 humans.
+32451462	PMC7248079	fail	title:family_report	137	False			cc by	137	MUC1	MUC1	SMRT sequencing revealed to be an effective method for ADTKD-MUC1 diagnosis through follow-up analysis of a Chinese family.
+19531215	PMC2702373	fail	no_per_unit_n_ge_20		False			cc by	82	MUTYH		Molecular analysis of the APC and MUTYH genes in Galician and Catalonian FAP families: a different spectrum of mutations?
+28634180	PMC5527373	fail	abstract:association	35688	False			cc by	35688	MUTYH		A MUTYH germline mutation is associated with small intestinal neuroendocrine tumors.
+32153140	PMC7086001	fail	title:screening_method		False			cc by-nc-nd	2249	MYH7	MYH7	Targeted gene panel use in 2249 neuromuscular patients: the Australasian referral center experience.
+22558294	PMC3338476	fail	abstract:association	75	False			cc by	75	MYH9		Alteration of liver enzymes is a feature of the MYH9-related disease syndrome.
+25077172	PMC4113270	fail	no_per_unit_n_ge_20		False			cc by	109	MYH9		Mutation spectrum and genotype-phenotype correlations in a large French cohort of MYH9-Related Disorders.
+28385783	PMC5566025	fail	title:treatment		False			cc by-nc	423	MYH9		Bleeding risk of surgery and its prevention in patients with inherited platelet disorders.
+33576163	PMC9540557	pass	count_unit_noun	62	True			cc by-nc-nd	62	MYO7A	MYO7A	Genotype-phenotype correlation in patients with Usher syndrome and pathogenic variants in MYO7A: implications for future clinical trials.
+29478779	PMC5985285	fail	title:disease_group		False			cc by	79	MYRF	MYRF	Loss of Function of the Nuclear Receptor NR2F2, Encoding COUP-TF2, Causes Testis Development and Cardiac Defects in 46,XX Children.
+31172260	PMC6745028	fail	title:variant_level	3280	False			cc by	3280	MYRF	MYRF	Novel truncation mutations in MYRF cause autosomal dominant high hyperopia mapped to 11p12-q13.3.
+35432193	PMC9012099	fail	title:disease_group	682	False			cc by	682	MYRF	MYRF	Disorders of Sex Development in a Large Ukrainian Cohort: Clinical Diversity and Genetic Findings.
+39542847	PMC11628210	fail	title:screening_method	46	False			cc by-nc-nd	46	MYRF	MYRF	Fetal Presentation of MYRF-Related Cardiac Urogenital Syndrome: An Emerging and Challenging Prenatal Diagnosis.
+37051330	PMC10084499	fail	title:treatment	1345	False			cc by	1990	NF2		Radiation treatment of benign tumors in NF2-related-schwannomatosis: A national study of 266 irradiated patients showing a significant increase in malignancy/malignant progression.
+29897170	PMC6175110	fail	abstract:association	35	False			cc by	45	NFIX		Further delineation of Malan syndrome.
+32193685	PMC7170815	pass	bare_count_single_unit_title	49	True			cc by	49	NIPBL;RAD21;SMC1A	SMC1A	Delineation of phenotypes and genotypes related to cohesin structural protein RAD21.
+20424877	PMC2944954	fail	abstract:diagnostic_yield	94	False			cc by-nc	94	NOP56		Analysis of an insertion mutation in a cohort of 94 patients with spinocerebellar ataxia type 31 from Nagano, Japan.
+19174371	PMC2668941	pass	count_unit_noun	131	True			cc by-nc	131	NOTCH3		Congruence between NOTCH3 mutations and GOM in 131 CADASIL patients.
+23799017	PMC3684609	pass	bare_count_single_unit_title	32	True			cc by	32	NOTCH3		Role of electron microscopy in the diagnosis of cadasil syndrome: a study of 32 patients.
+27309730	PMC4911105	fail	abstract:association	300	False			cc by	300	NOTCH3		CADASIL: Migraine, Encephalopathy, Stroke and Their Inter-Relationships.
+28469098	PMC5421173	pass	bare_count_single_unit_title	27	True			cc by-nc-sa	2016	NOTCH3		Study of Enhanced Depth Imaging Optical Coherence Tomography in Cerebral Autosomal Dominant Arteriopathy with Subcortical Infarcts and Leukoencephalopathy.
+29370179	PMC5784892	fail	abstract:association	125	False			cc by	125	NOTCH3		Location, number and factors associated with cerebral microbleeds in an Italian-British cohort of CADASIL patients.
+30032161	PMC6752295	fail	abstract:association	664	False			cc by	664	NOTCH3		The effect of NOTCH3 pathogenic variant position on CADASIL disease severity: NOTCH3 EGFr 1-6 pathogenic variant are associated with a more severe phenotype and lower survival compared with EGFr 7-34 pathogenic variant.
+37670901	PMC10475848	fail	no_per_unit_n_ge_20		False			cc by	48	NPC1		Long-term administration of intravenous Trappsol® Cyclo™ (HP-β-CD) results in clinical benefits and stabilization or slowing of disease progression in patients with Niemann-Pick disease type C1: Results of an international 48-week Phase I/II trial.
+34799641	PMC8604933	fail	abstract:sequenced_cohort	911	False			cc by	911	NPC1;NPC2		Estimated prevalence of Niemann-Pick type C disease in Quebec.
+38790666	PMC11117656	fail	title:disease_group	184	False			cc by	184	NPC1;NPC2		Elevated Bile Acid 3β,5α,6β-Trihydroxycholanoyl Glycine in a Subset of Adult Ataxias Including Niemann-Pick Type C.
+40513057	PMC12296777	fail	pub_type:trial	53	False			cc by-nc-nd	53	NPC1;NPC2		Disease-Modifying, Neuroprotective Effect of N-Acetyl-l-Leucine in Adult and Pediatric Patients With Niemann-Pick Disease Type C.
+34466801	PMC8397830	fail	title:model_organism	22	False			cc by	22	NR2F1		Pathogenic NR2F1 variants cause a developmental ocular phenotype recapitulated in a mutant mouse model.
+18001468	PMC2248565	fail	title:screening_method	88	False			cc by	88	NSD1		Mutation analysis of the NSD1 gene in patients with autism spectrum disorders and macrocephaly.
+36833222	PMC9956575	fail	title:screening_method	1530	False			cc by	1530	NSD1		Molecular Analysis and Reclassification of NSD1 Gene Variants in a Cohort of Patients with Clinical Suspicion of Sotos Syndrome.
+38535015	PMC10968944	fail	title:disease_group	45	False			cc by	45	NSD1		Congenital Heart Defects in Patients with Molecularly Confirmed Sotos Syndrome.
+39494594	PMC11532833	pass	count_noun_with_unit	57	True			cc by-nc-nd	57	NSD1		Deciphering Growth Patterns in Korean Children With Sotos Syndrome Through the Development of a Disease-Specific Growth Chart.
+29770739	PMC6009080	fail	title:variant_level	36	False			cc by-nc	36	NTRK1		Novel NTRK1 mutations in Chinese patients with congenital insensitivity to pain with anhidrosis.
+30774415	PMC6348974	fail	title:screening_method	41	False			cc by-nc	41	NTRK1		Heterogeneity of clinical features and mutation analysis of NTRK1 in Han Chinese patients with congenital insensitivity to pain with anhidrosis.
+35029636	PMC8762694	pass	bare_count_single_unit_title	28	True			cc by	133	OCA2	OCA2	The Phenotypic and Mutational Spectrum of the FHONDA Syndrome and Oculocutaneous Albinism: Similarities and Differences.
+35379600	PMC10359511	fail	title:carriers	28	False			cc by	28	OCA2;SLC45A2;TYR	OCA2;TYR	Abnormal foveal morphology in carriers of oculocutaneous albinism.
+34282722	PMC8291972	fail	title:single_patient	866	False			cc by	866	ODC1		Repurposing eflornithine to treat a patient with a rare ODC1 gain-of-function variant disease.
+25433810	PMC4258263	fail	title:disease_group		False			cc by	104	OTC		Urea cycle disorders in Spain: an observational, cross-sectional and multicentric study of 104 cases.
+20504331	PMC2901213	fail	title:single_patient	73	False			cc by	73	OTOF	OTOF	Screening mutations of OTOF gene in Chinese patients with auditory neuropathy, including a familial case of temperature-sensitive auditory neuropathy.
+31095577	PMC6522017	fail	title:screening_method	2265	False			cc by	2265	OTOF	OTOF	OTOF mutation analysis with massively parallel DNA sequencing in 2,265 Japanese sensorineural hearing loss patients.
+31581539	PMC6826657	fail	no_per_unit_n_ge_20		False			cc by	5000	OTOF	OTOF	Genetic Epidemiology and Clinical Features of Hereditary Hearing Impairment in the Taiwanese Population.
+38839897	PMC11271389	fail	pub_type:trial	95	False			cc by	95	OTOF	OTOF	Bilateral gene therapy in children with autosomal recessive deafness 9: single-arm trial results.
+28011929	PMC5272966	pass	bare_count_single_unit_title	354	True			cc by-nc-nd	354	PABPN1		Correlation between PABPN1 genotype and disease severity in oculopharyngeal muscular dystrophy.
+32804098	PMC7592669	fail	abstract:penetrance	48	False			cc by-nc	48	PABPN1		Swallowing, Chewing and Speaking: Frequently Impaired in Oculopharyngeal Muscular Dystrophy.
+34068396	PMC8153584	fail	title:review	54	False			cc by	54	PACS1	PACS1	Schuurs-Hoeijmakers Syndrome ( PACS1 Neurodevelopmental Disorder): Seven Novel Patients and a Review.
+40004556	PMC11855022	pass	bare_count_single_unit_title	63	True			cc by	63	PACS1	PACS1	Expanding the Clinical Spectrum Associated with the Recurrent Arg203Trp Variant in PACS1 : An Italian Cohort Study.
+26503515	PMC4621502	fail	title:screening_method	796	False			cc by	796	PAH		Molecular characterisation of phenylketonuria in a Chinese mainland population using next-generation sequencing.
+28982351	PMC5629770	fail	abstract:database	655	False			cc by	655	PAH		Spectrum of PAH gene variants among a population of Han Chinese patients with phenylketonuria from northern China.
+34828281	PMC8620669	pass	unit_cohort_of_n	124	True			cc by	124	PAH		An Updated PAH Mutational Spectrum of Phenylketonuria in Mexican Patients Attending a Single Center: Biochemical, Clinical-Genotyping Correlations.
+28574513	PMC5460076	fail	title:screening_method		False			cc by-nc-sa	2603	PAX2	PAX2	Detection of clinically relevant copy-number variants by exome sequencing in a large cohort of genetic disorders.
+18483559	PMC2375324	fail	title:screening_method		False			cc by	70	PAX6		Multiplex ligation-dependent probe amplification (MLPA) enhances the molecular diagnosis of aniridia and related disorders.
+28231309	PMC5322952	fail	title:screening_method	38	False			cc by	38	PAX6		Improving molecular diagnosis of aniridia and WAGR syndrome using customized targeted array-based CGH.
+31700164	PMC7056646	fail	no_per_unit_n_ge_20		False			cc by-nc-sa	372	PAX6		Recurrent heterozygous PAX6 missense variants cause severe bilateral microphthalmia via predictable effects on DNA-protein interaction.
+34101622	PMC8410060	pass	count_noun_with_unit	86	True			cc by	86	PAX6		Longitudinal genotype-phenotype analysis in 86 patients with PAX6-related aniridia.
+37269011	PMC10236743	fail	title:screening_method	110	False			cc by	110	PAX6		Long-read genome sequencing identifies cryptic structural variants in congenital aniridia cases.
+38050128	PMC7615962	fail	title:screening_method	51	False			cc by	39	PAX6		Short-read whole genome sequencing identifies causative variants in most individuals with previously unexplained aniridia.
+39212610	PMC11364179	fail	abstract:association	228	False			cc by-nc-nd	228	PAX6		The Systemic Genotype-Phenotype Characterization of PAX6-Related Eye Disease in 164 Chinese Families.
+39755898	PMC11754556	fail	title:disease_group		False			cc by-nc	337	PAX6		Systemic Diseases in Patients with Congenital Aniridia: A Report from the Homburg Registry for Congenital Aniridia.
+17389918	PMC1828620	fail	abstract:diagnostic_yield		False			cc by	2513	PAX6;WT1	WT1	Clinical implementation of chromosomal microarray analysis: summary of 2513 postnatal cases.
+24665329	PMC3943059	pass	bare_count_single_unit_title	70	True			cc by	70	PCCA;PCCB		Propionic acidemia: diagnosis and neuroimaging findings of this neurometabolic disorder.
+30705822	PMC6349011	pass	bare_count_single_unit_title	84	True			cc by-nc-nd	84	PCCA;PCCB		Spectrum of mutations underlying Propionic acidemia and further insight into a genotype-phenotype correlation for the common mutation in Saudi Arabia.
+33028371	PMC7539428	fail	title:screening_method	78	False			cc by	58	PCCA;PCCB		Biochemical and genetic approaches to the prenatal diagnosis of propionic acidemia in 78 pregnancies.
+35189944	PMC8862340	fail	title:carriers	192	False			cc by	192	PCCA;PCCB		Therapeutic potential of living donor liver transplantation from heterozygous carrier donors in children with propionic acidemia.
+35331292	PMC8944130	pass	count_noun_with_unit	60	True			cc by	60	PCCA;PCCB		Analysis of the relationship between phenotypes and genotypes in 60 Chinese patients with propionic acidemia: a fourteen-year experience at a tertiary hospital.
+38200289	PMC11176071	fail	title:biomarker		False			cc by	33	PCCA;PCCB		Intellectual disability and autism in propionic acidemia: a biomarker-behavioral investigation implicating dysregulated mitochondrial biology.
+36393899	PMC9647228	pass	bare_count_single_unit_title	24	True			cc by-nc-nd	38	PCCB		Natural history of propionic acidemia in the Amish population.
+23105016	PMC3561865	fail	title:screening_method	150	False			cc by-nc	150	PEX1;PEX10;PEX11B;PEX12;PEX13;PEX14;PEX16;PEX19;PEX2;PEX26;PEX3;PEX5;PEX6	PEX11B;PEX13;PEX26;PEX5;PEX6	Autozygome-guided exome sequencing in retinal dystrophy patients reveals pathogenetic mutations and novel candidate disease genes.
+25179809	PMC4164755	fail	title:disease_group		False			cc by	24	PEX1;PEX10;PEX11B;PEX12;PEX13;PEX14;PEX16;PEX19;PEX2;PEX26;PEX3;PEX5;PEX6	PEX11B;PEX13;PEX26;PEX5;PEX6	High prevalence of primary adrenal insufficiency in Zellweger spectrum disorders.
+34229749	PMC8258949	pass	bare_count_single_unit_title	847	True			cc by	847	PEX7	PEX7	Genetic epidemiology approach to estimating birth incidence and current disease prevalence for rhizomelic chondrodysplasia punctata.
+21902834	PMC3189111	fail	title:biomarker	40	False			cc by	43	PHEX	PHEX	Genetic diagnosis of X-linked dominant Hypophosphatemic Rickets in a cohort study: tubular reabsorption of phosphate and 1,25(OH)2D serum levels are associated with PHEX mutation type.
+26543054	PMC4674593	fail	title:screening_method	60000	False			cc by	60000	PHEX	PHEX	Hereditary hypophosphatemia in Norway: a retrospective population-based study of genotypes, phenotypes, and treatment complications.
+29460029	PMC6133187	pass	bare_count_single_unit_title	59	True			cc by	59	PHEX	PHEX	Outcome of adult patients with X-linked hypophosphatemia caused by PHEX gene mutations.
+30352126	PMC7816089	pass	count_unit_noun	44	True			cc by	44	PHEX	PHEX	High Incidence of Cranial Synostosis and Chiari I Malformation in Children With X-Linked Hypophosphatemic Rickets (XLHR).
+31065622	PMC6497922	fail	abstract:association	23	False			cc by-nc-nd	23	PHEX	PHEX	Nephrocalcinosis and Nephrolithiasis in X-Linked Hypophosphatemic Rickets: Diagnostic Imaging and Risk Factors.
+31259293	PMC6595532	pass	count_noun_with_unit	232	True			cc by	232	PHEX	PHEX	The Lifelong Impact of X-Linked Hypophosphatemia: Results From a Burden of Disease Survey.
+31910157	PMC6993252	fail	abstract:penetrance	113	False			cc by	172	PHEX	PHEX	Increased prevalence of overweight and obesity in children with X-linked hypophosphatemia.
+33639975	PMC7912818	pass	bare_count_single_unit_title	48	True			cc by	48	PHEX	PHEX	Phenotypic characterization of X-linked hypophosphatemia in pediatric Spanish population.
+34434907	PMC8382157	pass	bare_count_single_unit_title	81	True			cc by	81	PHEX	PHEX	Genotype and Phenotype Analysis in X-Linked Hypophosphatemia.
+35435480	PMC9187561	fail	abstract:association	29	False			cc by-nc	29	PHEX	PHEX	Lower limb bone geometry in adult individuals with X-linked hypophosphatemia: an observational study.
+36371259	PMC9652849	fail	title:treatment	36	False			cc by	36	PHEX	PHEX	Growth pattern in children with X-linked hypophosphatemia treated with burosumab and growth hormone.
+36398111	PMC9664523	fail	title:treatment	71	False			cc by	71	PHEX	PHEX	Burosumab and Dental Abscesses in Children With X-Linked Hypophosphatemia.
+36544157	PMC9768884	fail	title:treatment		False			cc by	34	PHEX	PHEX	Growth hormone treatment improves final height in children with X-linked hypophosphatemia.
+37084401	PMC10583998	fail	title:treatment	61	False			cc by-nc-nd	61	PHEX	PHEX	Burosumab vs Phosphate/Active Vitamin D in Pediatric X-Linked Hypophosphatemia: A Subgroup Analysis by Dose Level.
+37752558	PMC10523658	fail	abstract:penetrance	2021	False			cc by	2017	PHEX	PHEX	The International X-Linked Hypophosphatemia (XLH) Registry: first interim analysis of baseline demographic, genetic and clinical data.
+27629047	PMC5024448	fail	title:review		False			cc by	187	PHKA1;PHKA2;PHKB;PHKG2	PHKA1	Thirteen year retrospective review of the spectrum of inborn errors of metabolism presenting in a tertiary center in Saudi Arabia.
+38634985	PMC11026262	pass	bare_count_single_unit_title	42	True			cc by	42	PIK3CD		Phenotypic and Immunological Characterization of Patients with Activated PI3Kδ Syndrome 1 Presenting with Autoimmunity.
+29599784	PMC5863269	pass	bare_count_single_unit_title	77	True			cc by	77	PIK3CD;PIK3R1		Disease Evolution and Response to Rapamycin in Activated Phosphoinositide 3-Kinase δ Syndrome: The European Society for Immunodeficiencies-Activated Phosphoinositide 3-Kinase δ Syndrome Registry.
+37868971	PMC10588788	fail	title:treatment	28	False			cc by	28	PIK3CD;PIK3R1		Future Directions in the Diagnosis and Treatment of APDS and IEI: a Survey of German IEI Centers.
+31829210	PMC6907233	fail	title:screening_method		False			cc by	2025	PIK3R1		Outcomes of 4 years of molecular genetic diagnosis on a panel of genes involved in premature aging syndromes, including laminopathies and related disorders.
+26520804	PMC4672724	fail	title:screening_method	118	False			cc by-nc-nd	118	PIK3R2	PIK3R2	Characterisation of mutations of the phosphoinositide-3-kinase regulatory subunit, PIK3R2, in perisylvian polymicrogyria: a next-generation sequencing study.
+36478228	PMC10316771	fail	abstract:association	170	False			cc by-nc	170	PINK1	PINK1	Mitochondrial DNA heteroplasmy distinguishes disease manifestation in PINK1/PRKN-linked Parkinson's disease.
+28296980	PMC5327862	pass	bare_count_single_unit_title	400	True			cc by	400	PKHD1	PKHD1	Recent Progress of the ARegPKD Registry Study on Autosomal Recessive Polycystic Kidney Disease.
+29915780	PMC5994991	pass	bare_count_single_unit_title	196	True			cc by	196	PKHD1	PKHD1	Gastrostomy Tube Insertion in Pediatric Patients With Autosomal Recessive Polycystic Kidney Disease (ARPKD): Current Practice.
+31138820	PMC6538621	fail	abstract:few_positives	45	False			cc by	49	PKHD1	PKHD1	Clinical courses and complications of young adults with Autosomal Recessive Polycystic Kidney Disease (ARPKD).
+32994492	PMC7525474	fail	abstract:association	504	False			cc by	504	PKHD1	PKHD1	Severe neurological outcomes after very early bilateral nephrectomies in patients with autosomal recessive polycystic kidney disease (ARPKD).
+34737334	PMC8568977	fail	title:biomarker	456	False			cc by	456	PKHD1	PKHD1	Early childhood height-adjusted total kidney volume as a risk marker of kidney survival in ARPKD.
+35812281	PMC9263410	fail	title:family_report	70	False			cc by	70	PKHD1	PKHD1	Phenotypic Variability in Siblings With Autosomal Recessive Polycystic Kidney Disease.
+36938085	PMC10014383	fail	abstract:diagnostic_yield		False			cc by-nc-nd	538	PKHD1	PKHD1	Exome-First Strategy in Adult Patients With CKD: A Cohort Study.
+37403138	PMC10320940	pass	count_noun_with_unit	25	True			cc by	26	PLA2G6		Phenotype and genotype heterogeneity of PLA2G6-associated neurodegeneration in a cohort of pediatric and adult patients.
+35346287	PMC8962489	pass	bare_count_single_unit_title	111	True			cc by	1185	PLP1		Genotype-phenotype correlation and natural history analyses in a Chinese cohort with pelizaeus-merzbacher disease.
+30525118	PMC6276781	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	700	PLPBP		PLPBP mutations cause variable phenotypes of developmental and epileptic encephalopathy.
+25497157	PMC4266234	pass	count_noun_with_unit	29	True			cc by	29	PMM2		29 French adult patients with PMM2-congenital disorder of glycosylation: outcome of the classical pediatric phenotype and depiction of a late-onset phenotype.
+25758715	PMC4342151	fail	title:disease_group		False			cc by	154	PNPO	PNPO	Prevalence of inherited neurotransmitter disorders in patients with movement disorders and epilepsy: a retrospective cohort study.
+29588952	PMC5719849	fail	title:screening_method	31	False			cc by-nc-nd	31	PNPO	PNPO	Gene panel analysis for nonsyndromic cryptogenic neonatal/infantile epileptic encephalopathy.
+22162478	PMC3380101	pass	count_unit_noun	30	True			cc by-nc	30	POR	POR	Genotype-phenotype analysis in congenital adrenal hyperplasia due to P450 oxidoreductase deficiency.
+23365120	PMC3708032	fail	title:screening_method	20	False			cc by-nc	20	POR	POR	Prenatal diagnosis of congenital adrenal hyperplasia caused by P450 oxidoreductase deficiency.
+23324528	PMC3554555	fail	abstract:penetrance	31	False			cc by	31	PPOX		Partial protoporphyrinogen oxidase (PPOX) gene deletions, due to different Alu-mediated mechanisms, identified by MLPA analysis in patients with variegate porphyria.
+33106617	PMC7862067	fail	no_per_unit_n_ge_20		False			cc by-nc-sa	30	PPP2R1A		The broad phenotypic spectrum of PPP2R1A-related neurodevelopmental disorders correlates with the degree of biochemical dysfunction.
+25972378	PMC4527483	fail	no_per_unit_n_ge_20		False			cc by	111	PPP2R5D		Mutations in the PP2A regulatory subunit B family genes PPP2R5B, PPP2R5C and PPP2R5D cause human overgrowth.
+37339871	PMC10393186	pass	bare_count_single_unit_title	100	True			cc by-nc	100	PPP2R5D		Clinical features of PPP2 syndrome type R5D (Jordan's syndrome) to support standardization of care.
+29113160	PMC5656022	fail	abstract:association	90	False			cc by-nc-nd	90	PRF1;STX11;STXBP2;UNC13D	PRF1;STX11;STXBP2;UNC13D	Germline cytotoxic lymphocytes defective mutations in Chinese patients with lymphoma.
+33658321	PMC7963436	pass	bare_count_single_unit_title	36	True			cc by-nc-nd	36	PRF1;UNC13D	PRF1;UNC13D	Hemophagocytic Lymphohistiocytosis Gene Mutations in Adult Patients Presenting With CLIPPERS-Like Syndrome.
+29603387	PMC6175136	pass	count_noun_with_unit	194	True			cc by	194	PRKCG	PRKCG	Genotype-phenotype correlations, dystonia and disease progression in spinocerebellar ataxia type 14.
+38553467	PMC10980707	pass	count_noun_with_unit	647	True			cc by	647	PRKN		Genotype-phenotype correlation in PRKN-associated Parkinson's disease.
+38605127	PMC11576736	fail	title:treatment		False			cc by	100	PRRT2		Evaluation of 100 Dutch cases with 16p11.2 deletion and duplication syndromes; from clinical manifestations towards personalized treatment options.
+34170463	PMC9203365	fail	abstract:association		False			cc by	21	PTCH1;PTCH2;SUFU	PTCH1;PTCH2;SUFU	PTCH2 is not a strong candidate gene for gorlin syndrome predisposition.
+36961676	PMC10276115	fail	abstract:association		False			cc by	27	PTCH1;SUFU	PTCH1;SUFU	Perspectives on the implications of carrying putative pathogenic variants in the medulloblastoma predisposition genes ELP1 and GPR161.
+31594918	PMC6783427	pass	bare_count_single_unit_title	36	True			cc by	36	PTEN	PTEN	Neurobehavioral phenotype of autism spectrum disorder associated with germline heterozygous mutations in PTEN.
+37093598	PMC10126871	fail	abstract:association	7302	False			cc by	7302	PTEN	PTEN	Longitudinal Analysis of Cancer Risk in Children and Adults With Germline PTEN Variants.
+28990276	PMC5765476	fail	title:screening_method	28	False			cc by-nc	28	PUF60		Exome sequencing reveals NAA15 and PUF60 as candidate genes associated with intellectual disability.
+32337850	PMC7507388	fail	title:disease_group		False			cc by	21	PURA		The phenotype-driven computational analysis yields clinical diagnosis for patients with atypical manifestations of known intellectual disability syndromes.
+33446253	PMC7809769	fail	title:screening_method		False			cc by	31	PURA		Exome sequencing in paediatric patients with movement disorders.
+34790866	PMC8592566	pass	bare_count_single_unit_title	142	True			cc by-nc-nd	142	PURA		PURA- Related Developmental and Epileptic Encephalopathy: Phenotypic and Genotypic Spectrum.
+36117209	PMC10208970	fail	abstract:diagnostic_yield		False			cc by	70	PURA		Genetic aetiologies for childhood speech disorder: novel pathways co-expressed during brain development.
+37563452	PMC10798881	fail	title:disease_group		False			cc by	48	PURA		Genetic etiology of progressive pediatric neurological disorders.
+39131487	PMC11309559	pass	bare_count_single_unit_title	600	True			cc by-nc-nd	600	PURA		Inherited PURA Pathogenic Variant Associated With a Mild Neurodevelopmental Disorder.
+39227335	PMC11372210	fail	title:screening_method	34	False			cc by-nc	34	PURA		Genetic Diagnosis in Neonatal Encephalopathy With Hypoxic Brain Damage Using Targeted Gene Panel Sequencing.
+29143597	PMC5688471	fail	abstract:association	94	False			cc by	239	PYGM		Genotypic and phenotypic features of all Spanish patients with McArdle disease: a 2016 update.
+24108619	PMC4255313	fail	title:screening_method	28	False			cc by-nc-nd	28	RAB18;RAB3GAP1;RAB3GAP2;TBC1D20	RAB3GAP2	Exome sequencing as a diagnostic tool for pediatric-onset ataxia.
+26846091	PMC4743197	fail	title:screening_method		False			cc by	38	RAB3GAP1		Whole-exome sequencing is a powerful approach for establishing the etiological diagnosis in patients with intellectual disability and microcephaly.
+19390654	PMC2671583	fail	title:carriers		False			cc by	22	RB1	RB1	Germline mutations in retinoma patients: relevance to low-penetrance and low-expressivity molecular basis.
+26925970	PMC4771840	fail	title:carriers	23	False			cc by	23	RB1	RB1	A Parent-of-Origin Effect Impacts the Phenotype in Low Penetrance Retinoblastoma Families Segregating the c.1981C>T/p.Arg661Trp Mutation of RB1.
+31510104	PMC6771015	fail	title:screening_method		False			cc by	1264	RET		Twenty-Five Years Experience on RET Genetic Screening on Hereditary MTC: An Update on The Prevalence of Germline RET Mutations.
+30410491	PMC6209636	pass	count_noun_with_unit	104	True			cc by	104	RMRP		A Wide Spectrum of Autoimmune Manifestations and Other Symptoms Suggesting Immune Dysregulation in Patients With Cartilage-Hair Hypoplasia.
+32628740	PMC7337319	fail	no_per_unit_n_ge_20		False			cc by	285	RNU4ATAC		Clinical interpretation of variants identified in RNU4ATAC, a non-coding spliceosomal gene.
+40384766	PMC12085217	pass	bare_count_single_unit_title	68	True			cc by-nc-nd	68	RPE65		Genetics and phenotypes of RPE65 mutations in inherited retinal degeneration: A study from a tertiary eye care center in Brazil.
+23107649	PMC3501970	pass	bare_count_single_unit_title	26	True			cc by	26	RRM2B		Adults with RRM2B-related mitochondrial disease have distinct clinical and molecular characteristics.
+20683987	PMC3104131	fail	title:variant_level	186	False			cc by	186	RUNX2;TWIST1	RUNX2;TWIST1	Copy number variation analysis in single-suture craniosynostosis: multiple rare variants including RUNX2 duplication in two cousins with metopic craniosynostosis.
+38296632	PMC11041606	fail	title:screening_method		False			cc by-nc	666	SALL1	SALL1	Molecular diagnosis, clinical evaluation and phenotypic spectrum of Townes-Brocks syndrome: insights from a large Chinese hearing loss cohort.
+38899216	PMC11184250	fail	title:screening_method	1592	False			cc by-nc-nd	1592	SALL1	SALL1	Townes-Brocks Syndrome Revealed by Kidney Gene Panel Testing.
+32656166	PMC7324789	fail	title:disease_group	211	False			cc by	510	SALL4		A Genetics-First Approach Revealed Monogenic Disorders in Patients With ARM and VACTERL Anomalies.
+25106414	PMC4173859	fail	title:variant_level		False			cc by-nc	714	SATB2	SATB2	The clinical significance of small copy number variants in neurodevelopmental disorders.
+34241948	PMC9285502	pass	count_noun_with_unit	23	True			cc by	23	SATB2	SATB2	Speech-language profiles in the context of cognitive and adaptive functioning in SATB2-associated syndrome.
+34758064	PMC8753194	fail	abstract:association	153	False			cc by-nc-nd	153	SBDS		Hematologic complications with age in Shwachman-Diamond syndrome.
+34819134	PMC8611838	fail	title:disease_group		False			cc by	20	SBDS		The frequent and clinically benign anomalies of chromosomes 7 and 20 in Shwachman-diamond syndrome may be subject to further clonal variations.
+22032306	PMC3222607	fail	title:variant_level		False			cc by	192	SCARB2	SCARB2	Novel SCARB2 mutation in action myoclonus-renal failure syndrome and evaluation of SCARB2 mutations in isolated AMRF features.
+27848944	PMC5255946	fail	title:screening_method		False			cc by	1000	SCN3A		Clinical exome sequencing: results from 2819 samples reflecting 1000 families.
+23884711	PMC3824221	fail	abstract:penetrance		False			cc by	25	SCN4A	SCN4A	Characterization of hyperkalemic periodic paralysis: a survey of genetically diagnosed individuals.
+31068157	PMC6505267	fail	title:screening_method		False			cc by	60	SCN4A	SCN4A	Identification of gene mutations in patients with primary periodic paralysis using targeted next-generation sequencing.
+32655465	PMC7326038	fail	title:treatment		False			cc by	112	SCN4A	SCN4A	Long-Term Safety and Usefulness of Mexiletine in a Large Cohort of Patients Affected by Non-dystrophic Myotonias.
+32849172	PMC7403394	pass	bare_count_single_unit_title	80	True			cc by	80	SCN4A	SCN4A	Clinical and Molecular Spectrum of Myotonia and Periodic Paralyses Associated With Mutations in SCN4A in a Large Cohort of Italian Patients.
+33519442	PMC7845660	fail	title:treatment		False			cc by	2015	SCN5A		Ranolazine as an Alternative Therapy to Flecainide for SCN5A V411M Long QT Syndrome Type 3 Patients.
+22927827	PMC3426548	pass	count_unit_noun	386	True			cc by	386	SEMA3A	SEMA3A	SEMA3A, a gene involved in axonal pathfinding, is mutated in patients with Kallmann syndrome.
+29205472	PMC5847115	pass	bare_count_single_unit_title	67	True			cc by	67	SERAC1		Progressive deafness-dystonia due to SERAC1 mutations: A study of 67 cases.
+33391157	PMC7772201	fail	title:screening_method	56	False			cc by	600	SETBP1		"""Identification of SETBP1 Mutations by Gene Panel Sequencing in Individuals With Intellectual Disability or With """"Developmental and Epileptic Encephalopathy""""."""
+35183220	PMC8858550	fail	title:screening_method		False			cc by	87	SETD1B	SETD1B	Diagnostic yield of next-generation sequencing in 87 families with neurodevelopmental disorders.
+39669624	PMC11613930	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	11707	SGPL1		Prevalence estimate of sphingosine phosphate lyase insufficiency syndrome in worldwide and select populations.
+21840889	PMC3170533	fail	title:disease_group		False			cc by-nc	77	SH3TC2		Genetic spectrum of hereditary neuropathies with onset in the first year of life.
+25614874	PMC4303222	pass	bare_count_single_unit_title	17880	True			cc by	17880	SH3TC2		The allelic spectrum of Charcot-Marie-Tooth disease in over 17,000 individuals with neuropathy.
+24755310	PMC4021608	pass	bare_count_single_unit_title	36	True			cc by	36	SIL1		A nationwide survey on Marinesco-Sjögren syndrome in Japan.
+26392352	PMC4578331	fail	title:screening_method	448	False			cc by	448	SLC12A6		Application of targeted multi-gene panel testing for the diagnosis of inherited peripheral neuropathy provides a high diagnostic yield with unexpected phenotype-genotype variability.
+31557427	PMC6801173	fail	title:screening_method	3000	False			cc by	3000	SLC19A3		Targeted SLC19A3 gene sequencing of 3000 Saudi newborn: a pilot study toward newborn screening.
+31187905	PMC6790604	fail	title:screening_method		False			cc by	236	SLC22A5		A mutation creating an upstream translation initiation codon in SLC22A5 5'UTR is a frequent cause of primary carnitine deficiency.
+33560599	PMC8077093	fail	title:n_lt_20	95453	False			cc by-nc	95453	SLC22A5		Gene spectrum and clinical traits of 10 patients with primary carnitine deficiency.
+34863234	PMC8642906	pass	bare_count_single_unit_title	548	True			cc by	1714	SLC22A5		Biochemical and genetic characteristics of patients with primary carnitine deficiency identified through newborn screening.
+27405544	PMC4942605	fail	pub_type:trial	274	False			cc by	274	SLC25A13		Molecular diagnosis of pediatric patients with citrin deficiency in China: SLC25A13 mutation spectrum and the geographic distribution.
+23185506	PMC3503781	fail	title:variant_level		False			cc by	2352	SLC26A4		Molecular epidemiology and functional assessment of novel allelic variants of SLC26A4 in non-syndromic hearing loss patients with enlarged vestibular aqueduct in China.
+32910226	PMC8165072	pass	count_noun_with_unit	66	True			cc by	66	SLC26A4		Enlarged vestibular aqueduct and Mondini Malformation: audiological, clinical, radiologic and genetic features.
+34410491	PMC9035008	fail	abstract:diagnostic_yield		False			cc by	28	SLC26A4		Exploring the missing heritability in subjects with hearing loss, enlarged vestibular aqueducts, and a single or no pathogenic SLC26A4 variant.
+27632686	PMC5207316	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	155	SLC2A10		Loss-of-function mutations in the X-linked biglycan gene cause a severe syndromic form of thoracic aortic aneurysms and dissections.
+28717662	PMC5511796	pass	bare_count_single_unit_title	112	True			cc by	112	SLC3A1;SLC7A9	SLC3A1;SLC7A9	Clinical and molecular characterization of cystinuria in a French cohort: relevance of assessing large-scale rearrangements and splicing variants.
+30474607	PMC6254100	pass	bare_count_single_unit_title	48	True			cc by	48	SLC3A1;SLC7A9	SLC3A1;SLC7A9	The effect of selenium supplementation on cystine crystal volume in patients with cystinuria.
+35761184	PMC9238190	pass	bare_count_single_unit_title	116	True			cc by	116	SLC6A1		Consistency of parent-report SLC6A1 data in Simons Searchlight with Provider-Based Publications.
+31288860	PMC6617651	fail	no_per_unit_n_ge_20		False			cc by	96	SMARCA2		New insights into DNA methylation signatures: SMARCA2 variants in Nicolaides-Baraitser syndrome.
+35811451	PMC9482403	pass	bare_count_single_unit_title	80	True			cc by-nc-nd	80	SMARCA2		Ten-year follow-up of Nicolaides-Baraitser syndrome with a de novo mutation and analysis of 58 gene loci of SMARCA2-associated NCBRS.
+22998683	PMC3568709	pass	count_noun_with_unit	65	True			cc by	65	SMARCAL1		Reduced elastogenesis: a clue to the arteriosclerosis and emphysematous changes in Schimke immuno-osseous dysplasia?
+28796785	PMC5552097	pass	bare_count_single_unit_title	34	True			cc by	34	SMARCAL1		Low renal but high extrarenal phenotype variability in Schimke immuno-osseous dysplasia.
+21811307	PMC3234503	fail	title:screening_method		False			cc by-nc-nd	121	SMN1;SMN2	SMN2	Pan-ethnic carrier screening and prenatal diagnosis for spinal muscular atrophy: clinical laboratory analysis of >72,400 specimens.
+24498598	PMC3893155	fail	title:screening_method		False			cc by	51	SOX2		Clinical and mutation analysis of 51 probands with anophthalmia and/or severe microphthalmia from a single center.
+26130484	PMC4929874	fail	title:variant_level	28	False			cc by-nc-sa	28	SOX2		Novel mutations in PAX6, OTX2 and NDP in anophthalmia, microphthalmia and coloboma.
+26694549	PMC4787201	fail	title:screening_method		False			cc by-nc-nd	46	SOX2		Sporadic and Familial Congenital Cataracts: Mutational Spectrum and New Diagnoses Using Next-Generation Sequencing.
+25983619	PMC4415563	fail	title:variant_level	46	False			cc by-nc	46	SOX9		Clinical and molecular characterization of a Brazilian cohort of campomelic dysplasia patients, and identification of seven new SOX9 mutations.
+24107482	PMC3852552	fail	no_per_unit_n_ge_20		False			cc by	128	SPAST	SPAST	Electrophysiological characterisation of motor and sensory tracts in patients with hereditary spastic paraplegia (HSP).
+27957547	PMC5141523	fail	abstract:association	526	False			cc by-nc-nd	526	SPAST	SPAST	Clinical and genetic study of hereditary spastic paraplegia in Canada.
+28832565	PMC5643959	fail	title:screening_method	193	False			cc by-nc-nd	193	SPG11		Massive sequencing of 70 genes reveals a myriad of missing genes or mechanisms to be uncovered in hereditary spastic paraplegias.
+27217339	PMC4939695	pass	count_noun_with_unit	97	True			cc by	97	SPG11;ZFYVE26		Genetic and phenotypic characterization of complex hereditary spastic paraplegia.
+24727571	PMC3999722	pass	count_noun_with_unit	68	True			cc by	68	SPG7		Mutations in the SPG7 gene cause chronic progressive external ophthalmoplegia through disordered mitochondrial DNA maintenance.
+32447552	PMC7419373	fail	abstract:association	214	False			cc by	214	SPG7		SPG7 mutations in amyotrophic lateral sclerosis: a genetic link to hereditary spastic paraplegia.
+39978794	PMC12215234	fail	abstract:association	437	False			cc by	437	SPG7		Expanding the Phenotypic Spectrum of SPG7 Rare Damaging Variants: Insights From a Hungarian Cohort.
+19651702	PMC2759337	fail	title:disease_group		False			cc by-nc	100	SPTLC1	SPTLC1	Genes for hereditary sensory and autonomic neuropathies: a genotype-phenotype correlation.
+34459874	PMC8406220	fail	abstract:sequenced_cohort	6258	False			cc by	6258	SPTLC1	SPTLC1	Association of Variants in the SPTLC1 Gene With Juvenile Amyotrophic Lateral Sclerosis.
+23621943	PMC3659005	fail	abstract:few_positives	52	False			cc by	52	SRCAP		The phenotype of Floating-Harbor syndrome: clinical characterization of 52 individuals with mutations in exon 34 of SRCAP.
+30304910	PMC6313083	fail	title:screening_method	50	False			cc by-nc	50	SRCAP		The first Korean case with Floating-Harbor syndrome with a novel SRCAP mutation diagnosed by targeted exome sequencing.
+33909990	PMC8206150	pass	unit_cohort_of_n	28	True			cc by-nc-nd	33	SRCAP		Truncating SRCAP variants outside the Floating-Harbor syndrome locus cause a distinct neurodevelopmental disorder with a specific DNA methylation signature.
+32493750	PMC7306989	fail	title:variant_level	78	False			cc by	78	SRY;WT1	SRY;WT1	Testis formation in XX individuals resulting from novel pathogenic variants in Wilms' tumor 1 ( WT1 ) gene.
+32462036	PMC7240661	fail	abstract:association	38	False			cc by	38	STK11		Clinical and Genetic Analyses of 38 Chinese Patients with Peutz-Jeghers Syndrome.
+34910522	PMC8673757	fail	title:treatment		False			cc by-nc	466	STRC	STRC	Dual-vector gene therapy restores cochlear amplification and auditory sensitivity in a mouse model of DFNB16 hearing loss.
+35235001	PMC9293870	fail	title:variant_level		False			cc by	247	SUCLA2		Complex hereditary peripheral neuropathies caused by novel variants in mitochondrial-related nuclear genes.
+34675124	PMC9411896	fail	abstract:diagnostic_yield	1097	False			cc by-nc	1097	SUFU	SUFU	SUFU haploinsufficiency causes a recognisable neurodevelopmental phenotype at the mild end of the Joubert syndrome spectrum.
+35768194	PMC9613872	fail	abstract:association	172	False			cc by	172	SUFU	SUFU	Cancer risk and tumour spectrum in 172 patients with a germline SUFU pathogenic variation: a collaborative study of the SIOPE Host Genome Working Group.
+29229810	PMC5754783	pass	unit_cohort_of_n	140	True			cc by-nc-nd	140	TAF1		Disease onset in X-linked dystonia-parkinsonism correlates with expansion of a hexameric repeat within an SVA retrotransposon in TAF1 .
+25112388	PMC4341014	pass	count_noun_with_unit	34	True			cc by	34	TAFAZZIN		Barth syndrome without tetralinoleoyl cardiolipin deficiency: a possible ameliorated phenotype.
+30744648	PMC6371525	pass	bare_count_single_unit_title	33	True			cc by	33	TAFAZZIN		Functional exercise capacity, strength, balance and motion reaction time in Barth syndrome.
+35260199	PMC8902761	pass	count_noun_with_unit	900	True			cc by	900	TARDBP	TARDBP	A neurodegenerative disease landscape of rare mutations in Colombia due to founder effects.
+35932023	PMC9356425	pass	count_unit_noun	798	True			cc by	798	TARDBP	TARDBP	Identification of TARDBP Gly298Ser as a founder mutation for amyotrophic lateral sclerosis in Southern China.
+24291220	PMC3895324	fail	title:screening_method	26	False			cc by	2013	TBC1D24		The genetic basis of DOORS syndrome: an exome-sequencing study.
+27281533	PMC4932231	fail	abstract:database		False			cc by	48	TBC1D24		TBC1D24 genotype-phenotype correlation: Epilepsies and other neurologic features.
+30139988	PMC6244407	fail	no_per_unit_n_ge_20		False			cc by	168	TBC1D24		Genetics of hearing loss in the Arab population of Northern Israel.
+33095980	PMC7767562	fail	title:screening_method		False			cc by	21	TBC1D24		Next-generation sequencing identifies rare pathogenic and novel candidate variants in a cohort of Chinese patients with syndromic or nonsyndromic hearing loss.
+33986365	PMC8119487	pass	count_unit_noun	102	True			cc by	237	TBC1D24		TBC1D24 emerges as an important contributor to progressive postlingual dominant hearing loss.
+36147510	PMC9486813	fail	title:screening_method		False			cc by	104	TBC1D24		Genomic study of nonsyndromic hearing loss in unaffected individuals: Frequency of pathogenic and likely pathogenic variants in a Brazilian cohort of 2,097 genomes.
+37593999	PMC10724516	fail	title:single_patient	24	False			cc by-nc-nd	24	TBC1D24		Phenotypic and genetic characteristics of 24 cases of early infantile epileptic encephalopathy in East China, including a rare case of biallelic UGDH mutations.
+31358905	PMC6986984	pass	bare_count_single_unit_title	334	True			cc by	334	TBX1		Altered white matter microstructure in 22q11.2 deletion syndrome: a multisite diffusion tensor imaging study.
+27072915	PMC4830011	pass	count_noun_with_unit	101	True			cc by	101	TCF4;TCF7L2		Phenotype and natural history in 101 individuals with Pitt-Hopkins syndrome through an internet questionnaire system.
+34750377	PMC8576018	pass	bare_count_single_unit_title	1000	True			cc by	1000	TET3		Deficiency of TET3 leads to a genome-wide DNA hypermethylation episignature in human whole blood.
+34828384	PMC8623017	fail	title:screening_method	36	False			cc by	36	TFR2		Identification of Novel Mutations by Targeted NGS Panel in Patients with Hyperferritinemia.
+30293248	PMC6305638	fail	title:screening_method		False			cc by	213	THOC6	THOC6	Contribution of next generation sequencing in pediatric practice in Lebanon. A Study on 213 cases.
+31164164	PMC6549368	fail	title:variant_level	520	False			cc by	520	TNFAIP3		Haploinsufficiency of A20 caused by a novel nonsense variant or entire deletion of TNFAIP3 is clinically distinct from Behçet's disease.
+36757831	PMC10393417	fail	abstract:penetrance		False			cc by	57	TOR1A	TOR1A	The clinical and genetic spectrum of autosomal-recessive TOR1A-related disorders.
+31490007	PMC6972517	fail	title:screening_method	98	False			cc by	98	TP53	TP53	A substantial proportion of apparently heterozygous TP53 pathogenic variants detected with a next-generation sequencing hereditary pan-cancer panel are acquired somatically.
+32045981	PMC7072300	fail	abstract:association	132	False			cc by	397	TP53	TP53	Risk of Contralateral Breast Cancer in Women with and without Pathogenic Variants in BRCA1, BRCA2 , and TP53 Genes in Women with Very Early-Onset (<36 Years) Breast Cancer.
+32931654	PMC7643676	fail	title:treatment	40	False			cc by	40	TP53	TP53	Radiation therapy and secondary malignancy in Li-Fraumeni syndrome: A hereditary cancer registry study.
+33932062	PMC8253286	fail	title:review	68	False			cc by-nc	68	TP53	TP53	Characteristics of Li-Fraumeni Syndrome in Japan; A Review Study by the Special Committee of JSHT.
+34709361	PMC8554692	fail	title:database	3034	False			cc by	3034	TP53	TP53	Analysis of the Li-Fraumeni Spectrum Based on an International Germline TP53 Variant Data Set: An International Agency for Research on Cancer TP53 Database Analysis.
+35371985	PMC8966034	fail	title:carriers	163	False			cc by	163	TP53	TP53	Breast Cancer Phenotype Associated With Li-Fraumeni Syndrome: A Brazilian Cohort Enriched by TP53 p.R337H Carriers.
+35820297	PMC9284452	fail	abstract:association	11093	False			cc by-nc-nd	11093	TP53	TP53	Risk of ipsilateral breast tumor recurrence and contralateral breast cancer in patients with and without TP53 variant in a large series of breast cancer patients.
+35974385	PMC9382737	fail	abstract:association	94	False			cc by	141	TP53	TP53	Genotype-phenotype associations within the Li-Fraumeni spectrum: a report from the German Registry.
+37377903	PMC10150777	fail	abstract:association	396	False			cc by	396	TP53	TP53	Multiple Germline Events Contribute to Cancer Development in Patients with Li-Fraumeni Syndrome.
+37777824	PMC10589747	fail	abstract:association	20000	False			cc by-nc-nd	20000	TP53	TP53	Genome-first approach of the prevalence and cancer phenotypes of pathogenic or likely pathogenic germline TP53 variants.
+37874259	PMC10784744	fail	abstract:diagnostic_yield	89	False			cc by-nc-nd	89	TP53	TP53	Early Cancer Detection in Li-Fraumeni Syndrome with Cell-Free DNA.
+38743206	PMC11512851	fail	title:carriers	2875	False			cc by	2875	TP53	TP53	Clinical and genetic characteristics of carriers of the TP53 c.541C > T, p.Arg181Cys pathogenic variant causing hereditary cancer in patients of Arab-Muslim descent.
+38481354	PMC11370804	fail	title:screening_method	621	False			cc by-nc	1515	TRPV4		Whole genome sequencing increases the diagnostic rate in Charcot-Marie-Tooth disease.
+28057044	PMC5217262	pass	bare_count_single_unit_title	2093	True			cc by	2093	TSC1	TSC1	TuberOus SClerosis registry to increase disease Awareness (TOSCA) - baseline data on 2093 patients.
+26540169	PMC4634999	fail	abstract:diagnostic_yield	53	False			cc by	53	TSC1;TSC2	TSC1;TSC2	Mosaic and Intronic Mutations in TSC1/TSC2 Explain the Majority of TSC Patients with No Mutation Identified by Conventional Testing.
+34229737	PMC8259106	fail	abstract:penetrance	2211	False			cc by	2211	TSC1;TSC2	TSC1;TSC2	Rare manifestations and malignancies in tuberous sclerosis complex: findings from the TuberOus SClerosis registry to increAse disease awareness (TOSCA).
+24886362	PMC4019562	pass	bare_count_single_unit_title	33	True			cc by	33	TSEN54		Natural course of pontocerebellar hypoplasia type 2A.
+23514108	PMC3610280	fail	title:screening_method	45	False			cc by	45	TTN		Exome sequencing identifies titin mutations causing hereditary myopathy with early respiratory failure (HMERF) in families of diverse ethnic origins.
+29691892	PMC6105519	pass	bare_count_single_unit_title	30	True			cc by	30	TTN		Congenital Titinopathy: Comprehensive characterization and pathogenic insights.
+37946256	PMC10636983	fail	abstract:penetrance	6000	False			cc by	6000	TTR	TTR	A 15-year consolidated overview of data in over 6000 patients from the Transthyretin Amyloidosis Outcomes Survey (THAOS).
+32792659	PMC8505254	pass	unit_cohort_of_n	250	True			cc by	250	UBE3A		Angelman syndrome genotypes manifest varying degrees of clinical severity and developmental impairment.
+33443117	PMC8055330	fail	pub_type:trial	88	False			cc by-nc-nd	88	UBE3A		The STARS Phase 2 Study: A Randomized Controlled Trial of Gaboxadol in Angelman Syndrome.
+30190612	PMC6405313	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	757	UQCRC2	UQCRC2	Rare variants in the genetic background modulate cognitive and developmental phenotypes in individuals carrying disease-associated variants.
+20817924	PMC2957322	fail	abstract:association	132	False			cc by-nc	132	USB1		Mutations in C16orf57 and normal-length telomeres unify a subset of patients with dyskeratosis congenita, poikiloderma with neutropenia and Rothmund-Thomson syndrome.
+22269211	PMC3315733	fail	title:variant_level	31	False			cc by	31	USB1		Novel C16orf57 mutations in patients with Poikiloderma with Neutropenia: bioinformatic analysis of the protein and predicted effects of all reported mutations.
+21569298	PMC3125325	fail	title:screening_method	54	False			cc by	54	USH2A	USH2A	Complete exon sequencing of all known Usher syndrome genes greatly improves molecular diagnosis.
+25333064	PMC4190874	fail	title:screening_method	44	False			cc by	44	USH2A	USH2A	Screening for single nucleotide variants, small indels and exon deletions with a next-generation sequencing based gene panel approach for Usher syndrome.
+25558175	PMC4279600	fail	abstract:diagnostic_yield	36	False			cc by-nc-nd	36	USH2A	USH2A	MYO7A and USH2A gene sequence variants in Italian patients with Usher syndrome.
+29196752	PMC5711943	fail	title:screening_method		False			cc by	207	USH2A	USH2A	Combined genetic approaches yield a 48% diagnostic rate in a large cohort of French hearing-impaired patients.
+34948090	PMC8703989	fail	pub_type:trial	158	False			cc by	158	USH2A	USH2A	The Study of a 231 French Patient Cohort Significantly Extends the Mutational Spectrum of the Two Major Usher Genes MYO7A and USH2A .
+30679821	PMC6752677	fail	no_per_unit_n_ge_20		False			cc by-nc-sa	23	USP7		Pathogenic variants in USP7 cause a neurodevelopmental disorder with speech delays, altered behavior, and neurologic anomalies.
+40539388	PMC12542321	pass	bare_count_single_unit_title	26	True			cc by	26	VPS16		Deep Brain Stimulation for VPS16-Related Dystonia: A Multicenter Study.
+22154191	PMC3629567	fail	title:screening_method	175	False			cc by	262	VPS35	VPS35	Screening for VPS35 mutations in Parkinson's disease.
+23125461	PMC3488700	fail	title:screening_method	15000	False			cc by-nc	15000	VPS35	VPS35	A multi-centre clinico-genetic analysis of the VPS35 gene in Parkinson disease indicates reduced penetrance for disease-associated variants.
+31996268	PMC6990558	fail	abstract:sequenced_cohort	1118	False			cc by	1118	VPS35	VPS35	Analysis of neurodegenerative disease-causing genes in dementia with Lewy bodies.
+24675615	PMC3967998	fail	title:n_lt_20	77	False			cc by	77	VWF	VWF	Genetic heterogeneity in a large cohort of Indian type 3 von Willebrand disease patients.
+26986123	PMC4839904	pass	bare_count_single_unit_title	1167	True			cc by-nc-nd	1167	VWF	VWF	A Laboratory Phenotype/Genotype Correlation of 1167 French Patients From 670 Families With von Willebrand Disease: A New Epidemiologic Picture.
+34758185	PMC9299039	pass	bare_count_single_unit_title	50	True			cc by-nc-nd	50	VWF	VWF	Von Willebrand disease type 2M: Correlation between genotype and phenotype.
+35523118	PMC9898599	pass	bare_count_single_unit_title	75	True			cc by-nc-nd	75	VWF	VWF	Enhanced VWF clearance in low VWF pathogenesis: limitations of the VWFpp/VWF:Ag ratio and clinical significance.
+28554332	PMC5448144	fail	no_per_unit_n_ge_20		False			cc by	612	WARS2		Genomic diagnosis for children with intellectual disability and/or developmental delay.
+26572744	PMC4647479	fail	title:model_organism	240	False			cc by	240	WASHC5	WASHC5	The spectrum of KIAA0196 variants, and characterization of a murine knockout: implications for the mutational mechanism in hereditary spastic paraplegia type SPG8.
+29945639	PMC6020390	pass	bare_count_single_unit_title	100	True			cc by	100	WFS1		Longitudinal hearing loss in Wolfram syndrome.
+39625398	PMC11723649	fail	abstract:association	51	False			cc by	51	WRN	WRN	Less frequent skin ulcers among patients with Werner syndrome treated with pioglitazone: findings from the Japanese Werner Syndrome Registry.
+39698353	PMC11652072	pass	count_noun_with_unit	43	True			cc by	43	WT1	WT1	Clinical Characterization of a National Cohort of Patients With Germline WT1 Variants Including Late-Onset Phenotypes.
+27896105	PMC5121305	fail	title:disease_group		False			cc by-nc-nd	982	ZAP70	ZAP70	Retrospective TREC testing of newborns with Severe Combined Immunodeficiency and other primary immunodeficiency diseases.
+32266967	PMC7384157	pass	bare_count_single_unit_title	42	True			cc by-nc-nd	42	ZBTB20		Primrose syndrome: Characterization of the phenotype in 42 patients.
+32539836	PMC7294656	fail	abstract:penetrance		False			cc by	99	ZEB2		Mowat-Wilson syndrome: growth charts.
+38351292	PMC11153515	fail	no_per_unit_n_ge_20		False			cc by	29	ZEB2		Identification of the DNA methylation signature of Mowat-Wilson syndrome.
+26582266	PMC4819764	fail	title:screening_method	30	False			cc by-nc-nd	30	ZFHX3	ZFHX3	Whole-exome sequencing and neurite outgrowth analysis in autism spectrum disorder.
+38508705	PMC11228202	fail	abstract:sequenced_cohort	378	False			cc by-nc	378	ZFHX3	ZFHX3	ZFHX3 variants cause childhood partial epilepsy and infantile spasms with favourable outcomes.
+27037232	PMC4917260	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	22	ABCA7	ABCA7	Phenotypic characteristics of Alzheimer patients carrying an ABCA7 mutation.
+28447221	PMC5563332	fail	abstract:diagnostic_yield	928	False			cc by	928	ABCA7	ABCA7	Deleterious ABCA7 mutations and transcript rescue mechanisms in early onset Alzheimer's disease.
+35047668	PMC8759075	fail	title:carriers	5353	False			cc by-nc-nd	5353	ABCA7	ABCA7	Clinical Deep Phenotyping of ABCA7 Mutation Carriers.
+35894240	PMC9512461	pass	bare_count_single_unit_title	356	True			cc by-nc-nd	356	ABCB11	ABCB11	Clinical phenotype of adult-onset liver disease in patients with variants in ABCB4, ABCB11, and ATP8B1.
+32934261	PMC7492224	fail	abstract:sequenced_cohort	624	False			cc by	624	ABCC8	ABCC8	Characterization of rare ABCC8 variants identified in Spanish pulmonary arterial hypertension patients.
+40981175	PMC12452525	fail	abstract:association	52	False			cc by	52	ABCC8	ABCC8	Integrated Genomic Analysis Reveals the Synergistic Role of PNPLA3 and ABCC8 Variants in Diabetic MASLD in Pakistan.
+33985321	PMC8274219	fail	title:family_report	151	False			cc by-nc	151	ABHD5	ABHD5	Recurrent N209* ABHD5 mutation in two unreported families with Chanarin Dorfman Syndrome.
+28070495	PMC5219625	fail	title:screening_method	25	False			cc by-nc-nd	25	ACAD9	ACAD9	An atypical presentation of ACAD9 deficiency: Diagnosis by whole exome sequencing broadens the phenotypic spectrum and alters treatment approach.
+30025539	PMC6053715	pass	count_noun_with_unit	70	True			cc by	70	ACAD9	ACAD9	Clinical, biochemical and genetic spectrum of 70 patients with ACAD9 deficiency: is riboflavin supplementation effective?
+32341388	PMC7184572	fail	title:screening_method		False			cc by	7048	ACTG1	ACTG1	Novel ACTG1 mutations in patients identified by massively parallel DNA sequencing cause progressive hearing loss.
+39411542	PMC11479693	fail	no_per_unit_n_ge_20		False			cc by	28	ACTL7A;PLCZ1	ACTL7A;PLCZ1	High rate of detected variants in male PLCZ1 and ACTL7A genes causing failed fertilization after ICSI.
+42199298	PMC13199994	pass	bare_count_single_unit_title	199	True			cc by	199	ADGRG2	ADGRG2	Spectrum and Classification of CFTR and ADGRG2 Variants in Chinese Patients With Isolated CAVD: A Large Cohort Study and Risk Assessment of CFTR Variant Carriage in Couples.
+41263703	PMC13158235	fail	title:model_organism	200	False			cc by	200	ADSS1	ADSS1	Loss of adenylosuccinate synthetase 1 in mice recapitulates features of ADSS1 myopathy.
+41973717	PMC13075665	pass	count_noun_with_unit	30	True			cc by	30	ADSS1	ADSS1	Consistent MRI pattern in ADSS1 myopathy with variable clinical presentations: A Korean cohort study.
+33410528	PMC7898319	pass	bare_count_single_unit_title	38	True			cc by-nc	38	ALG13	ALG13	The phenotypic spectrum of X-linked, infantile onset ALG13-related developmental and epileptic encephalopathy.
+39313810	PMC11421175	pass	bare_count_single_unit_title	20	True			cc by	20	AMACR	AMACR	Redefining the phenotype of alpha-methylacyl-CoA racemase (AMACR) deficiency.
+28927406	PMC5606109	fail	title:biomarker	925	False			cc by	925	APOA5	APOA5	The Arg282Ser missense mutation in APOA5 gene determines a reduction of triglyceride and LDL-cholesterol in children, together with low serum levels of apolipoprotein A-V.
+26025194	PMC4448293	pass	bare_count_single_unit_title	3592	True			cc by	3592	APOL1	APOL1	APOL1 G1 genotype modifies the association between HDLC and kidney function in African Americans.
+35638461	PMC9266599	fail	title:treatment	40	False			cc by-nc-nd	40	ARHGEF9	ARHGEF9	ARHGEF9 gene variant leads to developmental and epileptic encephalopathy: Genotypic phenotype analysis and treatment exploration.
+40044822	PMC12583565	pass	bare_count_single_unit_title	27	True			cc by	27	ARID2	ARID2	ARID2-related disorder: further delineation of the clinical phenotype of 27 novel individuals and description of an epigenetic signature.
+25494902	PMC4271491	fail	title:variant_level		False			cc by	96	BBS1	BBS1	Novel RP1 mutations and a recurrent BBS1 variant explain the co-existence of two distinct retinal phenotypes in the same pedigree.
+42022048	PMC13098588	pass	bare_count_single_unit_title	48	True			cc by	48	BBS1	BBS1	Genetic and Phenotypic Characterization of a Large Cohort of Patients with BBS1-Retinopathy.
+34940782	PMC8711006	pass	bare_count_single_unit_title	67	True			cc by	67	BBS1;BBS10	BBS1;BBS10	Comparative Natural History of Visual Function From Patients With Biallelic Variants in BBS1 and BBS10.
+39092430	PMC11291329	fail	title:screening_method	61	False			cc by	61	BBS7	BBS7	Spectrum of pathogenic variants and high prevalence of pathogenic BBS7 variants in Russian patients with Bardet-Biedl syndrome.
+31908633	PMC6937991	fail	abstract:association	94	False			cc by	23481	BRCA1	BRCA1	Profiling of the germline mutation BRCA1 : p.Ile1845fs in a large cohort of Han Chinese breast cancer.
+16507150	PMC1413975	pass	bare_count_single_unit_title	11422	True			cc by	11422	BRCA1;BRCA2	BRCA1;BRCA2	Analysis of cancer risk and BRCA1 and BRCA2 mutation prevalence in the kConFab familial breast cancer resource.
+31892343	PMC6938627	fail	title:database	30223	False			cc by	30223	BRCA1;BRCA2	BRCA1;BRCA2	Exome sequencing reveals a high prevalence of BRCA1 and BRCA2 founder variants in a diverse population-based biobank.
+33428613	PMC7799847	fail	title:variant_level	35000	False			cc by	35000	BRCA1;BRCA2	BRCA1;BRCA2	Novel candidates of pathogenic variants of the BRCA1 and BRCA2 genes from a dataset of 3,552 Japanese whole genomes (3.5KJPNv2).
+41440203	PMC12731921	fail	title:carriers	16950	False			cc by	16950	BRCA1;BRCA2	BRCA1;BRCA2	Endometriosis in Carriers of a Pathogenic Variant in BRCA1 or BRCA2 : A Descriptive Analysis of a Large Multicentral BRCA Carrier Cohort.
+27537391	PMC5046206	fail	title:carriers	570	False			cc by-nc-sa	570	BRCA2	BRCA2	Oestrogen receptor status, treatment and breast cancer prognosis in Icelandic BRCA2 mutation carriers.
+32532514	PMC7532700	fail	abstract:association	447	False			cc by	447	BRCA2	BRCA2	Prostate Cancer Risk by BRCA2 Genomic Regions.
+32939053	PMC7686356	fail	title:carriers		False			cc by	608	BRCA2	BRCA2	Breast cancer survival in Nordic BRCA2 mutation carriers-unconventional association with oestrogen receptor status.
+33891299	PMC8272709	fail	title:screening_method	177	False			cc by	203	BRCA2	BRCA2	Genetic testing results in Slovenian male breast cancer cohort indicate the BRCA2 7806-2A > G founder variant could be associated with higher male breast cancer risk.
+26982778	PMC4782646	fail	abstract:association	131	False			cc by-nc	131	CARD14	CARD14	Variants of CARD14 gene and psoriasis vulgaris in southern Chinese cohort.
+37089611	PMC10117770	fail	no_per_unit_n_ge_20		False			cc by	2022	CARD14	CARD14	Clinical features of acute generalized exanthematous pustulosis caused by hydroxychloroquine in rheumatology patients and exploration of CARD14 gene mutations.
+30794663	PMC6386293	pass	bare_count_single_unit_title	35	True			cc by	35	CD59	CD59	Absence of pathogenic mutations in CD59 in chronic inflammatory demyelinating polyradiculoneuropathy.
+27208211	PMC5013089	fail	abstract:sequenced_cohort	346	False			cc by	346	CEP120	CEP120	Mutations in CEP120 cause Joubert syndrome as well as complex ciliopathy phenotypes.
+38153748	PMC10756245	fail	abstract:sequenced_cohort	10530	False			cc by-nc-nd	10530	CFAP410	CFAP410	Double Hyperautofluorescence Rings as a Sign of CFAP410-related Retinopathy.
+37916886	PMC10791024	fail	abstract:association	1005	False			cc by	1005	CLCC1	CLCC1	Mutation and clinical analysis of the CLCC1 gene in amyotrophic lateral sclerosis patients from Central South China.
+37789889	PMC10542403	fail	title:variant_level		False			cc by	401	CLCN4	CLCN4	Novel variants in the CLCN4 gene associated with syndromic X-linked intellectual disability.
+27838790	PMC5215284	fail	abstract:sequenced_cohort	169	False			cc by	169	CLDN14	CLDN14	A common variant in CLDN14 causes precipitous, prelingual sensorineural hearing loss in multiple families due to founder effect.
+35505348	PMC9066917	pass	count_unit_noun	97	True			cc by	97	CLN6	CLN6	Clinical and genetic characterization of a cohort of 97 CLN6 patients tested at a single center.
+34369416	PMC8542086	fail	title:carriers	111	False			cc by-nc-nd	111	COCH	COCH	Genotype-phenotype Correlation Study in a Large Series of Patients Carrying the p.Pro51Ser (p.P51S) Variant in COCH (DFNA9): Part I-A Cross-sectional Study of Hearing Function in 111 Carriers.
+42195045	PMC13206081	fail	title:variant_level	69	False			cc by	69	COCH	COCH	COCH -Related Hearing Loss in a French Cohort: Novel Variants and Genotype-Phenotype Correlations.
+42520849	PMC13438327	pass	count_noun_with_unit	32	True			cc by-nc	37	COL6A3	COL6A3	Expanding the phenotypic spectrum of COL6-related diseases: Motor neuropathy-like and neuromyopathy associated with COL6A3 c.7447A>G.
+37915722	PMC10616384	fail	title:variant_level	20	False			cc by	20	CORO1A	CORO1A	Novel hemizygous CORO1A variant leads to combined immunodeficiency with defective platelet calcium signaling and cell mobility.
+28298635	PMC5428270	fail	title:variant_level	195	False			cc by	195	CRYGC	CRYGC	Novel mutations in CRYGC are associated with congenital cataracts in Chinese families.
+39907800	PMC11868254	pass	bare_count_single_unit_title	179	True			cc by	360	CSF3R	CSF3R	Distribution of different classes of CSF3R mutations and co-mutational pattern in 360 myeloid neoplasia.
+37674478	PMC10477786	fail	title:screening_method		False			cc by	126	CTCF	CTCF	Whole exome sequencing highlights rare variants in CTCF , DNMT1 , DNMT3A , EZH2 and SUV39H1 as associated with FSHD.
+38796558	PMC11193828	fail	abstract:sequenced_cohort	172	False			cc by	172	CTNND1	CTNND1	CTNND1 is involved in germline predisposition to early-onset gastric cancer by affecting cell-to-cell interactions.
+41412793	PMC13018757	fail	title:screening_method	59	False			cc by	59	CTNND1	CTNND1	Analysis of familial exudative vitreoretinopathy (FEVR) cases in the UK 100 000 genomes project increases diagnostic rate and implicates heterozygous CTNND1 mutations in FEVR.
+41908989	PMC13020558	pass	unit_cohort_of_n	28	True			cc by	28	CTSA	CTSA	Expanding the Clinicoradiologic Phenotype of the CTSA -Associated Small Vessel Disease CARASAL: A Comparison With CADASIL.
+27668283	PMC5027801	pass	unit_cohort_of_n	461	True			cc by-nc-nd	461	CTSF	CTSF	Mutated CTSF in adult-onset neuronal ceroid lipofuscinosis and FTD.
+41624452	PMC12857354	pass	bare_count_single_unit_title	52	True			cc by	52	CUBN	CUBN	Clinical and Genetic Insights Into Isolated Proteinuria With CUBN Variants.
+35990289	PMC9350054	fail	title:variant_level	64	False			cc by-nc	64	CYP17A1;STAR	CYP17A1;STAR	Clinical and Genetic Characteristics of Patients with Common and Rare Types of Congenital Adrenal Hyperplasia: Novel Variants in STAR and CYP17A1 .
+37572667	PMC10518605	fail	abstract:association		False			cc by-nc-nd	86	CYP19A1	CYP19A1	CYP19A1 mediates severe SARS-CoV-2 disease outcome in males.
+22128238	PMC3224840	fail	title:screening_method	74	False			cc by	74	CYP1B1	CYP1B1	Screening of CYP1B1 and LTBP2 genes in Saudi families with primary congenital glaucoma: genotype-phenotype correlation.
+27508083	PMC4972894	pass	bare_count_single_unit_title	65	True			cc by-nc-sa	65	CYP1B1	CYP1B1	A spectrum of CYP1B1 mutations associated with primary congenital glaucoma in families of Pakistani descent.
+27777502	PMC5070572	fail	abstract:association	158	False			cc by-nc-nd	158	CYP1B1	CYP1B1	Analysis of CYP1B1 in pediatric and adult glaucoma and other ocular phenotypes.
+30520782	PMC6358192	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	2018	CYP1B1	CYP1B1	CYP1B1 Gene and Phenotypic Correlation in Patients From Northeastern Brazil With Primary Congenital Glaucoma.
+29540704	PMC5852028	fail	title:screening_method	67	False			cc by	67	CYP1B1;MYOC;NTF4;WDR36	CYP1B1;MYOC;NTF4;WDR36	Detection of mutations in MYOC, OPTN, NTF4, WDR36 and CYP1B1 in Chinese juvenile onset open-angle glaucoma using exome sequencing.
+35052424	PMC8774751	fail	abstract:association	643	False			cc by	643	DHTKD1	DHTKD1	Heterozygous DHTKD1 Variants in Two European Cohorts of Amyotrophic Lateral Sclerosis Patients.
+42345014	PMC13288208	fail	title:family_report	39	False			cc by	39	DIAPH3	DIAPH3	A Structural Variant in the 5' Regulatory Region of DIAPH3 Segregates with Postlingual Hearing Loss and Auditory Neuropathy in a Multigenerational Brazilian Family.
+37124614	PMC10133553	fail	title:variant_level		False			cc by	43	DLX5	DLX5	New pathogenic variant in DLX5 : New clues for a clinical spectrum from split-hand-foot malformation to fibular aplasia, tibial campomelia and oligosyndactyly.
+34867808	PMC8635859	fail	title:variant_level	70	False			cc by	70	DNAH1	DNAH1	Novel Loss-of-Function Mutations in DNAH1 Displayed Different Phenotypic Spectrum in Humans and Mice.
+36726469	PMC9885801	fail	abstract:sequenced_cohort		False			cc by	126	DNALI1	DNALI1	Homozygous mutation in DNALI1 leads to asthenoteratozoospermia by affecting the inner dynein arms.
+41819808	PMC13217078	pass	bare_count_single_unit_title	112	True			cc by-nc	112	DSPP	DSPP	Diagnosis complexity of dentinogenesis imperfecta involving DSPP genetic variants.
+26301257	PMC4539615	fail	abstract:association	209	False			cc by-nc-nd	209	DUOX2	DUOX2	Defects in NADPH Oxidase Genes NOX1 and DUOX2 in Very Early Onset Inflammatory Bowel Disease.
+33310921	PMC7774760	fail	title:screening_method	118	False			cc by-nc-nd	118	DUOX2	DUOX2	DUOX2 variants are a frequent cause of congenital primary hypothyroidism in Thai patients.
+33490161	PMC7812163	pass	count_noun_with_unit	61	True			cc by-nc-nd	61	DUOX2	DUOX2	Genotype and phenotype correlation in a cohort of Chinese congenital hypothyroidism patients with DUOX2 mutations.
+42181674	PMC13191362	pass	count_noun_with_unit	71	True			cc by	71	DUOX2	DUOX2	Genotype-phenotype correlation of biallelic DUOX2 mutations in transient and permanent congenital hypothyroidism.
+42662067	PMC13519044	fail	title:screening_method	184	False			cc by	184	DUOX2	DUOX2	Genetic screening and functional characterization of DUOX2 mutations in patients with congenital hypothyroidism.
+39885506	PMC11783778	fail	title:screening_method	210	False			cc by-nc-nd	210	DUX4	DUX4	A dedicated caller for DUX4 rearrangements from whole-genome sequencing data.
+41678173	PMC12902924	pass	count_noun_with_unit	2098	True			cc by	2098	EGFR	EGFR	Ancestry-Associated Performance Variability of Open-Source AI Models for EGFR Prediction in Lung Cancer.
+23617574	PMC3663786	fail	abstract:association	29	False			cc by	29	EIF4G1	EIF4G1	Analysis of EIF4G1 in ethnic Chinese.
+41053928	PMC12577676	fail	no_per_unit_n_ge_20		False			cc by	211	EPG5	EPG5	Mutations in the Key Autophagy Tethering Factor EPG5 Link Neurodevelopmental and Neurodegenerative Disorders Including Early-Onset Parkinsonism.
+40626125	PMC12118264	pass	count_noun_with_unit	59	True			cc by	59	ERCC5	ERCC5	The clinical spectrum associated with ERCC5 mutations: Is there a relationship between phenotype and genotype?
+32107406	PMC7046659	fail	pub_type:trial		False			cc by	7408	EYA4	EYA4	Prevalence and clinical features of hearing loss caused by EYA4 variants.
+32277154	PMC7148344	fail	title:variant_level	531	False			cc by	531	EYA4	EYA4	Insights into the pathophysiology of DFNA10 hearing loss associated with novel EYA4 variants.
+41533940	PMC12743491	pass	bare_count_single_unit_title	32	True			cc by-nc-nd	32	FGF10;IGSF3	FGF10;IGSF3	FGF10/IGSF3 Variants in Bony Congenital Nasolacrimal Duct Obstruction: A Genotype-Phenotype Study of Syndromic Versus Isolated Disease.
+32342672	PMC7261761	pass	bare_count_single_unit_title	663	True			cc by	663	FKRP	FKRP	Global FKRP Registry: observations in more than 300 patients with Limb Girdle Muscular Dystrophy R9.
+39408683	PMC11476872	pass	bare_count_single_unit_title	153	True			cc by	153	FKRP	FKRP	Molecular Study of the Fukutin-Related Protein ( FKRP ) Gene in Patients from Southern Italy with Duchenne/Becker-like Phenotype.
+40125057	PMC11927984	fail	title:screening_method	30	False			cc by-nc-sa	30	FLG	FLG	Targeted Filaggrin Gene ( FLG ) Sequencing: A Pilot Study among Indian Children with Atopic Dermatitis.
+39472949	PMC11520881	fail	title:variant_level	58	False			cc by-nc-nd	58	FLNC	FLNC	Novel FLNC variants in pediatric cardiomyopathy: an insight into disease mechanisms.
+41440871	PMC12734206	pass	count_noun_with_unit	25	True			cc by	25	FLNC	FLNC	Genetic and Clinical Characterization of FLNC Variants in Chinese Patients with Cardiomyopathy.
+37008944	PMC10060985	pass	bare_count_single_unit_title	1752	True			cc by	1752	FOXE1	FOXE1	The length of FOXE1 polyalanine tract in congenital hypothyroidism: Evidence for a pathogenic role from familial, molecular and cohort studies.
+37046432	PMC10093539	pass	bare_count_single_unit_title	122	True			cc by	122	FREM2	FREM2	Heterozygous Variants in FREM2 Are Associated with Mesiodens, Supernumerary Teeth, Oral Exostoses, and Odontomas.
+36632462	PMC9830513	fail	title:variant_level		False			cc by	105	FSIP2	FSIP2	Novel FSIP2 Variants Induce Super-Length Mitochondrial Sheath and Asthenoteratozoospermia in Humans.
+42169611	PMC13623324	fail	title:variant_level	92	False			cc by-nc-sa	92	FSIP2	FSIP2	Novel biallelic FSIP2 variants cause male infertility with multiple morphological abnormalities of sperm flagella in humans.
+42268433	PMC13253602	pass	count_noun_with_unit	650	True			cc by-nc-nd	650	FUS	FUS	FUS-associated ALS in Taiwan: genetic spectrum, clinical features, and a founder haplotype of p.H517D.
+32042914	PMC6975178	pass	count_noun_with_unit	153	True			cc by-nc-nd	153	FUS;PLS3	FUS;PLS3	Analysis of FUS , PFN2, TDP-43 , and PLS3 as potential disease severity modifiers in spinal muscular atrophy.
+34518945	PMC8782814	fail	title:family_report	28	False			cc by	28	FUS;TBK1	FUS;TBK1	FUS mutations dominate TBK1 mutations in FUS/TBK1 double-mutant ALS/FTD pedigrees.
+35394490	PMC8994167	pass	bare_count_single_unit_title	84	True			cc by-nc-nd	84	FZD4	FZD4	FZD4 in a Large Chinese Population With Familial Exudative Vitreoretinopathy: Molecular Characteristics and Clinical Manifestations.
+38706142	PMC11810545	pass	bare_count_single_unit_title	35	True			cc by	35	FZD4	FZD4	Clinical and genetic characteristics and natural history of Finnish families with familial exudative vitreoretinopathy due to pathogenic FZD4 variants.
+22045688	PMC3482927	fail	no_per_unit_n_ge_20		False			cc by	473	FZD6	FZD6	FZD6 is a novel gene for human neural tube defects.
+35383156	PMC8983652	fail	no_per_unit_n_ge_20		False			cc by	47	GABRB3	GABRB3	Gain-of-function and loss-of-function GABRB3 variants lead to distinct clinical phenotypes in patients with developmental and epileptic encephalopathies.
+32748548	PMC7549564	fail	no_per_unit_n_ge_20		False			cc by	487	GATA4	GATA4	Rare deleterious variants of NOTCH1, GATA4, SMAD6, and ROBO4 are enriched in BAV with early onset complications but not in BAV with heritable thoracic aortic disease.
+25015100	PMC4240195	pass	count_noun_with_unit	30	True			cc by	30	GCK	GCK	Phenotypic severity of homozygous GCK mutations causing neonatal or childhood-onset diabetes is primarily mediated through effects on protein stability.
+27256595	PMC4988380	fail	title:screening_method	54	False			cc by	54	GCK	GCK	GCK gene mutations are a common cause of childhood-onset MODY (maturity-onset diabetes of the young) in Turkey.
+32375122	PMC7274558	fail	no_per_unit_n_ge_20		False			cc by	110	GCK	GCK	MODY2 in Asia: analysis of GCK mutations and clinical characteristics.
+39420902	PMC11326741	fail	title:screening_method	2989	False			cc by	2989	GCK	GCK	Clinical screening for GCK-MODY in 2,989 patients from the Brazilian Monogenic Diabetes Study Group (BRASMOD) and the Brazilian Type 1 Diabetes Study Group (BrazDiab1SG).
+36257325	PMC9674944	fail	title:carriers	1742	False			cc by	2194	GCK;HNF1A;HNF4A	GCK;HNF1A;HNF4A	Reduced penetrance of MODY-associated HNF1A/HNF4A variants but not GCK variants in clinically unselected cohorts.
+33536578	PMC7859196	fail	title:n_lt_20		False			cc by	127	GCM2	GCM2	Five patients with disorders of calcium metabolism presented with GCM2 gene variants.
+37362385	PMC10289514	pass	count_unit_noun	40	True			cc by-nc-nd	40	GCM2	GCM2	Variant Tyr 394Ser in the GCM2 Gene Is Rare in a Cohort of Ashkenazi Jews With Primary Hyperparathyroidism.
+38473983	PMC10931624	pass	bare_count_single_unit_title	69	True			cc by	69	GDF2	GDF2	Hemodynamic and Clinical Profiles of Pulmonary Arterial Hypertension Patients with GDF2 and BMPR2 Variants.
+39785833	PMC12012706	fail	no_per_unit_n_ge_20		False			cc by	26	GHSR	GHSR	Loss-of-Function GHSR Variants Are Associated With Short Stature and Low IGF-I.
+27607449	PMC5015898	pass	bare_count_single_unit_title	26	True			cc by	26	GNAI3	GNAI3	GNAI3: Another Candidate Gene to Screen in Persons with Ocular Albinism.
+37705601	PMC10495587	pass	bare_count_single_unit_title	27	True			cc by	27	GNAO1	GNAO1	Phenotypes in children with GNAO1 encephalopathy in China.
+41992961	PMC13327586	fail	no_per_unit_n_ge_20		False			cc by-nc-nd	66	GNAO1	GNAO1	Longitudinal Phenotypic Trajectories in GNAO1-Related Disorders: Defining Disease Progression and Clinical Profiles.
+40468825	PMC12226820	fail	title:model_organism	21	False			cc by	21	HCN2	HCN2	HCN2-Associated Neurodevelopmental Disorders: Data from Patients and Xenopus Cell Models.
+36631813	PMC9990451	pass	count_noun_with_unit	44	True			cc by	165	HHAT	HHAT	Additional evidence for the role of chromosomal imbalances and SOX8, ZNRF3 and HHAT gene variants in early human testis development.
+18240242	PMC3001034	fail	abstract:association	1022	False			cc by	1022	HLA-DRB1	HLA-DRB1	Association of the HLA-DRB1 gene with premature death, particularly from cardiovascular disease, in patients with rheumatoid arthritis and inflammatory polyarthritis.
+34685558	PMC8533736	fail	title:carriers	46	False			cc by	46	HMBS	HMBS	Profiling of Serum Metabolites of Acute Intermittent Porphyria and Asymptomatic HMBS Mutation Carriers.
+29666556	PMC5898959	pass	bare_count_single_unit_title	72	True			cc by	72	HNF1A	HNF1A	Maturity onset diabetes of the young due to HNF1A variants in Croatia.
+33765222	PMC8116301	fail	title:biomarker	320	False			cc by	320	HNF1A	HNF1A	Interlaboratory evaluation of plasma N-glycan antennary fucosylation as a clinical biomarker for HNF1A-MODY using liquid chromatography methods.
+37798422	PMC10627920	pass	bare_count_single_unit_title	615	True			cc by	4712	HNF1A	HNF1A	Characterisation of HNF1A variants in paediatric diabetes in Norway using functional and clinical investigations to unmask phenotype and monogenic diabetes.
+17407387	PMC1845156	pass	count_unit_noun	790	True			cc by	790	HNF4A	HNF4A	Macrosomia and hyperinsulinaemic hypoglycaemia in patients with heterozygous mutations in the HNF4A gene.
+30143024	PMC6109319	fail	title:variant_level		False			cc by	42	HSF4	HSF4	Novel mutations in HSF4 cause congenital cataracts in Chinese families.
+25504735	PMC4321025	fail	title:screening_method	100	False			cc by	100	HSPG2	HSPG2	Exome sequencing identifies a rare HSPG2 variant associated with familial idiopathic scoliosis.
+36128131	PMC9479512	pass	bare_count_single_unit_title	108	True			cc by-nc-sa	108	IDH1	IDH1	Preoperative imaging features: Are they useful tools for predicting IDH1 mutation status in gliomas Grades II-IV?
+41860384	PMC13196520	fail	abstract:diagnostic_yield	71	False			cc by-nc-nd	6316	IDH1	IDH1	IDH1- and IDH2-mutated myeloid neoplasms: mutational pattern, clonal hierarchy, and the role in AML transformation.
+41936394	PMC13052036	fail	abstract:association	55	False			cc by-nc	65	IDH1	IDH1	Rare Gain-of-Function Variants in IDH1 and IDH2 Confer Increased Risk of Immune-Mediated Rheumatic Diseases.
+37471416	PMC10358992	fail	title:screening_method	34	False			cc by	51	IFT172	IFT172	Exome sequencing reveals IFT172 variants in patients with non-syndromic cholestatic liver disease.
+39010903	PMC11246878	fail	no_per_unit_n_ge_20		False			cc by	67	IHH	IHH	Variety of genetic defects in GnRH and hypothalamic-pituitary signaling and development in normosmic patients with IHH.
+39406892	PMC11522133	fail	title:screening_method	337	False			cc by	337	IKZF2	IKZF2	Exome variant prioritization in a large cohort of hearing-impaired individuals indicates IKZF2 to be associated with non-syndromic hearing loss and guides future research of unsolved cases.
+33849446	PMC8045347	fail	title:variant_level	35	False			cc by	35	IL10RA	IL10RA	Characterization of novel and large fragment deletions in exon 1 of the IL10RA gene in Chinese children with very early onset inflammatory bowel diseases.
+35518939	PMC9063464	fail	abstract:few_positives	90000	False			cc by	90000	INS	INS	Genetic Etiology of Neonatal Diabetes Mellitus in Vietnamese Infants and Characteristics of Those With INS Gene Mutations.
+29619236	PMC5874392	pass	bare_count_single_unit_title	125	True			cc by-nc-nd	125	ISL1	ISL1	Evaluation of the ISL1 gene in the pathogenesis of bladder exstrophy in a Swedish cohort.
+39625954	PMC11752091	fail	abstract:diagnostic_yield	212	False			cc by-nc-nd	212	ITM2B	ITM2B	Investigating ITM2B-associated ataxia in a Taiwanese cerebellar ataxia cohort.
+41155507	PMC12563250	fail	abstract:sequenced_cohort	21	False			cc by	21	KCNA2	KCNA2	Genetic Variants in SDC3 , KCNA2 , KCNK1 , KCNK16, and Heat Shock Transcription Factor-1 Genes: An Exploratory Analysis Supporting the Piezo2 Channelopathy Hypothesis in Amyotrophic Lateral Sclerosis Onset.
+42487939	PMC13388444	fail	abstract:association	1415	False			cc by	1415	KCNJ11	KCNJ11	Association of the KCNJ11 E23K (rs5219) variant with proliferative diabetic retinopathy in Lebanese patients with type 2 diabetes.
+37062836	PMC13007567	pass	count_noun_with_unit	25	True			cc by	25	KCNT2	KCNT2	KCNT2-Related Disorders: Phenotypes, Functional, and Pharmacological Properties.
+39202393	PMC11353349	fail	no_per_unit_n_ge_20		False			cc by	21	KDM5B	KDM5B	A Genotype/Phenotype Study of KDM5B -Associated Disorders Suggests a Pathogenic Effect of Dominantly Inherited Missense Variants.
+33320693	PMC7892262	fail	abstract:database	13037	False			cc by	13037	KDR	KDR	Bayesian Inference Associates Rare KDR Variants with Specific Phenotypes in Pulmonary Arterial Hypertension.
+32850863	PMC7426638	pass	bare_count_single_unit_title	328	True			cc by	328	KIT	KIT	Cryptorchidism and Testicular Tumor: Comprehensive Analysis of Common Clinical Features and Search of SNVs in the KIT and AR Genes.
+36357474	PMC9649709	fail	title:variant_level	31	False			cc by	31	KIT	KIT	Identification and in silico analysis of noval alteration Arg420Gly in KIT proto oncogene among acute myeloid leukemia patients.
+39037378	PMC11262411	fail	no_per_unit_n_ge_20		False			cc by	500	KIT	KIT	Prevalence and impact of the KIT M541L variant in patients with mastocytosis.
+42703425	PMC13546522	pass	bare_count_single_unit_title	647	True			cc by-nc-nd	647	KIT	KIT	The prognosis of patients with gastrointestinal stromal tumors harboring the KIT exon 11 mutation: a retrospective cohort study.
+35598637	PMC9198958	fail	title:biomarker	24	False			cc by-nc-nd	24	LCAT	LCAT	Plasma FA composition in familial LCAT deficiency indicates SOAT2-derived cholesteryl ester formation in humans.
+39518997	PMC11546775	pass	bare_count_single_unit_title	46	True			cc by	46	LIPC	LIPC	Phenotype in Individuals with Heterozygous Rare Variants in LIPC Encoding Hepatic Lipase.
+39462050	PMC11513111	fail	abstract:sequenced_cohort		False			cc by-nc-nd	450	LONP1	LONP1	Association of LONP1 gene with epilepsy and the sub-regional effect.
+34906192	PMC8670144	fail	title:variant_level	266	False			cc by	266	LTBP3	LTBP3	Novel LTBP3 mutations associated with thoracic aortic aneurysms and dissections.
+22572819	PMC3398254	fail	abstract:association	300	False			cc by-nc-nd	300	MC1R	MC1R	Germline melanocortin-1-receptor genotype is associated with severity of cutaneous phenotype in congenital melanocytic nevi: a role for MC1R in human fetal development.
+42709445	PMC13555505	fail	abstract:association	926	False			cc by	926	MC1R	MC1R	Common MC1R Variants and Parkinson Disease Progression.
+26788538	PMC4707032	pass	bare_count_single_unit_title	297	True			cc by	297	MC4R	MC4R	Allelic variants of the Melanocortin 4 receptor (MC4R) gene in a South African study group.
+30863132	PMC6388727	fail	title:single_patient	157	False			cc by-nc	157	MC4R	MC4R	Identification of the MC4R start lost mutation in a morbidly obese Brazilian patient.
+33362866	PMC7756028	fail	title:single_patient	163	False			cc by	163	MC4R	MC4R	Identification of a Rare and Potential Pathogenic MC4R Variant in a Brazilian Patient With Adulthood-Onset Severe Obesity.
+40684266	PMC12361757	fail	abstract:association		False			cc by	28	MCM8	MCM8	Clinical syndromes linked to biallelic germline variants in MCM8 and MCM9.
+26926790	PMC5154348	fail	abstract:association	205	False			cc by-nc-nd	205	MDM2	MDM2	Homozygous G/G variant of SNP309 in the human MDM2 gene is associated with earlier tumor onset in Caucasian female renal cell carcinoma patients.
+38410136	PMC10896622	fail	abstract:association	93	False			cc by	93	MGMT	MGMT	Prediction of MGMT promotor methylation status in glioblastoma by contrast-enhanced T1-weighted intensity image.
+40119123	PMC11964919	fail	no_per_unit_n_ge_20		False			cc by	29	MIA3	MIA3	Deciphering the phenotypic spectrum associated with MIA3-related odontochondrodysplasia.
+36438546	PMC9683506	fail	title:variant_level		False			cc by-nc-nd	28	MKRN3	MKRN3	Six Novel Variants in the MKRN3 Gene Causing Central Precocious Puberty.
+41732517	PMC12924910	fail	title:biomarker	26	False			cc by-nc	26	MKRN3	MKRN3	Use of serum MKRN3 and DLK1 levels in precocious puberty: association with an MKRN3 pathogenic variant.
+42000973	PMC13375988	fail	abstract:sequenced_cohort	94	False			cc by-nc-nd	94	MLH3	MLH3	Maternal MLH3 dysfunction drives unexplained recurrent pregnancy loss via impaired oocyte maturation and defective decidualization.
+34059105	PMC8166055	pass	bare_count_single_unit_title	284	True			cc by	284	MORC2	MORC2	Characterization of genotype-phenotype correlation with MORC2 mutated Axonal Charcot-Marie-Tooth disease in a cohort of Chinese patients.
+38254107	PMC10804618	fail	abstract:penetrance		False			cc by	3272	MPZL2	MPZL2	MPZL2-a common autosomal recessive deafness gene related to moderate sensorineural hearing loss in the Chinese population.
+42051546	PMC13111549	pass	bare_count_single_unit_title	31	True			cc by	31	MSTO1	MSTO1	Mild-cerebellar ataxia due to impaired mitochondrial function caused by the MSTO1 variations.
+33365504	PMC7687527	pass	bare_count_single_unit_title	352	True			cc by	352	MT-TT	MT-TT	Frequency and spectrum of MT-TT variants associated with Leber's hereditary optic neuropathy in a Chinese cohort of subjects.
+35379845	PMC8980015	fail	pub_type:trial		False			cc by	72	MTAP	MTAP	MTAP deficiency creates an exploitable target for antifolate therapy in 9p21-loss cancers.
+30911575	PMC6414492	pass	bare_count_single_unit_title	74	True			cc by	74	MTFMT	MTFMT	Leigh syndrome caused by mutations in MTFMT is associated with a better prognosis.
+39030910	PMC11342114	fail	title:variant_level	28	False			cc by-nc-nd	28	MTOR	MTOR	Clinical and functional studies of MTOR variants in Smith-Kingsmore syndrome reveal deficits of circadian rhythm and sleep-wake behavior.
+35665211	PMC9060116	fail	abstract:database	26	False			cc by	26	MVD	MVD	A preliminary study of peripheral T-cell subsets in porokeratosis patients with MVK or MVD variants.
+34681017	PMC8535940	pass	bare_count_single_unit_title	8074	True			cc by	8074	MYH14	MYH14	Prevalence and Clinical Characteristics of Hearing Loss Caused by MYH14 Variants.
+35346193	PMC8962197	pass	count_unit_noun	2263	True			cc by	2263	MYO15A	MYO15A	Analysis of the genotype-phenotype correlation of MYO15A variants in Chinese non-syndromic hearing loss patients.
+40275102	PMC12022297	pass	count_noun_with_unit	26	True			cc by-nc-nd	26	MYO15A	MYO15A	The clinical and genetic spectrum of twenty-six individuals with hearing loss affected by MYO15A variants.
+40887432	PMC12535310	pass	bare_count_single_unit_title	20	True			cc by	397	NARS2	NARS2	Neonatal diabetes mellitus is a significant feature of COXPD-24 caused by recessive NARS2 variants.
+37275792	PMC10238988	fail	title:family_report	95	False			cc by-nc-sa	95	NCSTN	NCSTN	An Updated Mutation Spectrum of the γ-Secretase Complex: Novel NCSTN Gene Mutation in an Indian Family with Hidradenitis Suppurativa and Acne Conglobata.
+34511133	PMC8436554	fail	title:screening_method	371	False			cc by	371	NEFH	NEFH	Sequencing of neurofilament genes identified NEFH Ser787Arg as a novel risk variant of sporadic amyotrophic lateral sclerosis in Chinese subjects.
+32462798	PMC7318098	fail	abstract:database	325	False			cc by-nc-nd	325	NEK1	NEK1	Hand-onset weakness is a common feature of ALS patients with a NEK1 loss-of-function variant.
+40536530	PMC12179233	fail	abstract:diagnostic_yield	29	False			cc by-nc-nd	29	NEK1	NEK1	Exploring NEK1 genetic variability in Italian amyotrophic lateral sclerosis patients.
+26967905	PMC4788435	fail	title:variant_level	500	False			cc by	500	NEK8	NEK8	Novel NEK8 Mutations Cause Severe Syndromic Renal Cystic Dysplasia through YAP Dysregulation.
+25153125	PMC4143216	fail	title:variant_level	7595	False			cc by	7595	NEU1	NEU1	In silico identification of new putative pathogenic variants in the NEU1 sialidase gene affecting enzyme function and subcellular localization.
+39482827	PMC11572746	pass	count_noun_with_unit	231	True			cc by	231	NEU1	NEU1	Progressive myoclonic ataxia as an initial symptom of typical type I sialidosis with NEU1 mutation.
+30941118	PMC6435015	pass	bare_count_single_unit_title	50	True			cc by	50	NFKB2	NFKB2	Clinical and Immunological Phenotype of Patients With Primary Immunodeficiency Due to Damaging Mutations in NFKB2 .
+27752029	PMC5864982	fail	title:screening_method	32	False			cc by-nc-sa	32	NKX2-5	NKX2-5	NKX2-5 molecular screening and assessment of variant rate and risk factors of secundum atrial septal defect in a Moroccan population.
+28623311	PMC5473861	pass	count_unit_noun	44	True			cc by	44	NLRP1	NLRP1	Identification of rare genetic variation of NLRP1 gene in familial multiple sclerosis.
+38174310	PMC10752411	pass	bare_count_single_unit_title	81	True			cc by-nc-sa	81	NPHP1	NPHP1	Phenotype Spectrum in Tunisian Population with NPHP1 Deletion.
+34859019	PMC8632042	pass	count_noun_with_unit	30	True			cc by	30	NPHS1	NPHS1	Genetic Variations and Clinical Features of NPHS1 -Related Nephrotic Syndrome in Chinese Children: A Multicenter, Retrospective Study.
+40266336	PMC12187890	fail	title:treatment	29	False			cc by	29	NPHS1	NPHS1	The clinical characteristics of patients with congenital nephrotic syndrome secondary to NPHS1 mutation: Is nephrectomy still a therapeutic option for selected cases?
+35436901	PMC9017038	fail	title:variant_level	197	False			cc by	197	NR1H4	NR1H4	Identification of two novel pathogenic variants of the NR1H4 gene in intrahepatic cholestasis of pregnancy patients.
+26910043	PMC4766102	fail	abstract:few_positives	201	False			cc by	201	NR2E3	NR2E3	Dominant Retinitis Pigmentosa, p.Gly56Arg Mutation in NR2E3: Phenotype in a Large Cohort of 24 Cases.
+21827697	PMC3162517	fail	no_per_unit_n_ge_20		False			cc by	99	NRXN1	NRXN1	Expanding the clinical spectrum associated with defects in CNTNAP2 and NRXN1.
+40590478	PMC12221205	fail	title:single_patient		False			cc by-nc	41	NUS1	NUS1	The Spectrum of Neurologic Phenotypes Associated With NUS1 Pathogenic Variants: A Comprehensive Case Series.
+30894143	PMC6425609	fail	title:family_report	53	False			cc by	53	OSBPL2	OSBPL2	A novel pathogenic variant in OSBPL2 linked to hereditary late-onset deafness in a Mongolian family.
+31527525	PMC6770988	fail	no_per_unit_n_ge_20		False			cc by	2262	OTOA	OTOA	Mid-Frequency Hearing Loss Is Characteristic Clinical Feature of OTOA -Associated Hearing Loss.
+42512905	PMC13413912	fail	title:variant_level	92	False			cc by	92	PAPSS2	PAPSS2	Reclassification of PAPSS2 Missense Variants in Turkish Patients with Brachyolmia Type 4: Multi-Modal Computational and Structural Biology Evidence for APS-Kinase Domain Dysfunction.
+29661911	PMC5938616	fail	title:model_organism	23	False			cc by	23	PATL2	PATL2	PATL2 is a key actor of oocyte maturation whose invalidation causes infertility in women and mice.
+36995881	PMC10065762	fail	title:family_report		False			cc by	28	PAX9	PAX9	Novel PAX9 compound heterozygous variants in a Chinese family with non-syndromic oligodontia and genotype-phenotype analysis of PAX9 variants.
+37056289	PMC10086135	fail	no_per_unit_n_ge_20		False			cc by	28	PAX9	PAX9	Genotype-phenotype pattern analysis of pathogenic PAX9 variants in Chinese Han families with non-syndromic oligodontia.
+21053371	PMC3033517	fail	no_per_unit_n_ge_20		False			cc by	150	PCDH19	PCDH19	Mutations and deletions in PCDH19 account for various familial or isolated epilepsies in females.
+31714027	PMC6908879	fail	title:variant_level	152	False			cc by	152	PCDH19	PCDH19	Novel and de novo mutation of PCDH19 in Girls Clustering Epilepsy.
+32189863	PMC7061497	pass	bare_count_single_unit_title	35	True			cc by-nc-sa	35	PCDH19	PCDH19	Identification of PCDH19 Gene Mutations/Deletions in Patients with Early Onset Epilepsy.
+38891919	PMC11171991	fail	title:screening_method	165	False			cc by	165	PCDH19	PCDH19	NGS-Based Identification of Two Novel PCDH19 Mutations in Female Patients with Early-Onset Epilepsy.
+34046058	PMC8148046	pass	bare_count_single_unit_title	25	True			cc by	25	PIGT	PIGT	Deep-Phenotyping the Less Severe Spectrum of PIGT Deficiency and Linking the Gene to Myoclonic Atonic Seizures.
+30816539	PMC6423573	fail	abstract:penetrance	194	False			cc by-nc-nd	194	PITX3	PITX3	PITX3 mutations associated with autosomal dominant congenital cataract in the Chinese population.
+37139083	PMC10151149	fail	title:family_report	23	False			cc by	23	PITX3	PITX3	Investigating the Clinical Characteristics and PITX3 Mutations of a Large Chinese Family with Anterior Segment Mesenchymal Dysgenesis and Congenital Posterior Polar Cataract.
+35052489	PMC8775161	fail	title:variant_level	84	False			cc by	84	PJVK	PJVK	Novel Pathogenic Variants in PJVK , the Gene Encoding Pejvakin, in Subjects with Autosomal Recessive Non-Syndromic Hearing Impairment and Auditory Neuropathy Spectrum Disorder.
+28748388	PMC5624974	fail	title:screening_method	64	False			cc by-nc	95	PLS3	PLS3	PLS3 sequencing in childhood-onset primary osteoporosis identifies two novel disease-causing variants.
+40353206	PMC12063993	fail	abstract:penetrance	28	False			cc by	28	PLS3	PLS3	Phenotypic and genetic characteristics of a Dutch cohort of patients with X-linked osteoporosis due to PLS3 genetic variants.
+39082157	PMC11531855	pass	bare_count_single_unit_title	25	True			cc by-nc	25	PNPLA8	PNPLA8	Biallelic null variants in PNPLA8 cause microcephaly by reducing the number of basal radial glia.
+41742372	PMC13368362	fail	no_per_unit_n_ge_20		False			cc by	46	POLD1	POLD1	Genotype-phenotype heterogeneity among patients with lipodystrophy harboring rare POLD1 variants.
+38776551	PMC11379631	fail	no_per_unit_n_ge_20		False			cc by-nc	217	POLD1;POLE	POLD1;POLE	A comprehensive analysis of POLE/POLD1 genomic alterations in colorectal cancer.
+34607897	PMC8491424	pass	bare_count_single_unit_title	47	True			cc by-nc	592	POLE	POLE	Distinct mutational profile and immune microenvironment in microsatellite-unstable and POLE -mutated tumors.
+37874375	PMC10700217	pass	bare_count_single_unit_title	123	True			cc by	123	POLE	POLE	Validation of Modaplex POLE mutation assay in endometrial carcinoma.
+39865420	PMC11771542	pass	count_noun_with_unit	596	True			cc by	596	POLE	POLE	POLE mutations in endometrial carcinoma: Clinical and genomic landscape from a large prospective single-center cohort.
+41891942	PMC13093816	fail	title:screening_method	378	False			cc by-nc-nd	32	POLE	POLE	ATM immunohistochemistry as an effective screening method for POLE variants among endometrial carcinomas lacking mismatch repair deficiency and p53 abnormalities.
+23448099	PMC3757309	fail	abstract:diagnostic_yield		False			cc by	213	POLG	POLG	Prospective study of POLG mutations presenting in children with intractable epilepsy: prevalence and clinical features.
+38822839	PMC11319559	pass	count_noun_with_unit	95	True			cc by	95	POLG	POLG	Status epilepticus in POLG disease: a large multinational study.
+38845467	PMC11251482	fail	abstract:few_positives	91	False			cc by	91	POLG	POLG	Epidemiology and natural history of POLG disease in Norway: a nationwide cohort study.
+41245005	PMC12617407	fail	title:review	2025	False			cc by	2025	POLG	POLG	A Scoping Review of POLG-Related Cerebellar Ataxia: Insights and Clinical Perspectives.
+41822038	PMC12978145	fail	title:biomarker	34	False			cc by-nc-nd	34	POLG	POLG	Clinical Heterogeneity and Candidate Biomarkers in POLG -Related Mitochondrial Disease.
+36539277	PMC10279804	fail	title:single_patient	2928	False			cc by	2928	POT1	POT1	Population-based analysis of POT1 variants in a cutaneous melanoma case-control cohort.
+40851494	PMC12398106	fail	title:screening_method	168	False			cc by	168	POT1	POT1	POT1 genetic testing in melanoma-prone families in Sweden: germline variant prevalence and tumor spectrum in identified carriers.
+41686515	PMC12904310	fail	abstract:association	24	False			cc by-nc-nd	24	POT1	POT1	Clinical, genetic, and familial features of POT1 tumor predisposition syndrome.
+28545070	PMC5435223	fail	title:screening_method	2549	False			cc by	2549	POU4F3	POU4F3	POU4F3 mutation screening in Japanese hearing loss patients: Massively parallel DNA sequencing-based analysis identified novel variants associated with autosomal dominant hearing loss.
+32893856	PMC7526731	pass	count_noun_with_unit	30	True			cc by	30	PTF1A	PTF1A	Clinical Characteristics and Long-term Follow-up of Patients with Diabetes Due To PTF1A Enhancer Mutations.
+39202057	PMC11355318	fail	abstract:association		False			cc by	3728	RAD51D	RAD51D	Germline RAD51C and RAD51D Mutations in High-Risk Chinese Breast and/or Ovarian Cancer Patients and Families.
+27769281	PMC5073905	fail	title:family_report	27	False			cc by	27	RARS2	RARS2	Novel homozygous RARS2 mutation in two siblings without pontocerebellar hypoplasia - further expansion of the phenotypic spectrum.
+39692517	PMC11967543	pass	bare_count_single_unit_title	35	True			cc by	35	RBL2	RBL2	Clinical and genetic characterization of a progressive RBL2-associated neurodevelopmental disorder.
+22065924	PMC3209419	fail	title:variant_level	389	False			cc by	389	RDH12	RDH12	RDH12 retinopathy: novel mutations and phenotypic description.
+35994252	PMC9419460	pass	bare_count_single_unit_title	29	True			cc by-nc-nd	29	RDH12	RDH12	Clinical and Genetic Analysis of RDH12-Associated Retinopathy in 27 Chinese Families: A Hypomorphic Allele Leads to Cone-Rod Dystrophy.
+39693083	PMC11668355	pass	bare_count_single_unit_title	46	True			cc by-nc-nd	46	RDH12	RDH12	Retinal Degeneration Associated With Biallelic RDH12 Variants: Longitudinal Evaluation of Retinal Structure and Visual Function in Pediatric Patients.
+32232344	PMC7401827	fail	abstract:few_positives	25	False			cc by-nc-nd	25	RDH5	RDH5	RDH5-Related Fundus Albipunctatus in a Large Japanese Cohort.
+42792936	PMC13606629	fail	title:treatment	72	False			cc by	72	RELA	RELA	Clinical Insights into RELA -Associated Disease: From Genotype to Phenotype and Exploring Treatment.
+34970297	PMC8712876	pass	bare_count_single_unit_title	76	True			cc by	76	RHD	RHD	RHD Genotypes in a Chinese Cohort of Pregnant Women.
+30925911	PMC6441181	fail	title:single_patient	250	False			cc by	250	RNF213	RNF213	Rare RNF213 variants and the risk of intracranial artery stenosis/occlusion disease in Chinese population: a case-control study.
+36660619	PMC9843384	fail	abstract:association	174	False			cc by-nc-nd	174	RNF213	RNF213	Association of rare RNF213 variants and intracranial aneurysm risk in a Chinese population.
+37269436	PMC11226534	fail	abstract:association	139	False			cc by	139	RNF213	RNF213	RNF213 p.Arg4810Lys Wild Type is Associated with De Novo Hemorrhage in Asymptomatic Hemispheres with Moyamoya Disease.
+38265784	PMC10810149	pass	count_noun_with_unit	51	True			cc by-nc-nd	51	RP1L1	RP1L1	Distinct Clinical Effects of Two RP1L1 Hotspots in East Asian Patients With Occult Macular Dystrophy (Miyake Disease): EAOMD Report 4.
+40172514	PMC11967996	pass	bare_count_single_unit_title	40	True			cc by-nc-nd	20	RP1L1	RP1L1	Phenotypic and Genotypic Characterization of RP1L1-Associated Retinopathy.
+40450528	PMC12206149	fail	abstract:sequenced_cohort	78	False			cc by	78	RP1L1	RP1L1	Clinical features and molecular mechanisms of RP1L1 variants causing occult macular dystrophy.
+27383011	PMC4935955	fail	title:model_organism		False			cc by	6099	S1PR2	S1PR2	S1PR2 variants associated with auditory function in humans and endocochlear potential decline in mouse.
+40017499	PMC11865714	pass	count_noun_with_unit	26	True			cc by-nc-nd	26	SEPSECS	SEPSECS	Acute neurological regression following fever as presenting sign of pontocerebellar hypoplasia type 2D ( SEPSECS mutation).
+41888834	PMC13020232	pass	count_noun_with_unit	23	True			cc by	23	SERPINC1	SERPINC1	SERPINC1 mutations and thrombotic events in inherited antithrombin deficiency: a study on the han population of East China.
+27056980	PMC5181625	pass	bare_count_single_unit_title	84	True			cc by	84	SERPINF1	SERPINF1	Mutations and altered expression of SERPINF1 in patients with familial otosclerosis.
+26154504	PMC4496036	fail	title:variant_level	52	False			cc by	52	SERPING1	SERPING1	A Nationwide Study of Norwegian Patients with Hereditary Angioedema with C1 Inhibitor Deficiency Identified Six Novel Mutations in SERPING1.
+33827715	PMC8028818	fail	title:variant_level	64	False			cc by	64	SERPING1	SERPING1	Hereditary angioedema due to C1 inhibitor deficiency in Belarus: epidemiology, access to diagnosis and seven novel mutations in SERPING1 gene.
+38486718	PMC10937951	fail	title:variant_level	132	False			cc by-nc-nd	132	SERPING1	SERPING1	Complex analysis of the national Hereditary angioedema cohort in Slovakia - Identification of 12 novel variants in SERPING1 gene.
+28663576	PMC5770597	pass	count_noun_with_unit	57	True			cc by-nc-sa	57	SETD2	SETD2	SETD2 and histone H3 lysine 36 methylation deficiency in advanced systemic mastocytosis.
+27863760	PMC5119671	fail	title:screening_method		False			cc by-nc-nd	91	SF3B1	SF3B1	Splicing factor SF3B1 mutations and ring sideroblasts in myelodysplastic syndromes: a Brazilian cohort screening study.
+41821748	PMC12975584	fail	abstract:diagnostic_yield	44	False			cc by	44	SGMS2	SGMS2	Pathogenic SGMS2 variants are not a common cause of early-onset osteoporosis among Finnish patients.
+35663265	PMC9157246	fail	abstract:sequenced_cohort	320	False			cc by	320	SHROOM4	SHROOM4	SHROOM4 Variants Are Associated With X-Linked Epilepsy With Features of Generalized Seizures or Generalized Discharges.
+41103144	PMC12624164	fail	abstract:association	4847	False			cc by-nc	4847	SLC11A2	SLC11A2	A structural deletion in the 3'UTR of SLC11A2 is associated with altered iron status: Evidence from two large Danish cohorts.
+34389731	PMC8363728	pass	count_noun_with_unit	30	True			cc by	30	SLC12A3	SLC12A3	Allele-specific RT-PCR for the rapid detection of recurrent SLC12A3 mutations for Gitelman syndrome.
+31591475	PMC6779878	fail	title:screening_method	81	False			cc by	81	SLC22A12	SLC22A12	Contribution of SLC22A12 on hypouricemia and its clinical significance for screening purposes.
+39512436	PMC11540568	fail	no_per_unit_n_ge_20		False			cc by	21	SLC25A42	SLC25A42	Expanding the genetic and clinical spectrum of SLC25A42-associated disorders and testing of pantothenic acid to improve CoA level in vitro.
+18577546	PMC2442425	pass	unit_cohort_of_n	39	True			cc by-nc	39	SLC2A1	SLC2A1	Paroxysmal exercise-induced dyskinesia and epilepsy is due to mutations in SLC2A1, encoding the glucose transporter GLUT1.
+27098784	PMC4852666	fail	title:screening_method	28	False			cc by-nc-sa	28	SLC2A1	SLC2A1	Mutation Analysis of MR-1, SLC2A1, and CLCN1 in 28 PRRT2-negative Paroxysmal Kinesigenic Dyskinesia Patients.
+34368208	PMC8342754	pass	bare_count_single_unit_title	250	True			cc by	250	SLC5A5	SLC5A5	Characterization of Genetic Variants in the SLC5A5 Gene and Associations With Breast Milk Iodine Concentration in Lactating Women of African Descent: The NUPED Study.
+29313109	PMC6061663	pass	bare_count_single_unit_title	65	True			cc by	65	SLCO2A1	SLCO2A1	Clinical features of chronic enteropathy associated with SLCO2A1 gene: a new entity clinically distinct from Crohn's disease.
+35611666	PMC9668493	fail	abstract:few_positives	46	False			cc by-nc	46	SLCO2A1	SLCO2A1	Clinical and Genetic Characteristics of Korean Patients Diagnosed with Chronic Enteropathy Associated with SLCO2A1 Gene: A KASID Multicenter Study.
+21835029	PMC3236341	fail	abstract:association	37	False			cc by	408	SMAD3	SMAD3	Identification of germline alterations of the mad homology 2 domain of SMAD3 and SMAD4 from the Ontario site of the breast cancer family registry (CFR).
+18211709	PMC2248204	fail	title:screening_method	132	False			cc by	132	SNCA	SNCA	Analysis of Parkinson disease patients from Portugal for mutations in SNCA, PRKN, PINK1 and LRRK2.
+28595629	PMC5465543	fail	title:family_report		False			cc by	35	SORL1	SORL1	Identification and description of three families with familial Alzheimer disease that segregate variants in the SORL1 gene.
+27275741	PMC4898711	pass	unit_cohort_of_n	308	True			cc by	308	SQSTM1	SQSTM1	SQSTM1 Mutations and Glaucoma.
+35241069	PMC8895793	fail	no_per_unit_n_ge_20		False			cc by	31	SQSTM1	SQSTM1	Attenuated clinical and osteoclastic phenotypes of Paget's disease of bone linked to the p.Pro392Leu/SQSTM1 mutation by a rare variant in the DOCK6 gene.
+39669768	PMC11635097	pass	bare_count_single_unit_title	24	True			cc by-nc	2015	SQSTM1	SQSTM1	Development of Paget's disease of bone in adults inheriting SQSTM1 mutations: a long-term follow-up.
+39314038	PMC11949451	fail	title:variant_level	68	False			cc by-nc-sa	68	SRD5A2	SRD5A2	Exploring the clinical implications of novel SRD5A2 variants in 46,XY disorders of sex development.
+42151883	PMC13617799	fail	title:n_lt_20	46	False			cc by-nc-nd	46	SRD5A2	SRD5A2	Clinical characterization and analysis of the SRD5A2 gene in 16 Chinese patients with 5α-reductase type 2 deficiency: a single-center retrospective study.
+36568968	PMC9773998	pass	count_noun_with_unit	31	True			cc by	31	SYN1	SYN1	The different clinical facets of SYN1 -related neurodevelopmental disorders.
+41463395	PMC12730736	pass	bare_count_single_unit_title	100	True			cc by	100	TANGO2	TANGO2	Systems-Level Integration of Multi-Omics Identifies Genetic Modifiers of TANGO2 Deficiency Disorder.
+39394138	PMC11468052	fail	title:family_report		False			cc by	28	TARS2	TARS2	TARS2 c.470 C > G is a chinese-specific founder mutation in three unrelated families with mitochondrial encephalomyopathy.
+26674655	PMC4805085	fail	title:carriers	147	False			cc by-nc	481	TBK1	TBK1	Clinical features of TBK1 carriers compared with C9orf72, GRN and non-mutation carriers in a Belgian cohort.
+28822984	PMC5629935	fail	title:variant_level	154	False			cc by-nc	154	TBK1	TBK1	TBK1 mutations in Italian patients with amyotrophic lateral sclerosis: genetic and functional characterisation.
+42792731	PMC13604494	fail	title:variant_level	352	False			cc by	352	TBX20	TBX20	Novel TBX20 Variations Susceptible to Sporadic Atrial Fibrillation.
+28361097	PMC5370232	pass	bare_count_single_unit_title	38	True			cc by	38	TEAD1	TEAD1	Independent variant analysis of TEAD1 and OCEL1 in 38 Aicardi syndrome patients.
+28946916	PMC5613382	pass	count_noun_with_unit	67	True			cc by	67	TECTA	TECTA	Prevalence of TECTA mutation in patients with mid-frequency sensorineural hearing loss.
+31554319	PMC6826443	pass	bare_count_single_unit_title	812	True			cc by	812	TECTA	TECTA	The Prevalence and Clinical Characteristics of TECTA -Associated Autosomal Dominant Hearing Loss.
+32290079	PMC7226609	fail	abstract:association	68	False			cc by	68	TET2	TET2	Thrombotic Risk Detection in Patients with Polycythemia Vera: The Predictive Role of DNMT3A/TET2/ASXL1 Mutations.
+37234866	PMC10206016	fail	no_per_unit_n_ge_20		False			cc by	1097	TEX15	TEX15	Genomic study of TEX15 variants: prevalence and allelic heterogeneity in men with spermatogenic failure.
+38837630	PMC11251477	fail	title:variant_level	242	False			cc by	242	TFG	TFG	Characterization of a novel TFG variant causing autosomal recessive pure hereditary spastic paraplegia.
+38820174	PMC11245153	pass	count_noun_with_unit	755	True			cc by	755	TIE1	TIE1	Loss-of-function mutations of the TIE1 receptor tyrosine kinase cause late-onset primary lymphedema.
+34178031	PMC8226231	fail	title:variant_level		False			cc by	28	TLE6	TLE6	Identification of Novel Biallelic TLE6 Variants in Female Infertility With Preimplantation Embryonic Lethality.
+29861108	PMC5992133	pass	bare_count_single_unit_title	40	True			cc by	40	TLK2	TLK2	De Novo and Inherited Loss-of-Function Variants in TLK2: Clinical and Genotype-Phenotype Evaluation of a Distinct Neurodevelopmental Disorder.
+26047157	PMC4457883	fail	title:screening_method	39	False			cc by	39	TMC6	TMC6	Exome Sequencing of Phenotypic Extremes Identifies CAV2 and TMC6 as Interacting Modifiers of Chronic Pseudomonas aeruginosa Infection in Cystic Fibrosis.
+33203948	PMC7672112	fail	abstract:diagnostic_yield	53	False			cc by	56	TMEM98	TMEM98	Novel TMEM98, MFRP, PRSS56 variants in a large United States high hyperopia and nanophthalmos cohort.
+15447792	PMC523852	pass	bare_count_single_unit_title	449	True			cc by	449	TMPRSS3	TMPRSS3	Characterization of a new full length TMPRSS3 isoform and identification of mutant alleles responsible for nonsyndromic recessive deafness in Newfoundland and Pakistan.
+37713394	PMC10503761	fail	abstract:few_positives	36	False			cc by	36	TMPRSS3	TMPRSS3	Gene mutations as a non-invasive measure of adult cochlear implant performance: Variable outcomes in patients with select TMPRSS3 mutations.
+35163840	PMC8836508	pass	count_unit_noun	20	True			cc by	20	TMPRSS6	TMPRSS6	Transferrin Saturation/Hepcidin Ratio Discriminates TMPRSS6 -Related Iron Refractory Iron Deficiency Anemia from Patients with Multi-Causal Iron Deficiency Anemia.
+27173810	PMC4874165	fail	title:screening_method	192	False			cc by-nc	192	TPO	TPO	Mutation screening of the TPO gene in a cohort of 192 Chinese patients with congenital hypothyroidism.
+35002963	PMC8729100	fail	title:screening_method	219	False			cc by	219	TPO	TPO	Screening and Functional Analysis of TPO Gene Mutations in a Cohort of Chinese Patients With Congenital Hypothyroidism.
+30541466	PMC6292089	pass	bare_count_single_unit_title	34	True			cc by	34	TPP1	TPP1	Batten disease: biochemical and molecular characterization revealing novel PPT1 and TPP1 gene mutations in Indian patients.
+38974612	PMC11224496	pass	bare_count_single_unit_title	48	True			cc by	48	TPP1	TPP1	The neuronal ceroid lipofuscinosis type 2 - associated variants: An analysis of alterations in the TPP1 gene and genotype-phenotype correlation in Ukraine.
+38410694	PMC10894949	fail	title:single_patient	98	False			cc by	98	TRAK1	TRAK1	Role of TRAK1 variants in epilepsy: genotype-phenotype analysis in a pediatric case of epilepsy with developmental disorder.
+19936226	PMC2777406	fail	title:variant_level	550	False			cc by	550	TRPC6	TRPC6	A novel TRPC6 mutation that causes childhood FSGS.
+30372544	PMC6378592	pass	count_noun_with_unit	78	True			cc by	78	TSHR	TSHR	Utility of systematic TSHR gene testing in adults with hyperthyroidism lacking overt autoimmunity and diffuse uptake on thyroid scintigraphy.
+34377013	PMC8349214	pass	count_unit_noun	125	True			cc by-nc	125	TSHR	TSHR	Variant of TSHR is Not a Frequent Cause of Congenital Hypothyroidism in Chinese Han Patients.
+38433572	PMC10961619	fail	title:screening_method	367	False			cc by-nc	367	TSHR	TSHR	TSHR Variant Screening and Phenotype Analysis in 367 Chinese Patients With Congenital Hypothyroidism.
+39337518	PMC11432690	fail	title:variant_level		False			cc by	160	TSHR	TSHR	Genetic and Functional Studies of Patients with Thyroid Dyshormonogenesis and Defects in the TSH Receptor ( TSHR ).
+42246651	PMC13554924	fail	abstract:association	51	False			cc by-nc-nd	51	TSHR	TSHR	Heterozygous TSHR Variants in Pediatric Idiopathic Subclinical Hypothyroidism: Association with a Variable and Compensated Thyroid Phenotype
+37325566	PMC10267457	fail	title:variant_level		False			cc by	314	TTC12	TTC12	Novel homozygous variants in TTC12 cause male infertility with asthenoteratozoospermia owing to dynein arm complex and mitochondrial sheath defects in flagella.
+35792653	PMC9544864	pass	count_unit_noun	263	True			cc by-nc-nd	263	TWNK	TWNK	TWNK in Parkinson's Disease: A Movement Disorder and Mitochondrial Disease Center Perspective Study.
+41008644	PMC12467334	fail	no_per_unit_n_ge_20		False			cc by	40	TWNK	TWNK	The First Heterozygous TWNK Nonsense Mutation Associated with Progressive External Ophthalmoplegia: Evidence for a New Piece in the Puzzle of Mitochondrial Diseases.
+34440442	PMC8392493	fail	abstract:association	536	False			cc by	536	UNC93B1	UNC93B1	Variants Affecting the C-Terminal Tail of UNC93B1 Are Not a Common Risk Factor for Systemic Lupus Erythematosus.
+37603075	PMC10632218	fail	title:single_patient	255	False			cc by	1089	VCP	VCP	Analysis of muscle magnetic resonance imaging of a large cohort of patient with VCP-mediated disease reveals characteristic features useful for diagnosis.
+40229738	PMC11998231	pass	bare_count_single_unit_title	79	True			cc by	79	VCP	VCP	Utilization of CoRDS registry to monitor quality of life in patients with VCP multisystem proteinopathy.
+31942418	PMC6956633	fail	abstract:association	500	False			cc by-nc-nd	500	VDR	VDR	Association of VDR Gene Variant (rs1544410) with Type 2 Diabetes in a Pakistani Cohort.
+36999054	PMC10043922	fail	abstract:few_positives	37	False			cc by	37	VSX1	VSX1	Clinical and genetic analysis VSX1 variants among families with keratoconus in northwest China.
+17888180	PMC2064903	pass	bare_count_single_unit_title	443	True			cc by	443	WNT3A	WNT3A	Lack of evidence of WNT3A as a candidate gene for congenital vertebral malformations.
+25913378	PMC4425119	fail	title:screening_method	27	False			cc by	27	XPA	XPA	Xeroderma pigmentosum: low prevalence of germline XPA mutations in a Brazilian XP population.
+39702590	PMC7617551	fail	title:model_organism		False			cc by	229	ZFHX4	ZFHX4	Role of ZFHX4 in orofacial clefting based on human genetic data and zebrafish models.
+31856865	PMC6924056	fail	title:n_lt_20		False			cc by	20	ZMPSTE24	ZMPSTE24	Mandibuloacral dysplasia type B (MADB): a cohort of eight patients from Suriname with a homozygous founder mutation in ZMPSTE24 (FACE1), clinical diagnostic criteria and management guidelines.
+23680354	PMC3925994	pass	count_unit_noun	23	True			cc by	23	ZNF469	ZNF469	ZNF469 frequently mutated in the brittle cornea syndrome (BCS) is a single exon gene possibly regulating the expression of several extracellular matrix components.
+35460069	PMC9327729	pass	bare_count_single_unit_title	27	True			cc by-nc-nd	27	ZP1	ZP1	A recurrent ZP1 variant is responsible for oocyte maturation defect with degenerated oocytes in infertile females.
