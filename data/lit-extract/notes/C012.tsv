@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1544	extracted	6	skipped respiratory abnormalities and cervical spine abnormalities (category bundles listing contents); affected males only
+NBK25565	extracted	7	skipped ocular, facial, cerebellar, MRI and endocrine rows (bundles), DD/ID ~80% (two features), cognition 'around 10% normal' (complement), skeletal deformities in all adults (bundle); cataract onset recorded as presenting feature
+NBK144284	extracted	8	skipped craniofacial 31/31 (bundle), contractures (4 males) and pectus (9 males) without denominator, renal 'up to 50%' (personal observation, 'up to')
+NBK560442	extracted	6	skipped facial dysmorphisms 17/19 (bundle), cryptorchidism 7/19 (denominator includes females), ventriculomegaly 'at least 6' and per-feature counts without a stated denominator
+NBK606532	extracted	11	skipped ID/DD 80% (two features), neurobehavioral 31% (taken as 26/83 from text), endocrine/short stature and cardiovascular rows (bundles, possibly incidental), motor delay 42/45 (denominator = those with DD), EEG slowing (no fitting HPO term), facial gestalt (bundle)
+NBK613517	extracted	32	skipped neurobehavioral, facial, musculoskeletal, ocular bundles; depressed nasal bridge & bulbous nose (two features); CC thinning or agenesis (two features); hernias (two features); cryptorchidism/micropenis (denominator unclear); <1% GU findings; strabismus count without denominator; CHD from table 23% (text 22/94)
+NBK617054	extracted	4	one condition split over two OMIM entries: pooled_group on both units; skipped leukopenia &/or thrombocytopenia, mucositis & diarrhea, MRI findings 3/3 (several features each), DD/ID (two features)
+NBK624883	extracted	8	skipped neurobehavioral, movement disorder and GI rows (bundles), ADHD/attention 8/24 (several features), dystonia-parkinsonism subtypes, hedged onset ('typically 3rd or 4th decade')
+NBK1275	extracted	5	skipped >50% statement (one number for four features), dystonia or chorea 38% (two features), hedged onset ('typically fourth decade'), >45 repeats onset ('almost always')
+NBK1353	extracted	8	disease-level figures on PHYH|OMIM:266500 (PHYH most common cause); PEX7|OMIM:614879 (PBD9B) not used; skipped skeletal abnormalities / short metacarpals and metatarsals 30% (two features), 'most individuals 10-20 y' (hedged)

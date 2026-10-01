@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK401562	extracted	17	rows on HNF1B|OMIM:614527 (first unit of the deletion disease), pooled; skipped Table 2 bands, genital abnormalities by sex and eye findings (category bundles), mixed deletion+intragenic figures (EPI 37/67, LFT 71%), hedged NDD 25%, MODY5 in diabetes cohorts 50% (biased), special school 14/110 (proxy), late-developing kidney findings 35% (conditional), 'as many as 59%', bare counts without denominator; RCAD unit gets nothing (deletion-only figures)
+NBK442323	extracted	1	only the definitional onset of classic DTDS; atypical later-onset (5 individuals) onset not tied to a presenting feature; other features unquantified
+NBK447152	no_numbers	0	case descriptions only; no stated frequencies; 'menorrhagia is a consistent characteristic' is not a number
+NBK453433	extracted	3	classic onset from the summary ('typically' in the body); ectopia lentis 'significant proportion' is vague
+NBK475670	extracted	1	Martsolf microphthalmia 6/8 pooled over RAB3GAP1/RAB3GAP2 on RAB3GAP1|OMIM:212720; walking 3/8 is an ability, not a phenotype; >96% and 98/102 families are subtype shares; Warburg features unquantified ('usually', 'commonly')
+NBK476671	extracted	2	skipped pituitary hyperplasia without adenoma 6/30 (no HPO term), sex ratio 24/33, X-LAG share of gigantism cohorts, single-individual ID
+NBK535640	extracted	11	skipped first-region shares in 56 (presenting site, same terms as course figures), arm dystonia or arm tremor 29% (two features), segmental dystonia 13/28 (no HPO term), earlier onset cohort of 28 (one onset row per population; kept the larger cohort of 29), family case ages, biallelic sibs (2 individuals)
+NBK538937	extracted	6	kept the 9-individual series where both series report a feature (neurodegeneration, ichthyosis 75% of 8 vs all of 9; cognitive delay vs psychomotor retardation map to the same term); skipped dysmorphic features 25% (category), hedged infantile onset ('typically'), attenuated-form feature onset
+NBK541972	extracted	5	skipped skeletal anomalies 16/23 (category bundle), brain anomalies in eight (no denominator), hearing loss 'usually severe' (no number)
+NBK542336	extracted	1	skipped corpus callosum anomalies 'virtually all (all but one)' (vague/complement) and urinary tract defects about half (category bundle)

@@ -32,7 +32,7 @@ MAX_QUOTE_WORDS = 25
 SMALL_N = 5
 QUOTE_GAP = " ... "
 AGE_FEATURES = ("AGE_ONSET", "AGE_PRESENTATION")
-FLAGS = ("small_n", "pooled", "pooled_group", "named_period")
+FLAGS = ("small_n", "pooled", "pooled_group", "named_period", "binned", "lower_bound")
 SEXES = ("", "male", "female")
 SOURCE_KINDS = {"chapters": "genereviews", "papers": "cohort_paper"}
 ACCESS_PATHS = ("genereviews-snapshot", "europepmc-fulltext", "europepmc-abstract")
@@ -155,11 +155,17 @@ def assign_shards(chapters: list[dict], papers: list[dict], entities: dict[str, 
                 "units": units_field(units),
             }
         )
-    for i, p in enumerate(selected):
+    return rows + assign_paper_shards(selected, entities, "P")
+
+
+def assign_paper_shards(papers: list[dict], entities: dict[str, list[Entity]], prefix: str) -> list[dict]:
+    """Papers in the given order, PAPERS_PER_SHARD per shard, ids <prefix>001...."""
+    rows = []
+    for i, p in enumerate(papers):
         genes = [g for g in p["genes"].split(";") if g]
         rows.append(
             {
-                "shard": f"P{i // PAPERS_PER_SHARD + 1:03d}",
+                "shard": f"{prefix}{i // PAPERS_PER_SHARD + 1:03d}",
                 "kind": "papers",
                 "position": i % PAPERS_PER_SHARD + 1,
                 "source_id": f"PMID:{p['pmid']}",
@@ -173,6 +179,23 @@ def assign_shards(chapters: list[dict], papers: list[dict], entities: dict[str, 
             }
         )
     return rows
+
+
+def papers_v2_order(base_papers: list[dict], rescreened: list[dict]) -> list[dict]:
+    """The base list's selected papers, in its order, filtered to the re-screen subset."""
+    subset = {r["pmid"] for r in rescreened if r["in_subset"] in (True, "True")}
+    return [p for p in base_papers if p["status"] == "selected" and p["pmid"] in subset]
+
+
+SHARD_SETS = {"v1": ("C", "P"), "papers-v2": ("Q",)}
+
+
+def shard_set(shard: str) -> str:
+    """The shard set a shard id belongs to, by its prefix (C/P: v1, Q: papers-v2)."""
+    for name, prefixes in SHARD_SETS.items():
+        if shard[:1] in prefixes and shard[1:].isdigit():
+            return name
+    raise ValueError(f"unknown shard id {shard!r}; expected C###, P### or Q###")
 
 
 def shards_summary(rows: list[dict]) -> dict:

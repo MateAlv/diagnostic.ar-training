@@ -24,6 +24,7 @@ crosscheck_app = typer.Typer(no_args_is_help=True, help="Blind Codex re-extracti
 extract_app.add_typer(crosscheck_app, name="crosscheck")
 
 SOURCES_ID = "lit-sources-v1"
+PAPERS_V2_ID = "lit-papers-v2"
 EXTRACT_DIR = DATA_DIR / "lit-extract"
 SHARDS_PATH = EXTRACT_DIR / "shards.tsv"
 ROWS_DIR = EXTRACT_DIR / "rows"
@@ -72,53 +73,87 @@ def _heldout() -> set[str]:
     return {x.removeprefix("PMID:") for x in splits.heldout_pmids_path("r1-v1").read_text().split()}
 
 
+def _shards_path(shard_set: str) -> Path:
+    return SHARDS_PATH if shard_set == "v1" else EXTRACT_DIR / f"shards-{shard_set}.tsv"
+
+
 def _shard_rows(shard: str) -> list[dict]:
-    if not SHARDS_PATH.is_file():
-        raise LineageError(f"{SHARDS_PATH.relative_to(REPO_ROOT)} is missing; run `dxt lit shards`")
-    rows = [r for r in _read_tsv(SHARDS_PATH) if r["shard"] == shard]
+    from diagnostic_ar_training.knowledge import lit_extract as le
+
+    try:
+        path = _shards_path(le.shard_set(shard))
+    except ValueError as e:
+        raise LineageError(str(e)) from e
+    if not path.is_file():
+        raise LineageError(f"{path.relative_to(REPO_ROOT)} is missing; run `dxt lit shards`")
+    rows = [r for r in _read_tsv(path) if r["shard"] == shard]
     if not rows:
-        raise LineageError(f"no shard {shard} in shards.tsv")
+        raise LineageError(f"no shard {shard} in {path.name}")
     return rows
 
 
 @extract_app.command("shards")
-def shards(force: bool = typer.Option(False, help="Overwrite a shards.tsv that differs")) -> None:
-    """Assign the frozen lit-sources-v1 chapters and papers to shards, with the units each may feed."""
+def shards(
+    shard_set: str = typer.Option("v1", "--set", help="v1 (C/P shards over lit-sources-v1) or papers-v2 (Q)"),
+    force: bool = typer.Option(False, help="Overwrite a shards file that differs"),
+) -> None:
+    """Assign frozen sources to shards, with the units each may feed.
+
+    `--set v1`: lit-sources-v1 chapters (C) and papers (P), `shards.tsv`.
+    `--set papers-v2`: the lit-papers-v2 subset (Q), `shards-papers-v2.tsv`.
+    """
     from diagnostic_ar_training.cli_lit import GENES_ID, SPLIT_ID, _verified
     from diagnostic_ar_training.knowledge import lit_extract as le
     from diagnostic_ar_training.lineage.hashing import sha256_file
 
-    chapters_path = _verified(SOURCES_ID, "chapters.tsv")
+    if shard_set not in le.SHARD_SETS:
+        raise typer.BadParameter(f"--set must be one of {sorted(le.SHARD_SETS)}")
     papers_path = _verified(SOURCES_ID, "papers.tsv")
     genes_path = _verified(GENES_ID, "genes.json.gz")
     eval_genes, eval_diseases = _eval_boundary()
     entities = le.construction_entities(json.load(gzip.open(genes_path)), eval_genes, eval_diseases)
-    rows = le.assign_shards(_read_tsv(chapters_path), _read_tsv(papers_path), entities)
-    tmp = SHARDS_PATH.with_suffix(".tsv.new")
-    _write_tsv(rows, le.SHARD_COLUMNS, tmp)
-    if SHARDS_PATH.exists() and SHARDS_PATH.read_bytes() != tmp.read_bytes() and not force:
-        tmp.unlink()
-        raise LineageError("shards.tsv would change; shards are fixed once extraction starts (--force)")
-    tmp.replace(SHARDS_PATH)
-    summary = le.shards_summary(rows)
-    summary["inputs"] = {
-        f"{SOURCES_ID}:chapters.tsv": sha256_file(chapters_path),
+    inputs = {
         f"{SOURCES_ID}:papers.tsv": sha256_file(papers_path),
         f"{GENES_ID}:genes.json.gz": sha256_file(genes_path),
         f"{SPLIT_ID}.tsv": sha256_file(_verified(SPLIT_ID, ".tsv")),
     }
-    summary["shards_tsv_sha256"] = sha256_file(SHARDS_PATH)
-    summary["rules"] = {
-        "chapters": f"usable chapters in priority order (P1..P4, then priority_rank), "
-        f"{le.CHAPTERS_PER_SHARD} per shard, ids C001...",
-        "papers": f"selected papers in papers.tsv order, {le.PAPERS_PER_SHARD} per shard, ids P001...",
-        "chapter_units": "per construction gene of the chapter, its simulable genes-v2 entities whose ids "
-        "meet the chapter's OMIM ids, else its main entity",
+    rules = {
         "paper_units": "every simulable genes-v2 entity of the paper's genes",
         "excluded": "evaluation genes and every entity sharing an id with a litpanel-split-v3 disease; "
         "genes whose main entity does",
     }
-    (EXTRACT_DIR / "shards.json").write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
+    if shard_set == "v1":
+        chapters_path = _verified(SOURCES_ID, "chapters.tsv")
+        rows = le.assign_shards(_read_tsv(chapters_path), _read_tsv(papers_path), entities)
+        inputs[f"{SOURCES_ID}:chapters.tsv"] = sha256_file(chapters_path)
+        rules |= {
+            "chapters": f"usable chapters in priority order (P1..P4, then priority_rank), "
+            f"{le.CHAPTERS_PER_SHARD} per shard, ids C001...",
+            "papers": f"selected papers in papers.tsv order, {le.PAPERS_PER_SHARD} per shard, ids P001...",
+            "chapter_units": "per construction gene of the chapter, its simulable genes-v2 entities "
+            "whose ids meet the chapter's OMIM ids, else its main entity",
+        }
+    else:
+        rescreen_path = _verified(PAPERS_V2_ID, "papers.tsv")
+        order = le.papers_v2_order(_read_tsv(papers_path), _read_tsv(rescreen_path))
+        rows = le.assign_paper_shards(order, entities, "Q")
+        inputs[f"{PAPERS_V2_ID}:papers.tsv"] = sha256_file(rescreen_path)
+        rules["papers"] = (
+            f"{SOURCES_ID} selected papers in papers.tsv order, filtered to the {PAPERS_V2_ID} subset, "
+            f"{le.PAPERS_PER_SHARD} per shard, ids Q001..."
+        )
+    path = _shards_path(shard_set)
+    tmp = path.with_suffix(".tsv.new")
+    _write_tsv(rows, le.SHARD_COLUMNS, tmp)
+    if path.exists() and path.read_bytes() != tmp.read_bytes() and not force:
+        tmp.unlink()
+        raise LineageError(f"{path.name} would change; shards are fixed once extraction starts (--force)")
+    tmp.replace(path)
+    summary = le.shards_summary(rows)
+    summary["inputs"] = inputs
+    summary["shards_tsv_sha256"] = sha256_file(path)
+    summary["rules"] = rules
+    path.with_suffix(".json").write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
     typer.echo(json.dumps({k: v for k, v in summary.items() if k != "sources_without_units"}, indent=1))
 
 

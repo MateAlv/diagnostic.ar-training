@@ -2405,3 +2405,373 @@ only: **no R1-dev read in this task, whatever the result.**
     penetrance vs tumour risk among affected; decades and period spans for
     ages; quote word counts ignore table pipes.
 - `dxt lineage verify` passes.
+
+### 2026-10-01 — lit-extract — P001 pilot paper shard; per-unit ≥ 20 rule
+- **P001:** 12 papers; **3 qualified** (25%, not the 0.58 screen precision).
+  - The 9 dead ends are diagnostic-yield or screening studies, association
+    studies, penetrance in carriers, a variant database, and a mixed
+    registry.
+- **Rule decision (conservative, in line with ADR-0013 amendment 1):**
+  - The ≥ 20-patient minimum applies **per unit**: a subgroup under 20 in a
+    qualifying paper is not extracted. This removed the ARHR2 (≤ 11) and
+    ABCC6 (19) rows.
+  - Age at newborn screening is **not** age at presentation; that row was
+    removed.
+  - P001 now has 12 rows.
+- **Before the other 84 paper shards:** a deterministic re-screen of the
+  paper list on title and abstract signatures (the dead-end types above),
+  then one more pilot.
+
+### 2026-10-01 — data — lit-extract shards C029–C035 (ADR-0013)
+
+- Shards C029–C035 (70 GeneReviews chapters) extracted with guide v2, each passing `validate-shard` with 0 problems: **250 rows** from 49 of 70 chapters (C029 43, C030 36, C031 20, C032 15, C033 47, C034 48, C035 41); 21 chapters gave none (15 `no_numbers`; 6 `not_about_units`, all worksheet fallback units for another disease: AKT1→Cowden in Proteus, GNAS→PHP1A in McCune-Albright, UROD→PCT in HEP, ZFHX3→prostate cancer in SCA4, CHEK2→LFS2, PIK3CA somatic units in PROS); Codex cross-check pending (central); `dxt lineage verify` passes.
+
+### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
+- Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
+
+### 2026-10-01 — lit-extract — lit-papers-v2 re-screen, guide v3, pilot Q001
+- **Branch** `phase3/lit-papers-v2`. No sealed data read; no LLM
+  classification (every paper decision is the deterministic rule); no
+  evaluation unit can be written (validator).
+- **Re-screen** (`knowledge/lit_papers.py`; `dxt lit-sources
+  rescreen-fetch|rescreen`):
+  - **Input:** the 1,011 selected papers of `lit-sources-v1`. Title,
+    abstract and publication type re-fetched from Europe PMC (7 queries,
+    0 missing), cached in `data/interim/lit-sources/lit-papers-v2/`.
+  - **Rule** (first failing check sets the reason):
+    1. publication type case report, review or trial;
+    2. title signatures: review; case, family or sibling report; a single
+       patient; database; screening or method title (sequencing, panel,
+       NGS, molecular or genetic testing, screening other than newborn
+       screening, mutation analysis, "for mutations in", variant prevalence,
+       diagnostic yield, unsolved, suspected, prenatal diagnosis, "is a
+       frequent cause"); carriers or penetrance; variant-level work (novel
+       variants, reclassification, in silico, functional studies, copy
+       number); treatment; biomarker; model organism; a plural disease group
+       with no gene symbol; a title count under 20;
+    3. abstract signatures: diagnostic yield or negative-tested cohorts,
+       sequencing applied to a series of N, association designs
+       (susceptibility, predisposition, odds or hazard ratio, case-control,
+       risk factors, polymorphism, comparison with healthy individuals),
+       penetrance in carriers, variant databases; positives reported as a
+       share of those screened, all under 20;
+    4. positive per-unit evidence: a count ≥ 20 bound to a gene symbol of
+       the paper or to one disease (a defined abbreviation whose long form
+       is not a plural group, or a disease noun), or a bare count when the
+       title names a single disease or gene.
+  - **Deviation from the brief, on purpose:** bare "associated with",
+    "association" and "risk of" are not exclusions. Two of the three P001
+    qualifiers contain them ("associated with more disability", "the risk
+    of complication remains"). Narrower association forms are used instead.
+  - **Calibration on P001's 12 known outcomes:** qualified→pass 3,
+    qualified→fail 0, dead end→pass 0, dead end→fail 9.
+  - **Revisions before freezing,** after reading P001 and seeded samples of
+    40 passing titles (seeds 11, 99) plus failure samples: added the review,
+    single-patient, sibling, variant-level, treatment, biomarker and
+    "frequent cause" title signatures; exempted newborn screening; added
+    "unsolved". The first draft passed 439 of 999 and failed one P001 dead
+    end (the PXE CNV study).
+- **`lit-papers-v2`** (manifest from `04c506a`, clean tree; release
+  `lit-papers-v2`; committed `182eadb` before any further extraction):
+  - **305 of 999** re-screened papers pass; 197 have a weak gene; 304 genes.
+  - Pass reasons: bare count with a single-unit title 183, count bound to a
+    unit phrase 82, count next to a unit term 31, unit cohort of N 9.
+  - Top fail reasons: screening/method title 160, association 97,
+    variant-level title 73, no per-unit n ≥ 20 71, diagnostic yield 36.
+- **Q shards** (`dxt lit shards --set papers-v2`,
+  `data/lit-extract/shards-papers-v2.tsv`): **26 shards** (Q001–Q025 of
+  12, Q026 of 5), 305 papers, 942 units.
+  - Same units as each paper's P row; list order kept; no P001 paper.
+  - `shards.tsv` rebuilds byte-identical.
+  - `fetch-text`, `validate-shard` and the cross-check route `Q` ids to
+    the new file (tests added).
+- **Guide v3** (`edf1b20`): a "Papers" section with the per-unit rule,
+  own-cohort data only, definitions from Methods, yes/no cells, prenatal
+  ages, screening age, empty tables; a changelog.
+- **Pilot Q001** (12 papers), extracted by me following guide v3;
+  `validate-shard` 0 problems:
+  - **9 of 12 qualified** (75%, Wilson 95% CI 0.47–0.91; P001: 25%).
+  - **140 rows:** 136 feature rows and 4 age rows; 116 with counts.
+  - Rows per paper: 7, 15, 4, 9, 11, 68, 14, 11, 1. One table (KBG,
+    `PMID:35970914`) gives 68.
+  - Dead ends:
+    - 1 not about units: an infantile-hypercalcaemia cohort attributed to
+      AGXT through its citing chapter, a gene-attribution issue rather than
+      the screen;
+    - 2 screen false positives: a WES/WGS diagnostic-yield study (the
+      abstract says "unexplained" and "diagnosis rate", outside the
+      patterns); a linkage study ("association analyses", plural, outside
+      the pattern).
+
+    The rule stays frozen; these misses are recorded here.
+  - **Time:** about 10 minutes of wall time from `fetch-text` to a passing
+    validation.
+- **Estimate for Q002–Q026** (293 papers):
+  - **Rows:** at 0.75 qualifying and a median of 11 rows per qualifying
+    paper, about 2,400. Range about 1,250 (0.47 × 9 rows) to 4,200
+    (0.91 × 15.6 rows).
+  - **Agent-hours:** about 5 at the pilot pace (10–12 minutes per shard);
+    about 25 at the LITPANEL-v2 rate (97 rows per agent-hour).
+  - **Cross-check:** a 10% Codex sample, about 240 rows, about 30 minutes.
+- `dxt lineage verify` passes.
+
+### 2026-10-01 — data — lit-extract shards C011–C019 (ADR-0013)
+- Branch `phase3/lit-extract-C011-C019`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **545 rows (490 feature, 55 age) from 77 of 90 chapters** (C011 97, C012 95, C013 110, C014 67, C015 38, C016 42, C017 9, C018 34, C019 53); 13 chapters with 0 rows (11 `no_numbers`: only carrier risks, symbol/bin tables or prose; 2 `not_about_units`: C3 glomerulopathy and maternal-effect MLID, where the worksheet fallback assigned other diseases). Wrong-disease fallback units skipped (e.g. APOE→AD4, EIF4A2→NDD, DNMT3B→ICF, WT1→Denys-Drash in 46,XX DSD); guide ambiguities listed in the PR.
+
+### 2026-10-01 — pre-registration — Candidate 6a pilot rounds (ADR-0011 amendment 7, current profiles)
+Written and committed before the first candidate 6a pilot run. Train-side
+only: **no R1-dev read in this task, whatever the result.** Candidate 6a
+checks amendment 7's budget-normalised reporting on the **current**
+profiles; the literature-enriched profiles come later, as candidate 6.
+- **Generator:** rare-disease-simulator 0.5.2, run from the GitHub tarball
+  of 40f8896 (sha256 `ce272645…`), never the shared checkout.
+  - Full profiles rebuilt with 0.5.2 from hpoa-recount-v1 + genes-v2: 9,223
+    profiles, byte-identical to candidates 2–5 (`d44e1586…`).
+  - report-model-v3; cardinal-v1; no presentation ages.
+- **Budget histogram:** `profile-budget-v1` (manifest committed;
+  `scripts/analysis/profile_budget_histogram.py`): explained terms per
+  patient vs kb-v3 over the 1,140 uncited R1-train patients with a kb-v3
+  gene (the `uncited_categories.py` population and rule). Mean 5.3772
+  (equal to candidate 5's E target), median 5, p10 / p90 = 1 / 10, max 26;
+  54 patients have 0 explained terms. The simulator ignores the 0 bin, so
+  the effective k mean is 5.6446.
+- **Calibration per round:** `simcal-v051-v1` + `reporting.budget_normalize`
+  true + `reporting.profile_budget_histogram` from `profile-budget-v1`, with
+  `noise.related_share` (s) and `reporting.specialize_rate` (r) set per
+  round. Everything else unchanged (proportional noise ρ 0.207, calib-v2
+  vocabulary, related levels 1/1, age durations by onset). `q_scale` stays
+  2.8855 in the file; in this mode c absorbs it.
+- **Pilot shape:** the 523-symbol list (`outputs/cal/pilot-genes.txt`,
+  sha256 `5c817192…`), 10 cases per gene, medium, seed 91001, full
+  profiles.
+- **Targets** (R1-train, as candidate 5):
+  - **S** = more-specific share vs kb-v3 = **0.0929** (calib-v2);
+  - **M** = E0 in-vocab MRR on the noise terms alone = **0.026**
+    (`noise_signal.py`).
+- **Round 1:** s = 1.0, r = 0.1676 (candidate 5's values); no knob changes.
+- **Round 2** runs only if, after round 1, |S − 0.0929| / 0.0929 > 0.20 or
+  |M − 0.026| / 0.026 > 0.20. It changes only the drifted knob(s), with
+  candidate 5's update rules (rounded to 4 decimals):
+  - r₂ = r₁ × 0.0929 / S₁, capped to [0, 1];
+  - s₂ = (0.026 − MRR_voc,1) / (MRR_rel,1 − MRR_voc,1), clipped to [0, 1]
+    (s₂ = s₁ if MRR_rel,1 ≤ MRR_voc,1).
+  At most 2 rounds.
+- **Selection:** round 1 if round 2 does not run; otherwise the round with
+  the smaller |S − 0.0929| / 0.0929 + |M − 0.026| / 0.026. Frozen as
+  `simcal-v052-v1` (`dxt knowledge shrinkage-prior --min-denominator 10
+  --base data/calib/simcal-v051-v1.json --include
+  data/calib/profile-budget-v1.json --set reporting.budget_normalize=true`,
+  plus `--set` for any changed knob).
+- **Reported per round** (not targets): shown terms per case (profile +
+  noise); realised profile terms vs k (means and total variation); the four
+  categories vs kb-v3 and explained terms per record (candidate 5's E,
+  5.3772); `forced_min_one`; mean c (`scale_mean`); the capped share; the
+  per-gene Spearman of simulated record size vs simulated true-term count
+  (`scripts/analysis/record_size_by_gene.py`, ANALYSIS-005's method: over
+  every pilot gene with `--no-r1`, and over the pilot genes with ≥ 10
+  R1-train patients, where the real record size is also compared;
+  candidate 5's full dataset: 0.966, real 0.532 over 84 genes).
+- **Then:** `ds-sim0.5.2-full-n100-s1001` (gene-first, all genes, 100 per
+  gene, medium, seed 1001; full profiles only), G1, and the train-side
+  go/no-go (G2a truth layer, G2c, G2d, G2e, G2b-train; age reported) with
+  `dxt sim realism --no-dev`, plus `c2st_features.py`. **No R1-dev read.**
+- **Not used:** R1-dev.
+
+### 2026-10-01 — pilot — Candidate 6a pilot round 1; round 2 not triggered; `simcal-v052-v1` frozen
+- **Setup:** as pre-registered above (simulator 0.5.2 from the 40f8896
+  tarball; 4,890 cases for 489 genes; 0 invariant violations). R1-train
+  targets only; no R1-dev. Files: `results/realism/cand6a-pilots/`
+  (calibration, run summary, validate log, categories, noise signal,
+  record size; `summary.json` from `scripts/analysis/cand6a_pilot_rounds.py`).
+- **Round 1** (s = 1.0, r = 0.1676):
+
+  | Round | s | r | S: more specific (0.0929) | M: noise-only E0 MRR (0.026) | Relative errors S / M | Round 2? |
+  |---|---|---|---|---|---|---|
+  | 1 | 1.0 | 0.1676 | 0.0897 | 0.0303 | 0.034 / 0.165 | no (both ≤ 0.20) |
+
+- **Also measured** (candidate 5's pilot round 2 on the same genes and
+  seed in brackets):
+
+  | Measure | Round 1 | [Candidate 5 round 2] |
+  |---|---|---|
+  | Shown terms per case (profile + noise) | 5.84 (4.63 + 1.21) | [7.00 (5.53 + 1.46)] |
+  | k mean drawn / realised profile terms | 5.732 / 4.646 | — |
+  | Total variation, realised vs k | 0.137 | — |
+  | Mean c (`scale_mean`, relative to q_scale · π / f) | 2.683 | — |
+  | Share of true terms reported | 0.334 | [0.399] |
+  | `forced_min_one` | 157 (3.2%) | [643 (13.1%)] |
+  | q_mean / q capped share | 0.332 / 0.128 | [0.392 / 0.089] |
+  | Explained / more specific / related / weak (vs kb-v3) | 0.722 / 0.090 / 0.115 / 0.073 | [0.714 / 0.093 / 0.117 / 0.075] |
+  | Explained terms per record (candidate 5's E target 5.377) | 4.219 | [4.998] |
+  | Related share of noise; MRR vocabulary / related noise | 0.818; 0.0008 / 0.038 | [0.803; 0.0012 / 0.0358] |
+  | Mean IC related / vocabulary noise | 6.83 / 4.26 | [6.77 / 4.37] |
+  | Spearman, simulated record size vs true-term count, 489 genes | **0.676** | [0.956] |
+  | Same, the 9 pilot genes with ≥ 10 R1-train patients (real vs the same true-term count) | 0.167 (0.667) | [0.950 (0.683)] |
+
+  Targets (uncited R1-train vs kb-v3): 0.668 / 0.093 / 0.082 / 0.157;
+  8.05 terms per case.
+- **Selected:** round 1, frozen as `simcal-v052-v1`: simcal-v051-v1 +
+  `reporting.budget_normalize` true + `profile-budget-v1`'s
+  `reporting.profile_budget_histogram`.
+- **What the pilot shows** (R1-train comparisons only):
+  - **Budget normalisation decouples record size from profile richness:**
+    the per-gene Spearman over the 489 pilot genes falls from 0.956 to
+    0.676. The 9-gene R1 subset is too small to read.
+  - **Records got shorter, not longer:** realised profile terms 4.65
+    against a drawn k of 5.73. min(k, true terms) caps small profiles, the
+    rolls realise fewer than k on average, and specialised terms leave
+    the explained category, so explained terms per record are 4.22
+    against the uncited real 5.38. `forced_min_one` falls to 3.2%.
+  - The realised count is wider than k (TV 0.137, close to the 0.133 the
+    simulator's fixture showed).
+
+### 2026-10-01 — build + go/no-go — v0.5.2 candidate 6a: G1 passes; the train-side go/no-go fails (G2c, G2d); G2e passes; no R1-dev read
+- **Front / versions:** A / rare-disease-simulator 0.5.2 (GitHub tarball of
+  40f8896, sha256 `ce272645…`; never the shared checkout),
+  `simcal-v052-v1` (budget-normalised independent reporting,
+  `profile-budget-v1`), report-model-v3, cardinal-v1, hpoa-recount-v1,
+  genes-v2, no presentation ages. Gene-first, 100 per gene, medium, seed
+  1001. ADR-0011 amendment 7 (candidate 6a: current profiles). **Full
+  profiles only** (disk).
+- **G1** (`ds-sim0.5.2-full-n100-s1001`):
+
+  | Check | Result |
+  |---|---|
+  | Cases / genes | 489,200 / 4,892 |
+  | `validate` (cases and export) | 0 violations |
+  | Slice rerun (20 genes, 19 simulated), run twice | cases and export byte-identical to each other and equal to the full run's lines for those genes (1,900 each) |
+  | `dxt lineage verify` | ok |
+  | Overlap with R1 (keys, all parts) / S3 | 313 / 3,917 (628 same signature) |
+  | Excluded by `-excl-v1`, residual | 4,181, 0 |
+  | Release | published (dataset and exclusion list) |
+
+- **Run summary** (budget-normalised independent reporting):
+  - shown terms per case 5.75 (4.56 profile + 1.19 noise); candidate 5:
+    6.91;
+  - k mean drawn 5.649, realised profile terms 4.569, total variation
+    realised vs k 0.146; mean c 2.772;
+  - share of true terms reported 0.340 (candidate 5: 0.410);
+  - `forced_min_one` 15,170 (3.1%; candidate 5: 13.6%);
+  - q_mean 0.338, capped share 0.135, q-calibration error 0.0002;
+  - specialised share of profile terms 0.095; related share of noise
+    0.818.
+- **Go/no-go** (`dxt sim realism --no-dev --label v0.5.2-cand6a-full-nodev`
+  plus `dxt sim train-checks`; no R1-dev read, no ledger row;
+  `results/realism/gate-v0.5.2-cand6a-gonogo.md`):
+
+  | Check | UP | V03-full | Candidate 3 | Candidate 4 | Candidate 5 | Candidate 6a | Rule | Result |
+  |---|---|---|---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | 0.307 | 0.306 | 0.306 | beat both | ✅ |
+  | G2c W1 terms per case | 3.717 | 1.653 | 1.732 | 5.754 | 1.908 | 2.955 | beat both | ❌ (worse than V03-full) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | 0.822 | 0.809 | 0.764 [0.737, 0.794] | beat both, ≤ 0.75 | ❌ (beats both, above 0.75) |
+  | G2e \|E0 MRR − 0.405\| | 0.414 | 0.183 | 0.142 | 0.204 | 0.049 | **0.011** | beat both, ≤ 0.10 | ✅ |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.536 | 0.502 | 0.537 | 0.507 | beat both | ✅ (optimistic) |
+  | Age: median \|ln(median age ratio)\| (69 genes) | no ages | 0.537 | 0.539 | 0.571 | 0.555 | 0.584 | report only | |
+
+  - E0 MRR 0.394 (target 0.405).
+  - **G2c is not a spread-only failure.** Terms per case, simulated vs
+    R1-train: mean 5.74 vs 8.70; p10 / p25 / median / p75 / p90 =
+    1 / 2 / 5 / 8 / 11 vs 2 / 4 / 7 / 11 / 17. The W1 (2.955) equals the
+    mean difference (8.70 − 5.74 = 2.955), so the simulated distribution
+    sits at or below the real one at every quantile: the failure is mostly
+    location. The spread is also narrower (p90 − p10 = 10 vs 15; IQR 6
+    vs 7). Candidate 5 had mean 6.91, p90 16.
+- **Decision:** two stop conditions fire (G2c, G2d). As instructed, **no
+  R1-dev read was made in this task, whatever the result**; the ledger is
+  unchanged (last candidate row `v0.4-cand2`).
+- **Record size vs profile richness** (`record_size_by_gene.py`, 84 genes
+  with ≥ 10 R1-train patients; `results/realism/v0.5.2-cand6a.record-size.json`):
+
+  | | Candidate 5 | Candidate 6a | Real |
+  |---|---|---|---|
+  | Mean terms per case | 13.38 | 6.51 | 8.60 |
+  | Spearman, record size vs simulated true-term count | 0.966 | **0.658** | 0.532 (real size vs the same count; 0.502 with candidate 6a's counts) |
+  | Spearman, real vs simulated record size by gene | 0.552 | 0.266 | |
+  | Median simulated / real ratio | 1.33 | 0.83 | |
+
+- **C2ST features** (`c2st_features.py`, 3,514 gene-matched pairs;
+  `results/realism/v0.5.2-cand6a.c2st-features.json`), univariate AUC,
+  candidate 5 (ANALYSIS-005) in brackets:
+
+  | Feature | AUC | Real mean | Simulated mean |
+  |---|---|---|---|
+  | mean depth | 0.386 [0.406] | 6.56 | 6.23 [6.31] |
+  | annotated share (kb-v5) | 0.404 [0.398] | 0.570 | 0.473 [0.475] |
+  | term count | 0.422 [**0.655**] | 8.06 | 6.50 [14.26] |
+  | noise share | 0.536 [0.551] | 0.374 | 0.402 [0.409] |
+  | limbs system share | 0.465 | 0.058 | 0.042 |
+  | metabolism / homeostasis share | 0.471 | 0.058 | 0.040 |
+  | integument share | 0.473 | 0.085 | 0.055 |
+
+  Term count is no longer the top separator; it flipped side (simulated
+  records for R1 genes are now shorter than real). Mean depth and
+  annotated share lead, as in candidate 5.
+- **Secondary numbers** (no R1-dev read):
+  - G2a reported layer 0.412 (truth 0.306); on the 145 rows with ≥ 10
+    R1-train patients, truth 0.269 and reported 0.391 (R1-train patients'
+    own reports: 0.307).
+  - Categories vs kb-v3 (5% sample, 24,251 records): explained 0.726,
+    more specific 0.094, related 0.112, weak 0.068 (calib-v2: 0.668 /
+    0.093 / 0.082 / 0.157); summed error 0.1201. Per record: 5.72 terms,
+    4.15 explained (uncited real: 5.38).
+- **E0 ablation** (`e0_ablation.py`, the 3,073 kept cases, 1 in 160),
+  in-vocab MRR (candidate 5 in brackets):
+
+  | Variant | MRR | Terms per case |
+  |---|---|---|
+  | as exported | 0.406 [0.365] | 5.76 |
+  | no noise | 0.499 [0.467] | 4.55 |
+  | no generalisation | 0.429 [0.388] | 5.76 |
+  | no specialisation | 0.451 [0.417] | 5.76 |
+  | profile terms ungeneralised, no noise | 0.567 [0.546] | 4.55 |
+  | all true terms | 0.743 [0.743] | 13.19 |
+  | R1-train uncited | 0.405 | 8.11 |
+  | R1-train uncited, explained terms only | 0.479 | 5.53 |
+
+  Mean IC: simulated profile positives 4.29 (candidate 5: 3.80), noise
+  6.39, R1-train present 4.14.
+- **Age per gene** (median age in years;
+  `results/realism/v0.5.2-cand6a.age-table.json`): same age model as
+  candidates 4–5 (no presentation ages), so medians move only by sampling
+  (NF1 5.21 vs 18.0 real; TBX5 2.47 vs 33.0; COL3A1 4.51 vs 32.0).
+- **Reading** (R1-train only):
+  - **Budget normalisation does decouple record size from profile
+    richness** (Spearman 0.966 → 0.658, now near the real 0.50–0.53), and
+    removes term count as C2ST's top feature; G2d improves from 0.809 to
+    0.764, level with candidate 3 but still above 0.75.
+  - **Records are now too short.** The budget is explained terms of
+    *uncited* patients (5.38, or 5.65 without the 0 bin, which the
+    simulator drops), but realised profile terms are 4.57: min(k, true
+    terms) caps small profiles and independent rolls realise below k
+    (TV 0.146). Noise adds 1.19 terms against about 2.7 unexplained real
+    terms per uncited patient (8.05 − 5.38). G2c compares with all
+    R1-train (8.70 terms), so W1 rises from 1.908 (candidate 5) to
+    2.955.
+  - **Difficulty matches closely:** E0 MRR 0.394 against 0.405.
+- **Housekeeping:** the 3.4 GB rich-cases file was deleted after the
+  export, metrics and ablation; its sha256 (`95ea022b…`, equal to the run
+  summary's) and a 1-in-160 sample (3,073 cases, `cases.keep160.jsonl`)
+  stay in `rare-disease-simulator/outputs/v0.5.2-cand6a-full/`.
+- **Verdict:** ❌ candidate 6a stops at the train-side go/no-go on G2c and
+  G2d, and passes G2a, G2e and G2b-train. No fix was designed here.
+
+### 2026-10-01 — result + analysis — candidate 6a; ANALYSIS-006; ADR-0011 amendment 8
+- **Candidate 6a** (sim 0.5.2, budget-normalised; PR #61):
+  - G2e gap **0.011**; G2d 0.764 (close); G2c 2.955 (records too short,
+    5.74 vs 8.70);
+  - no R1-dev read.
+  - It survived a usage-limit stop and was resumed from its committed
+    worktree.
+- **ANALYSIS-006:** simulated reports generalise to an ancestor in 15.2% of
+  explained terms, vs 9.3% for real uncited patients.
+- **ADR-0011 amendment 8:**
+  - simulator 0.5.3 with a record-level budget (from R1-train's total-terms
+    histogram) and noise inside it;
+  - the generalisation rate piloted to 0.093.
+  - Candidate 6b runs this design on the current profiles; candidate 6 adds
+    the literature profiles.
+- **Literature work:**
+  - guide v4 merged (PR #62);
+  - chapter batches C011–C019 merged (PR #60);
+  - C002–C010 resumed after the usage stop (C002–C008 were already
+    committed).

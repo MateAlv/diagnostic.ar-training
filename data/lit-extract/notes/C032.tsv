@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK190102	no_numbers	0	presentation statements are hedged ('frequently', 'may'); EPB42 share of HS by country is not a feature
+NBK190103	extracted	5	skipped skeletal abnormality in all (category), 'appears universal' adrenal insufficiency and 'nearly universal' male genital anomalies (vague), normal cognition 15/16 and normal imaging 7/7 (complements), hypotonia 6 vs absent 4 (would need a tally), birth OFC -2 to -3 SD (borderline definition), sex ratio
+NBK236968	extracted	1	skipped prenatal akinesia 'may occur in 1%-2%' (hedged, several features), 25% spasticity and/or seizures (two features), 50% EXOSC3 share of PCH1
+NBK263441	no_numbers	0	only hedged onset ('typically infancy or early childhood') and vague frequencies; 43% somatic mosaicism is a genotype share
+NBK274564	not_about_units	0	only allowed unit is GNAS | pseudohypoparathyroidism type IA; all figures describe fibrous dysplasia / McCune-Albright syndrome
+NBK284774	no_numbers	0	presentation 'most children ... day 2 to 20 months' is hedged; four individuals with learning difficulties have no stated denominator (<20 reported)
+NBK304142	extracted	6	skipped CMT2 and cerebellar ataxia onsets/features (no matching unit), sensory changes 'about half' (two features), hedged SMAJ onset range, 'not reported' delusions in FTD
+NBK316514	extracted	1	skipped kidney failure 3% by age 40 (age-conditional), hedged presentation ('most often ... median 2 to 3 years'), PH subtype shares
+NBK333437	extracted	2	Table 2 'nearly all'/'common'/'infrequent' not numbers; one third neurologic-first is an ordering share; proteinuria detection ages and late-onset case ages are feature/individual ages
+NBK333439	no_numbers	0	only qualitative and hedged statements ('typically', 'may'); prevalence estimates are not features

@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK268647	extracted	1	Table 3 gives symbols only (nearly all/common/infrequent), no numbers; skipped spinal vs bulbar onset 54%/39% (onset type, not a feature), age-dependent penetrance; onset range recorded
+NBK327267	extracted	3	skipped large joint and spine involvement (bundles listing several joints/findings), hedged onset ('typically 3-6 y', kept as note)
+NBK608431	extracted	5	skipped ocular manifestations (bundle of tearing, photophobia, redness, ulcers), 'Rare' cells, onset of ocular/skin features (not stated as presenting)
+NBK1167	extracted	1	phenotype table has no numbers; AVMD (not an allowed unit) onset skipped; BVMD penetrance; ARB 4/6 multiple vitelliform lesions skipped (HPO term would be more specific than text); per-eye PED 'half of eyes'
+NBK1200	extracted	2	skipped sparse hair / alopecia 100% (two features), PPK onset (feature onset, not presenting)
+NBK1967	no_numbers	0	no rows: the only figures are D-dimer elevation in isolated VM (~40%, not the VMCM unit) and VMCM pooled with BRBN syndrome (>80%, BRBN not a unit), VM location shares, and germline-carrier penetrance
+NBK616232	no_numbers	0	no rows: only lifetime cancer risks among CDKN2A carriers (penetrance), median/mean onset of individual cancers without ranges, and carrier/detection rates
+NBK1171	extracted	2	skipped virilization 'in all' (no fitting term for both sexes), subtype shares (~25% simple virilizing), non-classic women hirsutism categories (mutually exclusive splits), fertility rate, gender-role findings
+NBK1180	extracted	8	skipped DD/ID ~21% (two features), lower-airway disease (bundle), skin/nail picking and trichotillomania ~10% (two features), dental trauma (injury), assistance walking by age and spinal deformity by age 20 (age-conditional), causes of death
+NBK1438	extracted	16	skipped involuntary movements ~70% (bundle) and dementia/psychiatric table column (two features); Summary onset range 3-55 differs from Clinical Description 3-75 (latter recorded)

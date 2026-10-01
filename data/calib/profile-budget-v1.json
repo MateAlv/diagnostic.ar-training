@@ -1,0 +1,43 @@
+{
+ "_provenance": {
+  "adr": "0011 amendment 7",
+  "artifact": "profile-budget-v1",
+  "code_sha": "99c397aecb6172189315c2dd41e03ef3637e01fc",
+  "kb": "kb-v3",
+  "max": 26,
+  "mean": 5.3772,
+  "mean_of_k_ge_1": 5.6446,
+  "median": 5.0,
+  "p10": 1.0,
+  "p90": 10.0,
+  "patients": 1140,
+  "population": "R1-train patients with a gene in the KB, none of whose PMIDs the pinned hpo_annotations cites",
+  "simulator_note": "rare-disease-simulator 0.5.2 ignores the 0 bin and renormalises the rest",
+  "statistic": "explained present terms per patient (uncited_categories.py rule)",
+  "zero_explained_patients": 54
+ },
+ "reporting.profile_budget_histogram": {
+  "0": 54,
+  "1": 74,
+  "10": 50,
+  "11": 28,
+  "12": 25,
+  "13": 14,
+  "14": 9,
+  "15": 6,
+  "16": 1,
+  "17": 3,
+  "18": 1,
+  "2": 119,
+  "20": 1,
+  "23": 1,
+  "26": 1,
+  "3": 135,
+  "4": 132,
+  "5": 122,
+  "6": 126,
+  "7": 99,
+  "8": 85,
+  "9": 54
+ }
+}

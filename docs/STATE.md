@@ -3,40 +3,57 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-01, morning. Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-01, afternoon. Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
 
 **Deadline:** 2026-11-07 (38 days left).
 
-## TL;DR (2026-10-01)
-- **Mateo's decisions today:**
-  - Front A goes ahead with **verified-source enrichment plus up to 2 more
-    reporting/noise candidates**, time-boxed to about 2026-10-08;
-  - literature rules as recommended (ADR-0013 and its amendment 1, verified
-    sources only);
-  - rr-v1 release **on hold** (diagnostic.ar-model PR #2 stays open);
-  - ADR-0012 amendment 3 accepted;
-  - disk freed (20 GB free now);
-  - the 50-case dev fixture is OK;
-  - TODO for Mariano: send only the question agent's "no" answers.
-- **Running:**
-  - **Source acquisition** (branch `phase3/lit-sources-v1`): Tier-1 curated
-    knowledge bases (MedlinePlus Genetics, Gene2Phenotype, PanelApp, a
-    ClinGen check), licence checks, pinned snapshots, coverage, and the
-    frozen `lit-sources-v1` lists (GeneReviews chapters plus major studies
-    with ≥ 20 patients).
-  - **Simulator 0.5.1** (`feat/v0.5.1`): `reporting.q_scale`, related-noise
-    reach, presentation ages.
-- **Next:**
-  1. Extraction shards over `lit-sources-v1` (Claude, with a 10% blind Codex
-     cross-check).
-  2. `hpoa-lit-v1` / `hpoa-enriched-v1` plus `presentation-ages-v1`.
-  3. Candidate 5: current profiles plus the 0.5.1 fixes, train-side.
-  4. Candidate 6: enriched profiles plus the best reporting.
-  5. The go/no-go, and only then the last R1-dev read.
-- **R1-dev realism reads: 2 of 3 used.**
+## TL;DR (2026-10-01, afternoon)
+**R1-dev realism reads: 2 of 3 used.** The last read waits for a candidate
+that passes every train-side stop condition, and Mateo is told first.
+
+**Simulator candidates, all train-side:**
+
+| Candidate | Passes | Fails |
+|---|---|---|
+| 5 (sim 0.5.1) | G2e (gap 0.049) | G2c 1.908, G2d 0.809 |
+| 6a (sim 0.5.2, budget-normalised) | G2e (gap 0.011) | G2c 2.955 (records too short: 5.74 vs 8.70 terms), G2d 0.764 |
+
+- **ANALYSIS-006:** simulated reports generalise too often (ancestor share
+  0.152 vs 0.093 real).
+- **ADR-0011 amendment 8 (candidate 6 design):** simulator 0.5.3 with a
+  record-level budget (R1-train total-terms histogram, noise inside it),
+  plus the generalisation rate piloted to 0.093. Candidate 6b runs it on the
+  current profiles; candidate 6 adds the literature profiles.
+
+**Literature (ADR-0013, verified sources only):**
+- Curated sources registered: GeneReviews, MedlinePlus, Gene2Phenotype.
+  PanelApp is registered but kept out of the profiles (diagnostic-use
+  clause).
+- Frozen lists: `lit-sources-v1`, plus `lit-papers-v2` (re-screened; 305
+  papers in 26 Q shards).
+- Extraction guide **v4** (§6a rulings).
+- **Merged shards:** C001, C011–C035, P001, Q001 (about 1,390 rows).
+
+**Running** (each agent commits after every shard and keeps its worktree, so
+it can be resumed with SendMessage after a usage-limit stop):
+
+| Work | State |
+|---|---|
+| C002–C010 | C002–C008 committed; finishing C009–C010 |
+| Q002–Q010, Q011–Q018, Q019–Q026 | Paper shards |
+| C036–C044, C045–C053, C054–C062, C063–C070 | Lower-priority chapter shards |
+| Simulator 0.5.3 | Record-level budget |
+
+**Next:**
+1. Merge the batches. The pattern each time: resolve the BITACORA conflict
+   by keeping both entries, and check that only shard files changed.
+2. Run the central Codex cross-check, and a recall and unit audit.
+3. Build `hpoa-lit-v1` / `hpoa-enriched-v1` plus `presentation-ages-v1`,
+   with the rule for `pooled_group` rows fixed first.
+4. Candidate 6b, then candidate 6.
 
 ## Decisions still open
 - **Deploying rr-v1** (on hold): when the time comes, merge PR #2 and
@@ -78,6 +95,7 @@ Mateo's OK).
 | 3 | 0.4.2 / simcal-v04-v5 (calib-v2) | pass | 0.305 | not read (train 0.536) | 1.732 | 0.764 | 0.142 | stopped before read 3 |
 | 4 | 0.5.0 / simcal-v05-v2 | pass | 0.307 | not read (train 0.502) | 5.754 | 0.822 | 0.204 | stopped before read 3 |
 | 5 | 0.5.1 / simcal-v051-v1 | pass | 0.306 | not read (train 0.537) | 1.908 | 0.809 | 0.049 | train-side only; fails c, d |
+| 6a | 0.5.2 / simcal-v052-v1 (budget-normalised) | pass | 0.306 | not read (train 0.507) | 2.955 | 0.764 | 0.011 | train-side only; fails c, d |
 
 Candidate 1's a and e are recomputed on today's definitions (truth layer;
 target 0.405).
@@ -180,5 +198,6 @@ target 0.405).
 - **Train-side go/no-go before any R1-dev realism read:** G2a, c, d, e and
   G2b-train.
 - No AI mention in commits or PRs.
+- **Usage limits stop every agent.** Keep agent worktrees until their PR is merged *and* they won't be resumed. Agents commit after each unit of work; resume them with SendMessage.
 - **Graceful stop:** message the agents, then stop queue scripts before
   their runs (by exact PID). Interrupted runs must leave no manifest.

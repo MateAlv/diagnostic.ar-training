@@ -1,0 +1,92 @@
+{
+  "artifact_id": "lit-papers-v2",
+  "kind": "lit-papers",
+  "created_at": "2026-10-01T15:01:23+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "04c506a541922363d44a32eb48036c6522c63e5b",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:lit-sources-v1:papers.tsv",
+      "sha256": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c"
+    },
+    {
+      "id": "lit-extract:notes/P001.tsv",
+      "sha256": "f89373ac72224f33131215e4a856072959c5ec415b99a8e9281df9f51715b521"
+    }
+  ],
+  "params": {
+    "rule": "1. publication type: case report, review, trial;\n2. title signatures (TITLE_SIGNATURES): review; case, family or sibling\n   report; a single patient; database or biobank; screening or method title\n   (sequencing, panel, NGS, molecular or genetic testing, screening other than\n   newborn screening, mutation analysis, \"for mutations in\", variant\n   prevalence or frequency, diagnostic yield, unsolved or suspected cases,\n   prenatal diagnosis, \"is a frequent cause\"); carriers or penetrance;\n   variant-level work (novel or new variants, reclassification, in silico,\n   functional studies, copy number); treatment; biomarker; model organism;\n   then a plural disease group (\"disorders\", \"cardiomyopathies\") with no gene\n   symbol of the paper; then a title count below MIN_PER_UNIT;\n3. abstract signatures (ABSTRACT_SIGNATURES, on title and abstract):\n   diagnostic yield or negative-tested or unexplained cohorts; sequencing\n   applied to a series of N; association or risk designs (susceptibility,\n   predisposition, odds or hazard ratio, case-control, risk factors,\n   polymorphism, comparison with healthy individuals); penetrance in carriers\n   (unaffected carriers, cascade or family screening, lifetime risk, general\n   population); variant databases or biobanks; then positives reported as a\n   share of those screened, all below MIN_PER_UNIT;\n4. positive evidence of a per-unit cohort of at least MIN_PER_UNIT: a stated\n   count bound to a gene symbol of the paper or to a single disease (a defined\n   abbreviation whose long form is not a plural group, or a disease noun), or a\n   bare count in an abstract whose title names a single disease or gene and no\n   group.",
+    "min_per_unit": 20,
+    "pub_types": {
+      "case reports": "case_report",
+      "review": "review",
+      "systematic review": "review",
+      "meta-analysis": "review",
+      "clinical trial": "trial",
+      "randomized controlled trial": "trial",
+      "controlled clinical trial": "trial",
+      "clinical trial, phase i": "trial",
+      "clinical trial, phase ii": "trial",
+      "clinical trial, phase iii": "trial",
+      "clinical trial, phase iv": "trial"
+    },
+    "title_signatures": {
+      "title:review": "\\breview\\b|meta-analys",
+      "title:case_report": "case report|\\ba case of\\b|\\bcase series of (?:two|three)\\b",
+      "title:family_report": "\\b(?:a|an|one|two|three|four) (?:[\\w'-]+ ){0,3}(?:family|families|pedigrees?|kindreds?|siblings)\\b|\\b(?:siblings?|sibs|twins?|brothers|sisters|pedigrees)\\b",
+      "title:single_patient": "\\b(?:a|an|one) (?:[\\w'-]+ ){0,3}(?:patient|boy|girl|child|infant|neonate|man|woman|proband|case)\\b",
+      "title:database": "\\bdatabases?\\b|\\bbiobank\\b",
+      "title:screening_method": "sequencing|\\bpanels?\\b|\\bNGS\\b|molecular (?:testing|diagnosis|screening)|genetic (?:testing|screening)|(?<!newborn )(?<!neonatal )screening|mutation(?:al)? analysis|\\bfor (?:[\\w-]+ ){0,2}(?:mutations|variants)\\b|population-based|prevalence of (?:[\\w-]+ ){0,4}(?:mutations|variants|deletions|duplications)|frequency of|diagnostic yield|diagnostic rate|detection rate|unsolved|suspicion|suspected|prenatal diagnosis|(?:is|are) (?:a )?(?:frequent|major|common|rare|significant) (?:[\\w-]+ )?causes?",
+      "title:carriers": "\\bcarriers?\\b|penetrance",
+      "title:variant_level": "\\b(?:novel|new) (?:[\\w-]+ ){0,3}(?:mutations?|variants?|variations?|deletions?)\\b|reclassification|variant curation|mutation update|in silico|pathogenicity|functional (?:analysis|characteri[sz]ation|studies)|copy[- ]number|pseudogenes?",
+      "title:treatment": "\\b\\w+mab\\b|\\btreatment\\b|\\btherap(?:y|ies|eutic)\\b|transplant\\w*|\\bsurgery\\b|\\bsurgical\\b|\\bdrugs?\\b|enzyme replacement|\\bdosing\\b|\\bsafety\\b|\\befficacy\\b",
+      "title:biomarker": "\\b(?:bio)?markers?\\b|\\bserum\\b|\\bplasma\\b",
+      "title:model_organism": "\\b(?:mice|mouse|murine|zebrafish|drosophila|xenopus|rats?|knock-?out|iPSCs?|organoids?)\\b"
+    },
+    "title_disease_group": "disorders|diseases|syndromes|conditions|defects|errors|anomalies|cardiomyopathies|myopathies|neuropathies|dystrophies|ataxias|dysplasias|ichthyoses|leukodystrophies|ciliopathies|channelopathies|encephalopathies|epilepsies|FAODs|IEMs",
+    "abstract_signatures": {
+      "diagnostic_yield": "diagnostic yield|diagnostic rate|detection rate|solve rate|molecular testing|diagnostic utility|\\b(?:un)?solved\\b|negative for|tested negative|previously (?:tested|unsolved|undiagnosed|unexplained)|genetically (?:unexplained|unresolved|undetermined|undiagnosed)|unknown (?:a?etiology|cause)",
+      "sequenced_cohort": "(?:exome|genome|panel|targeted|next[- ]generation) sequencing (?:was |were )?(?:performed |applied |carried out )?(?:in|of|on|for) (?:a (?:[\\w-]+ ){0,2}(?:cohort|series|group|total) of )?\\d",
+      "association": "susceptib|predispos|odds ratio|case[- ]control|risk factors?|genetic risk|increased risk|risk alleles?|polymorphism|\\bGWAS\\b|genome-wide association|association (?:study|analysis)|hazard ratio|compared (?:with|to) (?:\\d+ )?healthy",
+      "penetrance": "penetrance|(?:unaffected|asymptomatic|presymptomatic|healthy|non-?penetrant) (?:[\\w-]+ )?carriers|carrier (?:frequency|screening|status)|cascade (?:screening|testing)|predictive (?:genetic )?testing|family screening|lifetime risk|cumulative (?:risk|incidence)|general population",
+      "database": "(?:variant|mutation|locus-specific) database|\\bbiobank\\b|\\bLOVD\\b"
+    },
+    "few_positives": "\\b([\\w,]+) (?:[\\w-]+ ){0,3}\\(\\s?\\d+(?:\\.\\d+)?\\s?%\\)\\s?(?:[\\w-]+ ){0,2}(?:carried|harbou?red|had|tested positive|were positive|were found to (?:carry|harbou?r|have))|(?:identified|detected|found) in (?:[\\w-]+ ){0,2}([\\w,]+) (?:[\\w-]+ ){0,3}\\(\\s?\\d+(?:\\.\\d+)?\\s?%\\)|\\b([\\w,]+) (?:of|out of) (?:the )?[\\d,]+ (?:[\\w-]+ ){0,3}(?:carried|harbou?red|tested positive|were positive)",
+    "disease_head": "(?:disease|syndrome|deficiency|dystrophy|ataxia|paraplegia|plegia|pathy|lepsy|osis|emia|aemia|uria|itis|ism|oma|plasia|trophy|ectasia|elasticum|pigmentosa|amaurosis|imperfecta|bullosa|congenita|anemia|calcification|rickets|galactosemia|cystinosis|albinism|aniridia|deafness|dementia|parkinsonism|dystonia|hypoplasia|atrophy|proteinopathy|neurodegeneration|hemophilia|thalassemia|porphyria|acidemia|aciduria)$",
+    "record_query": "(EXT_ID:<PMID>) AND SRC:MED",
+    "record_fields": [
+      "pmid",
+      "pmcid",
+      "title",
+      "abstractText",
+      "pubTypeList",
+      "pubYear",
+      "source"
+    ],
+    "subset": "selected papers of lit-sources-v1 that pass, minus the calibration shards' papers",
+    "europe_pmc": "https://www.ebi.ac.uk/europepmc/webservices/rest/searchPOST"
+  },
+  "params_hash": "ce010c668540f9e671995330f19adf967a72c7258076ad03d9c1e69dfccaac40",
+  "outputs": [
+    {
+      "path": "data/lit-sources/lit-papers-v2/papers.tsv",
+      "sha256": "a510f94fcc340a2cbfc73be2a706bafde0f2baec95b382ca5c8c02b92fd6ff16",
+      "bytes": 196346
+    },
+    {
+      "path": "data/lit-sources/lit-papers-v2/summary.json",
+      "sha256": "54eaa42054a75db6348e0aee78c7ef19328c5968f145449792571cd784a03c2a",
+      "bytes": 2036
+    },
+    {
+      "path": "data/interim/lit-sources/lit-papers-v2/epmc-records.jsonl.gz",
+      "sha256": "148d00aafb7638386f586942ce7bc8e6f544188f666356ac131f97f9cdf15d1b",
+      "bytes": 673516
+    }
+  ],
+  "notes": "305 of 999 re-screened papers pass; a subset of lit-sources-v1. Frozen before any further paper extraction (ADR-0013). The record cache holds abstracts; private release only.",
+  "release": "lit-papers-v2"
+}

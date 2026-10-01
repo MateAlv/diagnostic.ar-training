@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1189	extracted	3	deletion DD risk kept as subgroup figure; gene shares and karyotype yields skipped
+NBK1208	extracted	3	PD-late-onset unit 168600 not used (PARK-LRRK2 is 607060); skipped penetrance, neuropathology 'up to one third', brain-bank 3/6 (atypical subgroup)
+NBK1209	extracted	2	onset 'generally ... early childhood or adolescence' hedged; severe-to-profound by age 70 is age-conditional; KCNQ4 share of ADNSHL skipped
+NBK1214	extracted	5	typical/atypical shares are subtypes; iron deficiency 50% has no HPO term short of anemia; kidney failure onset is a feature onset; 'virtually all' visual impairment
+NBK1215	extracted	2	mesomelia by sex; Turner syndrome figures are not about the unit; SHOX share in LWD skipped
+NBK1218	extracted	2	LOTS presentation 'older teenagers or young adults' not mappable to one span; 'up to 40%' psychiatric skipped; cherry-red spot 'virtually all'
+NBK1251	extracted	1	OAE loss 20%-80% skipped (decrease or disappearance, two outcomes); founder variant shares skipped
+NBK1253	extracted	4	myalgia 'almost all'; weakness during attacks ~60% has no fitting HPO term; trigger shares and infantile onset ('typically') skipped
+NBK1269	extracted	8	Table 1 onsets per type; PD unit 168600 not used; skipped bone disease 70%-100% (category), PD age-specific risks, arthrogryposis and dysmorphism 35%-43% (two features)
+NBK1270	extracted	7	skipped survival, 'up to 38%' tube feeding, skin 50% and vitamin D/eczema/ichthyosis 25% (bundles), oxalate stones 3/24 (organ unspecified), heart block and MVP 2/16 (two features), seizure onsets (feature onset)

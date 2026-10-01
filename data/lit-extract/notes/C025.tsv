@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1317	no_numbers	0	only a handful of reported individuals; 'almost all' clubfeet, 'many' lung hypoplasia; lethality 'usually' neonatal
+NBK1331	extracted	8	Coats unit: onset 'usually' hedged; skipped DD/ID 14/51 (two features), emotional lability 'up to one fourth', varicosities 'nearly half', hearing-loss onset 3-35 y (feature onset, 6 males), ROP yields
+NBK1333	no_numbers	0	onset 'typically' 30-50 y hedged; wheelchair one third after 20 y and mortality 15/223 are not features; single-family early onset
+NBK1350	extracted	1	cystic ear swelling ~2/3 has no HPO term; 'most newborns' cervical kyphosis vague; adult height ranges not features
+NBK1355	extracted	2	Table 2 onsets per inheritance; AR/AD shares and Table 2 qualitative grades skipped
+NBK1365	extracted	3	THMD-4 episode onset ('most') and neuropathy onset ('usually') hedged; Amish incidence skipped
+NBK1368	no_numbers	0	relative risks, odds ratios and annual incidences among carriers only; no feature frequencies among affected
+NBK1371	extracted	2	penetrance by age and FTD shares skipped; age at death not a feature
+NBK1377	extracted	3	skipped splenic sequestration 10%-30% and silent cerebral infarcts 39%/>50% (no fitting HPO terms), 'up to'/'as many as' figures (cerebrovascular, stroke), priapism onset (feature onset), trait and population figures
+NBK1380	extracted	12	pooled_group over BORS/BOS units; skipped hearing-loss type/severity/progression shares (conditional on hearing loss), branchial arch anomalies 50% and CAKUT 67% (categories), canal atresia-or-stenosis 29% (two features), calyceal cyst/diverticulum, calyectasis/pelviectasis (no HPO term)

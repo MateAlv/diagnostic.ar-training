@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1174	extracted	1	disease-level row on MT-ND4 (m.11778G>A, most common); skipped lifetime risk of visual failure (Table 4, carriers), median onset by variant without ranges, bilateral involvement (laterality), visual recovery rates (outcome), heteroplasmy share; MT-ND3 unit is Leigh syndrome
+NBK1425	not_about_units	0	units assigned by fallback are other diseases (complement deficiencies, aHUS, NPHS7); only CFHR5 nephropathy is a C3G subtype and the figures (age at diagnosis median 23, APL 5%-17%, visual problems ~10%, ESRD half by 10 y, autoantibody rates) describe all C3G, mostly acquired
+NBK1258	extracted	1	no feature frequencies stated; onset range across forms recorded on EIF2B5 (66.5% of cases) as umbrella VWM unit
+NBK1265	extracted	1	no feature frequencies (congenital hearing loss, vestibular areflexia, RP stated without numbers); skipped CDH23 null-variant shares (genotype, not feature), visual-field ages ('common')
+NBK1448	no_numbers	0	no stated feature frequencies; only survival (77% reaching school age) and incidence
+NBK1475	extracted	1	skipped 20% presenting at birth (one number for several features), seizures 'up to half', chilblains 'as many as 40%', Table 2 per-gene counts without per-gene denominators, mortality by genotype
+NBK1125	extracted	1	only mortality and incidence figures; onset of JEB generalized severe recorded on LAMB3 (70% of JEB)
+NBK1211	no_numbers	0	no rows: all figures are cancer risks or cancer counts among MMR-variant heterozygotes (penetrance) and median ages at single cancer diagnoses without ranges
+NBK1369	extracted	2	plantar keratoderma as pooled_group over all EBS units; skipped subtype shares (60%/15%/25%/<1%: not features), hedged onsets ('usually at birth'), muscular dystrophy onset in PLEC EBS (feature onset)
+NBK1416	extracted	2	pooled_group over 46,XX sex reversal units (WT1|Denys-Drash unit excluded); skipped 85% post-pubertal presentation (one number for small testes, gynecomastia, sterility), WT1 1/6 (complement)
