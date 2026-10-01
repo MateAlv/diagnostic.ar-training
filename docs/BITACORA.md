@@ -2428,3 +2428,6 @@ only: **no R1-dev read in this task, whatever the result.**
 
 ### 2026-10-01 — data — lit-extract shards C020–C028 (ADR-0013)
 - Branch `phase3/lit-extract-C020-C028`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **293 rows from 71 of 90 chapters** (C020 6, C021 23, C022 25, C023 37, C024 42, C025 31, C026 56, C027 48, C028 25); 19 chapters with 0 rows (17 `no_numbers`, 2 `not_about_units` where the only units were worksheet fallbacks: celiac → achalasia/narcolepsy, MT-RNR1 → MERRF); guide ambiguities listed in the PR.
+
+### 2026-10-01 — data — lit-extract shards C011–C019 (ADR-0013)
+- Branch `phase3/lit-extract-C011-C019`, guide v2, one commit per shard, each `validate-shard` 0 problems; no Codex cross-check yet (central). **545 rows (490 feature, 55 age) from 77 of 90 chapters** (C011 97, C012 95, C013 110, C014 67, C015 38, C016 42, C017 9, C018 34, C019 53); 13 chapters with 0 rows (11 `no_numbers`: only carrier risks, symbol/bin tables or prose; 2 `not_about_units`: C3 glomerulopathy and maternal-effect MLID, where the worksheet fallback assigned other diseases). Wrong-disease fallback units skipped (e.g. APOE→AD4, EIF4A2→NDD, DNMT3B→ICF, WT1→Denys-Drash in 46,XX DSD); guide ambiguities listed in the PR.
