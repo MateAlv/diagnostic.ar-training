@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK609461	extracted	11	skipped seizure-type and movement-disorder sub-shares (sub-items), feeding/GI issues (mixed), walking/sitting difficulty 38% and articulation 19% (no exact HPO term), normal MRI 30%-50% (complement)
+NBK1250	extracted	12	skipped depression &/or anxiety (two features), anxiety/depression 'as high as' figures, pain 60%-89% across studies, CBAVD 'often', heterozygote figures, survival
+NBK1273	extracted	18	all figures pool JAG1- and NOTCH2-related ALGS (pooled_group over the three units); skipped 'up to' figures (pulmonary vasculature 94%, growth failure 50%-90%), 'as high as 15%' neurovascular, liver disease 61% in an organ-unselected series (table kept), bile duct paucity 65% of early biopsies (biopsy subset), transplant and mortality figures
+NBK1373	extracted	7	skipped feature-combination shares (triad 13%, Duane + radial 45%, radial only 21%), cardiac conduction defect 'rare', penetrance
+NBK1427	extracted	3	Table 2 skipped: per-genotype cells are merged and misaligned against the five genotype columns (Hirschsprung, arrhythmia, tumour rows), so the column a value belongs to is ambiguous; onset 'typically' neonatal (hedged); neuroimaging Table 3 has no numbers
+NBK2689	extracted	8	skipped spontaneous mucocutaneous bleeding ~30% (no specific HPO term beyond abnormal bleeding), SNHL ~50% at mean age 33 (table figure kept), feature onset ages, hearing-loss impact 90% (conditional), genotype risk statements ('all are expected')
+NBK97260	extracted	8	Table 3 counts (Martinelli cohort); coagulopathy 34/69 printed as 49% (n/m 0.4928); skipped age-at-diagnosis group shares (not features), cognitive outcome categories, survival and mortality, founder-variant share
+NBK201978	extracted	1	only the SLFNE unit is allowed: SLFIE and NDD rows describe other phenotypes; SLFNE epilepsy >90% is penetrance among variant carriers (72/80), normal development >90% is not a phenotype
+NBK373578	extracted	8	skipped CHD 'one third' in text (table >30% kept), short stature 'most', wheelchair ages
+NBK536360	extracted	14	skipped autism 16% and borderline 16% in text (table 19/72 kept), sleep sub-items (conditional on sleep problems), seizure types (conditional), constipation/diarrhea 23.6% (two features), seizure onset ages (feature onset)

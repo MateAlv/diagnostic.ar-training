@@ -1,0 +1,11 @@
+source_id	outcome	rows	note
+NBK1312	extracted	7	presentation 'more commonly at age three to four months' hedged; 'in 10% of individuals adenomas undergo malignant transformation' ambiguous (conditional on adenoma), skipped; Japanese c.648G>T rows are a G6PC1 subgroup
+NBK1313	extracted	5	general onset range and dominant-form mean; back pain and myalgia 50% is one number for two features; 'no cardiac involvement' in one MRI study contradicts 'uncommon cardiomyopathy', skipped; ambulation 72% vs 48% not a feature
+NBK1322	extracted	2	onset range is hedged ('usually'), only the stated mean (3.5 months) used; other features have no numbers
+NBK1337	no_numbers	0	male features without numbers or hedged ('commonly', 'usually as a preteen'); the only counts (ERG 1/7 reduced) are in heterozygous carrier females
+NBK1344	extracted	4	fixed weakness: summary says ~25%, body ~20% (Santalla 2017), body figure used; 10% with mild manifestations not a feature; second-wind 'all individuals' has no HPO term
+NBK1349	extracted	3	presentation 'majority ... third decade' hedged; childhood-onset 2-13 y range is a selected subgroup, not used for onset; diabetes and hypogonadism onsets hedged ('usually')
+NBK1354	extracted	11	males; skipped presenting-manifestation shares (30% chorea, 20% psychiatric, 20% seizures), 'up to 95%' chorea, 'up to 40%' seizures, 'almost all' areflexia, 'virtually all' acanthocytosis/hemolysis, weakness or atrophy 50% (two features)
+NBK1360	extracted	1	only the aniridia unit has a figure; glaucoma 'up to two thirds' and optic nerve hypoplasia 'up to 10%' skipped; nystagmus onset hedged; no figures for the other PAX6 units
+NBK1361	extracted	3	onset hedged ('usually', 'typically'); 'moderate hepatosplenomegaly is present' has no explicit quantifier; other complications 'common'/'frequently'
+NBK1370	extracted	3	NPD-B 'up to one third' cherry-red macula skipped; 64 initially classified NPD-B recorded on the NPD-B unit (no NPD-A/B unit); ERT outcomes skipped
