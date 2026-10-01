@@ -1,0 +1,13 @@
+source_id	outcome	rows	note
+PMID:26762237	not_cohort	0	NGS diagnostic-yield study of 64 mixed ichthyosis patients; largest gene group ALOX12B n=9; 27 ARCI confirmed but split over 6 genes and no ARCI umbrella unit; only per-patient tables and detection or variant-type rates
+PMID:26029710	not_cohort	0	molecular CNV study of 212 clinically diagnosed PXE registry samples; genotypes only in the supplement; no phenotype frequencies
+PMID:41577745	not_cohort	0	severe-CSVD screening and association study (158); 9 heterozygous ABCC6 carriers (12 with biallelic), only 1 with PXE
+PMID:41751611	not_cohort	0	stroke and CSVD screening cohort (143); 16 ABCC6-positive (11 monoallelic, 5 biallelic)
+PMID:34355424	extracted	19	qualifies on ENPP1 (84 confirmed); ABCC6 group is 19; skipped mortality, bisphosphonates, PXE/GACI diagnosis shares, cardiovascular complications (bundle), Fig. 5 values (figure only), ABCC6 rickets 3/18 (yes/no vs n/m ambiguous), ARHR2 'calcification' and 'organ complications' (bundles)
+PMID:30732635	extracted	2	65 women with ALD (VLCFA and/or ABCD1 variant; variants in supplement); 'symptomatic' defined in Methods as spinal cord disease; skipped Background figures (cited), EDSS/ALDS/SF-36 scores, walking sub-categories
+PMID:35053399	no_numbers	0	variant-database report (3401 cases): only variant-type and exon counts; phenotype figures are in the Introduction and cite other studies
+PMID:23842438	extracted	4	45 NBS-detected MCADD, all genotyped; skipped C8/C2 and C8/C10 ratios (no HPO term), low free carnitine (only via supplementation, denominator ambiguous), clinical symptoms 5/45 (bundle), genotype shares
+PMID:32793418	not_cohort	0	mixed FAOD series of 30; only 6 SCADD (the ACADS unit), all asymptomatic NBS cases
+PMID:32228044	not_about_units	0	SHaRe HCM registry; every figure pools sarcomere-positive and -negative HCM, no per-gene figures in text and no umbrella HCM unit; Tables 1-5 are empty in the fetched text
+PMID:32731933	not_cohort	0	penetrance study of 285 sarcomere-variant carriers without HCM at baseline; the 86 who developed HCM are pooled over 7 genes, only an abnormal-ECG figure
+PMID:27081547	not_cohort	0	diagnostic-yield study in 93 ENG/ACVRL1/SMAD4-negative suspected HHT; 2 RASA1 and 1 GDF2 variants
