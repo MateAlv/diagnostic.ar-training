@@ -236,3 +236,42 @@ def test_sample_prompt_and_agreement():
     assert le.agrees(age, answer(age_low_years=None, age_high_years=5))
     assert not le.agrees(age, answer(age_low_years=10, age_high_years=12))
     assert answer(age_low_years=1, age_high_years=3)["point"] == "2.0"
+
+
+def test_papers_v2_shards_and_routing(tmp_path, monkeypatch):
+    import pytest
+
+    from diagnostic_ar_training import cli_lit_extract as cli
+    from diagnostic_ar_training.lineage.registry import LineageError
+
+    entities = {"GA": [le.Entity("GA", "OMIM:1", frozenset({"OMIM:1"}), True)]}
+    base = [
+        {"status": "selected", "pmid": str(i), "pmcid": f"PMC{i}", "licence": "cc by", "weak_genes": "",
+         "title": "p", "genes": "GA"}
+        for i in range(30)
+    ] + [{"status": "excluded", "pmid": "99"}]  # fmt: skip
+    rescreened = [{"pmid": str(i), "in_subset": str(i % 2 == 1)} for i in range(30)]
+    rescreened.append({"pmid": "99", "in_subset": "True"})
+    order = le.papers_v2_order(base, rescreened)
+    assert [p["pmid"] for p in order] == [str(i) for i in range(1, 30, 2)]
+    rows = le.assign_paper_shards(order, entities, "Q")
+    assert [r["shard"] for r in rows].count("Q001") == 12 and rows[-1]["shard"] == "Q002"
+    assert rows[0]["source_id"] == "PMID:1" and rows[0]["units"] == "GA|OMIM:1"
+
+    assert (le.shard_set("C007"), le.shard_set("P031"), le.shard_set("Q001")) == ("v1", "v1", "papers-v2")
+    for bad in ("X001", "Q", "Qx1"):
+        with pytest.raises(ValueError):
+            le.shard_set(bad)
+
+    monkeypatch.setattr(cli, "EXTRACT_DIR", tmp_path)
+    monkeypatch.setattr(cli, "SHARDS_PATH", tmp_path / "shards.tsv")
+    monkeypatch.setattr(cli, "REPO_ROOT", tmp_path)
+    cli._write_tsv(
+        le.assign_paper_shards(base[:13], entities, "P"), le.SHARD_COLUMNS, tmp_path / "shards.tsv"
+    )
+    cli._write_tsv(rows, le.SHARD_COLUMNS, tmp_path / "shards-papers-v2.tsv")
+    assert [r["source_id"] for r in cli._shard_rows("Q002")] == [r["source_id"] for r in rows[12:]]
+    assert len(cli._shard_rows("P001")) == 12
+    for missing in ("Q003", "Z001"):
+        with pytest.raises(LineageError):
+            cli._shard_rows(missing)

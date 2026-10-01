@@ -1,0 +1,42 @@
+{
+ "first_last": {
+  "chapters": [],
+  "papers": [
+   "Q001",
+   "Q026"
+  ]
+ },
+ "genes": {
+  "chapters": 0,
+  "papers": 304
+ },
+ "inputs": {
+  "genes-v2:genes.json.gz": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+  "lit-papers-v2:papers.tsv": "a510f94fcc340a2cbfc73be2a706bafde0f2baec95b382ca5c8c02b92fd6ff16",
+  "lit-sources-v1:papers.tsv": "a824b9222cbba7b5068285c197e8792483ae1448d24f9441577a8e95a596cb4c",
+  "litpanel-split-v3.tsv": "b508e757f0896a125cb8eab91ae6902d0dce419a601d54f032b4fd5ff3f60ad2"
+ },
+ "rules": {
+  "excluded": "evaluation genes and every entity sharing an id with a litpanel-split-v3 disease; genes whose main entity does",
+  "paper_units": "every simulable genes-v2 entity of the paper's genes",
+  "papers": "lit-sources-v1 selected papers in papers.tsv order, filtered to the lit-papers-v2 subset, 12 per shard, ids Q001..."
+ },
+ "shards": {
+  "chapters": 0,
+  "papers": 26
+ },
+ "shards_tsv_sha256": "cb622ffdd7d20ea84c463eb0ff2e93dbe73ab96f9e959f2cdcf224221b6bab70",
+ "sources": {
+  "chapters": 0,
+  "papers": 305
+ },
+ "sources_per_shard": {
+  "5": 1,
+  "12": 25
+ },
+ "sources_without_units": [],
+ "units": {
+  "chapters": 0,
+  "papers": 942
+ }
+}
