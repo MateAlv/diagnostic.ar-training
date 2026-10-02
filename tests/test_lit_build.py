@@ -339,3 +339,112 @@ def test_reference_keys_and_chapter_index():
     text = "#GR_shortname\tGR_Title\tNBK_id\tPMID\naadc\tAADC\tNBK595821\t37824694\n"
     assert LB.chapter_index(text) == {"NBK595821": ("aadc", "37824694")}
     assert LB.source_keys("NBK595821", LB.chapter_index(text)) == {"NBK595821", "GR:aadc", "PMID:37824694"}
+
+
+# --- Amendment 4 ------------------------------------------------------------------
+
+
+def test_onset_ages_use_the_presentation_selection_rules(onto):
+    rows = [
+        age("PMID:1", low="1", high="3", m="500", feature="AGE_ONSET"),
+        age("NBK10", low="2", high="9", m="30", feature="AGE_ONSET"),
+        age("NBK11", disease="OMIM:2", low="30", high="30", feature="AGE_ONSET"),
+        age("NBK11", disease="OMIM:3", low="40", high="", feature="AGE_ONSET"),
+        age("NBK11", disease="OMIM:1", low="7", high="8"),
+    ]
+    result = run(rows, onto)
+    assert result["onset_ages"] == [
+        {"disease_id": "OMIM:1", "age_low_years": "2", "age_high_years": "9", "source": "NBK10"},
+        {"disease_id": "OMIM:2", "age_low_years": "27", "age_high_years": "33", "source": "NBK11"},
+    ]
+    stats = result["report"]["onset_ages"]
+    assert stats["diseases"] == 2
+    assert stats["placements_by_outcome"] == {"used": 2, LB.AGE_OPEN_UPPER: 1, LB.AGE_NOT_CHOSEN: 1}
+    assert len(result["presentation_ages"]) == 1
+
+
+def test_onset_file_has_the_simulator_header(onto):
+    lines = LB.onset_lines(run([age(low="1", high="2", feature="AGE_ONSET")], onto)["onset_ages"])
+    assert lines == ["disease_id\tage_low_years\tage_high_years\tsource\n", "OMIM:1\t1\t2\tNBK10\n"]
+
+
+@pytest.mark.parametrize(
+    "quote",
+    [
+        "Hearing loss has not been reported in any individual",
+        "Scoliosis was NOT REPORTED in this cohort",
+        "ataxia is not described",
+        "not documented",
+        "not observed in the literature",
+    ],
+)
+def test_not_reported_is_not_turned_into_a_not_row(onto, quote):
+    rows = [lit(p="0", evidence_quote=quote), lit(term=VISION, p="0", evidence_quote="never seen")]
+    result = run(rows, onto)
+    assert [(r["hpo_id"], r["qualifier"]) for r in result["lit_rows"]] == [(VISION, "NOT")]
+    assert result["report"]["placements"]["by_outcome"] == {LB.DROP_NOT_REPORTED: 1, "used": 1}
+
+
+def test_not_reported_wording_does_not_touch_counts_or_positive_rows(onto):
+    rows = [
+        lit(p="0", n="0", m="20", evidence_quote="not reported in 0 of 20"),
+        lit(term=VISION, p="0.3", evidence_quote="not reported"),
+    ]
+    out = by_key(run(rows, onto))
+    assert out[("OMIM:1", SEIZURE, "")]["frequency"] == "0/20"
+    assert out[("OMIM:1", VISION, "")]["frequency"] == "30%"
+
+
+def test_a_pooled_group_not_reported_is_dropped_on_every_unit(onto):
+    row = lit(
+        p="0", flags="pooled_group", units="G1|OMIM:1;G2|OMIM:2", evidence_quote="has not been described"
+    )
+    result = run([row], onto)
+    assert result["lit_rows"] == []
+    assert result["report"]["placements"]["by_outcome"] == {LB.DROP_NOT_REPORTED: 2}
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("population", "age at genetic diagnosis"),
+        ("age_note", "median age at molecular confirmation"),
+        ("evidence_quote", "mean age at DNA testing was 4 years"),
+        ("evidence_quote", "diagnosis was genetically confirmed at 5 years"),
+        ("population", "confirmed by genetic testing"),
+    ],
+)
+def test_age_at_genetic_confirmation_is_not_a_presentation_age(onto, field, value):
+    result = run([age(low="1", high="9", **{field: value})], onto)
+    assert result["presentation_ages"] == []
+    assert result["report"]["presentation_ages"]["placements_by_outcome"] == {LB.AGE_GENETIC: 1}
+
+
+def test_clinical_presentation_wording_and_onset_rows_are_kept(onto):
+    rows = [
+        age(
+            low="1",
+            high="9",
+            age_note="median age at clinical diagnosis",
+            evidence_quote="a genetic disorder seen at 1-9 years",
+        ),
+        age(
+            disease="OMIM:2",
+            low="1",
+            high="9",
+            feature="AGE_ONSET",
+            evidence_quote="age at genetic diagnosis 1-9",
+        ),
+    ]
+    result = run(rows, onto)
+    assert [r["disease_id"] for r in result["presentation_ages"]] == ["OMIM:1"]
+    assert [r["disease_id"] for r in result["onset_ages"]] == ["OMIM:2"]
+
+
+def test_an_excluded_specific_row_does_not_block_the_pooled_group_row(onto):
+    rows = [
+        age("NBK10", disease="OMIM:2", low="5", high="6", gene="G2", population="genetic diagnosis"),
+        age("NBK10", low="1", high="2", flags="pooled_group", construction_unit="G1|OMIM:1;G2|OMIM:2"),
+    ]
+    out = {r["disease_id"]: r["age_low_years"] for r in run(rows, onto)["presentation_ages"]}
+    assert out == {"OMIM:1": "1", "OMIM:2": "1"}

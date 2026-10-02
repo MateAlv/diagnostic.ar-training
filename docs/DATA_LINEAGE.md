@@ -194,6 +194,7 @@ rule.
 | `hpoa-lit-vN` | Feature rows as HPOA phenotype rows (aspect P, evidence `PCS`, biocuration `diagnostic.ar-training:lit-extract`, reference = `source_id`) | `phenotype.hpoa`, plus `data/lit-build/hpoa-lit-vN.report.json` |
 | `hpoa-enriched-vN` | `hpoa-recount-v1` with `hpoa-lit-vN` appended; a `#derived` header line records both sha256 | `phenotype.hpoa` (`build-profiles --hpoa`) |
 | `presentation-ages-vN` | One age range per disease from `AGE_PRESENTATION` rows | `presentation-ages.tsv` (`simulate --presentation-ages`, sim ≥ 0.5.1) |
+| `onset-ages-vN` | One onset-age range per disease from `AGE_ONSET` rows, selected like presentation ages (ADR-0013 am. 4) | `onset-ages.tsv` (`simulate --onset-ages`, sim ≥ 0.5.4) |
 
 `--dry-run --out-dir … --report …` writes the files and the report with no
 artifact id and no manifest. The latest dry run (45 shards, amendment 3) is
