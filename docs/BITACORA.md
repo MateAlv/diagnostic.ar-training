@@ -3104,3 +3104,19 @@ literature-enriched profiles come later, as candidate 6.
   true terms). No R1-dev read; Mateo decides.
 - **Stopped here** (graceful stop requested): all steps done except the
   STATE update and a fuller write-up; next step is Mateo's decision.
+
+### 2026-10-02 — decision — Onset ages approved; path to candidate 6 (ADR-0013 amendment 4)
+- **Extraction complete:** all 97 shards merged, 7,100 rows. The dry-run
+  build enriches 840 diseases with 4,567 new disease–term pairs, and gives
+  onset ages for 399 diseases and presentation ages for 88.
+- **Mateo approved:**
+  - literature onset ages in simulator 0.5.4;
+  - the sequence cross-check → audit → build → 0.5.4 → candidate 6 → report;
+  - the smallest adequate models for agents.
+- **Rulings applied at build:**
+  - "not reported" is not an absence;
+  - ages at genetic confirmation are excluded;
+  - carriers, high VUS share and sub-20 pooled groups are declared as
+    limitations.
+- **Cross-check:** interrupted by a PC freeze after 113 answers (112 agree);
+  resumed.

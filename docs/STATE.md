@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-01, paused (graceful stop, usage). Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-02 (literature extraction complete; path to candidate 6 agreed). Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
@@ -83,6 +83,17 @@ that passes every train-side stop condition, and Mateo is told first.
    train-side go/no-go. Then **ask Mateo** before the last R1-dev read.
 6. If it passes: the G3 cards (assistant + Codex), then G5 freeze. Only
    then can Front A retraining be pre-registered.
+
+## Path agreed 2026-10-02 (ADR-0013 amendment 4)
+1. **Codex cross-check:** running; partial result 112/113 agree.
+2. **Codex audit** (about 5% of sources): missed facts and wrong units.
+3. **Real literature build**, with `onset-ages-v1`.
+4. **Simulator 0.5.4** (`--onset-ages`).
+5. **Candidate 6:** train-side only.
+6. **Report to Mateo;** the last R1-dev read happens only with his OK.
+
+**Agents** use Sonnet by default. All 97 literature shards are extracted and
+merged: 7,100 rows.
 
 ## Decisions still open
 - **Deploying rr-v1** (on hold): when the time comes, merge PR #2 and
