@@ -3161,3 +3161,35 @@ literature-enriched profiles come later, as candidate 6.
     issues TSV with a `resolution` column kept across re-scores.
   - Frozen sample: `data/lit-extract/audit/lit-extract-v1.items.tsv`
     (seed 20261002, fraction 0.05).
+
+### 2026-10-02 — cross-check — lit-extract-v1: 715/744 agree; 29 adjudicated, 1 row removed
+- **Front / versions:** Front A data (literature layer), ADR-0013 amendment 4
+  step 1. Guide v4. Sample: 744 rows, seed 20261001, 97 shards, C001 excluded
+  (pilot 10/10).
+- **Checkers:**
+  - Codex answered 354 items: 342 agree (96.6%).
+  - Claude Haiku answered the last 390 (`scripts/tools/claude_reextract.py`,
+    after the Codex usage limit): 373 agree (95.6%).
+  - Haiku calibration: 35/40, agreeing wherever Codex agreed. The first
+    attempt failed on a 0-1 versus percent format; fixed in the wrapper's
+    system prompt.
+- **Result:** 715/744 agree (96.1%). Prevalence rows 668/689, age rows 47/55.
+- **Adjudication** (`data/lit-extract/crosscheck/lit-extract-v1.adjudication.tsv`):
+  - 26 `ours_correct`, 0 `checker_correct`, 2 `both_acceptable` (0546, 0557),
+    1 `row_should_not_exist` (0533).
+  - The disagreements come mostly from the checker prompt: named age periods it
+    cannot map (8), "all/universal/absent/none" with no number (8) and a
+    spurious age field (6).
+- **Fix:** removed the OPA3 "Structural brain abnormalities" row from C059
+  ("No ... have been reported" is a not-reported absence, and the build
+  pattern misses that wording); notes rows 6 -> 5; `validate-shard C059`
+  0 problems. Items 0534 and 0535 now sit one row earlier than their frozen
+  row numbers.
+- **Error rate** (`checker_correct` + `row_should_not_exist`): 1/744 = 0.13%,
+  Wilson 95% CI 0.02%-0.76%.
+- **Limits:** Haiku is the same family as the extractor, so it is less
+  independent. The check cannot see missed facts (the audit's job).
+  A scan found 7 other prevalence-0 rows whose quote says "reported /
+  described / documented / observed" but escapes the build's not-reported
+  pattern; not changed here.
+- **Evidence:** `docs/analyses/LIT-CROSSCHECK-v1.md`.
