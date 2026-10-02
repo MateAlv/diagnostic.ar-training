@@ -204,3 +204,54 @@ dry run, 102 of 132 percentage choices fell to source and file order.
        row.
    - **Sex column.** It is `MALE`/`FEMALE`. A pooled row keeps it only when
      every pooled row agrees.
+
+## Amendment 4 (2026-10-02): onset ages, pending extraction rulings, and the path to candidate 6
+Approved by Mateo, 2026-10-02. Written before any enriched profile or
+candidate 6 number exists.
+
+1. **Literature onset ages are used** (`onset-ages-v1`).
+   - **Source:** `AGE_ONSET` rows (399 diseases in the dry run).
+   - **Selection:** the same rules as presentation ages (amendment 2, rule
+     7): GeneReviews first, then the largest population, both sexes over
+     one sex; single values widened by ±10% (at least ±1 year); a row with
+     no upper bound is not used.
+   - **File:** a TSV with header `disease_id`, `age_low_years`,
+     `age_high_years`, `source`.
+   - **Simulator 0.5.4** (`--onset-ages`): when a case's entity, or one of
+     its profile ids, has a row, the onset age is drawn uniformly in
+     [low, high] instead of from the Orphanet category window.
+     - The onset category used for per-phenotype gating and duration is
+       the category whose window contains the drawn onset.
+     - Age = onset + duration, as before.
+     - Presentation ages, where present, still set the age (clipped to at
+       least the onset).
+   - Every other disease keeps Orphanet categories.
+2. **Pending extraction rulings,** applied by `dxt lit build` as rules on
+   the extracted rows:
+   - **Absences** worded "has not been reported / described / documented"
+     do **not** count as an explicit absence: no NOT row. The build detects
+     the wording in the evidence quote.
+   - **`AGE_PRESENTATION` rows measuring age at genetic or molecular
+     diagnosis or confirmation** are excluded from presentation ages,
+     detected in `population` / `age_note` / the quote.
+   - **Declared, not filtered:** these cannot be detected reliably by rule.
+     The audit samples them and the informe states them as residual
+     limitations.
+     - cohorts that include some unaffected carriers;
+     - cohorts with a high share of variants of uncertain significance;
+     - `pooled_group` figures whose member units are each under 20.
+3. **Path to candidate 6**, in order:
+   1. Codex cross-check (744 rows, a seeded 10%), already running.
+   2. Codex audit of about 5% of sources: missed facts and wrong-disease
+      units. Shards with systematic errors are fixed before the build.
+   3. Real build: `hpoa-lit-v1`, `hpoa-enriched-v1`, `presentation-ages-v1`
+      and `onset-ages-v1`, registered with manifests.
+   4. Simulator 0.5.4 (onset ages).
+   5. Candidate 6 = the ADR-0011 amendment 8 design on the enriched
+      profiles plus the onset and presentation ages; train-side go/no-go
+      only.
+   6. Report to Mateo. **The last R1-dev read happens only with his OK.**
+4. **Economy:** coding and run agents use a smaller model (Sonnet) by
+   default. Judgement-heavy review stays with the main session. Codex
+   (OpenAI quota) does the cross-check, the audit and, later, the first G3
+   card review.
