@@ -1,0 +1,41 @@
+item	shard	row	source_id	gene	disease_id	feature_label	hpo_id	population	sex_restriction	section	ours_low	ours_point	ours_high	other_found	other_low	other_point	other_high	other_n	other_quote	agree	resolution
+0002	C002	5	NBK1420	LIPN	OMIM:613943	AGE_ONSET		persons with LIPN variants		Table 1	1	3.0	5	true					LIPN: Childhood onset w/generalized fine, white scaling & minimal erythema	false	
+0161	C014	36	NBK1352	SMN1	OMIM:271150	AGE_ONSET		SMA IV		Table 2	16	16.0		true					SMA IV | Adulthood | Normal | Normal | Fatigue Proximal muscle weakness	false	
+0190	C022	18	NBK1163	SCN9A	OMIM:167400	AGE_ONSET		SCN9A-PEPD		Clinical Description	0.08	0.54	1	true	0.0	0.0			Paroxysmal extreme pain disorder (PEPD) is characterized by episodes of rectal, ocular, or submandibular pain accompanied by erythema. The onset is in early infancy, and may occur prenatally.	true	
+0194	C023	24	NBK1269	GBA1	OMIM:230800	AGE_ONSET		type 1 GD		Table 1	16	16.0		true					Age of Onset | Phenotype | Adult | Type 1	false	
+0202	C025	12	NBK1355	CLCN1	OMIM:160800	AGE_ONSET		AD myotonia congenita		Table 2	0.08	0.54	1	false					AD Myotonia Congenita: Age of onset Early infancy	false	
+0218	C028	19	NBK1529	JPH3	OMIM:606438	Progressive dementia	HP:0000726	all affected		Clinical Description		1		true		1.0			Progressive dementia is a universal feature of HDL2	true	
+0224	C030	18	NBK24701	GNPTG	OMIM:252605	Splenomegaly	HP:0001744	all affected		Clinical Description		0		false					Hepatomegaly and splenomegaly are absent.	false	
+0235	C033	24	NBK476671	GPR101	OMIM:300943	Growth acceleration	HP:0000098	all affected		Clinical Description		1		true		1.0			The presenting feature in all affected individuals is growth acceleration	true	
+0236	C033	45	NBK541972	DDX11	OMIM:613398	Postnatal growth deficiency	HP:0008897	all affected		Clinical Description		1		true		1.0		26/26	Postnatal growth deficiency was also reported in all individuals	true	
+0242	C035	2	NBK592681	PHGDH	OMIM:601815	Seizures	HP:0001250	infantile-onset serine deficiency (PHGDH, PSAT1, PSPH deficiency pooled)		Infantile-Onset Serine Deficiency		1		true		1.0			Seizures start in the first weeks or months of life in all individuals.	true	
+0246	C035	27	NBK615917	YARS1	OMIM:619418	Linear growth failure	HP:0004322	children with YARS1 deficiency		Clinical Description		1		true		1.0			All children had linear growth failure (with weight proportional to height)	true	
+0296	C037	30	NBK6803	SUCLA2	OMIM:612073	AGE_ONSET		biallelic SUCLA2 (reported individuals)		Clinical Description	0.08	0.54	1	true		1.0	1.0		onset of the following features in infancy: developmental delay, hypotonia, dystonia	true	
+0168	C015	38	NBK1438	TBP	OMIM:607136	Chorea	HP:0002072	TBP repeat 41-49 (Toyoshima & Takahashi 2018)		Table 2		0.35		true		0.35			CAG/CAA Repeat Size 41-49: Chorea 35%	true	
+0079	C006	101	NBK1185	DCX	OMIM:300067	Moderate-to-severe intellectual disability	HP:0001249	heterozygous females ascertained through diagnostic workup	female	Table 2		1.0		true		1.0			Moderate-to-severe intellectual disability | 100% | | 100%	true	
+0208	C026	47	NBK1421	PDGFRB	OMIM:615007	Headaches or migraines	HP:0002315	reported PFBC-PDGFRB individuals		PFBC-PDGFRB		0.33		true		0.33			headaches or migraines (33%)	true	
+0346	C039	111	NBK92946	PCCA	OMIM:606054	Intellectual disability	HP:0001249	all PA, pooled across PCCA and PCCB		Neonatal-Onset PA	0.32	0.54	0.76	true	0.32	0.54	0.76		The prevalence of intellectual disability varies between 32% and 76% depending on the reported cohort	true	
+0026	C004	73	NBK1249	ELN	OMIM:194050	Bladder diverticula	HP:0000015	Williams syndrome (7q11.23 deletion), disease-level		Table 2		0.5		true		0.5			Bladder diverticula | 50%	true	
+0039	C004	179	NBK609106	AP1B1	OMIM:242150	Erythroderma	HP:0001019	AP1B1-related IDEDNIK syndrome		Table 2		0.9		true		0.9		9/10	Erythroderma | 9/10 | 6/7 (AP1B1-related IDEDNIK syndrome)	true	
+0286	C036	392	NBK1274	IDS	OMIM:309900	Seizure disorders	HP:0001250	neuronopathic MPS II, age <10 yrs		Table 3		0.22		true		0.22			Seizure disorders | 22% | 37% | 4% | 10%	true	
+0050	C005	42	NBK1543	PORCN	OMIM:305600	Anophthalmia	HP:0000528	PORCN-related developmental disorders (mostly females)		Table 2	0.05	0.075	0.1	true	0.05	0.075	0.1		Anophthalmia | 5%-10%	true	
+0191	C022	20	NBK1175	ATXN10	OMIM:603516	AGE_ONSET		all affected		Clinical Description	12	47.5	83	true	12.0	47.5	83.0		Reported age of onset ranges from 12 to 83 years	true	
+0311	C037	157	NBK1523	TBX1	OMIM:188400	Interrupted aortic arch	HP:0011611	22q11.2DS record review (Campbell 2018)		Table 2		0.11		true		0.11			Interrupted aortic arch (IAA) | 11%	true	
+0031	C004	96	NBK1249	ELN	OMIM:194050	Lipedema	HP:0100695	adults with Williams syndrome		Clinical Description		0.25		true		0.25			A lipedema phenotype of the lower extremities in seen in 25% of adults	true	
+0271	C036	261	NBK598990	GUSB	OMIM:253220	Corneal clouding	HP:0007957	all MPS VII (literature summary)		Table 2	0.5	0.625	0.75	true	0.5	0.625	0.75		Corneal clouding | 50%-75%	true	
+0111	C009	55	NBK1162	IDUA	OMIM:607014	Course facial features	HP:0000280	severe MPS I (Hurler)		Table 2		1.0		true		1.0			Coarse facial features | 100% | 10% [Severe MPS I column]	true	
+0021	C004	9	NBK1497	MECP2	OMIM:312750	Regression followed by recovery or stabilization	HP:0002376	females with variant Rett syndrome	female	Table 2		0.99		true		0.99			Variant Rett syndrome: Regression followed by recovery or stabilization 99%	true	
+0046	C005	6	NBK1470	SLC17A5	OMIM:604369	Poor weight gain	HP:0001508	FSASD, entire spectrum (Salla to ISSD; Zielonka 2019)		Table 2		0.42		true		0.42			Poor weight gain | 42%	true	
+0230	C032	8	NBK304142	CHCHD10	OMIM:615911	AGE_ONSET		CHCHD10-related ALS		Clinical Description	25	50.0	75	true	25.0	50.0	75.0		Mean age of onset is 53 years (age range 25-75 years).	true	
+0221	C029	22	NBK3794	SLC6A8	OMIM:300352	Seizures	HP:0001250	affected males (CRTR deficiency)	male	CRTR Deficiency ‒ Affected Males		0.59		true		0.59			Seizures were present in 59% of affected male individuals.	true	
+0037	C004	168	NBK1507	HRAS	OMIM:218040	Tight Achilles tendons	HP:0001771	Costello syndrome (Leoni 2021, n=17)		Clinical Description		0.6471		true		0.65		11/17	Tight Achilles tendons...were either present or previously surgically corrected in 11 of 17 individuals (65%)	true	
+0125	C010	80	NBK1366	FGFR3	OMIM:187600	Relative macrocephaly	HP:0004482	TD types 1 and 2 pooled		Table 2		1		true		1.0			Relative macrocephaly | 100%	true	
+0048	C005	32	NBK1543	PORCN	OMIM:305600	Patchy alopecia of scalp	HP:0002232	PORCN-related developmental disorders (mostly females)		Table 2		0.8		true		0.8			Patchy alopecia of scalp | 80%	true	
+0294	C037	18	NBK6803	SUCLA2	OMIM:612073	Ptosis	HP:0000508	biallelic SUCLA2 (reported individuals)		Table 2		0.2		true		0.2			Vision/ophthalmologic | Ptosis | 20%	true	
+0225	C030	24	NBK47079	EHMT1	OMIM:610253	Obesity	HP:0001513	all Kleefstra syndrome (9q34.3 deletion or EHMT1 variant)		Clinical Description		0.5		true		0.5			weight increases in childhood, leading to obesity (50%)	true	
+0032	C004	98	NBK1249	ELN	OMIM:194050	Low bone mineral density	HP:0004349	adults with Williams syndrome		Clinical Description		0.5		true		0.5			Low bone mineral density has been reported in 50% of adults with WS	true	
+0302	C037	94	NBK570205	ZBTB20	OMIM:259050	High anterior hairline	HP:0009890	Primrose syndrome (Arora 2020, Melis 2020)		Table 2		0.7812		true		0.78		25/32	High anterior hairline | 25/32 (78%)	true	
+0065	C005	139	NBK100239	CSF1R	OMIM:221820	AGE_ONSET		men with late-onset CSF1R-related disorder	male	Findings Shared by Early- and Late-Onset CSF1R-Related Disorder	47	47.0	47	true	47.0	47.0	47.0		women develop first manifestations earlier (age 40 years) than men (age 47 years)	true	
+0116	C009	107	NBK558090	ACVR1	OMIM:135100	Thumb malformations	HP:0001172	FOP (ACVR1)		Table 2		0.5		true		0.5			Thumb malformations | ~50%	true	
+0335	C038	186	NBK619577	USP7	OMIM:616863	Intellectual disability	HP:0001249	USP7-related Hao-Fountain syndrome (pooled cohorts)		Table 2		0.5		true		0.5			Intellectual disability | 50% | Most of those w/full-scale IQ >85 show specific learning disabilities.	true	
+0334	C038	185	NBK619577	USP7	OMIM:616863	Developmental delay	HP:0012758	USP7-related Hao-Fountain syndrome (pooled cohorts)		Table 2		1		true		1.0			Developmental delay | 100% |	true	
