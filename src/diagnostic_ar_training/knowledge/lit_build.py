@@ -30,7 +30,11 @@ EVIDENCE = "PCS"
 BIOCURATION = "diagnostic.ar-training:lit-extract"
 AGE_COLUMNS = ("disease_id", "age_low_years", "age_high_years", "source")
 PRESENTATION_AGE_COLUMNS = AGE_COLUMNS
-NOT_REPORTED_PATTERNS = (r"not (been )?(reported|described|documented|observed in the literature)",)
+NOT_REPORTED_PATTERNS = (
+    r"not (been )?(reported|described|documented|observed in the literature)",
+    r"\b(no|none|neither|nor)\b[^.;]*?\b(has|have|had|was|were|is|are)\s+(ever\s+)?(been\s+)?"
+    r"(reported|described|documented)\b",
+)
 GENETIC_CONFIRMATION_PATTERNS = (
     r"\b(genetic(ally)?|molecular(ly)?|DNA)\s+(diagnos\w*|test\w*|confirm\w*)",
     r"\b(diagnos\w*|test\w*|confirm\w*)"

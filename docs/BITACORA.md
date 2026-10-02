@@ -3193,3 +3193,18 @@ literature-enriched profiles come later, as candidate 6.
   described / documented / observed" but escapes the build's not-reported
   pattern; not changed here.
 - **Evidence:** `docs/analyses/LIT-CROSSCHECK-v1.md`.
+
+### 2026-10-02 — result + fix — Cross-check complete; "not reported" pattern widened
+- **Cross-check of 744 rows (PR #81):** 715 agree (96.1%; Codex 342/354, Haiku
+  373/390). Of the 29 disagreements, 26 were checker errors, 2 are genuine
+  ambiguities and 1 was our error.
+- **Estimated extraction error rate:** 1/744 = 0.13% (Wilson 95% CI
+  0.02–0.76%).
+- **Haiku:** used for the last 390 rows after the Codex limit, through a
+  minimal Claude CLI call with thinking off. Calibrated on 40 Codex-checked
+  items (35/40, agreeing on every row Codex agreed with). It is the same
+  model family as the extractor, so it is less independent.
+- **Fix:** `NOT_REPORTED_PATTERNS` now also matches "no/none … has/have
+  been reported/described/documented". One more row (C069) is no longer
+  read as an absence. "Has not been observed in affected individuals" stays
+  an explicit absence (guide v4 §6a).
