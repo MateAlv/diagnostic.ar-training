@@ -1,73 +1,79 @@
 {
- "adr": "0013 amendment 2",
+ "adr": "0013 amendments 2, 4",
  "age_onset_coverage": {
   "by_source_kind": {
-   "cohort_paper": 11,
-   "genereviews": 194
+   "cohort_paper": 75,
+   "genereviews": 362
   },
-  "diseases": 215,
-  "diseases_also_with_presentation_age": 8,
-  "diseases_only_onset": 207,
-  "rows": 205,
-  "units": 224
+  "diseases": 399,
+  "diseases_also_with_presentation_age": 18,
+  "diseases_only_onset": 381,
+  "rows": 437,
+  "units": 422
  },
  "artifact_ids": {},
  "code": {
   "dirty": false,
   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
-  "sha": "cc86be311bd8e82849f916e3aacac9c9c71643ba"
+  "sha": "1590df2aa67c848cb9d25ca12ffb52745d328e99"
  },
  "dry_run": true,
  "feature_rows_by_outcome": {
-  "ambiguous_populations": 80,
-  "hpoa_double_count": 13,
-  "percentage_not_chosen": 71,
-  "same_source_smaller_count": 10,
-  "used": 2273
+  "ambiguous_populations": 127,
+  "ambiguous_populations+percentage_not_chosen": 6,
+  "hpoa_double_count": 34,
+  "not_reported_is_not_absence": 5,
+  "percentage_not_chosen": 132,
+  "percentage_not_chosen+pooled_group_unit_specific_row": 13,
+  "pooled_group_unit_specific_row": 2,
+  "same_source_smaller_count": 103,
+  "used": 6150
  },
  "hpoa_enriched": {
-  "lit_rows": 3004,
+  "lit_rows": 7277,
   "recount_rows": 268986,
-  "rows": 271990
+  "rows": 276263
  },
  "hpoa_lit": {
   "by_notation": {
-   "count_rows": 666,
+   "count_rows": 2351,
    "count_rows_mixed_sex": 0,
-   "count_rows_pooling_several_sources": 8,
-   "not_rows": 15,
-   "not_rows_beside_lit_positive": 2,
-   "percent_choice_by_both_sexes_over_one": 5,
-   "percent_choice_by_source_then_file_order": 56,
-   "percent_choice_by_specificity": 1,
-   "percent_choice_by_stated_population": 23,
-   "percent_rows": 2323,
-   "percent_rows_beside_lit_counts": 23,
-   "terms_dropped_from_a_source_as_ambiguous": 47
+   "count_rows_pooling_several_sources": 28,
+   "not_rows": 69,
+   "not_rows_beside_lit_positive": 9,
+   "percent_choice_by_both_sexes_over_one": 6,
+   "percent_choice_by_source_order_across_sources_over_spread": 3,
+   "percent_choice_by_source_then_file_order": 91,
+   "percent_choice_by_specificity": 2,
+   "percent_choice_by_stated_population": 84,
+   "percent_rows": 4857,
+   "percent_rows_beside_lit_counts": 170,
+   "terms_dropped_from_a_source_as_ambiguous": 63
   },
-  "diseases": 456,
+  "diseases": 838,
   "diseases_not_in_hpoa_recount": 0,
   "effects": {
-   "counts_pooled_with_hpoa_counts": 129,
-   "lit_counts_override_hpoa_category": 17,
-   "lit_counts_override_hpoa_none": 79,
-   "lit_percent_overrides_hpoa_category": 49,
-   "lit_percent_overrides_hpoa_none": 409,
-   "lit_percent_shadowed_by_hpoa_counts": 337,
-   "new_term": 1941,
-   "percent_averaged_with_hpoa_percent": 5
+   "counts_pooled_with_hpoa_counts": 567,
+   "lit_counts_override_hpoa_category": 56,
+   "lit_counts_override_hpoa_none": 217,
+   "lit_counts_override_hpoa_percent": 1,
+   "lit_percent_overrides_hpoa_category": 102,
+   "lit_percent_overrides_hpoa_none": 620,
+   "lit_percent_shadowed_by_hpoa_counts": 899,
+   "new_term": 4567,
+   "percent_averaged_with_hpoa_percent": 9
   },
-  "not_pairs": 15,
+  "not_pairs": 69,
   "not_pairs_conflicting_with_hpoa_positive": 2,
-  "positive_pairs": 2966,
-  "rows_out": 3004,
-  "sources_used": 278,
+  "positive_pairs": 7038,
+  "rows_out": 7277,
+  "sources_used": 650,
   "terms": {
-   "existing": 1025,
-   "new": 1941
+   "existing": 2471,
+   "new": 4567
   },
-  "units_enriched": 475,
-  "units_in": 480
+  "units_enriched": 878,
+  "units_in": 886
  },
  "inputs": {
   "recount": {
@@ -251,6 +257,181 @@
     "rows": 41,
     "rows_sha256": "5e238a12b8118555d22ba95e2f7244bf06986b767550e1a025a560bba44c2ea5"
    },
+   "C036": {
+    "notes_sha256": "3da82e431d8d042aa722ebba0285bd7acefff6ef3cc1a398310e41872a4556a3",
+    "rows": 457,
+    "rows_sha256": "39f7e5fa8b5475169b5ae992760fc77eeed1aebb1b13cbb3ef14d58a92a05f2d"
+   },
+   "C037": {
+    "notes_sha256": "b90dd58db0b23b32992e8ca047be60a24b1a54a89f3353385b492f04e526f2e4",
+    "rows": 235,
+    "rows_sha256": "758362b18fe458b5e6081d0db55fc0a92025691a463cff7ade18d7eaefe8c29d"
+   },
+   "C038": {
+    "notes_sha256": "570d50948e565f5ee655cd4f29254eead6b9a8991c9edfd6258a93fca3abdbb8",
+    "rows": 210,
+    "rows_sha256": "650130fb4826009d8e84768fd3e294ddb3be6f4f5ae2b1e5c6fb1aa14877fc2f"
+   },
+   "C039": {
+    "notes_sha256": "2394bb3e239f075fb22bdfd5e71214bdad02770c59597b4eb038973a661d489d",
+    "rows": 170,
+    "rows_sha256": "bbea8d50baba1b9c7ab31a90480278bdde3d6b90dca9af812c72a1e9b66131ce"
+   },
+   "C040": {
+    "notes_sha256": "330e029a18a46a3786830640652f4874010eac502ec7d808ca133c676f983396",
+    "rows": 182,
+    "rows_sha256": "ba02ff2c145d19a7de7fb3270fb6e37b114bf42f584aa9a22b77a846af66810d"
+   },
+   "C041": {
+    "notes_sha256": "1340b9cb2b6af6eaa5a110db9eb63b3d09106f07b2d0183a7f2e34ae3bd80617",
+    "rows": 145,
+    "rows_sha256": "a5fc91c3c949a133ff7ef4e1e7e3219bc2fbf2e4dbd9bea9285a00b2e334e8e2"
+   },
+   "C042": {
+    "notes_sha256": "08295c876721e178e562a1e0eb6f15ac88d056bfe60ee0a63e9e66309ba7003d",
+    "rows": 143,
+    "rows_sha256": "d649e4e7f97567e26d4cc9546d49c29ffdba05dba036f5ca306bf33860ea89c2"
+   },
+   "C043": {
+    "notes_sha256": "b87307492798c96db9e1fba98e79f50e0a8a817a4ba4748af5138e20006551c1",
+    "rows": 129,
+    "rows_sha256": "8fe4cde4bd9ab63d848c41b66ca412e275ff866e52d4c2fc814d17c7ca72a7d6"
+   },
+   "C044": {
+    "notes_sha256": "ef995662a972af0d7e42abc0d105ae092de8ac4475b665c13f109eecfe5d481f",
+    "rows": 138,
+    "rows_sha256": "bc70751907b3f9ec846584258a81e5bd8b95a7ad64f1202ea1150ed0174a64ac"
+   },
+   "C045": {
+    "notes_sha256": "2d20588e273426d7597399367efbcfd9a50a38edf143ac8cc83eabae24f1924a",
+    "rows": 104,
+    "rows_sha256": "fd9fe2dab78bc2bdf931a9a3e21c7a46ed13f93eb9d3ef83a74eb8a825eebdd7"
+   },
+   "C046": {
+    "notes_sha256": "0e11d15eaaec192bab40c63253de1a2f40719c8c662f45d2507b6407e1e793e5",
+    "rows": 100,
+    "rows_sha256": "4b86bcc0cdae8a830e5c27f1ca636ad82c18b75884be6222084ec8352ead98bd"
+   },
+   "C047": {
+    "notes_sha256": "b83b16d8b7bde8ffd769597e66db5794ef538ce1deb116f81d22106e19947970",
+    "rows": 102,
+    "rows_sha256": "c107536d671994d6710b9a1ffda5a21a85d612f108a5be5fe8f8a065ffa1ccd7"
+   },
+   "C048": {
+    "notes_sha256": "a59f0b8302f2a8bc0e7c9c6b9585a3fc0f18036dd55551a900e517fe150ea66f",
+    "rows": 90,
+    "rows_sha256": "518a2e16ffcb533d4adc1db9e50cefd40b97d1a9536dd90f5353065985b5cd0a"
+   },
+   "C049": {
+    "notes_sha256": "814b1b58b1dcc0a790ce5d0a70db645437499abfb5e2101462e5be8f72fe2b12",
+    "rows": 81,
+    "rows_sha256": "43e972679f481f71699114eb66171b7083bc8ff90fa29270d32bb6240df8f468"
+   },
+   "C050": {
+    "notes_sha256": "76ab02a0cb485acacadcb860d5426fb88927efd5b6198b3314d3356531d6d9da",
+    "rows": 74,
+    "rows_sha256": "9b12cfe16174ce1a449d26c25ddf620d4943c6e543f5f1150bb8d34b12776d0c"
+   },
+   "C051": {
+    "notes_sha256": "4b7ace00f4b12013d2173e78c43fd4adf1f06fdb5116e95d889f6426fc352ece",
+    "rows": 41,
+    "rows_sha256": "d33bcb9c1269074ee40387ea37065ec26689335c55748c257ac309927e8522c2"
+   },
+   "C052": {
+    "notes_sha256": "58742dce3b8ae9f307469cad35ac66540e3e0004a81a968e3b5cd1fe0029d3a3",
+    "rows": 58,
+    "rows_sha256": "2145b3d8a82cc3cf4b48a8de08303dcd7b798ce78c241797abb9d563a77a8d31"
+   },
+   "C053": {
+    "notes_sha256": "c6af5a0ba498b68e0fb2265d31b0ce60d6eaf6136318329c5a503f631a35e8f2",
+    "rows": 54,
+    "rows_sha256": "31c371610db63561020537966783e70c2b47729f6504f77263378bdbb66f3a7d"
+   },
+   "C054": {
+    "notes_sha256": "18c53383986bec2e1f5383ba4d63f1d0fe3c8a68b982cd6976ff6efd841e83a0",
+    "rows": 42,
+    "rows_sha256": "4477c7455280e63233ac9dc1f3b7bca196af1803e68e55e242534a96e4306dda"
+   },
+   "C055": {
+    "notes_sha256": "94d7e2f182bd3c918835dc3581b6518b1094b0fc2ac73f8d05de236820b93bee",
+    "rows": 31,
+    "rows_sha256": "3e659ab1c3657446dc801e99b5e8239d2cafc867dd9a2da494ae24222722db13"
+   },
+   "C056": {
+    "notes_sha256": "752b5c8850e1e70d114d1729e292f18a64ab560591d9aaee541dd14803a3afcc",
+    "rows": 41,
+    "rows_sha256": "2e45f72e464db1c9ecd6693004e4813bd393bd717d937e04bbc76399c7eabb91"
+   },
+   "C057": {
+    "notes_sha256": "e5a6636bf6f84a966b77f9e4b08d83578c49e6d1a928ffa39fbcdc25bc642174",
+    "rows": 39,
+    "rows_sha256": "e4ae2ce123a039ce7201af34d81850d70bf301ad61165fc44f06014c8b23fec0"
+   },
+   "C058": {
+    "notes_sha256": "c2919f8814ff72a5ab8677c4624ad41d65aea3069ec003c5c740911e23220e3a",
+    "rows": 58,
+    "rows_sha256": "fd46d925a6103978d35f686fa9761370403e9019bf7da2ca2ad861e491f51f56"
+   },
+   "C059": {
+    "notes_sha256": "0f26e3422b7d0dd3e1b406ca913d6d6401a7987013bfe94ed3208563d42e0865",
+    "rows": 56,
+    "rows_sha256": "933bf617d2df8433f24b8d2eb23a37a19f278e72a696dfc6aa5c575f6fff2bc3"
+   },
+   "C060": {
+    "notes_sha256": "69086b16568ff683743ed50e9ba505b650d86d675b0935b19d2462b9e8351cce",
+    "rows": 58,
+    "rows_sha256": "13004f5416b0ef86bec955e7333ae671ca26f8d5817b7b89aaf6e96806b67a07"
+   },
+   "C061": {
+    "notes_sha256": "ae1d99153dd254fc62c863a1ded76f6aa4a876dd009ec41de9d46642068e3d10",
+    "rows": 51,
+    "rows_sha256": "5f95174320d759e6a5151d39efa704f4d741e0f7171a3692b97f0f866c8829ec"
+   },
+   "C062": {
+    "notes_sha256": "0c7b5c7327afd1990f35202f03b775a07cbe8d52f60fd4d1aa055308023bfc75",
+    "rows": 48,
+    "rows_sha256": "585e67631d38d6b6855f69d0766cac86546ded65be1a7951b0f997d8582cd77b"
+   },
+   "C063": {
+    "notes_sha256": "e8fd7d90d7e248bedf5b3bf018ff47e61207cbfbe80137e2b647d6769d1b6744",
+    "rows": 30,
+    "rows_sha256": "37577f0223b568e0ae382c6913df73108f00c1a79a79e95aec25ff654e011bb4"
+   },
+   "C064": {
+    "notes_sha256": "6a430bb85b76e13bf30453aa4251d68797405ce49e621f7ea3b8a533cefca8ec",
+    "rows": 38,
+    "rows_sha256": "82df968aa7604d464520fb81d38517610948988adb6039c4c8b1459ed0ec4521"
+   },
+   "C065": {
+    "notes_sha256": "2e848f42ea6b937480be1e8f42ddaca9442ee764a8af1eb4557d52965b70a509",
+    "rows": 32,
+    "rows_sha256": "5ad99e0f865d299c193a7983d48abf6bfc744cdd711bf15634cc91dbfe74b0fa"
+   },
+   "C066": {
+    "notes_sha256": "a552cdf8e4d332c4fc67012bc891504c830d85d8b74aed14d3f6e883008d323e",
+    "rows": 62,
+    "rows_sha256": "e4c48cd6e3b58a5f1c6072ad6d1fb71f0cdc179edc992000dc821943e7f5df37"
+   },
+   "C067": {
+    "notes_sha256": "d633baf8b6990edb2b1ae6e2156867a3064fdf1efa67e1f7aa674e485495c1fb",
+    "rows": 46,
+    "rows_sha256": "c96ea128b612c321f33ad07450a13bb973025d57825c37bd274e7b9ecbac81c3"
+   },
+   "C068": {
+    "notes_sha256": "2b3e66e5dd88ffe69427829e3d26b4b3b829aeafc1092375c2dae046779699f4",
+    "rows": 110,
+    "rows_sha256": "be48fcacecc8de3f2abf84663c6bcff4f2ad305f1ba6cf6c2ab3567e84392c3d"
+   },
+   "C069": {
+    "notes_sha256": "9ccb3cc64c8c983336fb5c65b50058552490b9e5334b5c8f39c082b99b4fd8b3",
+    "rows": 45,
+    "rows_sha256": "488d52209d48e73a94bf604c04781626b8a50de09e6c2922099a282c7687f49d"
+   },
+   "C070": {
+    "notes_sha256": "e4735fc47d2922b1ebb8d100e59e102f8c24d1ffe6cdac1920f724f3c99b877b",
+    "rows": 57,
+    "rows_sha256": "217d8e7c0df58fb0297614c34faf9861a95f56f75e2ab8879b020681cbebc660"
+   },
    "P001": {
     "notes_sha256": "f89373ac72224f33131215e4a856072959c5ec415b99a8e9281df9f51715b521",
     "rows": 12,
@@ -260,6 +441,91 @@
     "notes_sha256": "4cfbd4b089641a320a986c876a3ad90b5015d2a93f9a3a7fe37d8b319095c32d",
     "rows": 140,
     "rows_sha256": "2b9607f4f305f4b55a6927b82d4dbfea4639fcb4457ee3590a753f8a1011f067"
+   },
+   "Q002": {
+    "notes_sha256": "f9c8e23b1c20657ee0d59cba9dbcab89db243557c3e4035ff197d0edc6f716f6",
+    "rows": 36,
+    "rows_sha256": "075e75e1e45c1c085e1c0085dd00365fe88eab9e466b4b86961a89d717aa1349"
+   },
+   "Q003": {
+    "notes_sha256": "23f1be21b4ab895858b76c0363f0f16eb6f761252abeb7b8df26354d3c6c39fd",
+    "rows": 12,
+    "rows_sha256": "1c1bc7586a6833dfb488edd3341bd250d48841adf8ec498a9ec4137cea0d29db"
+   },
+   "Q004": {
+    "notes_sha256": "ff76e77364ee1f179df904c00369e4120a83616bb5d4b15a97b6779f89784688",
+    "rows": 41,
+    "rows_sha256": "dd9cd3c8085cd2c915134e703b2b3ca2dc7e363ed91053b20974db70b02ebdf4"
+   },
+   "Q005": {
+    "notes_sha256": "8f43005fb2c074c0f3bbca0868697f73ae6d1d1f9f25a606ce41822348c41fe4",
+    "rows": 124,
+    "rows_sha256": "7ee6a6edb87754e31f843aa932129edaea2901f572453be2770ab829e90a8f44"
+   },
+   "Q006": {
+    "notes_sha256": "275d85b225189748932aa5a7d4869bbe4471e84b32cd3adf2cc9685620868d68",
+    "rows": 89,
+    "rows_sha256": "cadee9c7207b18de32bc03df4263c6c19847da951e7b24553f02b4ab2d85f29a"
+   },
+   "Q007": {
+    "notes_sha256": "e5351add05cef150a6e27d3ee499521517092a2f7beddc6f6ac18181c5bade79",
+    "rows": 97,
+    "rows_sha256": "f3d08dcd843bc923805c841609df59cfc918d8ee9f3f01120a7ef6457edd1f2b"
+   },
+   "Q008": {
+    "notes_sha256": "4e8ce9aa2f50efa976e816089cbe35cdb58696bc3b6788ec6d3c3629620ed0f6",
+    "rows": 75,
+    "rows_sha256": "0ce7f359f2b26ea59bd2007df93f225da4d1577818ce3350520948422b567155"
+   },
+   "Q009": {
+    "notes_sha256": "bcb86bae3d4c8a0e2014eb64b859033a73724bed8af76c2b1d93382390a95428",
+    "rows": 74,
+    "rows_sha256": "7ead54672ed1ab29d98a97ecad59192b06b92cac83e9ea72bbbd0aee1d58ecec"
+   },
+   "Q010": {
+    "notes_sha256": "9233447e0d559fe3cbf9b0a5dada8827cb6fe3f13ac76e483b2d209aee68fe5d",
+    "rows": 26,
+    "rows_sha256": "08868d53f391604c30455f3b6d90f146abcf264eb9d3c01b1c365d3e04733f2d"
+   },
+   "Q011": {
+    "notes_sha256": "8335a856f5b5a86da80db6650af989e1855fcbf03ecd41595864a10b19680e43",
+    "rows": 41,
+    "rows_sha256": "290845e7a97ab41962fe39a2a2fe929359bcd0df3df1c58689811c30a5df413d"
+   },
+   "Q012": {
+    "notes_sha256": "ef7354a5cf127144e3c02c23df681208c37bab390e7641ff6df7bf1feae5f2c7",
+    "rows": 71,
+    "rows_sha256": "47d440c804e03c7543085aaec60a5d3d761d08c15c4d0428580b2d61a7ed8040"
+   },
+   "Q013": {
+    "notes_sha256": "fab90a32034d4864297a1344de128a85e31aa89bf168993128a3043c825436be",
+    "rows": 84,
+    "rows_sha256": "5a5a68a32c67d08024096211c22b9b70ad3a342cc50fff6f8996c16ac0c7582f"
+   },
+   "Q014": {
+    "notes_sha256": "509b6937be0cf7d9d7d27fe8520049b51f7c5c45e5e90bb75d89df2eb257666a",
+    "rows": 80,
+    "rows_sha256": "97ed2fafd31d127dc404470f9c57425f13f9cabce655e090035e52e1fea1a7f7"
+   },
+   "Q015": {
+    "notes_sha256": "72520423ac0a0afa9f354fcda11158302d63df08e7b7b1e92309c99721c9b08a",
+    "rows": 61,
+    "rows_sha256": "5892a20f3531440f58a8ab256d8090f9cbb59d76b05bf9e0d9d98c72e8807ece"
+   },
+   "Q016": {
+    "notes_sha256": "2f75c07065d560eedbc5e73c1d70ebc2ac3f2dd37515839a9138a3595145fee6",
+    "rows": 50,
+    "rows_sha256": "adafe3da4f6dd1f122bef6b209ff99f9d8b2f9304cb19af9b6b9e42691cdbfe9"
+   },
+   "Q017": {
+    "notes_sha256": "fa11dd19d7b44454c34fa3b3717d9838a9235f622d1aa7d8268133e92e06de8a",
+    "rows": 27,
+    "rows_sha256": "d5669a5280c3cab89a02f6fe74bb9d04099acaba33c0311ad8e316e442861248"
+   },
+   "Q018": {
+    "notes_sha256": "d59a58881ad7a082282b85290935ec13484224c749334b8b685fef7054e05b4e",
+    "rows": 67,
+    "rows_sha256": "7def793045d4896d88da312f391e681c803703df715ec901bf894837e4d43d24"
    },
    "Q019": {
     "notes_sha256": "c8bd1f106007f096544a42afa2d8f40ae54360a9717d6f9040f5d9ecfb05cd7d",
@@ -304,66 +570,93 @@
   },
   "shards_refused": {}
  },
+ "onset_ages": {
+  "by_row_specificity": {
+   "pooled": 17,
+   "pooled_group": 77,
+   "unit": 278
+  },
+  "by_source_kind": {
+   "cohort_paper": 44,
+   "genereviews": 328
+  },
+  "diseases": 372,
+  "placements_by_outcome": {
+   "not_chosen": 84,
+   "open_upper_bound": 40,
+   "pooled_group_unit_specific_row": 1,
+   "used": 372
+  },
+  "rows_in": 437,
+  "single_values_widened": 96
+ },
  "outputs": {
   "hpoa-enriched": {
-   "bytes": 33527809,
+   "bytes": 34060724,
    "file": "phenotype.hpoa",
-   "sha256": "57fb1b790a255f058f86413982de2aeb8e3387c01a0bd7db33e79e655f8427e8"
+   "sha256": "0e7e73b148ba3b710cbba381b5a1449621aebe0414cadcc4bb889b2667cc90b7"
   },
   "hpoa-lit": {
-   "bytes": 362983,
+   "bytes": 895898,
    "file": "hpoa-lit.hpoa",
-   "sha256": "08e41b736f606cb3f1710c2e429baba62d59459146cac25141e5e10433db9deb"
+   "sha256": "c84e5353cebeca14962c64fb0f89f403b8918090ba26dd6e371380cfec387dd9"
+  },
+  "onset-ages": {
+   "bytes": 10127,
+   "file": "onset-ages.tsv",
+   "sha256": "e9de2163fbb815876f3bfaf12e9d879b7713a1ec3a59a8662ffd905a5a90b94e"
   },
   "presentation-ages": {
-   "bytes": 1249,
+   "bytes": 2374,
    "file": "presentation-ages.tsv",
-   "sha256": "8d87e12e62c3ab45f810d96366382c3206c73d9352d0c50043456992f717e54a"
+   "sha256": "f628687c4aad1022807bd8b2694fc4226a59c951211dd6d7168bf65a7763b9e5"
   }
  },
  "placements": {
   "by_kind": {
-   "count": 687,
-   "not": 16,
-   "percent": 2544
+   "count": 2498,
+   "not": 77,
+   "percent": 5277
   },
   "by_outcome": {
-   "ambiguous_populations": 102,
-   "hpoa_double_count": 13,
-   "percentage_not_chosen": 100,
-   "pooled_group_unit_specific_row": 10,
-   "same_source_smaller_count": 10,
-   "used": 3012
+   "ambiguous_populations": 143,
+   "hpoa_double_count": 34,
+   "not_reported_is_not_absence": 5,
+   "percentage_not_chosen": 222,
+   "pooled_group_unit_specific_row": 40,
+   "same_source_smaller_count": 103,
+   "used": 7305
   },
-  "pooled_group_placements": 1161,
-  "pooled_group_rows": 361,
-  "total": 3247
+  "pooled_group_placements": 1982,
+  "pooled_group_rows": 702,
+  "total": 7852
  },
  "presentation_ages": {
   "by_row_specificity": {
-   "pooled": 2,
-   "pooled_group": 15,
-   "unit": 23
+   "pooled": 9,
+   "pooled_group": 19,
+   "unit": 51
   },
   "by_source_kind": {
-   "cohort_paper": 12,
-   "genereviews": 28
+   "cohort_paper": 20,
+   "genereviews": 59
   },
-  "diseases": 40,
+  "diseases": 79,
   "placements_by_outcome": {
-   "not_chosen": 7,
-   "open_upper_bound": 6,
-   "used": 40
+   "age_at_genetic_confirmation": 11,
+   "not_chosen": 13,
+   "open_upper_bound": 9,
+   "used": 79
   },
-  "rows_in": 36,
-  "single_values_widened": 18
+  "rows_in": 91,
+  "single_values_widened": 34
  },
  "residual_dependency": "GeneReviews chapters synthesise literature HPOA may also cite; patient-level overlap is not detectable (rule 5)",
  "rows_dropped_failed_validation": 0,
  "rows_in": {
-  "age_onset": 205,
-  "age_presentation": 36,
-  "feature": 2447,
-  "total": 2688
+  "age_onset": 437,
+  "age_presentation": 91,
+  "feature": 6572,
+  "total": 7100
  }
 }
