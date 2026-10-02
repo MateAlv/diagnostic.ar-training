@@ -624,7 +624,7 @@ def crosscheck_score(name: str = typer.Option(...)) -> None:
 
 BUILD_DIR = DATA_DIR / "lit-build"
 GR_TITLES = "GRtitle_shortname_NBKid.txt"
-BUILD_KINDS = ("hpoa-lit", "hpoa-enriched", "presentation-ages")
+BUILD_KINDS = ("hpoa-lit", "hpoa-enriched", "presentation-ages", "onset-ages")
 
 
 def _chapter_index() -> dict[str, tuple[str, str]]:
@@ -681,12 +681,13 @@ def _build_shards() -> tuple[list[dict], dict, dict]:
 def _build_paths(dry_run: bool, out_dir: Path | None, ids: dict[str, str]) -> dict[str, Path]:
     if dry_run:
         names = {"hpoa-lit": "hpoa-lit.hpoa", "hpoa-enriched": "phenotype.hpoa"}
-        return {k: out_dir / names.get(k, "presentation-ages.tsv") for k in BUILD_KINDS}
+        return {k: out_dir / names.get(k, f"{k}.tsv") for k in BUILD_KINDS}
     base = INTERIM_DIR / "lit-build"
     return {
         "hpoa-lit": base / ids["hpoa-lit"] / "phenotype.hpoa",
         "hpoa-enriched": base / ids["hpoa-enriched"] / "phenotype.hpoa",
         "presentation-ages": base / ids["presentation-ages"] / "presentation-ages.tsv",
+        "onset-ages": base / ids["onset-ages"] / "onset-ages.tsv",
     }
 
 
@@ -722,6 +723,7 @@ def _build_manifests(
             [paths["hpoa-enriched"]],
         ),
         "presentation-ages": (shard_inputs, [paths["presentation-ages"]]),
+        "onset-ages": (shard_inputs, [paths["onset-ages"]]),
     }
     for kind, (inputs, outputs) in plan.items():
         manifest = build_manifest(ids[kind], kind, inputs, params, outputs, state=state)
@@ -732,18 +734,20 @@ def _build_manifests(
 
 @extract_app.command("build")
 def build(
-    version: int = typer.Option(0, help="N of hpoa-lit-vN, hpoa-enriched-vN, presentation-ages-vN"),
+    version: int = typer.Option(
+        0, help="N of hpoa-lit-vN, hpoa-enriched-vN, presentation-ages-vN, onset-ages-vN"
+    ),
     recount_id: str = typer.Option(
         "hpoa-recount-v1", "--recount", help="hpoa-recount artifact the layer joins"
     ),
     dry_run: bool = typer.Option(False, help="Files and report only: no artifact ids, no manifests"),
-    out_dir: Path = typer.Option(None, help="With --dry-run: directory for the three files"),
+    out_dir: Path = typer.Option(None, help="With --dry-run: directory for the four files"),
     report_path: Path = typer.Option(
         None, "--report", help="Report JSON (default data/lit-build/<id>.report.json)"
     ),
-    publish: bool = typer.Option(False, help="Upload the three artifacts as releases (ADR-0005)"),
+    publish: bool = typer.Option(False, help="Upload the four artifacts as releases (ADR-0005)"),
 ) -> None:
-    """hpoa-lit, hpoa-enriched and presentation-ages from every validated shard (ADR-0013 amendment 2)."""
+    """hpoa-lit, hpoa-enriched, presentation- and onset-ages from validated shards (ADR-0013 am. 2, 4)."""
     from diagnostic_ar_training.cli_lit import _verified
     from diagnostic_ar_training.knowledge import lit_build as lb
     from diagnostic_ar_training.knowledge import recount
@@ -796,9 +800,10 @@ def build(
     paths["presentation-ages"].write_text(
         "".join(lb.presentation_lines(result["presentation_ages"])), encoding="utf-8"
     )
+    paths["onset-ages"].write_text("".join(lb.onset_lines(result["onset_ages"])), encoding="utf-8")
 
     report = {
-        "adr": "0013 amendment 2",
+        "adr": "0013 amendments 2, 4",
         "dry_run": dry_run,
         "artifact_ids": {} if dry_run else ids,
         "code": state.as_dict(),
@@ -832,6 +837,7 @@ def build(
         "rows_in": result["report"]["rows_in"],
         "hpoa_lit_rows": len(result["lit_rows"]),
         "presentation_age_diseases": len(result["presentation_ages"]),
+        "onset_age_diseases": len(result["onset_ages"]),
     }
     typer.echo(json.dumps(summary, indent=1))
     typer.echo(f"report: {report_path}")
