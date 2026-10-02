@@ -10,6 +10,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from functools import lru_cache
@@ -23,6 +24,8 @@ from diagnostic_ar_training.lineage.registry import LineageError
 extract_app = typer.Typer(no_args_is_help=True, help="Literature extraction shards (ADR-0013).")
 crosscheck_app = typer.Typer(no_args_is_help=True, help="Blind Codex re-extraction of a seeded sample.")
 extract_app.add_typer(crosscheck_app, name="crosscheck")
+audit_app = typer.Typer(no_args_is_help=True, help="Codex audit of a seeded sample of sources.")
+extract_app.add_typer(audit_app, name="audit")
 
 SOURCES_ID = "lit-sources-v1"
 PAPERS_V2_ID = "lit-papers-v2"
@@ -32,12 +35,14 @@ ROWS_DIR = EXTRACT_DIR / "rows"
 NOTES_DIR = EXTRACT_DIR / "notes"
 REPORTS_DIR = EXTRACT_DIR / "reports"
 CROSSCHECK_DIR = EXTRACT_DIR / "crosscheck"
+AUDIT_DIR = EXTRACT_DIR / "audit"
 TEXT_DIR = INTERIM_DIR / "lit-text"
 WORK_DIR = INTERIM_DIR / "lit-extract"
 EPMC_REST = "https://www.ebi.ac.uk/europepmc/webservices/rest"
 CODEX = (
     "codex exec --skip-git-repo-check --ephemeral -s read-only --output-schema {schema} -o {answer} {prompt}"
 )
+AUDIT_CODEX = CODEX.replace("-s read-only", "-s read-only -c 'model_reasoning_effort=\"medium\"'")
 ITEM_COLUMNS = (
     "item", "shard", "row", "source_id", "gene", "disease_id", "disease_name", "feature_label", "hpo_id",
     "population", "sex_restriction", "citation", "section", "passage_chars",
@@ -618,6 +623,218 @@ def crosscheck_score(name: str = typer.Option(...)) -> None:
     }
     (CROSSCHECK_DIR / f"{name}.summary.json").write_text(json.dumps(summary, indent=1) + "\n")
     typer.echo(json.dumps(summary, indent=1))
+
+
+# --- Audit ----------------------------------------------------------------------
+
+
+def _audit_dir(name: str) -> Path:
+    return WORK_DIR / "audit" / name
+
+
+def _audit_sources() -> dict[str, list[dict]]:
+    """Shard -> its shard-file rows (one per source, in position order) for every validated shard."""
+    out: dict[str, list[dict]] = {}
+    for path in (SHARDS_PATH, _shards_path("papers-v2")):
+        for row in _read_tsv(path):
+            out.setdefault(row["shard"], []).append(row)
+    passing = {}
+    for shard, rows in out.items():
+        report = REPORTS_DIR / f"{shard}.json"
+        if report.is_file() and json.loads(report.read_text())["status"] == "pass":
+            passing[shard] = sorted(rows, key=lambda r: int(r["position"]))
+    return passing
+
+
+def _source_rows(shard: str, source_id: str) -> list[tuple[int, dict]]:
+    """(line of the shard rows file, row) for every row of the source."""
+    rows = _read_tsv(ROWS_DIR / f"{shard}.tsv")
+    return [(i + 2, r) for i, r in enumerate(rows) if r["source_id"] == source_id]
+
+
+@audit_app.command("prepare")
+def audit_prepare(
+    name: str = typer.Option(..., help="Run name, e.g. lit-extract-v1"),
+    fraction: float = typer.Option(0.05),
+    seed: int = typer.Option(20261002),
+) -> None:
+    """Write the audit inputs for a seeded sample of sources; the list is frozen."""
+    from diagnostic_ar_training.knowledge import lit_audit as la
+    from diagnostic_ar_training.knowledge import lit_extract as le
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+
+    shard_sources = _audit_sources()
+    notes = {
+        shard: {n["source_id"]: n for n in _read_tsv(NOTES_DIR / f"{shard}.tsv")} for shard in shard_sources
+    }
+    frozen = AUDIT_DIR / f"{name}.items.tsv"
+    if frozen.is_file():
+        picks = [(r["item"], r["shard"], r["source_id"]) for r in _read_tsv(frozen)]
+    else:
+        usable = {
+            shard: [
+                r["source_id"]
+                for r in rows
+                if notes[shard].get(r["source_id"], {}).get("outcome") != "no_text"
+            ]
+            for shard, rows in shard_sources.items()
+        }
+        drawn = la.sample(usable, fraction, seed)
+        picks = [(f"{n:04d}", shard, source) for n, (shard, source) in enumerate(drawn, start=1)]
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    names = _disease_names()
+    base = _audit_dir(name)
+    (base / "items").mkdir(parents=True, exist_ok=True)
+    (base / "schema.json").write_text(la.schema_json() + "\n")
+    items = []
+    for item, shard, source in picks:
+        shard_row = next(r for r in shard_sources[shard] if r["source_id"] == source)
+        text = _ensure_texts([shard_row])[source].text
+        rows = _source_rows(shard, source)
+        note = notes[shard].get(source, {})
+        cut = la.cut_source(text, [r["section"] for _, r in rows])
+        units = la.units_text(
+            sorted(le.parse_units(shard_row["units"])), names, note.get("outcome", ""), note.get("note", "")
+        )
+        folder = base / "items" / item
+        folder.mkdir(exist_ok=True)
+        (folder / "prompt.txt").write_text(la.PROMPT + "\n", encoding="utf-8")
+        (folder / "source.txt").write_text(cut, encoding="utf-8")
+        (folder / "units.txt").write_text(units, encoding="utf-8")
+        (folder / "rows.tsv").write_text(la.rows_table(rows, ontology.labels), encoding="utf-8")
+        items.append(
+            {
+                "item": item,
+                "shard": shard,
+                "source_id": source,
+                "source_kind": shard_row["source_kind"],
+                "outcome": note.get("outcome", ""),
+                "rows": len(rows),
+                "source_chars": len(cut),
+            }
+        )
+    _write_tsv(items, la.ITEM_COLUMNS, frozen)
+    per_shard = Counter(i["shard"] for i in items)
+    typer.echo(
+        f"{len(items)} sources of {sum(len(v) for v in shard_sources.values())} in {len(per_shard)} shards "
+        f"-> {base.relative_to(REPO_ROOT)}; frozen list {frozen.relative_to(REPO_ROOT)}"
+    )
+
+
+@audit_app.command("run")
+def audit_run(
+    name: str = typer.Option(...),
+    limit: int = typer.Option(0, help="At most this many pending items (0 = all); Codex has usage limits"),
+    workers: int = typer.Option(2),
+    command: str = typer.Option(
+        AUDIT_CODEX, help="Auditor; {schema}, {answer}, {prompt} are filled in; the item's files go on stdin"
+    ),
+) -> None:
+    """Ask Codex each pending item (source, units and rows on stdin); resumable, one answer.json per item."""
+    from diagnostic_ar_training.knowledge import lit_audit as la
+
+    base = _audit_dir(name)
+    items = sorted(p for p in (base / "items").iterdir() if p.is_dir())
+    pending = [p for p in items if not (p / "answer.json").is_file()]
+    if limit:
+        pending = pending[:limit]
+    typer.echo(f"{len(items)} items, {len(pending)} to ask")
+
+    def ask(folder: Path) -> tuple[str, int, float]:
+        start = time.time()
+        fill = {
+            "{schema}": str(base / "schema.json"),
+            "{answer}": str(folder / "answer.json"),
+            "{prompt}": (folder / "prompt.txt").read_text(encoding="utf-8"),
+        }
+        args = [fill.get(a, a) for a in shlex.split(command)]
+        parts = [(folder / f).read_text(encoding="utf-8") for f in ("source.txt", "units.txt", "rows.tsv")]
+        proc = subprocess.run(
+            args,
+            input=la.stdin_text(*parts),
+            capture_output=True,
+            text=True,
+            timeout=1500,
+            check=False,
+            cwd=folder,
+        )
+        (folder / "codex.log").write_text(
+            f"exit {proc.returncode}\n--- stdout\n{proc.stdout}\n--- stderr\n{proc.stderr}"
+        )
+        if proc.returncode != 0:
+            (folder / "answer.json").unlink(missing_ok=True)
+        return folder.name, proc.returncode, time.time() - start
+
+    failures = 0
+    with ThreadPoolExecutor(workers) as pool:
+        for item, code, secs in pool.map(ask, pending):
+            failures += code != 0
+            typer.echo(f"item {item}: exit {code} ({secs:.0f}s)")
+    if failures:
+        typer.echo(f"{failures} items failed (see codex.log); re-run to retry", err=True)
+        raise typer.Exit(1)
+
+
+@audit_app.command("score")
+def audit_score(name: str = typer.Option(...)) -> None:
+    """Parse the answers; summarise issues per shard and list every flagged issue for human review."""
+    from diagnostic_ar_training.knowledge import lit_audit as la
+
+    base = _audit_dir(name)
+    items = _read_tsv(AUDIT_DIR / f"{name}.items.tsv")
+    issues_path = AUDIT_DIR / f"{name}.issues.tsv"
+    resolutions = (
+        {
+            (r["item"], r["kind"], r["row"], r["feature"], r["detail"]): r["resolution"]
+            for r in _read_tsv(issues_path)
+        }
+        if issues_path.is_file()
+        else {}
+    )
+    results, flagged, missing, unparseable, row_counts = [], [], [], [], {}
+    for it in items:
+        rows = dict(_source_rows(it["shard"], it["source_id"]))
+        if len(rows) != int(it["rows"]):
+            raise LineageError(
+                f"item {it['item']}: {it['shard']} {it['source_id']} rows changed since prepare"
+            )
+        row_counts[it["item"]] = len(rows)
+        answer = base / "items" / it["item"] / "answer.json"
+        if not answer.is_file():
+            missing.append(it["item"])
+            continue
+        try:
+            parsed = la.parse_answer(json.loads(answer.read_text()))
+        except (json.JSONDecodeError, ValueError):
+            unparseable.append(it["item"])
+            continue
+        found = la.issues(it, parsed, rows)
+        for issue in found:
+            for c in ("detail", "quote"):
+                issue[c] = issue[c].replace("\t", " ").replace("\n", " ")
+            key = (
+                it["item"],
+                issue["kind"],
+                str(issue.get("row", "")),
+                issue.get("feature", ""),
+                issue["detail"],
+            )
+            issue["resolution"] = resolutions.get(key, "")
+        results.append({"item": it["item"], "answer": parsed, "issues": found})
+        flagged += found
+    _write_tsv(flagged, la.ISSUE_COLUMNS, issues_path)
+    summary = {
+        "items": len(items),
+        "answered": len(results),
+        "missing": missing,
+        "unparseable": unparseable,
+        **la.summarise(results, items, row_counts),
+        "issues_unresolved": sum(not i["resolution"] for i in flagged),
+    }
+    (AUDIT_DIR / f"{name}.summary.json").write_text(json.dumps(summary, indent=1) + "\n")
+    typer.echo(json.dumps(summary["total"], indent=1))
+    typer.echo(f"{len(flagged)} issues -> {issues_path.relative_to(REPO_ROOT)}")
 
 
 # --- Build ----------------------------------------------------------------------

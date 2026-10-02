@@ -3120,3 +3120,44 @@ literature-enriched profiles come later, as candidate 6.
     limitations.
 - **Cross-check:** interrupted by a PC freeze after 113 answers (112 agree);
   resumed.
+
+### 2026-10-02 — build + tooling — `onset-ages`, two build rulings, and the audit tool (ADR-0013 amendment 4)
+- **Branch** `phase3/lit-build-onset-audit`. No artifact registered, no R1 read.
+- **`dxt lit build`** now has a fourth output, `onset-ages-vN` (header
+  `disease_id`, `age_low_years`, `age_high_years`, `source`), selected
+  exactly like presentation ages. It is in the report (`onset_ages`) and the
+  manifests; `--dry-run` writes `onset-ages.tsv` to `--out-dir`.
+- **Rulings in the build:**
+  - a prevalence-0 row whose quote matches `not (been )?(reported|described|documented|observed in the literature)`
+    (case-insensitive; `NOT_REPORTED_PATTERNS`) is dropped with
+    `not_reported_is_not_absence`;
+  - an `AGE_PRESENTATION` row whose `population`, `age_note` or quote
+    mentions genetic, molecular or DNA diagnosis, testing or confirmation
+    (`GENETIC_CONFIRMATION_PATTERNS`) is dropped with
+    `age_at_genetic_confirmation`.
+- **Dry run** (`results/analyses/LIT-INTEGRATION-dryrun.json`, 97 shards, 7,100
+  rows, clean commit `1590df2`):
+  - onset ages for 372 diseases (437 `AGE_ONSET` rows; placements: 372 used, 84 not
+    chosen, 40 open upper bound, 1 pooled-group skip);
+  - presentation ages for 79 diseases (91 rows; placements: 79 used, 13 not chosen, 9
+    open upper bound, 11 placements dropped as `age_at_genetic_confirmation`);
+  - 5 rows dropped as `not_reported_is_not_absence`; NOT rows 69.
+- **Audit tool** (`dxt lit audit prepare|run|score`, ADR-0013 amendment 4
+  §3.2), Codex runs later, not run here.
+  - `prepare` draws a seeded 5% of sources per shard, at least one per shard
+    and at least two from C036. The floor dominates: 97 shards give 98
+    sources of 1,012 (9.7%). Every source of a validated shard is eligible,
+    including `no_numbers` and `not_cohort` ones, since a wrong skip is a
+    missed fact.
+  - Each item has `prompt.txt` (the guide's skip rules), `source.txt` (cited
+    sections plus tables, about 12k characters), `units.txt` (allowed units
+    with disease names, plus our extraction outcome and note) and `rows.tsv`
+    (rows cited by shard-file line number). Answers follow a JSON schema:
+    `ok`, `wrong_unit`, `missed`, `bad_row`.
+  - `run` is resumable (an item with an `answer.json` is skipped) and uses
+    the crosscheck Codex template with `model_reasoning_effort="medium"`.
+  - `score` writes `data/lit-extract/audit/<run>.summary.json` (per shard:
+    sources with any issue, wrong-unit rows, missed facts, bad rows) and an
+    issues TSV with a `resolution` column kept across re-scores.
+  - Frozen sample: `data/lit-extract/audit/lit-extract-v1.items.tsv`
+    (seed 20261002, fraction 0.05).
