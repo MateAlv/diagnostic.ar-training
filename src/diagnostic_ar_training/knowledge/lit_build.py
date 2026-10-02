@@ -1,7 +1,8 @@
 """hpoa-lit, hpoa-enriched and presentation-ages from lit-extract rows (ADR-0013 amendment 2).
 
 Feature rows become HPOA phenotype rows (aspect P) on their unit's disease:
-- rule 1: counts -> `n/m`; prevalence only -> `X%`; prevalence 0 without counts -> NOT;
+- rule 1: counts -> `n/m`; prevalence only -> `X%`; prevalence 0 without counts -> NOT, unless the
+  quote only says the feature was "not reported" (amendment 4: not an explicit absence);
 - rule 2: a `pooled_group` row -> a percentage (NOT for 0) on every listed disease, except a
   disease that has a non-`pooled_group` row from the same source for the same term;
 - rule 3: a `pooled` row stays on its own disease;
@@ -13,7 +14,8 @@ Feature rows become HPOA phenotype rows (aspect P) on their unit's disease:
   When n cannot decide between a source's rows (equal denominators, or no stated n) and their
   prevalences differ by more than 0.20, the term is dropped from that source (`ambiguous_populations`).
 
-AGE_PRESENTATION rows become one age range per disease (rule 7). Everything here is a pure
+AGE_PRESENTATION rows become one age range per disease (rule 7), and AGE_ONSET rows one onset range
+per disease by the same selection (amendment 4). Everything here is a pure
 function of its inputs; file access lives in `dxt lit build`.
 """
 
@@ -21,12 +23,22 @@ import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 
-from diagnostic_ar_training.knowledge.lit_extract import AGE_FEATURES, PRESENTATION_COLUMNS
+from diagnostic_ar_training.knowledge.lit_extract import AGE_FEATURES, ONSET_COLUMNS, PRESENTATION_COLUMNS
 from diagnostic_ar_training.knowledge.recount import COLUMNS as HPOA_COLUMNS
 
 EVIDENCE = "PCS"
 BIOCURATION = "diagnostic.ar-training:lit-extract"
-PRESENTATION_AGE_COLUMNS = ("disease_id", "age_low_years", "age_high_years", "source")
+AGE_COLUMNS = ("disease_id", "age_low_years", "age_high_years", "source")
+PRESENTATION_AGE_COLUMNS = AGE_COLUMNS
+NOT_REPORTED_PATTERNS = (r"not (been )?(reported|described|documented|observed in the literature)",)
+GENETIC_CONFIRMATION_PATTERNS = (
+    r"\b(genetic(ally)?|molecular(ly)?|DNA)\s+(diagnos\w*|test\w*|confirm\w*)",
+    r"\b(diagnos\w*|test\w*|confirm\w*)"
+    r"(\s+(was|were|is|are|by|via|through|with|using|based on)){0,2}"
+    r"\s+(genetic(ally)?|molecular(ly)?|DNA)\b",
+)
+_NOT_REPORTED = re.compile("|".join(NOT_REPORTED_PATTERNS), re.IGNORECASE)
+_GENETIC_CONFIRMATION = re.compile("|".join(GENETIC_CONFIRMATION_PATTERNS), re.IGNORECASE)
 SIM_DISEASE_ID = re.compile(r"^(OMIM|ORPHA|DECIPHER):\d+$")
 WIDEN_FRACTION = 0.10
 WIDEN_MIN_YEARS = 1.0
@@ -39,6 +51,8 @@ DROP_HPOA = "hpoa_double_count"
 DROP_SAME_SOURCE_COUNT = "same_source_smaller_count"
 DROP_PERCENT = "percentage_not_chosen"
 DROP_AMBIGUOUS = "ambiguous_populations"
+DROP_NOT_REPORTED = "not_reported_is_not_absence"
+AGE_GENETIC = "age_at_genetic_confirmation"
 AMBIGUITY_SPREAD = 0.20
 AGE_OPEN_UPPER = "open_upper_bound"
 AGE_BAD_ID = "disease_id_not_simulator_format"
@@ -202,7 +216,9 @@ def place(rows: list[dict]) -> list[Placement]:
                 specificity=spec,
                 disease_name=r["disease_name"] if disease == r["disease_id"].strip() else "",
             )
-            if spec == "pooled_group" and (r["source_id"], disease, term) in specific:
+            if kind == "not" and _NOT_REPORTED.search(r["evidence_quote"]):
+                pl.outcome = DROP_NOT_REPORTED
+            elif spec == "pooled_group" and (r["source_id"], disease, term) in specific:
                 pl.outcome = DROP_GROUP_SKIP
             out.append(pl)
     return out
@@ -409,24 +425,36 @@ def widen(low: float, high: float) -> tuple[float, float, bool]:
     return max(0.0, low - pad), low + pad, True
 
 
-def presentation_ages(rows: list[dict]) -> tuple[list[dict], dict]:
-    """Rule 7: one range per disease from AGE_PRESENTATION rows: GeneReviews first, then the largest
-    stated population (non-sex-restricted, then source and row order on ties).
+def _genetic_confirmation(row: dict) -> bool:
+    return any(_GENETIC_CONFIRMATION.search(row[c]) for c in ("population", "age_note", "evidence_quote"))
+
+
+def age_ranges(
+    rows: list[dict], feature: str, columns: tuple[str, str], exclude=None
+) -> tuple[list[dict], dict]:
+    """One range per disease from `feature` rows: GeneReviews first, then the largest stated
+    population (non-sex-restricted, then source and row order on ties).
 
     A missing low end (before X, or a range starting prenatally) is 0. A missing high end leaves
     no range and the row is not used. A `pooled_group` row applies to every listed disease that
-    has no other AGE_PRESENTATION row from the same source (as rule 2).
+    has no other row of this feature from the same source (as rule 2). `exclude` names rows that
+    never count, with the reason.
     """
-    ages = [(i, r) for i, r in enumerate(rows) if r["feature_label"] == "AGE_PRESENTATION"]
+    ages = [(i, r) for i, r in enumerate(rows) if r["feature_label"] == feature]
+    excluded = {i: reason for i, r in ages if exclude and (reason := exclude(r))}
     specific = {
-        (r["source_id"], r["disease_id"].strip()) for _, r in ages if _specificity(r) != "pooled_group"
+        (r["source_id"], r["disease_id"].strip())
+        for i, r in ages
+        if _specificity(r) != "pooled_group" and i not in excluded
     }
     outcomes: Counter = Counter()
     candidates: dict[str, list[tuple]] = defaultdict(list)
     for i, r in ages:
-        low, high = (_float(r[c]) for c in PRESENTATION_COLUMNS)
+        low, high = (_float(r[c]) for c in columns)
         for disease in _diseases(r):
-            if _specificity(r) == "pooled_group" and (r["source_id"], disease) in specific:
+            if i in excluded:
+                outcomes[excluded[i]] += 1
+            elif _specificity(r) == "pooled_group" and (r["source_id"], disease) in specific:
                 outcomes[AGE_GROUP_SKIP] += 1
             elif high is None:
                 outcomes[AGE_OPEN_UPPER] += 1
@@ -473,8 +501,23 @@ def presentation_ages(rows: list[dict]) -> tuple[list[dict], dict]:
     return out, stats
 
 
+def presentation_ages(rows: list[dict]) -> tuple[list[dict], dict]:
+    """Rule 7, minus rows that measure age at genetic or molecular diagnosis or confirmation."""
+    return age_ranges(
+        rows,
+        "AGE_PRESENTATION",
+        PRESENTATION_COLUMNS,
+        lambda r: AGE_GENETIC if _genetic_confirmation(r) else None,
+    )
+
+
+def onset_ages(rows: list[dict]) -> tuple[list[dict], dict]:
+    """Amendment 4: AGE_ONSET rows, selected exactly like presentation ages."""
+    return age_ranges(rows, "AGE_ONSET", ONSET_COLUMNS)
+
+
 def onset_coverage(rows: list[dict], presentation: list[dict]) -> dict:
-    """AGE_ONSET rows: how many, and which diseases they reach (not used; ADR-0013 amendment 2 rule 7)."""
+    """AGE_ONSET rows: how many, and which diseases they reach next to presentation ages."""
     onset = [r for r in rows if r["feature_label"] == "AGE_ONSET"]
     diseases = {d for r in onset for d in _diseases(r)}
     with_ages = {r["disease_id"] for r in presentation}
@@ -496,8 +539,11 @@ def hpoa_lines(rows: list[dict]) -> list[str]:
 
 
 def presentation_lines(rows: list[dict]) -> list[str]:
-    head = "\t".join(PRESENTATION_AGE_COLUMNS) + "\n"
-    return [head] + ["\t".join(r[c] for c in PRESENTATION_AGE_COLUMNS) + "\n" for r in rows]
+    head = "\t".join(AGE_COLUMNS) + "\n"
+    return [head] + ["\t".join(r[c] for c in AGE_COLUMNS) + "\n" for r in rows]
+
+
+onset_lines = presentation_lines
 
 
 # --- Whole build ----------------------------------------------------------------
@@ -510,6 +556,7 @@ def build(rows: list[dict], hpoa_rows: list[dict], ontology, chapters: dict[str,
     drop_hpoa_cited(placements, index["cites"], chapters)
     lit_rows, pool_stats = pool(placements, index["names"])
     ages, age_stats = presentation_ages(rows)
+    onsets, onset_stats = onset_ages(rows)
 
     by_row: dict[int, set[str]] = defaultdict(set)
     for pl in placements:
@@ -528,6 +575,7 @@ def build(rows: list[dict], hpoa_rows: list[dict], ontology, chapters: dict[str,
     return {
         "lit_rows": lit_rows,
         "presentation_ages": ages,
+        "onset_ages": onsets,
         "report": {
             "rows_in": {
                 "total": len(rows),
@@ -554,6 +602,7 @@ def build(rows: list[dict], hpoa_rows: list[dict], ontology, chapters: dict[str,
                 **effect_on_existing(lit_rows, index["positive"]),
             },
             "presentation_ages": age_stats,
+            "onset_ages": onset_stats,
             "age_onset_coverage": onset_coverage(rows, ages),
         },
     }
