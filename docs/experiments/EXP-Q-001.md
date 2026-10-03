@@ -117,3 +117,38 @@ strategy, Q0 and Q1, with the final re-ranker.
 If a strategy wins, it is a proposal for the production agent (its repo is
 editable by us since 2026-10-03). It would go through a PR there, after the
 sealed result.
+
+## Addendum (2026-10-03): final pre-registration of the sealed S3-v2-test read
+This is written after the dev search (PR #101) and **before** any
+S3-v2-test read. Mateo approved it on 2026-10-03: "questions first", and the
+5% harm cap is kept.
+
+- **Re-ranker for every strategy:** **F** = `propagated`, k 0.5, weight 0.5,
+  on kb-v6 (config `8ecd5b320f33`), selected on dev by the pre-registered
+  rule. It is leak-free for S3 v2 (half B of annot-split-v2 dropped).
+- **Strategies scored,** budget 9 and noise 0 for each:
+
+  | Strategy | Config |
+  |---|---|
+  | **Q2b** (λ 0.6) | `9963dbe02527` |
+  | **Q0** | — |
+  | **Q1** | agent `feat/rerank-negaciones` @ 48d901e |
+
+- **Primary hypothesis (P1):** Q2b beats Q0 on S3-v2-test. Primary Δ vs
+  E0-initial, as the paired difference Q2b − Q0. **It passes if the paired
+  bootstrap 95% CI over genes has its lower bound > 0, and the re-ranker
+  effect's harmed share under Q2b is ≤ 5%.**
+- **Secondary (S1):** Q2b − Q1, the paired difference with its CI. It is
+  reported, not gated.
+- **Secondary (S2):** the 5% answer-noise run for Q2b and Q0, reported.
+- **Procedure:**
+  - one evaluation session, with `DXT_SEALED_READ=EXP-B-004` set only for it
+    (the harness's sealed experiment id);
+  - each strategy is one invocation, so there is one ledger row per
+    invocation, all within this session;
+  - the systems are fixed above, with no re-runs and nothing chosen after
+    seeing test numbers;
+  - the exclusion list `s3-data-v2-excl-v1` is applied.
+- **If P1 passes:** Q2b goes to the production question agent as a PR
+  (repo editable since 2026-10-03), described as validated on simulated
+  interviews only.

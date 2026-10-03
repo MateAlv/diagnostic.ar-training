@@ -3767,3 +3767,19 @@ this task, whatever the result**; the last read needs Mateo's OK.
   own `<stage>.log-rows.tsv` instead (amended by `scripts/dev_search_stage_rows.py`, noted in each manifest;
   the shared log is checked to equal their concatenation). `dxt lineage verify` passes.
 - **Next:** Mateo approves (or edits) the sealed list, then phase 4 (one S3-v2-test read, one R1-test read).
+
+### 2026-10-03 — decision + pre-registration — Sealed S3-v2-test read: questions first
+- **Dev search (PR #101):**
+  - L1 limit: +0.0065 at ≤ 5% harmed, +0.0132 at ≤ 7.5%, +0.0161 at
+    ≤ 10%; no candidate beats rr-v1 at 5%;
+  - L2: no gain;
+  - L3: sex and age no gain; onset helps on lit-onset cases but harms 5.2%;
+  - L4: Q2b (λ 0.6) beats Q0 by +0.0065 [+0.0044, +0.0086], and holds
+    under 5% answer noise.
+- **Mateo decided:**
+  - keep the 5% cap, so no rerank-v1.1;
+  - the sealed read's primary claim is Q2b vs Q0, with re-ranker F;
+  - the re-ranker contrasts are descriptive;
+  - no new R1-test read.
+- **Pre-registered** in the EXP-Q-001 and EXP-B-004 addenda before any
+  test read.

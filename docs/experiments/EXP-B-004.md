@@ -328,3 +328,28 @@ harm-capped F is not better than rr-v1 on dev.
 
 ## Results
 (After the sealed read.)
+
+## Addendum (2026-10-03): final pre-registration, descriptive contrasts in the sealed read
+This is written after the dev search and before any S3-v2-test read.
+Mateo approved it on 2026-10-03.
+- **Decision:** the **5% harm cap is kept**. No re-ranker candidate beat
+  rr-v1 on dev (F − rr-v1 = −0.0004 [−0.0013, +0.0004]), so **no
+  `rerank-v1.1` is gated**. rr-v1 stays the released re-ranker.
+- **Scored in the same sealed session, all with interview Q0 at budget 9,
+  descriptive only (no gate):**
+
+  | System | Config |
+  |---|---|
+  | F | `8ecd5b320f33` |
+  | rr-v1 on kb-v5 | `8488e32fc7c2` (it may know some S3-v2 half-B pairs; declared) |
+  | F on kb-v7 | `af6da5cdbf19` (H2) |
+  | F + onset 0.5 | `458768f1bca4` (H3) |
+  | F + sex 0.5 | `96e69f9e62fa` |
+  | F + age_mean 0.5 | `5b30ab00d1a0` |
+  | Frontier points | the dev ≤ 7.5% winner (propagated, k 0.8, weight 0.75) and the ≤ 10% winner (capped, C 2, weight 2) |
+
+  The configs come from `results/EXP-B-004/dev-search.tsv`.
+- **H3 reporting:** onset and age are also reported on the lit-onset subset,
+  split by `onset_source`.
+- **No R1-test read:** the released re-ranker is unchanged, and rr-v1
+  already passed R1-test (EXP-B-003).
