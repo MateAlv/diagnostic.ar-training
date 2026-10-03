@@ -71,6 +71,21 @@ def read_dataset(path: Path, cohort: str) -> list[tuple[Case, frozenset[str]]]:
     return out
 
 
+def read_entities(path: Path, cohort: str, case_ids: set[str]) -> dict[str, str]:
+    """case_id -> the disease entity the generator drew the case from, for the given cases only.
+
+    Analysis only; systems never see it.
+    """
+    out = {}
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        for line in handle:
+            r = json.loads(line)
+            case_id = f"{cohort}:{r['case_id']}"
+            if case_id in case_ids:
+                out[case_id] = r["entity"]
+    return out
+
+
 def _part(salt: str, case_id: str) -> str:
     return PARTS[int(hashlib.sha256(f"{salt}:{case_id}".encode()).hexdigest(), 16) % 2]
 

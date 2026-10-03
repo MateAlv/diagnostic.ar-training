@@ -2476,5 +2476,274 @@ def s3_interview_cmd(
         typer.echo(f"{name}: d={d['delta']:+.4f} harmed={d['harmed']:.3f} helped={d['helped']:.3f}")
 
 
+DEV_SEARCH_DIR = "dev-search"
+
+
+def _dev_dir(exp: str):
+    from diagnostic_ar_training import RESULTS_DIR
+
+    path = RESULTS_DIR / exp / DEV_SEARCH_DIR
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _require_clean_registered(exp: str):
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before S3 runs")
+    return state
+
+
+@s3_app.command("dev-interview")
+def s3_dev_interview(
+    exp: str = typer.Option("EXP-B-004", help="Pre-registered experiment id"),
+    kb_id: str = typer.Option("kb-v6", "--kb", help="KB without half B of annot-split-v2, for Q0"),
+    n_questions: int = typer.Option(9),
+    top_k: int = typer.Option(200),
+    workers: int = typer.Option(8),
+) -> None:
+    """Interview S3-v2-dev once with Q0 (dev only, exclusion list applied); every dev-search arm scores it."""
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import dev_run
+    from diagnostic_ar_training.gnn.interviewed import write_rows
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+
+    artifact = f"results-{exp}-dev-interviews-q0-{kb_id}-b{n_questions}"
+    ensure_new(artifact)
+    state = _require_clean_registered(exp)
+    kb_manifest = load_manifest(kb_id)
+    _check_s3_kb("s3-v2", kb_manifest)
+    spec, data, excluded = _s3_dataset("s3-v2")
+    dev = s3.load_part("s3-v2", "dev", data)
+    pairs = [p for p in dev if p[0].case_id not in excluded]
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    rows = dev_run.interview_dev(pairs, knowledge, ontology, n_questions, top_k, workers)
+    path = _dev_dir(exp) / f"interviews.q0-{kb_id}-b{n_questions}.jsonl.gz"
+    write_rows(path, [dev_run.encode_interview(r) for r in rows])
+    answers = [a for r in rows for a in r["answers"].values()]
+    params = {
+        "split": "s3-v2/dev",
+        "strategy": "Q0",
+        "kb": kb_id,
+        "n_questions": n_questions,
+        "cases": len(rows),
+        "excluded_in_dev": len(dev) - len(pairs),
+        "questions_per_case": sum(len(r["questions"]) for r in rows) / len(rows),
+        "yes_per_case": answers.count("yes") / len(rows),
+        "no_per_case": answers.count("no") / len(rows),
+    }
+    inputs = [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": f"artifact:{spec.dataset_artifact}", "sha256": sha256_file(data)},
+        {"id": f"artifact:{spec.exclusion_artifact}", "sha256": _s3_exclusion_sha(spec)},
+        {"id": "split:s3-v2", "sha256": sha256_file(SPLITS_DIR / "s3-v2.json")},
+    ]
+    write_manifest(build_manifest(artifact, "dev-interviews", inputs, params, [path], state=state))
+    typer.echo(json.dumps({**params, "artifact": artifact}, indent=1))
+
+
+def _load_dev_arms(directory) -> dict:
+    from diagnostic_ar_training.eval.dev_search import Arm
+
+    out = {}
+    for path in sorted(directory.glob("arms-*.json")):
+        for d in json.loads(path.read_text()):
+            arm = Arm.from_dict(d)
+            out.setdefault(arm.arm_id, arm)
+    return out
+
+
+@s3_app.command("dev-arms")
+def s3_dev_arms(
+    stage: str = typer.Option(..., help="l1a, l1b, l1c, l2 or l3: writes the arms the next dev-score runs"),
+    exp: str = typer.Option("EXP-B-004"),
+) -> None:
+    """Generate one stage's arms by the fixed rules in eval/dev_arms.py (later stages read the log)."""
+    from diagnostic_ar_training.eval import dev_arms, dev_search
+
+    directory = _dev_dir(exp)
+    log = directory.parent / "dev-search.tsv"
+    arms = _load_dev_arms(directory)
+    rows = dev_search.read_log(log) if log.exists() else []
+
+    def by_lever(lever):
+        return [r for r in rows if r["lever"] == lever]
+
+    if stage == "l1a":
+        chosen = dev_arms.l1_stage_a()
+    elif stage == "l1b":
+        chosen = dev_arms.l1_stage_b(by_lever("L1"), arms)
+    elif stage == "l1c":
+        chosen = dev_arms.l1_stage_c()
+    elif stage == "l2":
+        chosen = dev_arms.l2_arms(by_lever("L1"), arms)
+    elif stage == "l3":
+        winner = dev_search.select(by_lever("L2"), arms)
+        if winner is None:
+            raise typer.BadParameter("no L2 arm satisfies the selection rule; decide the L3 base explicitly")
+        chosen = dev_arms.l3_arms(arms[winner["arm_id"]].config)
+    else:
+        raise typer.BadParameter("stage must be l1a, l1b, l1c, l2 or l3")
+    lever = {"l1a": "L1", "l1b": "L1", "l1c": "L1", "l2": "L2", "l3": "L3"}[stage]
+    if len(by_lever(lever)) + len([a for a in chosen if a.lever == lever]) > dev_arms.BUDGET[lever]:
+        raise typer.BadParameter(f"{lever} budget {dev_arms.BUDGET[lever]} would be exceeded")
+    out = directory / f"arms-{stage}.json"
+    if out.exists():
+        raise typer.BadParameter(f"{out} exists; stages are generated once")
+    out.write_text(json.dumps([a.to_dict() for a in chosen], indent=1, sort_keys=True) + "\n")
+    typer.echo(f"{stage}: {len(chosen)} arms -> {out}")
+    for a in chosen:
+        typer.echo(f"  {a.arm_id}  {a.config.config_hash}")
+
+
+@s3_app.command("dev-score")
+def s3_dev_score(
+    stage: str = typer.Option(..., help="Name of the arms file arms-<stage>.json; also names the outputs"),
+    exp: str = typer.Option("EXP-B-004"),
+    interviews: str = typer.Option(
+        "interviews.q0-kb-v6-b9.jsonl.gz", help="File in results/<exp>/dev-search/"
+    ),
+    vs: str = typer.Option("", help="Arm id to compare the others against, paired (L3: the L1+L2 base)"),
+    with_reference: bool = typer.Option(False, help="Also score rr-v1[neg=0.5] on kb-v5 as the bar (once)"),
+    top_k: int = typer.Option(200),
+    workers: int = typer.Option(8),
+) -> None:
+    """Score one stage's arms on the kept Q0 interview (S3-v2-dev) and on R1-dev, logging every arm."""
+    import gzip
+
+    import numpy as np
+
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import dev_arms, dev_run, dev_search
+    from diagnostic_ar_training.knowledge import annotation_split
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    artifact = f"results-{exp}-dev-{stage}"
+    ensure_new(artifact)
+    state = _require_clean_registered(exp)
+    directory = _dev_dir(exp)
+    log = directory.parent / "dev-search.tsv"
+    arms = [dev_search.Arm.from_dict(d) for d in json.loads((directory / f"arms-{stage}.json").read_text())]
+    if with_reference:
+        arms += dev_run.reference_arms()
+    ids = [a.arm_id for a in arms]
+    if len(set(ids)) != len(ids):
+        raise typer.BadParameter("duplicate arm ids")
+    logged_rows = dev_search.read_log(log) if log.exists() else []
+    if repeated := {r["arm_id"] for r in logged_rows} & set(ids):
+        raise typer.BadParameter(f"already logged, not re-scored: {sorted(repeated)}")
+    logged = Counter(r["lever"] for r in logged_rows)
+    for lever, n in Counter(a.lever for a in arms if a.lever != "ref").items():
+        if logged[lever] + n > dev_arms.BUDGET[lever]:
+            raise typer.BadParameter(f"{lever} budget {dev_arms.BUDGET[lever]} would be exceeded")
+
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    kb_ids = sorted({a.config.kb_id for a in arms} | {"kb-v6"})
+    manifests = {k: load_manifest(k) for k in kb_ids}
+    kb_data = {k: kb.read(fetch_outputs(m)[0]) for k, m in manifests.items()}
+    for k, m in manifests.items():
+        if k != "kb-v5":
+            _check_s3_kb("s3-v2", m)
+    knowledges = {k: GeneKnowledge(d, ontology) for k, d in kb_data.items()}
+
+    rows = dev_run.read_interviews(directory / interviews)
+    items = [(r["case"], r["gene"]) for r in rows]
+    base_ranks, arm_ranks = dev_search.score_arms(items, arms, knowledges, ontology, top_k, workers)
+
+    spec, data, _ = _s3_dataset("s3-v2")
+    entities = s3.read_entities(data, "s3-v2", {r["case_id"] for r in rows})
+    onset_manifest = load_manifest("onset-ages-v2")
+    onset_tsv = fetch_outputs(onset_manifest)[0]
+    lit = {line.split("\t")[0] for line in onset_tsv.read_text().splitlines()[1:]}
+    split_manifest = load_manifest("annot-split-v2")
+    half_b = annotation_split.read(fetch_outputs(split_manifest)[0])
+    source_of = {d: v["onset_source"] for d, v in kb_data["kb-v6"]["diseases"].items()}
+    masks = dev_run.subset_masks(rows, entities, lit, half_b, source_of)
+    index = {a.arm_id: j for j, a in enumerate(arms)}
+    report_arms = dev_run.analyse(rows, base_ranks, arm_ranks, arms, masks, {vs: index[vs]} if vs else None)
+
+    r1_meta, r1_base, r1_ranks = dev_run.r1_dev(arms, knowledges, ontology, top_k, workers)
+    r1 = dev_run.r1_summary(r1_meta, r1_base, r1_ranks, arms)
+
+    log_rows = [
+        dev_search.log_row(a, report_arms[a.arm_id]["vs_e0_answers"]["all"], r1[a.arm_id], state.sha)
+        for a in arms
+    ]
+    dev_search.append_log(log, log_rows)
+    report = {
+        "stage": stage,
+        "cases": len(rows),
+        "e0_answers_mrr": float(np.mean(1.0 / np.array(base_ranks))),
+        "e0_initial_mrr": float(np.mean([1.0 / r["rank_initial"] for r in rows])),
+        "subset_sizes": {k: int(sum(v)) for k, v in masks.items()},
+        "r1_dev_cases": len(r1_meta),
+        "r1_dev": r1,
+        "arms": report_arms,
+        "vs": vs,
+        "code_sha": state.sha,
+    }
+    report_path = directory / f"{stage}.report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    ranks_path = directory / f"{stage}.ranks.tsv.gz"
+    with gzip.open(ranks_path, "wt", newline="") as handle:
+        handle.write("case_id\tgene\te0_answers\t" + "\t".join(ids) + "\n")
+        for i, r in enumerate(rows):
+            cells = "\t".join(f"{x:g}" for x in arm_ranks[i])
+            handle.write(f"{r['case_id']}\t{r['gene']}\t{base_ranks[i]:g}\t{cells}\n")
+    inputs = GenPheniaV3().lineage_inputs() + [
+        {"id": f"artifact:{k}", "sha256": m.outputs[0].sha256} for k, m in manifests.items()
+    ]
+    inputs += [
+        {"id": f"artifact:{spec.dataset_artifact}", "sha256": sha256_file(data)},
+        {"id": f"artifact:{spec.exclusion_artifact}", "sha256": _s3_exclusion_sha(spec)},
+        {"id": "split:s3-v2", "sha256": sha256_file(SPLITS_DIR / "s3-v2.json")},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+        {"id": f"file:{interviews}", "sha256": sha256_file(directory / interviews)},
+        {"id": "artifact:annot-split-v2", "sha256": split_manifest.outputs[0].sha256},
+        {"id": "artifact:onset-ages-v2 (subset labels only)", "sha256": onset_manifest.outputs[0].sha256},
+    ]
+    params = {"stage": stage, "arms": ids, "vs": vs, "top_k": top_k, "interviews": interviews}
+    write_manifest(
+        build_manifest(artifact, "dev-search", inputs, params, [report_path, ranks_path, log], state=state)
+    )
+    for a, row in zip(arms, log_rows, strict=True):
+        typer.echo(
+            f"{a.arm_id:34} {a.config.config_hash} d={row['delta_mrr']:+.4f} "
+            f"[{row['ci_lo']:+.4f},{row['ci_hi']:+.4f}] harmed={row['harmed']:.3f} "
+            f"helped={row['helped']:.3f} "
+            f"R1 d={row['r1dev_delta']:+.4f} [{row['r1dev_ci_lo']:+.4f},{row['r1dev_ci_hi']:+.4f}] "
+            f"pass={row['r1dev_pass']}"
+        )
+
+
 if __name__ == "__main__":
     app()

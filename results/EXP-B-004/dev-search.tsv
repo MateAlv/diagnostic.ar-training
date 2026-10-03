@@ -1,0 +1,28 @@
+# EXP-B-004 dev search log (ADR-0014 phase 3). S3-v2-dev only, s3-data-v2-excl-v1 applied, plus R1-dev for the no-harm check.
+# Every configuration scored is one row below, in the order run; nothing is removed. s3-v2/test, R1-test and the vault are never read.
+# Interview: Q0, budget 9, kb-v6, run once (results/EXP-B-004/dev-search/interviews.q0-kb-v6-b9.jsonl.gz); every arm scores the same answers.
+# Delta MRR is vs E0+answers, paired bootstrap 95% CI over genes (2000 resamples, seed 0). R1-dev: "all" view vs E0, CI over publications.
+# r1dev_pass = CI upper bound >= 0 and point estimate >= -0.02. harmed/helped are shares of all cases.
+#
+# Budgets: L1 <= 48, L2 <= 6, L3 <= 12, L4 <= 6. A lever stops at its budget. lever=ref rows (E0 references, rr-v1 on kb-v5, the L3 base
+# re-scored for paired comparison) are not search arms and do not count.
+#
+# Selection rule (fixed in EXP-B-004 before the search): maximise Delta MRR subject to harmed <= 5%, CI lower bound > 0 and r1dev_pass.
+# A tie within 0.001 of the best goes to the simpler system: fewer weighted components, then form llr < propagated < capped < gated,
+# then KB kb-v6 < kb-v8 < kb-v7, then the smaller weight sum.
+#
+# L1 prioritisation (48), written before any run:
+#   stage a (24): forms llr, gated (tau 0.2), capped (C = 2 log units), propagated x weights {0.5, 0.75, 1, 1.5, 2, 3}, k = 0.5.
+#   stage b (12): k = 0.8, same six weights, for the two best forms of stage a. Forms are ranked by their best arm that satisfies the
+#                 selection rule; a form with none ranks below every form with one, by best Delta. Default tau 0.2 and C = 2.
+#   stage c (12): gated tau = 0.4 x six weights (k = 0.5), and capped C in {1, 3} x weights {1, 2, 3} (k = 0.5).
+#   The frontier reports the best Delta at harmed <= 5%, <= 7.5% and <= 10% over all 48 (the limit).
+# L2 (<= 6): the L1 winner's form and the best other form, each at its best L1 parameters, on kb-v6, kb-v8, kb-v7. The kb-v6 arms repeat
+#   L1 rows and are counted. Also reported: Delta on cases whose excluded terms are all (disease, term) pairs of annot-split-v2 half B
+#   for the case's disease (halfB_only_excluded; the generator's disease entity is analysis metadata, never given to a system).
+# L3 (<= 12): on the best L1+L2 system add sex (sex_prior and sex_restricted together), age_mean, age_any or onset at weights {0.5, 1, 2}.
+#   A group is kept only if the selection rule holds for the arm AND on its evaluation subset (known sex; age arms: the lit-onset cases
+#   with a known age) the paired Delta vs the base has CI lower bound > 0; the arm must also beat the base's Delta by more than 0.001.
+#   If none does, H0 stands and the L1+L2 system is the final re-ranker. At most one L3 arm is kept (the rest of the budget is used).
+#
+# Columns: weights are the nonzero component weights; tau/cap are blank unless the form uses them.
