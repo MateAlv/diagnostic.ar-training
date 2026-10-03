@@ -3237,3 +3237,20 @@ literature-enriched profiles come later, as candidate 6.
   the bins in the cells (>90%, <25%) with no legend, and section 6 read
   literally would give 0.9 and 0.25 instead of the bin midpoints used.
 - **Evidence:** `docs/analyses/LIT-AUDIT-v1.md`.
+
+### 2026-10-02 — build — Literature build v1 registered (ADR-0013)
+- **Inputs:** 97 shards accepted, 0 refused; 7,085 rows after the
+  cross-check and audit fixes.
+- **Artifacts** (manifests committed, files published as releases):
+  - `hpoa-lit-v1` (7,252 HPOA rows);
+  - `hpoa-enriched-v1`;
+  - `presentation-ages-v1` (79 diseases);
+  - `onset-ages-v1` (372 diseases).
+- **Quality:**
+  - cross-check: 96.1% agreement; estimated number error 0.13%;
+  - audit: row error 1.8% (15/852, all fixed), recall about 94%.
+  - 15 audit sources are still pending on Codex; they are reviewed after
+    the build, and any fix goes into a v2.
+- **Declared:** C037's bin cells (">90%", 7 rows) store the bin midpoint
+  rather than the bound.
+- **Next:** candidate 6 (simulator 0.5.4), train-side only.
