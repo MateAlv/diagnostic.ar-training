@@ -19,3 +19,4 @@ with a new one and link both ways.
 | [0011](0011-simulator-v04.md) | Simulator v0.4: realism-first rebuild (recounted masking, merged profiles, reporting model, cardinal features) | Accepted 2026-09-30 |
 | [0012](0012-data-quality-gate.md) | No retraining until the simulated data passes a pre-registered quality gate | Accepted 2026-09-30 |
 | [0013](0013-literature-enrichment.md) | Enrich construction profiles from GeneReviews and open-access cohorts | Accepted 2026-10-01 |
+| [0014](0014-reranker-v11-and-s3-v2.md) | Re-ranker v1.1 and better questions, evaluated on a new sealed S3 v2 | Accepted 2026-10-03 |

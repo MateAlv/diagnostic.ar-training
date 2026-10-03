@@ -3524,3 +3524,17 @@ this task, whatever the result**; the last read needs Mateo's OK.
   handoff in diagnostic.ar-model `docs/HANDOFF-deploy-rerank-v1.md`; question
   agent adapted in MarBL00126/diagnosticar-question-agent PR #1, pending
   Mariano's review.
+
+### 2026-10-03 — plan — ADR-0014: re-ranker v1.1 and better questions on a new sealed S3 v2
+- **The four levers:**
+  - L1: the negation strength limit;
+  - L2: enriched frequencies;
+  - L3: fair sex and age, through source separation (literature onset for
+    the generator vs Orphanet for the re-ranker; R1-train male share for the
+    generator vs the heuristic for the re-ranker);
+  - L4: questions (Q0 v1, Q1 the production agent, Q2 re-ranker-aware).
+- **S3 v2:** candidate 6 generator, `hpoa-enriched-v2`, seed 3003,
+  `annot-split-v2` (30% held out), dev/test 50/50. The test is sealed with
+  **one** read for everything (EXP-B-004 + EXP-Q-001), plus one R1-test read.
+- **Plans registered before any data exists:** EXP-B-004 (L1–L3) and
+  EXP-Q-001 (L4).
