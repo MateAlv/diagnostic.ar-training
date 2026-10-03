@@ -3338,3 +3338,61 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Run summary:** total shown 6.90 per case (5.12 profile + 1.79 noise); k
   mean 8.70, profile target 6.92 (realised 5.13), TV total vs k 0.113; mean c
   3.016; `forced_min_one` 17,041 (3.5%); q capped 0.175.
+
+### 2026-10-02 — go/no-go — v0.5.4 candidate 6: train-side fails on G2c only; no R1-dev read
+- **Commands:** `dxt sim realism --no-dev --label v0.5.4-cand6-full-nodev`,
+  `dxt sim train-checks`, `dxt sim gate`
+  (`results/realism/gate-v0.5.4-cand6-gonogo.md`; no ledger row), plus the
+  analysis scripts (`results/realism/v0.5.4-cand6.*`).
+
+  | Check | UP | V03-full | C3 | C4 | C5 | C6a | C6b | **C6** | Rule | Result |
+  |---|---|---|---|---|---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | 0.307 | 0.306 | 0.306 | 0.304 | **0.304** | beat both | ✅ |
+  | G2c W1 | 3.717 | 1.653 | 1.732 | 5.754 | 1.908 | 2.955 | 1.816 | **1.795** | beat both | ❌ (V03-full 1.653) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | 0.822 | 0.809 | 0.764 | 0.721 | **0.730** [0.699, 0.764] | beat both, ≤ 0.75 | ✅ (CI upper end above 0.75) |
+  | G2e gap | 0.414 | 0.183 | 0.142 | 0.204 | 0.049 | 0.011 | 0.077 | **0.079** (E0 0.326) | beat both, ≤ 0.10 | ✅ |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.536 | 0.502 | 0.537 | 0.507 | 0.522 | **0.519** | beat both | ✅ |
+  | Age median abs log ratio (69 genes) | — | 0.537 | 0.539 | 0.571 | 0.555 | 0.584 | 0.603 | **0.585** | report only | |
+
+- **Per-gene median age** (years; `results/realism/v0.5.4-cand6.age-table.json`):
+
+  | Gene | R1-train (n) | C6b | C6 |
+  |---|---|---|---|
+  | NF1 | 18.0 (158) | 5.15 | 5.26 |
+  | LMNA | 46.0 (27) | 23.6 | 23.6 |
+  | FBN1 | 18.5 (66) | 28.61 | 28.61 |
+  | PTPN11 | 7.5 (10) | 4.45 | 4.63 |
+  | KMT2D | 11.6 (11) | 2.83 | 3.10 |
+  | TBX5 | 33.0 (41) | 2.58 | 2.52 |
+  | UMOD | 39.0 (76) | 32.06 | 31.76 |
+  | FBXL4 | 2.0 (33) | 7.38 | 7.29 |
+  | SPTAN1 | 46.0 (13) | 11.79 | 13.22 |
+  | ITPR1 | 16.0 (45) | 18.98 | 17.18 |
+  | COL3A1 | 32.0 (35) | 4.25 | 3.88 |
+
+  **The age files barely touch the scored genes:** none of these 11 genes has
+  a literature onset or presentation age (every case is `onset_age_source:
+  category`), and only 2 of the 69 scored genes do (ASPM 45 cases, CLN3 100).
+  The 0.603 → 0.585 change comes from the simulation's other draws.
+- **Terms per case** (present), p10 / p25 / median / p75 / p90: simulated 2 / 3 /
+  6 / 9 / 13, mean 6.90; R1-train 2 / 4 / 7 / 11 / 17, mean 8.70. Excluded
+  (negated) terms: simulated 1 / 4 / 9 / 16 / 24, mean 11.38; R1-train 1 / 2 /
+  7 / 15 / 26, mean 10.99.
+- **Other checks:**
+  - Ancestor share (1 in 50, kb-v3): 0.103 (R1-train uncited 0.093; candidate
+    6b 0.095).
+  - Categories vs kb-v3 (5%): 0.676 / 0.095 / 0.095 / 0.135 (explained / more
+    specific / related / weak; summed error 0.036 against calib-v2, 6b 0.042).
+  - C2ST top separators (univariate AUC): annotated share 0.367, noise share
+    0.600, mean depth 0.418.
+  - Record size vs true terms, 84 R1 genes: Spearman 0.747 (real 0.497).
+  - E0 ablation (3,073 kept cases): as exported 0.331, no noise 0.498, no
+    generalisation 0.343, no specialisation 0.374.
+- **Housekeeping:** the 3.59 GB rich-cases file was deleted; its sha256
+  `21446646…` (equal to the run summary's) and a 1-in-160 sample (3,109 cases)
+  stay in `outputs/v0.5.4-cand6/full/`.
+- **Verdict:** ❌ stops on G2c alone, as 6b did. Enrichment added 4,548
+  annotations and the age files, but records stay short (6.90 vs 8.70 terms;
+  realised profile terms 5.13 of a 6.92 target): the true-term cap, not the
+  profiles' richness at the margin, still limits record size. G2d is 0.730,
+  within 0.01 of 6b. No R1-dev read; Mateo decides.

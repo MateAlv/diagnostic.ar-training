@@ -1,0 +1,49 @@
+{
+ "sim_cases": 3073,
+ "as_exported": {
+  "n": 3073,
+  "mrr_in_vocab": 0.3314,
+  "terms_per_case": 6.88
+ },
+ "no_noise": {
+  "n": 3073,
+  "mrr_in_vocab": 0.498,
+  "terms_per_case": 5.08
+ },
+ "no_generalization": {
+  "n": 3073,
+  "mrr_in_vocab": 0.3427,
+  "terms_per_case": 6.88
+ },
+ "no_specialization": {
+  "n": 3073,
+  "mrr_in_vocab": 0.3738,
+  "terms_per_case": 6.87
+ },
+ "profile_terms_ungeneralized_no_noise": {
+  "n": 3073,
+  "mrr_in_vocab": 0.5653,
+  "terms_per_case": 5.08
+ },
+ "all_true_terms": {
+  "n": 3073,
+  "mrr_in_vocab": 0.7388,
+  "terms_per_case": 13.51
+ },
+ "R1-train uncited": {
+  "n": 1193,
+  "mrr_in_vocab": 0.4046,
+  "terms_per_case": 8.11
+ },
+ "R1-train uncited, explained terms only": {
+  "n": 1060,
+  "mrr_in_vocab": 0.4791,
+  "terms_per_case": 5.53
+ },
+ "mean_ic": {
+  "sim_profile_positives": 4.396,
+  "sim_noise": 5.687,
+  "r1_train_present": 4.137,
+  "r1_train_explained": 3.544
+ }
+}
