@@ -16,7 +16,6 @@ from diagnostic_ar_training.lineage.hashing import sha256_file
 from diagnostic_ar_training.lineage.manifest import (
     build_manifest,
     ensure_new,
-    fetch_outputs,
     load_manifest,
     publish,
     write_manifest,
@@ -31,8 +30,8 @@ SIM_ARCHIVE = Path("/home/mate/FIUBA/trabajo-profesional/sim-pins/sim-cfc20da.ta
 
 
 def artifact_input(artifact: str, name: str) -> dict:
-    path = next(p for p in fetch_outputs(load_manifest(artifact)) if p.name == name)
-    return {"id": f"artifact:{artifact}", "sha256": sha256_file(path)}
+    out = next(o for o in load_manifest(artifact).outputs if Path(o.path).name == name)
+    return {"id": f"artifact:{artifact}", "sha256": out.sha256}
 
 
 def main() -> None:
