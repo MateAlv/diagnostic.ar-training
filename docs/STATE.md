@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-03 (simulator gate closed without passing; Front A decision pending). Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-03, evening (option C done, rerank-v1.0.0 released; A-005 next). Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
@@ -83,6 +83,19 @@ that passes every train-side stop condition, and Mateo is told first.
    train-side go/no-go. Then **ask Mateo** before the last R1-dev read.
 6. If it passes: the G3 cards (assistant + Codex), then G5 freeze. Only
    then can Front A retraining be pre-registered.
+
+## Done on 2026-10-03 (option C plus the release)
+- **Evidence pack:** `docs/evidence/` (EVIDENCE_INDEX, TABLES, 7 figures;
+  `scripts/evidence/make_all.py`). Discrepancies are listed in the index.
+- **Literature:** audit 98/98, row error 2.0% (1.25–3.17%), recall 93.3%;
+  build **v2** published.
+- **Front B released:** `rerank-v1.0.0` (diagnostic.ar-model). Deploy
+  handoff in `docs/HANDOFF-deploy-rerank-v1.md` there. Question agent adapted
+  in MarBL00126/diagnosticar-question-agent PR #1, waiting for Mariano. The
+  API change and prod routing belong to the deploy agent.
+- **Next:** option B as an experiment (A-005, the new parameters trained on
+  real R1-train patients, with an S3 no-harm guard). It needs a
+  pre-registration first.
 
 ## Where we are (2026-10-03)
 **The simulator gate ended without passing.**
