@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 
 from diagnostic_ar_training.eval import harness, questioning, s3_run
+from diagnostic_ar_training.rerank.config import RerankConfig
 from diagnostic_ar_training.rerank.features import COMPONENTS
 from diagnostic_ar_training.rerank.learned import table
 
@@ -31,6 +32,25 @@ def parse_reranker(spec: str) -> tuple[str, np.ndarray]:
         raise ValueError(f"reranker {spec!r} is neither rr-v1[...] nor a config file")
     beta = json.loads(path.read_text())["beta"]
     return path.stem, np.array([beta.get(c, 0.0) for c in COMPONENTS])
+
+
+def load_reranker(spec: str) -> tuple[str, np.ndarray, RerankConfig | None]:
+    """`parse_reranker`, plus a `RerankConfig` JSON file ({"kb_id": ..., "neg_form": ..., "weights": ...}).
+
+    The config's name is `cfg-<hash>`; its KB and feature parameters come back as the config.
+    """
+    path = Path(spec)
+    if path.is_file():
+        data = json.loads(path.read_text())
+        if "kb_id" in data:
+            config = RerankConfig.from_dict(data)
+            return f"cfg-{config.config_hash}", config.beta(), config
+    name, beta = parse_reranker(spec)
+    return name, beta, None
+
+
+def strategy_label(name: str, lam: float) -> str:
+    return f"Q2b-lam{lam:g}" if name == "Q2b" else name
 
 
 def make_strategy(name: str, lam: float):
@@ -61,7 +81,7 @@ def run(pairs, strategy, ctx, noise: float, seed: int, top_k: int) -> list[dict]
         start = time.perf_counter()
         initial = ctx.e0_probs(case)
         iv = questioning.interview(case, truth, strategy, ctx, noise, seed)
-        t = table(ctx.e0, ctx.knowledge, iv.after, top_k)
+        t = table(ctx.e0, ctx.rr_knowledge, iv.after, top_k)
         base, final = t.combine(np.zeros(len(COMPONENTS))), t.combine(ctx.beta)
         rows.append(
             {
@@ -79,6 +99,41 @@ def run(pairs, strategy, ctx, noise: float, seed: int, top_k: int) -> list[dict]
             }
         )
     return rows
+
+
+_RUN: dict = {}
+
+
+def _init_run(name, lam, knowledge, rr_knowledge, ontology, beta, noise, seed, top_k) -> None:
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    ctx = questioning.Context(GenPheniaV3(), knowledge, ontology, beta, top_k, rr_knowledge)
+    _RUN.update(ctx=ctx, strategy=make_strategy(name, lam), noise=noise, seed=seed, top_k=top_k)
+
+
+def _run_one(pair) -> dict:
+    return run([pair], _RUN["strategy"], _RUN["ctx"], _RUN["noise"], _RUN["seed"], _RUN["top_k"])[0]
+
+
+def run_parallel(
+    pairs,
+    name,
+    lam,
+    knowledge,
+    rr_knowledge,
+    ontology,
+    beta,
+    noise: float,
+    seed: int,
+    top_k: int,
+    workers: int,
+) -> list[dict]:
+    """`run` over worker processes, in input order; each worker loads its own E0 and strategy."""
+    import multiprocessing
+
+    args = (name, lam, knowledge, rr_knowledge, ontology, beta, noise, seed, top_k)
+    with multiprocessing.get_context("fork").Pool(workers, _init_run, args) as pool:
+        return list(pool.imap(_run_one, pairs, 8))
 
 
 def records(rows: list[dict], key: str) -> list[dict]:
@@ -120,3 +175,96 @@ def report(rows: list[dict]) -> dict:
         "reranker_effect (final vs E0+answers)": harness.compare(answers, final),
         "primary (final vs E0-initial)": harness.compare(initial, final),
     }
+
+
+Q_LOG_COLUMNS = (
+    "strategy", "lam", "config_hash", "reranker", "reranker_hash", "kb", "noise", "cases",
+    "delta_primary", "ci_lo", "ci_hi", "harmed_primary", "helped_primary",
+    "questioner_delta", "questioner_ci_lo", "questioner_ci_hi",
+    "reranker_delta", "reranker_ci_lo", "reranker_ci_hi", "reranker_harmed", "reranker_helped",
+    "mrr_initial", "mrr_answers", "mrr_final", "top10_initial", "top10_final",
+    "yes_per_case", "no_per_case",
+    "r1dev_delta", "r1dev_ci_lo", "r1dev_ci_hi", "r1dev_pass", "code_sha",
+)  # fmt: skip
+
+
+def run_hash(strategy: str, lam: float, reranker_hash: str, kb_id: str, noise: float, seed: int) -> str:
+    """Identity of one L4 configuration: strategy, its parameter, the re-ranker, the KB, budget, noise."""
+    from diagnostic_ar_training.lineage.hashing import sha256_json
+
+    body = {
+        "strategy": strategy,
+        "lam": lam if strategy == "Q2b" else None,
+        "reranker": reranker_hash,
+        "kb": kb_id,
+        "budget": questioning.BUDGET,
+        "noise": noise,
+        "seed": seed,
+    }
+    return sha256_json(body)[:12]
+
+
+def q_log_row(report: dict, label: str, lam: float, reranker_hash: str, r1: dict, code_sha: str) -> dict:
+    primary = report["primary (final vs E0-initial)"]
+    q_eff = report["questioner_effect (E0+answers vs E0-initial)"]
+    r_eff = report["reranker_effect (final vs E0+answers)"]
+    return {
+        "strategy": label,
+        "lam": lam if report["strategy"] == "Q2b" else "",
+        "config_hash": run_hash(
+            report["strategy"], lam, reranker_hash, report["kb"], report["noise"], report["seed"]
+        ),
+        "reranker": report["reranker"],
+        "reranker_hash": reranker_hash,
+        "kb": report["kb"],
+        "noise": report["noise"],
+        "cases": report["cases"],
+        "delta_primary": round(primary["delta"], 6),
+        "ci_lo": round(primary["ci95"][0], 6),
+        "ci_hi": round(primary["ci95"][1], 6),
+        "harmed_primary": round(primary["harmed"], 5),
+        "helped_primary": round(primary["helped"], 5),
+        "questioner_delta": round(q_eff["delta"], 6),
+        "questioner_ci_lo": round(q_eff["ci95"][0], 6),
+        "questioner_ci_hi": round(q_eff["ci95"][1], 6),
+        "reranker_delta": round(r_eff["delta"], 6),
+        "reranker_ci_lo": round(r_eff["ci95"][0], 6),
+        "reranker_ci_hi": round(r_eff["ci95"][1], 6),
+        "reranker_harmed": round(r_eff["harmed"], 5),
+        "reranker_helped": round(r_eff["helped"], 5),
+        "mrr_initial": round(report["E0-initial"]["mrr"], 6),
+        "mrr_answers": round(report["E0+answers"]["mrr"], 6),
+        "mrr_final": round(report["final"]["mrr"], 6),
+        "top10_initial": round(report["E0-initial"]["top10"], 5),
+        "top10_final": round(report["final"]["top10"], 5),
+        "yes_per_case": round(report["yes_per_case"], 4),
+        "no_per_case": round(report["no_per_case"], 4),
+        "r1dev_delta": r1["r1dev_delta"],
+        "r1dev_ci_lo": r1["r1dev_ci_lo"],
+        "r1dev_ci_hi": r1["r1dev_ci_hi"],
+        "r1dev_pass": r1["r1dev_pass"],
+        "code_sha": code_sha,
+    }
+
+
+def r1_from_b004(log: Path, reranker_hash: str) -> dict:
+    """The re-ranker's R1-dev no-harm values, as logged for the same config hash in EXP-B-004's search."""
+    import csv
+
+    lines = [line for line in log.read_text().splitlines() if not line.startswith("#")]
+    for r in csv.DictReader(lines, delimiter="\t"):
+        if r["config_hash"] == reranker_hash:
+            return {k: r[k] for k in ("r1dev_delta", "r1dev_ci_lo", "r1dev_ci_hi", "r1dev_pass")}
+    return dict.fromkeys(("r1dev_delta", "r1dev_ci_lo", "r1dev_ci_hi", "r1dev_pass"), "")
+
+
+def append_q_log(path: Path, row: dict) -> None:
+    import csv
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    existing = path.read_text().splitlines() if path.exists() else []
+    with path.open("a", newline="") as handle:
+        writer = csv.DictWriter(handle, Q_LOG_COLUMNS, delimiter="\t", lineterminator="\n")
+        if not any(line.startswith("strategy\t") for line in existing):
+            writer.writeheader()
+        writer.writerow(row)

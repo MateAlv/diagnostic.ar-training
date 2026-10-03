@@ -2360,7 +2360,9 @@ def s3_interview_cmd(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-Q-001"),
     part: str = typer.Option("dev", help="dev; test is sealed and refused unless every sealed rule holds"),
     strategy: str = typer.Option(..., help="Q0, Q1, Q2 or Q2b"),
-    reranker: str = typer.Option("rr-v1", help="rr-v1, rr-v1[neg=..,sex=..], or a JSON file with a beta"),
+    reranker: str = typer.Option(
+        "rr-v1", help="rr-v1, rr-v1[neg=..,sex=..], a JSON file with a beta, or a RerankConfig JSON file"
+    ),
     cases: int = typer.Option(300, help="Cases to interview (0 = all)"),
     noise: float = typer.Option(0.0, help="Answer noise rate: flipped or unknown, half each"),
     seed: int = typer.Option(0, help="Seed of the answer noise"),
@@ -2372,6 +2374,8 @@ def s3_interview_cmd(
         False, help="Use a KB not built without half B of annot-split-v2 (smoke only)"
     ),
     top_k: int = typer.Option(200),
+    workers: int = typer.Option(1, help="Worker processes (each loads its own E0)"),
+    log: str = typer.Option("", help="Append the run to this dev-search TSV (relative to results/<exp>/)"),
 ) -> None:
     """Interview S3 v2 cases with one question strategy; score E0-initial, E0+answers and the final system."""
     from diagnostic_ar_training import RESULTS_DIR
@@ -2407,8 +2411,9 @@ def s3_interview_cmd(
     heldout = kb_manifest.params.get("heldout_annotations_dropped")
     if heldout != "annot-split-v2" and not allow_kb_mismatch:
         raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v2, not {heldout!r}")
-    reranker_name, beta = question_run.parse_reranker(reranker)
+    reranker_name, beta, rr_config = question_run.load_reranker(reranker)
     chosen = question_run.make_strategy(strategy, lam)
+    slabel = question_run.strategy_label(strategy, lam)
     data = next(p for p in fetch_outputs(load_manifest("s3-data-v2")) if p.name.endswith(".jsonl.gz"))
     excl_path = next(p for p in fetch_outputs(load_manifest("s3-data-v2-excl-v1")) if p.name == "exclude.txt")
     excluded = set(excl_path.read_text().split())
@@ -2416,22 +2421,42 @@ def s3_interview_cmd(
     chosen_pairs = question_run.select_cases(pairs, cases, excluded)
 
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
-    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    kb_data = kb.read(fetch_outputs(kb_manifest)[0])
+    knowledge = GeneKnowledge(kb_data, ontology)
+    rr_knowledge = None
+    if rr_config is not None:
+        if rr_config.kb_id == kb_id:
+            rr_data = kb_data
+        else:
+            rr_manifest = load_manifest(rr_config.kb_id)
+            if rr_manifest.params.get("heldout_annotations_dropped") != "annot-split-v2":
+                raise typer.BadParameter(f"{rr_config.kb_id} must be built without half B of annot-split-v2")
+            rr_data = kb.read(fetch_outputs(rr_manifest)[0])
+        rr_knowledge = rr_config.knowledge(rr_data, ontology)
     e0 = GenPheniaV3()
-    ctx = questioning.Context(e0, knowledge, ontology, beta, top_k)
+    ctx = questioning.Context(e0, knowledge, ontology, beta, top_k, rr_knowledge)
     agent = None
     if strategy == "Q1":
         from diagnostic_ar_training.eval.agent_selector import agent_version
 
         agent = agent_version()
-    rows = question_run.run(chosen_pairs, chosen, ctx, noise, seed, top_k)
+    if workers > 1:
+        rows = question_run.run_parallel(
+            chosen_pairs, strategy, lam, knowledge, rr_knowledge, ontology, beta, noise, seed, top_k, workers
+        )
+    else:
+        rows = question_run.run(chosen_pairs, chosen, ctx, noise, seed, top_k)
     report = {
         "label": label,
         "exp": exp,
         "split": f"s3-v2/{part}",
         "strategy": strategy,
+        "strategy_label": slabel,
+        "lam": lam if strategy == "Q2b" else None,
         "schedule": list(chosen.schedule),
         "reranker": reranker_name,
+        "reranker_config": rr_config.to_dict() if rr_config else None,
+        "reranker_hash": rr_config.config_hash if rr_config else None,
         "noise": noise,
         "seed": seed,
         "kb": kb_id,
@@ -2444,7 +2469,7 @@ def s3_interview_cmd(
     }
     out_dir = RESULTS_DIR / exp / label
     out_dir.mkdir(parents=True, exist_ok=True)
-    stem = f"s3-v2-{part}__{strategy}__{reranker_name}__noise{noise:g}"
+    stem = f"s3-v2-{part}__{slabel}__{reranker_name}__noise{noise:g}"
     questions_path = out_dir / f"{stem}.interviews.jsonl"
     questions_path.write_text("".join(json.dumps(r, sort_keys=True, default=str) + "\n" for r in rows))
     report_path = out_dir / f"{stem}.report.json"
@@ -2457,14 +2482,19 @@ def s3_interview_cmd(
     ]
     params = {k: report[k] for k in ("strategy", "reranker", "noise", "seed", "kb", "agent", "label")}
     params["cases"] = len(rows)
-    artifact = f"results-{exp}-{label}-{strategy}-{reranker_name}-noise{noise:g}"
+    artifact = f"results-{exp}-{label}-{slabel}-{reranker_name}-noise{noise:g}"
     artifact = "".join(c if c.isalnum() or c in ".-" else "_" for c in artifact)
     write_manifest(
         build_manifest(
             artifact, "question-interview", inputs, params, [questions_path, report_path], state=state
         )
     )
-    typer.echo(f"{strategy} cases={len(rows)} s/case={report['seconds_per_case']['mean']:.2f}")
+    if log and rr_config is not None:
+        log_path = RESULTS_DIR / exp / log
+        r1 = question_run.r1_from_b004(RESULTS_DIR / "EXP-B-004" / "dev-search.tsv", rr_config.config_hash)
+        row = question_run.q_log_row(report, slabel, lam, rr_config.config_hash, r1, state.sha)
+        question_run.append_q_log(log_path, row)
+    typer.echo(f"{slabel} cases={len(rows)} s/case={report['seconds_per_case']['mean']:.2f}")
     for name in ("E0-initial", "E0+answers", "final"):
         typer.echo(f"{name:12} MRR={report[name]['mrr']:.4f}")
     for name in (
