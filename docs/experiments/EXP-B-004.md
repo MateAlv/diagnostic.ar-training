@@ -353,3 +353,16 @@ Mateo approved it on 2026-10-03.
   split by `onset_source`.
 - **No R1-test read:** the released re-ranker is unchanged, and rr-v1
   already passed R1-test (EXP-B-003).
+
+## Addendum (2026-10-03, second): rr-v1 reference replaced, before any S3-v2-test read
+rr-v1 on kb-v5 cannot be scored on S3-v2-test (the harness refuses KBs that
+don't drop annot-split-v2 half B), so it is replaced by rr-v1's formula on
+kb-v6 as the descriptive reference: `llr`, k 0.5, neg weight 0.5, config
+`2b6a00674f4c` (arm `L1:llr:k0.5:w0.5` of `results/EXP-B-004/dev-search.tsv`).
+The released rr-v1 already passed R1-test in EXP-B-003. Nothing else in the
+first addendum changes: the item `8488e32fc7c2` is not scored.
+
+Harness change made before the read (stricter only): in `dxt s3 interview`
+every validation that can refuse a run (KBs, re-ranker config, strategy,
+agent branch and sha) now runs before the sealed part is loaded, so a
+refused run never ledgers a read. A test covers it.

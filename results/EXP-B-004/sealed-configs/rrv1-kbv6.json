@@ -1,0 +1,17 @@
+{
+ "kb_id": "kb-v6",
+ "neg_cap": null,
+ "neg_form": "llr",
+ "neg_strength": 0.5,
+ "neg_tau": null,
+ "top_k": 200,
+ "weights": {
+  "age_any": 0.0,
+  "age_mean": 0.0,
+  "neg_annotated_share": 0.0,
+  "neg_llr": 0.5,
+  "onset": 0.0,
+  "sex_prior": 0.0,
+  "sex_restricted": 0.0
+ }
+}
