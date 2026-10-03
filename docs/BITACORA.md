@@ -3480,6 +3480,24 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Build:** Q018 was the only shard whose rows changed since `hpoa-lit-v1`
   (all other accepted shards match the v1 hashes). Built
   `dxt lit build --version 2 --publish` from a clean committed tree (code
-  `0d7c8ca`): 97 shards accepted, 7,083 rows in (v1: 7,085), 7,251 HPOA
-  rows. Releases `hpoa-lit-v2`, `hpoa-enriched-v2`, `presentation-ages-v2`,
+  `0d7c8ca`): 97 shards accepted, 7,083 rows in (v1: 7,085), 7,251 literature
+  rows in `hpoa-enriched` (v1: 7,252). The onset-ages and presentation-ages
+  artifacts are byte-identical to v1. Releases `hpoa-lit-v2`, `hpoa-enriched-v2`, `presentation-ages-v2`,
   `onset-ages-v2`. Nothing downstream was repinned.
+
+### 2026-10-03 — evidence — evidence pack for the informe (branch `docs/evidence-pack`)
+- **What:** `docs/evidence/EVIDENCE_INDEX.md` (every claimable result with
+  numbers, CIs, source file, commit or PR and split), `docs/evidence/TABLES.md`
+  (the same as tables, numbers only), seven figures (a to g) in
+  `docs/evidence/figures/` and the data behind them in `docs/evidence/data/`.
+  Scripts: `scripts/evidence/` (`make_all.py` regenerates everything from
+  committed result files; matplotlib and numpy needed, not in the pinned env).
+  Evidence only; no informe prose.
+- **Checks:** `scripts/evidence/verify_numbers.py` compared 280 numbers printed
+  in docs with the result files: 276 match, 4 differ (listed in the index under
+  Discrepancies, with 5 more notes): V03-full terms per case 8.42 (ADR-0012
+  amendment 5) vs 10.21 in the result file; PanelApp panels 433 vs 414; pass-2
+  genes 218 vs 220; ANALYSIS-003 simulator-noise mean IC 4.79 vs 5.547.
+- **G2b dev intervals recomputed** from the per-gene values: means identical to
+  the 2026-10-03 entry, interval endpoints within 0.003 (seed not recorded).
+- No sealed read, no R1-dev read, nothing under GenPhenAI.

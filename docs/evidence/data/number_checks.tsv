@@ -1,0 +1,281 @@
+check	doc	doc_value	result_file	file_value	status
+EXP-000 R1-train n	docs/experiments/EXP-000.md	4103	results/EXP-000/r1-v1-train__genphenia-v3.0__all.clustered-summary.json	4103	MATCH
+EXP-000 R1-train MRR	docs/experiments/EXP-000.md	0.440	results/EXP-000/r1-v1-train__genphenia-v3.0__all.clustered-summary.json	0.439588	MATCH
+EXP-000 R1-train MRR CI low	docs/experiments/EXP-000.md	0.387	results/EXP-000/r1-v1-train__genphenia-v3.0__all.clustered-summary.json	0.386954	MATCH
+EXP-000 R1-train MRR CI high	docs/experiments/EXP-000.md	0.494	results/EXP-000/r1-v1-train__genphenia-v3.0__all.clustered-summary.json	0.493509	MATCH
+EXP-000 R1-dev n	docs/experiments/EXP-000.md	1883	results/EXP-000/r1-v1-dev__genphenia-v3.0__all.clustered-summary.json	1883	MATCH
+EXP-000 R1-dev MRR	docs/experiments/EXP-000.md	0.448	results/EXP-000/r1-v1-dev__genphenia-v3.0__all.clustered-summary.json	0.448475	MATCH
+EXP-000 R1-dev MRR CI low	docs/experiments/EXP-000.md	0.399	results/EXP-000/r1-v1-dev__genphenia-v3.0__all.clustered-summary.json	0.398577	MATCH
+EXP-000 R1-dev MRR CI high	docs/experiments/EXP-000.md	0.504	results/EXP-000/r1-v1-dev__genphenia-v3.0__all.clustered-summary.json	0.503947	MATCH
+EXP-000 R1-test n	docs/experiments/EXP-000.md	2548	results/EXP-000/r1-v1-test__genphenia-v3.0__all.clustered-summary.json	2548	MATCH
+EXP-000 R1-test MRR	docs/experiments/EXP-000.md	0.370	results/EXP-000/r1-v1-test__genphenia-v3.0__all.clustered-summary.json	0.369847	MATCH
+EXP-000 R1-test MRR CI low	docs/experiments/EXP-000.md	0.266	results/EXP-000/r1-v1-test__genphenia-v3.0__all.clustered-summary.json	0.266082	MATCH
+EXP-000 R1-test MRR CI high	docs/experiments/EXP-000.md	0.480	results/EXP-000/r1-v1-test__genphenia-v3.0__all.clustered-summary.json	0.47988	MATCH
+EXP-000 mcrd n	docs/experiments/EXP-000.md	229	results/EXP-000/mcrd__genphenia-v3.0__all.summary.json	229	MATCH
+EXP-000 mcrd MRR	docs/experiments/EXP-000.md	0.747	results/EXP-000/mcrd__genphenia-v3.0__all.summary.json	0.746502	MATCH
+EXP-000 mcrd top-1	docs/experiments/EXP-000.md	0.677	results/EXP-000/mcrd__genphenia-v3.0__all.summary.json	0.676856	MATCH
+EXP-000 ddd n	docs/experiments/EXP-000.md	1048	results/EXP-000/ddd__genphenia-v3.0__all.summary.json	1048	MATCH
+EXP-000 ddd MRR	docs/experiments/EXP-000.md	0.757	results/EXP-000/ddd__genphenia-v3.0__all.summary.json	0.757434	MATCH
+EXP-000 ddd top-1	docs/experiments/EXP-000.md	0.689	results/EXP-000/ddd__genphenia-v3.0__all.summary.json	0.688931	MATCH
+EXP-000 s2 n	docs/experiments/EXP-000.md	5228	results/EXP-000/s2__genphenia-v3.0__all.summary.json	5228	MATCH
+EXP-000 s2 MRR	docs/experiments/EXP-000.md	0.812	results/EXP-000/s2__genphenia-v3.0__all.summary.json	0.811698	MATCH
+EXP-000 s2 top-1	docs/experiments/EXP-000.md	0.751	results/EXP-000/s2__genphenia-v3.0__all.summary.json	0.751148	MATCH
+EXP-B-001 neg=0.5 delta	docs/experiments/EXP-B-001.md	-0.0067	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.00671154	MATCH
+EXP-B-001 neg=0.5 CI low	docs/experiments/EXP-B-001.md	-0.0235	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.0235177	MATCH
+EXP-B-001 neg=0.5 CI high	docs/experiments/EXP-B-001.md	+0.0051	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00507946	MATCH
+EXP-B-001 neg=0.5 harmed	docs/experiments/EXP-B-001.md	0.116	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.115773	MATCH
+EXP-B-001 neg=0.5 helped	docs/experiments/EXP-B-001.md	0.079	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.079129	MATCH
+EXP-B-001 neg=2.0 delta	docs/experiments/EXP-B-001.md	-0.0219	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.0218913	MATCH
+EXP-B-001 neg=2.0 CI low	docs/experiments/EXP-B-001.md	-0.0611	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.0611128	MATCH
+EXP-B-001 neg=2.0 CI high	docs/experiments/EXP-B-001.md	+0.0060	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00601697	MATCH
+EXP-B-001 neg=2.0 harmed	docs/experiments/EXP-B-001.md	0.186	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.186405	MATCH
+EXP-B-001 neg=2.0 helped	docs/experiments/EXP-B-001.md	0.112	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.111524	MATCH
+EXP-B-001 sex=1.0 delta	docs/experiments/EXP-B-001.md	+0.0003	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.000342952	MATCH
+EXP-B-001 sex=1.0 CI low	docs/experiments/EXP-B-001.md	-0.0006	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.000560236	MATCH
+EXP-B-001 sex=1.0 CI high	docs/experiments/EXP-B-001.md	+0.0014	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00139494	MATCH
+EXP-B-001 sex=1.0 harmed	docs/experiments/EXP-B-001.md	0.019	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.0191184	MATCH
+EXP-B-001 sex=1.0 helped	docs/experiments/EXP-B-001.md	0.033	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.0329262	MATCH
+EXP-B-001 age=2.0 delta	docs/experiments/EXP-B-001.md	-0.0079	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.00791546	MATCH
+EXP-B-001 age=2.0 CI low	docs/experiments/EXP-B-001.md	-0.0154	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.0154191	MATCH
+EXP-B-001 age=2.0 CI high	docs/experiments/EXP-B-001.md	-0.0005	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.000521755	MATCH
+EXP-B-001 age=2.0 harmed	docs/experiments/EXP-B-001.md	0.114	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.11418	MATCH
+EXP-B-001 age=2.0 helped	docs/experiments/EXP-B-001.md	0.107	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.106745	MATCH
+EXP-B-001 onset=0.5 delta	docs/experiments/EXP-B-001.md	+0.0017	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00174652	MATCH
+EXP-B-001 onset=0.5 CI low	docs/experiments/EXP-B-001.md	-0.0012	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.00119817	MATCH
+EXP-B-001 onset=0.5 CI high	docs/experiments/EXP-B-001.md	+0.0051	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00509625	MATCH
+EXP-B-001 onset=0.5 harmed	docs/experiments/EXP-B-001.md	0.061	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.0605417	MATCH
+EXP-B-001 onset=0.5 helped	docs/experiments/EXP-B-001.md	0.090	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.0902815	MATCH
+EXP-B-001 stage2-combined delta	docs/experiments/EXP-B-001.md	+0.0020	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00195151	MATCH
+EXP-B-001 stage2-combined CI low	docs/experiments/EXP-B-001.md	-0.0012	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	-0.00122317	MATCH
+EXP-B-001 stage2-combined CI high	docs/experiments/EXP-B-001.md	+0.0053	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.00534802	MATCH
+EXP-B-001 stage2-combined harmed	docs/experiments/EXP-B-001.md	0.070	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.0695698	MATCH
+EXP-B-001 stage2-combined helped	docs/experiments/EXP-B-001.md	0.104	results/EXP-B-001/r1-v1-dev__rr-v1-grid.json	0.104089	MATCH
+EXP-B-002 L2=0.01 dev delta	docs/experiments/EXP-B-002.md	0.0562	results/EXP-B-002/rr-v2-fits.json	0.0562137	MATCH
+EXP-B-002 L2=0.01 CI low	docs/experiments/EXP-B-002.md	0.0084	results/EXP-B-002/rr-v2-fits.json	0.00843756	MATCH
+EXP-B-002 L2=0.01 CI high	docs/experiments/EXP-B-002.md	0.1172	results/EXP-B-002/rr-v2-fits.json	0.117239	MATCH
+EXP-B-002 L2=0.1 dev delta	docs/experiments/EXP-B-002.md	0.0565	results/EXP-B-002/rr-v2-fits.json	0.0565251	MATCH
+EXP-B-002 L2=0.1 CI low	docs/experiments/EXP-B-002.md	0.0086	results/EXP-B-002/rr-v2-fits.json	0.00862654	MATCH
+EXP-B-002 L2=0.1 CI high	docs/experiments/EXP-B-002.md	0.1179	results/EXP-B-002/rr-v2-fits.json	0.117856	MATCH
+EXP-B-002 L2=1 dev delta	docs/experiments/EXP-B-002.md	0.0564	results/EXP-B-002/rr-v2-fits.json	0.0563936	MATCH
+EXP-B-002 L2=1 CI low	docs/experiments/EXP-B-002.md	0.0086	results/EXP-B-002/rr-v2-fits.json	0.00857402	MATCH
+EXP-B-002 L2=1 CI high	docs/experiments/EXP-B-002.md	0.1179	results/EXP-B-002/rr-v2-fits.json	0.117932	MATCH
+EXP-B-002 L2=10 dev delta	docs/experiments/EXP-B-002.md	0.0494	results/EXP-B-002/rr-v2-fits.json	0.0493874	MATCH
+EXP-B-002 L2=10 CI low	docs/experiments/EXP-B-002.md	0.0048	results/EXP-B-002/rr-v2-fits.json	0.00483559	MATCH
+EXP-B-002 L2=10 CI high	docs/experiments/EXP-B-002.md	0.1105	results/EXP-B-002/rr-v2-fits.json	0.110452	MATCH
+EXP-B-002 refit without negation delta	docs/experiments/EXP-B-002.md	0.0014	results/EXP-B-002/rr-v2-fits.json	0.00143436	MATCH
+EXP-B-002 zeroed without negation delta	docs/experiments/EXP-B-002.md	0.0019	results/EXP-B-002/rr-v2-fits.json	0.00185313	MATCH
+EXP-S3-001 questions per case	docs/experiments/EXP-S3-001.md	6.88	results/EXP-S3-001/s3-v1-dev__report.json	6.87747	MATCH
+EXP-S3-001 cases	docs/experiments/EXP-S3-001.md	10210	results/EXP-S3-001/s3-v1-dev__report.json	10210	MATCH
+EXP-S3-001 E0-initial MRR	docs/experiments/EXP-S3-001.md	0.3178	results/EXP-S3-001/s3-v1-dev__report.json	0.317823	MATCH
+EXP-S3-001 E0+answers MRR	docs/experiments/EXP-S3-001.md	0.3298	results/EXP-S3-001/s3-v1-dev__report.json	0.329807	MATCH
+EXP-S3-001 rr-v1[neg=0.5] delta	docs/experiments/EXP-S3-001.md	0.0045	results/EXP-S3-001/s3-v1-dev__report.json	0.0045318	MATCH
+EXP-S3-001 rr-v1[neg=0.5] CI low	docs/experiments/EXP-S3-001.md	0.0034	results/EXP-S3-001/s3-v1-dev__report.json	0.00341266	MATCH
+EXP-S3-001 rr-v1[neg=0.5] CI high	docs/experiments/EXP-S3-001.md	0.0056	results/EXP-S3-001/s3-v1-dev__report.json	0.00562584	MATCH
+EXP-S3-001 rr-v1[neg=0.5] harmed	docs/experiments/EXP-S3-001.md	0.040	results/EXP-S3-001/s3-v1-dev__report.json	0.0399608	MATCH
+EXP-S3-001 rr-v1[neg=0.5] helped	docs/experiments/EXP-S3-001.md	0.168	results/EXP-S3-001/s3-v1-dev__report.json	0.167973	MATCH
+EXP-S3-001 rr-v1[neg=1] delta	docs/experiments/EXP-S3-001.md	0.0078	results/EXP-S3-001/s3-v1-dev__report.json	0.00782977	MATCH
+EXP-S3-001 rr-v1[neg=1] CI low	docs/experiments/EXP-S3-001.md	0.0064	results/EXP-S3-001/s3-v1-dev__report.json	0.00637252	MATCH
+EXP-S3-001 rr-v1[neg=1] CI high	docs/experiments/EXP-S3-001.md	0.0093	results/EXP-S3-001/s3-v1-dev__report.json	0.009329	MATCH
+EXP-S3-001 rr-v1[neg=1] harmed	docs/experiments/EXP-S3-001.md	0.053	results/EXP-S3-001/s3-v1-dev__report.json	0.053379	MATCH
+EXP-S3-001 rr-v1[neg=1] helped	docs/experiments/EXP-S3-001.md	0.222	results/EXP-S3-001/s3-v1-dev__report.json	0.222429	MATCH
+EXP-S3-001 rr-v1[neg=2] delta	docs/experiments/EXP-S3-001.md	0.0095	results/EXP-S3-001/s3-v1-dev__report.json	0.0095294	MATCH
+EXP-S3-001 rr-v1[neg=2] CI low	docs/experiments/EXP-S3-001.md	0.0075	results/EXP-S3-001/s3-v1-dev__report.json	0.007525	MATCH
+EXP-S3-001 rr-v1[neg=2] CI high	docs/experiments/EXP-S3-001.md	0.0116	results/EXP-S3-001/s3-v1-dev__report.json	0.0116484	MATCH
+EXP-S3-001 rr-v1[neg=2] harmed	docs/experiments/EXP-S3-001.md	0.072	results/EXP-S3-001/s3-v1-dev__report.json	0.0716944	MATCH
+EXP-S3-001 rr-v1[neg=2] helped	docs/experiments/EXP-S3-001.md	0.277	results/EXP-S3-001/s3-v1-dev__report.json	0.276983	MATCH
+EXP-S3-001 rr-v1[all=1] delta	docs/experiments/EXP-S3-001.md	0.0140	results/EXP-S3-001/s3-v1-dev__report.json	0.0139699	MATCH
+EXP-S3-001 rr-v1[all=1] CI low	docs/experiments/EXP-S3-001.md	0.0120	results/EXP-S3-001/s3-v1-dev__report.json	0.0120015	MATCH
+EXP-S3-001 rr-v1[all=1] CI high	docs/experiments/EXP-S3-001.md	0.0159	results/EXP-S3-001/s3-v1-dev__report.json	0.0159013	MATCH
+EXP-S3-001 rr-v1[all=1] harmed	docs/experiments/EXP-S3-001.md	0.065	results/EXP-S3-001/s3-v1-dev__report.json	0.0650343	MATCH
+EXP-S3-001 rr-v1[all=1] helped	docs/experiments/EXP-S3-001.md	0.289	results/EXP-S3-001/s3-v1-dev__report.json	0.288639	MATCH
+EXP-S3-001 rr-v2[EXP-B-002 l2=0.1] delta	docs/experiments/EXP-S3-001.md	-0.0299	results/EXP-S3-001/s3-v1-dev__report.json	-0.0299477	MATCH
+EXP-S3-001 rr-v2[EXP-B-002 l2=0.1] CI low	docs/experiments/EXP-S3-001.md	-0.0326	results/EXP-S3-001/s3-v1-dev__report.json	-0.0326082	MATCH
+EXP-S3-001 rr-v2[EXP-B-002 l2=0.1] CI high	docs/experiments/EXP-S3-001.md	-0.0271	results/EXP-S3-001/s3-v1-dev__report.json	-0.0271233	MATCH
+EXP-S3-001 rr-v2[EXP-B-002 l2=0.1] harmed	docs/experiments/EXP-S3-001.md	0.282	results/EXP-S3-001/s3-v1-dev__report.json	0.281881	MATCH
+EXP-S3-001 rr-v2[EXP-B-002 l2=0.1] helped	docs/experiments/EXP-S3-001.md	0.078	results/EXP-S3-001/s3-v1-dev__report.json	0.0783546	MATCH
+EXP-B-003 S3-test cases	docs/experiments/EXP-B-003.md	9990	results/EXP-B-003/s3-v1-test__report.json	9990	MATCH
+EXP-B-003 S3-test E0-initial MRR	docs/experiments/EXP-B-003.md	0.3204	results/EXP-B-003/s3-v1-test__report.json	0.320448	MATCH
+EXP-B-003 S3-test E0+answers MRR	docs/experiments/EXP-B-003.md	0.3336	results/EXP-B-003/s3-v1-test__report.json	0.333624	MATCH
+EXP-B-003 S3-test rr MRR	docs/experiments/EXP-B-003.md	0.3380	results/EXP-B-003/s3-v1-test__report.json	0.338047	MATCH
+EXP-B-003 S3-test delta	docs/experiments/EXP-B-003.md	0.0044	results/EXP-B-003/s3-v1-test__report.json	0.0044231	MATCH
+EXP-B-003 S3-test CI low	docs/experiments/EXP-B-003.md	0.0032	results/EXP-B-003/s3-v1-test__report.json	0.00323233	MATCH
+EXP-B-003 S3-test CI high	docs/experiments/EXP-B-003.md	0.0057	results/EXP-B-003/s3-v1-test__report.json	0.00565115	MATCH
+EXP-B-003 S3-test harmed	docs/experiments/EXP-B-003.md	0.039	results/EXP-B-003/s3-v1-test__report.json	0.0386386	MATCH
+EXP-B-003 S3-test helped	docs/experiments/EXP-B-003.md	0.176	results/EXP-B-003/s3-v1-test__report.json	0.176076	MATCH
+EXP-B-003 S3-test E0-initial delta	docs/experiments/EXP-B-003.md	-0.0132	results/EXP-B-003/s3-v1-test__report.json	-0.0131761	MATCH
+EXP-B-003 S3-test questions per case	docs/experiments/EXP-B-003.md	6.89	results/EXP-B-003/s3-v1-test__report.json	6.89359	MATCH
+EXP-B-003 R1-test all MRR	docs/experiments/EXP-B-003.md	0.3674	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0.367391	MATCH
+EXP-B-003 R1-test present MRR	docs/experiments/EXP-B-003.md	0.3698	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0.369847	MATCH
+EXP-B-003 R1-test all delta	docs/experiments/EXP-B-003.md	-0.0025	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	-0.00245592	MATCH
+EXP-B-003 R1-test all CI low	docs/experiments/EXP-B-003.md	-0.0070	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	-0.00699739	MATCH
+EXP-B-003 R1-test all CI high	docs/experiments/EXP-B-003.md	0.0013	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0.00133146	MATCH
+EXP-B-003 R1-test all harmed	docs/experiments/EXP-B-003.md	0.090	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0.0898744	MATCH
+EXP-B-003 R1-test all helped	docs/experiments/EXP-B-003.md	0.063	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0.0631868	MATCH
+EXP-B-003 R1-test excluded-cases delta	docs/experiments/EXP-B-003.md	-0.0033	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	-0.00329872	MATCH
+EXP-B-003 R1-test excluded-cases n	docs/experiments/EXP-B-003.md	1897	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	1897	MATCH
+EXP-B-003 R1-test present delta	docs/experiments/EXP-B-003.md	0	results/EXP-B-003/r1-v1-test__rr-v1[neg=0.5]__report.json	0	MATCH
+EXP-A-001 a001-c1-lr1e-5-bntrain-s0 R1-dev delta	docs/experiments/EXP-A-001.md	-0.0913	results/EXP-A-001/report.json	-0.0913108	MATCH
+EXP-A-001 a001-c1-lr1e-5-bntrain-s0 CI low	docs/experiments/EXP-A-001.md	-0.1223	results/EXP-A-001/report.json	-0.122316	MATCH
+EXP-A-001 a001-c1-lr1e-5-bntrain-s0 CI high	docs/experiments/EXP-A-001.md	-0.0588	results/EXP-A-001/report.json	-0.0588148	MATCH
+EXP-A-001 a001-c1-lr1e-5-bntrain-s0 harmed	docs/experiments/EXP-A-001.md	0.461	results/EXP-A-001/report.json	0.461498	MATCH
+EXP-A-001 a001-c3-lr2e-4-bntrain-s0 R1-dev delta	docs/experiments/EXP-A-001.md	-0.2047	results/EXP-A-001/report.json	-0.204671	MATCH
+EXP-A-001 a001-c3-lr2e-4-bntrain-s0 CI low	docs/experiments/EXP-A-001.md	-0.2445	results/EXP-A-001/report.json	-0.244546	MATCH
+EXP-A-001 a001-c3-lr2e-4-bntrain-s0 CI high	docs/experiments/EXP-A-001.md	-0.1627	results/EXP-A-001/report.json	-0.162746	MATCH
+EXP-A-001 a001-c3-lr2e-4-bntrain-s0 harmed	docs/experiments/EXP-A-001.md	0.603	results/EXP-A-001/report.json	0.602762	MATCH
+EXP-A-001 a001-c6-lr2e-4-bnfrozen-s0 R1-dev delta	docs/experiments/EXP-A-001.md	-0.2075	results/EXP-A-001/report.json	-0.207491	MATCH
+EXP-A-001 a001-c6-lr2e-4-bnfrozen-s0 CI low	docs/experiments/EXP-A-001.md	-0.2478	results/EXP-A-001/report.json	-0.247752	MATCH
+EXP-A-001 a001-c6-lr2e-4-bnfrozen-s0 CI high	docs/experiments/EXP-A-001.md	-0.1641	results/EXP-A-001/report.json	-0.164093	MATCH
+EXP-A-001 a001-c6-lr2e-4-bnfrozen-s0 harmed	docs/experiments/EXP-A-001.md	0.607	results/EXP-A-001/report.json	0.60701	MATCH
+EXP-A-002f a002f-c4-neg2-lr1e-4-s0 R1-dev delta	docs/experiments/EXP-A-002f.md	-0.1365	results/EXP-A-002f/report.json	-0.13647	MATCH
+EXP-A-002f a002f-c4-neg2-lr1e-4-s0 CI low	docs/experiments/EXP-A-002f.md	-0.1864	results/EXP-A-002f/report.json	-0.186373	MATCH
+EXP-A-002f a002f-c4-neg2-lr1e-4-s0 CI high	docs/experiments/EXP-A-002f.md	-0.0854	results/EXP-A-002f/report.json	-0.0854329	MATCH
+EXP-A-002f a002f-c4-neg2-lr1e-4-s0 harmed	docs/experiments/EXP-A-002f.md	0.448	results/EXP-A-002f/report.json	0.44769	MATCH
+EXP-A-002f a002f-c5-neg2-lr1e-3-s0 R1-dev delta	docs/experiments/EXP-A-002f.md	-0.2542	results/EXP-A-002f/report.json	-0.254228	MATCH
+EXP-A-002f a002f-c5-neg2-lr1e-3-s0 CI low	docs/experiments/EXP-A-002f.md	-0.3059	results/EXP-A-002f/report.json	-0.305869	MATCH
+EXP-A-002f a002f-c5-neg2-lr1e-3-s0 CI high	docs/experiments/EXP-A-002f.md	-0.1958	results/EXP-A-002f/report.json	-0.195833	MATCH
+EXP-A-002f a002f-c5-neg2-lr1e-3-s0 harmed	docs/experiments/EXP-A-002f.md	0.596	results/EXP-A-002f/report.json	0.595858	MATCH
+EXP-A-002f a002f-c6-neg2-lr1e-2-s0 R1-dev delta	docs/experiments/EXP-A-002f.md	-0.2788	results/EXP-A-002f/report.json	-0.278768	MATCH
+EXP-A-002f a002f-c6-neg2-lr1e-2-s0 CI low	docs/experiments/EXP-A-002f.md	-0.3306	results/EXP-A-002f/report.json	-0.330598	MATCH
+EXP-A-002f a002f-c6-neg2-lr1e-2-s0 CI high	docs/experiments/EXP-A-002f.md	-0.2232	results/EXP-A-002f/report.json	-0.223228	MATCH
+EXP-A-002f a002f-c6-neg2-lr1e-2-s0 harmed	docs/experiments/EXP-A-002f.md	0.635	results/EXP-A-002f/report.json	0.634626	MATCH
+EXP-A-003f a003f-c1-cov16-lr1e-4-s0 R1-dev delta	docs/experiments/EXP-A-003f.md	-0.2090	results/EXP-A-003f/report.json	-0.209026	MATCH
+EXP-A-003f a003f-c1-cov16-lr1e-4-s0 CI low	docs/experiments/EXP-A-003f.md	-0.2584	results/EXP-A-003f/report.json	-0.258413	MATCH
+EXP-A-003f a003f-c1-cov16-lr1e-4-s0 CI high	docs/experiments/EXP-A-003f.md	-0.1556	results/EXP-A-003f/report.json	-0.155601	MATCH
+EXP-A-003f a003f-c1-cov16-lr1e-4-s0 harmed	docs/experiments/EXP-A-003f.md	0.545	results/EXP-A-003f/report.json	0.544875	MATCH
+EXP-A-003f a003f-c3-cov16-lr1e-2-s0 R1-dev delta	docs/experiments/EXP-A-003f.md	-0.2310	results/EXP-A-003f/report.json	-0.231	MATCH
+EXP-A-003f a003f-c3-cov16-lr1e-2-s0 CI low	docs/experiments/EXP-A-003f.md	-0.2805	results/EXP-A-003f/report.json	-0.280477	MATCH
+EXP-A-003f a003f-c3-cov16-lr1e-2-s0 CI high	docs/experiments/EXP-A-003f.md	-0.1776	results/EXP-A-003f/report.json	-0.177592	MATCH
+EXP-A-003f a003f-c3-cov16-lr1e-2-s0 harmed	docs/experiments/EXP-A-003f.md	0.593	results/EXP-A-003f/report.json	0.593202	MATCH
+EXP-A-003f a003f-c6-cov64-lr1e-2-s0 R1-dev delta	docs/experiments/EXP-A-003f.md	-0.2336	results/EXP-A-003f/report.json	-0.233634	MATCH
+EXP-A-003f a003f-c6-cov64-lr1e-2-s0 CI low	docs/experiments/EXP-A-003f.md	-0.2837	results/EXP-A-003f/report.json	-0.28365	MATCH
+EXP-A-003f a003f-c6-cov64-lr1e-2-s0 CI high	docs/experiments/EXP-A-003f.md	-0.1794	results/EXP-A-003f/report.json	-0.179364	MATCH
+EXP-A-003f a003f-c6-cov64-lr1e-2-s0 harmed	docs/experiments/EXP-A-003f.md	0.588	results/EXP-A-003f/report.json	0.587892	MATCH
+EXP-A-002f c5 s0 S3-dev delta	docs/experiments/EXP-A-002f.md	0.0925	results/EXP-A-002f/report.json	0.0924706	MATCH
+gate UP G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.416	results/realism/gate-v0.5.4-cand6-gonogo.json	0.416124	MATCH
+gate UP G2b	results/realism/gate-v0.5.4-cand6-gonogo.md	0.231	results/realism/gate-v0.5.4-cand6-gonogo.json	0.230839	MATCH
+gate UP G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	3.717	results/realism/gate-v0.5.4-cand6-gonogo.json	3.71734	MATCH
+gate UP G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.840	results/realism/gate-v0.5.4-cand6-gonogo.json	0.839842	MATCH
+gate UP G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.414	results/realism/gate-v0.5.4-cand6-gonogo.json	0.413716	MATCH
+gate V03-full G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.336	results/realism/gate-v0.5.4-cand6-gonogo.json	0.335838	MATCH
+gate V03-full G2b	results/realism/gate-v0.5.4-cand6-gonogo.md	0.095	results/realism/gate-v0.5.4-cand6-gonogo.json	0.0946357	MATCH
+gate V03-full G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	1.653	results/realism/gate-v0.5.4-cand6-gonogo.json	1.65261	MATCH
+gate V03-full G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.819	results/realism/gate-v0.5.4-cand6-gonogo.json	0.81902	MATCH
+gate V03-full G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.183	results/realism/gate-v0.5.4-cand6-gonogo.json	0.183061	MATCH
+gate cand3 G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.305	results/realism/gate-v0.5.4-cand6-gonogo.json	0.304702	MATCH
+gate cand3 G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	1.732	results/realism/gate-v0.5.4-cand6-gonogo.json	1.73178	MATCH
+gate cand3 G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.764	results/realism/gate-v0.5.4-cand6-gonogo.json	0.763987	MATCH
+gate cand3 G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.142	results/realism/gate-v0.5.4-cand6-gonogo.json	0.142107	MATCH
+gate cand4 G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.307	results/realism/gate-v0.5.4-cand6-gonogo.json	0.306792	MATCH
+gate cand4 G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	5.754	results/realism/gate-v0.5.4-cand6-gonogo.json	5.75422	MATCH
+gate cand4 G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.822	results/realism/gate-v0.5.4-cand6-gonogo.json	0.821611	MATCH
+gate cand4 G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.204	results/realism/gate-v0.5.4-cand6-gonogo.json	0.203682	MATCH
+gate cand5 G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.306	results/realism/gate-v0.5.4-cand6-gonogo.json	0.306145	MATCH
+gate cand5 G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	1.908	results/realism/gate-v0.5.4-cand6-gonogo.json	1.90765	MATCH
+gate cand5 G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.809	results/realism/gate-v0.5.4-cand6-gonogo.json	0.809105	MATCH
+gate cand5 G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.049	results/realism/gate-v0.5.4-cand6-gonogo.json	0.0487438	MATCH
+gate cand6a G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.306	results/realism/gate-v0.5.4-cand6-gonogo.json	0.306235	MATCH
+gate cand6a G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	2.955	results/realism/gate-v0.5.4-cand6-gonogo.json	2.95451	MATCH
+gate cand6a G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.764	results/realism/gate-v0.5.4-cand6-gonogo.json	0.764456	MATCH
+gate cand6a G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.011	results/realism/gate-v0.5.4-cand6-gonogo.json	0.0106931	MATCH
+gate cand6b G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.304	results/realism/gate-v0.5.4-cand6-gonogo.json	0.304263	MATCH
+gate cand6b G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	1.816	results/realism/gate-v0.5.4-cand6-gonogo.json	1.81586	MATCH
+gate cand6b G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.721	results/realism/gate-v0.5.4-cand6-gonogo.json	0.720954	MATCH
+gate cand6b G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.077	results/realism/gate-v0.5.4-cand6-gonogo.json	0.0765252	MATCH
+gate cand6 G2a	results/realism/gate-v0.5.4-cand6-gonogo.md	0.304	results/realism/gate-v0.5.4-cand6-gonogo.json	0.304363	MATCH
+gate cand6 G2c	results/realism/gate-v0.5.4-cand6-gonogo.md	1.795	results/realism/gate-v0.5.4-cand6-gonogo.json	1.79497	MATCH
+gate cand6 G2d	results/realism/gate-v0.5.4-cand6-gonogo.md	0.730	results/realism/gate-v0.5.4-cand6-gonogo.json	0.730051	MATCH
+gate cand6 G2e	results/realism/gate-v0.5.4-cand6-gonogo.md	0.079	results/realism/gate-v0.5.4-cand6-gonogo.json	0.0794041	MATCH
+gate cand1 G2b	results/realism/gate-v0.4-cand1.md	0.152	results/realism/gate-v0.4-cand1.json	0.152375	MATCH
+gate cand1 G2c	results/realism/gate-v0.4-cand1.md	1.214	results/realism/gate-v0.4-cand1.json	1.21432	MATCH
+gate cand1 G2d	results/realism/gate-v0.4-cand1.md	0.737	results/realism/gate-v0.4-cand1.json	0.73723	MATCH
+gate cand2 G2a	results/realism/gate-v0.4-cand2.md / cand3 gonogo	0.304	results/realism/gate-v0.4-cand3-gonogo.json	0.304415	MATCH
+gate cand2 G2b	results/realism/gate-v0.4-cand2.md / cand3 gonogo	0.193	results/realism/gate-v0.4-cand3-gonogo.json	0.193441	MATCH
+gate cand2 G2c	results/realism/gate-v0.4-cand2.md / cand3 gonogo	1.315	results/realism/gate-v0.4-cand3-gonogo.json	1.31505	MATCH
+gate cand2 G2d	results/realism/gate-v0.4-cand2.md / cand3 gonogo	0.792	results/realism/gate-v0.4-cand3-gonogo.json	0.791815	MATCH
+gate cand2 G2e	results/realism/gate-v0.4-cand2.md / cand3 gonogo	0.242	results/realism/gate-v0.4-cand3-gonogo.json	0.241848	MATCH
+ADR-0012 am.5 cand6 G2d	docs/decisions/0012-data-quality-gate.md (amendment 5)	0.730	results/realism/v0.5.4-cand6.json	0.730051	MATCH
+ADR-0012 am.5 cand6 G2d CI low	docs/decisions/0012-data-quality-gate.md (amendment 5)	0.699	results/realism/v0.5.4-cand6.json	0.699332	MATCH
+ADR-0012 am.5 cand6 G2d CI high	docs/decisions/0012-data-quality-gate.md (amendment 5)	0.764	results/realism/v0.5.4-cand6.json	0.763599	MATCH
+ADR-0012 am.5 cand6 G2b-train	docs/decisions/0012-data-quality-gate.md (amendment 5)	0.519	results/realism/v0.5.4-cand6.json	0.519496	MATCH
+ADR-0012 am.5 cand6 terms per case	docs/decisions/0012-data-quality-gate.md (amendment 5)	6.90	results/realism/v0.5.4-cand6.json	6.90455	MATCH
+ADR-0012 am.5 cand6 p90	docs/decisions/0012-data-quality-gate.md (amendment 5)	13	results/realism/v0.5.4-cand6.json	13	MATCH
+ADR-0012 am.5 real p90	docs/decisions/0012-data-quality-gate.md (amendment 5)	17	results/realism/v0.5.4-cand6.json	17	MATCH
+ADR-0012 am.5 real terms per case	docs/decisions/0012-data-quality-gate.md (amendment 5)	8.70	results/realism/v0.5.4-cand6.json	8.69949	MATCH
+ADR-0012 am.5 V03-full terms per case (doc says 8.42)	docs/decisions/0012-data-quality-gate.md (amendment 5)	8.42	results/realism/v0.3-full-baseline.json	10.2052	DIFF
+ADR-0012 am.5 age median |log ratio| cand6	docs/decisions/0012-data-quality-gate.md (amendment 5)	0.585	results/realism/v0.5.4-cand6.json	0.584529	MATCH
+BITACORA G2b dev cand6	docs/BITACORA.md 2026-10-03	0.159	results/realism/v0.5.4-cand6.json	0.159421	MATCH
+BITACORA G2b dev UP (all 42 genes)	docs/decisions/0012 am.5 (UP 0.231)	0.231	results/realism/up-graphens.json	0.230839	MATCH
+BITACORA G2b dev V03-full	docs/decisions/0012 am.5	0.095	results/realism/v0.3-full-baseline.json	0.0946357	MATCH
+STATE cand6b terms per case	docs/STATE.md	6.88	results/realism/v0.5.3-cand6b-full-nodev.json	6.88365	MATCH
+ANALYSIS-006 cand6a terms per case	docs/analyses/ANALYSIS-006-candidate-6a.md	5.74	results/realism/v0.5.2-cand6a-full-nodev.json	5.74498	MATCH
+ANALYSIS-006 cand6a G2b-train	docs/analyses/ANALYSIS-006-candidate-6a.md	0.507	results/realism/v0.5.2-cand6a-full-nodev.json	0.506919	MATCH
+ANALYSIS-006 cand6a G2e E0 MRR	docs/analyses/ANALYSIS-006-candidate-6a.md	0.394	results/realism/v0.5.2-cand6a-full-nodev.json	0.394307	MATCH
+lit-sources-v1 usable chapters	docs/analyses/SOURCES-ACQUISITION-001.md	695	data/lit-sources/lit-sources-v1/summary.json	695	MATCH
+lit-sources-v1 chapters dropped eval unit	docs/analyses/SOURCES-ACQUISITION-001.md	78	data/lit-sources/lit-sources-v1/summary.json	78	MATCH
+lit-sources-v1 chapters dropped held-out PMID	docs/analyses/SOURCES-ACQUISITION-001.md	99	data/lit-sources/lit-sources-v1/summary.json	99	MATCH
+lit-sources-v1 construction genes covered by chapters	docs/analyses/SOURCES-ACQUISITION-001.md	1084	data/lit-sources/lit-sources-v1/summary.json	1084	MATCH
+lit-sources-v1 usable with numeric table	docs/analyses/SOURCES-ACQUISITION-001.md	332	data/lit-sources/lit-sources-v1/summary.json	332	MATCH
+lit-sources-v1 selected papers	docs/analyses/SOURCES-ACQUISITION-001.md	1011	data/lit-sources/lit-sources-v1/summary.json	1011	MATCH
+lit-sources-v1 pass 1 selected	docs/analyses/SOURCES-ACQUISITION-001.md	707	data/lit-sources/lit-sources-v1/summary.json	707	MATCH
+lit-sources-v1 genes with selected paper	docs/analyses/SOURCES-ACQUISITION-001.md	775	data/lit-sources/lit-sources-v1/summary.json	775	MATCH
+lit-sources-v1 pass 2 genes with selected paper (doc table: 218)	docs/analyses/SOURCES-ACQUISITION-001.md	218	data/lit-sources/lit-sources-v1/summary.json	220	DIFF
+lit-sources-v1 weak genes with chapter or paper	docs/analyses/SOURCES-ACQUISITION-001.md	735	data/lit-sources/lit-sources-v1/summary.json	735	MATCH
+lit-sources-v1 genes with chapter or paper	docs/analyses/SOURCES-ACQUISITION-001.md	1304	data/lit-sources/lit-sources-v1/summary.json	1304	MATCH
+lit-sources-v1 records screened total	docs/analyses/SOURCES-ACQUISITION-001.md	14332	data/lit-sources/lit-sources-v1/summary.json	14332	MATCH
+PanelApp panels	docs/analyses/SOURCES-ACQUISITION-001.md	433	results/analyses/SOURCES-ACQUISITION-001/summary.json	414	DIFF
+PanelApp gene entries	docs/analyses/SOURCES-ACQUISITION-001.md	32534	results/analyses/SOURCES-ACQUISITION-001/summary.json	32534	MATCH
+G2P records	docs/analyses/SOURCES-ACQUISITION-001.md	3851	results/analyses/SOURCES-ACQUISITION-001/summary.json	3851	MATCH
+MedlinePlus conditions	docs/analyses/SOURCES-ACQUISITION-001.md	1305	results/analyses/SOURCES-ACQUISITION-001/summary.json	1305	MATCH
+crosscheck items	docs/analyses/LIT-CROSSCHECK-v1.md	744	data/lit-extract/crosscheck/lit-extract-v1.summary.json	744	MATCH
+crosscheck agree	docs/analyses/LIT-CROSSCHECK-v1.md	715	data/lit-extract/crosscheck/lit-extract-v1.summary.json	715	MATCH
+crosscheck agreement	docs/analyses/LIT-CROSSCHECK-v1.md	0.961	data/lit-extract/crosscheck/lit-extract-v1.summary.json	0.961	MATCH
+audit sources	docs/analyses/LIT-AUDIT-v1.md	98	data/lit-extract/audit/lit-extract-v1.summary.json	98	MATCH
+audit answered	docs/analyses/LIT-AUDIT-v1.md	98	data/lit-extract/audit/lit-extract-v1.summary.json	98	MATCH
+audit rows audited	docs/analyses/LIT-AUDIT-v1.md	852	data/lit-extract/audit/lit-extract-v1.summary.json	852	MATCH
+audit sources with issue	docs/analyses/LIT-AUDIT-v1.md	58	data/lit-extract/audit/lit-extract-v1.summary.json	58	MATCH
+audit missed facts raised	docs/analyses/LIT-AUDIT-v1.md	143	data/lit-extract/audit/lit-extract-v1.summary.json	143	MATCH
+audit bad_rows raised	docs/analyses/LIT-AUDIT-v1.md	116	data/lit-extract/audit/lit-extract-v1.summary.json	116	MATCH
+audit wrong_unit raised	docs/analyses/LIT-AUDIT-v1.md	6	data/lit-extract/audit/lit-extract-v1.summary.json	6	MATCH
+build v2 shards accepted	docs/BITACORA.md	97	data/lit-build/hpoa-lit-v2.report.json	97	MATCH
+build v2 rows in	docs/BITACORA.md	7083	data/lit-build/hpoa-lit-v2.report.json	7083	MATCH
+build v1 rows in	docs/BITACORA.md (2026-10-02 build entry)	7085	data/lit-build/hpoa-lit-v1.report.json	7085	MATCH
+ANALYSIS-003 E0 cand2 as exported	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.163	results/analyses/ANALYSIS-003/e0_ablation.json	0.1632	MATCH
+ANALYSIS-003 E0 no noise	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.472	results/analyses/ANALYSIS-003/e0_ablation.json	0.4724	MATCH
+ANALYSIS-003 E0 no generalisation	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.179	results/analyses/ANALYSIS-003/e0_ablation.json	0.1792	MATCH
+ANALYSIS-003 E0 no specialisation	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.194	results/analyses/ANALYSIS-003/e0_ablation.json	0.1941	MATCH
+ANALYSIS-003 E0 ungeneralised no noise	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.559	results/analyses/ANALYSIS-003/e0_ablation.json	0.5594	MATCH
+ANALYSIS-003 E0 all true terms	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.742	results/analyses/ANALYSIS-003/e0_ablation.json	0.7422	MATCH
+ANALYSIS-003 E0 R1-train uncited	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.405	results/analyses/ANALYSIS-003/e0_ablation.json	0.4046	MATCH
+ANALYSIS-003 E0 uncited explained only	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.479	results/analyses/ANALYSIS-003/e0_ablation.json	0.4791	MATCH
+ANALYSIS-003 E0 cand2 terms per case	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	7.45	results/analyses/ANALYSIS-003/e0_ablation.json	7.45	MATCH
+ANALYSIS-003 E0 uncited terms per case	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	8.11	results/analyses/ANALYSIS-003/e0_ablation.json	8.11	MATCH
+ANALYSIS-003 mean IC of simulator noise (doc: 4.79)	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	4.79	results/analyses/ANALYSIS-003/e0_ablation.json	5.547	DIFF
+ANALYSIS-003 uncited vs kb-v3 explained	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.668	results/analyses/ANALYSIS-003/uncited_categories.kb-v3.json	0.668	MATCH
+ANALYSIS-003 uncited vs kb-v3 more specific	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.093	results/analyses/ANALYSIS-003/uncited_categories.kb-v3.json	0.093	MATCH
+ANALYSIS-003 uncited vs kb-v3 related	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.082	results/analyses/ANALYSIS-003/uncited_categories.kb-v3.json	0.082	MATCH
+ANALYSIS-003 uncited vs kb-v3 weak	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	0.157	results/analyses/ANALYSIS-003/uncited_categories.kb-v3.json	0.157	MATCH
+ANALYSIS-003 uncited vs kb-v3 unexplained per case	docs/analyses/ANALYSIS-003-why-simulated-patients-are-hard.md	1.92	results/analyses/ANALYSIS-003/uncited_categories.kb-v3.json	1.92	MATCH
+ANALYSIS-004 E0 MRR real unexplained	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.059	results/analyses/ANALYSIS-004/unexplained_signal.json	0.0588	MATCH
+ANALYSIS-004 E0 MRR real explained	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.498	results/analyses/ANALYSIS-004/unexplained_signal.json	0.4982	MATCH
+ANALYSIS-004 E0 MRR sim vocabulary noise	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.001	results/analyses/ANALYSIS-004/unexplained_signal.json	0.0011	MATCH
+ANALYSIS-004 E0 MRR sim related noise	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.030	results/analyses/ANALYSIS-004/unexplained_signal.json	0.0303	MATCH
+ANALYSIS-004 share annotated in unmasked g2p	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.135	results/analyses/ANALYSIS-004/unexplained_in_g2p.json	0.135	MATCH
+ANALYSIS-004 MRR in g2p	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.305	results/analyses/ANALYSIS-004/unexplained_in_g2p.json	0.3045	MATCH
+ANALYSIS-004 MRR not in g2p	docs/analyses/ANALYSIS-004-noise-signal-and-candidate-3.md	0.026	results/analyses/ANALYSIS-004/unexplained_in_g2p.json	0.0259	MATCH
+ANALYSIS-005 pairs	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	3514	results/analyses/ANALYSIS-005/c2st_features.cand5.json	3514	MATCH
+ANALYSIS-005 term-count AUC	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	0.655	results/analyses/ANALYSIS-005/c2st_features.cand5.json	0.655	MATCH
+ANALYSIS-005 term-count real mean	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	8.06	results/analyses/ANALYSIS-005/c2st_features.cand5.json	8.061	MATCH
+ANALYSIS-005 term-count sim mean	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	14.26	results/analyses/ANALYSIS-005/c2st_features.cand5.json	14.26	MATCH
+ANALYSIS-005 genes with >=10 train patients	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	84	results/analyses/ANALYSIS-005/record_size_by_gene.json	84	MATCH
+ANALYSIS-005 real terms per case	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	8.60	results/analyses/ANALYSIS-005/record_size_by_gene.json	8.6	MATCH
+ANALYSIS-005 sim terms per case	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	13.38	results/analyses/ANALYSIS-005/record_size_by_gene.json	13.38	MATCH
+ANALYSIS-005 Spearman sim size vs true terms	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	0.966	results/analyses/ANALYSIS-005/record_size_by_gene.json	0.966	MATCH
+ANALYSIS-005 Spearman real size vs sim true terms	docs/analyses/ANALYSIS-005-what-separates-candidate-5.md	0.532	results/analyses/ANALYSIS-005/record_size_by_gene.json	0.532	MATCH
+ANALYSIS-006 ancestor share real	docs/analyses/ANALYSIS-006-candidate-6a.md	0.093	results/analyses/ANALYSIS-006/explained_exactness.cand6a.json	0.093	MATCH
+ANALYSIS-006 ancestor share cand6a	docs/analyses/ANALYSIS-006-candidate-6a.md	0.152	results/analyses/ANALYSIS-006/explained_exactness.cand6a.json	0.152	MATCH
+ANALYSIS-006 explained terms real	docs/analyses/ANALYSIS-006-candidate-6a.md	6130	results/analyses/ANALYSIS-006/explained_exactness.cand6a.json	6130	MATCH
+ANALYSIS-006 explained terms cand6a	docs/analyses/ANALYSIS-006-candidate-6a.md	41376	results/analyses/ANALYSIS-006/explained_exactness.cand6a.json	41376	MATCH
+ANALYSIS-002 E0 cited n	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	2398	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	2398	MATCH
+ANALYSIS-002 E0 cited MRR	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	0.562	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	0.562	MATCH
+ANALYSIS-002 E0 uncited n	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	1124	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	1124	MATCH
+ANALYSIS-002 E0 uncited MRR	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	0.405	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	0.405	MATCH
