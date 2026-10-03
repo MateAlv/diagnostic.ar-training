@@ -45,6 +45,15 @@ We claim an improvement only when we can show all three:
     that runs write (`docs/TEST_LEDGER.md`, `docs/BITACORA.md`, `results/`,
     `data/manifests/`) don't count as dirty;
   - a reason.
+- **The environment variable `DXT_SEALED_READ` must equal the `exp_id` being
+  read [code].** It applies to every sealed load of R1 test/vault
+  (`splits.load_part`) and S3 test (`cohorts.s3.load_part`). Without it, or
+  with another value, the load raises before anything is read or ledgered.
+  Set it on the command line of the one deliberate read, never in a shell
+  profile or a script: `DXT_SEALED_READ=EXP-B-004 dxt s3 run --exp EXP-B-004
+  --part test --reason "..."`. It exists because a ledgered read once happened
+  by accident (ADR-0014 addendum, 2026-10-03). It does not replace the other
+  requirements. (MCRD/DDD reads through `cohorts.access` are not covered.)
 - Every read appends a row to `docs/TEST_LEDGER.md` **[code]**. Commit the
   ledger together with the results.
 - **The vault opens once for the whole project [code].** It is used at the end

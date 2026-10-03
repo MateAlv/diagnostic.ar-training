@@ -156,7 +156,8 @@ def load_part(
 ) -> list[Case]:
     """The only sanctioned way to get patients of a cohort source.
 
-    Sealed parts require a pre-registered experiment and are logged in the ledger;
+    Sealed parts require a pre-registered experiment, DXT_SEALED_READ=<exp_id> in the
+    environment, and are logged in the ledger;
     the vault opens once, for the final report.
     """
     part = Part(part)
@@ -166,6 +167,7 @@ def load_part(
     if part in SEALED:
         if exp_id is None:
             raise LineageError(f"{split_id}/{part} is sealed: pass exp_id and reason")
+        ledger.require_sealed_read_env(split_id, part.value, exp_id)
         if part is Part.VAULT and ledger.entries(split_id, part):
             raise LineageError(f"{split_id}/vault was already opened (see docs/TEST_LEDGER.md)")
         ledger.record_access(split_id, part, exp_id, reason)

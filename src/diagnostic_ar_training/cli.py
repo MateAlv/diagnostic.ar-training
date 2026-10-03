@@ -264,7 +264,9 @@ app.add_typer(rerank_app, name="rerank")
 @rerank_app.command("eval")
 def rerank_eval(
     exp: str = typer.Option(..., help="Pre-registered experiment id"),
-    cohort: str = typer.Option(..., help="e.g. r1-v1/test (sealed: needs --reason)"),
+    cohort: str = typer.Option(
+        ..., help="e.g. r1-v1/test (sealed: needs --reason and DXT_SEALED_READ=<exp> in the environment)"
+    ),
     reason: str = typer.Option("", help="Required for a sealed cohort"),
     kb_id: str = typer.Option("kb-v3", "--kb"),
     neg: float = typer.Option(0.0),
@@ -273,7 +275,11 @@ def rerank_eval(
     onset: float = typer.Option(0.0),
     top_k: int = typer.Option(200),
 ) -> None:
-    """One fixed rr-v1 configuration vs E0 on a cohort, as given and with excluded terms removed."""
+    """One fixed rr-v1 configuration vs E0 on a cohort, as given and with excluded terms removed.
+
+    A sealed cohort is read only with DXT_SEALED_READ=<exp> set to the same experiment id, e.g.
+    `DXT_SEALED_READ=EXP-B-003 dxt rerank eval --exp EXP-B-003 --cohort r1-v1/test --reason ...`.
+    """
 
     from diagnostic_ar_training import RESULTS_DIR, splits
     from diagnostic_ar_training.cohorts import access
@@ -758,7 +764,9 @@ app.add_typer(s3_app, name="s3")
 @s3_app.command("run")
 def s3_run_cmd(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-S3-001"),
-    part: str = typer.Option("dev", help="dev, or test (sealed)"),
+    part: str = typer.Option(
+        "dev", help="dev, or test (sealed: needs --reason and DXT_SEALED_READ=<exp> in the environment)"
+    ),
     reason: str = typer.Option("", help="Required for the sealed part"),
     kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner and the features"),
     rr2_fits: str = typer.Option(
@@ -771,7 +779,11 @@ def s3_run_cmd(
         [], "--system", help="Score only these systems (E0 references are always scored)"
     ),
 ) -> None:
-    """Interview every S3 case once, score every pre-registered system on the same answers."""
+    """Interview every S3 case once, score every pre-registered system on the same answers.
+
+    The sealed test part is read only with DXT_SEALED_READ=<exp> set to the same experiment id, e.g.
+    `DXT_SEALED_READ=EXP-B-004 dxt s3 run --exp EXP-B-004 --part test --reason ...`.
+    """
     import numpy as np
 
     from diagnostic_ar_training import REPO_ROOT, RESULTS_DIR

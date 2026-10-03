@@ -132,3 +132,11 @@
 - Exclusion list `s3-data-v2-excl-v1`: 253 cases, residual overlap 0.
 - A ledger row `s3-v2/test | EXP-B-004` (reason `x`) exists from an accidental
   load; see the BITACORA entry of the same date.
+
+## Note, 2026-10-03: sealed-read guard
+- The 2026-10-03 20:59 ledger row for s3-v2/test (EXP-B-004, reason 'x') was
+  a non-substantive technical access during phase 1 checks; nothing was
+  inspected; Mateo ruled it does not consume EXP-B-004's read; guard added.
+- Guard: every sealed load of R1 test/vault and S3 test now also requires the
+  environment variable `DXT_SEALED_READ` to equal the `exp_id` being read
+  (EVAL_PROTOCOL §2). The ledger row stays; it is not edited.

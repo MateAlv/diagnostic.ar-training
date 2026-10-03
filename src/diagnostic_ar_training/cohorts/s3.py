@@ -70,7 +70,11 @@ def freeze(split_id: str, dataset: Path, dataset_manifest_sha: str) -> dict:
 def load_part(
     split_id: str, part: str, dataset: Path, exp_id: str | None = None, reason: str = ""
 ) -> list[tuple[Case, frozenset[str]]]:
-    """(case, truth) pairs of one part; the sealed part needs a pre-registered, ledgered read."""
+    """(case, truth) pairs of one part; the sealed part needs a pre-registered, ledgered read and DXT_SEALED_READ=<exp_id>."""
+    if part in SEALED:
+        if exp_id is None:
+            raise LineageError(f"{split_id}/{part} is sealed: pass exp_id and reason")
+        ledger.require_sealed_read_env(split_id, part, exp_id)
     path = SPLITS_DIR / f"{split_id}.json"
     body = json.loads(path.read_text())
     content = {k: v for k, v in body.items() if k != "content_sha256"}
@@ -79,8 +83,6 @@ def load_part(
     if sha256_file(dataset) != body["dataset"]["sha256"]:
         raise LineageError(f"{dataset} is not the dataset {split_id} was frozen on")
     if part in SEALED:
-        if exp_id is None:
-            raise LineageError(f"{split_id}/{part} is sealed: pass exp_id and reason")
         ledger.record_access(split_id, part, exp_id, reason)
     wanted = set(body["case_ids"][part])
     return [(c, t) for c, t in read_dataset(dataset, split_id) if c.case_id in wanted]

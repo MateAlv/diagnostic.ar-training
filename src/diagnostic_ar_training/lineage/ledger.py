@@ -1,5 +1,6 @@
 """Every read of a sealed split part is pre-registered and logged in docs/TEST_LEDGER.md."""
 
+import os
 import re
 from datetime import UTC, datetime
 
@@ -11,7 +12,18 @@ from diagnostic_ar_training.lineage.registry import LineageError
 LEDGER = DOCS_DIR / "TEST_LEDGER.md"
 EXPERIMENTS_DIR = DOCS_DIR / "experiments"
 EXP_ID = re.compile(r"^EXP-(000|[AB]-\d{3}|S3-\d{3})$")
+SEALED_READ_ENV = "DXT_SEALED_READ"
 ROW = "| {when} | {split}/{part} | {exp} | {sha} | {reason} |\n"
+
+
+def require_sealed_read_env(split_id: str, part: str, exp_id: str) -> None:
+    """A sealed read must be deliberate: the caller sets DXT_SEALED_READ=<exp_id> in the environment."""
+    if os.environ.get(SEALED_READ_ENV) != exp_id:
+        raise LineageError(
+            f"{split_id}/{part} is sealed: set {SEALED_READ_ENV}={exp_id} in the environment to confirm "
+            f"this read of the sealed part (found {os.environ.get(SEALED_READ_ENV)!r}). "
+            "Nothing was loaded or ledgered."
+        )
 
 
 def entries(split_id: str, part: str) -> list[str]:

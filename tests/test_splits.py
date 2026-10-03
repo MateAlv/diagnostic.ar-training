@@ -57,7 +57,8 @@ def test_dev_cannot_feed_training(cohort):
     assert splits.load_part("r1-v1", Part.TRAIN, Purpose.TRAIN)
 
 
-def test_sealed_parts_need_a_preregistered_experiment(cohort, clean_tree):
+def test_sealed_parts_need_a_preregistered_experiment(cohort, clean_tree, monkeypatch):
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-001")
     splits.freeze("r1-v1")
     with pytest.raises(LineageError):
         splits.load_part("r1-v1", Part.TEST, Purpose.EVAL)
@@ -68,21 +69,24 @@ def test_sealed_parts_need_a_preregistered_experiment(cohort, clean_tree):
     assert "r1-v1/test | EXP-B-001" in (cohort / "TEST_LEDGER.md").read_text()
 
 
-def test_sealed_parts_refuse_an_uncommitted_registration(cohort, clean_tree):
+def test_sealed_parts_refuse_an_uncommitted_registration(cohort, clean_tree, monkeypatch):
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-001")
     splits.freeze("r1-v1")
     (cohort / "experiments" / "EXP-B-001.md").write_text("draft")
     with pytest.raises(LineageError):
         splits.load_part("r1-v1", Part.TEST, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
 
 
-def test_sealed_parts_refuse_uncommitted_code(cohort, dirty_tree):
+def test_sealed_parts_refuse_uncommitted_code(cohort, dirty_tree, monkeypatch):
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-001")
     splits.freeze("r1-v1")
     (cohort / "experiments" / "EXP-B-001.md").write_text("# pre-registered")
     with pytest.raises(LineageError):
         splits.load_part("r1-v1", Part.TEST, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
 
 
-def test_vault_opens_once(cohort, clean_tree):
+def test_vault_opens_once(cohort, clean_tree, monkeypatch):
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-A-009")
     splits.freeze("r1-v1")
     (cohort / "experiments" / "EXP-A-009.md").write_text("# final")
     splits.load_part("r1-v1", Part.VAULT, Purpose.EVAL, exp_id="EXP-A-009", reason="final")
@@ -103,3 +107,39 @@ def test_all_scope_masks_train_publications_too(cohort):
     train_pmids = {p for c in CASES if c.case_id in train_ids for p in c.pmids}
     held, every = splits.mask_pmids("r1-v1", "heldout"), splits.mask_pmids("r1-v1", "all")
     assert every == held | train_pmids and not held & train_pmids
+
+
+@pytest.fixture
+def recorded(monkeypatch):
+    calls = []
+    monkeypatch.setattr(splits.ledger, "record_access", lambda *a: calls.append(a))
+    return calls
+
+
+@pytest.mark.parametrize("part", [Part.TEST, Part.VAULT])
+def test_sealed_read_is_refused_without_the_env_variable(cohort, recorded, part):
+    splits.freeze("r1-v1")
+    with pytest.raises(LineageError, match="DXT_SEALED_READ=EXP-B-001"):
+        splits.load_part("r1-v1", part, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
+    assert recorded == []
+
+
+def test_sealed_read_is_refused_with_the_wrong_env_value(cohort, recorded, monkeypatch):
+    splits.freeze("r1-v1")
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-002")
+    with pytest.raises(LineageError, match="DXT_SEALED_READ"):
+        splits.load_part("r1-v1", Part.TEST, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
+    assert recorded == []
+
+
+def test_sealed_read_is_allowed_with_the_matching_env_value(cohort, recorded, monkeypatch):
+    splits.freeze("r1-v1")
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-001")
+    assert splits.load_part("r1-v1", Part.TEST, Purpose.EVAL, exp_id="EXP-B-001", reason="gate")
+    assert recorded == [("r1-v1", Part.TEST, "EXP-B-001", "gate")]
+
+
+def test_unsealed_parts_do_not_need_the_env_variable(cohort, recorded):
+    splits.freeze("r1-v1")
+    assert splits.load_part("r1-v1", Part.DEV, Purpose.EVAL)
+    assert recorded == []
