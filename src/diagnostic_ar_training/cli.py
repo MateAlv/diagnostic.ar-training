@@ -2620,7 +2620,7 @@ def s3_dev_score(
     interviews: str = typer.Option(
         "interviews.q0-kb-v6-b9.jsonl.gz", help="File in results/<exp>/dev-search/"
     ),
-    vs: str = typer.Option("", help="Arm id to compare the others against, paired (L3: the L1+L2 base)"),
+    vs: str = typer.Option("", help="Arm ids (comma-separated) to compare the others against, paired"),
     with_reference: bool = typer.Option(False, help="Also score rr-v1[neg=0.5] on kb-v5 as the bar (once)"),
     top_k: int = typer.Option(200),
     workers: int = typer.Option(8),
@@ -2689,7 +2689,8 @@ def s3_dev_score(
     source_of = {d: v["onset_source"] for d, v in kb_data["kb-v6"]["diseases"].items()}
     masks = dev_run.subset_masks(rows, entities, lit, half_b, source_of)
     index = {a.arm_id: j for j, a in enumerate(arms)}
-    report_arms = dev_run.analyse(rows, base_ranks, arm_ranks, arms, masks, {vs: index[vs]} if vs else None)
+    baselines = {v: index[v] for v in vs.split(",") if v}
+    report_arms = dev_run.analyse(rows, base_ranks, arm_ranks, arms, masks, baselines)
 
     r1_meta, r1_base, r1_ranks = dev_run.r1_dev(arms, knowledges, ontology, top_k, workers)
     r1 = dev_run.r1_summary(r1_meta, r1_base, r1_ranks, arms)

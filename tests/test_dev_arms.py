@@ -29,7 +29,7 @@ def test_the_three_l1_stages_fill_exactly_the_48_budget_with_unique_configuratio
     assert {x.config.kb_id for x in everything} == {"kb-v6"}
 
 
-def test_stage_b_takes_the_two_forms_with_the_best_feasible_delta_and_a_feasible_form_beats_a_higher_infeasible_one():
+def test_stage_b_takes_the_two_best_forms_and_a_feasible_form_beats_a_higher_infeasible_one():
     a = dev_arms.l1_stage_a()
     by_id = {x.arm_id: x for x in a}
     rows = fake_rows(a, [0.001] * 24)

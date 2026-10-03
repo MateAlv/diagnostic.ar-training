@@ -1,0 +1,105 @@
+{
+  "artifact_id": "results-EXP-B-004-dev-l1a",
+  "kind": "dev-search",
+  "created_at": "2026-10-03T21:32:35+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "b02182706dba0405d99c7f08a3512d14dbb5c983",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v5",
+      "sha256": "8eb5eb5d665fe38573f45fa4f39ed61cfaefd49be88f39580de6d861c19c19c7"
+    },
+    {
+      "id": "artifact:kb-v6",
+      "sha256": "a7dc86f95f6f96b7398bab9038d281d1f4b645464b1128fa3db9a9c6f6c64a48"
+    },
+    {
+      "id": "artifact:s3-data-v2",
+      "sha256": "4383dcbeea958d6e785da75943506211bff184a238b5f319789a3aa559d77ab7"
+    },
+    {
+      "id": "artifact:s3-data-v2-excl-v1",
+      "sha256": "67db9f604853b24376a24423a2ff7b781c8e760a179879fa7cdc4800820937e9"
+    },
+    {
+      "id": "split:s3-v2",
+      "sha256": "e3325f11a9f987bebb2bb3724d23a1d3ef1c0b1e31d41d45eeb010a1d631243d"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "file:interviews.q0-kb-v6-b9.jsonl.gz",
+      "sha256": "012345c44817716ddaeb85a60259b704e52303f684caa7d204c2f96fd5a88133"
+    },
+    {
+      "id": "artifact:annot-split-v2",
+      "sha256": "7dc2c9e0e03a7ca07331a01e98d993776f5648b07b87db3a1e38b498d0f6d4ab"
+    },
+    {
+      "id": "artifact:onset-ages-v2 (subset labels only)",
+      "sha256": "e9de2163fbb815876f3bfaf12e9d879b7713a1ec3a59a8662ffd905a5a90b94e"
+    }
+  ],
+  "params": {
+    "stage": "l1a",
+    "arms": [
+      "L1:llr:k0.5:w0.5",
+      "L1:llr:k0.5:w0.75",
+      "L1:llr:k0.5:w1",
+      "L1:llr:k0.5:w1.5",
+      "L1:llr:k0.5:w2",
+      "L1:llr:k0.5:w3",
+      "L1:gated:tau0.2:k0.5:w0.5",
+      "L1:gated:tau0.2:k0.5:w0.75",
+      "L1:gated:tau0.2:k0.5:w1",
+      "L1:gated:tau0.2:k0.5:w1.5",
+      "L1:gated:tau0.2:k0.5:w2",
+      "L1:gated:tau0.2:k0.5:w3",
+      "L1:capped:cap2:k0.5:w0.5",
+      "L1:capped:cap2:k0.5:w0.75",
+      "L1:capped:cap2:k0.5:w1",
+      "L1:capped:cap2:k0.5:w1.5",
+      "L1:capped:cap2:k0.5:w2",
+      "L1:capped:cap2:k0.5:w3",
+      "L1:propagated:k0.5:w0.5",
+      "L1:propagated:k0.5:w0.75",
+      "L1:propagated:k0.5:w1",
+      "L1:propagated:k0.5:w1.5",
+      "L1:propagated:k0.5:w2",
+      "L1:propagated:k0.5:w3",
+      "ref-rr-v1"
+    ],
+    "vs": "",
+    "top_k": 200,
+    "interviews": "interviews.q0-kb-v6-b9.jsonl.gz"
+  },
+  "params_hash": "bbfefdaa9267eec8596f362a55786d9c13a315206d3e6a1cfcb5c3b6c35a6ac2",
+  "outputs": [
+    {
+      "path": "results/EXP-B-004/dev-search/l1a.report.json",
+      "sha256": "d6b984169edd1f20e76daa4cf0a4a5b86b96ae8ad1ea48bd57ea29b80b787ece",
+      "bytes": 147196
+    },
+    {
+      "path": "results/EXP-B-004/dev-search/l1a.ranks.tsv.gz",
+      "sha256": "a7151b7a74ce1ccbef55791891b1426d77e98c8be21c6af3cf43b32c50a49387",
+      "bytes": 163003
+    },
+    {
+      "path": "results/EXP-B-004/dev-search.tsv",
+      "sha256": "16018216963c545a4111921239a150c46dd0b18fd68652419544e2e324e2002f",
+      "bytes": 8033
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
