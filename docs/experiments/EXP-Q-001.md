@@ -152,3 +152,37 @@ S3-v2-test read. Mateo approved it on 2026-10-03: "questions first", and the
 - **If P1 passes:** Q2b goes to the production question agent as a PR
   (repo editable since 2026-10-03), described as validated on simulated
   interviews only.
+
+
+## Results (sealed S3-v2-test, 2026-10-03)
+One session, 12 invocations, 9,565 cases (S3-v2-test minus 131 `s3-data-v2-excl-v1` cases), re-ranker F
+(`8ecd5b320f33`), budget 9, answers from truth. Run at code `c1342164fcb4`; the ledger has one row per invocation.
+The runs were made under `--exp EXP-B-004` (the only id the harness opens the sealed part for), so their outputs and
+manifests are in `results/EXP-B-004/sealed/`; the analysis (`scripts/sealed_analysis.py`, paired bootstrap over genes,
+2000 resamples, seed 0) is in `results/EXP-Q-001/sealed-analysis.{md,json}`. Q2b's run hash is `9963dbe02527`.
+Q1 ran the agent at `feat/rerank-negaciones` @ 48d901e3a0197984c2811345c115c99f3e42d54c (clean).
+
+| strategy | noise | primary Δ vs E0-initial [95% CI] | harmed | helped | questioner effect [CI] | re-ranker effect [CI] | re-ranker harmed |
+|---|---|---|---|---|---|---|---|
+| Q2b λ 0.6 | 0 | +0.0330 [+0.0301, +0.0360] | 0.0811 | 0.3803 | +0.0263 [+0.0236, +0.0290] | +0.0067 [+0.0055, +0.0079] | 0.0477 |
+| Q0 | 0 | +0.0281 [+0.0255, +0.0308] | 0.0825 | 0.3606 | +0.0215 [+0.0191, +0.0240] | +0.0066 [+0.0054, +0.0079] | 0.0506 |
+| Q1 | 0 | +0.0312 [+0.0284, +0.0340] | 0.0792 | 0.3800 | +0.0256 [+0.0230, +0.0282] | +0.0056 [+0.0044, +0.0068] | 0.0558 |
+| Q2b λ 0.6 | 0.05 | +0.0177 [+0.0143, +0.0210] | 0.1603 | 0.3570 | +0.0118 [+0.0084, +0.0149] | +0.0059 [+0.0047, +0.0071] | 0.0490 |
+| Q0 | 0.05 | +0.0153 [+0.0120, +0.0185] | 0.1612 | 0.3428 | +0.0089 [+0.0057, +0.0119] | +0.0063 [+0.0052, +0.0076] | 0.0528 |
+
+MRR (noise 0): E0-initial 0.3281; E0+answers 0.3544 (Q2b), 0.3495 (Q0), 0.3537 (Q1); final 0.3611, 0.3562, 0.3593.
+Top-10 final 0.4926, 0.4894, 0.4955 (initial 0.4673).
+
+- **P1, Q2b − Q0 (final MRR, same cases): +0.0049 [+0.0027, +0.0069]**; harmed 0.1476, helped 0.2027.
+  Re-ranker-effect harmed share under Q2b: 0.0477 (cap 0.05).
+- **S1, Q2b − Q1: +0.0017 [-0.0006, +0.0043]**; harmed 0.2186, helped 0.2043.
+- **S2, 5% noise, Q2b − Q0: +0.0024 [-0.0002, +0.0050]**.
+
+## Verdict
+- **P1 passes:** the CI lower bound (+0.0027) is above 0 and the re-ranker effect harms 4.77% of cases (cap 5%).
+  The effect is +0.0049 on test against +0.0065 on dev.
+- **S1:** Q2b is not distinguishable from Q1 (CI includes 0). Q1's re-ranker effect harms 5.58% of cases, above the cap.
+- **S2:** under 5% answer noise the point estimate stays positive (+0.0024) but the CI includes 0, so the
+  noise-robustness seen on dev (+0.0055 [+0.0028, +0.0083]) is not confirmed on test.
+- Q2b → propose to the production question agent (a separate PR, not part of this task)
+- Validated on simulated interviews only.

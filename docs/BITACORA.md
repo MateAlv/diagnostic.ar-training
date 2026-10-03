@@ -3783,3 +3783,24 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - no new R1-test read.
 - **Pre-registered** in the EXP-Q-001 and EXP-B-004 addenda before any
   test read.
+
+## 2026-10-03: ADR-0014 phase 4, the one sealed S3-v2-test session (EXP-B-004 / EXP-Q-001)
+- **Branch** `phase4/sealed-read`; code at `c1342164fcb4` (clean, committed before the session). One session:
+  12 invocations of `dxt s3 interview --part test` with `DXT_SEALED_READ=EXP-B-004`, one ledger row each
+  (`docs/TEST_LEDGER.md`), no re-run, no crash. 9,565 cases after the 131 `s3-data-v2-excl-v1` exclusions.
+  No R1-test, vault or GenPhenAI access.
+- **Before the session.** The harness refused rr-v1 on kb-v5 (it only accepts KBs that drop annot-split-v2 half B), and
+  validated the re-ranker KB after `s3.load_part`, so a refusal would still have ledgered a read. An attempt to add an
+  option allowing kb-v5 was denied and not made. Instead: every validation in `dxt s3 interview` now runs before the
+  sealed load (test added, ledger mocked), and the rr-v1 reference was replaced by rr-v1's formula on kb-v6
+  (`2b6a00674f4c`) in a dated addendum to EXP-B-004 written before the read. All other config hashes were reproduced
+  exactly from the dev log before running. Q1's agent: 48d901e3a0197984c2811345c115c99f3e42d54c, branch
+  `feat/rerank-negaciones`, clean.
+- **P1 passes:** Q2b − Q0 = +0.0049 [+0.0027, +0.0069]; re-ranker-effect harmed under Q2b 4.77%. S1: Q2b − Q1 =
+  +0.0017 [-0.0006, +0.0043]. S2 (5% noise): Q2b − Q0 = +0.0024 [-0.0002, +0.0050], CI includes 0.
+- **EXP-B-004 (descriptive):** onset +0.0057 [+0.0045, +0.0069] over F at 4.99% harmed; sex and age_mean, kb-v7: no
+  practical gain; rr-v1 formula +0.0011 over F at 5.76% harmed; frontiers +0.0143 (7.41%) and +0.0165 (9.44%) over
+  E0+answers. On the lit-onset subset onset is +0.0021 [-0.0027, +0.0063] over F.
+- **Layout.** Runs of EXP-Q-001 live in `results/EXP-B-004/sealed/` (the sealed id); analysis in
+  `results/EXP-Q-001/sealed-analysis.*` and `results/EXP-B-004/sealed-analysis.*`.
+- Q2b → propose to the production question agent (a separate PR, not part of this task).

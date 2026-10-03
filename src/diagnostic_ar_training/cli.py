@@ -2417,9 +2417,6 @@ def s3_interview_cmd(
     data = next(p for p in fetch_outputs(load_manifest("s3-data-v2")) if p.name.endswith(".jsonl.gz"))
     excl_path = next(p for p in fetch_outputs(load_manifest("s3-data-v2-excl-v1")) if p.name == "exclude.txt")
     excluded = set(excl_path.read_text().split())
-    pairs = s3.load_part("s3-v2", part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
-    chosen_pairs = question_run.select_cases(pairs, cases, excluded)
-
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
     kb_data = kb.read(fetch_outputs(kb_manifest)[0])
     knowledge = GeneKnowledge(kb_data, ontology)
@@ -2437,9 +2434,13 @@ def s3_interview_cmd(
     ctx = questioning.Context(e0, knowledge, ontology, beta, top_k, rr_knowledge)
     agent = None
     if strategy == "Q1":
-        from diagnostic_ar_training.eval.agent_selector import agent_version
+        from diagnostic_ar_training.eval.agent_selector import agent_version, import_agent
 
+        import_agent()
         agent = agent_version()
+    pairs = s3.load_part("s3-v2", part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    chosen_pairs = question_run.select_cases(pairs, cases, excluded)
+
     if workers > 1:
         rows = question_run.run_parallel(
             chosen_pairs, strategy, lam, knowledge, rr_knowledge, ontology, beta, noise, seed, top_k, workers

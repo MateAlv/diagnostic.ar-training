@@ -52,3 +52,37 @@ def test_s3_commands_refuse_an_unknown_split_and_a_kb_for_the_other_split():
     cli._check_s3_kb("s3-v1", manifest)
     with pytest.raises(typer.BadParameter):
         cli._s3_dataset("s3-v9")
+
+
+def _sealed_interview_args(*extra):
+    return [
+        "s3", "interview", "--exp", "EXP-B-004", "--part", "test", "--strategy", "Q0", "--cases", "0",
+        "--reason", "test", *extra,
+    ]  # fmt: skip
+
+
+@pytest.fixture
+def sealed_guard(monkeypatch):
+    from diagnostic_ar_training.lineage import gitinfo, ledger
+
+    touched = []
+    monkeypatch.setattr(gitinfo, "code_state", lambda: SimpleNamespace(dirty=False, sha="x"))
+    monkeypatch.setattr(ledger, "is_preregistered", lambda path: True)
+    monkeypatch.setattr(s3, "load_part", lambda *a, **k: touched.append("load_part"))
+    monkeypatch.setattr(ledger, "record_access", lambda *a, **k: touched.append("record_access"))
+    return touched
+
+
+def test_a_refused_sealed_interview_never_loads_or_ledgers_the_part(sealed_guard, tmp_path):
+    bad_kb = CliRunner().invoke(cli.app, _sealed_interview_args("--kb", "kb-v5"))
+    assert bad_kb.exit_code != 0
+    assert "annot-split-v2" in bad_kb.output
+    config = tmp_path / "rr.json"
+    config.write_text('{"kb_id": "kb-v5", "weights": {"neg_llr": 0.5}}')
+    bad_rr = CliRunner().invoke(cli.app, _sealed_interview_args("--reranker", str(config)))
+    assert bad_rr.exit_code != 0
+    assert "annot-split-v2" in bad_rr.output
+    bad_strategy = CliRunner().invoke(cli.app, ["s3", "interview", "--exp", "EXP-B-004", "--part", "test",
+        "--strategy", "Q9", "--cases", "0", "--reason", "test"])  # fmt: skip
+    assert bad_strategy.exit_code != 0
+    assert sealed_guard == []

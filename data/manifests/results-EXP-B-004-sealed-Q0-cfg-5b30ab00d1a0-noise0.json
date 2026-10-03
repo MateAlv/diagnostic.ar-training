@@ -1,0 +1,57 @@
+{
+  "artifact_id": "results-EXP-B-004-sealed-Q0-cfg-5b30ab00d1a0-noise0",
+  "kind": "question-interview",
+  "created_at": "2026-10-03T22:56:08+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "c1342164fcb463d0d92e403a15bac811228a65ce",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v6",
+      "sha256": "a7dc86f95f6f96b7398bab9038d281d1f4b645464b1128fa3db9a9c6f6c64a48"
+    },
+    {
+      "id": "artifact:s3-data-v2",
+      "sha256": "4383dcbeea958d6e785da75943506211bff184a238b5f319789a3aa559d77ab7"
+    },
+    {
+      "id": "artifact:s3-data-v2-excl-v1",
+      "sha256": "67db9f604853b24376a24423a2ff7b781c8e760a179879fa7cdc4800820937e9"
+    },
+    {
+      "id": "split:s3-v2",
+      "sha256": "e3325f11a9f987bebb2bb3724d23a1d3ef1c0b1e31d41d45eeb010a1d631243d"
+    }
+  ],
+  "params": {
+    "strategy": "Q0",
+    "reranker": "cfg-5b30ab00d1a0",
+    "noise": 0.0,
+    "seed": 0,
+    "kb": "kb-v6",
+    "agent": null,
+    "label": "sealed",
+    "cases": 9565
+  },
+  "params_hash": "85627158187228d2b0b99c129337c52e148264c2fd72e3213be901de434fdd41",
+  "outputs": [
+    {
+      "path": "results/EXP-B-004/sealed/s3-v2-test__Q0__cfg-5b30ab00d1a0__noise0.interviews.jsonl",
+      "sha256": "2ae6a95768f154f83a7b39ce3c613e0c669118693ce6971dc4d6a5d942308272",
+      "bytes": 5110108
+    },
+    {
+      "path": "results/EXP-B-004/sealed/s3-v2-test__Q0__cfg-5b30ab00d1a0__noise0.report.json",
+      "sha256": "7e810fdff660a3f770975b8a9fe9a3f8853d4b4be55ab3fd577dba960dd1e138",
+      "bytes": 3015
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -327,7 +327,43 @@ F and the L4 re-ranker); whether the gate against rr-v1 should be restated given
 harm-capped F is not better than rr-v1 on dev.
 
 ## Results
-(After the sealed read.)
+Sealed S3-v2-test, 2026-10-03, descriptive only (no gate), same session as EXP-Q-001: 9,565 cases (131 excluded by
+`s3-data-v2-excl-v1`), interview Q0 at budget 9, answers from truth. Every run scored the same interview and the same
+E0+answers ranks (checked). Outputs: `results/EXP-B-004/sealed/`, analysis `results/EXP-B-004/sealed-analysis.{md,json}`.
+CIs: paired bootstrap over genes, 2000 resamples, seed 0. rr-v1 on kb-v5 was replaced by rr-v1's formula on kb-v6
+(second addendum); `8488e32fc7c2` was not scored.
+
+| system | config | Δ MRR vs E0+answers [95% CI] | harmed | helped | MRR final | Δ vs F [CI] |
+|---|---|---|---|---|---|---|
+| F | 8ecd5b320f33 | +0.0066 [+0.0054, +0.0079] | 0.0506 | 0.2235 | 0.3562 | n/a |
+| rr-v1 formula on kb-v6 | 2b6a00674f4c | +0.0077 [+0.0063, +0.0092] | 0.0576 | 0.2432 | 0.3572 | +0.0011 [+0.0003, +0.0018] |
+| F on kb-v7 | af6da5cdbf19 | +0.0070 [+0.0057, +0.0083] | 0.0504 | 0.2277 | 0.3565 | +0.0003 [+0.0001, +0.0006] |
+| F + onset 0.5 | 458768f1bca4 | +0.0124 [+0.0107, +0.0140] | 0.0499 | 0.2942 | 0.3619 | +0.0057 [+0.0045, +0.0069] |
+| F + sex 0.5 | 96e69f9e62fa | +0.0070 [+0.0057, +0.0083] | 0.0525 | 0.2311 | 0.3565 | +0.0003 [+0.0000, +0.0007] |
+| F + age_mean 0.5 | 5b30ab00d1a0 | +0.0073 [+0.0059, +0.0088] | 0.0631 | 0.2477 | 0.3568 | +0.0007 [-0.0001, +0.0014] |
+| frontier ≤ 7.5% (propagated k 0.8, w 0.75) | c34cb31bd53f | +0.0143 [+0.0123, +0.0164] | 0.0741 | 0.3255 | 0.3639 | +0.0077 [+0.0062, +0.0093] |
+| frontier ≤ 10% (capped C 2, w 2) | 84296576dc8e | +0.0165 [+0.0138, +0.0190] | 0.0944 | 0.3613 | 0.3660 | +0.0098 [+0.0076, +0.0120] |
+
+### H3 on the lit-onset subset (Δ vs E0+answers [CI]; paired Δ vs F in the analysis file)
+Subset sizes: lit_onset 509 (hpoa 349, orphanet 26, orphanet_exact_alignment 86, none 48), lit_onset with known age 391.
+
+| system | lit_onset | hpoa | orphanet | orphanet_exact_alignment | none | lit_onset, age known |
+|---|---|---|---|---|---|---|
+| F + onset 0.5 | +0.0064 [-0.0001, +0.0126], harmed 0.081 | +0.0085 [+0.0015, +0.0158] | +0.0111 [-0.0109, +0.0359] | +0.0008 [-0.0170, +0.0175] | -0.0012 [-0.0265, +0.0181] | +0.0063 [-0.0002, +0.0135] |
+| F + age_mean 0.5 | +0.0043 [-0.0023, +0.0121], harmed 0.069 | +0.0039 [-0.0040, +0.0124] | +0.0244 [-0.0070, +0.0788] | +0.0000 [-0.0170, +0.0156] | +0.0043 [-0.0042, +0.0143] | +0.0030 [-0.0041, +0.0105] |
+
+Paired Δ vs F on lit_onset: onset +0.0021 [-0.0027, +0.0063], age_mean +0.0000 [-0.0040, +0.0040].
+
+## Verdict
+Descriptive, nothing gated, nothing selected from these numbers. The released re-ranker is unchanged.
+- **Onset** adds +0.0057 [+0.0045, +0.0069] over F on all cases at a harmed share of 4.99% (F: 5.06%); on the
+  lit-onset subset it is +0.0021 [-0.0027, +0.0063] over F, so the all-case gain is not concentrated on cases with a
+  literature onset. The dev finding that onset helps is reproduced on all cases, and it does not exceed the 5% cap here.
+- **Age (age_mean):** +0.0007 [-0.0001, +0.0014] over F, harmed 6.31%; no gain shown. **Sex:** +0.0003 [+0.0000, +0.0007].
+- **kb-v7 vs kb-v6:** +0.0003 [+0.0001, +0.0006], negligible (H2 not supported in practice).
+- **rr-v1 formula on kb-v6** is +0.0011 [+0.0003, +0.0018] above F, at a harmed share of 5.76% (above the cap).
+- **Frontier:** the ≤ 7.5% and ≤ 10% configurations give +0.0143 and +0.0165 over E0+answers at 7.41% and 9.44% harmed,
+  consistent with their dev trade-off.
 
 ## Addendum (2026-10-03): final pre-registration, descriptive contrasts in the sealed read
 This is written after the dev search and before any S3-v2-test read.
@@ -353,3 +389,16 @@ Mateo approved it on 2026-10-03.
   split by `onset_source`.
 - **No R1-test read:** the released re-ranker is unchanged, and rr-v1
   already passed R1-test (EXP-B-003).
+
+## Addendum (2026-10-03, second): rr-v1 reference replaced, before any S3-v2-test read
+rr-v1 on kb-v5 cannot be scored on S3-v2-test (the harness refuses KBs that
+don't drop annot-split-v2 half B), so it is replaced by rr-v1's formula on
+kb-v6 as the descriptive reference: `llr`, k 0.5, neg weight 0.5, config
+`2b6a00674f4c` (arm `L1:llr:k0.5:w0.5` of `results/EXP-B-004/dev-search.tsv`).
+The released rr-v1 already passed R1-test in EXP-B-003. Nothing else in the
+first addendum changes: the item `8488e32fc7c2` is not scored.
+
+Harness change made before the read (stricter only): in `dxt s3 interview`
+every validation that can refuse a run (KBs, re-ranker config, strategy,
+agent branch and sha) now runs before the sealed part is loaded, so a
+refused run never ledgers a read. A test covers it.
