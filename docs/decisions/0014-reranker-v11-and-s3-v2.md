@@ -123,3 +123,12 @@
 - Free-text negations: not validated, and R1 shows no gain.
 - Production deployment of anything new: only after phase 4, through
   diagnostic.ar-model.
+
+## Addendum, 2026-10-03: S3 v2 phase 1 done
+- `s3-data-v2`: 19,568 cases, 4,892 genes. Split `s3-v2` frozen before any
+  system ran: dev 9,872, test 9,696, content sha256
+  `fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e`.
+- Cases whose entity used literature onset: 1,027 (5.25%).
+- Exclusion list `s3-data-v2-excl-v1`: 253 cases, residual overlap 0.
+- A ledger row `s3-v2/test | EXP-B-004` (reason `x`) exists from an accidental
+  load; see the BITACORA entry of the same date.

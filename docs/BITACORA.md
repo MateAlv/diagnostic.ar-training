@@ -3570,3 +3570,48 @@ this task, whatever the result**; the last read needs Mateo's OK.
   guard (it forbids git on another checkout), and the fallback copy named in
   the task does not exist in the scratchpad. Nothing was fetched or worked
   around; steps 3-6 wait.
+
+### 2026-10-03 — data — ADR-0014 phase 1, steps 3-6: `s3-data-v2`, split `s3-v2` frozen, contamination
+- **Unblocked:** the simulator 0.5.4 copy is `sim-pins/sim-0.5.4-cfc20da/`
+  (`git archive cfc20da`, archive sha256 `4664812d…`), recorded as
+  "rare-disease-simulator@cfc20da (git archive)". `simcal-s3-v2` loads under
+  that copy's `load_calibration`.
+- **X-linked finding (step 2), kept as is:** X-linked inheritance without a
+  recessive or dominant mode goes to `unbiased` under the simulator's rule.
+  R1-train patients with it are about 50/50 (58 male, 59 female), so the
+  generator matches reality there. Fine for L3.
+- **`s3-data-v2`** (published): full profiles from `hpoa-enriched-v2` (9,223
+  profiles, 204,300 positive rows, 0 masked), genes-v2, report-model-v3,
+  cardinal-v1, `onset-ages-v2` and `presentation-ages-v2`, `simcal-s3-v2`;
+  gene-first, 4 per gene, medium, seed 3003.
+  - **19,568 cases, 4,892 genes** (336 vocabulary genes skipped, as in 0.5.3 and
+    0.5.4). `validate`: 0 violations, on cases and on the export.
+  - **Literature onset:** 1,027 cases (5.25%) used it (`onset_age_source`);
+    18,541 used Orphanet categories. This is the L3 age subset, and it is small.
+  - **Known sex:** 18,137 (92.69%); female 8,263, male 9,874, unknown 1,431.
+  - Simulated male shares per class (n): unbiased 0.538 (17,711), male_biased
+    0.945 (309), x_linked_dominant 0.323 (93), male_limited 1.0 (20),
+    female_limited 0.0 (4).
+  - Rich cases deleted after validation and export; sha256 `b899e902…`
+    (`outputs/s3v2/cases.jsonl.sha256`). Outputs in `outputs/s3v2/`.
+- **Split `s3-v2`** (salted hash of the case id, committed before any system
+  ran): **dev 9,872, test 9,696**; content sha256
+  `fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e`.
+  Test is sealed by `cohorts/s3.load_part` (refuses without `exp_id` and
+  reason, then ledgers the read), like s3-v1/test.
+- **Contamination** (`scripts/s3_v2_contamination.py`; keys and signatures
+  only): vs R1 (all parts, keys) 8 cases share a (gene, present) key; vs S3 v1
+  and the 13 registered simulated training sets, 246 cases share a (gene,
+  present, excluded) signature with at least one (per source: S3 v1 9, up to
+  157 in `ds-sim0.5.2-full`; `ds-sim0.5.4-full` 135). Excluded: **253** (the
+  union), in `s3-data-v2-excl-v1` (published; ids prefixed `s3-v2:`; consumers
+  must apply it). **Residual 0.** Present-set-only overlaps (1,828 cases)
+  are reported but not excluded.
+- **Incident, disclosed:** while checking that the sealed test refuses an
+  unregistered read, my check also called `s3.load_part("s3-v2", "test", ...)`
+  with `exp_id="EXP-B-004"` and reason `x`. That is allowed (EXP-B-004 is
+  committed), so it loaded the test cases into memory and wrote the ledger
+  row `s3-v2/test | EXP-B-004 | ba3ebcdbcf72 | x` in `docs/TEST_LEDGER.md`.
+  Nothing was inspected, printed or scored, and no system ran. The row is
+  left as written (ledger rows are never edited); Mateo decides whether it
+  counts against EXP-B-004's one read.
