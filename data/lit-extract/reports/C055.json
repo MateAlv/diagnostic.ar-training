@@ -1,12 +1,12 @@
 {
  "code": {
-  "dirty": false,
+  "dirty": true,
   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
-  "sha": "a38ff8ebc872b54460dd13f6d1363be67bcd073b"
+  "sha": "ef37c0b64de27512e6138b0109767e6ca588f0e7"
  },
- "notes_sha256": "94d7e2f182bd3c918835dc3581b6518b1094b0fc2ac73f8d05de236820b93bee",
+ "notes_sha256": "e8d76f20da08a001d8ae669e6bd32d9cb9673d5e7f91024eebf032d08fc956de",
  "problems": [],
- "rows_sha256": "3e659ab1c3657446dc801e99b5e8239d2cafc867dd9a2da494ae24222722db13",
+ "rows_sha256": "d4acae76485c529003bb9516b9639d5c53b086fabb1ae39bdb0dc44b5f13f1b8",
  "shard": "C055",
  "sources": {
   "NBK1196": {
@@ -47,7 +47,7 @@
   },
   "NBK1222": {
    "access_path": "genereviews-snapshot",
-   "rows": 5,
+   "rows": 4,
    "text_renderer": "lit-text-1",
    "text_sha256": "7f0986d26adc330384a0199dc9b78e06402798fba42d8e502d364c0c50626951"
   },
@@ -72,27 +72,27 @@
  },
  "stats": {
   "age_rows": 6,
-  "feature_rows": 25,
+  "feature_rows": 24,
   "flags": {
    "named_period": 3,
    "pooled_group": 8
   },
-  "rows": 31,
+  "rows": 30,
   "rows_per_source": {
    "NBK1196": 1,
    "NBK1197": 3,
    "NBK1210": 2,
    "NBK1216": 3,
-   "NBK1222": 5,
+   "NBK1222": 4,
    "NBK1225": 7,
    "NBK1227": 5,
    "NBK1237": 5
   },
   "rows_with_counts": 1,
-  "rows_with_range": 10,
-  "sex_restricted": 8,
+  "rows_with_range": 9,
+  "sex_restricted": 7,
   "units": 8
  },
  "status": "pass",
- "validated_utc": "2026-10-01T17:52:22+00:00"
+ "validated_utc": "2026-10-03T01:07:18+00:00"
 }
