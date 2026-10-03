@@ -3538,3 +3538,80 @@ this task, whatever the result**; the last read needs Mateo's OK.
   **one** read for everything (EXP-B-004 + EXP-Q-001), plus one R1-test read.
 - **Plans registered before any data exists:** EXP-B-004 (L1–L3) and
   EXP-Q-001 (L4).
+
+### 2026-10-03 — data — ADR-0014 phase 1, steps 1-2: `annot-split-v2` and `simcal-s3-v2`; step 3 blocked
+- **`annot-split-v2`** (`dxt annotations split --hpoa-artifact hpoa-enriched-v2`,
+  fraction 0.3, salt `diagnostic.ar-training/annot-split-v2`; published):
+  255,634 positive (disease, term) pairs; **B (held out) 76,565 (29.95%)**,
+  A 179,069. The 4,548 literature-only pairs: 1,378 in B (30.3%), so literature
+  rows are 1.8% of B. All 7,014 pairs with any literature row: 2,126 in B
+  (30.3%, 2.8% of B).
+- **`simcal-s3-v2`:** `simcal-v053-v1` plus a sex prior measured on R1-train
+  only (4,103 patients, 317 with unknown sex, 13 with a gene not in genes-v2;
+  3,716 mapped to an entity by their diagnosis, 57 by `sim_weight`). Class from
+  the simulator's rule (`entity_sex_prior_key`) on genes-v2 inheritance and
+  `hpoa-enriched-v2` profiles; Jeffreys share.
+
+  | Class | Patients | Male | Jeffreys share | Default | Used |
+  |---|---|---|---|---|---|
+  | male_limited | 0 | 0 | n/a | 1.0 | 1.0 (default: fixed by the class) |
+  | female_limited | 0 | 0 | n/a | 0.0 | 0.0 (default: fixed by the class) |
+  | male_biased | 23 | 22 | 0.9375 | 0.9 | **0.9375** |
+  | female_biased | 0 | 0 | n/a | 0.1 | 0.1 (default: under 20) |
+  | x_linked_dominant | 13 | 6 | 0.4643 | 0.33 | 0.33 (default: under 20) |
+  | unbiased | 3,737 | 1,996 | 0.5341 | 0.5 | **0.5341** |
+- **Finding:** the simulator's rule sends X-linked inheritance without a
+  recessive or dominant mode (HP:0001417, genes-v2's `XL`) to `unbiased`, so
+  117 X-linked patients (58 male, 59 female) sit in that class's 3,737. Only
+  X-linked recessive (HP:0001419) reaches `male_biased`. The calibration
+  follows the simulator's own rule, so the generator and the measurement agree.
+- **Blocked:** step 3 (`s3-data-v2`) needs the simulator 0.5.4 copy. The
+  `git archive cfc20da` of the simulator repo is refused by the worktree
+  guard (it forbids git on another checkout), and the fallback copy named in
+  the task does not exist in the scratchpad. Nothing was fetched or worked
+  around; steps 3-6 wait.
+
+### 2026-10-03 — data — ADR-0014 phase 1, steps 3-6: `s3-data-v2`, split `s3-v2` frozen, contamination
+- **Unblocked:** the simulator 0.5.4 copy is `sim-pins/sim-0.5.4-cfc20da/`
+  (`git archive cfc20da`, archive sha256 `4664812d…`), recorded as
+  "rare-disease-simulator@cfc20da (git archive)". `simcal-s3-v2` loads under
+  that copy's `load_calibration`.
+- **X-linked finding (step 2), kept as is:** X-linked inheritance without a
+  recessive or dominant mode goes to `unbiased` under the simulator's rule.
+  R1-train patients with it are about 50/50 (58 male, 59 female), so the
+  generator matches reality there. Fine for L3.
+- **`s3-data-v2`** (published): full profiles from `hpoa-enriched-v2` (9,223
+  profiles, 204,300 positive rows, 0 masked), genes-v2, report-model-v3,
+  cardinal-v1, `onset-ages-v2` and `presentation-ages-v2`, `simcal-s3-v2`;
+  gene-first, 4 per gene, medium, seed 3003.
+  - **19,568 cases, 4,892 genes** (336 vocabulary genes skipped, as in 0.5.3 and
+    0.5.4). `validate`: 0 violations, on cases and on the export.
+  - **Literature onset:** 1,027 cases (5.25%) used it (`onset_age_source`);
+    18,541 used Orphanet categories. This is the L3 age subset, and it is small.
+  - **Known sex:** 18,137 (92.69%); female 8,263, male 9,874, unknown 1,431.
+  - Simulated male shares per class (n): unbiased 0.538 (17,711), male_biased
+    0.945 (309), x_linked_dominant 0.323 (93), male_limited 1.0 (20),
+    female_limited 0.0 (4).
+  - Rich cases deleted after validation and export; sha256 `b899e902…`
+    (`outputs/s3v2/cases.jsonl.sha256`). Outputs in `outputs/s3v2/`.
+- **Split `s3-v2`** (salted hash of the case id, committed before any system
+  ran): **dev 9,872, test 9,696**; content sha256
+  `fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e`.
+  Test is sealed by `cohorts/s3.load_part` (refuses without `exp_id` and
+  reason, then ledgers the read), like s3-v1/test.
+- **Contamination** (`scripts/s3_v2_contamination.py`; keys and signatures
+  only): vs R1 (all parts, keys) 8 cases share a (gene, present) key; vs S3 v1
+  and the 13 registered simulated training sets, 246 cases share a (gene,
+  present, excluded) signature with at least one (per source: S3 v1 9, up to
+  157 in `ds-sim0.5.2-full`; `ds-sim0.5.4-full` 135). Excluded: **253** (the
+  union), in `s3-data-v2-excl-v1` (published; ids prefixed `s3-v2:`; consumers
+  must apply it). **Residual 0.** Present-set-only overlaps (1,828 cases)
+  are reported but not excluded.
+- **Incident, disclosed:** while checking that the sealed test refuses an
+  unregistered read, my check also called `s3.load_part("s3-v2", "test", ...)`
+  with `exp_id="EXP-B-004"` and reason `x`. That is allowed (EXP-B-004 is
+  committed), so it loaded the test cases into memory and wrote the ledger
+  row `s3-v2/test | EXP-B-004 | ba3ebcdbcf72 | x` in `docs/TEST_LEDGER.md`.
+  Nothing was inspected, printed or scored, and no system ran. The row is
+  left as written (ledger rows are never edited); Mateo decides whether it
+  counts against EXP-B-004's one read.

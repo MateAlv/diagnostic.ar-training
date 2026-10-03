@@ -1,0 +1,198 @@
+{
+ "_provenance": {
+  "artifact": "simcal-s3-v2",
+  "base": {
+   "id": "file:data/calib/simcal-v053-v1.json",
+   "sha256": "e274e0ec9585e8a0b5d668d4b5f744e9805caf8d5a9dc51d333d8333d8584130"
+  },
+  "base_provenance": {
+   "artifact": "simcal-v053-v1",
+   "base": {
+    "id": "file:data/calib/simcal-v052-v1.json",
+    "sha256": "2135209a15061707ebf88a27f1d69e747f780f9801d200ce2090ff0fb7062a9e"
+   },
+   "code_sha": "ad4579bb500b83a37fd6228a057aea3023d7eb38",
+   "included": [
+    {
+     "id": "file:data/calib/record-budget-v1.json",
+     "keys": [
+      "reporting.profile_budget_histogram"
+     ],
+     "sha256": "d0d43bc523c84f63481737a1c7842fc336f08629b3189277253ca6585b8272e5"
+    }
+   ],
+   "mean": 0.424815,
+   "min_denominator": 10,
+   "overrides": [
+    "reporting.budget_scope=\"record\"",
+    "reporting.noise_count=\"budget_share\"",
+    "presets.medium.ontology_smoothing_rate=0.0903",
+    "noise.related_share=0.6198"
+   ],
+   "pairs": 18162,
+   "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+   "source": "hpoa-recount-v1 (8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a)"
+  },
+  "sex_prior": {
+   "class_rule": "simulator 0.5.4 entity_sex_prior_key; hpoa-enriched-v2",
+   "entity_rule": "entity of the patient diagnosis, else sim_weight-weighted",
+   "estimator": "Jeffreys, (male + 0.5) / (n + 1)",
+   "min_patients": 20,
+   "patients": {
+    "entity_by_diagnosis": 3716,
+    "entity_by_sim_weight": 57,
+    "gene_not_in_genes_table": 13,
+    "patients": 4103,
+    "sex_unknown": 317
+   },
+   "source": "R1-train patients with known sex (r1-v1 train only)",
+   "table": {
+    "female_biased": {
+     "decision": "kept default: fewer than 20 patients",
+     "jeffreys_male_share": 0.5,
+     "male": 0.0,
+     "patients": 0.0,
+     "raw_male_share": null,
+     "simulator_default": 0.1,
+     "used": 0.1
+    },
+    "female_limited": {
+     "decision": "kept default: sex fixed by the class",
+     "jeffreys_male_share": 0.5,
+     "male": 0.0,
+     "patients": 0.0,
+     "raw_male_share": null,
+     "simulator_default": 0.0,
+     "used": 0.0
+    },
+    "male_biased": {
+     "decision": "measured (Jeffreys)",
+     "jeffreys_male_share": 0.9375,
+     "male": 22.0,
+     "patients": 23.0,
+     "raw_male_share": 0.9565,
+     "simulator_default": 0.9,
+     "used": 0.9375
+    },
+    "male_limited": {
+     "decision": "kept default: sex fixed by the class",
+     "jeffreys_male_share": 0.5,
+     "male": 0.0,
+     "patients": 0.0,
+     "raw_male_share": null,
+     "simulator_default": 1.0,
+     "used": 1.0
+    },
+    "unbiased": {
+     "decision": "measured (Jeffreys)",
+     "jeffreys_male_share": 0.5341,
+     "male": 1996.0,
+     "patients": 3737.0,
+     "raw_male_share": 0.5341,
+     "simulator_default": 0.5,
+     "used": 0.5341
+    },
+    "x_linked_dominant": {
+     "decision": "kept default: fewer than 20 patients",
+     "jeffreys_male_share": 0.4643,
+     "male": 6.0,
+     "patients": 13.0,
+     "raw_male_share": 0.4615,
+     "simulator_default": 0.33,
+     "used": 0.33
+    }
+   },
+   "unit": "male share per simulator sex_key class; patient's entity from genes-v2"
+  }
+ },
+ "age.duration_mean_by_onset.adult": 12.3793,
+ "age.duration_mean_by_onset.antenatal": 2.4078,
+ "age.duration_mean_by_onset.childhood": 10.3451,
+ "age.duration_mean_by_onset.childhood_or_adolescent": 9.8211,
+ "age.duration_mean_by_onset.infantile": 7.5595,
+ "age.duration_mean_by_onset.juvenile": 14.6048,
+ "age.duration_mean_by_onset.neonatal": 4.7133,
+ "age.duration_mean_by_onset.variable": 9.8211,
+ "frequency.shrinkage_mean": 0.3,
+ "missingness.age_unknown": 0.251,
+ "missingness.no_negatives": 0.075,
+ "missingness.onset_unknown": 0.404,
+ "missingness.sex_unknown": 0.077,
+ "negatives.max_per_case": 40,
+ "negatives.source_weights.confounder": 0.53,
+ "negatives.source_weights.not_annotation": 0.0,
+ "negatives.source_weights.own_disease": 0.44,
+ "negatives.source_weights.own_gene_other_disease": 0.03,
+ "negatives.unfilled_slots": "redistribute",
+ "noise.related_down_levels": 1,
+ "noise.related_share": 0.6198,
+ "noise.related_up_levels": 1,
+ "noise.vocabulary_path": "calib-v2.noise_vocabulary.tsv",
+ "presets.medium.negatives_mean": 13,
+ "presets.medium.noise_mean": 3.7,
+ "presets.medium.ontology_smoothing_rate": 0.0903,
+ "presets.medium.positive_observation_rate": 0.59,
+ "reporting.budget_normalize": true,
+ "reporting.budget_scope": "record",
+ "reporting.force_cardinal": false,
+ "reporting.mode": "independent",
+ "reporting.noise_count": "budget_share",
+ "reporting.noise_share": 0.207,
+ "reporting.profile_budget_histogram": {
+  "1": 199,
+  "10": 203,
+  "11": 181,
+  "12": 171,
+  "13": 142,
+  "14": 93,
+  "15": 91,
+  "16": 78,
+  "17": 53,
+  "18": 59,
+  "19": 43,
+  "2": 253,
+  "20": 41,
+  "21": 22,
+  "22": 23,
+  "23": 17,
+  "24": 15,
+  "25": 23,
+  "26": 22,
+  "27": 16,
+  "28": 15,
+  "29": 11,
+  "3": 343,
+  "30": 6,
+  "31": 11,
+  "32": 6,
+  "33": 7,
+  "34": 1,
+  "35": 9,
+  "36": 6,
+  "37": 6,
+  "38": 3,
+  "39": 2,
+  "4": 415,
+  "40": 2,
+  "41": 3,
+  "42": 1,
+  "43": 2,
+  "45": 1,
+  "46": 2,
+  "47": 1,
+  "5": 320,
+  "6": 345,
+  "66": 1,
+  "7": 301,
+  "8": 294,
+  "9": 244
+ },
+ "reporting.q_scale": 2.8855,
+ "reporting.specialize_rate": 0.1676,
+ "sex.p_male.female_biased": 0.1,
+ "sex.p_male.female_limited": 0.0,
+ "sex.p_male.male_biased": 0.9375,
+ "sex.p_male.male_limited": 1.0,
+ "sex.p_male.unbiased": 0.5341,
+ "sex.p_male.x_linked_dominant": 0.33
+}

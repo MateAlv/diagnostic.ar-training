@@ -1,0 +1,31 @@
+{
+  "artifact_id": "annot-split-v2",
+  "kind": "annotation-split",
+  "created_at": "2026-10-03T17:42:05+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "bb1941a8a4de74de7fb2162056c861784bfd2e1a",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:hpoa-enriched-v2",
+      "sha256": "1e6fbe107088ec98c13efd44ff7651b655208782718676cf18ceb44a08498892"
+    }
+  ],
+  "params": {
+    "fraction": 0.3,
+    "salt": "diagnostic.ar-training/annot-split-v2",
+    "unit": "(disease_id, hpo_id) positive aspect-P annotation"
+  },
+  "params_hash": "d4cd924967c8d94c7309d9ead544f2abb9d2bc9c7bca37968ce267c13f7b4c5b",
+  "outputs": [
+    {
+      "path": "data/interim/annotations/annot-split-v2/heldout.tsv",
+      "sha256": "7dc2c9e0e03a7ca07331a01e98d993776f5648b07b87db3a1e38b498d0f6d4ab",
+      "bytes": 1749630
+    }
+  ],
+  "notes": "",
+  "release": "annot-split-v2"
+}
