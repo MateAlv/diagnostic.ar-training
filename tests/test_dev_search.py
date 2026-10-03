@@ -184,3 +184,19 @@ def test_log_keeps_the_header_and_round_trips_every_configuration(tmp_path):
     assert rows[1]["tau"] == "0.4" and rows[1]["config_hash"] == b.config.config_hash
     assert rows[0]["delta"] == 0.012346 and rows[0]["r1_pass"] == 1
     assert dev_search.Arm.from_dict(b.to_dict()) == b
+
+
+def test_the_shared_log_is_the_concatenation_of_the_stage_row_files(tmp_path):
+    s3 = {"delta": 0.01, "ci95": [0.001, 0.02], "harmed": 0.04, "helped": 0.2, "n": 10}
+    r1 = {"delta": 0.0, "ci95": [-0.01, 0.01], "harmed": 0.03, "helped": 0.02}
+    stage_a = [dev_search.log_row(arm("a1"), s3, r1, "x"), dev_search.log_row(arm("a2"), s3, r1, "x")]
+    stage_b = [dev_search.log_row(arm("b1"), s3, r1, "x")]
+    log = tmp_path / "dev-search.tsv"
+    log.write_text("# header\n")
+    files = [tmp_path / "a.tsv", tmp_path / "b.tsv"]
+    for f, rows in zip(files, (stage_a, stage_b), strict=True):
+        dev_search.append_log(log, rows)
+        dev_search.write_stage_rows(f, rows)
+    assert dev_search.log_equals_stage_rows(log, files)
+    assert not dev_search.log_equals_stage_rows(log, files[::-1])
+    assert not dev_search.log_equals_stage_rows(log, files[:1])

@@ -312,6 +312,24 @@ def append_log(path: Path, rows: list[dict]) -> None:
         writer.writerows(rows)
 
 
+def write_stage_rows(path: Path, rows: list[dict]) -> None:
+    """One stage's log rows as their own file: a stage manifest can hash it, the shared log keeps growing."""
+    with path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, LOG_COLUMNS, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def log_equals_stage_rows(log: Path, stage_files: Sequence[Path]) -> bool:
+    """The shared log's data rows are exactly the stage files' rows, in the order given."""
+
+    def data(path: Path) -> list[str]:
+        lines = [x for x in path.read_text().splitlines() if not x.startswith("#")]
+        return lines[1:]
+
+    return data(log) == [row for f in stage_files for row in data(f)]
+
+
 def read_log(path: Path) -> list[dict]:
     lines = [line for line in path.read_text().splitlines() if not line.startswith("#")]
     rows = list(csv.DictReader(lines, delimiter="\t"))

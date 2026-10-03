@@ -2730,6 +2730,8 @@ def s3_dev_score(
         for a in arms
     ]
     dev_search.append_log(log, log_rows)
+    rows_path = directory / f"{stage}.log-rows.tsv"
+    dev_search.write_stage_rows(rows_path, log_rows)
     report = {
         "stage": stage,
         "cases": len(rows),
@@ -2764,7 +2766,9 @@ def s3_dev_score(
     ]
     params = {"stage": stage, "arms": ids, "vs": vs, "top_k": top_k, "interviews": interviews}
     write_manifest(
-        build_manifest(artifact, "dev-search", inputs, params, [report_path, ranks_path, log], state=state)
+        build_manifest(
+            artifact, "dev-search", inputs, params, [report_path, ranks_path, rows_path], state=state
+        )
     )
     for a, row in zip(arms, log_rows, strict=True):
         typer.echo(

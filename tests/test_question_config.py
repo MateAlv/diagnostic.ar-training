@@ -1,12 +1,12 @@
 import json
 
 import numpy as np
-from test_questioning import GENES, K, ONTO, FakeE0
+from test_questioning import GENES, ONTO, FakeE0, K
 
 from diagnostic_ar_training.cohorts.schema import Case
 from diagnostic_ar_training.eval import question_run, questioning
 from diagnostic_ar_training.rerank.config import RerankConfig
-from diagnostic_ar_training.rerank.features import COMPONENTS, GeneKnowledge
+from diagnostic_ar_training.rerank.features import COMPONENTS
 
 
 def test_a_rerank_config_file_is_a_reranker_spec_with_its_hash_in_the_name(tmp_path):
@@ -67,7 +67,8 @@ def test_the_log_row_reads_every_effect_and_the_r1_values_of_the_same_reranker(t
     }  # fmt: skip
     b004 = tmp_path / "dev-search.tsv"
     b004.write_text(
-        "# header\nlever\tconfig_hash\tr1dev_delta\tr1dev_ci_lo\tr1dev_ci_hi\tr1dev_pass\nL1\tabc\t-0.002\t-0.01\t0.004\t1\n"
+        "# header\nlever\tconfig_hash\tr1dev_delta\tr1dev_ci_lo\tr1dev_ci_hi\tr1dev_pass\n"
+        "L1\tabc\t-0.002\t-0.01\t0.004\t1\n"
     )
     r1 = question_run.r1_from_b004(b004, "abc")
     assert r1["r1dev_pass"] == "1"

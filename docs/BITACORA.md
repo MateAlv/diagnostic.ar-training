@@ -3726,3 +3726,44 @@ this task, whatever the result**; the last read needs Mateo's OK.
   `--allow-kb-mismatch`. That knowledge can contain S3-v2 held-out pairs, so the
   numbers are not to be read as findings. Seconds per case (mean, E0 included):
   Q0 0.06, Q1 0.16, Q2 0.16, Q2b 0.16.
+
+## 2026-10-03: ADR-0014 phase 3, the logged dev search (EXP-B-004 L1-L3, EXP-Q-001 L4)
+
+- **Branch** `phase4/dev-search`. **Dev only**: S3-v2-dev minus the 122 `s3-data-v2-excl-v1` cases
+  (9,750) and R1-dev (1,883, "all" view) for the no-harm check. No s3-v2/test, R1-test or vault read;
+  `DXT_SEALED_READ` never set. Every configuration is in `results/EXP-B-004/dev-search.tsv` and
+  `results/EXP-Q-001/dev-search.tsv`; the prioritisation and the reading of the selection rule were committed in
+  the TSV headers before the first run.
+- **Step 0.** `dxt s3 run` and `dxt s3 interviews` take `--split s3-v2` (dataset, exclusion list and the
+  `annot-split-v2` KB check from `cohorts.s3.SPECS`); the s3-v1 paths and outputs are unchanged. `kb-v8`
+  built and published (kb-v7's sources with `genes-v1` weights). **Weight sums:** not always 1
+  (633/601/633 genes off by more than 1e-6 in kb-v6/v7/v8, but only 14/11/14 below 0.99; minimum 0.5);
+  reported in the ADR addendum, nothing fixed.
+- **Harness.** `eval/dev_search.py` (Q0 interview once, arms scored on shared answers from one
+  per-case computation of E0 and P(term | gene)), `dev_arms.py` (arm rules), `dev_run.py` (subsets, R1-dev),
+  `dxt s3 dev-interview|dev-arms|dev-score`. Parity with the legacy path checked on 400 cases x 5
+  configurations: 0 differing ranks. `dxt s3 interview` now also takes a `RerankConfig` file, runs in
+  parallel and labels Q2b by lambda.
+- **L1 (48/48).** Winner by the rule: propagated, k 0.5, weight 0.5 (`8ecd5b320f33`), Δ +0.0063
+  [+0.0051, +0.0075], harmed 4.85%. Frontier: +0.0065 at harmed ≤ 5% (gated τ 0.4 w0.5), +0.0132 at ≤ 7.5%
+  (propagated k0.8 w0.75), +0.0161 at ≤ 10% (capped C 2 w2). rr-v1's own form and weight on kb-v6 harms 5.5%.
+- **L2 (6/6).** Frequencies and gene weights add nothing: kb-v8/kb-v7 vs kb-v6 +0.0001 to +0.0003, CIs
+  including 0, also on cases with a half-B excluded term (n = 1,121). The literal "all excluded terms are half-B
+  pairs" subset has 3 cases. Selected: kb-v6 (simplest within 0.001).
+- **L3 (12/12).** No arm selected (H0 under the rule): the only arm with harmed ≤ 5% is the base. Sex: no gain.
+  `age_mean`/`age_any`: no demonstrated gain on the lit-onset cases with known age. `onset` does help on the lit-onset
+  subset (paired +0.0063 [+0.0010, +0.0125] at w0.5) but harms 5.2% of cases (cap 5%).
+- **Selected re-ranker F** = `8ecd5b320f33`. **F does not beat rr-v1 on dev** (−0.0004 [−0.0013, +0.0004]); the
+  phase 4 gate against rr-v1 is not expected to pass for F.
+- **L4 (5/6 strategies, noise 0).** Primary Δ vs E0-initial: Q0 +0.0275, Q2 +0.0328, Q2b λ 0.3 +0.0337,
+  Q2b λ 0.6 +0.0339, Q1 +0.0332. Q2 and Q1 exceed the 5% re-ranker-harm cap (5.07%, 5.89%). Winner Q2b λ 0.6,
+  +0.0065 [+0.0044, +0.0086] over Q0. 5% answer noise: Q0 +0.0148, Q2b λ 0.6 +0.0203; the ordering holds.
+- **Proposal for the sealed read** (Mateo approves before phase 4) and the open points are at the end of
+  EXP-B-004's dev search log. The ablations "F minus L2/L3" are degenerate (equal to F), so contrast arms are proposed.
+- **Incidents.** `ruff format scripts` once reformatted 18 unrelated scripts; reverted before any commit.
+  A 24-case L4 smoke run (`results/EXP-Q-001/smoke-l4/`) checked the pipeline and is not a logged configuration.
+  The manifests of L1 stages a and b were committed one commit late. `dxt lineage verify` then failed
+  on the five stage manifests because they listed the shared, growing `dev-search.tsv`; each now lists its
+  own `<stage>.log-rows.tsv` instead (amended by `scripts/dev_search_stage_rows.py`, noted in each manifest;
+  the shared log is checked to equal their concatenation). `dxt lineage verify` passes.
+- **Next:** Mateo approves (or edits) the sealed list, then phase 4 (one S3-v2-test read, one R1-test read).

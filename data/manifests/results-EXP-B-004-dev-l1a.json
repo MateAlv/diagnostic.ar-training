@@ -95,11 +95,11 @@
       "bytes": 163003
     },
     {
-      "path": "results/EXP-B-004/dev-search.tsv",
-      "sha256": "16018216963c545a4111921239a150c46dd0b18fd68652419544e2e324e2002f",
-      "bytes": 8033
+      "path": "results/EXP-B-004/dev-search/l1a.log-rows.tsv",
+      "sha256": "17dccf8e7ce254318cc254859819aa1ce77257ff8f92bf44924108216eaf289c",
+      "bytes": 5143
     }
   ],
-  "notes": "",
+  "notes": "Amended 2026-10-03: the shared results/EXP-B-004/dev-search.tsv, which grows with each stage, is replaced by this stage's rows file; the shared log is the header plus the stage rows files in order.",
   "release": ""
 }
