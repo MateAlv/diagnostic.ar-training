@@ -1,0 +1,13 @@
+# EXP-Q-001 dev search log (ADR-0014 phase 3, L4). S3-v2-dev only, s3-data-v2-excl-v1 applied, all remaining dev cases (9,750).
+# One row per strategy configuration run, in the order run. s3-v2/test, R1-test and the vault are never read. Budget: 6 strategies.
+# Re-ranker: the provisional L1-L3 winner of EXP-B-004 (results/EXP-Q-001/dev-search/rerank-provisional.json, config hash 8ecd5b320f33:
+#   neg form propagated, k = 0.5, neg weight 0.5, kb-v6, no sex/age/onset term). Questioner knowledge: kb-v6. Budget 9, answers from the
+#   truth, noise 0 (the 5% noise sensitivity is run afterwards for the winner and Q0 only and is not a strategy).
+# Strategies (5 of the 6 budgeted): Q0; Q1 (production agent selector, imported read-only); Q2; Q2b with lambda 0.3; Q2b with lambda 0.6.
+# Primary metric: Delta MRR of the final system vs E0-initial (no questions), paired bootstrap 95% CI over genes. Secondary columns split it
+#   into the questioner effect (E0+answers vs E0-initial) and the re-ranker effect (final vs E0+answers, with harmed/helped).
+# Selection rule (EXP-Q-001, fixed before the search), interpreted as: maximise the primary Delta subject to the re-ranker effect's harmed <= 5%
+#   (vs the same strategy's E0+answers) and the primary CI lower bound > 0. A tie within 0.001 goes to the simpler strategy:
+#   Q0 < Q1 < Q2 < Q2b (the order of the plan's table).
+# r1dev_* are the re-ranker's R1-dev no-harm values as logged in EXP-B-004 for the same config hash (the re-ranker is the same in every row).
+# config_hash identifies strategy, lambda (Q2b only), re-ranker hash, KB, budget, noise and seed.
