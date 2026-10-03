@@ -1,12 +1,12 @@
 {
  "code": {
-  "dirty": false,
+  "dirty": true,
   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
-  "sha": "edf1b205003a904f632d125e514be125589a8041"
+  "sha": "ef37c0b64de27512e6138b0109767e6ca588f0e7"
  },
- "notes_sha256": "4cfbd4b089641a320a986c876a3ad90b5015d2a93f9a3a7fe37d8b319095c32d",
+ "notes_sha256": "84e5a187a2c288dc05f030a3dfe6125e87a37b678d72a947b499ff276210da74",
  "problems": [],
- "rows_sha256": "2b9607f4f305f4b55a6927b82d4dbfea4639fcb4457ee3590a753f8a1011f067",
+ "rows_sha256": "604620e97bef90a44bbeb514172c468963f9eac15966ed473eff71d83ccc20b5",
  "shard": "Q001",
  "sources": {
   "PMID:25333068": {
@@ -47,7 +47,7 @@
   },
   "PMID:35868845": {
    "access_path": "europepmc-fulltext",
-   "rows": 9,
+   "rows": 8,
    "text_renderer": "lit-text-1",
    "text_sha256": "b58fbac0ce6a3ace8875458c7d1379c61c585a9b9ff40bb3ae89b61444f8af47"
   },
@@ -84,25 +84,25 @@
  },
  "stats": {
   "age_rows": 4,
-  "feature_rows": 136,
+  "feature_rows": 135,
   "flags": {},
-  "rows": 140,
+  "rows": 139,
   "rows_per_source": {
    "PMID:26104972": 4,
    "PMID:27667800": 11,
    "PMID:30838350": 11,
    "PMID:34250227": 1,
-   "PMID:35868845": 9,
+   "PMID:35868845": 8,
    "PMID:35970914": 68,
    "PMID:37501353": 14,
    "PMID:38658850": 15,
    "PMID:38737343": 7
   },
-  "rows_with_counts": 116,
+  "rows_with_counts": 115,
   "rows_with_range": 0,
   "sex_restricted": 0,
   "units": 6
  },
  "status": "pass",
- "validated_utc": "2026-10-01T15:15:57+00:00"
+ "validated_utc": "2026-10-03T01:07:22+00:00"
 }

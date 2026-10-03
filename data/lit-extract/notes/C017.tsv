@@ -7,5 +7,5 @@ NBK1448	no_numbers	0	no stated feature frequencies; only survival (77% reaching 
 NBK1475	extracted	1	skipped 20% presenting at birth (one number for several features), seizures 'up to half', chilblains 'as many as 40%', Table 2 per-gene counts without per-gene denominators, mortality by genotype
 NBK1125	extracted	1	only mortality and incidence figures; onset of JEB generalized severe recorded on LAMB3 (70% of JEB)
 NBK1211	no_numbers	0	no rows: all figures are cancer risks or cancer counts among MMR-variant heterozygotes (penetrance) and median ages at single cancer diagnoses without ranges
-NBK1369	extracted	2	plantar keratoderma as pooled_group over all EBS units; skipped subtype shares (60%/15%/25%/<1%: not features), hedged onsets ('usually at birth'), muscular dystrophy onset in PLEC EBS (feature onset)
+NBK1369	extracted	1	plantar keratoderma as pooled_group over all EBS units; skipped subtype shares (60%/15%/25%/<1%: not features), hedged onsets ('usually at birth'), muscular dystrophy onset in PLEC EBS (feature onset); lit-audit-v1 removed: plantar keratoderma 76% (lifetime, one cited study)
 NBK1416	extracted	2	pooled_group over 46,XX sex reversal units (WT1|Denys-Drash unit excluded); skipped 85% post-pubertal presentation (one number for small testes, gynecomastia, sterility), WT1 1/6 (complement)

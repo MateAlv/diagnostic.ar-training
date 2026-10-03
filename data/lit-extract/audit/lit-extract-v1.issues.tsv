@@ -1,0 +1,245 @@
+item	shard	source_id	kind	row	gene	disease_id	feature	hpo_id	detail	quote	valid	resolution
+0001	C001	NBK1324	wrong_unit	97	IGF2	OMIM:180860	Developmental delay	HP:0001263	Figure describes 11p15 methylation defects, not IGF2-related Silver-Russell syndrome 1; no pooled flag.	Developmental delays were more commonly seen in those with maternal upd(7)mat than those with 11p15 methylation defects (65% vs 20%)	true	
+0001	C001	NBK1324	wrong_unit	98	IGF2	OMIM:180860	Asymmetry	HP:0100555	Figure describes 11p15.5 loss of methylation, not IGF2-related Silver-Russell syndrome 1; no pooled flag.	Asymmetry was seen in 76% of individuals with 11p15.5 LOM	true	
+0001	C001	NBK1324	wrong_unit	99	IGF2	OMIM:180860	Triangular facies	HP:0000325	Figure describes 11p15.5 loss of methylation, not IGF2-related Silver-Russell syndrome 1; no pooled flag.	Triangular facies were reported in 89% of individuals with 11p15.5 LOM	true	
+0001	C001	NBK1324	wrong_unit	100	IGF2	OMIM:180860	Clinodactyly	HP:0030084	Figure describes a loss-of-methylation subgroup, not IGF2-related Silver-Russell syndrome 1; no pooled flag.	clinodactyly was more frequently reported in individuals with 11p11.5 LOM (68%)	true	
+0001	C001	NBK1324	wrong_unit	101	IGF2	OMIM:180860	Genital anomalies	HP:0000078	Figure describes 11p15.5 loss of methylation, not IGF2-related Silver-Russell syndrome 1; no pooled flag.	Genital anomalies were seen in 19% of individuals with 11p15.5 LOM	true	
+0001	C001	NBK1324	bad_row	84	IGF2	OMIM:180860	Feeding difficulties	HP:0011968	Point prevalence 0.92 is a computed midpoint; only 84%-100% is printed.	Feeding difficulties | 84%-100% | Or BMI ≤2SD at age 24 mos	true	
+0001	C001	NBK1324	bad_row	86	IGF2	OMIM:180860	Global developmental delay	HP:0001263	Point prevalence 0.425 is a computed midpoint; only 20%-65% is printed.	Developmental delays | Global delays | 20%-65%	true	
+0001	C001	NBK1324	bad_row	87	IGF2	OMIM:180860	Speech delays	HP:0000750	Point prevalence 0.445 is a computed midpoint; only 39%-50% is printed.	Speech delays | 39%-50%	true	
+0001	C001	NBK1324	bad_row	91	IGF2	OMIM:180860	Renal anomalies	HP:0000077	Renal anomalies are a sub-item under the parent genitourinary-abnormalities percentage.	renal anomalies seen in 10%, primarily in upd(7)mat	true	
+0001	C001	NBK1324	bad_row	92	IGF2	OMIM:180860	Fasting hypoglycemia	HP:0003162	Point prevalence 0.265 is a computed midpoint; only 24%-29% is printed.	Fasting hypoglycemia | 24%-29%	true	
+0002	C002	NBK1293	bad_row	43	KRIT1	OMIM:116860	Seizures	HP:0001250	Point prevalence 0.3 is an inferred midpoint; only 20%-40% is printed.	Seizures | 20%-40% | The cumulative incidence of childhood seizures is ~20%	true	
+0002	C002	NBK1293	bad_row	44	KRIT1	OMIM:116860	Nonspecific headaches	HP:0002315	Point prevalence 0.2 is an inferred midpoint; only 10%-30% is printed.	Nonspecific headaches | 10%-30% | Primary headache disorders are common in persons w/CCMs	true	
+0002	C002	NBK1293	bad_row	45	KRIT1	OMIM:116860	Symptomatic intracerebral hemorrhage	HP:0001342	Point prevalence 0.35 is an inferred midpoint; only 30%-40% is printed.	Symptomatic intracerebral hemorrhage | 30%-40% | 30%-40% of persons initially present w/symptomatic hemorrhage.	true	
+0002	C002	NBK1293	bad_row	46	KRIT1	OMIM:116860	Cutaneous vascular malformations	HP:0011276	Point prevalence 0.145 is an inferred midpoint; only 9%-20% is printed.	Cutaneous vascular malformations (CVMs) | 9%-20% | Three types of CVMs have been reported	true	
+0002	C002	NBK1293	missed				Focal neurologic deficits		25%-30%	Focal neurologic deficits | 25%-30%	true	
+0002	C002	NBK1293	missed				Spinal cord cavernous malformations		~16%-70%	Spinal cord cavernous malformations | ~16%-70%	true	
+0003	C003	NBK1295	bad_row	93	COL1A1	OMIM:166200	Basilar impression	HP:0005758	Point prevalence 0.31 is an inferred midpoint; the quote states only 25%–37%.	The reported prevalence of basilar impression in individuals with OI varies between 25% and 37%.	true	
+0003	C003	NBK1295	missed				Wormian bones, OI type I		35%	Variable presence of wormian bones (35%)	true	
+0003	C003	NBK1295	missed				Wormian bones, OI type III		96%	Wormian bones present in 96%	true	
+0003	C003	NBK1295	missed				Platybasia, OI type III		70%	Platybasia present in 70%	true	
+0003	C003	NBK1295	missed				Wormian bones, OI type IV		78%	Wormian bones present in 78%	true	
+0003	C003	NBK1295	missed				Platybasia, OI type IV		20%	Platybasia present in 20%	true	
+0004	C004	NBK1507	bad_row	149	HRAS	OMIM:218040	Aortic dilatation	HP:0004942	Aortic dilatation does not establish an aneurysm; 7.5% is an unprinted midpoint of 5%-10%.	Feature | % or # of Persons w/Feature | Comment ... Aortic dilatation | 5%-10% |	true	
+0004	C004	NBK1507	bad_row	150	HRAS	OMIM:218040	Atrial septal defects	HP:0001631	6% is a computed midpoint; the source prints 5%-7%.	Atrial septal defects | 5%-7% |	true	
+0004	C004	NBK1507	bad_row	154	HRAS	OMIM:218040	Papillomata	HP:0012740	55% is a computed midpoint; the source prints 50%-60%.	Dermatologic | Papillomata | 50%-60% |	true	
+0004	C004	NBK1507	bad_row	155	HRAS	OMIM:218040	Hip dysplasia	HP:0001385	31% is a computed midpoint; the source prints 17%-45%.	Musculoskeletal | Hip dysplasia | 17%-45% |	true	
+0004	C004	NBK1507	bad_row	160	HRAS	OMIM:218040	Solid tumors (overall risk)	HP:0002664	The 15% figure is lifetime tumor risk, not clinical-feature prevalence.	Solid tumors (overall risk incl rhabdomyosarcoma, neuroblastoma, & transitional cell carcinoma of bladder) | 15% |	true	
+0004	C004	NBK1507	missed				Callouses		65%	Callouses | 65%	true	
+0004	C004	NBK1507	missed				Pathologic myocardial disarray		70%	pathologic myocardial disarray was seen in 70% of those studied	true	
+0005	C005	NBK563694	bad_row	149	CTSK	OMIM:265800	Blueish sclerae	HP:0000592	The point prevalence 0.35 is an inferred midpoint; the source states only 30%-40%.	Feature | % of Persons w/Feature ... Blueish sclerae | 30%-40%	true	
+0006	C006	NBK592183	missed				Scoliosis		6 individuals	Spine manifestations include scoliosis (6 individuals), kyphosis (4 individuals), and hyperlordosis (2 individuals).	true	
+0006	C006	NBK592183	missed				Kyphosis		4 individuals	Spine manifestations include scoliosis (6 individuals), kyphosis (4 individuals), and hyperlordosis (2 individuals).	true	
+0006	C006	NBK592183	missed				Hyperlordosis		2 individuals	Spine manifestations include scoliosis (6 individuals), kyphosis (4 individuals), and hyperlordosis (2 individuals).	true	
+0006	C006	NBK592183	missed				Short neck		four individuals	Short neck was reported in four individuals.	true	
+0006	C006	NBK592183	missed				Broad forehead		2 individuals	However, broad forehead (2 individuals), small chin (2 individuals), and triangular face have been noted in some individuals.	true	
+0006	C006	NBK592183	missed				Small chin		2 individuals	However, broad forehead (2 individuals), small chin (2 individuals), and triangular face have been noted in some individuals.	true	
+0006	C006	NBK592183	missed				Developmental delay		1 individual	Developmental delay (1 individual) [Evers et al 2014]	true	
+0006	C006	NBK592183	missed				Hydrocephalus		1 individual	Hydrocephalus (1 individual)	true	
+0007	C007	NBK1140	bad_row	8	CACNA1A	OMIM:183086	Horizontal gaze-evoked nystagmus	HP:0007979	Point prevalence 0.85 is an unprinted, computed midpoint; only 70%-100% is stated.	Feature | % of Persons with Feature ... Horizontal gaze-evoked nystagmus | 70%-100%	true	
+0007	C007	NBK1140	bad_row	9	CACNA1A	OMIM:183086	Vertical nystagmus	HP:0010544	Point prevalence 0.74 is an unprinted, computed midpoint; only 65%-83% is stated.	Feature | % of Persons with Feature ... Vertical nystagmus | 65%-83%	true	
+0007	C007	NBK1140	missed				Cerebellar dysfunction		100%	Cerebellar dysfunction | 100% | 100% | 100% | 100%	true	
+0007	C007	NBK1140	missed				Reduced saccadic velocity		0%-6%	Reduced saccadic velocity | 71%-92% | 50% | 10% | 0%-6%	true	
+0007	C007	NBK1140	missed				Myoclonus		0%	Myoclonus | 0%-40% | 0% | 4% | 0%	true	
+0007	C007	NBK1140	missed				Pyramidal involvement		33%-44%	Pyramidal involvement | 29%-31% | 70% | 70% | 33%-44%	true	
+0007	C007	NBK1140	missed				Peripheral neuropathy		16%-44%	Peripheral neuropathy | 44%-94% | 100% | 80% | 16%-44%	true	
+0007	C007	NBK1140	missed				Intellectual impairment		0%	Intellectual impairment | 31%-37% | 20% | 5% | 0%	true	
+0007	C007	NBK1140	missed				Sensory complaints		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0007	C007	NBK1140	missed				Restless legs		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0007	C007	NBK1140	missed				Stiffness		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0007	C007	NBK1140	missed				Migraine		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0007	C007	NBK1140	missed				Primary visual disturbances		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0007	C007	NBK1140	missed				Muscle atrophy		do not have	Individuals with SCA6 do not have sensory complaints, restless legs, stiffness, migraine, primary visual disturbances, or muscle atrophy.	true	
+0009	C009	NBK608563	bad_row	20	AARS2	OMIM:615889	Movement disorder	HP:0100022	Bundle percentage for heterogeneous movement disorders.	Movement disorder | 71% | Ataxia, dystonia, chorea, parkinsonism, & tremor	true	
+0009	C009	NBK608563	bad_row	23	AARS2	OMIM:615889	Psychiatric manifestations	HP:0000708	Bundle percentage for heterogeneous psychiatric manifestations; atypical behavior does not cover the entire category.	Psychiatric manifestations | 46% | Depression, psychosis, anxiety, & behavioral changes	true	
+0009	C009	NBK608563	bad_row	25	AARS2	OMIM:615889	AGE_ONSET		Vague onset period without printed numeric ages; the value 1- is unsupported.	can range from childhood to adulthood	true	
+0009	C009	NBK608563	missed				White matter calcifications		Absence	Absence of white matter calcifications	true	
+0010	C010	NBK569515	missed				Metaphyseal striations in constitutional males		not seen in constitutional males	In females & mosaic males; not seen in constitutional males	true	
+0010	C010	NBK569515	missed				Metaphyseal striations in severely affected males		have not been observed	Severely affected males typically have fewer of the characteristic features described in females	true	
+0010	C010	NBK569515	missed				Longitudinal metaphyseal striations in severely affected males		have not been observed	In particular, macrocephaly is not always present, and longitudinal metaphyseal striations have not been observed.	true	
+0011	C011	NBK559434	bad_row	56	PACS1	OMIM:615009	Seizures	HP:0001250	The 0.55 prevalence is an inferred midpoint; only 50%-60% is printed.	Seizures | 50%-60% | Partial & tonic seizures	true	
+0011	C011	NBK559434	bad_row	57	PACS1	OMIM:615009	Congenital heart anomalies	HP:0001627	The 0.35 prevalence is an inferred midpoint; only 30%-40% is printed.	Congenital heart anomalies | 30%-40% | Most commonly atrial &/or ventricular septal defects	true	
+0011	C011	NBK559434	bad_row	58	PACS1	OMIM:615009	Brain MRI findings	HP:0012443	Brain MRI findings is a bundle category covering heterogeneous abnormalities.	Brain MRI findings | 30% | Hypoplasia or partial agenesis of cerebellar vermis most common	true	
+0011	C011	NBK559434	missed				Language impairment		universally	Language skills are universally affected, and more severely affected than motor skills.	true	
+0013	C013	NBK1207	bad_row	68	COL4A5	OMIM:301050	Diffuse leiomyomatosis	HP:0006756	The source states penetrance (100% penetrant), which the guide excludes.	In individuals with these deletions, kidney disease is severe in males and mild in females. However, leiomyomatosis is 100% penetrant	true	
+0013	C013	NBK1207	missed				Diffuse leiomyomatosis in individuals with COL4A5–COL4A6 deletions extending beyond COL4A6 intron 2		does not occur	Leiomyomatosis does not occur in individuals with deletions of COL4A5 and COL4A6 that extend beyond intron 2 of COL4A6.	true	
+0016	C016	NBK1768	bad_row	35	MYBPC3	OMIM:115197	Left ventricular outflow tract obstruction	HP:0032092	Prevalence 0.275 is an inferred midpoint; the source states only “At least 25%-30%.”	At least 25%-30% of persons with HCM have detectable intracavitary obstruction (defined as peak gradient ≥30 mm Hg)	true	
+0017	C017	NBK1369	bad_row	7	KRT14	OMIM:131760	Plantar keratoderma	HP:0007556	Lifetime occurrence is excluded: the 76% describes developing plantar keratoderma over their lifetime.	approximately 76% of individuals developing plantar keratoderma over their lifetime in one recent study	true	
+0017	C017	NBK1369	missed				AGE_ONSET — severe EBS (KRT14|OMIM:131760; KRT5|OMIM:131760; KRT5|OMIM:619555)		Birth	Age of onset | Infancy, usually by 12-18 mos | Birth/infancy | Birth | Birth/infancy	true	
+0018	C018	NBK481553	missed				Charcot joints — PRDM12|OMIM:616488		No	No Charcot joints	true	
+0020	C020	NBK1268	missed				Gait ataxia		>80%	+ ++ = feature present in >80% of individuals	true	
+0020	C020	NBK1268	missed				Dysarthria		>80%	+ ++ = feature present in >80% of individuals	true	
+0020	C020	NBK1268	missed				Limb ataxia		>80%	+ ++ = feature present in >80% of individuals	true	
+0020	C020	NBK1268	missed				Hyperreflexia		30%-50%	++ = present in 30%-50% of individuals	true	
+0020	C020	NBK1268	missed				Sensory signs		30%-50%	++ = present in 30%-50% of individuals	true	
+0020	C020	NBK1268	missed				Cognitive impairment		30%-50%	++ = present in 30%-50% of individuals	true	
+0020	C020	NBK1268	missed				Extensor plantar response		<20%	+ = present in <20% of individuals	true	
+0020	C020	NBK1268	missed				Dysphagia		<20%	+ = present in <20% of individuals	true	
+0021	C021	NBK1119	missed				Cognitive impairment		one third	Cognitive impairment, present in one third of persons w/dystrophinopathy, is independent of motor impairment.	true	
+0022	C022	NBK1163	bad_row	18	SCN9A	OMIM:167400	AGE_ONSET		The source states only 'early infancy'; the numeric onset range 0.08–1 years is not printed and is inferred from a vague age period.	Paroxysmal extreme pain disorder (PEPD) is characterized by ... The onset is in early infancy	true	
+0023	C023	NBK1214	missed				Iron deficiency		about 50%	Iron deficiency occurs in about 50% of affected individuals due to poor absorption of dietary iron	true	
+0023	C023	NBK1214	missed				Hepatosplenomegaly (absent)		do not have	Affected individuals do not have hepatosplenomegaly or specific skeletal abnormalities.	true	
+0023	C023	NBK1214	missed				Specific skeletal abnormalities (absent)		do not have	Affected individuals do not have hepatosplenomegaly or specific skeletal abnormalities.	true	
+0025	C025	NBK1355	bad_row	11	CLCN1	OMIM:255700	AGE_ONSET		The numeric range 1–5 years is not printed; “Early childhood” is a vague age period.	Feature | AR Myotonia Congenita | AD Myotonia Congenita ... Age of onset | Early childhood | Early infancy	true	
+0025	C025	NBK1355	bad_row	12	CLCN1	OMIM:160800	AGE_ONSET		The numeric range 0.08–1 years is not printed; “Early infancy” is a vague age period.	Feature | AR Myotonia Congenita | AD Myotonia Congenita ... Age of onset | Early childhood | Early infancy	true	
+0025	C025	NBK1355	missed				Transient muscle weakness — autosomal dominant myotonia congenita		Not present	Transient muscle weakness | Common | Not present	true	
+0025	C025	NBK1355	missed				Distal muscle weakness — autosomal dominant myotonia congenita		Not present	Distal muscle weakness | Rarely | Not present	true	
+0025	C025	NBK1355	missed				Proximal muscle weakness — autosomal dominant myotonia congenita		Not present	Proximal muscle weakness | Rarely | Not present	true	
+0025	C025	NBK1355	missed				Periodic paralysis — both myotonia congenita units		not assoc	MC is not assoc w/episodes of periodic paralysis.	true	
+0025	C025	NBK1355	missed				Symptoms worsened by potassium ingestion — both myotonia congenita units		Not observed	Symptoms of sodium channel disorders typically worsen w/potassium ingestion. | Not observed in MC	true	
+0026	C026	NBK1382	missed				Learning difficulties		56/63	Learning difficulties were reported in all but one affected individual of Amish descent [Proukakis et al 2004] and in 56/63 individuals	true	
+0028	C028	NBK1511	bad_row	10	MFN2	OMIM:609260	Subacute optic atrophy	HP:0000648	The 60% describes subsequent slow recovery associated with optic atrophy, not optic atrophy prevalence alone.	Subacute onset of optic atrophy with subsequent slow recovery in 60% of individuals with early onset has been reported	true	
+0031	C031	NBK148668	bad_row	16	GALNS	OMIM:253000	Subtle abnormal brain MRI findings	HP:0012443	One number for a bundle of heterogeneous brain MRI findings.	Subtle abnormal brain MRI findings such as prominent perivascular space, enlarged lateral ventricles, and prominent frontal CSF were reported in eight of 14 individuals	true	
+0034	C034	NBK546574	bad_row	2	SGSH	OMIM:252900	Sleep disturbances	HP:0002360	Prevalence 0.875 is an inferred midpoint; the source states only 80%-95%.	Sleep disturbances, present in 80%-95% of individuals, include difficulties with settling and frequent waking.	true	
+0036	C036	NBK614472	bad_row	54	CHST14	OMIM:601776	Hyperalgesia to pressure	HP:0012534	Dysesthesia does not specifically mean hyperalgesia, an increased pain response to pressure.	CHST14 | DSE ... Hyperalgesia to pressure | 75% | 29/39 | 1/1	true	
+0036	C036	NBK614472	bad_row	55	DSE	OMIM:615539	Hyperalgesia to pressure	HP:0012534	Dysesthesia does not specifically mean hyperalgesia, an increased pain response to pressure.	CHST14 | DSE ... Hyperalgesia to pressure | 75% | 29/39 | 1/1	true	
+0036	C036	NBK614472	missed				Dandy-Walker variant — CHST14|OMIM:601776		2/20	Dandy-Walker variant | 9% | 2/20 | 0/3	true	
+0036	C036	NBK614472	missed				Dandy-Walker variant — DSE|OMIM:615539		0/3	Dandy-Walker variant | 9% | 2/20 | 0/3	true	
+0036	C036	NBK614472	missed				Diverticula — CHST14|OMIM:601776		8/23	Diverticula | 31% | 8/23 | 1/6	true	
+0036	C036	NBK614472	missed				Diverticula — DSE|OMIM:615539		1/6	Diverticula | 31% | 8/23 | 1/6	true	
+0036	C036	NBK614472	missed				Fistula formation — CHST14|OMIM:601776		11/37	fistula formation (e.g., buttocks, elbows), which was reported in 11/37 individuals with mcEDS-CHST14	true	
+0036	C036	NBK614472	missed				Elbow osteoarthritis — pooled mcEDS-CHST14 and mcEDS-DSE		31%	Four individuals (31%) had elbow osteoarthritis	true	
+0036	C036	NBK614472	missed				Distal radioulnar joint osteoarthritis — pooled mcEDS-CHST14 and mcEDS-DSE		23%	three (23%) had distal radioulnar joint osteoarthritis.	true	
+0037	C036	NBK590151	bad_row	346	FAM111A	OMIM:127000	Defective dentition	HP:0000164	Bundle category: defective dentition includes enamel hypoplasia, small teeth, hypodontia/oligodontia, and abnormal eruption patterns.	Kenny-Caffey syndrome (22 reported) ^1 | Osteocraniostenosis (13 reported) ^1 ... Dental | Defective dentition ^3 | 8/12 | NA	true	
+0038	C037	NBK54467	bad_row	199	EFEMP2	OMIM:614437	Arterial/aortic aneurysms	HP:0002617	Prevalence 0.95 is a computed midpoint; source states >90%.	Feature | % of Persons w/Feature ^1 ... Arterial/aortic aneurysms | >90%	true	
+0038	C037	NBK54467	bad_row	200	EFEMP2	OMIM:614437	Arterial tortuosity	HP:0005116	Prevalence 0.95 is a computed midpoint; source states >90%.	Feature | % of Persons w/Feature ^1 ... Arterial tortuosity | >90%	true	
+0038	C037	NBK54467	bad_row	201	EFEMP2	OMIM:614437	Arterial stenosis	HP:0100545	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Arterial stenosis | 25%-90%	true	
+0038	C037	NBK54467	bad_row	202	EFEMP2	OMIM:614437	Emphysema	HP:0002097	Prevalence 0.125 is a computed midpoint; source states <25%.	Feature | % of Persons w/Feature ^1 ... Emphysema | <25%	true	
+0038	C037	NBK54467	bad_row	203	EFEMP2	OMIM:614437	Diaphragmatic abnormalities	HP:0000775	Computed midpoint 0.575; also bundles diaphragmatic herniation and rupture.	Feature | % of Persons w/Feature ^1 ... Diaphragmatic abnormalities | 25%-90%	true	
+0038	C037	NBK54467	bad_row	204	EFEMP2	OMIM:614437	Cutis laxa	HP:0000973	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Cutis laxa | 25%-90%	true	
+0038	C037	NBK54467	bad_row	205	EFEMP2	OMIM:614437	Thin translucent skin	HP:0000963	Prevalence 0.125 is a computed midpoint; source states <25%.	Feature | % of Persons w/Feature ^1 ... Thin translucent skin | <25%	true	
+0038	C037	NBK54467	bad_row	206	EFEMP2	OMIM:614437	Velvety skin	HP:0000977	Prevalence 0.125 is a computed midpoint; source states <25%.	Feature | % of Persons w/Feature ^1 ... Velvety skin | <25%	true	
+0038	C037	NBK54467	bad_row	207	EFEMP2	OMIM:614437	Hernia	HP:0100790	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Hernia | 25%-90%	true	
+0038	C037	NBK54467	bad_row	208	EFEMP2	OMIM:614437	Long philtrum	HP:0000343	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Long philtrum | 25%-90%	true	
+0038	C037	NBK54467	bad_row	209	EFEMP2	OMIM:614437	Widely spaced eyes	HP:0000316	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Widely spaced eyes | 25%-90%	true	
+0038	C037	NBK54467	bad_row	210	EFEMP2	OMIM:614437	Keratoglobus	HP:0001119	Prevalence 0.125 is a computed midpoint; source states <25%.	Feature | % of Persons w/Feature ^1 ... Keratoglobus | <25%	true	
+0038	C037	NBK54467	bad_row	211	EFEMP2	OMIM:614437	High palate	HP:0000218	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... High palate | 25%-90%	true	
+0038	C037	NBK54467	bad_row	212	EFEMP2	OMIM:614437	Dysplastic ears	HP:0000377	Prevalence 0.125 is a computed midpoint; source states <25%.	Feature | % of Persons w/Feature ^1 ... Dysplastic ears | <25%	true	
+0038	C037	NBK54467	bad_row	213	EFEMP2	OMIM:614437	Hypotonia	HP:0001252	Prevalence 0.575 is a computed midpoint; source states 25%-90%.	Feature | % of Persons w/Feature ^1 ... Hypotonia | 25%-90%	true	
+0040	C039	NBK621565	bad_row	23	FUCA1	OMIM:230000	Dermatologic manifestations (angiokeratoma, telangiectases)	HP:0000951	Bundle category combining angiokeratoma and telangiectases.	Feature | % of Persons w/Feature ^1 ... Dermatologic manifestations | 60%	true	
+0040	C039	NBK621565	bad_row	25	FUCA1	OMIM:230000	Ophthalmologic manifestations	HP:0000478	Bundle category combining heterogeneous ophthalmologic manifestations.	Feature | % of Persons w/Feature ^1 ... Ophthalmologic manifestations | >50%	true	
+0040	C039	NBK621565	bad_row	42	FUCA1	OMIM:230000	AGE_ONSET		The numeric onset range 1–15 years is not printed; the source states only childhood or adolescence.	In those with type II fucosidosis, onset occurs in childhood or adolescence.	true	
+0040	C039	NBK621565	missed				Loss of ability to sit		Forty-one percent	Forty-one percent of individuals lost the ability to sit	true	
+0040	C039	NBK621565	missed				Loss of ability to stand		38%	38% lost the ability to stand	true	
+0040	C039	NBK621565	missed				Loss of ability to walk independently		50%	50% became unable to walk alone	true	
+0040	C039	NBK621565	missed				Loss of speech		67%	67% lost the ability to speak.	true	
+0041	C040	NBK447257	bad_row	77	TRIO	OMIM:618825	Neurobehavioral manifestations	HP:0000708	Bundle category combining stereotypies, poor attention, aggression, obsessive-compulsive findings, and autistic findings.	TRIO-NDD due to GOF variant ^1 | TRIO-NDD due to LOF variant ^2 ... Neurobehavioral manifestations | 15/18 | 29/31	true	
+0041	C040	NBK447257	bad_row	78	TRIO	OMIM:617061	Neurobehavioral manifestations	HP:0000708	Bundle category combining stereotypies, poor attention, aggression, obsessive-compulsive findings, and autistic findings.	TRIO-NDD due to GOF variant ^1 | TRIO-NDD due to LOF variant ^2 ... Neurobehavioral manifestations | 15/18 | 29/31	true	
+0041	C040	NBK447257	missed				Intellectual disability — TRIO gain-of-function, OMIM:618825		~20/20	Intellectual disability | ~20/20 | Common	true	
+0042	C041	NBK561516	bad_row	70	CHD4	OMIM:617159	Ophthalmologic abnormalities	HP:0000478	Bundle category covering heterogeneous ophthalmologic abnormalities.	Ophthalmologic abnormalities | 74% (14/19)	true	
+0042	C041	NBK561516	bad_row	76	CHD4	OMIM:617159	Skeletal/limb anomalies	HP:0033127	Bundle category covering heterogeneous skeletal and limb anomalies.	Skeletal/limb anomalies | 42% (14/33)	true	
+0042	C041	NBK561516	bad_row	80	CHD4	OMIM:617159	Brain anomalies	HP:0012443	Bundle category covering heterogeneous brain anomalies.	Brain anomalies including the following (detected in 92% [22/24] of affected individuals):	true	
+0042	C041	NBK561516	bad_row	81	CHD4	OMIM:617159	Ventriculomegaly	HP:0002119	Sub-item listed under the parent brain-anomaly percentage.	Mild-to-moderate ventriculomegaly (in 41%)	true	
+0042	C041	NBK561516	bad_row	82	CHD4	OMIM:617159	Chiari 1 malformation	HP:0007099	Sub-item listed under the parent brain-anomaly percentage.	Chiari 1 malformation (29%)	true	
+0043	C042	NBK602944	missed				Giant cell granuloma of the jaw		3/24	Giant cell granuloma of the jaw | 3/24	true	
+0043	C042	NBK602944	missed				Increased body temperature		2/24	Increased body temperature | 2/24	true	
+0045	C044	NBK559435	bad_row	25	SPTBN4	OMIM:617519	Developmental delay / intellectual disability	HP:0012759	One combined number for developmental delay and intellectual disability; violates the multiple-feature bundle skip rule.	Developmental delay / Intellectual disability | 13/14 (93%)	true	
+0046	C045	NBK1757	bad_row	49	TTBK2	OMIM:604432	Extrapyramidal features	HP:0002071	Bundle category combining laterocollis and head tremor under one frequency.	"Extrapyramidal features | 1/28 | Laterocollis ""No-no"" head tremor"	true	
+0046	C045	NBK1757	missed				Upgoing plantar reflexes		one	No other pyramidal signs apart from hyperreflexia were observed in the 28 individuals apart from one individual with upgoing plantar reflexes.	true	
+0046	C045	NBK1757	missed				Upbeat nystagmus in British individuals		50%	50% of British individuals w/SCA11 had an upbeat nystagmus.	true	
+0046	C045	NBK1757	missed				Peripheral neuropathy in Pakistani, Danish, French, and German families		not seen	In the Pakistani, Danish, French, and German families, neuropathy was not seen.	true	
+0047	C046	NBK563693	bad_row	14	ASXL3	OMIM:615485	Behavioral concerns	HP:0000708	Behavioral concerns is a bundle category covering heterogeneous behavioral, social, and communication difficulties.	Behavioral concerns | 78% | Incl autistic traits or an ASD diagnosis	true	
+0047	C046	NBK563693	bad_row	16	ASXL3	OMIM:615485	Skeletal findings	HP:0000924	Skeletal findings is a bundle category covering heterogeneous skeletal abnormalities.	Skeletal findings | 74% |	true	
+0047	C046	NBK563693	bad_row	17	ASXL3	OMIM:615485	Eyes	HP:0000478	Eyes is a bundle category covering heterogeneous eye abnormalities; ~50% is not a single-feature prevalence.	Eyes | ~50% | Strabismus is the most common finding.	true	
+0048	C047	NBK321516	bad_row	54	SMARCA2	OMIM:601358	Low birth weight	HP:0001518	Low birth weight does not establish small for gestational age.	About half of affected individuals have low birth weight and the same proportion experience short stature.	true	
+0048	C047	NBK321516	bad_row	57	SMARCA2	OMIM:601358	Hearing loss	HP:0000365	Prevalence 0.075 is an inferred midpoint; only the 5%-10% range is printed.	Hearing loss has been noted in 5%-10% of affected individuals.	true	
+0048	C047	NBK321516	missed				Cutaneous albinism		do not exhibit true cutaneous albinism	affected individuals do not exhibit true cutaneous albinism.	true	
+0048	C047	NBK321516	missed				Hypoplasia of the fifth digits		do not have hypoplasia of the 5th digits	persons w/SMARCA2-NCBRS uniquely have prominent interphalangeal joints & do not have hypoplasia of the 5th digits.	true	
+0048	C047	NBK321516	missed				Ataxia		is not a feature of SMARCA2-NCBRS	Ataxia can be present in biotinidase deficiency but is not a feature of SMARCA2-NCBRS.	true	
+0049	C048	NBK536360	bad_row	78	PPP2R5D	OMIM:616355	Developmental delay / intellectual disability	HP:0012759	Combined figure for developmental delay and/or intellectual disability; no separate prevalence for either feature.	Developmental delay / intellectual disability | 40/40	true	
+0049	C048	NBK536360	bad_row	90	PPP2R5D	OMIM:616355	Significant cardiac abnormalities	HP:0001627	Bundle category combining heterogeneous cardiac abnormalities, including septal defects and aortic valve abnormality.	Two of 23 individuals had significant cardiac abnormalities	true	
+0051	C050	NBK564655	bad_row	7	SAMD9	OMIM:617053	Gastrointestinal complications	HP:0011024	Bundle category covering heterogeneous gastrointestinal complications.	Gastrointestinal complications | 36/44 |	true	
+0051	C050	NBK564655	bad_row	10	SAMD9	OMIM:617053	Renal dysfunction	HP:0012211	Bundle category combining renal dysfunction manifestations, including proteinuria and renal tubular acidosis.	Renal dysfunction including proteinuria and renal tubular acidosis were reported in five of 17 individuals who lived beyond age three years.	true	
+0053	C052	NBK1318	missed				Crouched gait in children younger than five years		absent before age five years	In one study these changes were absent before age five years	true	
+0053	C052	NBK1318	missed				Antecollis		9/14	In one study antecollis was present in 9/14 and parkinsonian gait in 8/14 individuals with Dravet syndrome	true	
+0053	C052	NBK1318	missed				Parkinsonian gait		8/14	In one study antecollis was present in 9/14 and parkinsonian gait in 8/14 individuals with Dravet syndrome	true	
+0054	C053	NBK97965	missed				Somatotropinoma (GH-secreting pituitary tumor)		~51%	Somatotropinoma (GH secreting) | ~51%	true	
+0054	C053	NBK97965	missed				Somatomammotropinoma (GH- and prolactin-secreting pituitary tumor)		~31%	Somatomammotropinoma (GH & prolactin secreting) | ~31%	true	
+0054	C053	NBK97965	missed				Nonfunctioning pituitary neuroendocrine tumor		8%	Nonfunctioning PitNET | 8%	true	
+0054	C053	NBK97965	missed				AGE_ONSET		4-24 yrs	Adolescence (age 4-24 yrs)	true	
+0055	C054	NBK1159	bad_row	23	ARG1	OMIM:207800	Lower extremity spasticity	HP:0002061	Prevalence 0.8 is an inferred midpoint; source prints only 70%-90%.	Spasticity. Between 70% and 90% of affected individuals develop spasticity of the lower extremities	true	
+0055	C054	NBK1159	bad_row	24	ARG1	OMIM:207800	Seizures	HP:0001250	Prevalence 0.625 is an inferred midpoint; source prints only 50%-75%.	Seizures occur in 50%-75% of affected individuals	true	
+0055	C054	NBK1159	bad_row	25	ARG1	OMIM:207800	Acute hyperammonemia	HP:0008281	The quoted statement and 50% prevalence are not present in the supplied excerpt.	Acute hyperammonemia (plasma ammonia concentration >150 µmol/L) is less common than in other urea cycle disorders, occurring in only about half of affected individuals	true	
+0056	C055	NBK1222	bad_row	13	RS1	OMIM:312700	Electronegative ERG	HP:0007984	'More than half' does not state the extracted numerical prevalence or range; skip this vague quantifier.	Electroretinogram (ERG) in more than half of affected males shows characteristic changes of greatly diminished dark-adapted b-wave amplitude	true	
+0056	C055	NBK1222	bad_row	14	RS1	OMIM:312700	Retinal detachment	HP:0000541	The point prevalence 0.135 is a computed midpoint, not printed; only 5% to 22% is stated.	XLRS progresses to retinal detachment in an estimated 5% to 22% of affected individuals.	true	
+0056	C055	NBK1222	bad_row	15	RS1	OMIM:312700	Vitreous hemorrhage	HP:0007902	The point prevalence 0.22 is a computed midpoint, not printed; only 4% to 40% is stated.	About 4% to 40% of individuals with XLRS develop vitreous hemorrhage.	true	
+0056	C055	NBK1222	missed				Radial foveal striations		3%	Appearance of foveal lesions varies from largely radial striations (3%)	true	
+0056	C055	NBK1222	missed				Microcystic foveal lesions		34%	microcystic lesions (34%)	true	
+0056	C055	NBK1222	missed				Honeycomb-like foveal cysts		8%	honeycomb-like cysts (8%)	true	
+0056	C055	NBK1222	missed				Foveal pigment mottling		8%	non-cystic-appearing foveal changes including pigment mottling (8%)	true	
+0056	C055	NBK1222	missed				Loss of the foveal reflex		8%	loss of the foveal reflex (8%)	true	
+0056	C055	NBK1222	missed				Atrophic-appearing foveal lesion		8%	an atrophic-appearing lesion (8%)	true	
+0057	C056	NBK1266	missed				Perianal melanocytic macules		94%	94% of individuals with PJS had perianal MM	true	
+0057	C056	NBK1266	missed				Melanocytic macules affecting the digits		73%	73% had MM that affected the digits	true	
+0057	C056	NBK1266	missed				Malignant Sertoli cell ovarian tumors		two	In a Dutch series of 69 females with PJS, two females had malignant Sertoli cell ovarian tumors	true	
+0057	C056	NBK1266	missed				Ovarian small cell cancer		one	one had ovarian small cell cancer	true	
+0059	C058	NBK1384	bad_row	29	FMR1	OMIM:300624	Autism spectrum disorder	HP:0000729	Prevalence 0.6 is an inferred midpoint; the source states only 50%-70%.	Autism spectrum disorder (ASD) is present in 50%-70% of individuals with FXS	true	
+0060	C059	NBK1457	bad_row	33	FOXC2	OMIM:153400	Congenital heart disease	HP:0001627	Prevalence 0.085 is an inferred midpoint; the source prints only the range 7%-10%.	Congenital heart disease occurs in 7%-10% of individuals with LDS.	true	
+0062	C061	NBK1878	bad_row	28	LRP2	OMIM:222448	Widely spaced eyes	HP:0000316	'Consistently present' is a qualitative description, not an explicit 100% prevalence.	Widely spaced eyes, depressed nasal bridge, short nose ... are characteristic findings and are consistently present in individuals with DBS	true	
+0062	C061	NBK1878	bad_row	29	LRP2	OMIM:222448	Depressed nasal bridge	HP:0005280	'Consistently present' is a qualitative description, not an explicit 100% prevalence.	Widely spaced eyes, depressed nasal bridge, short nose ... are characteristic findings and are consistently present in individuals with DBS	true	
+0062	C061	NBK1878	bad_row	30	LRP2	OMIM:222448	Short nose	HP:0003196	'Consistently present' is a qualitative description, not an explicit 100% prevalence.	Widely spaced eyes, depressed nasal bridge, short nose ... are characteristic findings and are consistently present in individuals with DBS	true	
+0062	C061	NBK1878	bad_row	31	LRP2	OMIM:222448	Broad forehead	HP:0000337	'Consistently present' is a qualitative description, not an explicit 100% prevalence.	broad forehead, and prominent parietal frontal bossing are characteristic findings and are consistently present in individuals with DBS	true	
+0062	C061	NBK1878	bad_row	32	LRP2	OMIM:222448	Prominent parietal frontal bossing	HP:0002007	'Consistently present' is a qualitative description, not an explicit 100% prevalence.	broad forehead, and prominent parietal frontal bossing are characteristic findings and are consistently present in individuals with DBS	true	
+0064	C063	NBK97333	wrong_unit	28	LAMA2	OMIM:607855	AGE_ONSET		Describes late-onset LAMA2 muscular dystrophy rather than the unit's congenital muscular dystrophy.	The onset of this milder phenotype ranges from early childhood to adulthood.	true	
+0064	C063	NBK97333	bad_row	28	LAMA2	OMIM:607855	AGE_ONSET		The numeric onset bound of 1 year is not printed; 'early childhood to adulthood' supplies no numeric ages.	The onset of this milder phenotype ranges from early childhood to adulthood.	true	
+0064	C063	NBK97333	bad_row	30	LAMA2	OMIM:607855	Epilepsy	HP:0001250	The quoted 8%-35% prevalence is not printed in the supplied excerpt; 0.215 is also an unstated midpoint.	Epilepsy occurs in 8%-35% of affected individuals.	true	
+0064	C063	NBK97333	missed				Tongue fasciculation		Absence	Absence of findings that could suggest lower motor neuron disease (i.e., tongue fasciculation and areflexia)	true	
+0064	C063	NBK97333	missed				Areflexia		Absence	Absence of findings that could suggest lower motor neuron disease (i.e., tongue fasciculation and areflexia)	true	
+0066	C065	NBK169825	missed				Ataxia in males with MICPCH with severe developmental disorder		one male	Mild ataxia reported in one male	true	
+0066	C065	NBK169825	missed				Seizures in males with MICPCH with severe developmental disorder		No seizures	No seizures.	true	
+0067	C066	NBK426063	bad_row	26	PURA	OMIM:616158	Abnormal MRI brain findings	HP:0012443	Bundle category containing heterogeneous MRI abnormalities.	Abnormal MRI brain findings present in most individuals (64% [117/184]) are:	true	
+0067	C066	NBK426063	bad_row	27	PURA	OMIM:616158	Delayed myelination	HP:0002188	Sub-item listed under the parent percentage for abnormal brain MRI findings.	Delayed myelination (17% [32/184])	true	
+0067	C066	NBK426063	bad_row	28	PURA	OMIM:616158	Excessive extra-axial fluid spaces	HP:0012510	Sub-item listed under the parent percentage for abnormal brain MRI findings.	Excessive extra-axial fluid spaces (10% [18/184])	true	
+0067	C066	NBK426063	bad_row	29	PURA	OMIM:616158	Volume loss of the corpus callosum	HP:0033725	Sub-item listed under the parent percentage for abnormal brain MRI findings.	Volume loss of the corpus callosum (5% [10/184])	true	
+0067	C066	NBK426063	bad_row	33	PURA	OMIM:616158	Apnea and hypoventilation (neonates)	HP:0002793	One percentage combines two features: apnea and hypoventilation.	Apnea and hypoventilation are present in more than three quarters of affected neonates (78% [117/150]; minimum prevalence: 53%)	true	
+0067	C066	NBK426063	missed				Persistent or recurrent apnea		43%	apnea persisted or recurred during an acute respiratory illness (43% of individuals specifically examined for these findings; minimum prevalence: 10%).	true	
+0068	C067	NBK537720	missed				Motor delay		Eleven individuals	Eleven individuals presented as children with mainly motor delay.	true	
+0068	C067	NBK537720	missed				Mild intellectual disability		four individuals	However, four individuals have mild intellectual disability and two have developmental delay.	true	
+0068	C067	NBK537720	missed				Developmental delay		two	However, four individuals have mild intellectual disability and two have developmental delay.	true	
+0068	C067	NBK537720	missed				Pes cavus		one individual	Pes cavus is described in one individual.	true	
+0068	C067	NBK537720	missed				Seizures		Three individuals	Three individuals were reported to have childhood-onset seizures.	true	
+0068	C067	NBK537720	missed				Microcephaly		2 individuals	Both microcephaly (in 2 individuals) and macrocephaly (1 individual) have been described; no further details were available.	true	
+0068	C067	NBK537720	missed				Macrocephaly		1 individual	Both microcephaly (in 2 individuals) and macrocephaly (1 individual) have been described; no further details were available.	true	
+0068	C067	NBK537720	missed				Progressive hearing loss		One individual	One individual was reported to have progressive hearing loss; no further details were available.	true	
+0069	C068	NBK541728	bad_row	34	FGFR2	OMIM:101200	Hydrocephalus	HP:0000238	Prevalence 0.095 is an inferred midpoint; the quote states only the range 6%-13%.	and 6%-13% have hydrocephalus.	true	
+0070	C069	NBK579484	bad_row	33	HEXB	OMIM:268800	AGE_ONSET		The numeric range 17–40 is not printed; 'older teen years or young adulthood' is a vague age description.	Late-onset Sandhoff disease (onset older teen years or young adulthood).	true	
+0070	C069	NBK579484	missed				Leukoencephalopathy (acute infantile Sandhoff disease)		Not observed in acute infantile SD	ASPA |  |  | ≤6 mos | Macrocephaly, head lag, hypotonia, seizures | Leukoencephalopathy	true	
+0070	C069	NBK579484	missed				Abnormal electroretinogram (acute infantile Sandhoff disease)		Not observed in acute infantile SD	CLN5 CLN6 CLN8 CTSD MFSD8 PPT1 TPP1 |  |  | ≤6 mos | Visual deficits, seizures | Abnormal ERG	true	
+0070	C069	NBK579484	missed				Leukodystrophy (acute infantile Sandhoff disease)		Not observed in acute infantile SD	GFAP | , infantile form |  | ≤6 mos | Macrocephaly, seizures | Leukodystrophy	true	
+0071	C070	NBK612410	bad_row	10	NARS1	OMIM:619091	AGE_ONSET		The numerical onset range 0–5 years is not printed; neonatal or childhood does not establish those bounds.	NARS1-related neurodevelopmental disorder (NARS1-NDD), a neonatal- or childhood-onset phenotype	true	
+0071	C070	NBK612410	bad_row	11	NARS1	OMIM:619091	Motor delay	HP:0001270	Prevalence 0.75 is an inferred midpoint; the source states only >50%.	Feature | NARS1-NDD ^1 (n=42) ... Motor delay | ++ | − ... ++ = observed in >50% of individuals	true	
+0071	C070	NBK612410	bad_row	12	NARS1	OMIM:619091	Moderate ID	HP:0002342	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Feature | NARS1-NDD ^1 (n=42) ... Intellectual disability | Moderate | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	13	NARS1	OMIM:619091	Severe ID	HP:0010864	Prevalence 0.75 is an inferred midpoint; the source states only >50%.	Intellectual disability | Moderate | + | − ... Severe | ++ | − ... ++ = observed in >50% of individuals	true	
+0071	C070	NBK612410	bad_row	14	NARS1	OMIM:619091	Profound ID	HP:0002187	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Intellectual disability | Moderate | + | − ... Profound | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	15	NARS1	OMIM:619091	Developmental delay	HP:0001263	Prevalence 0.75 is an inferred midpoint; the source states only >50%.	Feature | NARS1-NDD ^1 (n=42) ... Developmental delay | ++ | − ... ++ = observed in >50% of individuals	true	
+0071	C070	NBK612410	bad_row	16	NARS1	OMIM:619091	Feeding difficulties	HP:0011968	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Feature | NARS1-NDD ^1 (n=42) ... Feeding difficulties | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	17	NARS1	OMIM:619091	Epilepsy	HP:0001250	Prevalence 0.75 is an inferred midpoint; the source states only >50%.	Feature | NARS1-NDD ^1 (n=42) ... Epilepsy | ++ | − ... ++ = observed in >50% of individuals	true	
+0071	C070	NBK612410	bad_row	18	NARS1	OMIM:619091	Abnormal muscle tone	HP:0003808	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Feature | NARS1-NDD ^1 (n=42) ... Abnormal muscle tone | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	19	NARS1	OMIM:619091	Ataxia	HP:0001251	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Feature | NARS1-NDD ^1 (n=42) ... Ataxia | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	20	NARS1	OMIM:619091	Microcephaly	HP:0000252	Prevalence 0.75 is an inferred midpoint; the source states only >50%.	Feature | NARS1-NDD ^1 (n=42) ... Microcephaly | ++ | ++ ... ++ = observed in >50% of individuals	true	
+0071	C070	NBK612410	bad_row	21	NARS1	OMIM:619091	Neurobehavioral/psychiatric manifestations	HP:0011446	Heterogeneous neurobehavioral/psychiatric bundle; 0.25 is also an unprinted midpoint of <50%.	Feature | NARS1-NDD ^1 (n=42) ... Neurobehavioral/psychiatric manifestations | + | − ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	22	NARS1	OMIM:619091	Peripheral neuropathy ± hyperreflexia	HP:0009830	Prevalence 0.25 is an inferred midpoint; the source states only <50%.	Feature | NARS1-NDD ^1 (n=42) ... Peripheral neuropathy ± hyperreflexia | + | +++ ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	bad_row	23	NARS1	OMIM:619091	Musculoskeletal involvement	HP:0033127	Heterogeneous musculoskeletal bundle; 0.25 is also an unprinted midpoint of <50%.	Feature | NARS1-NDD ^1 (n=42) ... Musculoskeletal involvement | + | +++ ... + = observed in <50% of individuals	true	
+0071	C070	NBK612410	missed				Absence seizures		One individual	One individual had absence seizures	true	
+0071	C070	NBK612410	missed				Seizures triggered by fever		two individuals	two individuals had seizures triggered by fever.	true	
+0071	C070	NBK612410	missed				Status epilepticus at first manifestation		one individual	Status epilepticus was the first manifestation in one individual.	true	
+0071	C070	NBK612410	missed				Inability to walk independently		One individual	One individual never walked independently.	true	
+0071	C070	NBK612410	missed				Cataracts		Two individuals	Two individuals had cataracts.	true	
+0071	C070	NBK612410	missed				Dysarthria		an individual	Dysarthria in an individual who also had bilateral tremor and occasional myoclonus	true	
+0071	C070	NBK612410	missed				Bilateral tremor		an individual	Dysarthria in an individual who also had bilateral tremor and occasional myoclonus	true	
+0071	C070	NBK612410	missed				Unilateral intentional hand tremor		single individuals	The following were observed in single individuals:	true	
+0071	C070	NBK612410	missed				Basilar thrombosis		an individual	Basilar thrombosis in an individual who had an infarction in the cerebellum, pons, and midbrain at age 2.5 years	true	
+0071	C070	NBK612410	missed				Medullary sponge kidney		single individuals	The following were observed in single individuals:	true	
+0071	C070	NBK612410	missed				Hepatic hemangioma		single individuals	The following were observed in single individuals:	true	
+0072	P001	PMID:30732635	missed				Restricted walking at baseline		14 (23%)	- restricted | 62 | 14 (23%)	true	
+0072	P001	PMID:30732635	missed				Walking with an aid at baseline		8 (13%)	- with an aid | 62 | 8 (13%)	true	
+0073	Q001	PMID:35868845	bad_row	35	ALPK1	OMIM:614979	Taurodontism	HP:0000679	The source sentence carries reference marker 13; sentences citing other studies are excluded.	a pattern known as taurodontism was noted in four of seven individuals	true	
+0073	Q001	PMID:35868845	missed				Premature brain mineralisation/calcification		seven	seven of the patients had premature mineralisation/calcification of the globus pallidi, red nuclei and substantia nigra	true	
+0073	Q001	PMID:35868845	missed				Meningeal enhancement		four	Among the subjects who received post contrast FLAIR imaging (n=8), four showed foci of meningeal enhancement	true	
+0081	Q009	PMID:33728377	bad_row	32	HNRNPH2	OMIM:300986	Dizziness	HP:0002321	Dizziness does not establish the more specific feature vertigo.	dizziness (12%), tremor (9%)	true	
+0081	Q009	PMID:33728377	bad_row	49	HNRNPH2	OMIM:300986	Aortic dilation	HP:0004942	Aortic dilation does not establish an aortic aneurysm.	1 individual had aortic dilation (3%)	true	
+0081	Q009	PMID:33728377	missed				Congenital anomalies		No	No birth defects were noted	true	
+0081	Q009	PMID:33728377	missed				Abnormal EEG without clinical seizures		10%	3 more reported an abnormal EEG without clinical seizures (10%).	true	
+0081	Q009	PMID:33728377	missed				Chronic abdominal bloating		3%	chronic abdominal bloating (3%)	true	
+0083	Q011	PMID:39494594	bad_row	30	NSD1	OMIM:117550	Intellectual disabilities or developmental delays	HP:0012759	One combined number for two features: intellectual disabilities or developmental delays.	During follow‐up, intellectual disabilities or developmental delays were noted in 49 (86%) patients.	true	

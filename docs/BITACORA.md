@@ -3208,3 +3208,32 @@ literature-enriched profiles come later, as candidate 6.
   been reported/described/documented". One more row (C069) is no longer
   read as an absence. "Has not been observed in affected individuals" stays
   an explicit absence (guide v4 §6a).
+
+### 2026-10-02 — audit adjudication — lit-extract-v1: 15 of 852 audited rows wrong (1.76%)
+- **Branch** `phase3/lit-audit-v1`. No R1 read, no artifact registered.
+- **Input:** Codex audit of 83 of 98 sampled sources (15 pending, Codex
+  limit), 852 rows, 244 issues (6 `wrong_unit`, 112 `bad_row`, 126 `missed`).
+  The issues file was untracked in the main checkout; it is committed here.
+- **Adjudication** against guide v4 (guide overrides the auditor), written to
+  `data/lit-extract/audit/lit-extract-v1.adjudication.tsv`:
+  - `wrong_unit`: 1 valid of 6. `bad_row`: 15 valid of 112.
+  - 55 midpoint complaints dismissed by rule (low/high equal the printed
+    range); 1 real (C016 "at least 25%-30%" stored as a midpoint).
+  - 25 category and "A and/or B" complaints dismissed under 6a, and 5 C001
+    `wrong_unit` dismissed (11p15 LOM is a stated population of SRS1). These
+    30 are judgement calls; if the 25 category ones were all valid the rate
+    would be 40/852.
+  - `missed`: 52 of 126 valid (recall estimate only, nothing extracted).
+- **Row error rate:** 15 distinct rows / 852 = 1.76%, Wilson 95% CI
+  1.07%-2.88%. Rough recall 837/(837+52) = 94.2% (CI 92.4%-95.5%).
+- **Fixes** (14 rows removed, 1 corrected, no fact added; every shard
+  `validate-shard` 0 problems, one commit per shard): C001 (1), C013 (1),
+  C016 (corrected), C017 (1), C028 (1), C041 (2), C055 (1), C061 (5),
+  C063 (1), Q001 (1). Notes row counts updated.
+- **Patterns:** the C070 and C037 flags (29) are all 6a bin midpoints and not
+  errors. Real errors are guide-wording slips ("consistently present" x5,
+  "more than half", "100% penetrant"), sub-items under a parent percentage,
+  and cited or lifetime statements. Open question for the lead: C037 prints
+  the bins in the cells (>90%, <25%) with no legend, and section 6 read
+  literally would give 0.9 and 0.25 instead of the bin midpoints used.
+- **Evidence:** `docs/analyses/LIT-AUDIT-v1.md`.
