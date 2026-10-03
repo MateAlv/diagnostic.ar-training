@@ -132,3 +132,20 @@
 - Exclusion list `s3-data-v2-excl-v1`: 253 cases, residual overlap 0.
 - A ledger row `s3-v2/test | EXP-B-004` (reason `x`) exists from an accidental
   load; see the BITACORA entry of the same date.
+
+## Addendum (2026-10-03, phase 2b): wording correction and the propagated form
+- **Re-ranker onset source.** §3 says the re-ranker uses "only Orphanet
+  onset". In fact the knowledge builder takes **HPOA onset annotations
+  first and Orphanet as a fallback** (`onset_source` ∈ {hpoa, orphanet,
+  orphanet_exact_alignment}). The source separation holds either way: the
+  re-ranker never reads `onset-ages-v*`, which a test enforces (AST scan and
+  runtime). L3's age analysis reports the lit-onset subset split by
+  `onset_source`.
+- **L1 form (iv), `propagated`.** P(t | g) already includes descendants
+  (noisy-OR propagation), so "a no to a parent counts against genes
+  annotating a child" is already true in every form. Form (iv) is therefore
+  defined as: **only the most general excluded terms count**, i.e. no
+  double charge when a parent and its child are both excluded.
+- **To check at the start of phase 3:** each gene's disease weights sum
+  to 1 in kb-v6 and kb-v7. The `onset` and `term_probability` features
+  assume it.
