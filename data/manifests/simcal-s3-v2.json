@@ -1,0 +1,108 @@
+{
+  "artifact_id": "simcal-s3-v2",
+  "kind": "simulator-calibration-file",
+  "created_at": "2026-10-03T17:45:36+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "6ec2f7c4e4e67b2c7dd763286319233a6c8a58fb",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "file:data/calib/simcal-v053-v1.json",
+      "sha256": "e274e0ec9585e8a0b5d668d4b5f744e9805caf8d5a9dc51d333d8333d8584130"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:genes-v2",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    {
+      "id": "artifact:hpoa-enriched-v2",
+      "sha256": "1e6fbe107088ec98c13efd44ff7651b655208782718676cf18ceb44a08498892"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    }
+  ],
+  "params": {
+    "base": "simcal-v053-v1",
+    "part": "train",
+    "min_patients": 20,
+    "estimator": "jeffreys",
+    "fixed_by_definition": [
+      "male_limited",
+      "female_limited"
+    ],
+    "table": {
+      "male_limited": {
+        "patients": 0.0,
+        "male": 0.0,
+        "raw_male_share": null,
+        "jeffreys_male_share": 0.5,
+        "simulator_default": 1.0,
+        "used": 1.0,
+        "decision": "kept default: sex fixed by the class"
+      },
+      "female_limited": {
+        "patients": 0.0,
+        "male": 0.0,
+        "raw_male_share": null,
+        "jeffreys_male_share": 0.5,
+        "simulator_default": 0.0,
+        "used": 0.0,
+        "decision": "kept default: sex fixed by the class"
+      },
+      "male_biased": {
+        "patients": 23.0,
+        "male": 22.0,
+        "raw_male_share": 0.9565,
+        "jeffreys_male_share": 0.9375,
+        "simulator_default": 0.9,
+        "used": 0.9375,
+        "decision": "measured (Jeffreys)"
+      },
+      "female_biased": {
+        "patients": 0.0,
+        "male": 0.0,
+        "raw_male_share": null,
+        "jeffreys_male_share": 0.5,
+        "simulator_default": 0.1,
+        "used": 0.1,
+        "decision": "kept default: fewer than 20 patients"
+      },
+      "x_linked_dominant": {
+        "patients": 13.0,
+        "male": 6.0,
+        "raw_male_share": 0.4615,
+        "jeffreys_male_share": 0.4643,
+        "simulator_default": 0.33,
+        "used": 0.33,
+        "decision": "kept default: fewer than 20 patients"
+      },
+      "unbiased": {
+        "patients": 3737.0,
+        "male": 1996.0,
+        "raw_male_share": 0.5341,
+        "jeffreys_male_share": 0.5341,
+        "simulator_default": 0.5,
+        "used": 0.5341,
+        "decision": "measured (Jeffreys)"
+      }
+    }
+  },
+  "params_hash": "b65b0cd05fa5d04bb4905705357d959620898bcc371c25e4228f468ff8dfe286",
+  "outputs": [
+    {
+      "path": "data/calib/simcal-s3-v2.json",
+      "sha256": "fae5c13aa6a4501625091778867e8d08d544f051c7afe7470d80f3e7fb1d79f2",
+      "bytes": 5524
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
