@@ -133,7 +133,6 @@
 - A ledger row `s3-v2/test | EXP-B-004` (reason `x`) exists from an accidental
   load; see the BITACORA entry of the same date.
 
-<<<<<<< HEAD
 ## Note, 2026-10-03: sealed-read guard
 - The 2026-10-03 20:59 ledger row for s3-v2/test (EXP-B-004, reason 'x') was
   a non-substantive technical access during phase 1 checks; nothing was
@@ -141,7 +140,7 @@
 - Guard: every sealed load of R1 test/vault and S3 test now also requires the
   environment variable `DXT_SEALED_READ` to equal the `exp_id` being read
   (EVAL_PROTOCOL §2). The ledger row stays; it is not edited.
-=======
+
 ## Addendum (2026-10-03, phase 2b): wording correction and the propagated form
 - **Re-ranker onset source.** §3 says the re-ranker uses "only Orphanet
   onset". In fact the knowledge builder takes **HPOA onset annotations
@@ -158,4 +157,3 @@
 - **To check at the start of phase 3:** each gene's disease weights sum
   to 1 in kb-v6 and kb-v7. The `onset` and `term_probability` features
   assume it.
->>>>>>> origin/main
