@@ -3408,3 +3408,19 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - spend the last R1-dev read, which decides G2b on dev only (beat UP
     and V03-full, or move to option B);
   - then G3 cards (Codex + Sonnet, Mateo spot-check) and freeze.
+
+### 2026-10-03 — result — Last R1-dev read (3 of 3): candidate 6 fails G2b on dev; gate not passed
+- **Read:** `dxt sim realism` on `ds-sim0.5.4-full-n100-s1001`, label
+  `v0.5.4-cand6`. Ledger row 2026-10-03 05:27.
+- **The pre-registered decision quantity (ADR-0012 amendment 5):** G2b on
+  R1-dev, mean ρ **0.159** (38 genes scored of 47 eligible).
+  - UP: 0.231. V03-full: 0.095. For reference, candidate 2 had 0.193.
+  - It must beat both, so it **fails** (beats V03-full, not UP).
+- **Train-side G2b for candidate 6 was 0.519.** The 0.519 → 0.159 drop
+  confirms that the train-side figure was optimistic, because the report
+  model was fitted on R1-train, as warned in the go/no-go docs.
+- **Consequence, fixed before the read:** candidate 6 is **not frozen**,
+  and there are no further simulator candidates. Front A moves to
+  **option B**: train the new sex, age and negation parameters on real
+  R1-train patients.
+- **The R1-dev realism budget is now exhausted (3/3).**

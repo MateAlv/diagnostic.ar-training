@@ -11,3 +11,4 @@ Every `dxt sim realism` run reads R1-dev as a check (ADR-0011, ADR-0012). At mos
 | 2026-09-30 15:34 | v0.4-cand1 | artifact:ds-sim0.4.1-A-n100-s1001 | b18df39dddfb4986614d97fe454f46e81ce66cb38435ac78166bb39efbb05995 | 0edee50ab829 | candidate | 0.4.1-cand1 |
 | 2026-09-30 18:11 | v0.3-full-baseline | artifact:ds-sim0.3.1-full-n100-s1001 | 840433d24d1e43cf14b5833b0dffcbc4ef0a8411210f89f167a6ef42e8dbdac6 | 0131f972359c | baseline | — |
 | 2026-09-30 18:28 | v0.4-cand2 | artifact:ds-sim0.4.2-full-n100-s1001 | 2ab420355fe28a93b0bc19d9dd888c154514519b828c677542728a038c429afa | 81f8f0870c37 | candidate | 0.4.2-cand2 |
+| 2026-10-03 05:27 | v0.5.4-cand6 | artifact:ds-sim0.5.4-full-n100-s1001 | c00188faeb52e9e7e7b74f426388ebf118a9e6469f43af58fb3b57ca0a6600c3 | e775a6d3eb46 | candidate | 0.5.4-cand6 |
