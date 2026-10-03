@@ -3424,3 +3424,35 @@ this task, whatever the result**; the last read needs Mateo's OK.
   **option B**: train the new sex, age and negation parameters on real
   R1-train patients.
 - **The R1-dev realism budget is now exhausted (3/3).**
+
+### 2026-10-03 — analysis — G2b on dev with intervals (re-analysis of saved per-gene values; no new R1-dev access)
+- **Data:** the 38 genes scored by all four datasets; bootstrap over genes,
+  10,000 resamples.
+
+  | Dataset | Mean ρ | 95% CI |
+  |---|---|---|
+  | UP | 0.235 | [0.147, 0.317] |
+  | Candidate 2 | 0.193 | [0.098, 0.281] |
+  | Candidate 6 | 0.159 | [0.067, 0.242] |
+  | V03-full | 0.095 | [0.011, 0.174] |
+
+- **Paired differences** (candidate 6 minus the other):
+
+  | vs | Difference | 95% CI |
+  |---|---|---|
+  | UP | −0.075 | [−0.157, +0.000] |
+  | Candidate 2 | −0.034 | [−0.089, +0.003] |
+  | V03-full | +0.065 | [+0.024, +0.110] |
+
+- **Reading:**
+  - The candidate 2 → candidate 6 drop is not distinguishable from noise.
+  - Candidate 6 vs UP is borderline.
+  - Candidate 6 is clearly better than V03.
+- **Limitations of the G2b rule as written:**
+  - it compares point estimates only, with no CI;
+  - real per-gene rates often come from one or two papers;
+  - the reference terms are `hpo_genes_to_phenotype`, the file UP samples
+    from, which slightly favours UP.
+- **The pre-registered decision stands** (not frozen; ADR-0012 amendment
+  5). The informe reports it with these intervals: "not shown to match UP
+  on reported-term ranking", not "worse".
