@@ -3396,3 +3396,15 @@ this task, whatever the result**; the last read needs Mateo's OK.
   realised profile terms 5.13 of a 6.92 target): the true-term cap, not the
   profiles' richness at the margin, still limits record size. G2d is 0.730,
   within 0.01 of 6b. No R1-dev read; Mateo decides.
+
+### 2026-10-03 — decision — Candidate 6 accepted with a documented G2c shortfall (ADR-0012 amendment 5)
+- **Candidate 6** (sim 0.5.4 with literature profiles and ages; PR #86):
+  - passes G2a 0.304, G2d 0.730, G2e 0.079 and G2b-train 0.519;
+  - fails G2c (1.795 vs V03-full's 1.653: records 6.90 vs 8.70 terms).
+  - The literature ages do not reach the age-scored genes, so ages are
+    unchanged.
+- **Mateo chose option A:**
+  - accept candidate 6 with the shortfall documented;
+  - spend the last R1-dev read, which decides G2b on dev only (beat UP
+    and V03-full, or move to option B);
+  - then G3 cards (Codex + Sonnet, Mateo spot-check) and freeze.

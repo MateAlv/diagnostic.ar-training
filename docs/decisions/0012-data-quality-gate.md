@@ -153,3 +153,47 @@ and baselines are recomputed.
   reports miss it by about 0.3, so scoring reports against prevalence
   penalises a correct reporting layer.
 - **Amendment 3 accepted by Mateo, 2026-10-01.**
+
+## Amendment 5 (2026-10-03): candidate 6 accepted with a documented G2c shortfall (Mateo's decision)
+**This is a post-hoc decision,** recorded as such. It was made after
+candidate 6's train-side go/no-go and before any R1-dev read of it.
+
+**Candidate 6** (simulator 0.5.4, `simcal-v053-v1` with `hpoa-enriched-v1`,
+`presentation-ages-v1` and `onset-ages-v1`; PR #86) passes four of the five
+train-side checks:
+
+| Check | Candidate 6 | Rule | Result |
+|---|---|---|---|
+| G2a (truth layer) | 0.304 | — | pass |
+| G2d | 0.730 [0.699, 0.764] | ≤ 0.75 | pass |
+| G2e gap | 0.079 | ≤ 0.10 | pass |
+| G2b-train | 0.519 | — | pass |
+| G2c | 1.795 | must beat V03-full's 1.653 | **fail** |
+
+It beats UP on every G2 metric.
+
+**Why G2c is accepted as a documented shortfall:**
+- **V03 passes G2c by over-reporting:** 8.42 terms per case vs 8.70 real.
+  Candidate 6 under-reports: 6.90 terms per case (p90 13 vs 17).
+- The W1 distance favours V03's error, while every other check, including
+  the classifier-based G2d, favours candidate 6 by a wide margin.
+- **The informe states the shortfall:** simulated records are about 20%
+  shorter than real ones, mostly in the upper tail.
+- **Also declared:** the literature ages do not reach the genes the age
+  check scores, so simulated ages remain a known weakness. The median
+  |log ratio| is 0.585 vs V03-full's 0.537.
+
+**Decisions:**
+1. Mateo authorises the **last R1-dev realism read (3 of 3)** on candidate
+   6: `ds-sim0.5.4-full-n100-s1001`, label `v0.5.4-cand6`, sim version
+   `0.5.4-cand6`.
+2. **Fixed before the read:** the read decides only **G2b on R1-dev**.
+   - If candidate 6's dev ρ beats both UP (0.231) and V03-full (0.095),
+     the gate proceeds to G3 (cards) and G5 (freeze).
+   - If not, candidate 6 is **not** frozen; Front A moves to option B
+     (train the new parameters on real R1-train patients). No further
+     simulator candidates.
+   - The other G2 values from this read are reported, but they cannot
+     change the decision; their train-side versions already decided.
+3. **G3 reviewers** (amendment 2): Codex first, then a Claude reviewer
+   (Sonnet). Mateo spot-checks.
