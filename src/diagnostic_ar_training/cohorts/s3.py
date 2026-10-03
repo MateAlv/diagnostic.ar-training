@@ -9,6 +9,7 @@ terms are dropped, because in S3 every negation comes from the questioner.
 import gzip
 import hashlib
 import json
+from dataclasses import dataclass
 from pathlib import Path
 
 from diagnostic_ar_training import SPLITS_DIR
@@ -19,6 +20,37 @@ from diagnostic_ar_training.lineage.registry import LineageError
 
 PARTS = ("dev", "test")
 SEALED = {"test"}
+
+
+@dataclass(frozen=True)
+class S3Spec:
+    """What an S3 version is made of: its dataset, the knowledge split its KBs must drop, its exclusions."""
+
+    split_id: str
+    dataset_artifact: str
+    annotation_split: str
+    exclusion_artifact: str | None
+
+
+SPECS = {
+    "s3-v1": S3Spec("s3-v1", "s3-data-v1", "annot-split-v1", None),
+    "s3-v2": S3Spec("s3-v2", "s3-data-v2", "annot-split-v2", "s3-data-v2-excl-v1"),
+}
+
+
+def spec(split_id: str) -> S3Spec:
+    if split_id not in SPECS:
+        raise ValueError(f"split must be one of {sorted(SPECS)}, got {split_id!r}")
+    return SPECS[split_id]
+
+
+def check_kb_split(split_id: str, heldout_annotations_dropped: str | None) -> None:
+    """A KB may serve an S3 version only if it was built without that version's half B."""
+    wanted = spec(split_id).annotation_split
+    if heldout_annotations_dropped != wanted:
+        raise ValueError(
+            f"{split_id} needs a KB built without half B of {wanted}, not {heldout_annotations_dropped!r}"
+        )
 
 
 def read_dataset(path: Path, cohort: str) -> list[tuple[Case, frozenset[str]]]:
@@ -36,6 +68,21 @@ def read_dataset(path: Path, cohort: str) -> list[tuple[Case, frozenset[str]]]:
                 onset_years=r["onset_years"],
             )
             out.append((case, frozenset(r["true_present"])))
+    return out
+
+
+def read_entities(path: Path, cohort: str, case_ids: set[str]) -> dict[str, str]:
+    """case_id -> the disease entity the generator drew the case from, for the given cases only.
+
+    Analysis only; systems never see it.
+    """
+    out = {}
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        for line in handle:
+            r = json.loads(line)
+            case_id = f"{cohort}:{r['case_id']}"
+            if case_id in case_ids:
+                out[case_id] = r["entity"]
     return out
 
 

@@ -4,6 +4,7 @@
 - **Registered:** 2026-10-03, by Mateo Alvarez (written by the assistant)
 - **Status:** planned. The strategy list for the sealed read is added as an
   addendum before the read.
+- **2026-10-03:** the dev search (phase 3) is done and logged below; the sealed read has not happened.
 - **Governing decision:** ADR-0014.
 
 ## Hypothesis
@@ -40,6 +41,73 @@ The ≤ 6 strategy budget includes Q1 parameter settings, if any are tried.
   - top-10 hit rate.
 - **Selection on dev:** maximise the primary metric subject to harmed ≤ 5%
   vs E0+answers under Q0.
+
+## Dev search log
+Phase 3 of ADR-0014 (L4), on `phase4/dev-search`. **S3-v2-dev only**, all 9,750 cases after the
+exclusion list; S3-v2-test and R1-test were not read. Every run is a row of
+`results/EXP-Q-001/dev-search.tsv` (the header fixes the interpretation of the selection rule before the
+first run); reports and per-case interviews are in `results/EXP-Q-001/dev/` and `results/EXP-Q-001/noise/`.
+
+- **Re-ranker:** the provisional EXP-B-004 winner F (`results/EXP-Q-001/dev-search/rerank-provisional.json`,
+  hash `8ecd5b320f33`: propagated, k = 0.5, neg weight 0.5, kb-v6). Questioner knowledge kb-v6. Budget 9,
+  answers from the truth, noise 0, one seed.
+- **Budget:** 5 of 6 strategies (Q0, Q1, Q2, Q2b λ = 0.3, Q2b λ = 0.6). Q1 has no tried parameter settings.
+- **Smoke:** a 24-case run of Q2b (λ = 0.3) with this re-ranker, label `smoke-l4`, checked the pipeline
+  (`results/EXP-Q-001/smoke-l4/`); it is not a logged configuration and not evidence.
+- **Cross-check:** Q0's re-ranker effect (+0.0063, harmed 4.85%) equals EXP-B-004's F row exactly, as it should.
+- Primary metric is Δ MRR of the final system vs E0-initial (no questions), CI over genes. Hash column = run hash
+  (strategy, λ, re-ranker, KB, budget, noise, seed).
+
+### Results, noise 0
+| strategy | hash | MRR initial | MRR +answers | MRR final | primary Δ vs E0-initial [95% CI] | harmed | helped | questioner effect | re-ranker effect [CI] | rr harmed | top-10 initial → final | yes/no per case |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Q0 | d6649651bbf6 | 0.3185 | 0.3397 | 0.3460 | +0.0275 [+0.0250, +0.0298] | 0.081 | 0.379 | +0.0212 [+0.0190, +0.0233] | +0.0063 [+0.0051, +0.0075] | 0.049 | 0.451 → 0.474 | 1.10 / 7.82 |
+| Q2 | 1fc2b42bfc6b | 0.3185 | 0.3450 | 0.3513 | +0.0328 [+0.0300, +0.0355] | 0.085 | 0.392 | +0.0265 [+0.0240, +0.0291] | +0.0063 [+0.0051, +0.0076] | 0.051 | 0.451 → 0.478 | 1.12 / 7.79 |
+| Q2b-lam0.3 | ba350eb94073 | 0.3185 | 0.3460 | 0.3522 | +0.0337 [+0.0308, +0.0365] | 0.086 | 0.394 | +0.0275 [+0.0248, +0.0301] | +0.0062 [+0.0049, +0.0075] | 0.049 | 0.451 → 0.476 | 1.10 / 7.81 |
+| Q2b-lam0.6 | 9963dbe02527 | 0.3185 | 0.3464 | 0.3525 | +0.0339 [+0.0310, +0.0368] | 0.084 | 0.393 | +0.0279 [+0.0252, +0.0306] | +0.0060 [+0.0049, +0.0073] | 0.048 | 0.451 → 0.475 | 1.05 / 7.86 |
+| Q1 | 12b03165b15d | 0.3185 | 0.3463 | 0.3517 | +0.0332 [+0.0302, +0.0361] | 0.077 | 0.399 | +0.0278 [+0.0250, +0.0305] | +0.0054 [+0.0041, +0.0066] | 0.059 | 0.451 → 0.482 | 1.14 / 7.77 |
+
+Selection (re-ranker-effect harmed <= 5%, primary CI lower bound > 0, ties within 0.001 -> simpler):
+- feasible: ['Q0', 'Q2b-lam0.3', 'Q2b-lam0.6']; best Δ +0.0339; within 0.001: ['Q2b-lam0.3', 'Q2b-lam0.6']
+- winner: Q2b-lam0.6 (9963dbe02527), primary Δ +0.0339
+
+Paired difference in final MRR vs Q0 (same cases, 95% CI over genes):
+- Q2: +0.0054 [+0.0037, +0.0070]
+- Q2b-lam0.3: +0.0062 [+0.0043, +0.0081]
+- Q2b-lam0.6: +0.0065 [+0.0044, +0.0086]
+- Q1: +0.0057 [+0.0035, +0.0080]
+- not feasible: [('Q2', 0.05067), ('Q1', 0.05887)]
+
+- **The questioner matters more than the re-ranker.** E0 alone gains +0.021 (Q0) to +0.028 (Q2b λ = 0.6,
+  Q1) in MRR from the answers; the re-ranker adds +0.005 to +0.006 on top, with the CI above 0
+  in every strategy. Every adaptive strategy beats Q0 on final MRR by +0.005 to +0.007 (paired CIs above 0).
+- **Winner by the rule: Q2b with λ = 0.6** (`9963dbe02527`), primary Δ +0.0339 [+0.0310, +0.0368],
+  +0.0065 [+0.0044, +0.0086] over Q0. λ = 0.3 is within 0.001 (Δ +0.0337), so the choice between the two λ
+  is not resolved by the data; the higher Δ was taken.
+- **Q2 and Q1 fail the harm cap** with this re-ranker: the re-ranker effect harms 5.07% (Q2) and 5.89% (Q1)
+  of cases. Their primary Δ is +0.0328 and +0.0332 (0.0011 and 0.0007 below the winner's). Q1 has the highest
+  top-10 rate (0.482), a different trade-off from MRR.
+- **Q2 (re-ranker-aware) vs Q2b (diversity).** Diversity adds +0.0009 to +0.0011 of primary Δ (not tested for significance); the plan's
+  hypothesis (re-ranker-aware adaptive beats the S3 v1 questioner) holds on dev: Q2 − Q0 = +0.0054 [+0.0037, +0.0070].
+
+### Noise sensitivity (5% of answers flipped or "unknown"), winner and Q0
+| strategy | hash | MRR initial | MRR +answers | MRR final | primary Δ vs E0-initial [95% CI] | harmed | helped | questioner effect | re-ranker effect [CI] | rr harmed | top-10 initial → final | yes/no per case |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Q0 | abdad4c63756 | 0.3185 | 0.3272 | 0.3334 | +0.0148 [+0.0117, +0.0176] | 0.166 | 0.353 | +0.0086 [+0.0058, +0.0114] | +0.0062 [+0.0050, +0.0074] | 0.049 | 0.451 → 0.460 | 1.24 / 7.46 |
+| Q2b-lam0.6 | f4bbbc0d67fd | 0.3185 | 0.3331 | 0.3388 | +0.0203 [+0.0170, +0.0236] | 0.168 | 0.364 | +0.0146 [+0.0113, +0.0178] | +0.0057 [+0.0046, +0.0070] | 0.049 | 0.451 → 0.461 | 1.20 / 7.49 |
+
+Paired difference in final MRR vs Q0 (same cases, 95% CI over genes):
+- Q2b-lam0.6: +0.0055 [+0.0028, +0.0083]
+- not feasible: []
+
+With 5% noise the questioner effect falls from +0.021 to +0.009 (Q0) and from +0.028 to +0.015 (Q2b λ = 0.6);
+the re-ranker's effect hardly moves (+0.0062 and +0.0057, harmed 4.9% in both). The ordering holds:
+Q2b λ = 0.6 − Q0 = +0.0055 [+0.0028, +0.0083]. The share of cases harmed against E0-initial rises from 8% to 17%.
+
+### Proposal for the sealed read (not committed; Mateo approves before phase 4)
+The L4 winner Q2b λ = 0.6, Q0 and Q1, each with the final re-ranker of EXP-B-004 (if that changes from F,
+Q2b's λ and the L4 comparison should be re-run on dev first, since Q2 and Q1's eligibility depends on the
+re-ranker's harm).
 
 ## Sealed read
 Shared with EXP-B-004: the same single S3-v2-test read scores the selected

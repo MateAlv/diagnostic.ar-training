@@ -1,0 +1,3 @@
+L1:propagated:k0.5:w0.5 - ref-rr-v1: -0.0004 [-0.0013, +0.0004] harmed 0.128 helped 0.075 n=9750
+L1:propagated:k0.5:w0.5 - L1:llr:k0.5:w0.5: -0.0016 [-0.0023, -0.0009] harmed 0.099 helped 0.025 n=9750
+L1:llr:k0.5:w0.5 - ref-rr-v1: +0.0012 [+0.0004, +0.0020] harmed 0.089 helped 0.098 n=9750

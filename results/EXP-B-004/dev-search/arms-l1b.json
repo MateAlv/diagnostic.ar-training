@@ -1,0 +1,266 @@
+[
+ {
+  "arm_id": "L1:propagated:k0.8:w0.5",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.5,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:propagated:k0.8:w0.75",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.75,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:propagated:k0.8:w1",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 1.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:propagated:k0.8:w1.5",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 1.5,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:propagated:k0.8:w2",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 2.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:propagated:k0.8:w3",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 3.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w0.5",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.5,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w0.75",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.75,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w1",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 1.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w1.5",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 1.5,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w2",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 2.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ },
+ {
+  "arm_id": "L1:capped:cap2:k0.8:w3",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": 2.0,
+   "neg_form": "capped",
+   "neg_strength": 0.8,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 3.0,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "L1",
+  "note": ""
+ }
+]

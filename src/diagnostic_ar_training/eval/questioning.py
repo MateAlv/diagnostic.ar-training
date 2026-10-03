@@ -51,13 +51,19 @@ class Context:
     ontology: Ontology
     beta: np.ndarray
     top_k: int = 200
+    rerank_knowledge: GeneKnowledge | None = None
+    """The re-ranker's knowledge and feature parameters; the questioner's `knowledge` when unset."""
+
+    @property
+    def rr_knowledge(self) -> GeneKnowledge:
+        return self.rerank_knowledge or self.knowledge
 
     def e0_probs(self, case: Case) -> np.ndarray | None:
         return self.e0.score(case).probs
 
     def posterior(self, case: Case, rerank: bool) -> np.ndarray | None:
         beta = self.beta if rerank else np.zeros(len(COMPONENTS))
-        return table(self.e0, self.knowledge, case, self.top_k).combine(beta)
+        return table(self.e0, self.rr_knowledge, case, self.top_k).combine(beta)
 
 
 class Strategy(Protocol):

@@ -1,0 +1,3116 @@
+{
+ "arms": {
+  "L1:capped:cap2:k0.8:w0.5": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "dcc9988853f5",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.007239353230199235,
+      0.0106638300695666
+     ],
+     "delta": 0.008912290665259918,
+     "harmed": 0.06596701649175413,
+     "helped": 0.2721820907727954,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.00701199418481336,
+      0.009988157094717637
+     ],
+     "delta": 0.008478554173684765,
+     "harmed": 0.06646153846153846,
+     "helped": 0.2714871794871795,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.006769129738869895,
+      0.009767161792576669
+     ],
+     "delta": 0.008301382821771107,
+     "harmed": 0.0629019057640594,
+     "helped": 0.274991231146966,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.005606746208498779,
+      0.015352813277384572
+     ],
+     "delta": 0.010405152469953771,
+     "harmed": 0.09812667261373774,
+     "helped": 0.2631578947368421,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.005079606683787227,
+      0.023006605820099765
+     ],
+     "delta": 0.013559398461365418,
+     "harmed": 0.04660194174757282,
+     "helped": 0.3087378640776699,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.002160691886055564,
+      0.02321899492773813
+     ],
+     "delta": 0.012026163895454843,
+     "harmed": 0.05236907730673317,
+     "helped": 0.3117206982543641,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.0006362945999644848,
+      0.022174402865060443
+     ],
+     "delta": 0.01103857521358761,
+     "harmed": 0.047872340425531915,
+     "helped": 0.31648936170212766,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      -0.0024030949224894313,
+      0.022208613948749657
+     ],
+     "delta": 0.008978036179200725,
+     "harmed": 0.05460750853242321,
+     "helped": 0.32081911262798635,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.006484907812363696,
+      0.039057424898261674
+     ],
+     "delta": 0.012541700175585417,
+     "harmed": 0.1111111111111111,
+     "helped": 0.3111111111111111,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.012293091735095239,
+      0.04425841056558746
+     ],
+     "delta": 0.010706992836568183,
+     "harmed": 0.11428571428571428,
+     "helped": 0.3142857142857143,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      5.673163333006532e-05,
+      0.057803510642277324
+     ],
+     "delta": 0.016877890939914417,
+     "harmed": 0.0,
+     "helped": 0.16666666666666666,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.0,
+      0.07502923976608186
+     ],
+     "delta": 0.02192440286564664,
+     "harmed": 0.0,
+     "helped": 0.13043478260869565,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.005399136514131232,
+      0.055348734873009786
+     ],
+     "delta": 0.027529260799929275,
+     "harmed": 0.015625,
+     "helped": 0.328125,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.0038557657910245203,
+      0.05789761288982398
+     ],
+     "delta": 0.0262584221276364,
+     "harmed": 0.02,
+     "helped": 0.34,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.006712797795008642,
+      0.009807215619677102
+     ],
+     "delta": 0.008284567153549787,
+     "harmed": 0.06652668803182672,
+     "helped": 0.27141120565808374,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.007066366392980844,
+      0.0100501088952415
+     ],
+     "delta": 0.008545162620780077,
+     "harmed": 0.06698366756253876,
+     "helped": 0.2736200124043829,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:capped:cap2:k0.8:w0.75": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.75,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "e34a4777ac48",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.009651950066415062,
+      0.014011189757175522
+     ],
+     "delta": 0.011775161801209709,
+     "harmed": 0.07986915633092545,
+     "helped": 0.3047567125528145,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.009518645844332208,
+      0.01319747287699412
+     ],
+     "delta": 0.011355475373509087,
+     "harmed": 0.07989743589743589,
+     "helped": 0.30625641025641026,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.009179908736431756,
+      0.012954600597577895
+     ],
+     "delta": 0.011100347118668752,
+     "harmed": 0.07611364433532095,
+     "helped": 0.3104173974044195,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.008307633063082156,
+      0.01967042848441428
+     ],
+     "delta": 0.014071914349455627,
+     "harmed": 0.11418376449598573,
+     "helped": 0.2952720785013381,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.007706315513844968,
+      0.02753927687032212
+     ],
+     "delta": 0.017462711722645522,
+     "harmed": 0.05436893203883495,
+     "helped": 0.34368932038834954,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.005601684164243058,
+      0.02917295892052913
+     ],
+     "delta": 0.01694440823841114,
+     "harmed": 0.059850374064837904,
+     "helped": 0.3491271820448878,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.0025423751299895065,
+      0.026498618850374547
+     ],
+     "delta": 0.014457669741724705,
+     "harmed": 0.061170212765957445,
+     "helped": 0.34574468085106386,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.00040023325552387913,
+      0.027593246028302792
+     ],
+     "delta": 0.01325794944391221,
+     "harmed": 0.06825938566552901,
+     "helped": 0.34812286689419797,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.009536572191290896,
+      0.040723131348973915
+     ],
+     "delta": 0.012932880180425908,
+     "harmed": 0.08888888888888889,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.01653882396947475,
+      0.047112679710633036
+     ],
+     "delta": 0.011170842458867987,
+     "harmed": 0.08571428571428572,
+     "helped": 0.34285714285714286,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      0.0003721198472107147,
+      0.06021096711557566
+     ],
+     "delta": 0.018898539846782157,
+     "harmed": 0.0,
+     "helped": 0.26666666666666666,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00039799206703962863,
+      0.07671035249803619
+     ],
+     "delta": 0.024548900727428536,
+     "harmed": 0.0,
+     "helped": 0.2608695652173913,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.012228087583951459,
+      0.0708357865829929
+     ],
+     "delta": 0.03762932673048945,
+     "harmed": 0.015625,
+     "helped": 0.375,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.010705235163453808,
+      0.078337605135206
+     ],
+     "delta": 0.03909048627490709,
+     "harmed": 0.02,
+     "helped": 0.4,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.009329557033383168,
+      0.013027295288326614
+     ],
+     "delta": 0.011189408686747143,
+     "harmed": 0.08011935020444248,
+     "helped": 0.30577964415957565,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.00964925781592417,
+      0.013249875084459958
+     ],
+     "delta": 0.011444685227590819,
+     "harmed": 0.08052511887533595,
+     "helped": 0.30866239404589624,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:capped:cap2:k0.8:w1": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 1.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "d547718a010c",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.0111645951131944,
+      0.01583533119846724
+     ],
+     "delta": 0.01347008301441331,
+     "harmed": 0.08559356685293716,
+     "helped": 0.32629139975466814,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.010988155177728214,
+      0.015234880993174334
+     ],
+     "delta": 0.013144629203734819,
+     "harmed": 0.08564102564102564,
+     "helped": 0.3275897435897436,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.011167834578171283,
+      0.015386896657980398
+     ],
+     "delta": 0.01339601064100303,
+     "harmed": 0.08090728399392026,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.005694148205917205,
+      0.0187746544907192
+     ],
+     "delta": 0.012117801716249368,
+     "harmed": 0.12756467439785907,
+     "helped": 0.30597680642283676,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.010528211416046138,
+      0.033236542507274744
+     ],
+     "delta": 0.02184116543497202,
+     "harmed": 0.06019417475728155,
+     "helped": 0.3592233009708738,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.008644813246362416,
+      0.03343302579229563
+     ],
+     "delta": 0.02060249201599235,
+     "harmed": 0.06733167082294264,
+     "helped": 0.3690773067331671,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.005902719412366236,
+      0.03113969056901337
+     ],
+     "delta": 0.018316619761587254,
+     "harmed": 0.06914893617021277,
+     "helped": 0.35904255319148937,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.003478952488293021,
+      0.03283702308648928
+     ],
+     "delta": 0.017279743529856985,
+     "harmed": 0.07849829351535836,
+     "helped": 0.36177474402730375,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.0036319027629345356,
+      0.060515302898000826
+     ],
+     "delta": 0.02488904452323782,
+     "harmed": 0.08888888888888889,
+     "helped": 0.37777777777777777,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.009877691470138275,
+      0.07083795042772952
+     ],
+     "delta": 0.02654305375676902,
+     "harmed": 0.08571428571428572,
+     "helped": 0.4,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      0.00020691266131331296,
+      0.006635628556848388
+     ],
+     "delta": 0.002564458596973815,
+     "harmed": 0.0,
+     "helped": 0.2,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00017636684303350963,
+      0.00846359522830111
+     ],
+     "delta": 0.0032869086531681804,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.015622082947459674,
+      0.09258228238561193
+     ],
+     "delta": 0.04944078761248227,
+     "harmed": 0.015625,
+     "helped": 0.421875,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.013168458363197655,
+      0.08315320177322755
+     ],
+     "delta": 0.04388057327310106,
+     "harmed": 0.02,
+     "helped": 0.46,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.01090761220990649,
+      0.015334978918954151
+     ],
+     "delta": 0.013103929194729566,
+     "harmed": 0.08630787932368217,
+     "helped": 0.3266659299370096,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.011217494118191652,
+      0.015328731901592745
+     ],
+     "delta": 0.013247894845608277,
+     "harmed": 0.08631383088691337,
+     "helped": 0.3301633243746124,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:capped:cap2:k0.8:w1.5": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 1.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "519485fef7fc",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.014039027393492077,
+      0.01977948383564824
+     ],
+     "delta": 0.016946966907119086,
+     "harmed": 0.1000408886465858,
+     "helped": 0.36213711326155107,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.013564837085261702,
+      0.018895465173944703
+     ],
+     "delta": 0.016236954810644168,
+     "harmed": 0.10102564102564103,
+     "helped": 0.36317948717948717,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.014155948102071714,
+      0.01954784078945082
+     ],
+     "delta": 0.01683075820983523,
+     "harmed": 0.09575587513153279,
+     "helped": 0.3688764176312405,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.004775477859963318,
+      0.02106073505675805
+     ],
+     "delta": 0.012807167203443316,
+     "harmed": 0.1480820695807315,
+     "helped": 0.34433541480820695,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.008845438672002114,
+      0.035076640000742926
+     ],
+     "delta": 0.021989346274591696,
+     "harmed": 0.08349514563106795,
+     "helped": 0.39029126213592236,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.007594316683451082,
+      0.036873664854465416
+     ],
+     "delta": 0.021427271282567193,
+     "harmed": 0.08229426433915212,
+     "helped": 0.40648379052369077,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.0047306145367297546,
+      0.03359199067268418
+     ],
+     "delta": 0.018896352816864196,
+     "harmed": 0.09042553191489362,
+     "helped": 0.39361702127659576,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.0003887779104534685,
+      0.03338538316681814
+     ],
+     "delta": 0.016136798759252172,
+     "harmed": 0.09556313993174062,
+     "helped": 0.40273037542662116,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.009131206466220487,
+      0.06102829711528903
+     ],
+     "delta": 0.022292657746320024,
+     "harmed": 0.13333333333333333,
+     "helped": 0.4222222222222222,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.010405521850487211,
+      0.07276527364453235
+     ],
+     "delta": 0.027949153704156675,
+     "harmed": 0.11428571428571428,
+     "helped": 0.45714285714285713,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.06849450274084912,
+      0.006183609872546227
+     ],
+     "delta": -0.019236801533473714,
+     "harmed": 0.06666666666666667,
+     "helped": 0.2,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00025750773328750675,
+      0.00905852068443806
+     ],
+     "delta": 0.0037947877842357167,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.02046340053898715,
+      0.10473475195634126
+     ],
+     "delta": 0.059272173745212396,
+     "harmed": 0.015625,
+     "helped": 0.4375,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.016062395998786037,
+      0.10356965878716569
+     ],
+     "delta": 0.05597506498331308,
+     "harmed": 0.02,
+     "helped": 0.48,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.013013735002878475,
+      0.018567912102124093
+     ],
+     "delta": 0.01576004518114376,
+     "harmed": 0.10188971157033927,
+     "helped": 0.36114487788705935,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.01384121023864383,
+      0.018906902354188123
+     ],
+     "delta": 0.01636451410003935,
+     "harmed": 0.1018193094893529,
+     "helped": 0.3660326648749225,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:capped:cap2:k0.8:w2": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 2.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "edacb67ca05d",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.013918929922185392,
+      0.020725913692180957
+     ],
+     "delta": 0.017350121718892997,
+     "harmed": 0.11448821044023443,
+     "helped": 0.3798555267820635,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.013854896951181141,
+      0.020033102331274606
+     ],
+     "delta": 0.016881845868978864,
+     "harmed": 0.11487179487179487,
+     "helped": 0.38276923076923075,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.014064318075097513,
+      0.020497604815124117
+     ],
+     "delta": 0.01728409679146474,
+     "harmed": 0.10873377762188706,
+     "helped": 0.388635566467906,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.0054292106555775535,
+      0.024585795119062753
+     ],
+     "delta": 0.014957285785143631,
+     "harmed": 0.1694915254237288,
+     "helped": 0.3639607493309545,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0111111111111111
+     ],
+     "delta": 0.0037037037037037,
+     "harmed": 0.0,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.010292312804227193,
+      0.039720954557421966
+     ],
+     "delta": 0.024850448257639723,
+     "harmed": 0.09320388349514563,
+     "helped": 0.42330097087378643,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.0076382170057793086,
+      0.03946698168385814
+     ],
+     "delta": 0.023123669826037124,
+     "harmed": 0.09476309226932668,
+     "helped": 0.43640897755610975,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.005647761240220307,
+      0.03833033923235488
+     ],
+     "delta": 0.021798860645928588,
+     "harmed": 0.10372340425531915,
+     "helped": 0.4308510638297872,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.001260402921278478,
+      0.03862368093441585
+     ],
+     "delta": 0.019497501679982134,
+     "harmed": 0.11262798634812286,
+     "helped": 0.4402730375426621,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.010348837755080097,
+      0.0632981521834928
+     ],
+     "delta": 0.023385384669846927,
+     "harmed": 0.1111111111111111,
+     "helped": 0.4666666666666667,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.010833801900289089,
+      0.07608223052169294
+     ],
+     "delta": 0.02939097376723564,
+     "harmed": 0.08571428571428572,
+     "helped": 0.4857142857142857,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.06701131535886976,
+      0.013579131051734172
+     ],
+     "delta": -0.016323998384034786,
+     "harmed": 0.06666666666666667,
+     "helped": 0.2,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.0002670960353280522,
+      0.021179547211304654
+     ],
+     "delta": 0.007597723978476258,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.012005989962630102,
+      0.11534301104124017
+     ],
+     "delta": 0.0631091701748944,
+     "harmed": 0.03125,
+     "helped": 0.453125,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      -0.008185103221688318,
+      0.10049258173959072
+     ],
+     "delta": 0.04712783749295843,
+     "harmed": 0.04,
+     "helped": 0.48,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.013172399821835093,
+      0.019397552872629283
+     ],
+     "delta": 0.016230939643304923,
+     "harmed": 0.11537186429439718,
+     "helped": 0.38103657862747264,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.013958279737624401,
+      0.020043099267400236
+     ],
+     "delta": 0.017014471492923705,
+     "harmed": 0.11577424023154848,
+     "helped": 0.38577630762869547,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:capped:cap2:k0.8:w3": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": 2.0,
+    "neg_form": "capped",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 3.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "a26afc57846d",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.009052146260314115,
+      0.01728308989460149
+     ],
+     "delta": 0.01311422966446463,
+     "harmed": 0.1409295352323838,
+     "helped": 0.4103857162327927,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.008821965963718344,
+      0.016548665686262388
+     ],
+     "delta": 0.012726243867214071,
+     "harmed": 0.14082051282051283,
+     "helped": 0.41117948717948716,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.009161388682725247,
+      0.016619117567625363
+     ],
+     "delta": 0.012945699020307455,
+     "harmed": 0.13480650064304922,
+     "helped": 0.4168128142172337,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      6.721273832800233e-05,
+      0.023736635413645624
+     ],
+     "delta": 0.011914642269979975,
+     "harmed": 0.19625334522747548,
+     "helped": 0.3960749330954505,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      -0.5,
+      0.0111111111111111
+     ],
+     "delta": -0.16296296296296298,
+     "harmed": 0.3333333333333333,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.009817238526359446,
+      0.044653572789343114
+     ],
+     "delta": 0.02706255533968049,
+     "harmed": 0.11262135922330097,
+     "helped": 0.4563106796116505,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.00960833197176213,
+      0.04831480263659804
+     ],
+     "delta": 0.028336329691200927,
+     "harmed": 0.11221945137157108,
+     "helped": 0.4713216957605985,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.006239654440227176,
+      0.04625062947460044
+     ],
+     "delta": 0.02587050880040963,
+     "harmed": 0.12234042553191489,
+     "helped": 0.4601063829787234,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.0030466690884470254,
+      0.05074097264031883
+     ],
+     "delta": 0.025958470430479087,
+     "harmed": 0.1296928327645051,
+     "helped": 0.46757679180887374,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.012890652669242848,
+      0.06673561131725088
+     ],
+     "delta": 0.024184510968538096,
+     "harmed": 0.13333333333333333,
+     "helped": 0.5111111111111111,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.010469004164211006,
+      0.08142095411726655
+     ],
+     "delta": 0.03199538123205194,
+     "harmed": 0.11428571428571428,
+     "helped": 0.5428571428571428,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.07416369116852926,
+      0.017182148321143842
+     ],
+     "delta": -0.016416945577667076,
+     "harmed": 0.1,
+     "helped": 0.23333333333333334,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.001647058823529412,
+      0.025665351410154292
+     ],
+     "delta": 0.011004668177114162,
+     "harmed": 0.043478260869565216,
+     "helped": 0.2608695652173913,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.0006289727467900175,
+      0.1100621567881077
+     ],
+     "delta": 0.056470469761362975,
+     "harmed": 0.046875,
+     "helped": 0.5,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      -0.007895611438008035,
+      0.10101623786062278
+     ],
+     "delta": 0.0476818131769151,
+     "harmed": 0.04,
+     "helped": 0.54,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.008379611883996657,
+      0.015936237257398216
+     ],
+     "delta": 0.012209414042818145,
+     "harmed": 0.14189413194828157,
+     "helped": 0.4086639407669356,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.009129960700869024,
+      0.016402756362177633
+     ],
+     "delta": 0.01282622262821348,
+     "harmed": 0.14192681414099648,
+     "helped": 0.4144097581145338,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w0.5": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "8309ce9b889e",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.009221657201337812,
+      0.013382868425845776
+     ],
+     "delta": 0.01125607973099049,
+     "harmed": 0.06092408341283904,
+     "helped": 0.29630639225841626,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.00892092597549407,
+      0.012388568570767854
+     ],
+     "delta": 0.010622887409406524,
+     "harmed": 0.061128205128205125,
+     "helped": 0.2963076923076923,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.008507891479573877,
+      0.012188513589209556
+     ],
+     "delta": 0.010395102556303945,
+     "harmed": 0.05904361042908921,
+     "helped": 0.29942710160177716,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.007931473487444003,
+      0.01842191903574515
+     ],
+     "delta": 0.013081034859630634,
+     "harmed": 0.08117752007136485,
+     "helped": 0.2925958965209634,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.007215623944778897,
+      0.02404778990708562
+     ],
+     "delta": 0.015480395472163483,
+     "harmed": 0.040776699029126215,
+     "helped": 0.3262135922330097,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.00568518571897183,
+      0.026030615589218563
+     ],
+     "delta": 0.015345806416249656,
+     "harmed": 0.04488778054862843,
+     "helped": 0.3316708229426434,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.004471319206426198,
+      0.024172727969066554
+     ],
+     "delta": 0.014264451458281112,
+     "harmed": 0.0425531914893617,
+     "helped": 0.3404255319148936,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.0030751965655195215,
+      0.025515633254165247
+     ],
+     "delta": 0.01371768954154201,
+     "harmed": 0.04778156996587031,
+     "helped": 0.34812286689419797,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.011157481719867142,
+      0.038234660586011195
+     ],
+     "delta": 0.01069810794905079,
+     "harmed": 0.06666666666666667,
+     "helped": 0.3111111111111111,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.019053617100587495,
+      0.04367916412658806
+     ],
+     "delta": 0.008313984236919356,
+     "harmed": 0.05714285714285714,
+     "helped": 0.3142857142857143,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -4.1481625487953056e-05,
+      0.05771285296341192
+     ],
+     "delta": 0.016712792718284405,
+     "harmed": 0.03333333333333333,
+     "helped": 0.13333333333333333,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      -0.00010568760611205435,
+      0.07494623655913979
+     ],
+     "delta": 0.021717805500192745,
+     "harmed": 0.043478260869565216,
+     "helped": 0.08695652173913043,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.00549370868343317,
+      0.050476308485867614
+     ],
+     "delta": 0.025408926259291868,
+     "harmed": 0.015625,
+     "helped": 0.34375,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.003872545072754601,
+      0.058501953235561614
+     ],
+     "delta": 0.026877727248953855,
+     "harmed": 0.02,
+     "helped": 0.36,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.008733160373843474,
+      0.012327550933435292
+     ],
+     "delta": 0.010536769683122338,
+     "harmed": 0.06122223450104984,
+     "helped": 0.2952812465465797,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.009036182910648559,
+      0.01242775377935715
+     ],
+     "delta": 0.010706341972474012,
+     "harmed": 0.06160843498035973,
+     "helped": 0.2986355178829853,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w0.75": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.75,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "c34cb31bd53f",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.011581122991360342,
+      0.01634284351519691
+     ],
+     "delta": 0.01394337461925983,
+     "harmed": 0.0734632683658171,
+     "helped": 0.3311980373449639,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.01113688477346075,
+      0.015412448337344706
+     ],
+     "delta": 0.01324242287217966,
+     "harmed": 0.07425641025641026,
+     "helped": 0.3314871794871795,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.010507761158614133,
+      0.01490159092841201
+     ],
+     "delta": 0.012715376112858359,
+     "harmed": 0.07202151291944348,
+     "helped": 0.3343855956974161,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.011989006318324396,
+      0.024750576061952023
+     ],
+     "delta": 0.01816147289069951,
+     "harmed": 0.09634255129348795,
+     "helped": 0.33184656556645853,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.009580097722743233,
+      0.032937225277706705
+     ],
+     "delta": 0.02108666348470507,
+     "harmed": 0.05436893203883495,
+     "helped": 0.36699029126213595,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.008752775811211127,
+      0.034712234812637174
+     ],
+     "delta": 0.02079773584959171,
+     "harmed": 0.057356608478802994,
+     "helped": 0.3790523690773067,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.006472972111010605,
+      0.03245874348328309
+     ],
+     "delta": 0.019168425337633525,
+     "harmed": 0.061170212765957445,
+     "helped": 0.3723404255319149,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.0038545320261191914,
+      0.034833344388661015
+     ],
+     "delta": 0.0182206081237411,
+     "harmed": 0.06825938566552901,
+     "helped": 0.3822525597269625,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.012678460707901084,
+      0.040281357582358485
+     ],
+     "delta": 0.011745998726898946,
+     "harmed": 0.06666666666666667,
+     "helped": 0.37777777777777777,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.020954964427201177,
+      0.04647580087327472
+     ],
+     "delta": 0.009588012306606913,
+     "harmed": 0.05714285714285714,
+     "helped": 0.4,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.048019899051178754,
+      0.05212599892178554
+     ],
+     "delta": 0.0004175086041230084,
+     "harmed": 0.03333333333333333,
+     "helped": 0.23333333333333334,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00015862552860322585,
+      0.07532586544314232
+     ],
+     "delta": 0.022182338237003562,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.015589916343797382,
+      0.0919452576842772
+     ],
+     "delta": 0.04861263385685567,
+     "harmed": 0.015625,
+     "helped": 0.390625,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.013201116217142548,
+      0.08178283541070527
+     ],
+     "delta": 0.04310959370495625,
+     "harmed": 0.02,
+     "helped": 0.42,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.010745924863891018,
+      0.015137634282980648
+     ],
+     "delta": 0.012973971506945445,
+     "harmed": 0.07470438722510775,
+     "helped": 0.3306442700850923,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.01130178123714763,
+      0.015452007507937354
+     ],
+     "delta": 0.013346456791787439,
+     "harmed": 0.07483977672110813,
+     "helped": 0.33409137895389707,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w1": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 1.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "bfc6de1adab0",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.012600134496335383,
+      0.01785732986157286
+     ],
+     "delta": 0.015234252121893853,
+     "harmed": 0.082186179637454,
+     "helped": 0.3539593839443914,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.012028207959817698,
+      0.01683608503721285
+     ],
+     "delta": 0.014407890086601833,
+     "harmed": 0.08205128205128205,
+     "helped": 0.35620512820512823,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.011526361539264082,
+      0.016450343626492253
+     ],
+     "delta": 0.01398838359806716,
+     "harmed": 0.07880275926575471,
+     "helped": 0.3610429089208465,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.011322862896837456,
+      0.026315579965638037
+     ],
+     "delta": 0.018585444629883582,
+     "harmed": 0.11239964317573595,
+     "helped": 0.3434433541480821,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.009921058462880118,
+      0.03377853213564915
+     ],
+     "delta": 0.021878226448505567,
+     "harmed": 0.05825242718446602,
+     "helped": 0.38058252427184464,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.009384139740101763,
+      0.035791716453413704
+     ],
+     "delta": 0.021901478338629897,
+     "harmed": 0.06234413965087282,
+     "helped": 0.3940149625935162,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.007398592948452378,
+      0.03391672835185422
+     ],
+     "delta": 0.02024781419105896,
+     "harmed": 0.06382978723404255,
+     "helped": 0.3803191489361702,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.00461602999266752,
+      0.036429957152326324
+     ],
+     "delta": 0.01920449636835113,
+     "harmed": 0.07508532423208192,
+     "helped": 0.3856655290102389,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.006738913379743842,
+      0.0607599960582309
+     ],
+     "delta": 0.02385428261670112,
+     "harmed": 0.06666666666666667,
+     "helped": 0.4444444444444444,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.014157052358130506,
+      0.07090018865158208
+     ],
+     "delta": 0.025055905779309606,
+     "harmed": 0.05714285714285714,
+     "helped": 0.4857142857142857,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.0686669651494579,
+      0.005121683966831921
+     ],
+     "delta": -0.019954176025358004,
+     "harmed": 0.06666666666666667,
+     "helped": 0.2,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00022464062711740723,
+      0.008036474690886454
+     ],
+     "delta": 0.0029098268609116223,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.016609307109406248,
+      0.09337141660376293
+     ],
+     "delta": 0.04967642262736542,
+     "harmed": 0.015625,
+     "helped": 0.421875,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.013881868315452144,
+      0.08209675030489759
+     ],
+     "delta": 0.04423385315573806,
+     "harmed": 0.02,
+     "helped": 0.46,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.011632694763592846,
+      0.016490530551099957
+     ],
+     "delta": 0.014170129906543722,
+     "harmed": 0.08288208641838878,
+     "helped": 0.3546248204221461,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.01214104967742953,
+      0.0169934841370751
+     ],
+     "delta": 0.01452108004386685,
+     "harmed": 0.08269588587967748,
+     "helped": 0.3590035145751499,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w1.5": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 1.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "a372fb5fb72a",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.013017283228653502,
+      0.019516831021572926
+     ],
+     "delta": 0.01632053312123449,
+     "harmed": 0.09404388714733543,
+     "helped": 0.3936213711326155,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.012391853682174346,
+      0.018119043729981393
+     ],
+     "delta": 0.015216509388015206,
+     "harmed": 0.09415384615384616,
+     "helped": 0.3956923076923077,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.011874465426039284,
+      0.017755053800493126
+     ],
+     "delta": 0.014837493963802345,
+     "harmed": 0.09061148135157254,
+     "helped": 0.40079504267508476,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.010804720993681793,
+      0.027514410614141727
+     ],
+     "delta": 0.0191399470657866,
+     "harmed": 0.12756467439785907,
+     "helped": 0.3835860838537021,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "delta": 0.0,
+     "harmed": 0.0,
+     "helped": 0.0,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.012913631643875035,
+      0.03925977040641762
+     ],
+     "delta": 0.02596630694724118,
+     "harmed": 0.06407766990291262,
+     "helped": 0.4116504854368932,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.01219375396494797,
+      0.04079352003091474
+     ],
+     "delta": 0.025923796918532284,
+     "harmed": 0.06234413965087282,
+     "helped": 0.4314214463840399,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.010950303104699816,
+      0.040240796154469766
+     ],
+     "delta": 0.025041526931759137,
+     "harmed": 0.07180851063829788,
+     "helped": 0.4148936170212766,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.007052631102103915,
+      0.04142927981474277
+     ],
+     "delta": 0.02355840727400343,
+     "harmed": 0.07508532423208192,
+     "helped": 0.4300341296928328,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.004699683092664329,
+      0.06500972628427049
+     ],
+     "delta": 0.026652459923587366,
+     "harmed": 0.06666666666666667,
+     "helped": 0.4888888888888889,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.01259134397464892,
+      0.0742752128183597
+     ],
+     "delta": 0.02765345285306748,
+     "harmed": 0.05714285714285714,
+     "helped": 0.5142857142857142,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.0773037921688882,
+      0.005274126755553111
+     ],
+     "delta": -0.022610372407044586,
+     "harmed": 0.06666666666666667,
+     "helped": 0.2,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.00031370347918335535,
+      0.008155955570047058
+     ],
+     "delta": 0.0030176663549403753,
+     "harmed": 0.0,
+     "helped": 0.21739130434782608,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.020505146549747538,
+      0.09714495577640979
+     ],
+     "delta": 0.05368725667402624,
+     "harmed": 0.015625,
+     "helped": 0.4375,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.016569380580492343,
+      0.08830338736871134
+     ],
+     "delta": 0.049111041140549004,
+     "harmed": 0.02,
+     "helped": 0.48,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.011737915295244965,
+      0.017727380865681774
+     ],
+     "delta": 0.014783626006206191,
+     "harmed": 0.0947065974140789,
+     "helped": 0.3928610896231628,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.012565322732759333,
+      0.018180096913705444
+     ],
+     "delta": 0.015336051946779845,
+     "harmed": 0.09489352904692991,
+     "helped": 0.3988009096547447,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w2": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 2.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "e0c177520e5e",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.011288491032938655,
+      0.01857332566012182
+     ],
+     "delta": 0.014924216953977384,
+     "harmed": 0.10808232247512607,
+     "helped": 0.4159738312661851,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.010960379335407302,
+      0.017683733352895283
+     ],
+     "delta": 0.014193724755933055,
+     "harmed": 0.1076923076923077,
+     "helped": 0.4196923076923077,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.01034652039978385,
+      0.01725312879196691
+     ],
+     "delta": 0.013745939046265265,
+     "harmed": 0.10358938384192681,
+     "helped": 0.42499707704898865,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      0.009438024977732969,
+      0.02768880378140714
+     ],
+     "delta": 0.018572524270865726,
+     "harmed": 0.1462979482604817,
+     "helped": 0.40767172167707405,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      0.0,
+      0.0111111111111111
+     ],
+     "delta": 0.0037037037037037,
+     "harmed": 0.0,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.012876439277289735,
+      0.0426160917768625
+     ],
+     "delta": 0.027966446699134912,
+     "harmed": 0.07766990291262135,
+     "helped": 0.45048543689320386,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.012485262291108147,
+      0.04432194989991737
+     ],
+     "delta": 0.02791196888530065,
+     "harmed": 0.0798004987531172,
+     "helped": 0.4688279301745636,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.009185496261647365,
+      0.0424782985431338
+     ],
+     "delta": 0.025121610368730382,
+     "harmed": 0.09042553191489362,
+     "helped": 0.449468085106383,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      0.004795513809401089,
+      0.043859127889437285
+     ],
+     "delta": 0.023522775424591264,
+     "harmed": 0.09897610921501707,
+     "helped": 0.4641638225255973,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.003297729673153267,
+      0.06916374595695182
+     ],
+     "delta": 0.03080889148776829,
+     "harmed": 0.06666666666666667,
+     "helped": 0.5555555555555556,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.010441312428057731,
+      0.08247996552279792
+     ],
+     "delta": 0.03302556279319405,
+     "harmed": 0.05714285714285714,
+     "helped": 0.5714285714285714,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.07650923515199075,
+      0.008900956627137989
+     ],
+     "delta": -0.020224265803094933,
+     "harmed": 0.06666666666666667,
+     "helped": 0.23333333333333334,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.0011520630531643115,
+      0.013069636034266963
+     ],
+     "delta": 0.0061365980207827965,
+     "harmed": 0.0,
+     "helped": 0.2608695652173913,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.02577824353387437,
+      0.11171602147568453
+     ],
+     "delta": 0.06527066263367394,
+     "harmed": 0.015625,
+     "helped": 0.484375,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.018989141767098722,
+      0.1076981508773152
+     ],
+     "delta": 0.06006979742721052,
+     "harmed": 0.02,
+     "helped": 0.52,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.010205458812837064,
+      0.016895313680362494
+     ],
+     "delta": 0.013610935916241377,
+     "harmed": 0.10852027848381036,
+     "helped": 0.41761520610012154,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.01103200915807119,
+      0.017370379343319035
+     ],
+     "delta": 0.014305232206982352,
+     "harmed": 0.1085383502170767,
+     "helped": 0.42298945627455037,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  },
+  "L1:propagated:k0.8:w3": {
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.8,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 3.0,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "2a4b77988e3e",
+   "paired": {},
+   "vs_e0_answers": {
+    "age_known": {
+     "ci95": [
+      0.0034786232290424752,
+      0.012138934918839044
+     ],
+     "delta": 0.007865847226780418,
+     "harmed": 0.13806732997137794,
+     "helped": 0.45604470492026716,
+     "metric": "mrr",
+     "n": 7337,
+     "n_units": 4151,
+     "resample_unit": "group"
+    },
+    "all": {
+     "ci95": [
+      0.0029757870308801775,
+      0.011195588192314563
+     ],
+     "delta": 0.007091031775176804,
+     "harmed": 0.13815384615384615,
+     "helped": 0.4566153846153846,
+     "metric": "mrr",
+     "n": 9750,
+     "n_units": 4607,
+     "resample_unit": "group"
+    },
+    "excluded_none_halfB": {
+     "ci95": [
+      0.0021572041154249723,
+      0.010915168869948552
+     ],
+     "delta": 0.006571239916694815,
+     "harmed": 0.13316964807669823,
+     "helped": 0.4624108499941541,
+     "metric": "mrr",
+     "n": 8553,
+     "n_units": 4394,
+     "resample_unit": "group"
+    },
+    "halfB_any_excluded": {
+     "ci95": [
+      -0.0004474004261168964,
+      0.023000759147119715
+     ],
+     "delta": 0.011537684924605798,
+     "harmed": 0.1855486173059768,
+     "helped": 0.4433541480820696,
+     "metric": "mrr",
+     "n": 1121,
+     "n_units": 951,
+     "resample_unit": "group"
+    },
+    "halfB_only_excluded": {
+     "ci95": [
+      -0.5,
+      0.0111111111111111
+     ],
+     "delta": -0.16296296296296298,
+     "harmed": 0.3333333333333333,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 3,
+     "n_units": 3,
+     "resample_unit": "group"
+    },
+    "lit_onset": {
+     "ci95": [
+      0.009155619112547078,
+      0.04199376946658864
+     ],
+     "delta": 0.025737840195085807,
+     "harmed": 0.0970873786407767,
+     "helped": 0.4970873786407767,
+     "metric": "mrr",
+     "n": 515,
+     "n_units": 282,
+     "resample_unit": "group"
+    },
+    "lit_onset_age_known": {
+     "ci95": [
+      0.006731161158224009,
+      0.04354911116752818
+     ],
+     "delta": 0.024746107854460173,
+     "harmed": 0.09975062344139651,
+     "helped": 0.5112219451371571,
+     "metric": "mrr",
+     "n": 401,
+     "n_units": 252,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa": {
+     "ci95": [
+      0.004803372521635056,
+      0.04261392097118465
+     ],
+     "delta": 0.023215736713458383,
+     "harmed": 0.10638297872340426,
+     "helped": 0.4920212765957447,
+     "metric": "mrr",
+     "n": 376,
+     "n_units": 208,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_hpoa_age_known": {
+     "ci95": [
+      -0.0032803285459145843,
+      0.04266109501186024
+     ],
+     "delta": 0.019950044921657813,
+     "harmed": 0.11945392491467577,
+     "helped": 0.49829351535836175,
+     "metric": "mrr",
+     "n": 293,
+     "n_units": 186,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none": {
+     "ci95": [
+      -0.008483056783384612,
+      0.0729562805072262
+     ],
+     "delta": 0.03041309716247915,
+     "harmed": 0.08888888888888889,
+     "helped": 0.5777777777777777,
+     "metric": "mrr",
+     "n": 45,
+     "n_units": 28,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_none_age_known": {
+     "ci95": [
+      -0.009291672939907285,
+      0.08924956062177228
+     ],
+     "delta": 0.037334111494977,
+     "harmed": 0.05714285714285714,
+     "helped": 0.6,
+     "metric": "mrr",
+     "n": 35,
+     "n_units": 24,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet": {
+     "ci95": [
+      -0.0826990457943869,
+      0.016403808332928156
+     ],
+     "delta": -0.019569462881039872,
+     "harmed": 0.1,
+     "helped": 0.3333333333333333,
+     "metric": "mrr",
+     "n": 30,
+     "n_units": 18,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_age_known": {
+     "ci95": [
+      0.0016666254378432852,
+      0.02470334175709668
+     ],
+     "delta": 0.010556537688503741,
+     "harmed": 0.043478260869565216,
+     "helped": 0.34782608695652173,
+     "metric": "mrr",
+     "n": 23,
+     "n_units": 17,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment": {
+     "ci95": [
+      0.004958224438312972,
+      0.11089943732781042
+     ],
+     "delta": 0.05850570641138236,
+     "harmed": 0.046875,
+     "helped": 0.546875,
+     "metric": "mrr",
+     "n": 64,
+     "n_units": 36,
+     "resample_unit": "group"
+    },
+    "lit_onset_src_orphanet_exact_alignment_age_known": {
+     "ci95": [
+      0.0008407662823552776,
+      0.10225217979404509
+     ],
+     "delta": 0.0505666363686602,
+     "harmed": 0.04,
+     "helped": 0.6,
+     "metric": "mrr",
+     "n": 50,
+     "n_units": 33,
+     "resample_unit": "group"
+    },
+    "sex_known": {
+     "ci95": [
+      0.002316236257941904,
+      0.010560275329781661
+     ],
+     "delta": 0.006576224200035622,
+     "harmed": 0.13913139573433528,
+     "helped": 0.4540833241242126,
+     "metric": "mrr",
+     "n": 9049,
+     "n_units": 4523,
+     "resample_unit": "group"
+    },
+    "with_excluded": {
+     "ci95": [
+      0.0031587347457725633,
+      0.01107206910469489
+     ],
+     "delta": 0.007146739694849479,
+     "harmed": 0.13923919784990696,
+     "helped": 0.4602026049204052,
+     "metric": "mrr",
+     "n": 9674,
+     "n_units": 4597,
+     "resample_unit": "group"
+    }
+   }
+  }
+ },
+ "cases": 9750,
+ "code_sha": "544c5875e9e73a2bf474666e0be4fb7afc37ed32",
+ "e0_answers_mrr": 0.3397012674585116,
+ "e0_initial_mrr": 0.31851854721067685,
+ "r1_dev": {
+  "L1:capped:cap2:k0.8:w0.5": {
+   "ci95": [
+    -0.022343297008578473,
+    0.004009028078389968
+   ],
+   "delta": -0.006900095889578198,
+   "harmed": 0.11842804036112586,
+   "helped": 0.08231545406266595,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:capped:cap2:k0.8:w0.75": {
+   "ci95": [
+    -0.03092389874929959,
+    0.003349874572854816
+   ],
+   "delta": -0.010731146698687325,
+   "harmed": 0.13648433351035583,
+   "helped": 0.09506107275624004,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:capped:cap2:k0.8:w1": {
+   "ci95": [
+    -0.03456329599279415,
+    0.003538279301352924
+   ],
+   "delta": -0.012308846582364162,
+   "harmed": 0.1492299522039299,
+   "helped": 0.10143388210302709,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:capped:cap2:k0.8:w1.5": {
+   "ci95": [
+    -0.04460161415665136,
+    0.00705669504740212
+   ],
+   "delta": -0.014950813157192749,
+   "harmed": 0.1646309081253319,
+   "helped": 0.11577270313329793,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:capped:cap2:k0.8:w2": {
+   "ci95": [
+    -0.052014302457586876,
+    0.0066278645625103185
+   ],
+   "delta": -0.018157608281207566,
+   "harmed": 0.18268720127456187,
+   "helped": 0.12373871481678173,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:capped:cap2:k0.8:w3": {
+   "ci95": [
+    -0.06741712693465875,
+    0.004162489693385753
+   ],
+   "delta": -0.027273670378866566,
+   "harmed": 0.21402018056293148,
+   "helped": 0.13542219861922464,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w0.5": {
+   "ci95": [
+    -0.021999053016687975,
+    0.004621307457805576
+   ],
+   "delta": -0.006455361213753293,
+   "harmed": 0.11789697291556028,
+   "helped": 0.08656399362719065,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w0.75": {
+   "ci95": [
+    -0.029981721886262098,
+    0.005568665795252656
+   ],
+   "delta": -0.00910401731347738,
+   "harmed": 0.13542219861922464,
+   "helped": 0.09984067976633032,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w1": {
+   "ci95": [
+    -0.03294584867283128,
+    0.005989968945915861
+   ],
+   "delta": -0.010652370384747749,
+   "harmed": 0.14869888475836432,
+   "helped": 0.10674455655868295,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w1.5": {
+   "ci95": [
+    -0.04490768922315779,
+    0.0074390844214882665
+   ],
+   "delta": -0.014871592653803258,
+   "harmed": 0.16675517790759425,
+   "helped": 0.11842804036112586,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w2": {
+   "ci95": [
+    -0.05210320295846479,
+    0.0066993979405997614
+   ],
+   "delta": -0.01821698181744746,
+   "harmed": 0.18481147105682422,
+   "helped": 0.12692511949017526,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  },
+  "L1:propagated:k0.8:w3": {
+   "ci95": [
+    -0.06815730586522863,
+    0.0028533120669804375
+   ],
+   "delta": -0.027931377652209162,
+   "harmed": 0.21508231545406267,
+   "helped": 0.13913967073818376,
+   "metric": "mrr",
+   "n": 1883,
+   "n_units": 324,
+   "resample_unit": "group"
+  }
+ },
+ "r1_dev_cases": 1883,
+ "stage": "l1b",
+ "subset_sizes": {
+  "age_known": 7337,
+  "all": 9750,
+  "excluded_none_halfB": 8553,
+  "halfB_any_excluded": 1121,
+  "halfB_only_excluded": 3,
+  "lit_onset": 515,
+  "lit_onset_age_known": 401,
+  "lit_onset_src_hpoa": 376,
+  "lit_onset_src_hpoa_age_known": 293,
+  "lit_onset_src_none": 45,
+  "lit_onset_src_none_age_known": 35,
+  "lit_onset_src_orphanet": 30,
+  "lit_onset_src_orphanet_age_known": 23,
+  "lit_onset_src_orphanet_exact_alignment": 64,
+  "lit_onset_src_orphanet_exact_alignment_age_known": 50,
+  "sex_known": 9049,
+  "with_excluded": 9674
+ },
+ "vs": ""
+}

@@ -157,3 +157,15 @@
 - **To check at the start of phase 3:** each gene's disease weights sum
   to 1 in kb-v6 and kb-v7. The `onset` and `term_probability` features
   assume it.
+
+## Addendum (2026-10-03, phase 3): weight sums and `kb-v8`
+- **Weight sums checked, not fixed.** In kb-v6, kb-v7 and kb-v8 a gene's disease weights do not always
+  sum to 1: 633, 601 and 633 genes differ by more than 1e-6, but only 14, 11 and 14 sum below 0.99
+  (minimum 0.5, e.g. MAOA); the largest excess is 1.000005. Their P(t | g) and onset mixtures are
+  understated by the missing mass. Table and details in EXP-B-004's dev search log
+  (`results/EXP-B-004/kb-weight-sums.json`). Nothing was changed.
+- **`kb-v8`** = `hpoa-enriched-v2` with `genes-v1` weights and half B of `annot-split-v2` dropped
+  (kb-v7's sources, kb-v6's gene weights), published as release `kb-v8`, so L2 separates frequencies
+  (kb-v6 vs kb-v8) from gene weights (kb-v8 vs kb-v7).
+- **Phase 3 outcome, dev only:** see EXP-B-004 and EXP-Q-001. The selected re-ranker is `llr`'s
+  propagated variant at weight 0.5 on kb-v6; it does not beat rr-v1 on S3-v2-dev under the 5% harm cap.
