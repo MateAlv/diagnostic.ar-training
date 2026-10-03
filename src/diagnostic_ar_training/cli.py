@@ -42,6 +42,11 @@ def kb_build(
     holdout_annotations: str = typer.Option(
         "", help="Annotation split artifact whose half B is dropped (S3)"
     ),
+    hpoa_artifact: str = typer.Option(
+        "",
+        help="phenotype.hpoa artifact (e.g. hpoa-enriched-v2) read instead of the pinned hpo_annotations "
+        "source; onset (aspect C), inheritance (aspect I) and Orphanet onset still come from the same places",
+    ),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Build the knowledge base (schema 2) from pinned sources with held-out publications masked."""
@@ -69,7 +74,13 @@ def kb_build(
         "orphanet_ages_2026_06",
         "orphanet_alignments",
     ]
+    if hpoa_artifact:
+        names.remove("hpo_annotations")
     paths = {n: open_source(n, Purpose.KB) for n in names}
+    hpoa_manifest = None
+    if hpoa_artifact:
+        hpoa_manifest = load_manifest(hpoa_artifact)
+        paths["hpo_annotations"] = fetch_outputs(hpoa_manifest)[0]
     profiles_manifest = load_manifest(gene_profiles)
     profiles_path = fetch_outputs(profiles_manifest)[0]
     dropped, holdout_manifest = None, None
@@ -100,6 +111,8 @@ def kb_build(
     stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in names]
+    if hpoa_manifest:
+        inputs.append({"id": f"artifact:{hpoa_artifact}", "sha256": hpoa_manifest.outputs[0].sha256})
     inputs.append({"id": f"{mask_scope}-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
     inputs.append({"id": f"artifact:{gene_profiles}", "sha256": profiles_manifest.outputs[0].sha256})
     if holdout_manifest:
@@ -112,6 +125,8 @@ def kb_build(
         "gene_weights": gene_profiles,
         "heldout_annotations_dropped": holdout_annotations or None,
     }
+    if hpoa_artifact:
+        params["hpoa_artifact"] = hpoa_artifact
     manifest = build_manifest(kb_id, "rerank-kb", inputs, params, [kb_path, stats_path])
     if publish:
         manifest = publish_release(manifest, kb_id)

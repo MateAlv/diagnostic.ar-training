@@ -70,7 +70,7 @@ def freeze(split_id: str, dataset: Path, dataset_manifest_sha: str) -> dict:
 def load_part(
     split_id: str, part: str, dataset: Path, exp_id: str | None = None, reason: str = ""
 ) -> list[tuple[Case, frozenset[str]]]:
-    """(case, truth) pairs of one part; the sealed part needs a pre-registered, ledgered read and DXT_SEALED_READ=<exp_id>."""
+    """(case, truth) pairs of one part; the sealed part needs a ledgered read and DXT_SEALED_READ=<exp_id>."""
     if part in SEALED:
         if exp_id is None:
             raise LineageError(f"{split_id}/{part} is sealed: pass exp_id and reason")
