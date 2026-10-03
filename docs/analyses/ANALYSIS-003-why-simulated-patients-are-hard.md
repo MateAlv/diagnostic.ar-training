@@ -28,8 +28,11 @@ E0 in-vocab MRR:
   vs 0.479).
 - Real patients' unexplained terms cost E0 0.074. The simulator's noise
   costs 0.309, almost all of it from vocabulary noise (0.22).
-- The simulator's noise is no more specific than real unexplained terms
-  (mean IC 4.79 vs 4.65), so specificity is not the difference.
+- The simulator's **vocabulary** noise is no more specific than real
+  unexplained terms (mean IC 4.79 vs 4.65, from
+  `results/analyses/ANALYSIS-003/noise_types.json`), so specificity is not
+  the difference. The related noise is more specific (7.28). All noise
+  together averages 5.55 (`e0_ablation.json`).
 
 ## 2. The reference KB inflated "unexplained"
 - **Where the inflation came from.** `calib-v1`, the ANALYSIS-002 targets

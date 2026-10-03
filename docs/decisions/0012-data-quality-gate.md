@@ -197,3 +197,10 @@ It beats UP on every G2 metric.
      change the decision; their train-side versions already decided.
 3. **G3 reviewers** (amendment 2): Codex first, then a Claude reviewer
    (Sonnet). Mateo spot-checks.
+- **Correction (2026-10-03).** Found by the evidence pack's number check.
+  Amendment 5 above says V03 shows "8.42 terms per case". That figure is
+  V03 **half A**. The G2c baseline is **V03-full**, which shows **10.21**
+  terms per case (`results/realism/v0.3-full-baseline.json`; p10/p90 4/18,
+  vs R1-train 2/17). The reasoning holds, and more strongly: V03-full
+  over-reports by about 1.5 terms per case, while candidate 6 under-reports
+  by about 1.8. The decision is unchanged.
