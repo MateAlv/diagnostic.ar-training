@@ -3321,3 +3321,20 @@ this task, whatever the result**; the last read needs Mateo's OK.
 
   Profiles are richer (4,548 literature rows) but the profile target k − n
   is still capped by the true-term count: 5.21 realised of 6.99 wanted.
+
+### 2026-10-02 — build — `ds-sim0.5.4-full-n100-s1001` (candidate 6): G1 passes
+- **Versions:** rare-disease-simulator 0.5.4 (`git archive cfc20da`, sha256
+  `4664812d…`), `simcal-v053-v1` unchanged, `hpoa-enriched-v1` profiles,
+  genes-v2, report-model-v3, cardinal-v1, `presentation-ages-v1` (79 diseases,
+  7,944 cases used it), `onset-ages-v1` (372 diseases, 25,305 cases); gene-first,
+  100 per gene, medium, seed 1001; full profiles only.
+- **G1:** 489,200 cases / 4,892 genes (336 vocabulary genes skipped, as in
+  0.5.3); `validate` 0 violations (cases and export); a 20-gene slice (18
+  simulated, 1,800 cases; the slice genes are every 260th vocabulary gene from
+  index 7, `slice-genes.txt`) run twice: byte-identical to each other and to
+  the full run's 1,800 lines (cases and export); `dxt lineage verify` ok;
+  overlap R1 keys 149, S3 1,462 (228 same signature); `-excl-v1` excludes
+  1,591, residual 0; dataset and exclusion list published.
+- **Run summary:** total shown 6.90 per case (5.12 profile + 1.79 noise); k
+  mean 8.70, profile target 6.92 (realised 5.13), TV total vs k 0.113; mean c
+  3.016; `forced_min_one` 17,041 (3.5%); q capped 0.175.
