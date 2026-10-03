@@ -28,12 +28,33 @@ MALE_SHARE = (
 ONSET_BIN_EDGES = (0.0, 28 / 365.25, 1.0, 5.0, 15.0, 40.0, 60.0)
 
 
+# How the negated symptoms are turned into the neg_llr component (EXP-B-004, L1).
+NEG_FORMS = ("llr", "gated", "capped", "propagated")
+
+
 @dataclass(frozen=True)
 class FeatureParams:
     neg_strength: float = 0.5
     unknown_frequency: float = 0.3
     epsilon: float = 0.01
     onset_smoothing: float = 0.1
+    neg_form: str = "llr"
+    neg_tau: float | None = None
+    neg_cap: float | None = None
+
+    def __post_init__(self) -> None:
+        if self.neg_form not in NEG_FORMS:
+            raise ValueError(f"neg_form must be one of {NEG_FORMS}, got {self.neg_form!r}")
+        if not 0.0 <= self.neg_strength < 1.0:
+            raise ValueError("neg_strength must be in [0, 1)")
+        if self.neg_form == "gated" and (self.neg_tau is None or not 0.0 <= self.neg_tau <= 1.0):
+            raise ValueError("neg_form 'gated' needs neg_tau in [0, 1]")
+        if self.neg_form == "capped" and (self.neg_cap is None or self.neg_cap <= 0):
+            raise ValueError("neg_form 'capped' needs neg_cap > 0")
+        if self.neg_form != "gated" and self.neg_tau is not None:
+            raise ValueError("neg_tau only applies to neg_form 'gated'")
+        if self.neg_form != "capped" and self.neg_cap is not None:
+            raise ValueError("neg_cap only applies to neg_form 'capped'")
 
 
 def onset_bin(years: float) -> int:
@@ -162,6 +183,45 @@ def case_onset_years(case: Case) -> float | None:
     return None
 
 
+def _most_general(ontology: Ontology, terms: tuple[str, ...]) -> set[str]:
+    """Excluded terms with no excluded ancestor: a "no" to a parent already covers its children."""
+    listed = set(terms)
+    return {t for t in listed if not ontology.ancestors(t) & listed}
+
+
+def negation(knowledge: GeneKnowledge, case: Case, gene: str) -> tuple[float, float]:
+    """(penalty, annotated share) for the case's excluded terms under knowledge.params.neg_form.
+
+    The penalty is a sum of log(1 - k * P(t | gene)) <= 0. P(t | gene) already includes every
+    descendant of t (see GeneKnowledge._propagated), so in every form a "no" to a parent counts
+    against genes annotating only a child. "llr" is rr-v1 and is the reference for the others:
+    - gated: only terms with P(t | gene) >= neg_tau count;
+    - capped: the total is floored at -neg_cap;
+    - propagated: only the most general excluded terms count, so a parent and its excluded
+      child are not both charged for the same annotation.
+    """
+    p = knowledge.params
+    probs = [knowledge.term_probability(gene, term) for term in case.excluded]
+    keep = [True] * len(probs)
+    if p.neg_form == "gated":
+        keep = [prob >= p.neg_tau for prob in probs]
+    elif p.neg_form == "propagated":
+        general = _most_general(knowledge.ontology, case.excluded)
+        seen: set[str] = set()
+        keep = []
+        for term in case.excluded:
+            keep.append(term in general and term not in seen)
+            seen.add(term)
+    total = 0.0
+    for prob, k in zip(probs, keep, strict=True):
+        if k:
+            total += math.log(1.0 - p.neg_strength * prob)
+    if p.neg_form == "capped":
+        total = max(total, -p.neg_cap)
+    annotated = sum(prob > 0 for prob in probs)
+    return total, annotated / len(probs) if probs else 0.0
+
+
 COMPONENTS = ("neg_llr", "neg_annotated_share", "sex_prior", "sex_restricted", "age_mean", "age_any", "onset")
 
 
@@ -173,12 +233,7 @@ def components(knowledge: GeneKnowledge, case: Case, gene: str) -> dict[str, flo
         return out
 
     if case.excluded:
-        annotated = 0
-        for term in case.excluded:
-            prob = knowledge.term_probability(gene, term)
-            out["neg_llr"] += math.log(1.0 - p.neg_strength * prob)
-            annotated += prob > 0
-        out["neg_annotated_share"] = annotated / len(case.excluded)
+        out["neg_llr"], out["neg_annotated_share"] = negation(knowledge, case, gene)
 
     if case.sex != Sex.UNKNOWN:
         sex = case.sex.value
