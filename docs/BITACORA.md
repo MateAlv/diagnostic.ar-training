@@ -3653,3 +3653,45 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Tests** `tests/test_rerank_variants.py`, including a static and a runtime
   guard that no `rerank/` module names, imports or opens an `onset-ages`
   artifact.
+
+## 2026-10-03: sealed-read guard; kb-v6 and kb-v7 (ADR-0014 phase 2a)
+
+- **Guard (Mateo's decision).** The 20:59 `s3-v2/test` ledger row (EXP-B-004,
+  reason `x`) was a non-substantive technical access; nothing was inspected;
+  Mateo ruled it does not consume EXP-B-004's read. Every sealed load now also
+  requires `DXT_SEALED_READ=<exp_id>` (`ledger.require_sealed_read_env`, called
+  from `splits.load_part` for R1 test/vault and `cohorts/s3.load_part` for S3
+  test), before anything is loaded or ledgered. Documented in EVAL_PROTOCOL §2,
+  the `dxt s3 run` and `dxt rerank eval` help, and an ADR-0014 note. Tests: refused
+  without the variable, refused with the wrong value, allowed with the match, for
+  both loaders; an autouse fixture redirects the ledger so no test writes
+  `docs/TEST_LEDGER.md`. MCRD/DDD reads through `cohorts.access` are not covered.
+- **`dxt kb build --hpoa-artifact`** reads a published phenotype.hpoa artifact in
+  place of the pinned `hpo_annotations` source (recorded as an input and in
+  `params.hpoa_artifact`). `kb.build` stats now also count the basis of each
+  phenotype frequency (counts / percent / category / unknown).
+- **Split mapping.** `annot-split-v2` half B has 76,565 pairs. All their diseases
+  are in the old HPOA; 75,201 pairs (98.2%) are positive (disease, term) pairs
+  of the old HPOA (28.5% of its 263,650), and 1,364 exist only in
+  `hpoa-enriched-v2` (literature or recount rows), so they drop nothing in kb-v6.
+- **kb-v6** = kb-v5's sources and parameters (old HPOA, `genes-v1`, R1 held-out
+  PMIDs masked) with half B of `annot-split-v2` dropped. **kb-v7** =
+  `hpoa-enriched-v2` (masking changes 0 rows, as it was already masked), `genes-v2`,
+  ADR-0007 frequencies, half B of `annot-split-v2` dropped. Onset and
+  inheritance come from HPOA aspect C/I and Orphanet only, as in kb-v5;
+  `hpoa-lit-v2` has P rows only and `onset-ages-v2` is not an input. Both
+  manifests record `heldout_annotations_dropped=annot-split-v2`; published as
+  releases `kb-v6` and `kb-v7`. No S3 v2 patient was read.
+
+| | kb-v5 | kb-v6 | kb-v7 |
+|---|---|---|---|
+| half B dropped | annot-split-v1 | annot-split-v2 | annot-split-v2 |
+| diseases | 12,774 | 12,773 | 12,776 |
+| genes | 5,186 | 5,188 | 5,019 |
+| phenotype pairs (A) | 174,856 | 174,759 | 179,069 |
+| freq known / unknown | 138,319 / 36,537 | 138,079 / 36,680 | 142,964 / 36,105 |
+| freq from counts / percent / category | n/a | 54,940 / 80 / 83,059 | 57,308 / 2,722 / 82,934 |
+| freq == 1.0 | 471 | 458 | 689 |
+| diseases with onset (hpoa / orphanet / alignment) | 9,476 (4,303 / 3,783 / 1,390) | 9,474 (4,303 / 3,782 / 1,389) | 9,475 (4,303 / 3,782 / 1,390) |
+| diseases with inheritance | 8,175 | 8,175 | 8,175 |
+| negated annotations | 720 | 720 | 781 |

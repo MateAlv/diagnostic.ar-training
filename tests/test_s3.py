@@ -101,6 +101,7 @@ def test_s3_cases_carry_no_truth_and_drop_the_simulators_own_negatives(tmp_path)
 
 
 def test_s3_split_is_frozen_hash_checked_and_its_test_part_sealed(tmp_path, monkeypatch, docs, clean_tree):
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-S3-001")
     from diagnostic_ar_training.cohorts import s3
     from diagnostic_ar_training.lineage.registry import LineageError
 
@@ -146,3 +147,42 @@ def test_interviewed_cases_round_trip_without_truth(tmp_path):
     assert s3_run.read_interviews(path) == [expected]
     with gzip.open(path, "rt") as handle:
         assert set(json.loads(handle.readline())) == {"questions", "case"}
+
+
+def _frozen_s3(tmp_path, monkeypatch):
+    from diagnostic_ar_training.cohorts import s3
+
+    monkeypatch.setattr(s3, "SPLITS_DIR", tmp_path)
+    data = tmp_path / "d.jsonl.gz"
+    _write_dataset(data)
+    s3.freeze("s3-t", data, "0" * 64)
+    calls = []
+    monkeypatch.setattr(s3.ledger, "record_access", lambda *a: calls.append(a))
+    return s3, data, calls
+
+
+def test_s3_sealed_read_is_refused_without_the_env_variable(tmp_path, monkeypatch):
+    from diagnostic_ar_training.lineage.registry import LineageError
+
+    s3, data, calls = _frozen_s3(tmp_path, monkeypatch)
+    with pytest.raises(LineageError, match="DXT_SEALED_READ=EXP-B-004"):
+        s3.load_part("s3-t", "test", data, exp_id="EXP-B-004", reason="gate")
+    assert calls == []
+
+
+def test_s3_sealed_read_is_refused_with_the_wrong_env_value(tmp_path, monkeypatch):
+    from diagnostic_ar_training.lineage.registry import LineageError
+
+    s3, data, calls = _frozen_s3(tmp_path, monkeypatch)
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-S3-001")
+    with pytest.raises(LineageError, match="DXT_SEALED_READ"):
+        s3.load_part("s3-t", "test", data, exp_id="EXP-B-004", reason="gate")
+    assert calls == []
+
+
+def test_s3_sealed_read_is_allowed_with_the_matching_env_value(tmp_path, monkeypatch):
+    s3, data, calls = _frozen_s3(tmp_path, monkeypatch)
+    monkeypatch.setenv("DXT_SEALED_READ", "EXP-B-004")
+    assert s3.load_part("s3-t", "test", data, exp_id="EXP-B-004", reason="gate")
+    assert calls == [("s3-t", "test", "EXP-B-004", "gate")]
+    assert s3.load_part("s3-t", "dev", data)
