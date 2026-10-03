@@ -1,12 +1,12 @@
 {
  "code": {
-  "dirty": false,
+  "dirty": true,
   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
-  "sha": "9af7861ccef5cd16010869c27dafe10a7f42815b"
+  "sha": "ef37c0b64de27512e6138b0109767e6ca588f0e7"
  },
- "notes_sha256": "4afbdaf415cb1717176268d6558f34d84df1ddc53f700da8a94f588778bd3e7c",
+ "notes_sha256": "d2cacc4eff943fa70d325a511289b7093d825d51c3174fbc275ee9ecef06efc2",
  "problems": [],
- "rows_sha256": "8640c739826b486a20e75764fe0b36ebcfc9ee31a7cf4582b2dde089404810f1",
+ "rows_sha256": "2ae4c0a681761aa3df375c816023f3cd6ff5f3891c1dee345712be01a03b6085",
  "shard": "C016",
  "sources": {
   "NBK1190": {
@@ -74,6 +74,7 @@
   "age_rows": 10,
   "feature_rows": 32,
   "flags": {
+   "lower_bound": 1,
    "named_period": 1,
    "pooled": 1,
    "pooled_group": 6,
@@ -98,5 +99,5 @@
   "units": 15
  },
  "status": "pass",
- "validated_utc": "2026-10-01T15:04:56+00:00"
+ "validated_utc": "2026-10-03T01:07:13+00:00"
 }
