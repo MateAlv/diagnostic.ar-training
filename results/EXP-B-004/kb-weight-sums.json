@@ -1,0 +1,89 @@
+[
+ {
+  "diseases_missing_from_kb": 0,
+  "genes": 5188,
+  "genes_sum_below": {
+   "0.6": 4,
+   "0.75": 4,
+   "0.9": 11,
+   "0.99": 14
+  },
+  "genes_sum_not_1": 633,
+  "genes_without_diseases": 0,
+  "kb": "kb-v6",
+  "max_sum": 1.000005,
+  "min_sum": 0.5,
+  "negative_weights": 0,
+  "tolerance": 1e-06,
+  "worst_examples": {
+   "BCL10": 0.822875,
+   "CASP10": 0.8193159999999999,
+   "IL2RA": 0.7782060000000001,
+   "MAOA": 0.5,
+   "NFU1": 0.590037,
+   "NKX2-1": 0.791091,
+   "PLCB4": 0.861964,
+   "PRF1": 0.865952,
+   "RAD54B": 0.5,
+   "RAD54L": 0.55051
+  }
+ },
+ {
+  "diseases_missing_from_kb": 0,
+  "genes": 5019,
+  "genes_sum_below": {
+   "0.6": 3,
+   "0.75": 3,
+   "0.9": 8,
+   "0.99": 11
+  },
+  "genes_sum_not_1": 601,
+  "genes_without_diseases": 0,
+  "kb": "kb-v7",
+  "max_sum": 1.000005,
+  "min_sum": 0.5,
+  "negative_weights": 0,
+  "tolerance": 1e-06,
+  "worst_examples": {
+   "ADCY5": 0.956006,
+   "DSG1": 0.887194,
+   "IL2RA": 0.7782060000000001,
+   "KRT1": 0.951328,
+   "MAOA": 0.5,
+   "NFU1": 0.581668,
+   "NKX2-1": 0.791091,
+   "PLCB4": 0.836028,
+   "PRF1": 0.866121,
+   "RAD54L": 0.55051
+  }
+ },
+ {
+  "diseases_missing_from_kb": 0,
+  "genes": 5188,
+  "genes_sum_below": {
+   "0.6": 4,
+   "0.75": 4,
+   "0.9": 11,
+   "0.99": 14
+  },
+  "genes_sum_not_1": 633,
+  "genes_without_diseases": 0,
+  "kb": "kb-v8",
+  "max_sum": 1.000005,
+  "min_sum": 0.5,
+  "negative_weights": 0,
+  "tolerance": 1e-06,
+  "worst_examples": {
+   "BCL10": 0.822875,
+   "CASP10": 0.8193159999999999,
+   "IL2RA": 0.7782060000000001,
+   "MAOA": 0.5,
+   "NFU1": 0.590037,
+   "NKX2-1": 0.791091,
+   "PLCB4": 0.861964,
+   "PRF1": 0.865952,
+   "RAD54B": 0.5,
+   "RAD54L": 0.55051
+  }
+ }
+]
