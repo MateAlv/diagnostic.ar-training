@@ -3616,6 +3616,44 @@ this task, whatever the result**; the last read needs Mateo's OK.
   left as written (ledger rows are never edited); Mateo decides whether it
   counts against EXP-B-004's one read.
 
+## 2026-10-03: ADR-0014 phase 2b, re-ranker feature variants behind configuration (code only)
+
+- **Branch** `phase4/rerank-variants`. No evaluation run, no data read beyond
+  mocks. Nothing here changes rr-v1: the default `FeatureParams` and the
+  `llr` form are byte-identical to the previous code path (test against the
+  legacy loop, and against `learned.table` plus `s3_run.rr_v1_beta(neg=0.5)`).
+- **L1 negation forms** (`rerank/features.negation`, selected by
+  `FeatureParams.neg_form`; every form sums log(1 - k·P(t | g)) over excluded
+  terms, k = `neg_strength`):
+  - `llr`: all excluded terms (rr-v1).
+  - `gated`: only terms with P(t | g) ≥ `neg_tau`.
+  - `capped`: the total is floored at −`neg_cap` (log units).
+  - `propagated`: only the most general excluded terms (no excluded
+    ancestor), each counted once.
+- **Finding on (iv):** P(t | g) already is P(t or any descendant) in every
+  form, because `GeneKnowledge._propagated` pushes each annotation up to all
+  ancestors with a noisy-OR. So rr-v1 already counts a "no" to a parent
+  against genes annotating only a child. What `propagated` adds is dedup:
+  an excluded parent and its excluded child are one "no", not two charges for
+  the same annotation. A "no" to a child never counts against a gene that
+  annotates only the parent.
+- **Config** `rerank/config.RerankConfig` (kb id, form and parameters, top_k,
+  weights over `COMPONENTS`), canonical JSON, `config_hash` (12 hex of
+  sha256), `beta()`, `knowledge()`, and `rr_v1_reference()` (kb-v5, llr,
+  k = 0.5, neg weight 0.5; hash `8488e32fc7c2`).
+- **L3 audit** (no component changed): `sex_prior`, `sex_restricted`,
+  `age_mean`, `age_any`, `onset` compute what their names say, from the kb
+  and `MALE_SHARE` only. Two points for Mateo:
+  1. kb `onset_years` is **HPOA onset terms first, Orphanet only as the
+     fallback** (`onset_source` in kb.build), not Orphanet-only as ADR-0014
+     says. It is still knowledge, and independent of `onset-ages`, but the
+     ADR wording should be corrected or the claim checked per `onset_source`.
+  2. `onset` and `term_probability` assume each gene's disease weights sum to
+     1; this was not verified (no data read).
+- **Tests** `tests/test_rerank_variants.py`, including a static and a runtime
+  guard that no `rerank/` module names, imports or opens an `onset-ages`
+  artifact.
+
 ## 2026-10-03: sealed-read guard; kb-v6 and kb-v7 (ADR-0014 phase 2a)
 
 - **Guard (Mateo's decision).** The 20:59 `s3-v2/test` ledger row (EXP-B-004,
