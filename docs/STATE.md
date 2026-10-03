@@ -3,7 +3,7 @@
 The fastest way back into the work after an interruption. It is overwritten
 at each checkpoint; the history lives in `BITACORA.md`.
 
-**Snapshot:** 2026-10-02 (literature extraction complete; path to candidate 6 agreed). Previously 2026-09-30, end of day: Stopped cleanly for the night:
+**Snapshot:** 2026-10-03 (simulator gate closed without passing; Front A decision pending). Previously 2026-09-30, end of day: Stopped cleanly for the night:
 - no agents running, no background jobs;
 - every PR from today merged except diagnostic.ar-model PR #2, which waits
   for Mateo.
@@ -83,6 +83,32 @@ that passes every train-side stop condition, and Mateo is told first.
    train-side go/no-go. Then **ask Mateo** before the last R1-dev read.
 6. If it passes: the G3 cards (assistant + Codex), then G5 freeze. Only
    then can Front A retraining be pre-registered.
+
+## Where we are (2026-10-03)
+**The simulator gate ended without passing.**
+- **Candidate 6** (sim 0.5.4 + literature build v1) was accepted with a
+  documented G2c shortfall (ADR-0012 amendment 5).
+- **The last R1-dev read (3/3)** then gave G2b on dev = 0.159, against UP
+  0.231 and V03-full 0.095. By the rule fixed beforehand: **not frozen, no
+  more candidates.**
+- The R1-dev realism budget is exhausted.
+
+**Literature:**
+- 97/97 shards, build v1 registered (`hpoa-enriched-v1`, onset and
+  presentation ages);
+- cross-check: 96.1% agreement, estimated number error 0.13%;
+- audit: row error 1.8% (fixed), recall about 94%.
+- The audit has all 98 sources answered; the last 15 are not yet
+  adjudicated.
+
+**Front B:** rr-v1[neg=0.5] is validated and packaged (diagnostic.ar-model
+PR #2, on hold). The S3 gain was measured on v0.3-era simulated patients.
+
+**Decision waiting for Mateo:**
+- **B:** A-005, train the new parameters on real R1-train patients, with an
+  S3 no-harm guard. High risk of repeating rr-v2's R1 reporting artifact.
+- **C:** stop Front A and assemble the informe evidence.
+- **C first, then B** if time allows.
 
 ## Path agreed 2026-10-02 (ADR-0013 amendment 4)
 1. **Codex cross-check:** running; partial result 112/113 agree.
