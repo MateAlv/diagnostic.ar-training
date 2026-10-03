@@ -1,0 +1,627 @@
+{
+  "simulate": {
+    "mode": "gene_first",
+    "simulator_version": "0.5.4",
+    "package_version": "0.1.0",
+    "simulator_git": {
+      "sha": null,
+      "dirty": null
+    },
+    "generated_at": "2026-10-03T01:22:08+00:00",
+    "wall_time_seconds": 12.9
+  },
+  "inputs": {
+    "profiles": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.4-cand6/profiles-full.jsonl",
+      "version": null,
+      "sha256": "c8930fca3cfe7d70be7d5b087e2000a5bb81791990f66e98f8557b6e7f777247"
+    },
+    "hp_json": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/raw/hpo_ontology/hp.json",
+      "version": "2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    "noise_vocabulary": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/.claude/worktrees/cand6/data/calib/calib-v2.noise_vocabulary.tsv",
+      "version": null,
+      "sha256": "4c0c51f4a98a2c211ecea5811a6d67bd4b8fd64501d53caa6ed379d99cd0af1b"
+    },
+    "calibration": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/.claude/worktrees/cand6/data/calib/simcal-v053-v1.json",
+      "version": null,
+      "sha256": "e274e0ec9585e8a0b5d668d4b5f744e9805caf8d5a9dc51d333d8333d8584130"
+    },
+    "report_model": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/report-model/report-model-v3/report-model.json",
+      "version": null,
+      "sha256": "78ece0e9bdd8d7f41f2d7085f28bb48f975496982534d765f7d7890bbf74737e",
+      "artifact_id": "report-model-v3"
+    },
+    "cardinal": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/cardinal/cardinal-v1.tsv",
+      "version": null,
+      "sha256": "1cec495bad28181deb7d88400fc4a8d0e28bc52d644019d1c7a178b3f75b3c45"
+    },
+    "presentation_ages": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/lit-build/presentation-ages-v1/presentation-ages.tsv",
+      "version": null,
+      "sha256": "f628687c4aad1022807bd8b2694fc4226a59c951211dd6d7168bf65a7763b9e5"
+    },
+    "onset_ages": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/lit-build/onset-ages-v1/onset-ages.tsv",
+      "version": null,
+      "sha256": "e9de2163fbb815876f3bfaf12e9d879b7713a1ec3a59a8662ffd905a5a90b94e"
+    },
+    "gene_profiles": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/genes/genes-v2/genes.json.gz",
+      "version": null,
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    "gnn_genes": {
+      "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/data/interim/genphenia-v3.0/checkpoints/graphens_best_model/genes.json",
+      "version": null,
+      "sha256": "f1c5b72e182490c0726ab3308f86bd92bec9523509853318223a5a6705fdc2fa"
+    }
+  },
+  "profile_sources": {
+    "HPO disease annotations": {
+      "file": "phenotype.hpoa",
+      "version": "2026-02-16",
+      "sha256": "fb657492d4a927454d28c5369c08fec3b3242a5840e0f839b27b2daf0e473ff2"
+    },
+    "HPO genes_to_disease": {
+      "file": "genes_to_disease.txt",
+      "version": null,
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    "Human Phenotype Ontology": {
+      "file": "hp.json",
+      "version": "2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    "gene profiles": {
+      "file": "genes.json.gz",
+      "version": null,
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    "held-out reference mask": {
+      "file": "r1-v1.heldout-pmids.txt",
+      "version": null,
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    }
+  },
+  "calibration": {
+    "path": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/.claude/worktrees/cand6/data/calib/simcal-v053-v1.json",
+    "sha256": "e274e0ec9585e8a0b5d668d4b5f744e9805caf8d5a9dc51d333d8333d8584130",
+    "overrides": {
+      "age.duration_mean_by_onset.adult": 12.3793,
+      "age.duration_mean_by_onset.antenatal": 2.4078,
+      "age.duration_mean_by_onset.childhood": 10.3451,
+      "age.duration_mean_by_onset.childhood_or_adolescent": 9.8211,
+      "age.duration_mean_by_onset.infantile": 7.5595,
+      "age.duration_mean_by_onset.juvenile": 14.6048,
+      "age.duration_mean_by_onset.neonatal": 4.7133,
+      "age.duration_mean_by_onset.variable": 9.8211,
+      "frequency.shrinkage_mean": 0.3,
+      "missingness.age_unknown": 0.251,
+      "missingness.no_negatives": 0.075,
+      "missingness.onset_unknown": 0.404,
+      "missingness.sex_unknown": 0.077,
+      "negatives.max_per_case": 40,
+      "negatives.source_weights.confounder": 0.53,
+      "negatives.source_weights.not_annotation": 0.0,
+      "negatives.source_weights.own_disease": 0.44,
+      "negatives.source_weights.own_gene_other_disease": 0.03,
+      "negatives.unfilled_slots": "redistribute",
+      "noise.related_down_levels": 1,
+      "noise.related_share": 0.6198,
+      "noise.related_up_levels": 1,
+      "presets.medium.negatives_mean": 13,
+      "presets.medium.noise_mean": 3.7,
+      "presets.medium.ontology_smoothing_rate": 0.0903,
+      "presets.medium.positive_observation_rate": 0.59,
+      "reporting.budget_normalize": true,
+      "reporting.budget_scope": "record",
+      "reporting.force_cardinal": false,
+      "reporting.mode": "independent",
+      "reporting.noise_count": "budget_share",
+      "reporting.noise_share": 0.207,
+      "reporting.profile_budget_histogram": {
+        "1": 199,
+        "10": 203,
+        "11": 181,
+        "12": 171,
+        "13": 142,
+        "14": 93,
+        "15": 91,
+        "16": 78,
+        "17": 53,
+        "18": 59,
+        "19": 43,
+        "2": 253,
+        "20": 41,
+        "21": 22,
+        "22": 23,
+        "23": 17,
+        "24": 15,
+        "25": 23,
+        "26": 22,
+        "27": 16,
+        "28": 15,
+        "29": 11,
+        "3": 343,
+        "30": 6,
+        "31": 11,
+        "32": 6,
+        "33": 7,
+        "34": 1,
+        "35": 9,
+        "36": 6,
+        "37": 6,
+        "38": 3,
+        "39": 2,
+        "4": 415,
+        "40": 2,
+        "41": 3,
+        "42": 1,
+        "43": 2,
+        "45": 1,
+        "46": 2,
+        "47": 1,
+        "5": 320,
+        "6": 345,
+        "66": 1,
+        "7": 301,
+        "8": 294,
+        "9": 244
+      },
+      "reporting.q_scale": 2.8855,
+      "reporting.specialize_rate": 0.1676
+    },
+    "noise_vocabulary": "/home/mate/FIUBA/trabajo-profesional/diagnostic.ar-training/.claude/worktrees/cand6/data/calib/calib-v2.noise_vocabulary.tsv",
+    "notes": {
+      "_provenance": {
+        "artifact": "simcal-v053-v1",
+        "base": {
+          "id": "file:data/calib/simcal-v052-v1.json",
+          "sha256": "2135209a15061707ebf88a27f1d69e747f780f9801d200ce2090ff0fb7062a9e"
+        },
+        "code_sha": "ad4579bb500b83a37fd6228a057aea3023d7eb38",
+        "included": [
+          {
+            "id": "file:data/calib/record-budget-v1.json",
+            "keys": [
+              "reporting.profile_budget_histogram"
+            ],
+            "sha256": "d0d43bc523c84f63481737a1c7842fc336f08629b3189277253ca6585b8272e5"
+          }
+        ],
+        "mean": 0.424815,
+        "min_denominator": 10,
+        "overrides": [
+          "reporting.budget_scope=\"record\"",
+          "reporting.noise_count=\"budget_share\"",
+          "presets.medium.ontology_smoothing_rate=0.0903",
+          "noise.related_share=0.6198"
+        ],
+        "pairs": 18162,
+        "rule": "median of pooled raw n/m over (disease, term) pairs with count-notation positive phenotype rows (ADR-0011: Beta prior mean for count-based frequencies, strength 2)",
+        "source": "hpoa-recount-v1 (8470fdf0110b69870ec4e328a6feed3f42199ba9e14f7897031eb9f5486b144a)"
+      }
+    }
+  },
+  "config_hash": "sha256:495945eb8accf74c",
+  "config": {
+    "cases_per_disease_per_difficulty": 10,
+    "difficulties": [
+      "medium"
+    ],
+    "seed": 91001,
+    "presets": {
+      "easy": {
+        "positive_observation_rate": 0.92,
+        "cardinal_observation_boost": 0.08,
+        "missing_vs_unknown_split": 0.8,
+        "negatives_mean": 10.0,
+        "noise_mean": 0.0,
+        "ontology_smoothing_rate": 0.0
+      },
+      "medium": {
+        "positive_observation_rate": 0.59,
+        "cardinal_observation_boost": 0.1,
+        "missing_vs_unknown_split": 0.6,
+        "negatives_mean": 13.0,
+        "noise_mean": 3.7,
+        "ontology_smoothing_rate": 0.0903
+      },
+      "hard": {
+        "positive_observation_rate": 0.55,
+        "cardinal_observation_boost": 0.1,
+        "missing_vs_unknown_split": 0.5,
+        "negatives_mean": 4.0,
+        "noise_mean": 2.0,
+        "ontology_smoothing_rate": 0.35
+      }
+    },
+    "frequency": {
+      "concentration": 8.0,
+      "unknown_frequency": 0.5,
+      "count_estimator": "beta_shrinkage",
+      "shrinkage_mean": 0.3,
+      "shrinkage_strength": 2.0
+    },
+    "sex": {
+      "p_male": {
+        "male_limited": 1.0,
+        "female_limited": 0.0,
+        "male_biased": 0.9,
+        "female_biased": 0.1,
+        "x_linked_dominant": 0.33,
+        "unbiased": 0.5
+      },
+      "male_only_anchors": [
+        "HP:0010461",
+        "HP:0012874"
+      ],
+      "female_only_anchors": [
+        "HP:0010460",
+        "HP:0030012"
+      ]
+    },
+    "age": {
+      "onset_years": {
+        "antenatal": [
+          0.0,
+          0.0
+        ],
+        "neonatal": [
+          0.0,
+          0.0767
+        ],
+        "infantile": [
+          0.0767,
+          1.0
+        ],
+        "childhood": [
+          1.0,
+          5.0
+        ],
+        "juvenile": [
+          5.0,
+          16.0
+        ],
+        "childhood_or_adolescent": [
+          1.0,
+          16.0
+        ],
+        "adult": [
+          16.0,
+          60.0
+        ],
+        "variable": [
+          0.0,
+          60.0
+        ]
+      },
+      "unknown_onset_prior": {
+        "antenatal": 0.11,
+        "neonatal": 0.35,
+        "infantile": 0.18,
+        "childhood": 0.14,
+        "juvenile": 0.05,
+        "adult": 0.13,
+        "variable": 0.04
+      },
+      "duration_mean_years": 5.0,
+      "duration_mean_by_onset": {
+        "adult": 12.3793,
+        "antenatal": 2.4078,
+        "childhood": 10.3451,
+        "childhood_or_adolescent": 9.8211,
+        "infantile": 7.5595,
+        "juvenile": 14.6048,
+        "neonatal": 4.7133,
+        "variable": 9.8211
+      },
+      "duration_max_years": 40.0,
+      "max_age_years": 90.0
+    },
+    "progression": {
+      "max_boost": 0.25,
+      "timescale_years": 10.0
+    },
+    "negatives": {
+      "max_per_case": 40,
+      "count_dispersion": 2.0,
+      "source_weights": {
+        "own_disease": 0.44,
+        "own_gene_other_disease": 0.03,
+        "confounder": 0.53,
+        "not_annotation": 0.0
+      },
+      "own_disease_pool": "entity",
+      "unfilled_slots": "redistribute",
+      "confounders_top_n": 10,
+      "min_information_content": 2.0
+    },
+    "missingness": {
+      "sex_unknown": 0.077,
+      "age_unknown": 0.251,
+      "onset_unknown": 0.404,
+      "no_negatives": 0.075
+    },
+    "entity_profiles": "merged",
+    "reporting": {
+      "mode": "independent",
+      "force_cardinal": false,
+      "noise_count": "budget_share",
+      "noise_share": 0.207,
+      "specialize_rate": 0.1676,
+      "q_scale": 2.8855,
+      "budget_normalize": true,
+      "budget_scope": "record",
+      "profile_budget_histogram": {
+        "1": 199,
+        "10": 203,
+        "11": 181,
+        "12": 171,
+        "13": 142,
+        "14": 93,
+        "15": 91,
+        "16": 78,
+        "17": 53,
+        "18": 59,
+        "19": 43,
+        "2": 253,
+        "20": 41,
+        "21": 22,
+        "22": 23,
+        "23": 17,
+        "24": 15,
+        "25": 23,
+        "26": 22,
+        "27": 16,
+        "28": 15,
+        "29": 11,
+        "3": 343,
+        "30": 6,
+        "31": 11,
+        "32": 6,
+        "33": 7,
+        "34": 1,
+        "35": 9,
+        "36": 6,
+        "37": 6,
+        "38": 3,
+        "39": 2,
+        "4": 415,
+        "40": 2,
+        "41": 3,
+        "42": 1,
+        "43": 2,
+        "45": 1,
+        "46": 2,
+        "47": 1,
+        "5": 320,
+        "6": 345,
+        "66": 1,
+        "7": 301,
+        "8": 294,
+        "9": 244
+      }
+    },
+    "noise": {
+      "related_share": 0.6198,
+      "related_up_levels": 1,
+      "related_down_levels": 1,
+      "related_max_ic": null
+    },
+    "max_redraws": 20
+  },
+  "diseases": {
+    "in_profiles": 9223,
+    "simulated": null,
+    "strata": null
+  },
+  "genes": {
+    "vocabulary_size": 5229,
+    "targets": 489,
+    "skipped": {
+      "unresolved_symbol": 1,
+      "no_gene_record": 7,
+      "no_simulable_entity": 26,
+      "no_profile_available": 0
+    },
+    "skipped_symbols": {
+      "unresolved_symbol": [
+        "IPW"
+      ],
+      "no_gene_record": [
+        "CCL2",
+        "CDK16",
+        "FAAP24",
+        "MT-TG",
+        "MT-TR",
+        "MYH10",
+        "USP44"
+      ],
+      "no_simulable_entity": [
+        "CALCR",
+        "CARTPT",
+        "DGCR6",
+        "DLC1",
+        "DOCK11",
+        "DRG1",
+        "HSFY1",
+        "KDM6B",
+        "NAB2",
+        "OPCML",
+        "PDGFRL",
+        "PLA2G2A",
+        "PRDX1",
+        "PTPN1",
+        "RAD54B",
+        "RNF31",
+        "SLC7A6OS",
+        "SNF8",
+        "SPRY2",
+        "SPTSSA",
+        "SYN2",
+        "TAS2R16",
+        "TCF7L2",
+        "TMTC4",
+        "ZFTA",
+        "ZNRF3"
+      ]
+    },
+    "entities": {
+      "entities_used": 979,
+      "profile_ids_listed": 1309,
+      "profile_ids_missing": 0
+    },
+    "requested": "/home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.4-cand6/../cal/pilot-genes.txt"
+  },
+  "entity_profiles": {
+    "basis_category": 12227,
+    "basis_counts": 8439,
+    "basis_percent": 528,
+    "basis_unknown": 4026,
+    "category_capped": 114,
+    "entities": 864,
+    "entities_with_1_profiles": 600,
+    "entities_with_2_profiles": 261,
+    "entities_with_3_profiles": 3,
+    "negatives_dropped_positive_elsewhere": 2,
+    "sex_restriction_dropped": 12,
+    "terms": 25220,
+    "terms_added_over_largest_profile": 3033,
+    "terms_in_several_profiles": 2791
+  },
+  "reporting": {
+    "mode": "independent",
+    "report_model": "report-model-v3",
+    "features": [
+      {
+        "name": "frequency",
+        "kind": "frequency",
+        "coefficient": 2.3467116961107144
+      },
+      {
+        "name": "information_content",
+        "kind": "information_content",
+        "coefficient": 0.021710476332467598
+      },
+      {
+        "name": "ancestor_count",
+        "kind": "ancestor_count",
+        "coefficient": -0.04519286722819721
+      },
+      {
+        "name": "log_reportability",
+        "kind": "log_reportability",
+        "coefficient": 0.4126149959066422
+      },
+      {
+        "name": "cardinal",
+        "kind": "cardinal_flag",
+        "coefficient": 0.4942232662416509
+      }
+    ],
+    "intercept": -1.6549266867468329,
+    "budget_probabilities": {
+      "1": 0.024308,
+      "2": 0.062028,
+      "3": 0.083822,
+      "4": 0.094719,
+      "5": 0.084661,
+      "6": 0.104778,
+      "7": 0.097234,
+      "8": 0.083822,
+      "9": 0.059514,
+      "10": 0.056161,
+      "11": 0.046102,
+      "12": 0.041073,
+      "13": 0.034367,
+      "14": 0.020117,
+      "15": 0.021794,
+      "16": 0.019279,
+      "17": 0.012573,
+      "18": 0.012573,
+      "19": 0.005868,
+      "20": 0.008382,
+      "21": 0.003353,
+      "22": 0.002515,
+      "23": 0.001676,
+      "24": 0.001676,
+      "25": 0.002515,
+      "26": 0.001676,
+      "27": 0.000838,
+      "28": 0.000838,
+      "29": 0.001676,
+      "32": 0.002515,
+      "33": 0.003353,
+      "35": 0.000838,
+      "36": 0.000838,
+      "38": 0.001676,
+      "39": 0.000838
+    },
+    "budget_mean": 8.1148,
+    "budget_zero_cases_dropped": 0,
+    "cardinal": {
+      "diseases": 1821,
+      "pairs": 5907,
+      "rows_by_kind": {
+        "cardinal_proxy": 4209,
+        "diagnostic_criterion": 1683,
+        "pathognomonic": 28
+      },
+      "unresolved_terms": 0
+    },
+    "cases": 4890,
+    "reported_profile_mean": 5.2031,
+    "reported_noise_mean": 1.8121,
+    "reported_total_mean": 7.0151,
+    "true_terms_reported_share": 0.3691,
+    "q_mean": 0.3644,
+    "q_capped_share": 0.1662,
+    "forced_min_one": 160,
+    "budget_normalized": {
+      "cases": 4890,
+      "k_mean": 8.799,
+      "realized_profile_mean": 5.2121,
+      "total_variation_k_vs_realized": 0.2513,
+      "scale_mean": 2.9114,
+      "record": {
+        "k_mean": 8.799,
+        "noise_mean": 1.8121,
+        "profile_target_mean": 6.9869,
+        "realized_profile_mean": 5.2121,
+        "total_shown_mean": 7.0241,
+        "total_variation_total_vs_histogram": 0.0978
+      }
+    },
+    "specialized": {
+      "terms": 2535,
+      "share_of_profile_terms": 0.0996
+    }
+  },
+  "noise": {
+    "terms": 8861,
+    "related": 4521,
+    "related_share": 0.5102
+  },
+  "presentation_ages": {
+    "diseases": 79,
+    "cases": 77
+  },
+  "onset_ages": {
+    "diseases": 372,
+    "cases": 309
+  },
+  "output": {
+    "cases_path": "/home/mate/FIUBA/trabajo-profesional/rare-disease-simulator/outputs/v0.5.4-cand6/pilot-r1/cases.jsonl",
+    "cases_written": 4890,
+    "bytes": 36709876,
+    "sha256": "18a00b02e38b0093479e1fdb905eb4d68aca5314c1ddaea0681cc7888da5c455"
+  }
+}

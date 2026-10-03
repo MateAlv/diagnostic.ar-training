@@ -3254,3 +3254,38 @@ literature-enriched profiles come later, as candidate 6.
 - **Declared:** C037's bin cells (">90%", 7 rows) store the bin midpoint
   rather than the bound.
 - **Next:** candidate 6 (simulator 0.5.4), train-side only.
+
+### 2026-10-02 — pre-registration + pilot round 1 — Candidate 6 (ADR-0011 amendment 8, enriched profiles); train-side only
+Written and committed before any candidate 6 re-tune run. **No R1-dev read in
+this task, whatever the result**; the last read needs Mateo's OK.
+- **Generator:** rare-disease-simulator 0.5.4, `git archive cfc20da` of the
+  main history (sha256 `4664812d146ade15f7004cf069e963cb8778f4313f0007608b3becda46794433`),
+  extracted in the scratchpad and run with `PYTHONPATH=src`; never the shared
+  checkout. Recorded as "rare-disease-simulator@cfc20da (git archive)".
+- **Profiles:** `build-profiles --from-hpoa` on `hpoa-enriched-v1`
+  (`phenotype.hpoa` sha256 `fb657492…`) + genes-v2, with the r1-v1 held-out
+  PMID mask. Summary: 9,223 profiles (as with hpoa-recount-v1), 204,300
+  positive annotations (199,752 with hpoa-recount-v1: +4,548 literature
+  rows), 534 negatives (478), **0 masked HPOA rows**.
+- **Ages:** `--presentation-ages` = `presentation-ages-v1` (sha256
+  `f628687c…`), `--onset-ages` = `onset-ages-v1` (sha256 `e9de2163…`).
+- **Pilot:** `simcal-v053-v1` unchanged, 523-symbol list (sha256
+  `5c817192…`), 10 per gene, medium, seed 91001, full profiles; the two age
+  files are on, since they are part of candidate 6. Targets and drift
+  threshold: A 0.093, S 0.0929, M 0.026; a re-tune round runs only if a
+  target is more than **20%** off in relative terms (the task's rule). The
+  re-tune uses candidate 6b's update rules (`cand6b_pilot_rounds.py`):
+  g' = g × 0.093 / A, r' = r × 0.0929 / S, s' = (0.026 − MRR_voc) /
+  (MRR_rel − MRR_voc), each changed only if its own target drifted.
+  At most **one** re-tune round. The better of rounds 1 and 2 by the 6b
+  score (sum of the three relative errors; ties: earlier) is frozen as
+  `simcal-v054-v1`, or `simcal-v053-v1` + the age files is reused if round 1
+  stays.
+- **Round 1 (g 0.0903, s 0.6198, r 0.1676; 0 invariant violations):**
+  A 0.1016 (rel. 0.093), S 0.0908 (0.023), **M 0.0171 (rel. 0.342)**; score
+  0.457. Only M drifts by more than 20%, so only s moves. The rule gives
+  s' = (0.026 − 0.0011) / (0.0434 − 0.0011) = **0.5887**, g and r kept.
+  This lowers s while M is already below target; 6b showed the same
+  non-monotone relation (s 0.52 → 0.012, 0.62 → 0.016, 1.0 → 0.036), so the
+  round-2 outcome is a measurement of the rule, not an expectation. Files:
+  `results/realism/cand6-pilots/`.

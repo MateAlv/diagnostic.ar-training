@@ -1,0 +1,101 @@
+{
+ "targets": {
+  "A": 0.093,
+  "S": 0.0929,
+  "M": 0.026
+ },
+ "tolerances": {
+  "A": 0.1,
+  "S": 0.1,
+  "M": 0.2
+ },
+ "rounds": [
+  {
+   "round": 1,
+   "ontology_smoothing_rate": 0.0903,
+   "s": 0.6198,
+   "r": 0.1676,
+   "A_ancestor_share": 0.1016,
+   "S_more_specific": 0.0908,
+   "M_noise_mrr": 0.0171,
+   "relative_errors": {
+    "A": 0.0925,
+    "S": 0.0226,
+    "M": 0.3423
+   },
+   "score": 0.4574,
+   "drift": {
+    "A": false,
+    "S": false,
+    "M": true
+   },
+   "next_round_rule": {
+    "ontology_smoothing_rate": 0.0903,
+    "s": 0.5887,
+    "r": 0.1676
+   },
+   "r1_train_uncited_ancestor_share": 0.0933,
+   "explained_terms_scored": 23096,
+   "record": {
+    "k_mean": 8.799,
+    "noise_mean": 1.8121,
+    "profile_target_mean": 6.9869,
+    "realized_profile_mean": 5.2121,
+    "total_shown_mean": 7.0241,
+    "total_variation_total_vs_histogram": 0.0978
+   },
+   "shown_per_case": 7.0151,
+   "profile_per_case": 5.2031,
+   "noise_per_case": 1.8121,
+   "k_mean": 8.799,
+   "realized_profile_mean": 5.2121,
+   "mean_c": 2.9114,
+   "shares": {
+    "explained": 0.6733,
+    "more_specific": 0.0908,
+    "related_ic_ge_2": 0.0996,
+    "weak_ic_lt_2": 0.1364
+   },
+   "per_record": {
+    "terms": 7.0151,
+    "explained": 4.7231,
+    "more_specific": 0.6368,
+    "related_ic_ge_2": 0.6986,
+    "weak_ic_lt_2": 0.9566
+   },
+   "true_terms_reported_share": 0.3691,
+   "forced_min_one": 160,
+   "cases": 4890,
+   "q_mean": 0.3644,
+   "q_capped_share": 0.1662,
+   "invariant_violations": 0,
+   "specialized_share_of_profile_terms": 0.0996,
+   "mrr_vocabulary": 0.0011,
+   "mrr_related": 0.0434,
+   "mean_ic_vocabulary": 4.297,
+   "mean_ic_related": 6.831,
+   "record_size_spearman_all_genes": {
+    "genes": 489,
+    "sim_size_vs_sim_true": 0.69
+   },
+   "record_size_r1_genes": {
+    "genes": 9,
+    "gene_rule": ">= 10 R1-train patients and simulated",
+    "mean_terms_per_case_sim": 6.77,
+    "mean_true_terms_per_case_sim": 18.86,
+    "spearman_sim_record_size_vs_sim_true_terms": 0.133,
+    "mean_terms_per_case_real": 6.36,
+    "spearman_real_vs_sim_record_size_by_gene": 0.617,
+    "spearman_real_record_size_vs_sim_true_terms": 0.683,
+    "sim_over_real_ratio_median": 1.17
+   }
+  }
+ ],
+ "next_round_runs": true,
+ "next_round_knobs": {
+  "ontology_smoothing_rate": 0.0903,
+  "s": 0.5887,
+  "r": 0.1676
+ },
+ "selected_round": null
+}
