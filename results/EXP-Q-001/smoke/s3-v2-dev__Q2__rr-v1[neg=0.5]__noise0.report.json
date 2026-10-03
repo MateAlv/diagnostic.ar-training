@@ -1,0 +1,117 @@
+{
+ "E0+answers": {
+  "ci_resample_unit": "publication",
+  "mrr": 0.358288101688766,
+  "mrr_ci95": [
+   0.3109489197270712,
+   0.40596744436992743
+  ],
+  "n": 300,
+  "top1": 0.29,
+  "top10": 0.4866666666666667,
+  "top20": 0.5533333333333333,
+  "top3": 0.38,
+  "top5": 0.43,
+  "top50": 0.6333333333333333,
+  "unrankable": 0
+ },
+ "E0-initial": {
+  "ci_resample_unit": "publication",
+  "mrr": 0.3393699353117546,
+  "mrr_ci95": [
+   0.2942297230937964,
+   0.38541868513666255
+  ],
+  "n": 300,
+  "top1": 0.27,
+  "top10": 0.47333333333333333,
+  "top20": 0.5233333333333333,
+  "top3": 0.37666666666666665,
+  "top5": 0.4166666666666667,
+  "top50": 0.61,
+  "unrankable": 0
+ },
+ "agent": null,
+ "cases": 300,
+ "code_sha": "6f77fa94984531d324da9ea311ec74e8783f95dc",
+ "excluded_in_part": 122,
+ "exclusion_list": "s3-data-v2-excl-v1",
+ "exp": "EXP-Q-001",
+ "final": {
+  "ci_resample_unit": "publication",
+  "mrr": 0.36565240007706057,
+  "mrr_ci95": [
+   0.3171476482363885,
+   0.4141947496702351
+  ],
+  "n": 300,
+  "top1": 0.3,
+  "top10": 0.48,
+  "top20": 0.5566666666666666,
+  "top3": 0.3933333333333333,
+  "top5": 0.43666666666666665,
+  "top50": 0.6366666666666667,
+  "unrankable": 0
+ },
+ "kb": "kb-v5",
+ "kb_heldout_annotations_dropped": "annot-split-v1",
+ "label": "smoke",
+ "no_per_case": 7.77,
+ "noise": 0.0,
+ "primary (final vs E0-initial)": {
+  "ci95": [
+   0.009649062299124513,
+   0.043611837382609334
+  ],
+  "delta": 0.02628246476530596,
+  "harmed": 0.11,
+  "helped": 0.36666666666666664,
+  "metric": "mrr",
+  "n": 300,
+  "n_units": 291,
+  "resample_unit": "group"
+ },
+ "questioner_effect (E0+answers vs E0-initial)": {
+  "ci95": [
+   0.005274755432242599,
+   0.03391817512206998
+  ],
+  "delta": 0.018918166377011405,
+  "harmed": 0.06666666666666667,
+  "helped": 0.22666666666666666,
+  "metric": "mrr",
+  "n": 300,
+  "n_units": 291,
+  "resample_unit": "group"
+ },
+ "questions_per_case": 8.863333333333333,
+ "reranker": "rr-v1[neg=0.5]",
+ "reranker_effect (final vs E0+answers)": {
+  "ci95": [
+   -0.0010498280773664922,
+   0.0165212044124372
+  ],
+  "delta": 0.0073642983882945545,
+  "harmed": 0.08,
+  "helped": 0.21333333333333335,
+  "metric": "mrr",
+  "n": 300,
+  "n_units": 291,
+  "resample_unit": "group"
+ },
+ "schedule": [
+  3,
+  3,
+  3
+ ],
+ "seconds_per_case": {
+  "mean": 0.15698632685995106,
+  "p50": 0.14722461800192832,
+  "p95": 0.27539090954905987
+ },
+ "seed": 0,
+ "split": "s3-v2/dev",
+ "strategy": "Q2",
+ "unknown_per_case": 0.0,
+ "yes_per_case": 1.0933333333333333
+}
