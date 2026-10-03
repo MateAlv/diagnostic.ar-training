@@ -62,7 +62,7 @@ Why `no`, for the 104 dismissed (exclusive counts) `wrong_unit` and `bad_row` is
   "A and/or B" stays when one term covers both (HP:0012759 for delay or
   intellectual disability). This is the weakest block, a judgement call
   that the reader may overrule. If all of them were valid, the row error rate
-  would be 42/852 (4.9%).
+  would be 44/852 (5.2%).
 - 5 `wrong_unit` on C001: SRS1 (OMIM:180860) is the entry for the 11p15
   methylation defects, and guide section 6 names "11p15 LOM vs all SRS" as
   a separate population. Also a judgement call.
