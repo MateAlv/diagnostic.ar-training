@@ -36,29 +36,23 @@ def _entropy(p: np.ndarray) -> float:
     return float(-(p * np.log(p)).sum())
 
 
-def choose_questions(
-    public: PublicCase,
-    e0_probs: np.ndarray,
+def information_gains(
+    probs: np.ndarray,
     genes: tuple[str, ...],
     knowledge: GeneKnowledge,
-    ontology: Ontology,
+    blocked: set[str],
     n_candidates: int = 10,
-    n_questions: int = 7,
-) -> list[str]:
-    """Terms with the highest expected information gain over E0's top candidates (non-adaptive)."""
-    order = [i for i in np.argsort(e0_probs)[::-1] if knowledge.diseases(genes[i])][:n_candidates]
+) -> list[tuple[float, str]]:
+    """(gain, term) over the top candidates of `probs`, best first; terms in `blocked` are never scored."""
+    order = [i for i in np.argsort(probs)[::-1] if knowledge.diseases(genes[i])][:n_candidates]
     if len(order) < 2:
         return []
-    prior = e0_probs[order] / e0_probs[order].sum()
-    reported = set(public.present)
-    related = set(reported)
-    for t in reported:
-        related |= ontology.ancestors(t) | ontology.descendants(t)
+    prior = probs[order] / probs[order].sum()
     terms = set()
     for i in order:
         for disease in knowledge.diseases(genes[i]):
             terms.update(knowledge.kb["diseases"][disease]["phenotypes"])
-    terms -= related
+    terms -= blocked
     h0 = _entropy(prior)
     scored = []
     for t in sorted(terms):
@@ -69,6 +63,24 @@ def choose_questions(
         if gain > 1e-9:
             scored.append((gain, t))
     scored.sort(key=lambda item: (-item[0], item[1]))
+    return scored
+
+
+def choose_questions(
+    public: PublicCase,
+    e0_probs: np.ndarray,
+    genes: tuple[str, ...],
+    knowledge: GeneKnowledge,
+    ontology: Ontology,
+    n_candidates: int = 10,
+    n_questions: int = 7,
+) -> list[str]:
+    """Terms with the highest expected information gain over E0's top candidates (non-adaptive)."""
+    reported = set(public.present)
+    related = set(reported)
+    for t in reported:
+        related |= ontology.ancestors(t) | ontology.descendants(t)
+    scored = information_gains(e0_probs, genes, knowledge, related, n_candidates)
     return [t for _, t in scored[:n_questions]]
 
 

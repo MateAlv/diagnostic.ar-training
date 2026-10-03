@@ -3695,3 +3695,34 @@ this task, whatever the result**; the last read needs Mateo's OK.
 | diseases with onset (hpoa / orphanet / alignment) | 9,476 (4,303 / 3,783 / 1,390) | 9,474 (4,303 / 3,782 / 1,389) | 9,475 (4,303 / 3,782 / 1,390) |
 | diseases with inheritance | 8,175 | 8,175 | 8,175 |
 | negated annotations | 720 | 720 | 781 |
+
+### 2026-10-03: EXP-Q-001 phase 2c, question-strategy harness and smoke run (`phase4/question-harness`)
+
+- **Code.** `eval/questioning.py` (interface, answer rule, seeded noise, budget 9,
+  Q0, Q2, Q2b), `eval/agent_selector.py` (Q1), `eval/question_run.py`, and
+  `dxt s3 interview`. `interactive.choose_questions` now calls the shared
+  `information_gains`; its output is unchanged (identity test against a verbatim
+  copy of the old function, Q = 7, mocked data).
+- **Q1** imports the production agent's `InformationGainSelector` and
+  `BayesianReranker` read-only from `/home/mate/diagnostic.ar/qa-rerank-wt`
+  (`feat/rerank-negaciones`, `48d901e3a0197984c2811345c115c99f3e42d54c`, recorded in every Q1 report).
+  Nothing is copied; the agent's venv site-packages is appended to `sys.path`
+  only for `httpx`, which our venv lacks. Its KnowledgeBase is built from our
+  half-A knowledge and ontology; the HTTP model client is replaced by E0, with
+  the harness re-ranker applied to the "no" answers. Shortlist size 8, first 3 taken, clinician mode.
+- **Q2** posterior = E0 on present + "yes", re-ranker applied to the "no"
+  answers so far; top-10 candidates, EIG as Q0; blocks reported/yes terms with
+  ancestors and descendants, no/unknown terms with descendants. **Q2b** adds
+  gain x (1 - lambda) for a term sharing an ancestor below organ-system level
+  with an earlier pick or question (lambda 0.5).
+- **Sealed part:** the command refuses `--part test` unless the experiment is
+  committed, the tree is clean, a reason is given, the experiment is EXP-B-004
+  and all cases are requested; `s3.load_part` then ledgers the read. Not exercised.
+- **Smoke run (integration check, not a result).** 300 S3-v2-dev cases
+  (sorted by sha256 of the case id, `s3-data-v2-excl-v1` applied; 122 dev cases
+  excluded in the part), rr-v1[neg=0.5], noise 0, label `smoke`, in
+  `results/EXP-Q-001/smoke/`. **KB caveat:** kb-v6 does not exist yet, so the
+  run used `kb-v5` (half B of annot-split-v1 dropped, not v2) with
+  `--allow-kb-mismatch`. That knowledge can contain S3-v2 held-out pairs, so the
+  numbers are not to be read as findings. Seconds per case (mean, E0 included):
+  Q0 0.06, Q1 0.16, Q2 0.16, Q2b 0.16.

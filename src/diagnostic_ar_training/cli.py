@@ -2306,5 +2306,126 @@ def lineage_verify() -> None:
     typer.echo("lineage ok")
 
 
+@s3_app.command("interview")
+def s3_interview_cmd(
+    exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-Q-001"),
+    part: str = typer.Option("dev", help="dev; test is sealed and refused unless every sealed rule holds"),
+    strategy: str = typer.Option(..., help="Q0, Q1, Q2 or Q2b"),
+    reranker: str = typer.Option("rr-v1", help="rr-v1, rr-v1[neg=..,sex=..], or a JSON file with a beta"),
+    cases: int = typer.Option(300, help="Cases to interview (0 = all)"),
+    noise: float = typer.Option(0.0, help="Answer noise rate: flipped or unknown, half each"),
+    seed: int = typer.Option(0, help="Seed of the answer noise"),
+    reason: str = typer.Option("", help="Required for the sealed part"),
+    label: str = typer.Option("dev", help="Outputs go to results/<exp>/<label>/"),
+    lam: float = typer.Option(0.5, help="Q2b diversity weight"),
+    kb_id: str = typer.Option("kb-v6", "--kb", help="KB without half B of annot-split-v2"),
+    allow_kb_mismatch: bool = typer.Option(
+        False, help="Use a KB not built without half B of annot-split-v2 (smoke only)"
+    ),
+    top_k: int = typer.Option(200),
+) -> None:
+    """Interview S3 v2 cases with one question strategy; score E0-initial, E0+answers and the final system."""
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import question_run, questioning
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    if part not in s3.PARTS:
+        raise typer.BadParameter(f"part must be one of {s3.PARTS}")
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before S3 runs")
+    if part in s3.SEALED and (not reason.strip() or exp != "EXP-B-004" or cases != 0):
+        raise typer.BadParameter(
+            "the sealed part is read only by EXP-B-004's one pre-registered read: all cases, with a reason"
+        )
+    kb_manifest = load_manifest(kb_id)
+    heldout = kb_manifest.params.get("heldout_annotations_dropped")
+    if heldout != "annot-split-v2" and not allow_kb_mismatch:
+        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v2, not {heldout!r}")
+    reranker_name, beta = question_run.parse_reranker(reranker)
+    chosen = question_run.make_strategy(strategy, lam)
+    data = next(p for p in fetch_outputs(load_manifest("s3-data-v2")) if p.name.endswith(".jsonl.gz"))
+    excl_path = next(p for p in fetch_outputs(load_manifest("s3-data-v2-excl-v1")) if p.name == "exclude.txt")
+    excluded = set(excl_path.read_text().split())
+    pairs = s3.load_part("s3-v2", part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    chosen_pairs = question_run.select_cases(pairs, cases, excluded)
+
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
+    e0 = GenPheniaV3()
+    ctx = questioning.Context(e0, knowledge, ontology, beta, top_k)
+    agent = None
+    if strategy == "Q1":
+        from diagnostic_ar_training.eval.agent_selector import agent_version
+
+        agent = agent_version()
+    rows = question_run.run(chosen_pairs, chosen, ctx, noise, seed, top_k)
+    report = {
+        "label": label,
+        "exp": exp,
+        "split": f"s3-v2/{part}",
+        "strategy": strategy,
+        "schedule": list(chosen.schedule),
+        "reranker": reranker_name,
+        "noise": noise,
+        "seed": seed,
+        "kb": kb_id,
+        "kb_heldout_annotations_dropped": heldout,
+        "exclusion_list": "s3-data-v2-excl-v1",
+        "excluded_in_part": len(pairs) - len(question_run.select_cases(pairs, 0, excluded)),
+        "agent": agent,
+        "code_sha": state.sha,
+        **question_run.report(rows),
+    }
+    out_dir = RESULTS_DIR / exp / label
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"s3-v2-{part}__{strategy}__{reranker_name}__noise{noise:g}"
+    questions_path = out_dir / f"{stem}.interviews.jsonl"
+    questions_path.write_text("".join(json.dumps(r, sort_keys=True, default=str) + "\n" for r in rows))
+    report_path = out_dir / f"{stem}.report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
+    inputs = e0.lineage_inputs() + [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "artifact:s3-data-v2", "sha256": sha256_file(data)},
+        {"id": "artifact:s3-data-v2-excl-v1", "sha256": sha256_file(excl_path)},
+        {"id": "split:s3-v2", "sha256": sha256_file(SPLITS_DIR / "s3-v2.json")},
+    ]
+    params = {k: report[k] for k in ("strategy", "reranker", "noise", "seed", "kb", "agent", "label")}
+    params["cases"] = len(rows)
+    artifact = f"results-{exp}-{label}-{strategy}-{reranker_name}-noise{noise:g}"
+    artifact = "".join(c if c.isalnum() or c in ".-" else "_" for c in artifact)
+    write_manifest(
+        build_manifest(
+            artifact, "question-interview", inputs, params, [questions_path, report_path], state=state
+        )
+    )
+    typer.echo(f"{strategy} cases={len(rows)} s/case={report['seconds_per_case']['mean']:.2f}")
+    for name in ("E0-initial", "E0+answers", "final"):
+        typer.echo(f"{name:12} MRR={report[name]['mrr']:.4f}")
+    for name in (
+        "questioner_effect (E0+answers vs E0-initial)",
+        "reranker_effect (final vs E0+answers)",
+        "primary (final vs E0-initial)",
+    ):
+        d = report[name]
+        typer.echo(f"{name}: d={d['delta']:+.4f} harmed={d['harmed']:.3f} helped={d['helped']:.3f}")
+
+
 if __name__ == "__main__":
     app()
