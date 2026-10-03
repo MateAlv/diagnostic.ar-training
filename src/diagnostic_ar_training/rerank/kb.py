@@ -257,6 +257,7 @@ def build(
     orphanet = parse_orphanet_onsets(orphanet_ages)
     alignments = parse_exact_alignments(orphanet_alignments) if orphanet_alignments else {}
     kb_diseases = {}
+    freq_basis: Counter = Counter()
     for disease_id in sorted(diseases):
         d = diseases[disease_id]
         conflicting = d.excluded & set(d.phenotypes)
@@ -266,6 +267,9 @@ def build(
         for term in sorted(d.phenotypes):
             p = d.phenotypes[term]
             freq = estimate_frequency((p.n, p.m), p.percents, p.categories)
+            freq_basis[
+                "count" if p.m else "percent" if p.percents else "category" if p.categories else "none"
+            ] += 1
             phenotypes[term] = {
                 "freq": None if freq is None else round(freq, 6),
                 "onset": sorted(p.onsets),
@@ -339,6 +343,10 @@ def build(
             1 for d in kb_diseases.values() for p in d["phenotypes"].values() if p["freq"] == 1.0
         ),
         diseases_with_inheritance=sum(bool(d["inheritance"]) for d in kb_diseases.values()),
+        phenotypes_frequency_from_counts=freq_basis["count"],
+        phenotypes_frequency_from_percent=freq_basis["percent"],
+        phenotypes_frequency_from_category=freq_basis["category"],
+        phenotypes_frequency_unknown=freq_basis["none"],
     )
     return kb, dict(sorted(stats.items()))
 

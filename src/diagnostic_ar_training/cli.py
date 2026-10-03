@@ -42,6 +42,11 @@ def kb_build(
     holdout_annotations: str = typer.Option(
         "", help="Annotation split artifact whose half B is dropped (S3)"
     ),
+    hpoa_artifact: str = typer.Option(
+        "",
+        help="phenotype.hpoa artifact (e.g. hpoa-enriched-v2) read instead of the pinned hpo_annotations "
+        "source; onset (aspect C), inheritance (aspect I) and Orphanet onset still come from the same places",
+    ),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Build the knowledge base (schema 2) from pinned sources with held-out publications masked."""
@@ -69,7 +74,13 @@ def kb_build(
         "orphanet_ages_2026_06",
         "orphanet_alignments",
     ]
+    if hpoa_artifact:
+        names.remove("hpo_annotations")
     paths = {n: open_source(n, Purpose.KB) for n in names}
+    hpoa_manifest = None
+    if hpoa_artifact:
+        hpoa_manifest = load_manifest(hpoa_artifact)
+        paths["hpo_annotations"] = fetch_outputs(hpoa_manifest)[0]
     profiles_manifest = load_manifest(gene_profiles)
     profiles_path = fetch_outputs(profiles_manifest)[0]
     dropped, holdout_manifest = None, None
@@ -100,6 +111,8 @@ def kb_build(
     stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in names]
+    if hpoa_manifest:
+        inputs.append({"id": f"artifact:{hpoa_artifact}", "sha256": hpoa_manifest.outputs[0].sha256})
     inputs.append({"id": f"{mask_scope}-pmids:{mask_split}", "sha256": sha256_file(mask_path)})
     inputs.append({"id": f"artifact:{gene_profiles}", "sha256": profiles_manifest.outputs[0].sha256})
     if holdout_manifest:
@@ -112,6 +125,8 @@ def kb_build(
         "gene_weights": gene_profiles,
         "heldout_annotations_dropped": holdout_annotations or None,
     }
+    if hpoa_artifact:
+        params["hpoa_artifact"] = hpoa_artifact
     manifest = build_manifest(kb_id, "rerank-kb", inputs, params, [kb_path, stats_path])
     if publish:
         manifest = publish_release(manifest, kb_id)
@@ -264,7 +279,9 @@ app.add_typer(rerank_app, name="rerank")
 @rerank_app.command("eval")
 def rerank_eval(
     exp: str = typer.Option(..., help="Pre-registered experiment id"),
-    cohort: str = typer.Option(..., help="e.g. r1-v1/test (sealed: needs --reason)"),
+    cohort: str = typer.Option(
+        ..., help="e.g. r1-v1/test (sealed: needs --reason and DXT_SEALED_READ=<exp> in the environment)"
+    ),
     reason: str = typer.Option("", help="Required for a sealed cohort"),
     kb_id: str = typer.Option("kb-v3", "--kb"),
     neg: float = typer.Option(0.0),
@@ -273,7 +290,11 @@ def rerank_eval(
     onset: float = typer.Option(0.0),
     top_k: int = typer.Option(200),
 ) -> None:
-    """One fixed rr-v1 configuration vs E0 on a cohort, as given and with excluded terms removed."""
+    """One fixed rr-v1 configuration vs E0 on a cohort, as given and with excluded terms removed.
+
+    A sealed cohort is read only with DXT_SEALED_READ=<exp> set to the same experiment id, e.g.
+    `DXT_SEALED_READ=EXP-B-003 dxt rerank eval --exp EXP-B-003 --cohort r1-v1/test --reason ...`.
+    """
 
     from diagnostic_ar_training import RESULTS_DIR, splits
     from diagnostic_ar_training.cohorts import access
@@ -758,7 +779,9 @@ app.add_typer(s3_app, name="s3")
 @s3_app.command("run")
 def s3_run_cmd(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-S3-001"),
-    part: str = typer.Option("dev", help="dev, or test (sealed)"),
+    part: str = typer.Option(
+        "dev", help="dev, or test (sealed: needs --reason and DXT_SEALED_READ=<exp> in the environment)"
+    ),
     reason: str = typer.Option("", help="Required for the sealed part"),
     kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner and the features"),
     rr2_fits: str = typer.Option(
@@ -771,7 +794,11 @@ def s3_run_cmd(
         [], "--system", help="Score only these systems (E0 references are always scored)"
     ),
 ) -> None:
-    """Interview every S3 case once, score every pre-registered system on the same answers."""
+    """Interview every S3 case once, score every pre-registered system on the same answers.
+
+    The sealed test part is read only with DXT_SEALED_READ=<exp> set to the same experiment id, e.g.
+    `DXT_SEALED_READ=EXP-B-004 dxt s3 run --exp EXP-B-004 --part test --reason ...`.
+    """
     import numpy as np
 
     from diagnostic_ar_training import REPO_ROOT, RESULTS_DIR

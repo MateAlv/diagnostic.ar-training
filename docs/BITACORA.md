@@ -3616,6 +3616,86 @@ this task, whatever the result**; the last read needs Mateo's OK.
   left as written (ledger rows are never edited); Mateo decides whether it
   counts against EXP-B-004's one read.
 
+## 2026-10-03: ADR-0014 phase 2b, re-ranker feature variants behind configuration (code only)
+
+- **Branch** `phase4/rerank-variants`. No evaluation run, no data read beyond
+  mocks. Nothing here changes rr-v1: the default `FeatureParams` and the
+  `llr` form are byte-identical to the previous code path (test against the
+  legacy loop, and against `learned.table` plus `s3_run.rr_v1_beta(neg=0.5)`).
+- **L1 negation forms** (`rerank/features.negation`, selected by
+  `FeatureParams.neg_form`; every form sums log(1 - k·P(t | g)) over excluded
+  terms, k = `neg_strength`):
+  - `llr`: all excluded terms (rr-v1).
+  - `gated`: only terms with P(t | g) ≥ `neg_tau`.
+  - `capped`: the total is floored at −`neg_cap` (log units).
+  - `propagated`: only the most general excluded terms (no excluded
+    ancestor), each counted once.
+- **Finding on (iv):** P(t | g) already is P(t or any descendant) in every
+  form, because `GeneKnowledge._propagated` pushes each annotation up to all
+  ancestors with a noisy-OR. So rr-v1 already counts a "no" to a parent
+  against genes annotating only a child. What `propagated` adds is dedup:
+  an excluded parent and its excluded child are one "no", not two charges for
+  the same annotation. A "no" to a child never counts against a gene that
+  annotates only the parent.
+- **Config** `rerank/config.RerankConfig` (kb id, form and parameters, top_k,
+  weights over `COMPONENTS`), canonical JSON, `config_hash` (12 hex of
+  sha256), `beta()`, `knowledge()`, and `rr_v1_reference()` (kb-v5, llr,
+  k = 0.5, neg weight 0.5; hash `8488e32fc7c2`).
+- **L3 audit** (no component changed): `sex_prior`, `sex_restricted`,
+  `age_mean`, `age_any`, `onset` compute what their names say, from the kb
+  and `MALE_SHARE` only. Two points for Mateo:
+  1. kb `onset_years` is **HPOA onset terms first, Orphanet only as the
+     fallback** (`onset_source` in kb.build), not Orphanet-only as ADR-0014
+     says. It is still knowledge, and independent of `onset-ages`, but the
+     ADR wording should be corrected or the claim checked per `onset_source`.
+  2. `onset` and `term_probability` assume each gene's disease weights sum to
+     1; this was not verified (no data read).
+- **Tests** `tests/test_rerank_variants.py`, including a static and a runtime
+  guard that no `rerank/` module names, imports or opens an `onset-ages`
+  artifact.
+
+## 2026-10-03: sealed-read guard; kb-v6 and kb-v7 (ADR-0014 phase 2a)
+
+- **Guard (Mateo's decision).** The 20:59 `s3-v2/test` ledger row (EXP-B-004,
+  reason `x`) was a non-substantive technical access; nothing was inspected;
+  Mateo ruled it does not consume EXP-B-004's read. Every sealed load now also
+  requires `DXT_SEALED_READ=<exp_id>` (`ledger.require_sealed_read_env`, called
+  from `splits.load_part` for R1 test/vault and `cohorts/s3.load_part` for S3
+  test), before anything is loaded or ledgered. Documented in EVAL_PROTOCOL §2,
+  the `dxt s3 run` and `dxt rerank eval` help, and an ADR-0014 note. Tests: refused
+  without the variable, refused with the wrong value, allowed with the match, for
+  both loaders; an autouse fixture redirects the ledger so no test writes
+  `docs/TEST_LEDGER.md`. MCRD/DDD reads through `cohorts.access` are not covered.
+- **`dxt kb build --hpoa-artifact`** reads a published phenotype.hpoa artifact in
+  place of the pinned `hpo_annotations` source (recorded as an input and in
+  `params.hpoa_artifact`). `kb.build` stats now also count the basis of each
+  phenotype frequency (counts / percent / category / unknown).
+- **Split mapping.** `annot-split-v2` half B has 76,565 pairs. All their diseases
+  are in the old HPOA; 75,201 pairs (98.2%) are positive (disease, term) pairs
+  of the old HPOA (28.5% of its 263,650), and 1,364 exist only in
+  `hpoa-enriched-v2` (literature or recount rows), so they drop nothing in kb-v6.
+- **kb-v6** = kb-v5's sources and parameters (old HPOA, `genes-v1`, R1 held-out
+  PMIDs masked) with half B of `annot-split-v2` dropped. **kb-v7** =
+  `hpoa-enriched-v2` (masking changes 0 rows, as it was already masked), `genes-v2`,
+  ADR-0007 frequencies, half B of `annot-split-v2` dropped. Onset and
+  inheritance come from HPOA aspect C/I and Orphanet only, as in kb-v5;
+  `hpoa-lit-v2` has P rows only and `onset-ages-v2` is not an input. Both
+  manifests record `heldout_annotations_dropped=annot-split-v2`; published as
+  releases `kb-v6` and `kb-v7`. No S3 v2 patient was read.
+
+| | kb-v5 | kb-v6 | kb-v7 |
+|---|---|---|---|
+| half B dropped | annot-split-v1 | annot-split-v2 | annot-split-v2 |
+| diseases | 12,774 | 12,773 | 12,776 |
+| genes | 5,186 | 5,188 | 5,019 |
+| phenotype pairs (A) | 174,856 | 174,759 | 179,069 |
+| freq known / unknown | 138,319 / 36,537 | 138,079 / 36,680 | 142,964 / 36,105 |
+| freq from counts / percent / category | n/a | 54,940 / 80 / 83,059 | 57,308 / 2,722 / 82,934 |
+| freq == 1.0 | 471 | 458 | 689 |
+| diseases with onset (hpoa / orphanet / alignment) | 9,476 (4,303 / 3,783 / 1,390) | 9,474 (4,303 / 3,782 / 1,389) | 9,475 (4,303 / 3,782 / 1,390) |
+| diseases with inheritance | 8,175 | 8,175 | 8,175 |
+| negated annotations | 720 | 720 | 781 |
+
 ### 2026-10-03: EXP-Q-001 phase 2c, question-strategy harness and smoke run (`phase4/question-harness`)
 
 - **Code.** `eval/questioning.py` (interface, answer rule, seeded noise, budget 9,

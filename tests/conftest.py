@@ -4,6 +4,12 @@ from diagnostic_ar_training.lineage import gitinfo, ledger, manifest
 from diagnostic_ar_training.lineage.gitinfo import CodeState
 
 
+@pytest.fixture(autouse=True)
+def _never_write_the_real_ledger(tmp_path, monkeypatch):
+    monkeypatch.setattr(ledger, "LEDGER", tmp_path / "TEST_LEDGER.md")
+    monkeypatch.delenv(ledger.SEALED_READ_ENV, raising=False)
+
+
 @pytest.fixture
 def clean_tree(monkeypatch):
     state = CodeState(repo="test", sha="a" * 40, dirty=False)
