@@ -3289,3 +3289,35 @@ this task, whatever the result**; the last read needs Mateo's OK.
   non-monotone relation (s 0.52 → 0.012, 0.62 → 0.016, 1.0 → 0.036), so the
   round-2 outcome is a measurement of the rule, not an expectation. Files:
   `results/realism/cand6-pilots/`.
+
+### 2026-10-02 — pilot — Candidate 6 pilot round 2; round 1 kept, `simcal-v053-v1` reused
+- **Round 2** (s 0.5887 by the rule; g, r unchanged; 0 invariant violations):
+  M 0.0159 (rel. 0.388), A 0.1016, S 0.0906; score 0.506 against round 1's
+  0.457. The rule moved s the wrong way for M, as flagged above.
+- **Every pair tried:**
+
+  | Round | g | s | r | A (0.093) | S (0.0929) | M (0.026) | Score |
+  |---|---|---|---|---|---|---|---|
+  | 1 | 0.0903 | 0.6198 | 0.1676 | 0.1016 | 0.0908 | 0.0171 | **0.457** |
+  | 2 | 0.0903 | 0.5887 | 0.1676 | 0.1016 | 0.0906 | 0.0159 | 0.506 |
+
+- **Selected:** round 1. Candidate 6 uses `simcal-v053-v1` unchanged, plus
+  `--presentation-ages` and `--onset-ages`; no `simcal-v054-v1` file exists.
+  The one allowed re-tune round is spent; M stays 34% below target (6b's
+  frozen round had 39%).
+- **Pilot table (round 1; candidate 6b round 3 in brackets):**
+
+  | Measure | Candidate 6 | [6b] |
+  |---|---|---|
+  | Total terms per case | 7.02 (profile 5.20 + noise 1.81) | [7.07] |
+  | TV total vs histogram | 0.098 | [0.100] |
+  | Explained / more specific / related / weak (vs kb-v3) | 0.673 / 0.091 / 0.100 / 0.136 | [0.676 / 0.092 / 0.099 / 0.134] |
+  | Ancestor share | 0.1016 (target 0.093) | [0.0962] |
+  | `forced_min_one` | 160 (3.3%) | [167] |
+  | Mean c | 2.911 | [2.948] |
+  | q capped share | 0.166 | [0.172] |
+  | Noise-only E0 MRR | 0.0171 (vocab 0.0011, related 0.0434) | [0.0158] |
+  | Spearman record size vs true terms, 489 genes | 0.690 | [0.700] |
+
+  Profiles are richer (4,548 literature rows) but the profile target k − n
+  is still capped by the true-term count: 5.21 realised of 6.99 wanted.

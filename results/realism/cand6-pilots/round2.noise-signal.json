@@ -1,0 +1,23 @@
+{
+ "cases_read": 4890,
+ "keep_one_in": 1,
+ "vocabulary": {
+  "cases_with_terms": 2591,
+  "mrr_in_vocab": 0.0011,
+  "terms": 4539,
+  "mean_ic": 4.301
+ },
+ "related": {
+  "cases_with_terms": 2538,
+  "mrr_in_vocab": 0.0427,
+  "terms": 4322,
+  "mean_ic": 6.81
+ },
+ "all_noise": {
+  "cases_with_terms": 3576,
+  "mrr_in_vocab": 0.0159,
+  "terms": 8861,
+  "mean_ic": 5.525
+ },
+ "ic_kb": "kb-v4"
+}
