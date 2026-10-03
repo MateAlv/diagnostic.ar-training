@@ -713,6 +713,9 @@ def annotations_split(
     split_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. annot-split-v1"),
     fraction: float = typer.Option(..., help="Share of positive annotations held out (half B)"),
     publish: bool = typer.Option(False),
+    hpoa_artifact: str = typer.Option(
+        "", help="Split the positive pairs of this hpoa-* artifact instead of the pinned upstream HPOA"
+    ),
 ) -> None:
     """Freeze which HPOA annotations systems under S3 may not know (EVAL_PROTOCOL §8)."""
     from diagnostic_ar_training.lineage.manifest import ensure_new
@@ -720,18 +723,28 @@ def annotations_split(
     ensure_new(split_id)
     from diagnostic_ar_training import INTERIM_DIR
     from diagnostic_ar_training.knowledge import annotation_split
-    from diagnostic_ar_training.lineage.manifest import build_manifest, write_manifest
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
     from diagnostic_ar_training.lineage.manifest import publish as publish_release
     from diagnostic_ar_training.lineage.registry import Purpose, load_sources, open_source
 
     salt = f"diagnostic.ar-training/{split_id}"
-    pairs = annotation_split.split(open_source("hpo_annotations", Purpose.KB), fraction, salt)
+    if hpoa_artifact:
+        hpoa = next(p for p in fetch_outputs(load_manifest(hpoa_artifact)) if p.name == "phenotype.hpoa")
+        input_ref = {"id": f"artifact:{hpoa_artifact}", "sha256": sha256_file(hpoa)}
+    else:
+        hpoa = open_source("hpo_annotations", Purpose.KB)
+        input_ref = load_sources()["hpo_annotations"].as_input()
+    pairs = annotation_split.split(hpoa, fraction, salt)
     path = INTERIM_DIR / "annotations" / split_id / "heldout.tsv"
     annotation_split.write(pairs, path)
     params = {"fraction": fraction, "salt": salt, "unit": "(disease_id, hpo_id) positive aspect-P annotation"}
-    manifest = build_manifest(
-        split_id, "annotation-split", [load_sources()["hpo_annotations"].as_input()], params, [path]
-    )
+    manifest = build_manifest(split_id, "annotation-split", [input_ref], params, [path])
     if publish:
         manifest = publish_release(manifest, split_id)
     write_manifest(manifest)
