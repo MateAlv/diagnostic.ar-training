@@ -776,14 +776,55 @@ s3_app = typer.Typer(no_args_is_help=True, help="S3: simulated question-agent ev
 app.add_typer(s3_app, name="s3")
 
 
+def _s3_dataset(split_id: str):
+    """(spec, dataset path, excluded case ids) of an S3 version; the exclusion list applies to s3-v2 only."""
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.lineage.manifest import fetch_outputs, load_manifest
+
+    try:
+        spec = s3.spec(split_id)
+    except ValueError as e:
+        raise typer.BadParameter(str(e)) from e
+    data = next(
+        p for p in fetch_outputs(load_manifest(spec.dataset_artifact)) if p.name.endswith(".jsonl.gz")
+    )
+    excluded: set[str] = set()
+    if spec.exclusion_artifact:
+        path = next(
+            p for p in fetch_outputs(load_manifest(spec.exclusion_artifact)) if p.name == "exclude.txt"
+        )
+        excluded = set(path.read_text().split())
+    return spec, data, excluded
+
+
+def _s3_exclusion_sha(spec) -> str | None:
+    from diagnostic_ar_training.lineage.manifest import load_manifest
+
+    if not spec.exclusion_artifact:
+        return None
+    return next(
+        o.sha256 for o in load_manifest(spec.exclusion_artifact).outputs if o.path.endswith("exclude.txt")
+    )
+
+
+def _check_s3_kb(split_id: str, kb_manifest) -> None:
+    from diagnostic_ar_training.cohorts import s3
+
+    try:
+        s3.check_kb_split(split_id, kb_manifest.params.get("heldout_annotations_dropped"))
+    except ValueError as e:
+        raise typer.BadParameter(f"{kb_manifest.artifact_id}: {e} (EVAL_PROTOCOL §8)") from e
+
+
 @s3_app.command("run")
 def s3_run_cmd(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-S3-001"),
+    split: str = typer.Option("s3-v1", help="s3-v1, or s3-v2 (drops the s3-data-v2-excl-v1 cases)"),
     part: str = typer.Option(
         "dev", help="dev, or test (sealed: needs --reason and DXT_SEALED_READ=<exp> in the environment)"
     ),
     reason: str = typer.Option("", help="Required for the sealed part"),
-    kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner and the features"),
+    kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B of the split's annotation split"),
     rr2_fits: str = typer.Option(
         "results/EXP-B-002/rr-v2-fits.json", help="rr-v2 fitted weights (EXP-B-002)"
     ),
@@ -825,11 +866,11 @@ def s3_run_cmd(
     if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
         raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before S3 runs")
     kb_manifest = load_manifest(kb_id)
-    if kb_manifest.params.get("heldout_annotations_dropped") != "annot-split-v1":
-        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v1 (EVAL_PROTOCOL §8)")
-    data_manifest = load_manifest("s3-data-v1")
-    data = next(p for p in fetch_outputs(data_manifest) if p.name.endswith(".jsonl.gz"))
-    pairs = s3.load_part("s3-v1", part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    _check_s3_kb(split, kb_manifest)
+    spec, data, excluded = _s3_dataset(split)
+    excl_sha = _s3_exclusion_sha(spec)
+    pairs = s3.load_part(split, part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    pairs = [p for p in pairs if p[0].case_id not in excluded]
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
     knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
     e0 = GenPheniaV3()
@@ -889,7 +930,7 @@ def s3_run_cmd(
         },
         "systems": {},
     }  # fmt: skip
-    outputs = [harness.write(exp, f"s3-v1/{part}", "E0-initial", "interviewed", initial)[0]]
+    outputs = [harness.write(exp, f"{split}/{part}", "E0-initial", "interviewed", initial)[0]]
     for name, beta in systems.items():
         recs = records(lambda i, b=beta: i.table.combine(b))
         report["systems"][name] = {
@@ -897,17 +938,20 @@ def s3_run_cmd(
             "summary": harness.summarize(recs)["all"],
             "vs_E0+answers": harness.compare(base, recs),
         }
-        outputs.append(harness.write(exp, f"s3-v1/{part}", name, "interviewed", recs)[0])
-    report_path = out_dir / f"s3-v1-{part}__report.json"
+        outputs.append(harness.write(exp, f"{split}/{part}", name, "interviewed", recs)[0])
+    report_path = out_dir / f"{split}-{part}__report.json"
     report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
     outputs.append(report_path)
     inputs = e0.lineage_inputs() + [
         {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
-        {"id": "artifact:s3-data-v1", "sha256": sha256_file(data)},
-        {"id": "split:s3-v1", "sha256": sha256_file(SPLITS_DIR / "s3-v1.json")},
+        {"id": f"artifact:{spec.dataset_artifact}", "sha256": sha256_file(data)},
+        {"id": f"split:{split}", "sha256": sha256_file(SPLITS_DIR / f"{split}.json")},
         {"id": rr2_fits, "sha256": sha256_file(REPO_ROOT / rr2_fits)},
     ]
+    if spec.exclusion_artifact:
+        inputs.append({"id": f"artifact:{spec.exclusion_artifact}", "sha256": excl_sha})
     params = {
+        "split": split,
         "part": part,
         "kb": kb_id,
         "n_candidates": n_candidates,
@@ -916,7 +960,7 @@ def s3_run_cmd(
         "systems": sorted(systems),
     }
     write_manifest(
-        build_manifest(f"results-{exp}-s3-v1-{part}", "s3-run", inputs, params, outputs, state=state)
+        build_manifest(f"results-{exp}-{split}-{part}", "s3-run", inputs, params, outputs, state=state)
     )
     typer.echo(f"cases={len(interviewed)} questions/case={report['questions_per_case']:.2f} "
                f"yes/case={report['yes_per_case']:.2f} no/case={report['no_per_case']:.2f}")  # fmt: skip
@@ -1337,14 +1381,15 @@ S3_INTERVIEWS_DIR = DATA_DIR / "interim" / "s3-interviews"
 
 @s3_app.command("interviews")
 def s3_interviews(
+    split: str = typer.Option("s3-v1", help="s3-v1, or s3-v2 (drops the s3-data-v2-excl-v1 cases)"),
     kb_id: str = typer.Option("kb-v5", "--kb", help="KB without half B, for the questioner"),
     n_candidates: int = typer.Option(10),
     n_questions: int = typer.Option(7),
 ) -> None:
     """Interview S3-dev once, as `dxt s3 run` does, and keep the interviewed cases for Front A runs.
 
-    Writes the cases systems receive (present + "yes", "no" as excluded) with a manifest, and checks that
-    E0 on them reproduces EXP-S3-001's E0+answers ranks. S3-test is never read here.
+    Writes the cases systems receive (present + "yes", "no" as excluded) with a manifest. For s3-v1 it also
+    checks that E0 on them reproduces EXP-S3-001's E0+answers ranks. S3-test is never read here.
     """
     import numpy as np
 
@@ -1366,17 +1411,15 @@ def s3_interviews(
     from diagnostic_ar_training.rerank.features import GeneKnowledge
     from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
-    artifact = f"s3-v1-dev-interviews-{kb_id}-c{n_candidates}-q{n_questions}"
+    artifact = f"{split}-dev-interviews-{kb_id}-c{n_candidates}-q{n_questions}"
     ensure_new(artifact)
     state = code_state()
     if state.dirty:
         raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
     kb_manifest = load_manifest(kb_id)
-    if kb_manifest.params.get("heldout_annotations_dropped") != "annot-split-v1":
-        raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v1 (EVAL_PROTOCOL §8)")
-    data_manifest = load_manifest("s3-data-v1")
-    dataset = next(p for p in fetch_outputs(data_manifest) if p.name.endswith(".jsonl.gz"))
-    pairs = s3.load_part("s3-v1", "dev", dataset)
+    _check_s3_kb(split, kb_manifest)
+    spec, dataset, excluded = _s3_dataset(split)
+    pairs = [p for p in s3.load_part(split, "dev", dataset) if p[0].case_id not in excluded]
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
     knowledge = GeneKnowledge(kb.read(fetch_outputs(kb_manifest)[0]), ontology)
     e0 = GenPheniaV3()
@@ -1384,14 +1427,17 @@ def s3_interviews(
     path = S3_INTERVIEWS_DIR / f"{artifact}.jsonl.gz"
     s3_run.write_interviews(path, interviews)
 
-    reference = {r["case_id"]: r["rank"] for r in harness.read(
-        RESULTS_DIR / "EXP-S3-001" / "s3-v1-dev__E0+answers__interviewed.ranks.jsonl")}  # fmt: skip
     after = s3_run.read_interviews(path)
-    ranks = {c.case_id: s3_run.rank(e0.score(c).probs, e0.genes, c.gene) for c in after}
-    if set(ranks) != set(reference):
-        raise LineageError("the interviewed cases are not EXP-S3-001's S3-dev cases")
-    identical = sum(ranks[k] == reference[k] for k in ranks)
+    identical = None
+    if split == "s3-v1":
+        reference = {r["case_id"]: r["rank"] for r in harness.read(
+            RESULTS_DIR / "EXP-S3-001" / "s3-v1-dev__E0+answers__interviewed.ranks.jsonl")}  # fmt: skip
+        ranks = {c.case_id: s3_run.rank(e0.score(c).probs, e0.genes, c.gene) for c in after}
+        if set(ranks) != set(reference):
+            raise LineageError("the interviewed cases are not EXP-S3-001's S3-dev cases")
+        identical = sum(ranks[k] == reference[k] for k in ranks)
     params = {
+        "split": split,
         "part": "dev",
         "kb": kb_id,
         "n_candidates": n_candidates,
@@ -1400,16 +1446,19 @@ def s3_interviews(
         "questions_per_case": float(np.mean([len(i.questions) for i in interviews])),
         "yes_per_case": float(np.mean([i.yes for i in interviews])),
         "no_per_case": float(np.mean([len(i.after.excluded) for i in interviews])),
-        "e0_ranks_identical_to_EXP-S3-001": identical,
     }
+    if identical is not None:
+        params["e0_ranks_identical_to_EXP-S3-001"] = identical
     inputs = e0.lineage_inputs() + [
         {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
-        {"id": "artifact:s3-data-v1", "sha256": sha256_file(dataset)},
-        {"id": "split:s3-v1", "sha256": sha256_file(SPLITS_DIR / "s3-v1.json")},
+        {"id": f"artifact:{spec.dataset_artifact}", "sha256": sha256_file(dataset)},
+        {"id": f"split:{split}", "sha256": sha256_file(SPLITS_DIR / f"{split}.json")},
     ]
+    if spec.exclusion_artifact:
+        inputs.append({"id": f"artifact:{spec.exclusion_artifact}", "sha256": _s3_exclusion_sha(spec)})
     write_manifest(build_manifest(artifact, "s3-interviews", inputs, params, [path], state=state))
     typer.echo(json.dumps(params, indent=1))
-    if identical != len(after):
+    if identical is not None and identical != len(after):
         raise typer.Exit(1)
 
 
