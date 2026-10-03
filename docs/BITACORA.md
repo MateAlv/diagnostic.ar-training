@@ -3254,3 +3254,145 @@ literature-enriched profiles come later, as candidate 6.
 - **Declared:** C037's bin cells (">90%", 7 rows) store the bin midpoint
   rather than the bound.
 - **Next:** candidate 6 (simulator 0.5.4), train-side only.
+
+### 2026-10-02 — pre-registration + pilot round 1 — Candidate 6 (ADR-0011 amendment 8, enriched profiles); train-side only
+Written and committed before any candidate 6 re-tune run. **No R1-dev read in
+this task, whatever the result**; the last read needs Mateo's OK.
+- **Generator:** rare-disease-simulator 0.5.4, `git archive cfc20da` of the
+  main history (sha256 `4664812d146ade15f7004cf069e963cb8778f4313f0007608b3becda46794433`),
+  extracted in the scratchpad and run with `PYTHONPATH=src`; never the shared
+  checkout. Recorded as "rare-disease-simulator@cfc20da (git archive)".
+- **Profiles:** `build-profiles --from-hpoa` on `hpoa-enriched-v1`
+  (`phenotype.hpoa` sha256 `fb657492…`) + genes-v2, with the r1-v1 held-out
+  PMID mask. Summary: 9,223 profiles (as with hpoa-recount-v1), 204,300
+  positive annotations (199,752 with hpoa-recount-v1: +4,548 literature
+  rows), 534 negatives (478), **0 masked HPOA rows**.
+- **Ages:** `--presentation-ages` = `presentation-ages-v1` (sha256
+  `f628687c…`), `--onset-ages` = `onset-ages-v1` (sha256 `e9de2163…`).
+- **Pilot:** `simcal-v053-v1` unchanged, 523-symbol list (sha256
+  `5c817192…`), 10 per gene, medium, seed 91001, full profiles; the two age
+  files are on, since they are part of candidate 6. Targets and drift
+  threshold: A 0.093, S 0.0929, M 0.026; a re-tune round runs only if a
+  target is more than **20%** off in relative terms (the task's rule). The
+  re-tune uses candidate 6b's update rules (`cand6b_pilot_rounds.py`):
+  g' = g × 0.093 / A, r' = r × 0.0929 / S, s' = (0.026 − MRR_voc) /
+  (MRR_rel − MRR_voc), each changed only if its own target drifted.
+  At most **one** re-tune round. The better of rounds 1 and 2 by the 6b
+  score (sum of the three relative errors; ties: earlier) is frozen as
+  `simcal-v054-v1`, or `simcal-v053-v1` + the age files is reused if round 1
+  stays.
+- **Round 1 (g 0.0903, s 0.6198, r 0.1676; 0 invariant violations):**
+  A 0.1016 (rel. 0.093), S 0.0908 (0.023), **M 0.0171 (rel. 0.342)**; score
+  0.457. Only M drifts by more than 20%, so only s moves. The rule gives
+  s' = (0.026 − 0.0011) / (0.0434 − 0.0011) = **0.5887**, g and r kept.
+  This lowers s while M is already below target; 6b showed the same
+  non-monotone relation (s 0.52 → 0.012, 0.62 → 0.016, 1.0 → 0.036), so the
+  round-2 outcome is a measurement of the rule, not an expectation. Files:
+  `results/realism/cand6-pilots/`.
+
+### 2026-10-02 — pilot — Candidate 6 pilot round 2; round 1 kept, `simcal-v053-v1` reused
+- **Round 2** (s 0.5887 by the rule; g, r unchanged; 0 invariant violations):
+  M 0.0159 (rel. 0.388), A 0.1016, S 0.0906; score 0.506 against round 1's
+  0.457. The rule moved s the wrong way for M, as flagged above.
+- **Every pair tried:**
+
+  | Round | g | s | r | A (0.093) | S (0.0929) | M (0.026) | Score |
+  |---|---|---|---|---|---|---|---|
+  | 1 | 0.0903 | 0.6198 | 0.1676 | 0.1016 | 0.0908 | 0.0171 | **0.457** |
+  | 2 | 0.0903 | 0.5887 | 0.1676 | 0.1016 | 0.0906 | 0.0159 | 0.506 |
+
+- **Selected:** round 1. Candidate 6 uses `simcal-v053-v1` unchanged, plus
+  `--presentation-ages` and `--onset-ages`; no `simcal-v054-v1` file exists.
+  The one allowed re-tune round is spent; M stays 34% below target (6b's
+  frozen round had 39%).
+- **Pilot table (round 1; candidate 6b round 3 in brackets):**
+
+  | Measure | Candidate 6 | [6b] |
+  |---|---|---|
+  | Total terms per case | 7.02 (profile 5.20 + noise 1.81) | [7.07] |
+  | TV total vs histogram | 0.098 | [0.100] |
+  | Explained / more specific / related / weak (vs kb-v3) | 0.673 / 0.091 / 0.100 / 0.136 | [0.676 / 0.092 / 0.099 / 0.134] |
+  | Ancestor share | 0.1016 (target 0.093) | [0.0962] |
+  | `forced_min_one` | 160 (3.3%) | [167] |
+  | Mean c | 2.911 | [2.948] |
+  | q capped share | 0.166 | [0.172] |
+  | Noise-only E0 MRR | 0.0171 (vocab 0.0011, related 0.0434) | [0.0158] |
+  | Spearman record size vs true terms, 489 genes | 0.690 | [0.700] |
+
+  Profiles are richer (4,548 literature rows) but the profile target k − n
+  is still capped by the true-term count: 5.21 realised of 6.99 wanted.
+
+### 2026-10-02 — build — `ds-sim0.5.4-full-n100-s1001` (candidate 6): G1 passes
+- **Versions:** rare-disease-simulator 0.5.4 (`git archive cfc20da`, sha256
+  `4664812d…`), `simcal-v053-v1` unchanged, `hpoa-enriched-v1` profiles,
+  genes-v2, report-model-v3, cardinal-v1, `presentation-ages-v1` (79 diseases,
+  7,944 cases used it), `onset-ages-v1` (372 diseases, 25,305 cases); gene-first,
+  100 per gene, medium, seed 1001; full profiles only.
+- **G1:** 489,200 cases / 4,892 genes (336 vocabulary genes skipped, as in
+  0.5.3); `validate` 0 violations (cases and export); a 20-gene slice (18
+  simulated, 1,800 cases; the slice genes are every 260th vocabulary gene from
+  index 7, `slice-genes.txt`) run twice: byte-identical to each other and to
+  the full run's 1,800 lines (cases and export); `dxt lineage verify` ok;
+  overlap R1 keys 149, S3 1,462 (228 same signature); `-excl-v1` excludes
+  1,591, residual 0; dataset and exclusion list published.
+- **Run summary:** total shown 6.90 per case (5.12 profile + 1.79 noise); k
+  mean 8.70, profile target 6.92 (realised 5.13), TV total vs k 0.113; mean c
+  3.016; `forced_min_one` 17,041 (3.5%); q capped 0.175.
+
+### 2026-10-02 — go/no-go — v0.5.4 candidate 6: train-side fails on G2c only; no R1-dev read
+- **Commands:** `dxt sim realism --no-dev --label v0.5.4-cand6-full-nodev`,
+  `dxt sim train-checks`, `dxt sim gate`
+  (`results/realism/gate-v0.5.4-cand6-gonogo.md`; no ledger row), plus the
+  analysis scripts (`results/realism/v0.5.4-cand6.*`).
+
+  | Check | UP | V03-full | C3 | C4 | C5 | C6a | C6b | **C6** | Rule | Result |
+  |---|---|---|---|---|---|---|---|---|---|---|
+  | G2a truth layer | 0.416 | 0.336 | 0.305 | 0.307 | 0.306 | 0.306 | 0.304 | **0.304** | beat both | ✅ |
+  | G2c W1 | 3.717 | 1.653 | 1.732 | 5.754 | 1.908 | 2.955 | 1.816 | **1.795** | beat both | ❌ (V03-full 1.653) |
+  | G2d C2ST AUC | 0.840 | 0.819 | 0.764 | 0.822 | 0.809 | 0.764 | 0.721 | **0.730** [0.699, 0.764] | beat both, ≤ 0.75 | ✅ (CI upper end above 0.75) |
+  | G2e gap | 0.414 | 0.183 | 0.142 | 0.204 | 0.049 | 0.011 | 0.077 | **0.079** (E0 0.326) | beat both, ≤ 0.10 | ✅ |
+  | G2b-train (83 genes) | 0.241 | 0.385 | 0.536 | 0.502 | 0.537 | 0.507 | 0.522 | **0.519** | beat both | ✅ |
+  | Age median abs log ratio (69 genes) | — | 0.537 | 0.539 | 0.571 | 0.555 | 0.584 | 0.603 | **0.585** | report only | |
+
+- **Per-gene median age** (years; `results/realism/v0.5.4-cand6.age-table.json`):
+
+  | Gene | R1-train (n) | C6b | C6 |
+  |---|---|---|---|
+  | NF1 | 18.0 (158) | 5.15 | 5.26 |
+  | LMNA | 46.0 (27) | 23.6 | 23.6 |
+  | FBN1 | 18.5 (66) | 28.61 | 28.61 |
+  | PTPN11 | 7.5 (10) | 4.45 | 4.63 |
+  | KMT2D | 11.6 (11) | 2.83 | 3.10 |
+  | TBX5 | 33.0 (41) | 2.58 | 2.52 |
+  | UMOD | 39.0 (76) | 32.06 | 31.76 |
+  | FBXL4 | 2.0 (33) | 7.38 | 7.29 |
+  | SPTAN1 | 46.0 (13) | 11.79 | 13.22 |
+  | ITPR1 | 16.0 (45) | 18.98 | 17.18 |
+  | COL3A1 | 32.0 (35) | 4.25 | 3.88 |
+
+  **The age files barely touch the scored genes:** none of these 11 genes has
+  a literature onset or presentation age (every case is `onset_age_source:
+  category`), and only 2 of the 69 scored genes do (ASPM 45 cases, CLN3 100).
+  The 0.603 → 0.585 change comes from the simulation's other draws.
+- **Terms per case** (present), p10 / p25 / median / p75 / p90: simulated 2 / 3 /
+  6 / 9 / 13, mean 6.90; R1-train 2 / 4 / 7 / 11 / 17, mean 8.70. Excluded
+  (negated) terms: simulated 1 / 4 / 9 / 16 / 24, mean 11.38; R1-train 1 / 2 /
+  7 / 15 / 26, mean 10.99.
+- **Other checks:**
+  - Ancestor share (1 in 50, kb-v3): 0.103 (R1-train uncited 0.093; candidate
+    6b 0.095).
+  - Categories vs kb-v3 (5%): 0.676 / 0.095 / 0.095 / 0.135 (explained / more
+    specific / related / weak; summed error 0.036 against calib-v2, 6b 0.042).
+  - C2ST top separators (univariate AUC): annotated share 0.367, noise share
+    0.600, mean depth 0.418.
+  - Record size vs true terms, 84 R1 genes: Spearman 0.747 (real 0.497).
+  - E0 ablation (3,073 kept cases): as exported 0.331, no noise 0.498, no
+    generalisation 0.343, no specialisation 0.374.
+- **Housekeeping:** the 3.59 GB rich-cases file was deleted; its sha256
+  `21446646…` (equal to the run summary's) and a 1-in-160 sample (3,109 cases)
+  stay in `outputs/v0.5.4-cand6/full/`.
+- **Verdict:** ❌ stops on G2c alone, as 6b did. Enrichment added 4,548
+  annotations and the age files, but records stay short (6.90 vs 8.70 terms;
+  realised profile terms 5.13 of a 6.92 target): the true-term cap, not the
+  profiles' richness at the margin, still limits record size. G2d is 0.730,
+  within 0.01 of 6b. No R1-dev read; Mateo decides.

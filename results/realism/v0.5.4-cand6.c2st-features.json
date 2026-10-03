@@ -1,0 +1,119 @@
+{
+ "pairs": 3514,
+ "top": [
+  {
+   "feature": "annotated_share",
+   "auc": 0.367,
+   "sep": 0.133,
+   "real_mean": 0.57,
+   "sim_mean": 0.435
+  },
+  {
+   "feature": "noise_share",
+   "auc": 0.6,
+   "sep": 0.1,
+   "real_mean": 0.374,
+   "sim_mean": 0.463
+  },
+  {
+   "feature": "mean_depth",
+   "auc": 0.418,
+   "sep": 0.082,
+   "real_mean": 6.559,
+   "sim_mean": 6.333
+  },
+  {
+   "feature": "system:HP:0000598",
+   "auc": 0.527,
+   "sep": 0.027,
+   "real_mean": 0.025,
+   "sim_mean": 0.036,
+   "label": "Abnormality of the ear"
+  },
+  {
+   "feature": "system:HP:0000707",
+   "auc": 0.527,
+   "sep": 0.027,
+   "real_mean": 0.281,
+   "sim_mean": 0.297,
+   "label": "Abnormality of the nervous system"
+  },
+  {
+   "feature": "system:HP:0002715",
+   "auc": 0.526,
+   "sep": 0.026,
+   "real_mean": 0.046,
+   "sim_mean": 0.048,
+   "label": "Abnormality of the immune system"
+  },
+  {
+   "feature": "system:HP:0001574",
+   "auc": 0.476,
+   "sep": 0.024,
+   "real_mean": 0.085,
+   "sim_mean": 0.048,
+   "label": "Abnormality of the integument"
+  },
+  {
+   "feature": "system:HP:0000152",
+   "auc": 0.523,
+   "sep": 0.023,
+   "real_mean": 0.139,
+   "sim_mean": 0.147,
+   "label": "Abnormality of head or neck"
+  },
+  {
+   "feature": "system:HP:0000478",
+   "auc": 0.523,
+   "sep": 0.023,
+   "real_mean": 0.108,
+   "sim_mean": 0.097,
+   "label": "Abnormality of the eye"
+  },
+  {
+   "feature": "system:HP:0040064",
+   "auc": 0.48,
+   "sep": 0.02,
+   "real_mean": 0.058,
+   "sim_mean": 0.044,
+   "label": "Abnormality of limbs"
+  },
+  {
+   "feature": "system:HP:0001939",
+   "auc": 0.481,
+   "sep": 0.019,
+   "real_mean": 0.058,
+   "sim_mean": 0.04,
+   "label": "Abnormality of metabolism/homeostasis"
+  },
+  {
+   "feature": "term_count",
+   "auc": 0.484,
+   "sep": 0.016,
+   "real_mean": 8.061,
+   "sim_mean": 7.841
+  },
+  {
+   "feature": "log_term_count",
+   "auc": 0.484,
+   "sep": 0.016,
+   "real_mean": 1.823,
+   "sim_mean": 1.766
+  },
+  {
+   "feature": "mean_ic",
+   "auc": 0.515,
+   "sep": 0.015,
+   "real_mean": 4.546,
+   "sim_mean": 4.555
+  },
+  {
+   "feature": "system:HP:0001626",
+   "auc": 0.513,
+   "sep": 0.013,
+   "real_mean": 0.072,
+   "sim_mean": 0.065,
+   "label": "Abnormality of the cardiovascular system"
+  }
+ ]
+}
