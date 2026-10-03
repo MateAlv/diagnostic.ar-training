@@ -777,7 +777,14 @@ def audit_run(
 
 
 @audit_app.command("score")
-def audit_score(name: str = typer.Option(...)) -> None:
+def audit_score(
+    name: str = typer.Option(...),
+    from_item: str = typer.Option(
+        "",
+        help="Items before this one keep their issues from the existing issues file; use it after "
+        "audit fixes changed their shard rows (their row numbers refer to the rows at prepare time)",
+    ),
+) -> None:
     """Parse the answers; summarise issues per shard and list every flagged issue for human review."""
     from diagnostic_ar_training.knowledge import lit_audit as la
 
@@ -792,14 +799,16 @@ def audit_score(name: str = typer.Option(...)) -> None:
         if issues_path.is_file()
         else {}
     )
+    frozen = _read_tsv(issues_path) if from_item and issues_path.is_file() else []
     results, flagged, missing, unparseable, row_counts = [], [], [], [], {}
     for it in items:
-        rows = dict(_source_rows(it["shard"], it["source_id"]))
-        if len(rows) != int(it["rows"]):
+        keep = bool(from_item) and it["item"] < from_item
+        rows = {} if keep else dict(_source_rows(it["shard"], it["source_id"]))
+        if not keep and len(rows) != int(it["rows"]):
             raise LineageError(
                 f"item {it['item']}: {it['shard']} {it['source_id']} rows changed since prepare"
             )
-        row_counts[it["item"]] = len(rows)
+        row_counts[it["item"]] = int(it["rows"]) if keep else len(rows)
         answer = base / "items" / it["item"] / "answer.json"
         if not answer.is_file():
             missing.append(it["item"])
@@ -809,8 +818,8 @@ def audit_score(name: str = typer.Option(...)) -> None:
         except (json.JSONDecodeError, ValueError):
             unparseable.append(it["item"])
             continue
-        found = la.issues(it, parsed, rows)
-        for issue in found:
+        found = [r for r in frozen if r["item"] == it["item"]] if keep else la.issues(it, parsed, rows)
+        for issue in [] if keep else found:
             for c in ("detail", "quote"):
                 issue[c] = issue[c].replace("\t", " ").replace("\n", " ")
             key = (

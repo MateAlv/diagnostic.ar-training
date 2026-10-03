@@ -1,12 +1,12 @@
 {
  "code": {
-  "dirty": false,
+  "dirty": true,
   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
-  "sha": "743f1288dc993079a0b5a8808db79c36bba9e5b1"
+  "sha": "2ad6edfcb0537bf9719b5013a3a8081b40899e8f"
  },
- "notes_sha256": "d59a58881ad7a082282b85290935ec13484224c749334b8b685fef7054e05b4e",
+ "notes_sha256": "14925d2bb9d58e9ca51f005dd562319c632ef9d3fb28b350776aa5a574c16718",
  "problems": [],
- "rows_sha256": "7def793045d4896d88da312f391e681c803703df715ec901bf894837e4d43d24",
+ "rows_sha256": "e2e3dd0445d52a9f7ab62cbc0ee5ce94accc96f4bdc15b9be31bc5c7a36224f7",
  "shard": "Q018",
  "sources": {
   "PMID:16507150": {
@@ -35,7 +35,7 @@
   },
   "PMID:34940782": {
    "access_path": "europepmc-fulltext",
-   "rows": 26,
+   "rows": 24,
    "text_renderer": "lit-text-1",
    "text_sha256": "8b1e9ff9cf59e4582b4988afd04cfd97acf50e4e5061e533081145bfe620c273"
   },
@@ -84,22 +84,22 @@
  },
  "stats": {
   "age_rows": 1,
-  "feature_rows": 66,
+  "feature_rows": 64,
   "flags": {
    "pooled_group": 6
   },
-  "rows": 67,
+  "rows": 65,
   "rows_per_source": {
-   "PMID:34940782": 26,
+   "PMID:34940782": 24,
    "PMID:35505348": 6,
    "PMID:40044822": 23,
    "PMID:42022048": 12
   },
-  "rows_with_counts": 67,
+  "rows_with_counts": 65,
   "rows_with_range": 0,
   "sex_restricted": 0,
   "units": 4
  },
  "status": "pass",
- "validated_utc": "2026-10-01T23:01:08+00:00"
+ "validated_utc": "2026-10-03T17:01:51+00:00"
 }

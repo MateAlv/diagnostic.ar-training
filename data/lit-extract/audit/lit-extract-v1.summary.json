@@ -1,35 +1,19 @@
 {
  "items": 98,
- "answered": 83,
- "missing": [
-  "0084",
-  "0085",
-  "0086",
-  "0087",
-  "0088",
-  "0089",
-  "0090",
-  "0091",
-  "0092",
-  "0093",
-  "0094",
-  "0095",
-  "0096",
-  "0097",
-  "0098"
- ],
+ "answered": 98,
+ "missing": [],
  "unparseable": [],
  "total": {
   "sources": 98,
-  "answered": 83,
+  "answered": 98,
   "rows_audited": 852,
-  "sources_with_issue": 55,
+  "sources_with_issue": 58,
   "wrong_unit_rows": 6,
-  "missed_facts": 126,
-  "bad_rows": 112,
+  "missed_facts": 143,
+  "bad_rows": 116,
   "invalid_row_numbers": 0,
   "ok_false_without_entries": 0,
-  "share_sources_with_issue": 0.6627
+  "share_sources_with_issue": 0.5918
  },
  "by_shard": {
   "C001": {
@@ -1018,19 +1002,19 @@
   },
   "Q012": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 6,
-   "sources_with_issue": 0,
+   "sources_with_issue": 1,
    "wrong_unit_rows": 0,
-   "missed_facts": 0,
+   "missed_facts": 1,
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 1.0
   },
   "Q013": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1038,11 +1022,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q014": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 1,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1050,23 +1034,23 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q015": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 4,
-   "sources_with_issue": 0,
+   "sources_with_issue": 1,
    "wrong_unit_rows": 0,
-   "missed_facts": 0,
+   "missed_facts": 2,
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 1.0
   },
   "Q016": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1074,11 +1058,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q017": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1086,23 +1070,23 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q018": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 26,
-   "sources_with_issue": 0,
+   "sources_with_issue": 1,
    "wrong_unit_rows": 0,
-   "missed_facts": 0,
-   "bad_rows": 0,
+   "missed_facts": 14,
+   "bad_rows": 4,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 1.0
   },
   "Q019": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1110,11 +1094,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q020": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1122,11 +1106,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q021": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1134,11 +1118,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q022": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1146,11 +1130,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q023": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1158,11 +1142,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q024": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1170,11 +1154,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q025": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 0,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1182,11 +1166,11 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   },
   "Q026": {
    "sources": 1,
-   "answered": 0,
+   "answered": 1,
    "rows_audited": 1,
    "sources_with_issue": 0,
    "wrong_unit_rows": 0,
@@ -1194,8 +1178,8 @@
    "bad_rows": 0,
    "invalid_row_numbers": 0,
    "ok_false_without_entries": 0,
-   "share_sources_with_issue": null
+   "share_sources_with_issue": 0.0
   }
  },
- "issues_unresolved": 244
+ "issues_unresolved": 265
 }
