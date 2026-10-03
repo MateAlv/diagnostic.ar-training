@@ -7,6 +7,7 @@ model client is replaced by `E0Client`, which serves E0 on present + "yes", with
 re-ranker applied to the "no" answers, as the model service does for `excluded_hpo_ids`.
 """
 
+import os
 import subprocess
 import sys
 from collections.abc import Mapping
@@ -22,8 +23,10 @@ RANKING_TOP_K = 50
 
 
 def _git(*args: str) -> str:
+    # A git hook exports GIT_DIR, which would point `git -C` at our repo instead of the agent's.
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
     return subprocess.run(
-        ["git", "-C", str(AGENT_ROOT), *args], check=True, capture_output=True, text=True
+        ["git", "-C", str(AGENT_ROOT), *args], check=True, capture_output=True, text=True, env=env
     ).stdout.strip()
 
 
