@@ -3816,3 +3816,71 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - F vs F + onset w ∈ {0.25, 0.5, 1}, chosen on dev; one sealed read.
 - **Declared:** the app does not collect symptom onset today, so deployment
   would need the app to ask for it.
+
+### 2026-10-04 — data — ADR-0015 phase 1: `s3-data-v3`, split `s3-v3` frozen, contamination
+- **Branch** `phase5/s3-v3`. No system ran on S3 v3; `s3-v3/test` was never loaded (no `load_part` call, no ledger row,
+  `DXT_SEALED_READ` unset). Sealing is tested with mocks (`tests/test_s3_v3.py`).
+- **Step 1, eligible genes** (`scripts/s3_v3_eligible_genes.py`; list `data/s3/s3-v3-eligible-genes.txt`, sha256
+  `656a0b25…`; summary `data/s3/s3-v3-eligible-genes.summary.json`). The simulator's own `plan_genes` gives 4,892
+  simulable genes; the onset lookup is `OnsetAges.range_for((entity, *profile_ids))`, so any profile id counts.
+  - **Eligible: 120 genes, 126 entities.** Cases per gene = ceil(10,000 / 120) = **84**, 10,080 cases.
+  - **Rule:** every entity the simulator can draw for the gene (simulable, positive `sim_weight`, profile built) must
+    have an `onset-ages-v2` row. The gene-first simulator draws the entity per case by `sim_weight`, so one entity
+    without a row would put category-onset cases into the gene and break the 100% requirement.
+  - **Left out by that rule:** 277 genes with only some entities listed (397 genes if "any entity" were enough);
+    4,495 genes with none listed.
+  - **Consequence to keep in view:** the bootstrap over genes in EXP-B-005 has 120 clusters, not thousands.
+- **Step 2, `s3-data-v3`** (published): simulator 0.5.4 (`sim-pins/sim-0.5.4-cfc20da/`, archive sha256 `4664812d…`),
+  `simcal-s3-v2`, full profiles rebuilt from `hpoa-enriched-v2` + genes-v2 (sha256 `59e26012…`, identical to S3 v2's),
+  `onset-ages-v2`, `presentation-ages-v2`, report-model-v3, cardinal-v1; gene-first on the 120 genes, 84 per gene,
+  medium, **seed 4004**.
+  - **10,080 cases, 120 genes.** `validate`: 0 violations on the cases and on the export.
+  - **Literature onset: 10,080 / 10,080 (100%)** (`metadata.onset_age_source`).
+  - **Onset reported to the system** (`onset_years` not null after missingness): 5,991 (59.43%).
+  - **Known sex:** 9,280 (92.06%); female 4,326, male 4,954, unknown 800.
+  - Rich cases deleted after validation and export; sha256 `5f4fbefc3c0671247b6222f23ea3d7acfc376311effa68f3715b1ec6ef276c63`
+    (`outputs/s3v3/cases.jsonl.sha256`). Export sha256 `c9ef122aff83916a2e6c685d773957bbf163da3e73e707520a6349c618dde92a`.
+    Outputs in `rare-disease-simulator/outputs/s3v3/`.
+- **Step 3, split `s3-v3`** (salted hash of the case id, `% 10 < 3` dev; frozen and committed before anything ran):
+  **dev 3,106 / test 6,974**; content sha256
+  `746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db`. Test is sealed (`cohorts/s3.SEALED`, ledgered
+  read, `DXT_SEALED_READ=<exp_id>`), like s3-v2/test. s3-v1 and s3-v2 keep their 50/50 rule (the old content hashes
+  recompute unchanged).
+- **Step 4, contamination** (`scripts/s3_v3_contamination.py`; keys and signatures only, no case content printed;
+  S3 v1 and S3 v2 compared as whole files by signature, not through `load_part`):
+  - vs R1 (all parts, 8,925 keys): 0 shared (gene, present) keys.
+  - vs S3 v1: 0 signatures (3 present-set-only); vs S3 v2: 0 signatures (18 present-set-only).
+  - vs the 13 registered simulated training sets: 24 cases share a signature with at least one
+    (up to 13 in `ds-sim0.5.0-full`; `ds-sim0.5.4-full` 5).
+  - **Excluded: 24** (dev 9, test 15), in `s3-data-v3-excl-v1` (published; ids prefixed `s3-v3:`; consumers must apply
+    it). **Residual 0.** Present-set-only overlaps (548) are reported, not excluded.
+
+### 2026-10-04 — data — ADR-0015 rebuild: S3 v3 superseded by S3 v3b (`s3-data-v3b`, split `s3-v3b`)
+- **Why:** Mateo approved a rebuild for statistical power; 120 gene clusters (S3 v3, strict rule) are too few. S3 v3 was
+  never evaluated, and its artifacts (`s3-data-v3`, `s3-v3`, `s3-data-v3-excl-v1`) stay as they are, **superseded**.
+  The ADR-0015 and EXP-B-005 addenda were committed before any S3 v3b data existed. No system touched S3 v3b; `s3-v3b/test`
+  was never loaded (no `load_part` call, no ledger row, `DXT_SEALED_READ` unset).
+- **Eligible genes** (`any` rule; `data/s3/s3-v3b-eligible-genes.txt`, sha256 `8250c9c5…`): **397 genes** (962 drawable
+  entities, 372 of them with an `onset-ages-v2` row); 277 of the 397 have only some entities listed. Cases per gene =
+  ceil(15,000 / 397) = **38**, 15,086 cases. Seed **4005**; everything else as S3 v3.
+- **`s3-data-v3b`** (published): 15,086 cases, 397 genes, 0 violations on cases and export; profiles sha256 `59e26012…`
+  (identical to S3 v2/v3). Rich cases deleted; sha256 `6b61b31e2098475e2db1182a5c075bd3c2c401b8d265f55cb9c4948116d4a6dd`.
+  Export sha256 `0b9319f8b139f79d3121208f1cd491905c855401144c22805a89a6286101eb47`. Outputs in `outputs/s3v3b/`.
+  - **Literature onset: 9,709 / 15,086 (64.36%)**; category 5,377. The ids of the literature cases are an output
+    (`literature-onset-cases.txt`); the primary analysis uses only them.
+  - By part (case-level split of the literature ids; `scripts/s3_v3b_literature_report.py`, counts only):
+    dev 2,941 of 4,577 (64.26%), test 6,768 of 10,509 (64.40%). Genes with at least one literature case: dev 376,
+    **test 392**.
+  - **Onset reported to the system, among literature cases:** 5,805 / 9,709 (59.79%); dev 1,796, test 4,009.
+  - **Known sex (all cases):** female 6,339, male 7,627, unknown 1,120 (92.58% known).
+- **Split `s3-v3b`** (same salted-hash rule, `% 10 < 3` dev; frozen and committed before any system ran): **dev 4,577 /
+  test 10,509**; content sha256 `61660f7a32572f4007c8bbdd8afe4d952cd6bf0e681833360198f2b6082c4925`. Test sealed
+  with the same guard (`cohorts/s3.SEALED`, ledgered read, `DXT_SEALED_READ=<exp_id>`); mock tests in `tests/test_s3_v3.py`.
+- **Contamination** (`scripts/s3_v3b_contamination.py`; keys and signatures only; vs R1 all parts, S3 v1, S3 v2, S3 v3 and
+  the 13 registered simulated training sets): R1 (gene, present) key overlap 4; signature overlap 62 (S3 v1 4, S3 v2 0,
+  S3 v3 1, training sets up to 17 in `ds-sim0.5.4-full`). **Excluded: 66** (dev 15, test 51), in `s3-data-v3b-excl-v1`
+  (ids prefixed `s3-v3b:`; consumers must apply it). **Residual 0.** Present-set-only overlaps (987) reported, not excluded.
+  The exclusion list is not applied to the literature-onset counts above.
+- **Disclosed technical access (Mateo ruled acceptable):** the contamination scripts of S3 v3 and S3 v3b read the S3 v1,
+  S3 v2 (and, for v3b, S3 v3) dataset files whole, test parts included, only to compute (gene, present, excluded)
+  signatures for exclusion. No metrics, no printing of case content, no `load_part`, no ledger rows.

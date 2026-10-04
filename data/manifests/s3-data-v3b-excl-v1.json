@@ -1,0 +1,109 @@
+{
+  "artifact_id": "s3-data-v3b-excl-v1",
+  "kind": "eval-exclusion-list",
+  "created_at": "2026-10-04T18:20:27+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "75e2afffa00889aea7a2b24466d6c6bc71f302c8",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:s3-data-v1",
+      "sha256": "803f0d189ca5436cc9a9e1d3162f0edc0e28ec99e42967efd7674955ca2a8c15"
+    },
+    {
+      "id": "artifact:s3-data-v2",
+      "sha256": "4383dcbeea958d6e785da75943506211bff184a238b5f319789a3aa559d77ab7"
+    },
+    {
+      "id": "artifact:s3-data-v3",
+      "sha256": "c9ef122aff83916a2e6c685d773957bbf163da3e73e707520a6349c618dde92a"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-A-n100-s1001",
+      "sha256": "97fa06bff5d8c6b1f8fab26548124302a97e15d8ad5f0943690a5774d93b1744"
+    },
+    {
+      "id": "artifact:ds-sim0.3.1-full-n100-s1001",
+      "sha256": "840433d24d1e43cf14b5833b0dffcbc4ef0a8411210f89f167a6ef42e8dbdac6"
+    },
+    {
+      "id": "artifact:ds-sim0.4.1-A-n100-s1001",
+      "sha256": "b18df39dddfb4986614d97fe454f46e81ce66cb38435ac78166bb39efbb05995"
+    },
+    {
+      "id": "artifact:ds-sim0.4.2-A-n100-s1001",
+      "sha256": "18a71cd775439020e716b6a9a177b2319a9d48139335c68ccc5c4d72078431a9"
+    },
+    {
+      "id": "artifact:ds-sim0.4.2-full-n100-s1001",
+      "sha256": "2ab420355fe28a93b0bc19d9dd888c154514519b828c677542728a038c429afa"
+    },
+    {
+      "id": "artifact:ds-sim0.4.2c3-A-n100-s1001",
+      "sha256": "0d7fabb522311321ba72b2b33f0a5763501588be61aa7089df4c44d625dedb97"
+    },
+    {
+      "id": "artifact:ds-sim0.4.2c3-full-n100-s1001",
+      "sha256": "ae8884458e87c11e81b36398cc1c757999a13efe85c73c74e6cc3186fa293867"
+    },
+    {
+      "id": "artifact:ds-sim0.5.0-A-n100-s1001",
+      "sha256": "af84b952db4dc39e884a2d4eb423d7b9c9db597c667761e918edacb6b7a0393c"
+    },
+    {
+      "id": "artifact:ds-sim0.5.0-full-n100-s1001",
+      "sha256": "3c4f1f21b0a3f67f1290b151c3e70e564e4bf8a48661091e1a0cfdb2b684627c"
+    },
+    {
+      "id": "artifact:ds-sim0.5.1-full-n100-s1001",
+      "sha256": "e1aaf21dc029ed83445ddb1c2139cef291da0cee65bdb2b00fc9657569d903e0"
+    },
+    {
+      "id": "artifact:ds-sim0.5.2-full-n100-s1001",
+      "sha256": "63813d2f83e698c2c295774de6f798c2db897c2ec45d9112cf1c1c3e88128fde"
+    },
+    {
+      "id": "artifact:ds-sim0.5.3-full-n100-s1001",
+      "sha256": "2e29ff174851a55d516882d6b00934f7b1e4447b228ea52258a56e8819547e0e"
+    },
+    {
+      "id": "artifact:ds-sim0.5.4-full-n100-s1001",
+      "sha256": "c00188faeb52e9e7e7b74f426388ebf118a9e6469f43af58fb3b57ca0a6600c3"
+    },
+    {
+      "id": "artifact:s3-data-v3b",
+      "sha256": "0b9319f8b139f79d3121208f1cd491905c855401144c22805a89a6286101eb47"
+    },
+    {
+      "id": "split:r1-v1 (all parts, keys only)",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "split:s3-v3b",
+      "sha256": "e1d44d93c912e0784ebf7e3b1e0029aa67b15719281495f0b178f8cc2d3c5be2"
+    }
+  ],
+  "params": {
+    "rule": "drop cases with an R1 (gene, present) key or a signature of S3 v1, S3 v2, S3 v3 or a registered simulated training dataset",
+    "excluded": 66,
+    "residual_overlap": 0,
+    "ids": "split case ids, prefixed s3-v3b:"
+  },
+  "params_hash": "a75066c6704aa01c25b967abcfcd484b2ed841e8b2d01180270084491b2158d6",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/s3-data-v3b-excl-v1/exclude.txt",
+      "sha256": "75c539ce07db797ba5905b07ee0f79335739c1fa67d60498131f826c740de920",
+      "bytes": 2776
+    },
+    {
+      "path": "data/interim/datasets/s3-data-v3b-excl-v1/contamination.json",
+      "sha256": "2da9a765c9704b67f95933dea8d19c9e14e227329da74e92826b7c1919ba7579",
+      "bytes": 2168
+    }
+  ],
+  "notes": "",
+  "release": "s3-data-v3b-excl-v1"
+}

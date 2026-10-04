@@ -39,3 +39,12 @@ A small or null effect. On S3 v2's fair subset the gain over F was
 
 ## Results
 (After the sealed read.)
+
+## Addendum, 2026-10-04 (before any S3 v3b data): S3 v3b, literature-onset primary
+Same change as the ADR-0015 addendum of this date.
+- S3 v3 (120 genes) is superseded and was never evaluated. The data is `s3-data-v3b` (397 genes, "any entity" rule,
+  about 15,000 cases, seed 4005), split `s3-v3b` (dev 30% / test 70%, test sealed, one read).
+- **Primary analysis:** both the dev selection of w and the sealed gate (P1) are computed on **literature-onset
+  cases only** (`metadata.onset_age_source == "literature"`, ids in the `s3-data-v3b` outputs). The bootstrap CI
+  is over genes (seed 0, 2,000 resamples), among genes with at least one such case in the part.
+- **Secondary:** the same on all cases; known-onset only; split by the kb `onset_source`.

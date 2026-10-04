@@ -21,7 +21,7 @@ def test_s3_versions_name_their_dataset_annotation_split_and_exclusions():
         "s3-data-v2-excl-v1",
     )
     with pytest.raises(ValueError):
-        s3.spec("s3-v3")
+        s3.spec("s3-v9")
 
 
 @pytest.mark.parametrize(

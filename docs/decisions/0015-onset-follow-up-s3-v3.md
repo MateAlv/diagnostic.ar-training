@@ -69,3 +69,28 @@
 | 1 | Build S3 v3, freeze the split, contamination checks |
 | 2 | Dev selection of w (≤ 3) |
 | 3 | Pre-registration addendum, then one sealed S3-v3-test read |
+
+## Addendum, 2026-10-04: S3 v3 phase 1 done
+- **Eligible genes: 120** (126 entities; every drawable entity of the gene has an `onset-ages-v2` row), so 84 cases
+  per gene. This is far fewer than the 4,892 genes of S3 v2; the gene-level bootstrap has 120 clusters.
+  277 more genes have only some entities listed and are left out, because their cases would not all use literature onset.
+- `s3-data-v3`: 10,080 cases, 100% literature onset, onset reported on 59.43%, sex known on 92.06%.
+- Split `s3-v3` frozen before any system ran: dev 3,106, test 6,974 (sealed), content sha256
+  `746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db`.
+- Exclusion list `s3-data-v3-excl-v1`: 24 cases (dev 9, test 15), residual overlap 0.
+
+## Addendum, 2026-10-04 (before any S3 v3b data): S3 v3 superseded by S3 v3b
+Mateo approved a rebuild for statistical power. No system has touched S3 v3.
+- **S3 v3 is superseded and was never evaluated.** Its artifacts (`s3-data-v3`, split `s3-v3`,
+  `s3-data-v3-excl-v1`, 120 genes under the strict rule) stay as they are, marked superseded. 120 gene
+  clusters are too few for the expected effect size.
+- **S3 v3b** uses the "any entity" rule: a gene is eligible when at least one entity the simulator can draw
+  for it has an `onset-ages-v2` row (397 genes). Target 15,000 cases (cases per gene = ceil(15,000 / 397)),
+  seed 4005, same generator and knowledge as S3 v3. Artifacts: `s3-data-v3b`, split `s3-v3b` (dev 30% /
+  test 70%, test sealed), `s3-data-v3b-excl-v1`.
+- **Cases of a gene with mixed entities can use the Orphanet category onset.** So the **primary analysis is
+  restricted to cases whose `metadata.onset_age_source == "literature"`**, and every analysed case is fair.
+  The case ids are kept as an output of `s3-data-v3b`. Dev selection of w and the sealed gate use only those
+  cases; all-case results are secondary.
+- The design, systems, selection rule, gate (P1) and deployment prerequisite of this ADR are otherwise unchanged,
+  with "S3-v3-test" read as "S3-v3b-test, literature-onset cases".
