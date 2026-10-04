@@ -279,3 +279,362 @@ ANALYSIS-002 E0 cited n	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contam
 ANALYSIS-002 E0 cited MRR	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	0.562	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	0.562	MATCH
 ANALYSIS-002 E0 uncited n	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	1124	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	1124	MATCH
 ANALYSIS-002 E0 uncited MRR	docs/analyses/ANALYSIS-002-noise-structure-and-e0-contamination.md	0.405	results/analyses/ANALYSIS-002/e0_by_hpoa_citation.txt	0.405	MATCH
+s3-v2 dev cases	docs/decisions/0014-reranker-v11-and-s3-v2.md	9872	data/splits/s3-v2.json	9872	MATCH
+s3-v2 test cases	docs/decisions/0014-reranker-v11-and-s3-v2.md	9696	data/splits/s3-v2.json	9696	MATCH
+s3-v2 content sha256	docs/decisions/0014-reranker-v11-and-s3-v2.md	fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e	data/splits/s3-v2.json	fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e	MATCH
+s3-v3 dev cases	docs/decisions/0015-onset-follow-up-s3-v3.md	3106	data/splits/s3-v3.json	3106	MATCH
+s3-v3 test cases	docs/decisions/0015-onset-follow-up-s3-v3.md	6974	data/splits/s3-v3.json	6974	MATCH
+s3-v3 content sha256	docs/decisions/0015-onset-follow-up-s3-v3.md	746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db	data/splits/s3-v3.json	746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db	MATCH
+s3-v3b dev cases	docs/BITACORA.md	4577	data/splits/s3-v3b.json	4577	MATCH
+s3-v3b test cases	docs/BITACORA.md	10509	data/splits/s3-v3b.json	10509	MATCH
+s3-v3b content sha256	docs/BITACORA.md	61660f7a32572f4007c8bbdd8afe4d952cd6bf0e681833360198f2b6082c4925	data/splits/s3-v3b.json	61660f7a32572f4007c8bbdd8afe4d952cd6bf0e681833360198f2b6082c4925	MATCH
+s3-v3b eligible genes	docs/BITACORA.md	397	data/s3/s3-v3b-eligible-genes.summary.json	397	MATCH
+s3-v3b cases per gene	docs/BITACORA.md	38	data/s3/s3-v3b-eligible-genes.summary.json	38	MATCH
+s3-v3b expected cases	docs/BITACORA.md	15086	data/s3/s3-v3b-eligible-genes.summary.json	15086	MATCH
+s3-v3 eligible genes	docs/decisions/0015-onset-follow-up-s3-v3.md	120	data/s3/s3-v3-eligible-genes.summary.json	120	MATCH
+s3-v3 expected cases	docs/decisions/0015-onset-follow-up-s3-v3.md	10080	data/s3/s3-v3-eligible-genes.summary.json	10080	MATCH
+ADR-0014 kb-v6 genes with weight sum != 1	docs/decisions/0014-reranker-v11-and-s3-v2.md	633	results/EXP-B-004/kb-weight-sums.json	633	MATCH
+ADR-0014 kb-v6 genes with weight sum < 0.99	docs/decisions/0014-reranker-v11-and-s3-v2.md	14	results/EXP-B-004/kb-weight-sums.json	14	MATCH
+ADR-0014 kb-v7 genes with weight sum != 1	docs/decisions/0014-reranker-v11-and-s3-v2.md	601	results/EXP-B-004/kb-weight-sums.json	601	MATCH
+ADR-0014 kb-v7 genes with weight sum < 0.99	docs/decisions/0014-reranker-v11-and-s3-v2.md	11	results/EXP-B-004/kb-weight-sums.json	11	MATCH
+ADR-0014 kb-v8 genes with weight sum != 1	docs/decisions/0014-reranker-v11-and-s3-v2.md	633	results/EXP-B-004/kb-weight-sums.json	633	MATCH
+ADR-0014 kb-v8 genes with weight sum < 0.99	docs/decisions/0014-reranker-v11-and-s3-v2.md	14	results/EXP-B-004/kb-weight-sums.json	14	MATCH
+ADR-0014 kb-v6 minimum weight sum	docs/decisions/0014-reranker-v11-and-s3-v2.md	0.5	results/EXP-B-004/kb-weight-sums.json	0.5	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 delta	docs/experiments/EXP-B-004.md	+0.0063	results/EXP-B-004/dev-search.tsv	0.006287	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 CI low	docs/experiments/EXP-B-004.md	+0.0051	results/EXP-B-004/dev-search.tsv	0.005078	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 CI high	docs/experiments/EXP-B-004.md	+0.0075	results/EXP-B-004/dev-search.tsv	0.007483	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 harmed	docs/experiments/EXP-B-004.md	0.049	results/EXP-B-004/dev-search.tsv	0.04851	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 helped	docs/experiments/EXP-B-004.md	0.233	results/EXP-B-004/dev-search.tsv	0.23303	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0020	results/EXP-B-004/dev-search.tsv	-0.001996	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0097	results/EXP-B-004/dev-search.tsv	-0.009697	MATCH
+EXP-B-004 dev L1:propagated:k0.5:w0.5 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0044	results/EXP-B-004/dev-search.tsv	0.004431	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 delta	docs/experiments/EXP-B-004.md	+0.0065	results/EXP-B-004/dev-search.tsv	0.006487	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 CI low	docs/experiments/EXP-B-004.md	+0.0052	results/EXP-B-004/dev-search.tsv	0.00516	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 CI high	docs/experiments/EXP-B-004.md	+0.0078	results/EXP-B-004/dev-search.tsv	0.007783	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 harmed	docs/experiments/EXP-B-004.md	0.045	results/EXP-B-004/dev-search.tsv	0.04472	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 helped	docs/experiments/EXP-B-004.md	0.237	results/EXP-B-004/dev-search.tsv	0.23703	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 R1-dev delta	docs/experiments/EXP-B-004.md	+0.0028	results/EXP-B-004/dev-search.tsv	0.002819	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 R1-dev CI low	docs/experiments/EXP-B-004.md	+0.0006	results/EXP-B-004/dev-search.tsv	0.000574	MATCH
+EXP-B-004 dev L1:gated:tau0.4:k0.5:w0.5 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0050	results/EXP-B-004/dev-search.tsv	0.005013	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 delta	docs/experiments/EXP-B-004.md	+0.0132	results/EXP-B-004/dev-search.tsv	0.013242	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 CI low	docs/experiments/EXP-B-004.md	+0.0111	results/EXP-B-004/dev-search.tsv	0.011137	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 CI high	docs/experiments/EXP-B-004.md	+0.0154	results/EXP-B-004/dev-search.tsv	0.015412	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 harmed	docs/experiments/EXP-B-004.md	0.074	results/EXP-B-004/dev-search.tsv	0.07426	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 helped	docs/experiments/EXP-B-004.md	0.331	results/EXP-B-004/dev-search.tsv	0.33149	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0091	results/EXP-B-004/dev-search.tsv	-0.009104	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0300	results/EXP-B-004/dev-search.tsv	-0.029982	MATCH
+EXP-B-004 dev L1:propagated:k0.8:w0.75 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0056	results/EXP-B-004/dev-search.tsv	0.005569	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 delta	docs/experiments/EXP-B-004.md	+0.0161	results/EXP-B-004/dev-search.tsv	0.016068	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 CI low	docs/experiments/EXP-B-004.md	+0.0133	results/EXP-B-004/dev-search.tsv	0.013313	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 CI high	docs/experiments/EXP-B-004.md	+0.0188	results/EXP-B-004/dev-search.tsv	0.018804	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 harmed	docs/experiments/EXP-B-004.md	0.092	results/EXP-B-004/dev-search.tsv	0.092	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 helped	docs/experiments/EXP-B-004.md	0.367	results/EXP-B-004/dev-search.tsv	0.36667	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0125	results/EXP-B-004/dev-search.tsv	-0.012496	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0382	results/EXP-B-004/dev-search.tsv	-0.038169	MATCH
+EXP-B-004 dev L1:capped:cap2:k0.5:w2 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0057	results/EXP-B-004/dev-search.tsv	0.005662	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 delta	docs/experiments/EXP-B-004.md	+0.0079	results/EXP-B-004/dev-search.tsv	0.007896	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 CI low	docs/experiments/EXP-B-004.md	+0.0065	results/EXP-B-004/dev-search.tsv	0.006492	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 CI high	docs/experiments/EXP-B-004.md	+0.0093	results/EXP-B-004/dev-search.tsv	0.009281	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 harmed	docs/experiments/EXP-B-004.md	0.055	results/EXP-B-004/dev-search.tsv	0.05487	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 helped	docs/experiments/EXP-B-004.md	0.253	results/EXP-B-004/dev-search.tsv	0.25323	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0020	results/EXP-B-004/dev-search.tsv	-0.001996	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0097	results/EXP-B-004/dev-search.tsv	-0.009697	MATCH
+EXP-B-004 dev L1:llr:k0.5:w0.5 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0044	results/EXP-B-004/dev-search.tsv	0.004431	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 delta	docs/experiments/EXP-B-004.md	+0.0064	results/EXP-B-004/dev-search.tsv	0.00637	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 CI low	docs/experiments/EXP-B-004.md	+0.0052	results/EXP-B-004/dev-search.tsv	0.005166	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 CI high	docs/experiments/EXP-B-004.md	+0.0076	results/EXP-B-004/dev-search.tsv	0.007578	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 harmed	docs/experiments/EXP-B-004.md	0.047	results/EXP-B-004/dev-search.tsv	0.04728	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 helped	docs/experiments/EXP-B-004.md	0.236	results/EXP-B-004/dev-search.tsv	0.23579	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0094	results/EXP-B-004/dev-search.tsv	-0.009448	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0241	results/EXP-B-004/dev-search.tsv	-0.024056	MATCH
+EXP-B-004 dev L2:propagated:k0.5:w0.5:kb-v8 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0007	results/EXP-B-004/dev-search.tsv	0.000659	MATCH
+EXP-B-004 dev L3:onset:w0.5 delta	docs/experiments/EXP-B-004.md	+0.0117	results/EXP-B-004/dev-search.tsv	0.011695	MATCH
+EXP-B-004 dev L3:onset:w0.5 CI low	docs/experiments/EXP-B-004.md	+0.0101	results/EXP-B-004/dev-search.tsv	0.010124	MATCH
+EXP-B-004 dev L3:onset:w0.5 CI high	docs/experiments/EXP-B-004.md	+0.0133	results/EXP-B-004/dev-search.tsv	0.013336	MATCH
+EXP-B-004 dev L3:onset:w0.5 harmed	docs/experiments/EXP-B-004.md	0.052	results/EXP-B-004/dev-search.tsv	0.052	MATCH
+EXP-B-004 dev L3:onset:w0.5 helped	docs/experiments/EXP-B-004.md	0.300	results/EXP-B-004/dev-search.tsv	0.30021	MATCH
+EXP-B-004 dev L3:onset:w0.5 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0004	results/EXP-B-004/dev-search.tsv	-0.000383	MATCH
+EXP-B-004 dev L3:onset:w0.5 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0086	results/EXP-B-004/dev-search.tsv	-0.008576	MATCH
+EXP-B-004 dev L3:onset:w0.5 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0069	results/EXP-B-004/dev-search.tsv	0.006928	MATCH
+EXP-B-004 dev L3:onset:w2 delta	docs/experiments/EXP-B-004.md	+0.0172	results/EXP-B-004/dev-search.tsv	0.017154	MATCH
+EXP-B-004 dev L3:onset:w2 CI low	docs/experiments/EXP-B-004.md	+0.0147	results/EXP-B-004/dev-search.tsv	0.014658	MATCH
+EXP-B-004 dev L3:onset:w2 CI high	docs/experiments/EXP-B-004.md	+0.0197	results/EXP-B-004/dev-search.tsv	0.019662	MATCH
+EXP-B-004 dev L3:onset:w2 harmed	docs/experiments/EXP-B-004.md	0.084	results/EXP-B-004/dev-search.tsv	0.08369	MATCH
+EXP-B-004 dev L3:onset:w2 helped	docs/experiments/EXP-B-004.md	0.339	results/EXP-B-004/dev-search.tsv	0.33918	MATCH
+EXP-B-004 dev L3:onset:w2 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0127	results/EXP-B-004/dev-search.tsv	-0.012708	MATCH
+EXP-B-004 dev L3:onset:w2 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0228	results/EXP-B-004/dev-search.tsv	-0.022807	MATCH
+EXP-B-004 dev L3:onset:w2 R1-dev CI high	docs/experiments/EXP-B-004.md	-0.0024	results/EXP-B-004/dev-search.tsv	-0.002448	MATCH
+EXP-B-004 dev L3:sex:w0.5 delta	docs/experiments/EXP-B-004.md	+0.0064	results/EXP-B-004/dev-search.tsv	0.006384	MATCH
+EXP-B-004 dev L3:sex:w0.5 CI low	docs/experiments/EXP-B-004.md	+0.0052	results/EXP-B-004/dev-search.tsv	0.00519	MATCH
+EXP-B-004 dev L3:sex:w0.5 CI high	docs/experiments/EXP-B-004.md	+0.0076	results/EXP-B-004/dev-search.tsv	0.007616	MATCH
+EXP-B-004 dev L3:sex:w0.5 harmed	docs/experiments/EXP-B-004.md	0.053	results/EXP-B-004/dev-search.tsv	0.05292	MATCH
+EXP-B-004 dev L3:sex:w0.5 helped	docs/experiments/EXP-B-004.md	0.241	results/EXP-B-004/dev-search.tsv	0.24123	MATCH
+EXP-B-004 dev L3:sex:w0.5 R1-dev delta	docs/experiments/EXP-B-004.md	-0.0022	results/EXP-B-004/dev-search.tsv	-0.0022	MATCH
+EXP-B-004 dev L3:sex:w0.5 R1-dev CI low	docs/experiments/EXP-B-004.md	-0.0098	results/EXP-B-004/dev-search.tsv	-0.009849	MATCH
+EXP-B-004 dev L3:sex:w0.5 R1-dev CI high	docs/experiments/EXP-B-004.md	+0.0043	results/EXP-B-004/dev-search.tsv	0.004262	MATCH
+EXP-B-004 dev L1 arms logged	docs/experiments/EXP-B-004.md	48	results/EXP-B-004/dev-search.tsv	48	MATCH
+EXP-B-004 dev L2 arms logged	docs/experiments/EXP-B-004.md	6	results/EXP-B-004/dev-search.tsv	6	MATCH
+EXP-B-004 dev L3 arms logged	docs/experiments/EXP-B-004.md	12	results/EXP-B-004/dev-search.tsv	12	MATCH
+EXP-B-004 dev n per arm	docs/experiments/EXP-B-004.md	9750	results/EXP-B-004/dev-search.tsv	9750	MATCH
+EXP-B-004 sealed n	docs/experiments/EXP-B-004.md	9565	results/EXP-B-004/sealed-analysis.json	9565	MATCH
+EXP-B-004 sealed F delta	docs/experiments/EXP-B-004.md	+0.0066	results/EXP-B-004/sealed-analysis.json	0.0066417	MATCH
+EXP-B-004 sealed F CI low	docs/experiments/EXP-B-004.md	+0.0054	results/EXP-B-004/sealed-analysis.json	0.0054023	MATCH
+EXP-B-004 sealed F CI high	docs/experiments/EXP-B-004.md	+0.0079	results/EXP-B-004/sealed-analysis.json	0.00793019	MATCH
+EXP-B-004 sealed F harmed	docs/experiments/EXP-B-004.md	0.0506	results/EXP-B-004/sealed-analysis.json	0.0506012	MATCH
+EXP-B-004 sealed F helped	docs/experiments/EXP-B-004.md	0.2235	results/EXP-B-004/sealed-analysis.json	0.223523	MATCH
+EXP-B-004 sealed F MRR final	docs/experiments/EXP-B-004.md	0.3562	results/EXP-B-004/sealed-analysis.json	0.356188	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 delta	docs/experiments/EXP-B-004.md	+0.0077	results/EXP-B-004/sealed-analysis.json	0.00769417	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 CI low	docs/experiments/EXP-B-004.md	+0.0063	results/EXP-B-004/sealed-analysis.json	0.00625198	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 CI high	docs/experiments/EXP-B-004.md	+0.0092	results/EXP-B-004/sealed-analysis.json	0.00920668	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 harmed	docs/experiments/EXP-B-004.md	0.0576	results/EXP-B-004/sealed-analysis.json	0.0576059	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 helped	docs/experiments/EXP-B-004.md	0.2432	results/EXP-B-004/sealed-analysis.json	0.243178	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 MRR final	docs/experiments/EXP-B-004.md	0.3572	results/EXP-B-004/sealed-analysis.json	0.357241	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 delta vs F	docs/experiments/EXP-B-004.md	+0.0011	results/EXP-B-004/sealed-analysis.json	0.00105247	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 vs F CI low	docs/experiments/EXP-B-004.md	+0.0003	results/EXP-B-004/sealed-analysis.json	0.000291147	MATCH
+EXP-B-004 sealed rr-v1 formula on kb-v6 vs F CI high	docs/experiments/EXP-B-004.md	+0.0018	results/EXP-B-004/sealed-analysis.json	0.00182673	MATCH
+EXP-B-004 sealed F on kb-v7 delta	docs/experiments/EXP-B-004.md	+0.0070	results/EXP-B-004/sealed-analysis.json	0.00695001	MATCH
+EXP-B-004 sealed F on kb-v7 CI low	docs/experiments/EXP-B-004.md	+0.0057	results/EXP-B-004/sealed-analysis.json	0.00569285	MATCH
+EXP-B-004 sealed F on kb-v7 CI high	docs/experiments/EXP-B-004.md	+0.0083	results/EXP-B-004/sealed-analysis.json	0.00825909	MATCH
+EXP-B-004 sealed F on kb-v7 harmed	docs/experiments/EXP-B-004.md	0.0504	results/EXP-B-004/sealed-analysis.json	0.0503921	MATCH
+EXP-B-004 sealed F on kb-v7 helped	docs/experiments/EXP-B-004.md	0.2277	results/EXP-B-004/sealed-analysis.json	0.227705	MATCH
+EXP-B-004 sealed F on kb-v7 MRR final	docs/experiments/EXP-B-004.md	0.3565	results/EXP-B-004/sealed-analysis.json	0.356497	MATCH
+EXP-B-004 sealed F on kb-v7 delta vs F	docs/experiments/EXP-B-004.md	+0.0003	results/EXP-B-004/sealed-analysis.json	0.000308308	MATCH
+EXP-B-004 sealed F on kb-v7 vs F CI low	docs/experiments/EXP-B-004.md	+0.0001	results/EXP-B-004/sealed-analysis.json	0.00010402	MATCH
+EXP-B-004 sealed F on kb-v7 vs F CI high	docs/experiments/EXP-B-004.md	+0.0006	results/EXP-B-004/sealed-analysis.json	0.000553426	MATCH
+EXP-B-004 sealed F + onset 0.5 delta	docs/experiments/EXP-B-004.md	+0.0124	results/EXP-B-004/sealed-analysis.json	0.0123758	MATCH
+EXP-B-004 sealed F + onset 0.5 CI low	docs/experiments/EXP-B-004.md	+0.0107	results/EXP-B-004/sealed-analysis.json	0.0107213	MATCH
+EXP-B-004 sealed F + onset 0.5 CI high	docs/experiments/EXP-B-004.md	+0.0140	results/EXP-B-004/sealed-analysis.json	0.0139961	MATCH
+EXP-B-004 sealed F + onset 0.5 harmed	docs/experiments/EXP-B-004.md	0.0499	results/EXP-B-004/sealed-analysis.json	0.0498693	MATCH
+EXP-B-004 sealed F + onset 0.5 helped	docs/experiments/EXP-B-004.md	0.2942	results/EXP-B-004/sealed-analysis.json	0.294198	MATCH
+EXP-B-004 sealed F + onset 0.5 MRR final	docs/experiments/EXP-B-004.md	0.3619	results/EXP-B-004/sealed-analysis.json	0.361923	MATCH
+EXP-B-004 sealed F + onset 0.5 delta vs F	docs/experiments/EXP-B-004.md	+0.0057	results/EXP-B-004/sealed-analysis.json	0.0057341	MATCH
+EXP-B-004 sealed F + onset 0.5 vs F CI low	docs/experiments/EXP-B-004.md	+0.0045	results/EXP-B-004/sealed-analysis.json	0.00454612	MATCH
+EXP-B-004 sealed F + onset 0.5 vs F CI high	docs/experiments/EXP-B-004.md	+0.0069	results/EXP-B-004/sealed-analysis.json	0.00694407	MATCH
+EXP-B-004 sealed F + sex 0.5 delta	docs/experiments/EXP-B-004.md	+0.0070	results/EXP-B-004/sealed-analysis.json	0.00699114	MATCH
+EXP-B-004 sealed F + sex 0.5 CI low	docs/experiments/EXP-B-004.md	+0.0057	results/EXP-B-004/sealed-analysis.json	0.00572034	MATCH
+EXP-B-004 sealed F + sex 0.5 CI high	docs/experiments/EXP-B-004.md	+0.0083	results/EXP-B-004/sealed-analysis.json	0.00828605	MATCH
+EXP-B-004 sealed F + sex 0.5 harmed	docs/experiments/EXP-B-004.md	0.0525	results/EXP-B-004/sealed-analysis.json	0.052483	MATCH
+EXP-B-004 sealed F + sex 0.5 helped	docs/experiments/EXP-B-004.md	0.2311	results/EXP-B-004/sealed-analysis.json	0.231051	MATCH
+EXP-B-004 sealed F + sex 0.5 MRR final	docs/experiments/EXP-B-004.md	0.3565	results/EXP-B-004/sealed-analysis.json	0.356538	MATCH
+EXP-B-004 sealed F + sex 0.5 delta vs F	docs/experiments/EXP-B-004.md	+0.0003	results/EXP-B-004/sealed-analysis.json	0.000349442	MATCH
+EXP-B-004 sealed F + sex 0.5 vs F CI low	docs/experiments/EXP-B-004.md	+0.0000	results/EXP-B-004/sealed-analysis.json	2.23057e-05	MATCH
+EXP-B-004 sealed F + sex 0.5 vs F CI high	docs/experiments/EXP-B-004.md	+0.0007	results/EXP-B-004/sealed-analysis.json	0.000696878	MATCH
+EXP-B-004 sealed F + age_mean 0.5 delta	docs/experiments/EXP-B-004.md	+0.0073	results/EXP-B-004/sealed-analysis.json	0.00730258	MATCH
+EXP-B-004 sealed F + age_mean 0.5 CI low	docs/experiments/EXP-B-004.md	+0.0059	results/EXP-B-004/sealed-analysis.json	0.00593194	MATCH
+EXP-B-004 sealed F + age_mean 0.5 CI high	docs/experiments/EXP-B-004.md	+0.0088	results/EXP-B-004/sealed-analysis.json	0.00875587	MATCH
+EXP-B-004 sealed F + age_mean 0.5 harmed	docs/experiments/EXP-B-004.md	0.0631	results/EXP-B-004/sealed-analysis.json	0.0631469	MATCH
+EXP-B-004 sealed F + age_mean 0.5 helped	docs/experiments/EXP-B-004.md	0.2477	results/EXP-B-004/sealed-analysis.json	0.247674	MATCH
+EXP-B-004 sealed F + age_mean 0.5 MRR final	docs/experiments/EXP-B-004.md	0.3568	results/EXP-B-004/sealed-analysis.json	0.356849	MATCH
+EXP-B-004 sealed F + age_mean 0.5 delta vs F	docs/experiments/EXP-B-004.md	+0.0007	results/EXP-B-004/sealed-analysis.json	0.000660875	MATCH
+EXP-B-004 sealed F + age_mean 0.5 vs F CI low	docs/experiments/EXP-B-004.md	-0.0001	results/EXP-B-004/sealed-analysis.json	-0.000119659	MATCH
+EXP-B-004 sealed F + age_mean 0.5 vs F CI high	docs/experiments/EXP-B-004.md	+0.0014	results/EXP-B-004/sealed-analysis.json	0.00137509	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) delta	docs/experiments/EXP-B-004.md	+0.0143	results/EXP-B-004/sealed-analysis.json	0.0143462	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) CI low	docs/experiments/EXP-B-004.md	+0.0123	results/EXP-B-004/sealed-analysis.json	0.0122915	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) CI high	docs/experiments/EXP-B-004.md	+0.0164	results/EXP-B-004/sealed-analysis.json	0.0164491	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) harmed	docs/experiments/EXP-B-004.md	0.0741	results/EXP-B-004/sealed-analysis.json	0.0741244	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) helped	docs/experiments/EXP-B-004.md	0.3255	results/EXP-B-004/sealed-analysis.json	0.325457	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) MRR final	docs/experiments/EXP-B-004.md	0.3639	results/EXP-B-004/sealed-analysis.json	0.363893	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) delta vs F	docs/experiments/EXP-B-004.md	+0.0077	results/EXP-B-004/sealed-analysis.json	0.00770452	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) vs F CI low	docs/experiments/EXP-B-004.md	+0.0062	results/EXP-B-004/sealed-analysis.json	0.00616922	MATCH
+EXP-B-004 sealed frontier <=7.5% (propagated k0.8 w0.75) vs F CI high	docs/experiments/EXP-B-004.md	+0.0093	results/EXP-B-004/sealed-analysis.json	0.00926324	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) delta	docs/experiments/EXP-B-004.md	+0.0165	results/EXP-B-004/sealed-analysis.json	0.0164642	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) CI low	docs/experiments/EXP-B-004.md	+0.0138	results/EXP-B-004/sealed-analysis.json	0.0138486	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) CI high	docs/experiments/EXP-B-004.md	+0.0190	results/EXP-B-004/sealed-analysis.json	0.0190133	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) harmed	docs/experiments/EXP-B-004.md	0.0944	results/EXP-B-004/sealed-analysis.json	0.0944067	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) helped	docs/experiments/EXP-B-004.md	0.3613	results/EXP-B-004/sealed-analysis.json	0.361317	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) MRR final	docs/experiments/EXP-B-004.md	0.3660	results/EXP-B-004/sealed-analysis.json	0.366011	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) delta vs F	docs/experiments/EXP-B-004.md	+0.0098	results/EXP-B-004/sealed-analysis.json	0.00982246	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) vs F CI low	docs/experiments/EXP-B-004.md	+0.0076	results/EXP-B-004/sealed-analysis.json	0.00763445	MATCH
+EXP-B-004 sealed frontier <=10% (capped C2 w2) vs F CI high	docs/experiments/EXP-B-004.md	+0.0120	results/EXP-B-004/sealed-analysis.json	0.012008	MATCH
+EXP-B-004 sealed subset size lit_onset	docs/experiments/EXP-B-004.md	509	results/EXP-B-004/sealed-analysis.json	509	MATCH
+EXP-B-004 sealed subset size lit_onset_src_hpoa	docs/experiments/EXP-B-004.md	349	results/EXP-B-004/sealed-analysis.json	349	MATCH
+EXP-B-004 sealed subset size lit_onset_src_orphanet	docs/experiments/EXP-B-004.md	26	results/EXP-B-004/sealed-analysis.json	26	MATCH
+EXP-B-004 sealed subset size lit_onset_src_orphanet_exact_alignment	docs/experiments/EXP-B-004.md	86	results/EXP-B-004/sealed-analysis.json	86	MATCH
+EXP-B-004 sealed subset size lit_onset_src_none	docs/experiments/EXP-B-004.md	48	results/EXP-B-004/sealed-analysis.json	48	MATCH
+EXP-B-004 sealed subset size lit_onset_age_known	docs/experiments/EXP-B-004.md	391	results/EXP-B-004/sealed-analysis.json	391	MATCH
+EXP-B-004 sealed onset lit_onset delta	docs/experiments/EXP-B-004.md	+0.0064	results/EXP-B-004/sealed-analysis.json	0.00641925	MATCH
+EXP-B-004 sealed onset lit_onset harmed	docs/experiments/EXP-B-004.md	0.081	results/EXP-B-004/sealed-analysis.json	0.0805501	MATCH
+EXP-B-004 sealed onset lit_onset vs F	docs/experiments/EXP-B-004.md	+0.0021	results/EXP-B-004/sealed-analysis.json	0.00212774	MATCH
+EXP-B-004 sealed onset lit_onset vs F CI low	docs/experiments/EXP-B-004.md	-0.0027	results/EXP-B-004/sealed-analysis.json	-0.00274041	MATCH
+EXP-B-004 sealed onset lit_onset vs F CI high	docs/experiments/EXP-B-004.md	+0.0063	results/EXP-B-004/sealed-analysis.json	0.006292	MATCH
+EXP-B-004 sealed onset hpoa delta	docs/experiments/EXP-B-004.md	+0.0085	results/EXP-B-004/sealed-analysis.json	0.00849127	MATCH
+EXP-Q-001 dev Q0 noise 0 primary	docs/experiments/EXP-Q-001.md	+0.0275	results/EXP-Q-001/dev-search.tsv	0.02747	MATCH
+EXP-Q-001 dev Q0 noise 0 CI low	docs/experiments/EXP-Q-001.md	+0.0250	results/EXP-Q-001/dev-search.tsv	0.025015	MATCH
+EXP-Q-001 dev Q0 noise 0 CI high	docs/experiments/EXP-Q-001.md	+0.0298	results/EXP-Q-001/dev-search.tsv	0.029821	MATCH
+EXP-Q-001 dev Q0 noise 0 harmed	docs/experiments/EXP-Q-001.md	0.081	results/EXP-Q-001/dev-search.tsv	0.08133	MATCH
+EXP-Q-001 dev Q0 noise 0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.049	results/EXP-Q-001/dev-search.tsv	0.04851	MATCH
+EXP-Q-001 dev Q2 noise 0 primary	docs/experiments/EXP-Q-001.md	+0.0328	results/EXP-Q-001/dev-search.tsv	0.032831	MATCH
+EXP-Q-001 dev Q2 noise 0 CI low	docs/experiments/EXP-Q-001.md	+0.0300	results/EXP-Q-001/dev-search.tsv	0.030009	MATCH
+EXP-Q-001 dev Q2 noise 0 CI high	docs/experiments/EXP-Q-001.md	+0.0355	results/EXP-Q-001/dev-search.tsv	0.035528	MATCH
+EXP-Q-001 dev Q2 noise 0 harmed	docs/experiments/EXP-Q-001.md	0.085	results/EXP-Q-001/dev-search.tsv	0.08462	MATCH
+EXP-Q-001 dev Q2 noise 0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.051	results/EXP-Q-001/dev-search.tsv	0.05067	MATCH
+EXP-Q-001 dev Q2b-lam0.3 noise 0 primary	docs/experiments/EXP-Q-001.md	+0.0337	results/EXP-Q-001/dev-search.tsv	0.033668	MATCH
+EXP-Q-001 dev Q2b-lam0.3 noise 0 CI low	docs/experiments/EXP-Q-001.md	+0.0308	results/EXP-Q-001/dev-search.tsv	0.030799	MATCH
+EXP-Q-001 dev Q2b-lam0.3 noise 0 CI high	docs/experiments/EXP-Q-001.md	+0.0365	results/EXP-Q-001/dev-search.tsv	0.036489	MATCH
+EXP-Q-001 dev Q2b-lam0.3 noise 0 harmed	docs/experiments/EXP-Q-001.md	0.086	results/EXP-Q-001/dev-search.tsv	0.08595	MATCH
+EXP-Q-001 dev Q2b-lam0.3 noise 0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.049	results/EXP-Q-001/dev-search.tsv	0.04944	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0 primary	docs/experiments/EXP-Q-001.md	+0.0339	results/EXP-Q-001/dev-search.tsv	0.033939	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0 CI low	docs/experiments/EXP-Q-001.md	+0.0310	results/EXP-Q-001/dev-search.tsv	0.031037	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0 CI high	docs/experiments/EXP-Q-001.md	+0.0368	results/EXP-Q-001/dev-search.tsv	0.0368	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0 harmed	docs/experiments/EXP-Q-001.md	0.084	results/EXP-Q-001/dev-search.tsv	0.0841	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.048	results/EXP-Q-001/dev-search.tsv	0.04821	MATCH
+EXP-Q-001 dev Q1 noise 0 primary	docs/experiments/EXP-Q-001.md	+0.0332	results/EXP-Q-001/dev-search.tsv	0.033174	MATCH
+EXP-Q-001 dev Q1 noise 0 CI low	docs/experiments/EXP-Q-001.md	+0.0302	results/EXP-Q-001/dev-search.tsv	0.030218	MATCH
+EXP-Q-001 dev Q1 noise 0 CI high	docs/experiments/EXP-Q-001.md	+0.0361	results/EXP-Q-001/dev-search.tsv	0.036056	MATCH
+EXP-Q-001 dev Q1 noise 0 harmed	docs/experiments/EXP-Q-001.md	0.077	results/EXP-Q-001/dev-search.tsv	0.07713	MATCH
+EXP-Q-001 dev Q1 noise 0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.059	results/EXP-Q-001/dev-search.tsv	0.05887	MATCH
+EXP-Q-001 dev Q0 noise 0.05 primary	docs/experiments/EXP-Q-001.md	+0.0148	results/EXP-Q-001/dev-search.tsv	0.014836	MATCH
+EXP-Q-001 dev Q0 noise 0.05 CI low	docs/experiments/EXP-Q-001.md	+0.0117	results/EXP-Q-001/dev-search.tsv	0.011715	MATCH
+EXP-Q-001 dev Q0 noise 0.05 CI high	docs/experiments/EXP-Q-001.md	+0.0176	results/EXP-Q-001/dev-search.tsv	0.01762	MATCH
+EXP-Q-001 dev Q0 noise 0.05 harmed	docs/experiments/EXP-Q-001.md	0.166	results/EXP-Q-001/dev-search.tsv	0.16554	MATCH
+EXP-Q-001 dev Q0 noise 0.05 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.049	results/EXP-Q-001/dev-search.tsv	0.04892	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0.05 primary	docs/experiments/EXP-Q-001.md	+0.0203	results/EXP-Q-001/dev-search.tsv	0.020303	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0.05 CI low	docs/experiments/EXP-Q-001.md	+0.0170	results/EXP-Q-001/dev-search.tsv	0.017037	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0.05 CI high	docs/experiments/EXP-Q-001.md	+0.0236	results/EXP-Q-001/dev-search.tsv	0.023629	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0.05 harmed	docs/experiments/EXP-Q-001.md	0.168	results/EXP-Q-001/dev-search.tsv	0.16769	MATCH
+EXP-Q-001 dev Q2b-lam0.6 noise 0.05 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.049	results/EXP-Q-001/dev-search.tsv	0.04872	MATCH
+EXP-Q-001 dev cases	docs/experiments/EXP-Q-001.md	9750	results/EXP-Q-001/dev-search.tsv	9750	MATCH
+EXP-Q-001 sealed n	docs/experiments/EXP-Q-001.md	9565	results/EXP-Q-001/sealed-analysis.json	9565	MATCH
+EXP-Q-001 sealed Q2b primary	docs/experiments/EXP-Q-001.md	+0.0330	results/EXP-Q-001/sealed-analysis.json	0.0329802	MATCH
+EXP-Q-001 sealed Q2b CI low	docs/experiments/EXP-Q-001.md	+0.0301	results/EXP-Q-001/sealed-analysis.json	0.0300702	MATCH
+EXP-Q-001 sealed Q2b CI high	docs/experiments/EXP-Q-001.md	+0.0360	results/EXP-Q-001/sealed-analysis.json	0.0360071	MATCH
+EXP-Q-001 sealed Q2b harmed	docs/experiments/EXP-Q-001.md	0.0811	results/EXP-Q-001/sealed-analysis.json	0.0811291	MATCH
+EXP-Q-001 sealed Q2b helped	docs/experiments/EXP-Q-001.md	0.3803	results/EXP-Q-001/sealed-analysis.json	0.380345	MATCH
+EXP-Q-001 sealed Q2b questioner effect	docs/experiments/EXP-Q-001.md	+0.0263	results/EXP-Q-001/sealed-analysis.json	0.0262864	MATCH
+EXP-Q-001 sealed Q2b re-ranker effect	docs/experiments/EXP-Q-001.md	+0.0067	results/EXP-Q-001/sealed-analysis.json	0.00669383	MATCH
+EXP-Q-001 sealed Q2b re-ranker harmed	docs/experiments/EXP-Q-001.md	0.0477	results/EXP-Q-001/sealed-analysis.json	0.0476738	MATCH
+EXP-Q-001 sealed Q0 primary	docs/experiments/EXP-Q-001.md	+0.0281	results/EXP-Q-001/sealed-analysis.json	0.0281095	MATCH
+EXP-Q-001 sealed Q0 CI low	docs/experiments/EXP-Q-001.md	+0.0255	results/EXP-Q-001/sealed-analysis.json	0.0254595	MATCH
+EXP-Q-001 sealed Q0 CI high	docs/experiments/EXP-Q-001.md	+0.0308	results/EXP-Q-001/sealed-analysis.json	0.0308067	MATCH
+EXP-Q-001 sealed Q0 harmed	docs/experiments/EXP-Q-001.md	0.0825	results/EXP-Q-001/sealed-analysis.json	0.0824882	MATCH
+EXP-Q-001 sealed Q0 helped	docs/experiments/EXP-Q-001.md	0.3606	results/EXP-Q-001/sealed-analysis.json	0.360585	MATCH
+EXP-Q-001 sealed Q0 questioner effect	docs/experiments/EXP-Q-001.md	+0.0215	results/EXP-Q-001/sealed-analysis.json	0.0214678	MATCH
+EXP-Q-001 sealed Q0 re-ranker effect	docs/experiments/EXP-Q-001.md	+0.0066	results/EXP-Q-001/sealed-analysis.json	0.0066417	MATCH
+EXP-Q-001 sealed Q0 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.0506	results/EXP-Q-001/sealed-analysis.json	0.0506012	MATCH
+EXP-Q-001 sealed Q1 primary	docs/experiments/EXP-Q-001.md	+0.0312	results/EXP-Q-001/sealed-analysis.json	0.0312375	MATCH
+EXP-Q-001 sealed Q1 CI low	docs/experiments/EXP-Q-001.md	+0.0284	results/EXP-Q-001/sealed-analysis.json	0.0283571	MATCH
+EXP-Q-001 sealed Q1 CI high	docs/experiments/EXP-Q-001.md	+0.0340	results/EXP-Q-001/sealed-analysis.json	0.0339645	MATCH
+EXP-Q-001 sealed Q1 harmed	docs/experiments/EXP-Q-001.md	0.0792	results/EXP-Q-001/sealed-analysis.json	0.0792473	MATCH
+EXP-Q-001 sealed Q1 helped	docs/experiments/EXP-Q-001.md	0.3800	results/EXP-Q-001/sealed-analysis.json	0.380031	MATCH
+EXP-Q-001 sealed Q1 questioner effect	docs/experiments/EXP-Q-001.md	+0.0256	results/EXP-Q-001/sealed-analysis.json	0.0256428	MATCH
+EXP-Q-001 sealed Q1 re-ranker effect	docs/experiments/EXP-Q-001.md	+0.0056	results/EXP-Q-001/sealed-analysis.json	0.00559468	MATCH
+EXP-Q-001 sealed Q1 re-ranker harmed	docs/experiments/EXP-Q-001.md	0.0558	results/EXP-Q-001/sealed-analysis.json	0.0558285	MATCH
+EXP-Q-001 sealed Q2b-noise primary	docs/experiments/EXP-Q-001.md	+0.0177	results/EXP-Q-001/sealed-analysis.json	0.0176645	MATCH
+EXP-Q-001 sealed Q2b-noise CI low	docs/experiments/EXP-Q-001.md	+0.0143	results/EXP-Q-001/sealed-analysis.json	0.0143148	MATCH
+EXP-Q-001 sealed Q2b-noise CI high	docs/experiments/EXP-Q-001.md	+0.0210	results/EXP-Q-001/sealed-analysis.json	0.0209676	MATCH
+EXP-Q-001 sealed Q2b-noise harmed	docs/experiments/EXP-Q-001.md	0.1603	results/EXP-Q-001/sealed-analysis.json	0.160272	MATCH
+EXP-Q-001 sealed Q2b-noise helped	docs/experiments/EXP-Q-001.md	0.3570	results/EXP-Q-001/sealed-analysis.json	0.357031	MATCH
+EXP-Q-001 sealed Q2b-noise questioner effect	docs/experiments/EXP-Q-001.md	+0.0118	results/EXP-Q-001/sealed-analysis.json	0.0117504	MATCH
+EXP-Q-001 sealed Q2b-noise re-ranker effect	docs/experiments/EXP-Q-001.md	+0.0059	results/EXP-Q-001/sealed-analysis.json	0.00591414	MATCH
+EXP-Q-001 sealed Q2b-noise re-ranker harmed	docs/experiments/EXP-Q-001.md	0.0490	results/EXP-Q-001/sealed-analysis.json	0.0490329	MATCH
+EXP-Q-001 sealed Q0-noise primary	docs/experiments/EXP-Q-001.md	+0.0153	results/EXP-Q-001/sealed-analysis.json	0.0152523	MATCH
+EXP-Q-001 sealed Q0-noise CI low	docs/experiments/EXP-Q-001.md	+0.0120	results/EXP-Q-001/sealed-analysis.json	0.0120006	MATCH
+EXP-Q-001 sealed Q0-noise CI high	docs/experiments/EXP-Q-001.md	+0.0185	results/EXP-Q-001/sealed-analysis.json	0.0184515	MATCH
+EXP-Q-001 sealed Q0-noise harmed	docs/experiments/EXP-Q-001.md	0.1612	results/EXP-Q-001/sealed-analysis.json	0.161213	MATCH
+EXP-Q-001 sealed Q0-noise helped	docs/experiments/EXP-Q-001.md	0.3428	results/EXP-Q-001/sealed-analysis.json	0.342812	MATCH
+EXP-Q-001 sealed Q0-noise questioner effect	docs/experiments/EXP-Q-001.md	+0.0089	results/EXP-Q-001/sealed-analysis.json	0.00892075	MATCH
+EXP-Q-001 sealed Q0-noise re-ranker effect	docs/experiments/EXP-Q-001.md	+0.0063	results/EXP-Q-001/sealed-analysis.json	0.00633155	MATCH
+EXP-Q-001 sealed Q0-noise re-ranker harmed	docs/experiments/EXP-Q-001.md	0.0528	results/EXP-Q-001/sealed-analysis.json	0.0527967	MATCH
+EXP-Q-001 P1 delta	docs/experiments/EXP-Q-001.md	+0.0049	results/EXP-Q-001/sealed-analysis.json	0.00487071	MATCH
+EXP-Q-001 P1 CI low	docs/experiments/EXP-Q-001.md	+0.0027	results/EXP-Q-001/sealed-analysis.json	0.00272893	MATCH
+EXP-Q-001 P1 CI high	docs/experiments/EXP-Q-001.md	+0.0069	results/EXP-Q-001/sealed-analysis.json	0.00689601	MATCH
+EXP-Q-001 P1 harmed	docs/experiments/EXP-Q-001.md	0.1476	results/EXP-Q-001/sealed-analysis.json	0.147622	MATCH
+EXP-Q-001 P1 helped	docs/experiments/EXP-Q-001.md	0.2027	results/EXP-Q-001/sealed-analysis.json	0.202718	MATCH
+EXP-Q-001 P1 re-ranker harmed under Q2b	docs/experiments/EXP-Q-001.md	0.0477	results/EXP-Q-001/sealed-analysis.json	0.0476738	MATCH
+EXP-Q-001 S1 delta	docs/experiments/EXP-Q-001.md	+0.0017	results/EXP-Q-001/sealed-analysis.json	0.00174275	MATCH
+EXP-Q-001 S1 CI low	docs/experiments/EXP-Q-001.md	-0.0006	results/EXP-Q-001/sealed-analysis.json	-0.000588437	MATCH
+EXP-Q-001 S1 CI high	docs/experiments/EXP-Q-001.md	+0.0043	results/EXP-Q-001/sealed-analysis.json	0.00429039	MATCH
+EXP-Q-001 S2 delta	docs/experiments/EXP-Q-001.md	+0.0024	results/EXP-Q-001/sealed-analysis.json	0.00241225	MATCH
+EXP-Q-001 S2 CI low	docs/experiments/EXP-Q-001.md	-0.0002	results/EXP-Q-001/sealed-analysis.json	-0.000199667	MATCH
+EXP-Q-001 S2 CI high	docs/experiments/EXP-Q-001.md	+0.0050	results/EXP-Q-001/sealed-analysis.json	0.00499229	MATCH
+EXP-B-005 dev cases interviewed	docs/experiments/EXP-B-005.md	4562	results/EXP-B-005/dev-analysis.json	4562	MATCH
+EXP-B-005 dev literature cases	docs/experiments/EXP-B-005.md	2934	results/EXP-B-005/dev-analysis.json	2934	MATCH
+EXP-B-005 dev F+onset0.25 delta vs F	docs/experiments/EXP-B-005.md	+0.0021	results/EXP-B-005/dev-analysis.json	0.00207647	MATCH
+EXP-B-005 dev F+onset0.25 CI low	docs/experiments/EXP-B-005.md	+0.0006	results/EXP-B-005/dev-analysis.json	0.000615571	MATCH
+EXP-B-005 dev F+onset0.25 CI high	docs/experiments/EXP-B-005.md	+0.0036	results/EXP-B-005/dev-analysis.json	0.00355318	MATCH
+EXP-B-005 dev F+onset0.25 harmed % vs E0+answers	docs/experiments/EXP-B-005.md	4.16	results/EXP-B-005/dev-analysis.json	4.15815	MATCH
+EXP-B-005 dev F+onset0.25 R1-dev delta	docs/experiments/EXP-B-005.md	-0.0006	results/EXP-B-005/dev-analysis.json	-0.000643548	MATCH
+EXP-B-005 dev F+onset0.25 R1-dev CI low	docs/experiments/EXP-B-005.md	-0.0086	results/EXP-B-005/dev-analysis.json	-0.00857167	MATCH
+EXP-B-005 dev F+onset0.25 R1-dev CI high	docs/experiments/EXP-B-005.md	+0.0060	results/EXP-B-005/dev-analysis.json	0.00598821	MATCH
+EXP-B-005 dev F+onset0.5 delta vs F	docs/experiments/EXP-B-005.md	+0.0035	results/EXP-B-005/dev-analysis.json	0.00347981	MATCH
+EXP-B-005 dev F+onset0.5 CI low	docs/experiments/EXP-B-005.md	+0.0011	results/EXP-B-005/dev-analysis.json	0.00114125	MATCH
+EXP-B-005 dev F+onset0.5 CI high	docs/experiments/EXP-B-005.md	+0.0058	results/EXP-B-005/dev-analysis.json	0.00581094	MATCH
+EXP-B-005 dev F+onset0.5 harmed % vs E0+answers	docs/experiments/EXP-B-005.md	6.00	results/EXP-B-005/dev-analysis.json	5.99864	MATCH
+EXP-B-005 dev F+onset0.5 R1-dev delta	docs/experiments/EXP-B-005.md	-0.0004	results/EXP-B-005/dev-analysis.json	-0.000383312	MATCH
+EXP-B-005 dev F+onset0.5 R1-dev CI low	docs/experiments/EXP-B-005.md	-0.0086	results/EXP-B-005/dev-analysis.json	-0.00857623	MATCH
+EXP-B-005 dev F+onset0.5 R1-dev CI high	docs/experiments/EXP-B-005.md	+0.0069	results/EXP-B-005/dev-analysis.json	0.00692808	MATCH
+EXP-B-005 dev F+onset1 delta vs F	docs/experiments/EXP-B-005.md	+0.0038	results/EXP-B-005/dev-analysis.json	0.00380289	MATCH
+EXP-B-005 dev F+onset1 CI low	docs/experiments/EXP-B-005.md	+0.0000	results/EXP-B-005/dev-analysis.json	3.47587e-06	MATCH
+EXP-B-005 dev F+onset1 CI high	docs/experiments/EXP-B-005.md	+0.0076	results/EXP-B-005/dev-analysis.json	0.007615	MATCH
+EXP-B-005 dev F+onset1 harmed % vs E0+answers	docs/experiments/EXP-B-005.md	7.81	results/EXP-B-005/dev-analysis.json	7.80504	MATCH
+EXP-B-005 dev F+onset1 R1-dev delta	docs/experiments/EXP-B-005.md	-0.0052	results/EXP-B-005/dev-analysis.json	-0.00523477	MATCH
+EXP-B-005 dev F+onset1 R1-dev CI low	docs/experiments/EXP-B-005.md	-0.0133	results/EXP-B-005/dev-analysis.json	-0.0132574	MATCH
+EXP-B-005 dev F+onset1 R1-dev CI high	docs/experiments/EXP-B-005.md	+0.0024	results/EXP-B-005/dev-analysis.json	0.00239695	MATCH
+EXP-B-005 dev F vs E0+answers	docs/experiments/EXP-B-005.md	+0.0089	results/EXP-B-005/dev-analysis.json	0.00894186	MATCH
+EXP-B-005 dev F vs E0+answers CI low	docs/experiments/EXP-B-005.md	+0.0067	results/EXP-B-005/dev-analysis.json	0.006702	MATCH
+EXP-B-005 dev F vs E0+answers CI high	docs/experiments/EXP-B-005.md	+0.0115	results/EXP-B-005/dev-analysis.json	0.0115172	MATCH
+EXP-B-005 dev F harmed %	docs/experiments/EXP-B-005.md	3.03	results/EXP-B-005/dev-analysis.json	3.0334	MATCH
+EXP-B-005 dev F+onset0.25 all-cases delta vs F	docs/experiments/EXP-B-005.md	+0.0025	results/EXP-B-005/dev-analysis.json	0.00253376	MATCH
+EXP-B-005 dev F+onset0.25 known-onset delta vs F	docs/experiments/EXP-B-005.md	+0.0042	results/EXP-B-005/dev-analysis.json	0.00419565	MATCH
+EXP-B-005 dev F+onset0.25 known-onset harmed %	docs/experiments/EXP-B-005.md	5.84	results/EXP-B-005/dev-analysis.json	5.84392	MATCH
+EXP-B-005 dev F+onset0.5 all-cases delta vs F	docs/experiments/EXP-B-005.md	+0.0042	results/EXP-B-005/dev-analysis.json	0.0041928	MATCH
+EXP-B-005 dev F+onset0.5 known-onset delta vs F	docs/experiments/EXP-B-005.md	+0.0069	results/EXP-B-005/dev-analysis.json	0.00694285	MATCH
+EXP-B-005 dev F+onset0.5 known-onset harmed %	docs/experiments/EXP-B-005.md	8.28	results/EXP-B-005/dev-analysis.json	8.27586	MATCH
+EXP-B-005 dev F+onset1 all-cases delta vs F	docs/experiments/EXP-B-005.md	+0.0053	results/EXP-B-005/dev-analysis.json	0.00529864	MATCH
+EXP-B-005 dev F+onset1 known-onset delta vs F	docs/experiments/EXP-B-005.md	+0.0088	results/EXP-B-005/dev-analysis.json	0.00877401	MATCH
+EXP-B-005 dev F+onset1 known-onset harmed %	docs/experiments/EXP-B-005.md	11.40	results/EXP-B-005/dev-analysis.json	11.3975	MATCH
+EXP-B-005 sealed cases interviewed	docs/experiments/EXP-B-005.md	10458	results/EXP-B-005/sealed-analysis.json	10458	MATCH
+EXP-B-005 sealed P1 n	docs/experiments/EXP-B-005.md	6745	results/EXP-B-005/sealed-analysis.json	6745	MATCH
+EXP-B-005 sealed P1 delta	docs/experiments/EXP-B-005.md	+0.0023	results/EXP-B-005/sealed-analysis.json	0.00231413	MATCH
+EXP-B-005 sealed P1 CI low	docs/experiments/EXP-B-005.md	+0.0013	results/EXP-B-005/sealed-analysis.json	0.00131166	MATCH
+EXP-B-005 sealed P1 CI high	docs/experiments/EXP-B-005.md	+0.0034	results/EXP-B-005/sealed-analysis.json	0.0033759	MATCH
+EXP-B-005 sealed P1 harmed %	docs/experiments/EXP-B-005.md	4.63	results/EXP-B-005/sealed-analysis.json	4.62565	MATCH
+EXP-B-005 sealed P1 helped %	docs/experiments/EXP-B-005.md	28.35	results/EXP-B-005/sealed-analysis.json	28.3469	MATCH
+EXP-B-005 sealed F vs E0+answers	docs/experiments/EXP-B-005.md	+0.0076	results/EXP-B-005/sealed-analysis.json	0.00761966	MATCH
+EXP-B-005 sealed F vs E0+answers CI low	docs/experiments/EXP-B-005.md	+0.0060	results/EXP-B-005/sealed-analysis.json	0.00604615	MATCH
+EXP-B-005 sealed F vs E0+answers CI high	docs/experiments/EXP-B-005.md	+0.0092	results/EXP-B-005/sealed-analysis.json	0.00916346	MATCH
+EXP-B-005 sealed F harmed %	docs/experiments/EXP-B-005.md	3.45	results/EXP-B-005/sealed-analysis.json	3.45441	MATCH
+EXP-B-005 sealed all n	docs/experiments/EXP-B-005.md	10458	results/EXP-B-005/sealed-analysis.json	10458	MATCH
+EXP-B-005 sealed all delta vs F	docs/experiments/EXP-B-005.md	+0.0027	results/EXP-B-005/sealed-analysis.json	0.00270021	MATCH
+EXP-B-005 sealed all CI low	docs/experiments/EXP-B-005.md	+0.0019	results/EXP-B-005/sealed-analysis.json	0.00185201	MATCH
+EXP-B-005 sealed all CI high	docs/experiments/EXP-B-005.md	+0.0036	results/EXP-B-005/sealed-analysis.json	0.00364639	MATCH
+EXP-B-005 sealed all harmed %	docs/experiments/EXP-B-005.md	4.75	results/EXP-B-005/sealed-analysis.json	4.75234	MATCH
+EXP-B-005 sealed known n	docs/experiments/EXP-B-005.md	6200	results/EXP-B-005/sealed-analysis.json	6200	MATCH
+EXP-B-005 sealed known delta vs F	docs/experiments/EXP-B-005.md	+0.0046	results/EXP-B-005/sealed-analysis.json	0.00455465	MATCH
+EXP-B-005 sealed known CI low	docs/experiments/EXP-B-005.md	+0.0031	results/EXP-B-005/sealed-analysis.json	0.0031224	MATCH
+EXP-B-005 sealed known CI high	docs/experiments/EXP-B-005.md	+0.0061	results/EXP-B-005/sealed-analysis.json	0.00613525	MATCH
+EXP-B-005 sealed known harmed %	docs/experiments/EXP-B-005.md	5.40	results/EXP-B-005/sealed-analysis.json	5.40323	MATCH
+EXP-B-005 sealed lit_known n	docs/experiments/EXP-B-005.md	3993	results/EXP-B-005/sealed-analysis.json	3993	MATCH
+EXP-B-005 sealed lit_known delta vs F	docs/experiments/EXP-B-005.md	+0.0039	results/EXP-B-005/sealed-analysis.json	0.00390904	MATCH
+EXP-B-005 sealed lit_known CI low	docs/experiments/EXP-B-005.md	+0.0021	results/EXP-B-005/sealed-analysis.json	0.00214464	MATCH
+EXP-B-005 sealed lit_known CI high	docs/experiments/EXP-B-005.md	+0.0056	results/EXP-B-005/sealed-analysis.json	0.0055926	MATCH
+EXP-B-005 sealed lit_known harmed %	docs/experiments/EXP-B-005.md	5.58	results/EXP-B-005/sealed-analysis.json	5.58477	MATCH
+EXP-B-005 sealed lit_unknown n	docs/experiments/EXP-B-005.md	2752	results/EXP-B-005/sealed-analysis.json	2752	MATCH
+EXP-B-005 sealed lit_unknown delta vs F	docs/experiments/EXP-B-005.md	+0.0000	results/EXP-B-005/sealed-analysis.json	0	MATCH
+EXP-B-005 sealed lit_unknown harmed %	docs/experiments/EXP-B-005.md	3.23	results/EXP-B-005/sealed-analysis.json	3.23401	MATCH
+EXP-B-005 sealed lit_src_hpoa n	docs/experiments/EXP-B-005.md	4802	results/EXP-B-005/sealed-analysis.json	4802	MATCH
+EXP-B-005 sealed lit_src_hpoa delta vs F	docs/experiments/EXP-B-005.md	+0.0025	results/EXP-B-005/sealed-analysis.json	0.00247711	MATCH
+EXP-B-005 sealed lit_src_hpoa CI low	docs/experiments/EXP-B-005.md	+0.0013	results/EXP-B-005/sealed-analysis.json	0.00129694	MATCH
+EXP-B-005 sealed lit_src_hpoa CI high	docs/experiments/EXP-B-005.md	+0.0038	results/EXP-B-005/sealed-analysis.json	0.00377332	MATCH
+EXP-B-005 sealed lit_src_hpoa harmed %	docs/experiments/EXP-B-005.md	4.56	results/EXP-B-005/sealed-analysis.json	4.5606	MATCH
+EXP-B-005 sealed lit_src_orphanet n	docs/experiments/EXP-B-005.md	355	results/EXP-B-005/sealed-analysis.json	355	MATCH
+EXP-B-005 sealed lit_src_orphanet delta vs F	docs/experiments/EXP-B-005.md	+0.0004	results/EXP-B-005/sealed-analysis.json	0.000397518	MATCH
+EXP-B-005 sealed lit_src_orphanet CI low	docs/experiments/EXP-B-005.md	-0.0033	results/EXP-B-005/sealed-analysis.json	-0.00332627	MATCH
+EXP-B-005 sealed lit_src_orphanet CI high	docs/experiments/EXP-B-005.md	+0.0036	results/EXP-B-005/sealed-analysis.json	0.00355241	MATCH
+EXP-B-005 sealed lit_src_orphanet harmed %	docs/experiments/EXP-B-005.md	3.94	results/EXP-B-005/sealed-analysis.json	3.94366	MATCH
+EXP-B-005 sealed lit_src_orphanet_exact_alignment n	docs/experiments/EXP-B-005.md	978	results/EXP-B-005/sealed-analysis.json	978	MATCH
+EXP-B-005 sealed lit_src_orphanet_exact_alignment delta vs F	docs/experiments/EXP-B-005.md	+0.0023	results/EXP-B-005/sealed-analysis.json	0.00225326	MATCH
+EXP-B-005 sealed lit_src_orphanet_exact_alignment CI low	docs/experiments/EXP-B-005.md	-0.0001	results/EXP-B-005/sealed-analysis.json	-9.37167e-05	MATCH
+EXP-B-005 sealed lit_src_orphanet_exact_alignment CI high	docs/experiments/EXP-B-005.md	+0.0046	results/EXP-B-005/sealed-analysis.json	0.00463852	MATCH
+EXP-B-005 sealed lit_src_orphanet_exact_alignment harmed %	docs/experiments/EXP-B-005.md	5.42	results/EXP-B-005/sealed-analysis.json	5.41922	MATCH
+EXP-B-005 sealed lit_src_none n	docs/experiments/EXP-B-005.md	610	results/EXP-B-005/sealed-analysis.json	610	MATCH
+EXP-B-005 sealed lit_src_none delta vs F	docs/experiments/EXP-B-005.md	+0.0022	results/EXP-B-005/sealed-analysis.json	0.00224412	MATCH
+EXP-B-005 sealed lit_src_none CI low	docs/experiments/EXP-B-005.md	-0.0012	results/EXP-B-005/sealed-analysis.json	-0.00121121	MATCH
+EXP-B-005 sealed lit_src_none CI high	docs/experiments/EXP-B-005.md	+0.0062	results/EXP-B-005/sealed-analysis.json	0.00618699	MATCH
+EXP-B-005 sealed lit_src_none harmed %	docs/experiments/EXP-B-005.md	4.26	results/EXP-B-005/sealed-analysis.json	4.2623	MATCH
+ADR-0012 correction: V03 half A terms per case (8.42)	docs/decisions/0012-data-quality-gate.md	8.42	results/realism/v0.3-baseline.json	8.42448	MATCH
+ADR-0012 correction: V03-full terms per case (10.21)	docs/decisions/0012-data-quality-gate.md	10.21	results/realism/v0.3-full-baseline.json	10.2052	MATCH
+ADR-0012 correction: V03-full p10	docs/decisions/0012-data-quality-gate.md	4	results/realism/v0.3-full-baseline.json	4	MATCH
+ADR-0012 correction: V03-full p90	docs/decisions/0012-data-quality-gate.md	18	results/realism/v0.3-full-baseline.json	18	MATCH
+ADR-0012 correction: R1-train p10	docs/decisions/0012-data-quality-gate.md	2	results/realism/v0.3-full-baseline.json	2	MATCH
+ADR-0012 correction: R1-train p90	docs/decisions/0012-data-quality-gate.md	17	results/realism/v0.3-full-baseline.json	17	MATCH
