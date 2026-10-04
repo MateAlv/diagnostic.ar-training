@@ -2781,5 +2781,127 @@ def s3_dev_score(
         )
 
 
+@s3_app.command("onset-session")
+def s3_onset_session(
+    exp: str = typer.Option("EXP-B-005", help="Pre-registered experiment id"),
+    split: str = typer.Option("s3-v3b", help="S3 version; its exclusion list is always applied"),
+    part: str = typer.Option("dev", help="dev; test is sealed (needs --reason and DXT_SEALED_READ=<exp>)"),
+    arms_file: str = typer.Option(
+        ..., "--arms", help="JSON list of arms; the first one drives the interview"
+    ),
+    lam: float = typer.Option(0.6, help="Q2b diversity weight"),
+    kb_id: str = typer.Option("kb-v6", "--kb", help="KB without half B of annot-split-v2"),
+    reason: str = typer.Option("", help="Required for the sealed part"),
+    r1_dev: bool = typer.Option(False, "--r1-dev", help="Also score every arm on R1-dev (the no-harm check)"),
+    top_k: int = typer.Option(200),
+    workers: int = typer.Option(8),
+) -> None:
+    """One Q2b interview driven by the first arm, then every arm scored on those same answers."""
+    import gzip
+
+    from diagnostic_ar_training import RESULTS_DIR
+    from diagnostic_ar_training.cohorts import s3
+    from diagnostic_ar_training.eval import dev_run, dev_search, onset_run
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        ensure_new,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+
+    if part not in s3.PARTS:
+        raise typer.BadParameter(f"part must be one of {s3.PARTS}")
+    try:
+        onset_run.check_sealed_request(split, part, exp, reason)
+    except ValueError as e:
+        raise typer.BadParameter(str(e)) from e
+    label = "sealed" if part in s3.SEALED else part
+    artifact = f"results-{exp}-{split}-{label}-session"
+    ensure_new(artifact)
+    state = _require_clean_registered(exp)
+    arms = [dev_search.Arm.from_dict(d) for d in json.loads(Path(arms_file).read_text())]
+    ids = [a.arm_id for a in arms]
+    if len(set(ids)) != len(ids):
+        raise typer.BadParameter("duplicate arm ids")
+    if {a.config.kb_id for a in arms} != {kb_id}:
+        raise typer.BadParameter(f"every arm must use {kb_id}")
+    driver = arms[0]
+    kb_manifest = load_manifest(kb_id)
+    _check_s3_kb(split, kb_manifest)
+    spec, data, excluded = _s3_dataset(split)
+    ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    kb_data = kb.read(fetch_outputs(kb_manifest)[0])
+    knowledge = GeneKnowledge(kb_data, ontology)
+    rr_knowledge = driver.config.knowledge(kb_data, ontology)
+
+    loaded = s3.load_part(split, part, data, exp_id=exp if part in s3.SEALED else None, reason=reason)
+    pairs = [p for p in loaded if p[0].case_id not in excluded]
+    rows = onset_run.interview(
+        pairs, lam, knowledge, rr_knowledge, ontology, driver.config.beta(), top_k, workers
+    )
+    out_dir = RESULTS_DIR / exp / label
+    out_dir.mkdir(parents=True, exist_ok=True)
+    interviews_path = out_dir / "interviews.jsonl.gz"
+    onset_run.write_rows(interviews_path, rows)
+
+    scored = onset_run.read_rows(interviews_path)
+    items = [(r["case"], r["gene"]) for r in scored]
+    base_ranks, arm_ranks = dev_search.score_arms(items, arms, {kb_id: knowledge}, ontology, top_k, workers)
+    driver_direct = [r["rank_driver_final"] for r in scored]
+    parity = bool(all(a == b for a, b in zip(driver_direct, arm_ranks[:, 0], strict=True)))
+    ranks_path = out_dir / "ranks.tsv.gz"
+    with gzip.open(ranks_path, "wt", newline="") as handle:
+        handle.write("case_id\tgene\trank_initial\te0_answers\t" + "\t".join(ids) + "\n")
+        for i, r in enumerate(scored):
+            cells = "\t".join(f"{x:g}" for x in arm_ranks[i])
+            handle.write(f"{r['case_id']}\t{r['gene']}\t{r['rank_initial']:g}\t{base_ranks[i]:g}\t{cells}\n")
+    outputs = [interviews_path, ranks_path]
+    r1 = None
+    if r1_dev:
+        knowledges = {kb_id: knowledge}
+        r1_meta, r1_base, r1_ranks = dev_run.r1_dev(arms, knowledges, ontology, top_k, workers)
+        r1 = dev_run.r1_summary(r1_meta, r1_base, r1_ranks, arms)
+        r1_path = out_dir / "r1dev.json"
+        r1_path.write_text(json.dumps({"cases": len(r1_meta), "arms": r1}, indent=1, sort_keys=True) + "\n")
+        outputs.append(r1_path)
+    session = {
+        "exp": exp,
+        "split": f"{split}/{part}",
+        "strategy": "Q2b",
+        "lam": lam,
+        "budget": 9,
+        "noise": 0,
+        "kb": kb_id,
+        "driver_arm": driver.arm_id,
+        "arms": [a.to_dict() | {"config_hash": a.config.config_hash} for a in arms],
+        "cases": len(rows),
+        "excluded_in_part": len(loaded) - len(pairs),
+        "driver_rank_parity": parity,
+        "code_sha": state.sha,
+    }
+    session_path = out_dir / "session.json"
+    session_path.write_text(json.dumps(session, indent=1, sort_keys=True) + "\n")
+    outputs.append(session_path)
+    inputs = [
+        {"id": f"artifact:{kb_id}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": f"artifact:{spec.dataset_artifact}", "sha256": sha256_file(data)},
+        {"id": f"artifact:{spec.exclusion_artifact}", "sha256": _s3_exclusion_sha(spec)},
+        {"id": f"split:{split}", "sha256": sha256_file(SPLITS_DIR / f"{split}.json")},
+        {"id": "file:arms", "sha256": sha256_file(Path(arms_file))},
+    ]
+    params = {"split": f"{split}/{part}", "lam": lam, "arms": ids, "cases": len(rows), "r1_dev": r1_dev}
+    write_manifest(build_manifest(artifact, "onset-session", inputs, params, outputs, state=state))
+    typer.echo(json.dumps({k: v for k, v in session.items() if k != "arms"}, indent=1))
+    if not parity:
+        typer.echo("driver rank parity FAILED", err=True)
+        raise typer.Exit(1)
+
+
 if __name__ == "__main__":
     app()
