@@ -3884,3 +3884,35 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Disclosed technical access (Mateo ruled acceptable):** the contamination scripts of S3 v3 and S3 v3b read the S3 v1,
   S3 v2 (and, for v3b, S3 v3) dataset files whole, test parts included, only to compute (gene, present, excluded)
   signatures for exclusion. No metrics, no printing of case content, no `load_part`, no ledger rows.
+
+### 2026-10-04 — experiment — EXP-B-005 phase 2: dev selection of the onset weight on S3-v3b-dev
+- **Harness:** new `dxt s3 onset-session` (`eval/onset_run.py`, `scripts/exp_b005_analysis.py`, `scripts/exp_b005_arms.py`).
+  A Q2b interview picks its questions with the re-ranker's posterior, so interviews driven by different configurations
+  can differ; the session therefore interviews once with F and scores every candidate on those same answers. The sealed
+  part of `s3-v3b` opens only for `--exp EXP-B-005`, with a reason, all cases, the exclusion list, the ledger and
+  `DXT_SEALED_READ`; tests in `tests/test_onset_run.py`. No `s3-v3b/test` read (no ledger row).
+- **Run:** S3-v3b-dev, 4,562 cases (15 excluded), Q2b λ 0.6, budget 9, noise 0, driver F (`8ecd5b320f33`); F's interview
+  ranks equal its scoring-path ranks on every case. R1-dev scored once for the no-harm check (3 candidates + F).
+- **Primary (2,934 literature-onset dev cases, CI over genes):**
+  - F + onset 0.25 (`871fd89b8368`): Δ vs F +0.0021 [+0.0006, +0.0036], harmed 4.16%, R1-dev −0.0006 [−0.0086, +0.0060] pass;
+  - F + onset 0.5 (`458768f1bca4`): +0.0035 [+0.0011, +0.0058], harmed 6.00%, R1-dev −0.0004 [−0.0086, +0.0069] pass;
+  - F + onset 1 (`0f34fe094b7d`): +0.0038 [+0.0000, +0.0076], harmed 7.81%, R1-dev −0.0052 [−0.0133, +0.0024] pass.
+  - F vs E0+answers: +0.0089 [+0.0067, +0.0115], harmed 3.03%.
+- **Selection (fixed rule):** only w = 0.25 meets harmed ≤ 5%; **selected w = 0.25**. Log:
+  `results/EXP-B-005/dev-search.tsv`, tables `dev-analysis.md`.
+
+### 2026-10-04 — experiment — EXP-B-005 phase 3: the sealed S3-v3b-test read, P1 passes
+- **Pre-registered** at `a7f83f5` (final addendum: F + onset 0.25, `871fd89b8368`), after the dev search and before any
+  test load; the analysis script was committed earlier (`57a3b45`). One read, `DXT_SEALED_READ=EXP-B-005` on that command
+  only; ledger row `2026-10-04T18:31:09+00:00 s3-v3b/test EXP-B-005` committed unedited.
+- **Run:** 10,458 test cases (51 excluded), one Q2b interview (λ 0.6, budget 9, noise 0) driven by F; F and
+  F + onset 0.25 scored on the same answers (driver-rank parity holds on every case). No re-run.
+- **P1 (6,745 literature-onset test cases):** Δ (F + onset 0.25) − F **+0.0023 [+0.0013, +0.0034]**, harmed vs E0+answers
+  **4.63%** (helped 28.35%): **P1 passes** (CI lower bound > 0, harmed ≤ 5%). F vs E0+answers +0.0076, harmed 3.45%.
+- **Secondary:** all cases +0.0027 [+0.0019, +0.0036], harmed 4.75%; known-onset +0.0046 [+0.0031, +0.0061], harmed 5.40%;
+  literature with onset known +0.0039, harmed 5.58%; by kb source: hpoa +0.0025 [+0.0013, +0.0038], orphanet +0.0004
+  [−0.0033, +0.0036], orphanet_exact_alignment +0.0023 [−0.0001, +0.0046], none +0.0022 [−0.0012, +0.0062].
+- **Caveats:** small effect; it comes entirely from cases that report an onset, where harm exceeds 5%. The app does not
+  collect symptom-onset age (ADR-0015 prerequisite). A release would still need Mateo's go-ahead and the R1-test
+  no-regression read (EXP-B-003 N1/N2); not done here.
+- Outputs: `results/EXP-B-005/sealed/`, `sealed-analysis.{md,json}`, manifest `results-EXP-B-005-s3-v3b-sealed-session`.

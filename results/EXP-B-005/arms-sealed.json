@@ -1,0 +1,46 @@
+[
+ {
+  "arm_id": "F",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.5,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.5,
+    "onset": 0.0,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "B5",
+  "note": "reference re-ranker; drives the interview"
+ },
+ {
+  "arm_id": "F+onset0.25",
+  "config": {
+   "kb_id": "kb-v6",
+   "neg_cap": null,
+   "neg_form": "propagated",
+   "neg_strength": 0.5,
+   "neg_tau": null,
+   "top_k": 200,
+   "weights": {
+    "age_any": 0.0,
+    "age_mean": 0.0,
+    "neg_annotated_share": 0.0,
+    "neg_llr": 0.5,
+    "onset": 0.25,
+    "sex_prior": 0.0,
+    "sex_restricted": 0.0
+   }
+  },
+  "lever": "B5",
+  "note": "F with onset weight 0.25"
+ }
+]
