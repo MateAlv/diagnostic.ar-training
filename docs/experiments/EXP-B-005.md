@@ -2,7 +2,8 @@
 
 - **Front:** B
 - **Registered:** 2026-10-04, by Mateo Alvarez (written by the assistant)
-- **Status:** planned. The chosen w is added as a dated addendum before the
+- **Status (updated 2026-10-04):** completed. The addenda below govern: S3 v3 (`s3-data-v3`, split `s3-v3`) was superseded by S3 v3b (`s3-data-v3b`, split `s3-v3b`) and never evaluated; dev selection (w 0.25), the final pre-registration and the sealed read (P1 passes) are in the dated addenda. The "Data" section and the lines that follow are the text as registered, left unchanged.
+- **Status at registration:** planned. The chosen w is added as a dated addendum before the
   sealed read.
 - **Governing decision:** ADR-0015.
 
@@ -55,7 +56,7 @@ Secondary (dev, Δ vs F): all cases +0.0025 / +0.0042 / +0.0053 for w = 0.25 / 0
 **Selected by the fixed rule: w = 0.25** (the only candidate with harmed ≤ 5%).
 
 ## Results
-(After the sealed read.)
+Results are in the dated addenda below: dev selection in "Dev search log", the sealed S3-v3b-test read in "Addendum, 2026-10-04 (after the sealed read): Results and verdict" (`results/EXP-B-005/sealed-analysis.{json,md}`).
 
 ## Addendum, 2026-10-04 (before any S3 v3b data): S3 v3b, literature-onset primary
 Same change as the ADR-0015 addendum of this date.
