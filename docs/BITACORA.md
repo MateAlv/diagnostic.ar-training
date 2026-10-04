@@ -3804,3 +3804,15 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Layout.** Runs of EXP-Q-001 live in `results/EXP-B-004/sealed/` (the sealed id); analysis in
   `results/EXP-Q-001/sealed-analysis.*` and `results/EXP-B-004/sealed-analysis.*`.
 - Q2b → propose to the production question agent (a separate PR, not part of this task).
+
+### 2026-10-04 — decision + plan — Q2b merged into the question agent; onset follow-up planned (ADR-0015)
+- **Question agent:** PRs #1 (re-ranker negations) and #2 (Q2b default
+  selector, with `legacy` for rollback) are merged, and #3 brings them into
+  `feat/agente-v2` (495bfac). The web's `QUESTION_AGENT_COMMIT` must move
+  from 53a4107 to 495bfac to deploy; that belongs to the deploy agent.
+- **Onset follow-up (ADR-0015, EXP-B-005):** S3 v3 is built only from genes
+  with a literature onset, so every case is a fair onset case.
+  - Generator seed 4004; split dev 30 / test 70; Q2b interviews.
+  - F vs F + onset w ∈ {0.25, 0.5, 1}, chosen on dev; one sealed read.
+- **Declared:** the app does not collect symptom onset today, so deployment
+  would need the app to ask for it.

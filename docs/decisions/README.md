@@ -20,3 +20,4 @@ with a new one and link both ways.
 | [0012](0012-data-quality-gate.md) | No retraining until the simulated data passes a pre-registered quality gate | Accepted 2026-09-30 |
 | [0013](0013-literature-enrichment.md) | Enrich construction profiles from GeneReviews and open-access cohorts | Accepted 2026-10-01 |
 | [0014](0014-reranker-v11-and-s3-v2.md) | Re-ranker v1.1 and better questions, evaluated on a new sealed S3 v2 | Accepted 2026-10-03 |
+| [0015](0015-onset-follow-up-s3-v3.md) | Does symptom-onset age help the re-ranker? A fair test on S3 v3 | Accepted 2026-10-04 |
