@@ -1,0 +1,17 @@
+{
+ "rule": "every drawable entity of the gene has an onset-ages-v2 row (entity id or any profile id)",
+ "simulated_genes_in_plan": 4892,
+ "eligible_genes": 120,
+ "eligible_entities": 126,
+ "genes_with_only_some_entities_listed (excluded)": 277,
+ "genes_with_no_entity_listed": 4495,
+ "target_cases": 10000,
+ "cases_per_gene": 84,
+ "expected_cases": 10080,
+ "inputs": {
+  "profiles_sha256": "59e26012303872ef430f4bf8259a703eb143a8e54488c0ff866f120f38f11b58",
+  "genes_v2_sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db",
+  "onset_ages_v2_sha256": "e9de2163fbb815876f3bfaf12e9d879b7713a1ec3a59a8662ffd905a5a90b94e"
+ },
+ "gene_list_sha256": "656a0b2588edbdf1b9cf572a24a688f351fedd22100d21acdb261166c50e8c73"
+}
