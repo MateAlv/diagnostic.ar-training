@@ -1,0 +1,48 @@
+{
+  "artifact_id": "onset-prompt-terms-v1",
+  "kind": "onset-prompt-terms",
+  "created_at": "2026-10-04T19:33:24+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "fa6114c2113f5372d24d599d8af83be070019ae8",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "split:r1-v1/train",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "artifact:onset-informative-terms-v1/term-scores",
+      "sha256": "f8dd8a89854fcb0967eba35d1278830b6e74bcf8191b126ccac7cedcb9f514e2"
+    }
+  ],
+  "params": {
+    "root": "HP:0000118",
+    "target_coverage": 0.9,
+    "cap": 400,
+    "n": 206,
+    "coverage": 0.9001,
+    "curve": {
+      "50": 0.7165,
+      "100": 0.7972,
+      "200": 0.8981,
+      "300": 0.9344,
+      "400": 0.9464
+    }
+  },
+  "params_hash": "5f4bafc08216300c84c1b5c13d4941d8cc2a0d8e1c1d409e9f6be07f9dc2efb4",
+  "outputs": [
+    {
+      "path": "results/onset-informative-terms/onset-prompt-terms-v1.json",
+      "sha256": "4e019f8f0325fcd46a7c3d6408a00ffff786294fbacd93df08a5c6652232503f",
+      "bytes": 30174
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -142,3 +142,47 @@ fall just under tau.
 - kb-v3 onset comes from HPOA and Orphanet disease-level onsets; genes without onset data are not scored, and diseases
   without onset contribute the background distribution.
 - Scores depend on the 8-bin discretisation and the uniform gene prior; terms with 3 to 10 genes are noisy.
+
+## Decision 2026-10-04 (Mateo): the score is not the selection rule
+The Precisar button goes on the **most reported symptoms**, not on the high-score terms. Reason: the re-ranker uses one
+patient-level onset, all the gain comes from cases that report any onset, and the dev check above showed no term-level
+selectivity. The goal is therefore to maximise how many patients give at least one onset.
+
+- **Rule:** rank terms under Phenotypic abnormality (HP:0000118, so onset and clinical-modifier terms are out) by the
+  number of R1-train patients reporting the exact term (`splits.load_part`, train only; no R1-dev, R1-test or vault).
+  The list is the smallest N whose terms cover at least 90% of R1-train patients (at least one listed term reported),
+  capped at 400.
+- **Result:** N = 206, coverage 0.9001 of 4103 R1-train patients.
+- **Coverage curve:**
+
+| N | 50 | 100 | 200 | 300 | 400 |
+|---|---|---|---|---|---|
+| patients with at least one listed term | 0.7165 | 0.7972 | 0.8981 | 0.9344 | 0.9464 |
+
+- **File for the app:** `results/onset-informative-terms/onset-prompt-terms-v1.json` (artifact `onset-prompt-terms-v1`,
+  version `v1-most-reported`, sorted by `r1_train_count`; `score_bits` and `n_genes` kept as data). The score-based
+  `onset-informative-terms-v1.json` stays as the record of the first attempt and its failed dev check.
+- Top 20 of the new list:
+
+| # | HPO id | label | R1-train count | score (bits) |
+|---|---|---|---|---|
+| 1 | HP:0001263 | Global developmental delay | 1154 | 0.764 |
+| 2 | HP:0000750 | Delayed speech and language development | 796 | 0.8054 |
+| 3 | HP:0001249 | Intellectual disability | 740 | 0.81 |
+| 4 | HP:0001252 | Hypotonia | 623 | 0.7395 |
+| 5 | HP:0004322 | Short stature | 475 | 0.776 |
+| 6 | HP:0000252 | Microcephaly | 360 | 0.7939 |
+| 7 | HP:0001270 | Motor delay | 346 | 0.8403 |
+| 8 | HP:0000316 | Hypertelorism | 335 | 0.6842 |
+| 9 | HP:0031936 | Delayed ability to walk | 329 | 0.8646 |
+| 10 | HP:0001250 | Seizure | 322 | 0.8089 |
+| 11 | HP:0011968 | Feeding difficulties | 320 | 0.725 |
+| 12 | HP:0000369 | Low-set ears | 246 | 0.7211 |
+| 13 | HP:0000729 | Autistic behavior | 246 | 0.7698 |
+| 14 | HP:0002650 | Scoliosis | 242 | 0.7843 |
+| 15 | HP:0000343 | Long philtrum | 221 | 0.651 |
+| 16 | HP:0001572 | Macrodontia | 218 | 0.5227 |
+| 17 | HP:0001508 | Failure to thrive | 194 | 0.7069 |
+| 18 | HP:0000486 | Strabismus | 189 | 0.7626 |
+| 19 | HP:0001155 | Abnormality of the hand | 189 | 0.7854 |
+| 20 | HP:0000463 | Anteverted nares | 184 | 0.7302 |

@@ -3936,3 +3936,7 @@ this task, whatever the result**; the last read needs Mateo's OK.
   a small effect, the app must collect onset.
 - Outputs: `results/onset-informative-terms/` (`onset-informative-terms-v1.json`, `term-scores-v1.json`,
   `dev-tertiles-v1.json`), manifest `onset-informative-terms-v1`, `docs/analyses/ONSET-INFORMATIVE-TERMS-v1.md`.
+- **Decision 2026-10-04 (Mateo):** the onset score is not the selection rule. Precisar goes on the most reported
+  symptoms: terms under HP:0000118 by R1-train count, smallest N covering >= 90% of R1-train patients (cap 400):
+  **N = 206, coverage 0.9001** (curve 50/100/200/300/400: 0.717/0.797/0.898/0.934/0.946).
+  Artifact `onset-prompt-terms-v1` (`results/onset-informative-terms/onset-prompt-terms-v1.json`). R1-train only.
