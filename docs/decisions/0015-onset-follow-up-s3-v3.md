@@ -69,3 +69,12 @@
 | 1 | Build S3 v3, freeze the split, contamination checks |
 | 2 | Dev selection of w (≤ 3) |
 | 3 | Pre-registration addendum, then one sealed S3-v3-test read |
+
+## Addendum, 2026-10-04: S3 v3 phase 1 done
+- **Eligible genes: 120** (126 entities; every drawable entity of the gene has an `onset-ages-v2` row), so 84 cases
+  per gene. This is far fewer than the 4,892 genes of S3 v2; the gene-level bootstrap has 120 clusters.
+  277 more genes have only some entities listed and are left out, because their cases would not all use literature onset.
+- `s3-data-v3`: 10,080 cases, 100% literature onset, onset reported on 59.43%, sex known on 92.06%.
+- Split `s3-v3` frozen before any system ran: dev 3,106, test 6,974 (sealed), content sha256
+  `746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db`.
+- Exclusion list `s3-data-v3-excl-v1`: 24 cases (dev 9, test 15), residual overlap 0.
