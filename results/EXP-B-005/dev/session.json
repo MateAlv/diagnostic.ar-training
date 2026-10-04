@@ -1,0 +1,108 @@
+{
+ "arms": [
+  {
+   "arm_id": "F",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "8ecd5b320f33",
+   "lever": "B5",
+   "note": "reference re-ranker; drives the interview"
+  },
+  {
+   "arm_id": "F+onset0.25",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.25,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "871fd89b8368",
+   "lever": "B5",
+   "note": "F with onset weight 0.25"
+  },
+  {
+   "arm_id": "F+onset0.5",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.5,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "458768f1bca4",
+   "lever": "B5",
+   "note": "F with onset weight 0.5"
+  },
+  {
+   "arm_id": "F+onset1",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 1.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "0f34fe094b7d",
+   "lever": "B5",
+   "note": "F with onset weight 1"
+  }
+ ],
+ "budget": 9,
+ "cases": 4562,
+ "code_sha": "57a3b452179ae5fda06b0f2fbafdbd8f823fbcea",
+ "driver_arm": "F",
+ "driver_rank_parity": true,
+ "excluded_in_part": 15,
+ "exp": "EXP-B-005",
+ "kb": "kb-v6",
+ "lam": 0.6,
+ "noise": 0,
+ "split": "s3-v3b/dev",
+ "strategy": "Q2b"
+}

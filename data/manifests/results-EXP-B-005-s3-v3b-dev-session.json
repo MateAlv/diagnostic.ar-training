@@ -1,0 +1,69 @@
+{
+  "artifact_id": "results-EXP-B-005-s3-v3b-dev-session",
+  "kind": "onset-session",
+  "created_at": "2026-10-04T18:29:32+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "57a3b452179ae5fda06b0f2fbafdbd8f823fbcea",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v6",
+      "sha256": "a7dc86f95f6f96b7398bab9038d281d1f4b645464b1128fa3db9a9c6f6c64a48"
+    },
+    {
+      "id": "artifact:s3-data-v3b",
+      "sha256": "0b9319f8b139f79d3121208f1cd491905c855401144c22805a89a6286101eb47"
+    },
+    {
+      "id": "artifact:s3-data-v3b-excl-v1",
+      "sha256": "75c539ce07db797ba5905b07ee0f79335739c1fa67d60498131f826c740de920"
+    },
+    {
+      "id": "split:s3-v3b",
+      "sha256": "e1d44d93c912e0784ebf7e3b1e0029aa67b15719281495f0b178f8cc2d3c5be2"
+    },
+    {
+      "id": "file:arms",
+      "sha256": "6f0b78787b1070fb7758eb19fe0d567c8e279bebda97bc7a20ee35f7ac358164"
+    }
+  ],
+  "params": {
+    "split": "s3-v3b/dev",
+    "lam": 0.6,
+    "arms": [
+      "F",
+      "F+onset0.25",
+      "F+onset0.5",
+      "F+onset1"
+    ],
+    "cases": 4562,
+    "r1_dev": true
+  },
+  "params_hash": "a3ebad76c5c064d04f098f832f6733893e113a14fe96bd56ec4f3ee127052d52",
+  "outputs": [
+    {
+      "path": "results/EXP-B-005/dev/interviews.jsonl.gz",
+      "sha256": "ddf4915744461403d906b86b19a63c78a64459f173689bd8ff60f3a5b82168f1",
+      "bytes": 489945
+    },
+    {
+      "path": "results/EXP-B-005/dev/ranks.tsv.gz",
+      "sha256": "abe77dc024e62d5aee88f7c62a3bc8f43a2737a7478f7a50f7cc6838d838b7a0",
+      "bytes": 40933
+    },
+    {
+      "path": "results/EXP-B-005/dev/r1dev.json",
+      "sha256": "3181e3ffd51419b446f473f89e01d9e4301243d0299ad1903f8b6048c601256f",
+      "bytes": 1134
+    },
+    {
+      "path": "results/EXP-B-005/dev/session.json",
+      "sha256": "f5561b5c8013188d036374e7d3e160afcb377f1f86d54a03308136a85a27ced3",
+      "bytes": 2181
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

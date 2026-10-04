@@ -35,7 +35,24 @@ A small or null effect. On S3 v2's fair subset the gain over F was
 +0.0021 [−0.0027, +0.0063]. A null result is a valid outcome.
 
 ## Dev search log
-(Filled in during phase 2.)
+Phase 2, 2026-10-04. Data: `s3-data-v3b`, split `s3-v3b`, dev part only, exclusion list `s3-data-v3b-excl-v1`
+applied (4,577 dev cases, 15 excluded, 4,562 interviewed). One Q2b interview (λ 0.6, budget 9, noise 0) driven by F;
+F and the three candidates scored on the same answers (F's ranks from the interview and from the scoring path agree on
+every case). Primary population: the 2,934 literature-onset dev cases. CI over genes (seed 0, 2,000 resamples).
+Files: `results/EXP-B-005/dev-search.tsv`, `dev-analysis.md`, `dev/`.
+
+| arm | config | Δ vs F [95% CI] | harmed vs E0+answers | R1-dev Δ [CI] | R1-dev no-harm | feasible |
+|---|---|---|---|---|---|---|
+| F + onset 0.25 | `871fd89b8368` | +0.0021 [+0.0006, +0.0036] | 4.16% | −0.0006 [−0.0086, +0.0060] | pass | yes |
+| F + onset 0.5 | `458768f1bca4` | +0.0035 [+0.0011, +0.0058] | 6.00% | −0.0004 [−0.0086, +0.0069] | pass | no (harmed) |
+| F + onset 1 | `0f34fe094b7d` | +0.0038 [+0.0000, +0.0076] | 7.81% | −0.0052 [−0.0133, +0.0024] | pass | no (harmed) |
+
+Reference F (`8ecd5b320f33`) vs E0+answers on the same cases: +0.0089 [+0.0067, +0.0115], harmed 3.03%.
+
+Secondary (dev, Δ vs F): all cases +0.0025 / +0.0042 / +0.0053 for w = 0.25 / 0.5 / 1; known-onset cases +0.0042 /
++0.0069 / +0.0088 (harmed 5.84% / 8.28% / 11.40% vs E0+answers). Full tables in `dev-analysis.md`.
+
+**Selected by the fixed rule: w = 0.25** (the only candidate with harmed ≤ 5%).
 
 ## Results
 (After the sealed read.)
