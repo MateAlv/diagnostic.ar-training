@@ -35,7 +35,11 @@ class S3Spec:
 SPECS = {
     "s3-v1": S3Spec("s3-v1", "s3-data-v1", "annot-split-v1", None),
     "s3-v2": S3Spec("s3-v2", "s3-data-v2", "annot-split-v2", "s3-data-v2-excl-v1"),
+    "s3-v3": S3Spec("s3-v3", "s3-data-v3", "annot-split-v2", "s3-data-v3-excl-v1"),
 }
+
+# Share of cases in dev, in tenths; the rest is test. Versions not listed split 50/50.
+DEV_TENTHS = {"s3-v3": 3}
 
 
 def spec(split_id: str) -> S3Spec:
@@ -86,19 +90,28 @@ def read_entities(path: Path, cohort: str, case_ids: set[str]) -> dict[str, str]
     return out
 
 
-def _part(salt: str, case_id: str) -> str:
-    return PARTS[int(hashlib.sha256(f"{salt}:{case_id}".encode()).hexdigest(), 16) % 2]
+def _part(salt: str, case_id: str, dev_tenths: int | None = None) -> str:
+    digest = int(hashlib.sha256(f"{salt}:{case_id}".encode()).hexdigest(), 16)
+    if dev_tenths is None:
+        return PARTS[digest % 2]
+    return PARTS[0] if digest % 10 < dev_tenths else PARTS[1]
 
 
 def freeze(split_id: str, dataset: Path, dataset_manifest_sha: str) -> dict:
     cases = read_dataset(dataset, split_id)
     salt = f"diagnostic.ar-training/{split_id}"
-    ids = {p: sorted(c.case_id for c, _ in cases if _part(salt, c.case_id) == p) for p in PARTS}
+    tenths = DEV_TENTHS.get(split_id)
+    ids = {p: sorted(c.case_id for c, _ in cases if _part(salt, c.case_id, tenths) == p) for p in PARTS}
+    rule = (
+        "part by sha256(salt:case_id) % 2: 0 -> dev, 1 -> test"
+        if tenths is None
+        else f"part by sha256(salt:case_id) % 10: 0-{tenths - 1} -> dev, {tenths}-9 -> test"
+    )
     body = {
         "split_id": split_id,
         "dataset": {"sha256": sha256_file(dataset), "manifest_output_sha256": dataset_manifest_sha},
         "salt": salt,
-        "rule": "part by sha256(salt:case_id) % 2: 0 -> dev, 1 -> test",
+        "rule": rule,
         "sealed_parts": sorted(SEALED),
         "counts": {p: len(v) for p, v in ids.items()},
         "case_ids": ids,
