@@ -3916,3 +3916,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
   collect symptom-onset age (ADR-0015 prerequisite). A release would still need Mateo's go-ahead and the R1-test
   no-regression read (EXP-B-003 N1/N2); not done here.
 - Outputs: `results/EXP-B-005/sealed/`, `sealed-analysis.{md,json}`, manifest `results-EXP-B-005-s3-v3b-sealed-session`.
+
+### 2026-10-04 — analysis — onset-informative terms v1 (which symptoms get the "Precisar" onset selector)
+- **Question:** for which HPO terms does knowing the onset age help, so the web app offers an onset selector on them.
+- **Method:** mutual information (bits) between gene and onset bin given the term, on the full production KB `kb-v3`
+  (uniform gene prior, P(t | g) weights, the `onset` feature's onset distribution; terms under Phenotypic abnormality
+  with at least 3 onset-annotated genes): 8,040 terms scored (`rerank/onset_terms.py`). R1-train term counts through
+  `splits.load_part` (train only).
+- **List:** score >= 0.75 bits and at least 8 R1-train patients reporting the term: **354 terms**, fixed from the score
+  distribution and R1-train counts before the dev check. Seizure, global developmental delay, ataxia, hearing
+  impairment, muscle weakness and intellectual disability pass; hypotonia (0.74), developmental regression (0.66) and
+  visual loss (0.73) fall under 0.75.
+- **Dev check (S3-v3b-dev, exploratory; EXP-B-005 dev outputs; no test, S3-v2-test, R1-test or vault read):** by tertile of
+  the max score of the case's reported terms, onset-known cases gain +0.0069, +0.0040, +0.0017 (low, mid, high). The
+  score does **not** predict the gain; it points the other way (confounded by saturation of the max and by headroom:
+  F's MRR is 0.30 to 0.43 across tertiles). A second aggregation, the mean score, gives +0.0036, +0.0035, +0.0055
+  with overlapping CIs. Both aggregations are in the artifact. Cases without a listed term gain more than cases with one.
+- **Verdict:** the list is a knowledge-based heuristic, not validated by the dev check. Caveats: simulated evidence,
+  a small effect, the app must collect onset.
+- Outputs: `results/onset-informative-terms/` (`onset-informative-terms-v1.json`, `term-scores-v1.json`,
+  `dev-tertiles-v1.json`), manifest `onset-informative-terms-v1`, `docs/analyses/ONSET-INFORMATIVE-TERMS-v1.md`.

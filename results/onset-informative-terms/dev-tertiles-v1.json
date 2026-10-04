@@ -1,0 +1,534 @@
+{
+ "scored_terms": 8040,
+ "listed_terms": 354,
+ "score_quantiles_all_scored": {
+  "0": 0.0,
+  "0.1": 0.17108,
+  "0.25": 0.323975,
+  "0.5": 0.54345,
+  "0.75": 0.7314,
+  "0.9": 0.8639300000000001,
+  "0.95": 0.9293149999999998,
+  "1": 1.318
+ },
+ "common_complaints": [
+  {
+   "hpo_id": "HP:0001250",
+   "label_en": "Seizure",
+   "score_bits": 0.8089,
+   "n_genes": 1986,
+   "r1_train_count": 322,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001263",
+   "label_en": "Global developmental delay",
+   "score_bits": 0.764,
+   "n_genes": 1932,
+   "r1_train_count": 1154,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001251",
+   "label_en": "Ataxia",
+   "score_bits": 0.9719,
+   "n_genes": 1147,
+   "r1_train_count": 120,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0000365",
+   "label_en": "Hearing impairment",
+   "score_bits": 0.7839,
+   "n_genes": 1648,
+   "r1_train_count": 77,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0000572",
+   "label_en": "Visual loss",
+   "score_bits": 0.7255,
+   "n_genes": 286,
+   "r1_train_count": 0,
+   "listed": false
+  },
+  {
+   "hpo_id": "HP:0000505",
+   "label_en": "Visual impairment",
+   "score_bits": 0.8526,
+   "n_genes": 1160,
+   "r1_train_count": 29,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001324",
+   "label_en": "Muscle weakness",
+   "score_bits": 0.9787,
+   "n_genes": 1140,
+   "r1_train_count": 43,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001252",
+   "label_en": "Hypotonia",
+   "score_bits": 0.7395,
+   "n_genes": 1843,
+   "r1_train_count": 623,
+   "listed": false
+  },
+  {
+   "hpo_id": "HP:0001256",
+   "label_en": "Mild intellectual disability",
+   "score_bits": 0.9154,
+   "n_genes": 390,
+   "r1_train_count": 106,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001249",
+   "label_en": "Intellectual disability",
+   "score_bits": 0.81,
+   "n_genes": 2054,
+   "r1_train_count": 740,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0000750",
+   "label_en": "Delayed speech and language development",
+   "score_bits": 0.8054,
+   "n_genes": 1219,
+   "r1_train_count": 796,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0002376",
+   "label_en": "Developmental regression",
+   "score_bits": 0.6574,
+   "n_genes": 507,
+   "r1_train_count": 68,
+   "listed": false
+  },
+  {
+   "hpo_id": "HP:0002317",
+   "label_en": "Unsteady gait",
+   "score_bits": 0.9752,
+   "n_genes": 233,
+   "r1_train_count": 34,
+   "listed": true
+  },
+  {
+   "hpo_id": "HP:0001297",
+   "label_en": "Stroke",
+   "score_bits": 0.8838,
+   "n_genes": 191,
+   "r1_train_count": 7,
+   "listed": false
+  }
+ ],
+ "dev": {
+  "label": "dev, exploratory",
+  "source": "results/EXP-B-005/dev (S3-v3b-dev, F vs F + onset 0.25, Q2b interview)",
+  "bootstrap": {
+   "resamples": 2000,
+   "seed": 0,
+   "unit": "gene"
+  },
+  "cases": 4562,
+  "cases_without_scored_term": 3,
+  "tertiles_by_max_reported_term_score": {
+   "all": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.08775635202796395,
+      0.8875642391338858
+     ],
+     "n": 1528,
+     "delta": 0.004171014104344159,
+     "ci95": [
+      0.0024786628225628507,
+      0.006072003582765611
+     ],
+     "harmed": 0.05039267015706806,
+     "helped": 0.17801047120418848,
+     "f_mrr": 0.2904012127149167
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.8876964077085866,
+      0.9961247204767618
+     ],
+     "n": 1516,
+     "delta": 0.0023991913658633693,
+     "ci95": [
+      0.0002604431898006225,
+      0.004809989373938875
+     ],
+     "harmed": 0.05079155672823219,
+     "helped": 0.14973614775725594,
+     "f_mrr": 0.3441829189631594
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.9973911657028733,
+      1.3179684244181655
+     ],
+     "n": 1515,
+     "delta": 0.0010221288042777412,
+     "ci95": [
+      -0.0010000872599156049,
+      0.002929813136455149
+     ],
+     "harmed": 0.03828382838283828,
+     "helped": 0.13993399339933993,
+     "f_mrr": 0.4207679670628018
+    }
+   ],
+   "onset_known": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.08775635202796395,
+      0.8875642391338858
+     ],
+     "n": 918,
+     "delta": 0.006942602997209014,
+     "ci95": [
+      0.004270796604906781,
+      0.009979050267777715
+     ],
+     "harmed": 0.08387799564270153,
+     "helped": 0.2962962962962963,
+     "f_mrr": 0.29502432313520327
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.8876964077085866,
+      0.9960840153688029
+     ],
+     "n": 918,
+     "delta": 0.003962063301360423,
+     "ci95": [
+      0.0003198274048884302,
+      0.007818254915534317
+     ],
+     "harmed": 0.08387799564270153,
+     "helped": 0.24727668845315903,
+     "f_mrr": 0.3297825811275992
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.9961247204767618,
+      1.3179684244181655
+     ],
+     "n": 918,
+     "delta": 0.001686846556079279,
+     "ci95": [
+      -0.0015680448197316142,
+      0.005198680685283432
+     ],
+     "harmed": 0.06318082788671024,
+     "helped": 0.23093681917211328,
+     "f_mrr": 0.43125176038010554
+    }
+   ],
+   "onset_unknown": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.13414574331376225,
+      0.8864608925507677
+     ],
+     "n": 603,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.28246892113514077
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.8874891154224245,
+      0.9961247204767618
+     ],
+     "n": 602,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.36467763711275225
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.9973911657028733,
+      1.3179684244181655
+     ],
+     "n": 600,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.4060854619135515
+    }
+   ]
+  },
+  "tertiles_by_mean_reported_term_score_variant": {
+   "all": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.08775635202796395,
+      0.7205574125957619
+     ],
+     "n": 1520,
+     "delta": 0.0021740273041368544,
+     "ci95": [
+      2.2971831160575113e-05,
+      0.004394766168296506
+     ],
+     "harmed": 0.039473684210526314,
+     "helped": 0.12894736842105264,
+     "f_mrr": 0.3875621721956736
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.7206324231019389,
+      0.8078135318581927
+     ],
+     "n": 1519,
+     "delta": 0.002123429008484994,
+     "ci95": [
+      0.00040653098348260964,
+      0.00395121255106225
+     ],
+     "harmed": 0.05661619486504279,
+     "helped": 0.14285714285714285,
+     "f_mrr": 0.3451056924674953
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.8078482192001991,
+      1.0681075643391233
+     ],
+     "n": 1520,
+     "delta": 0.003308551733151839,
+     "ci95": [
+      0.0011527736452203927,
+      0.005627187343901477
+     ],
+     "harmed": 0.04342105263157895,
+     "helped": 0.19605263157894737,
+     "f_mrr": 0.3221498550533802
+    }
+   ],
+   "onset_known": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.08775635202796395,
+      0.7205574125957619
+     ],
+     "n": 918,
+     "delta": 0.0035996966255860768,
+     "ci95": [
+      -2.664251395474324e-05,
+      0.007301173829777109
+     ],
+     "harmed": 0.06535947712418301,
+     "helped": 0.21350762527233116,
+     "f_mrr": 0.39269530667630725
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.7206621116776631,
+      0.8087221658031165
+     ],
+     "n": 918,
+     "delta": 0.0035160659047449526,
+     "ci95": [
+      0.0005747694894389864,
+      0.006440238201450835
+     ],
+     "harmed": 0.09368191721132897,
+     "helped": 0.23965141612200436,
+     "f_mrr": 0.34831509694614304
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.8087227321897258,
+      1.0681075643391233
+     ],
+     "n": 918,
+     "delta": 0.005475750324317684,
+     "ci95": [
+      0.0019064825507730946,
+      0.009359036213527102
+     ],
+     "harmed": 0.0718954248366013,
+     "helped": 0.3213507625272331,
+     "f_mrr": 0.3150482610204576
+    }
+   ],
+   "onset_unknown": [
+    {
+     "tertile": "low",
+     "score_range": [
+      0.13414574331376225,
+      0.7203670791104527
+     ],
+     "n": 602,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.37973456845278053
+    },
+    {
+     "tertile": "mid",
+     "score_range": [
+      0.7206324231019389,
+      0.8053484562824995
+     ],
+     "n": 601,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.34366095708526107
+    },
+    {
+     "tertile": "high",
+     "score_range": [
+      0.8053921303309819,
+      1.0492593275901072
+     ],
+     "n": 602,
+     "delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "harmed": 0.0,
+     "helped": 0.0,
+     "f_mrr": 0.3295274563416642
+    }
+   ]
+  },
+  "listed_vs_not": {
+   "all/has_listed_term": {
+    "metric": "mrr",
+    "delta": 0.0016498561291273537,
+    "ci95": [
+     0.0004483221691910522,
+     0.002881497294053153
+    ],
+    "n": 3986,
+    "resample_unit": "group",
+    "n_units": 397,
+    "harmed": 0.04490717511289513,
+    "helped": 0.152784746613146
+   },
+   "all/no_listed_term": {
+    "metric": "mrr",
+    "delta": 0.008650490051850502,
+    "ci95": [
+     0.004218925851748287,
+     0.01412308902558912
+    ],
+    "n": 576,
+    "resample_unit": "group",
+    "n_units": 233,
+    "harmed": 0.057291666666666664,
+    "helped": 0.17708333333333334
+   },
+   "onset_known/has_listed_term": {
+    "metric": "mrr",
+    "delta": 0.0027310326124176205,
+    "ci95": [
+     0.0007349971334833913,
+     0.004712516087288321
+    ],
+    "n": 2408,
+    "resample_unit": "group",
+    "n_units": 395,
+    "harmed": 0.07433554817275748,
+    "helped": 0.25290697674418605
+   },
+   "onset_known/no_listed_term": {
+    "metric": "mrr",
+    "delta": 0.014359314898748957,
+    "ci95": [
+     0.007237223024662418,
+     0.023716740596890398
+    ],
+    "n": 347,
+    "resample_unit": "group",
+    "n_units": 182,
+    "harmed": 0.09510086455331412,
+    "helped": 0.29394812680115273
+   },
+   "onset_unknown/has_listed_term": {
+    "metric": "mrr",
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n": 1578,
+    "resample_unit": "group",
+    "n_units": 391,
+    "harmed": 0.0,
+    "helped": 0.0
+   },
+   "onset_unknown/no_listed_term": {
+    "metric": "mrr",
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "n": 229,
+    "resample_unit": "group",
+    "n_units": 148,
+    "harmed": 0.0,
+    "helped": 0.0
+   }
+  },
+  "case_level_correlation_score_vs_reciprocal_rank_gain": {
+   "all": {
+    "n": 4559,
+    "pearson": -0.036789698944016985
+   },
+   "onset_known": {
+    "n": 2754,
+    "pearson": -0.04847656343380547
+   }
+  },
+  "dev_session_code_sha": "57a3b452179ae5fda06b0f2fbafdbd8f823fbcea"
+ }
+}
