@@ -65,3 +65,18 @@ Same change as the ADR-0015 addendum of this date.
   cases only** (`metadata.onset_age_source == "literature"`, ids in the `s3-data-v3b` outputs). The bootstrap CI
   is over genes (seed 0, 2,000 resamples), among genes with at least one such case in the part.
 - **Secondary:** the same on all cases; known-onset only; split by the kb `onset_source`.
+
+## Addendum, 2026-10-04 (after dev, before any S3-v3b-test read): final pre-registration
+Written after the dev search above and before `s3-v3b/test` was ever loaded (no ledger row for it).
+- **Selected system:** F + onset **w = 0.25**, config hash **`871fd89b8368`** (F's config, `8ecd5b320f33`, with the `onset`
+  weight 0.25; arms in `results/EXP-B-005/arms-sealed.json`). Reference: F (`8ecd5b320f33`).
+- **The read:** one `dxt s3 onset-session --part test` invocation on S3-v3b-test (exclusion list applied, all cases),
+  with `DXT_SEALED_READ=EXP-B-005` set on that command only. One Q2b interview (λ 0.6, budget 9, noise 0) driven by F;
+  F and F + onset 0.25 are scored on the same answers. No re-run.
+- **P1 (unchanged):** on the literature-onset test cases (`literature-onset-cases.txt`), the paired Δ (F + onset 0.25) − F
+  in MRR has a bootstrap 95% CI over genes (seed 0, 2,000 resamples) with lower bound > 0, **and** the harmed share of
+  F + onset 0.25 vs E0+answers is ≤ 5%. Both conditions are needed.
+- **Secondaries (descriptive):** all cases; known-onset cases; literature-onset cases split by the kb `onset_source`
+  (hpoa, orphanet, orphanet_exact_alignment, none).
+- **Analysis:** `scripts/exp_b005_analysis.py test`, committed before the read.
+- Nothing is chosen or tuned after seeing a test number. A failed P1 is reported as such.
