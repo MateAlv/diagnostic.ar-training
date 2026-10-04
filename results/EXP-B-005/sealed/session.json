@@ -1,0 +1,62 @@
+{
+ "arms": [
+  {
+   "arm_id": "F",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "8ecd5b320f33",
+   "lever": "B5",
+   "note": "reference re-ranker; drives the interview"
+  },
+  {
+   "arm_id": "F+onset0.25",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "propagated",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.25,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "871fd89b8368",
+   "lever": "B5",
+   "note": "F with onset weight 0.25"
+  }
+ ],
+ "budget": 9,
+ "cases": 10458,
+ "code_sha": "a7f83f5856b3c0da7a82b9cad5d637144c62efc4",
+ "driver_arm": "F",
+ "driver_rank_parity": true,
+ "excluded_in_part": 51,
+ "exp": "EXP-B-005",
+ "kb": "kb-v6",
+ "lam": 0.6,
+ "noise": 0,
+ "split": "s3-v3b/test",
+ "strategy": "Q2b"
+}

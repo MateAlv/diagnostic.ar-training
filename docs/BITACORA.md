@@ -3900,3 +3900,19 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - F vs E0+answers: +0.0089 [+0.0067, +0.0115], harmed 3.03%.
 - **Selection (fixed rule):** only w = 0.25 meets harmed ≤ 5%; **selected w = 0.25**. Log:
   `results/EXP-B-005/dev-search.tsv`, tables `dev-analysis.md`.
+
+### 2026-10-04 — experiment — EXP-B-005 phase 3: the sealed S3-v3b-test read, P1 passes
+- **Pre-registered** at `a7f83f5` (final addendum: F + onset 0.25, `871fd89b8368`), after the dev search and before any
+  test load; the analysis script was committed earlier (`57a3b45`). One read, `DXT_SEALED_READ=EXP-B-005` on that command
+  only; ledger row `2026-10-04T18:31:09+00:00 s3-v3b/test EXP-B-005` committed unedited.
+- **Run:** 10,458 test cases (51 excluded), one Q2b interview (λ 0.6, budget 9, noise 0) driven by F; F and
+  F + onset 0.25 scored on the same answers (driver-rank parity holds on every case). No re-run.
+- **P1 (6,745 literature-onset test cases):** Δ (F + onset 0.25) − F **+0.0023 [+0.0013, +0.0034]**, harmed vs E0+answers
+  **4.63%** (helped 28.35%): **P1 passes** (CI lower bound > 0, harmed ≤ 5%). F vs E0+answers +0.0076, harmed 3.45%.
+- **Secondary:** all cases +0.0027 [+0.0019, +0.0036], harmed 4.75%; known-onset +0.0046 [+0.0031, +0.0061], harmed 5.40%;
+  literature with onset known +0.0039, harmed 5.58%; by kb source: hpoa +0.0025 [+0.0013, +0.0038], orphanet +0.0004
+  [−0.0033, +0.0036], orphanet_exact_alignment +0.0023 [−0.0001, +0.0046], none +0.0022 [−0.0012, +0.0062].
+- **Caveats:** small effect; it comes entirely from cases that report an onset, where harm exceeds 5%. The app does not
+  collect symptom-onset age (ADR-0015 prerequisite). A release would still need Mateo's go-ahead and the R1-test
+  no-regression read (EXP-B-003 N1/N2); not done here.
+- Outputs: `results/EXP-B-005/sealed/`, `sealed-analysis.{md,json}`, manifest `results-EXP-B-005-s3-v3b-sealed-session`.
