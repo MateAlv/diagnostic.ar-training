@@ -1,0 +1,109 @@
+{
+  "artifact_id": "s3-data-v3b",
+  "kind": "simulated-eval-dataset",
+  "created_at": "2026-10-04T18:19:36+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "c5d26523795b9ced6c9a4232aefea70f64b20eb5",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:simcal-s3-v2",
+      "sha256": "fae5c13aa6a4501625091778867e8d08d544f051c7afe7470d80f3e7fb1d79f2"
+    },
+    {
+      "id": "artifact:genes-v2",
+      "sha256": "66b7ecd285721231a4a75cf5eef3613532247325014b68241b1fd7c1be2ad9db"
+    },
+    {
+      "id": "artifact:hpoa-enriched-v2",
+      "sha256": "1e6fbe107088ec98c13efd44ff7651b655208782718676cf18ceb44a08498892"
+    },
+    {
+      "id": "artifact:annot-split-v2",
+      "sha256": "7dc2c9e0e03a7ca07331a01e98d993776f5648b07b87db3a1e38b498d0f6d4ab"
+    },
+    {
+      "id": "artifact:onset-ages-v2",
+      "sha256": "e9de2163fbb815876f3bfaf12e9d879b7713a1ec3a59a8662ffd905a5a90b94e"
+    },
+    {
+      "id": "artifact:presentation-ages-v2",
+      "sha256": "f628687c4aad1022807bd8b2694fc4226a59c951211dd6d7168bf65a7763b9e5"
+    },
+    {
+      "id": "file:data/s3/s3-v3b-eligible-genes.txt",
+      "sha256": "8250c9c5a0c5de68056b4a7d652e2540810ce466b6207f6f27ea4cc446c107a2"
+    },
+    {
+      "id": "simulator-archive:rare-disease-simulator@cfc20da",
+      "sha256": "4664812d146ade15f7004cf069e963cb8778f4313f0007608b3becda46794433"
+    },
+    {
+      "id": "simulator-profiles:full (build summary)",
+      "sha256": "0b2ed5a047087cd9de8ab69a2e91f7d073bf354c1cda91f1ca370454cdc0f37a"
+    },
+    {
+      "id": "simulator-profiles:full",
+      "sha256": "59e26012303872ef430f4bf8259a703eb143a8e54488c0ff866f120f38f11b58"
+    },
+    {
+      "id": "simulator-run-summary",
+      "sha256": "2763440164af6cd35a92eac9a95507b6cdceb590edebed1f8a6e0a34b36f7ec0"
+    },
+    {
+      "id": "simulator-rich-cases (deleted after export)",
+      "sha256": "6b61b31e2098475e2db1182a5c075bd3c2c401b8d265f55cb9c4948116d4a6dd"
+    }
+  ],
+  "params": {
+    "generator": "rare-disease-simulator@cfc20da (git archive)",
+    "simulator_version": "0.5.4",
+    "profiles": "full (A+B) from hpoa-enriched-v2, r1-v1 heldout mask",
+    "mode": "gene-first, restricted to the genes with an entity that has an onset-ages-v2 row",
+    "cases_per_gene": 38,
+    "difficulty": "medium",
+    "seed": 4005,
+    "simulator_split_ignored": true,
+    "role": "S3 v3b evaluation only; never trained on; primary analysis on the literature-onset cases",
+    "supersedes": "s3-data-v3 (never evaluated)",
+    "cases": 15086,
+    "genes": 397,
+    "onset_age_source": {
+      "category": 5377,
+      "literature": 9709
+    },
+    "sex": {
+      "sex_female": 6339,
+      "sex_male": 7627,
+      "sex_unknown": 1120
+    },
+    "invariant_violations": 0
+  },
+  "params_hash": "8bca549f96ab48daa556174140db52f96fa9dc580001c716507c07fd5016f32a",
+  "outputs": [
+    {
+      "path": "data/interim/datasets/s3-data-v3b/s3-sim0.5.4-full-n38-s4005.jsonl.gz",
+      "sha256": "0b9319f8b139f79d3121208f1cd491905c855401144c22805a89a6286101eb47",
+      "bytes": 1329879
+    },
+    {
+      "path": "data/interim/datasets/s3-data-v3b/s3-sim0.5.4-full-n38-s4005.card.json",
+      "sha256": "7638204613c2c28db3444673014fc4ba3ba9b9b124e8491e5064fbca9740226a",
+      "bytes": 40001
+    },
+    {
+      "path": "data/interim/datasets/s3-data-v3b/rich-stats.json",
+      "sha256": "29b3e11f6f27459a5543c0caaba1a3ddb90db69725984a3d65b63603c8bf28a5",
+      "bytes": 140
+    },
+    {
+      "path": "data/interim/datasets/s3-data-v3b/literature-onset-cases.txt",
+      "sha256": "9e9aa4ea2eb8fdab1a3c9ade7fa932e1cfe95b7942e0955d1c05c359cd193f5b",
+      "bytes": 338023
+    }
+  ],
+  "notes": "",
+  "release": "s3-data-v3b"
+}
