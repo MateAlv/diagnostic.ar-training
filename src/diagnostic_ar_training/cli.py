@@ -2412,6 +2412,11 @@ def s3_interview_cmd(
     if heldout != "annot-split-v2" and not allow_kb_mismatch:
         raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v2, not {heldout!r}")
     reranker_name, beta, rr_config = question_run.load_reranker(reranker)
+    rr_manifest = None
+    if rr_config is not None and rr_config.kb_id != kb_id:
+        rr_manifest = load_manifest(rr_config.kb_id)
+        if rr_manifest.params.get("heldout_annotations_dropped") != "annot-split-v2":
+            raise typer.BadParameter(f"{rr_config.kb_id} must be built without half B of annot-split-v2")
     chosen = question_run.make_strategy(strategy, lam)
     slabel = question_run.strategy_label(strategy, lam)
     data = next(p for p in fetch_outputs(load_manifest("s3-data-v2")) if p.name.endswith(".jsonl.gz"))
@@ -2422,13 +2427,7 @@ def s3_interview_cmd(
     knowledge = GeneKnowledge(kb_data, ontology)
     rr_knowledge = None
     if rr_config is not None:
-        if rr_config.kb_id == kb_id:
-            rr_data = kb_data
-        else:
-            rr_manifest = load_manifest(rr_config.kb_id)
-            if rr_manifest.params.get("heldout_annotations_dropped") != "annot-split-v2":
-                raise typer.BadParameter(f"{rr_config.kb_id} must be built without half B of annot-split-v2")
-            rr_data = kb.read(fetch_outputs(rr_manifest)[0])
+        rr_data = kb_data if rr_manifest is None else kb.read(fetch_outputs(rr_manifest)[0])
         rr_knowledge = rr_config.knowledge(rr_data, ontology)
     e0 = GenPheniaV3()
     ctx = questioning.Context(e0, knowledge, ontology, beta, top_k, rr_knowledge)
