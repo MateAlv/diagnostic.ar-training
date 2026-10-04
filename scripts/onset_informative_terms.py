@@ -97,6 +97,7 @@ def tertile_table(ref, new, scores_per_case, mask) -> list[dict]:
                 "ci95": res["ci95"],
                 "harmed": res["harmed"],
                 "helped": res["helped"],
+                "f_mrr": float(np.mean([1 / r["rank"] for r, ok in zip(ref, sub, strict=True) if ok])),
             }
         )
     return rows
@@ -143,23 +144,28 @@ def main() -> None:
     ref = dev_search.records(ids, genes, [float(r["F"]) for r in rank_rows])
     new = dev_search.records(ids, genes, [float(r["F+onset0.25"]) for r in rank_rows])
     case_scores = []
+    case_mean_scores = []
     in_list = []
     for r in rows:
         present = {ontology.resolve(t) or t for t in r["case"].present}
         s = [scores[t]["score_bits"] for t in present if t in scores]
         case_scores.append(max(s) if s else None)
+        case_mean_scores.append(float(np.mean(s)) if s else None)
         in_list.append(bool(present & listed))
     known = [r["case"].onset_years is not None for r in rows]
     n = len(rows)
     populations = {"all": [True] * n, "onset_known": known, "onset_unknown": [not k for k in known]}
     tertiles = {name: tertile_table(ref, new, case_scores, mask) for name, mask in populations.items()}
+    tertiles_mean = {
+        name: tertile_table(ref, new, case_mean_scores, mask) for name, mask in populations.items()
+    }
     listed_split = {}
     for name, mask in populations.items():
         for label, flag in (("has_listed_term", True), ("no_listed_term", False)):
             sub = [m and f == flag for m, f in zip(mask, in_list, strict=True)]
             listed_split[f"{name}/{label}"] = dev_search.compare(ref, new, sub)
     rho = {}
-    for name, mask in populations.items():
+    for name, mask in list(populations.items())[:2]:
         pairs = [
             (case_scores[i], 1 / float(rank_rows[i]["F+onset0.25"]) - 1 / float(rank_rows[i]["F"]))
             for i in range(n)
@@ -174,6 +180,7 @@ def main() -> None:
         "cases": n,
         "cases_without_scored_term": sum(s is None for s in case_scores),
         "tertiles_by_max_reported_term_score": tertiles,
+        "tertiles_by_mean_reported_term_score_variant": tertiles_mean,
         "listed_vs_not": listed_split,
         "case_level_correlation_score_vs_reciprocal_rank_gain": rho,
         "dev_session_code_sha": session["code_sha"],
