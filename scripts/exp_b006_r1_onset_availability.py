@@ -4,8 +4,9 @@ Usage: PYTHONPATH=src .venv/bin/python scripts/exp_b006_r1_onset_availability.py
 
 "Usable" is what the re-ranker's `onset` feature reads (`rerank.features.case_onset_years`): the case's
 `onset_years`, or the midpoint of its `onset_term` when that term is one of the HPO onset classes the feature
-maps. The patient-level onset a web user supplies is the earliest of the per-symptom onsets, so the script also
-counts patients whose symptoms carry onsets (`Case.feature_onsets`). Writes results/EXP-B-006/r1-train-onset.json.
+maps. The patient-level onset a web user supplies is the earliest of the per-symptom onsets, so the script
+also counts patients whose symptoms carry onsets (`Case.feature_onsets`).
+Writes results/EXP-B-006/r1-train-onset.json.
 """
 
 import json
@@ -35,7 +36,9 @@ def main() -> None:
     disease_years = sum(c.onset_years is not None for c in cases)
     disease_term = sum(c.onset_term is not None for c in cases)
     term_mapped = sum(c.onset_term in HPO_ONSET_YEARS for c in cases)
-    term_unmapped = Counter(c.onset_term for c in cases if c.onset_term and c.onset_term not in HPO_ONSET_YEARS)
+    term_unmapped = Counter(
+        c.onset_term for c in cases if c.onset_term and c.onset_term not in HPO_ONSET_YEARS
+    )
     usable = [case_onset_years(c) for c in cases]
     n_usable = sum(u is not None for u in usable)
     feature = [feature_level_onset(c) for c in cases]
@@ -60,7 +63,9 @@ def main() -> None:
         "same_onset_bin_when_both": sum(onset_bin(u) == onset_bin(f) for u, f in both),
         "usable_by_onset_bin": {str(b): bins[b] for b in sorted(bins)},
         "with_excluded_terms": sum(bool(c.excluded) for c in cases),
-        "usable_and_excluded": sum(u is not None and bool(c.excluded) for u, c in zip(usable, cases, strict=True)),
+        "usable_and_excluded": sum(
+            u is not None and bool(c.excluded) for u, c in zip(usable, cases, strict=True)
+        ),
     }
     out = RESULTS_DIR / "EXP-B-006"
     out.mkdir(parents=True, exist_ok=True)
