@@ -36,10 +36,11 @@ SPECS = {
     "s3-v1": S3Spec("s3-v1", "s3-data-v1", "annot-split-v1", None),
     "s3-v2": S3Spec("s3-v2", "s3-data-v2", "annot-split-v2", "s3-data-v2-excl-v1"),
     "s3-v3": S3Spec("s3-v3", "s3-data-v3", "annot-split-v2", "s3-data-v3-excl-v1"),
+    "s3-v3b": S3Spec("s3-v3b", "s3-data-v3b", "annot-split-v2", "s3-data-v3b-excl-v1"),
 }
 
 # Share of cases in dev, in tenths; the rest is test. Versions not listed split 50/50.
-DEV_TENTHS = {"s3-v3": 3}
+DEV_TENTHS = {"s3-v3": 3, "s3-v3b": 3}
 
 
 def spec(split_id: str) -> S3Spec:

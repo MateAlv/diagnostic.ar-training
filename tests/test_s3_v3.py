@@ -60,3 +60,25 @@ def test_s3_v3_test_part_is_sealed_with_the_same_guards_as_s3_v2(tmp_path, monke
     assert recorded == []
     assert len(s3.load_part("s3-v3", "dev", data)) == body["counts"]["dev"]
     assert recorded == []
+
+
+def test_s3_v3b_is_a_30_70_sealed_split_on_its_own_artifacts(tmp_path, monkeypatch):
+    v3b = s3.spec("s3-v3b")
+    assert (v3b.dataset_artifact, v3b.annotation_split, v3b.exclusion_artifact) == (
+        "s3-data-v3b",
+        "annot-split-v2",
+        "s3-data-v3b-excl-v1",
+    )
+    monkeypatch.setattr(s3, "SPLITS_DIR", tmp_path)
+    data = tmp_path / "d.jsonl.gz"
+    _tiny_dataset(data, 400)
+    body = s3.freeze("s3-v3b", data, "x")
+    assert body["sealed_parts"] == ["test"] and 0.2 < body["counts"]["dev"] / 400 < 0.4
+    recorded = []
+    monkeypatch.setattr(ledger, "record_access", lambda *a, **k: recorded.append(a))
+    monkeypatch.delenv("DXT_SEALED_READ", raising=False)
+    with pytest.raises(LineageError, match="sealed"):
+        s3.load_part("s3-v3b", "test", data)
+    with pytest.raises(LineageError, match="DXT_SEALED_READ"):
+        s3.load_part("s3-v3b", "test", data, exp_id="EXP-B-005", reason="r")
+    assert recorded == []
