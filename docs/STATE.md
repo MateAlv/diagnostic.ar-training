@@ -1,83 +1,76 @@
 # Current state (handoff snapshot)
 
-**Snapshot: 2026-10-05.** Overwritten at each checkpoint; history lives in
-[BITACORA.md](BITACORA.md), which this file does not repeat. Entry points:
-[INDEX.md](INDEX.md), [PLAN.md](PLAN.md), [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md),
-[evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
+**Snapshot: 2026-10-05, close-out.** Overwritten at each checkpoint; history lives in
+[BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PLAN.md](PLAN.md),
+[EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
+Final decisions: [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
-**Deadlines** (from `/home/mate/diagnostic.ar/informe/`):
-- informe draft to the director: **2026-10-15** (10 days left);
-- informe delivery: **2026-11-01** (27 days left).
+## Summary
 
-Mateo, 2026-10-05: the project plan's end date stays **2026-11-07**
-(PLAN.md). The informe repo lists 2026-11-01 for the delivery.
+### What was built
+- **A literature-enriched patient simulator** (`rare-disease-simulator` 0.5.4), built with strong curation: 97
+  literature shards (build v2), onset and presentation ages from the literature, PMID masking, pinned sources and
+  manifests. The AI extraction was checked: Codex cross-check 96.1% agreement
+  ([LIT-CROSSCHECK-v1](analyses/LIT-CROSSCHECK-v1.md)); audit row error 2.0% [1.25, 3.17] and recall 93.3%
+  ([LIT-AUDIT-v1](analyses/LIT-AUDIT-v1.md)).
+- **An evaluation infrastructure**, which the anteproyecto itself names as an open problem in the field:
+  frozen splits `r1-v1` (train/dev/test/vault) split by publication, with held-out PMID masking; pre-registration;
+  a code-enforced sealed-read guard (`DXT_SEALED_READ`) and a ledger; S3 simulated-interview benchmarks (v1, v2,
+  v3b) with a knowledge split (half B held out) and source separation for age and sex; every claim reported as a
+  paired-bootstrap Δ vs E0 with a CI and the harmed share.
+- **Two components, deployed in staging:** question selection **Q2b** and the "no"-answer re-ranker
+  `rerank-v1.0.0`. The GNN was also reimplemented in PyTorch (`gnn/`) with parity tests against production.
 
-**Repo:** main at d0e4b2a or later; PRs #107 to #110 merged today, CI green.
-
-## Front A: no retraining planned
-- **Retraining failed on real patients:** EXP-A-001, EXP-A-002f and
-  EXP-A-003f all lost to E0 on R1-dev (details in
-  [EVIDENCE_INDEX.md §3](evidence/EVIDENCE_INDEX.md)). EXP-A-004f was not run,
-  by the rule ADR-0010 set for it.
-- **The simulator gate (ADR-0012) closed without passing.** Candidate 6 was
-  not frozen: G2b on R1-dev is 0.159, against UP 0.231 and V03-full 0.095.
-  The R1-dev realism budget (3 reads) is exhausted. No further candidates.
-- No Front A retraining is planned. Its data and negative results go to the
-  informe as evidence.
-
-## Literature enrichment (ADR-0013)
-- Build **v2** published (`hpoa-enriched-v2`, `onset-ages-v2`,
-  `presentation-ages-v2`); 97 shards, 7,083 rows in.
-- Cross-check: 96.1% agreement (715 of 744 rows), [LIT-CROSSCHECK-v1](analyses/LIT-CROSSCHECK-v1.md).
-- Audit (98 sources, 852 rows): row error 2.0% [1.25, 3.17], recall 93.3%,
-  [LIT-AUDIT-v1](analyses/LIT-AUDIT-v1.md).
-
-## Front B
-| Experiment | Outcome | Doc |
+### What was measured
+| Result | Δ MRR [95% CI] | Where |
 |---|---|---|
-| EXP-B-003 | `rerank-v1.0.0` released in diagnostic.ar-model (GitHub release 2026-10-03). **Not yet deployed to production.** | [EXP-B-003](experiments/EXP-B-003.md) |
-| EXP-B-004 | Descriptive. F does not beat rr-v1 under the 5% harm cap. Not a release candidate. | [EXP-B-004](experiments/EXP-B-004.md) |
-| EXP-Q-001 | Q2b beats Q0 in final MRR: +0.0049 [+0.0027, +0.0069]; re-ranker harmed 4.77%. Q2b is the default selector in the question agent (`feat/agente-v2` at 495bfac, agent PRs #1 to #3); the previous selector stays as `legacy`. Not yet deployed. | [EXP-Q-001](experiments/EXP-Q-001.md) |
-| EXP-B-005 | Onset P1 passed: +0.0023 [+0.0013, +0.0034] over F, harmed 4.63%. | [EXP-B-005](experiments/EXP-B-005.md) |
-| EXP-B-006 | **Pre-registered**, sealed read not done: rr-v1 + onset 0.25 on kb-v3 (`71713c8d15b0`), the one R1-test no-regression read approved by Mateo. Dev numbers (S3-v3b-dev, labelled dev): +0.0021 [+0.0007, +0.0035] over rr-v1, harmed 4.40%. It is the 3rd and last Front B candidate (Mateo, 2026-10-04). | [EXP-B-006](experiments/EXP-B-006.md) |
+| Q2b over the baseline questioner Q0 (sealed, simulated) | **+0.0049 [+0.0027, +0.0069]** | [EXP-Q-001](experiments/EXP-Q-001.md) |
+| "No"-answer re-ranker vs E0+answers (sealed, simulated) | **+0.0044 [+0.0032, +0.0057]** | [EXP-B-003](experiments/EXP-B-003.md) |
+| Same re-ranker vs E0 on real patients (R1-test) | −0.0025 [−0.0070, +0.0013]: no regression | EXP-B-003 |
+| Sex and age, tested fairly with source separation | no gain | [EXP-B-004](experiments/EXP-B-004.md) |
+| Onset (simulated) | +0.0023 [+0.0013, +0.0034] | [EXP-B-005](experiments/EXP-B-005.md) |
+| Onset on real patients (R1-test; R1 vault) | no gain on R1-test; vault v1.1 vs E0 −0.0031 [−0.0055, −0.0005]; not released | [EXP-B-006](experiments/EXP-B-006.md), [EXP-V-001](experiments/EXP-V-001.md) |
 
-All Front B gains are measured on simulated interviews (S3); on real
-patients (R1) the re-ranker is neutral by construction when there are no
-negations. There is no real-user measurement.
+The realism of the simulated data was also **measured**, against a gate fixed in advance
+([ADR-0012](decisions/0012-data-quality-gate.md)). The gate was not passed (G2b on R1-dev 0.159, against UP 0.231
+and V03-full 0.095), and that measurement is why GNN retraining stopped. Front A's three retraining attempts
+(EXP-A-001, A-002f, A-003f) were run and recorded; with v0.3-era simulated data they were below E0 on real
+patients.
 
-## The onset web feature
-- **MateAlv/diagnostic.ar PR #87, merged 2026-10-05** (merge commit 84db86b on
-  main; cloud-copy publish succeeded, **production on nodo0 unchanged**): the
-  age selector in Precisar. The button shows on the 206 most-reported symptoms
-  (`onset-prompt-terms-v1`, 90.01% of R1-train patients) and on refinable ones.
-  The API ignores the new fields until the re-ranker uses onset.
-- The onset-score selector (354 terms) **failed its dev check**; it is not
-  the selection rule. See
-  [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md).
+### Limits, with their context
+- **E0 is favoured on R1.** GenPhenAI v3.0 was trained upstream on the full HPO annotations, which derive in part
+  from the same published case reports R1 is built from, and we could not retrain or mask it (EVAL_PROTOCOL §4,
+  item 5; ADR-0014). Every real-patient comparison here is made against that advantage.
+- **R1 cannot measure the interview "no" answers.** Its excluded terms are publication negatives, which is not the
+  production input. The efficacy evidence for the interview path is simulated (S3); there is no real-user
+  measurement.
+- **Onset** helped in simulation but not on real patients, so `rerank-v1.1.0` is not released (vault, for the
+  record: E0 0.4136, v1.0 0.4114 [−0.0022 (−0.0046, +0.0002)], v1.1 0.4106).
+- **Q2b vs the previous production selector (Q1):** +0.0017 [−0.0006, +0.0043], not distinguishable from zero.
 
-## Next steps, in Mateo's order
-1. **Deploy the re-ranker and Q2b, staging only for now** (Mateo,
-   2026-10-05). The deploy agent runs it from diagnostic.ar-model
-   `docs/HANDOFF-deploy-staging-rerank-q2b.md`. The web pin
-   `QUESTION_AGENT_COMMIT` moves from 48d901e to 495bfac. Production comes
-   later, by routing to the pinned image (option a), with no shadow mode.
-2. **EXP-B-006 sealed R1-test read** (after step 1, per Mateo's 2026-10-04
-   ruling), then release `rerank-v1.1.0` if it passes.
-3. **Final R1-vault read**: opens once, final system against E0
-   ([EVAL_PROTOCOL.md](EVAL_PROTOCOL.md)).
-4. **Informe evidence refresh:** done 2026-10-05 (informe repo PRs #1 and
-   #2); refresh again after steps 1 to 3.
+## Decisions of 2026-10-05 (Mateo; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))
+1. **Deployed (staging):** the question agent with Q2b on, plus `rerank-v1.0.0`. Production later, by routing to the
+   pinned image (no shadow mode).
+2. **`rerank-v1.1.0` (onset) is not released.** It is built and merged in diagnostic.ar-model (PR #7) but never
+   tagged.
+3. **No more model experiments.** Front B's candidate budget and the R1 vault are both spent.
+4. **The web keeps asking for onset age** in Precisar (MateAlv/diagnostic.ar PR #87), and it is being added to the final
+   output the doctor sees (results and the saved consultation; a web PR is in progress). It is kept as clinical
+   information for the doctor, not as a model input: the model ignores it.
 
-## Sealed-data budget
+## Deadlines (from `/home/mate/diagnostic.ar/informe/`)
+- informe draft to the director: **2026-10-15**;
+- informe delivery: **2026-11-01**. The project plan's end date stays **2026-11-07** (PLAN.md).
+
+## Sealed-data budget (all spent)
 - R1-dev realism reads: 3 of 3 used ([ledger](../results/realism/LEDGER.md)).
-- R1-test: read by EXP-000 and EXP-B-003; EXP-B-006's read is approved, not done.
-- R1-vault: never read.
+- R1-test: read by EXP-000, EXP-B-003 and EXP-B-006. R1-vault: read once, by EXP-V-001.
 - Every sealed read is in [TEST_LEDGER.md](TEST_LEDGER.md).
 
 ## Open items for Mateo
-- Production go-ahead after staging is verified. The route (pinned image)
-  and no shadow mode were decided on 2026-10-05.
-- The GeneReviews permission email: Mateo is sending it; not blocking.
+- Production go-ahead after staging is verified.
+- The GeneReviews permission email (Mateo is sending it; not blocking).
+- Informe: written by the students; this repo only supplies evidence.
 
 ## Invariants
 - Never touch `GenPhenAI/`. No AI attribution in commits or PRs.

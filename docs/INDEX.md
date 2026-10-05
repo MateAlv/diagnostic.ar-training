@@ -1,5 +1,11 @@
 # Documentation index
 
+This repo holds what was built and measured on top of GenPhenAI to add sex, age and negated symptoms to gene
+prioritisation. In short: a literature-enriched patient simulator, an evaluation infrastructure with sealed splits
+and pre-registration, and a re-ranker plus a question-selection strategy that are deployed in staging. The summary
+with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
+[ADR-0016](decisions/0016-final-deployment-and-close-out.md).
+
 | If you need… | Read |
 |---|---|
 | **Where things stand right now; open decisions; next steps** | [STATE.md](STATE.md) |
@@ -37,6 +43,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [0013](decisions/0013-literature-enrichment.md) | Enrich profiles from GeneReviews and open-access cohorts |
 | [0014](decisions/0014-reranker-v11-and-s3-v2.md) | Re-ranker v1.1 and better questions on S3 v2 |
 | [0015](decisions/0015-onset-follow-up-s3-v3.md) | Does onset age help the re-ranker; S3 v3 and v3b |
+| [0016](decisions/0016-final-deployment-and-close-out.md) | Final deployment (Q2b + `rerank-v1.0.0`), `rerank-v1.1.0` not released, no more model experiments |
 
 ## Experiments
 
@@ -55,7 +62,8 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [EXP-B-004](experiments/EXP-B-004.md) | Re-ranker v1.1 on S3 v2 (descriptive) |
 | [EXP-Q-001](experiments/EXP-Q-001.md) | Better questions on S3 v2; Q2b beats Q0 |
 | [EXP-B-005](experiments/EXP-B-005.md) | Onset in the re-ranker on S3 v3b; P1 passed |
-| [EXP-B-006](experiments/EXP-B-006.md) | rr-v1 + onset 0.25 (`rerank-v1.1.0`), one R1-test read (pre-registered) |
+| [EXP-B-006](experiments/EXP-B-006.md) | rr-v1 + onset 0.25 (`rerank-v1.1.0`), one R1-test read; passed, no measurable real-patient gain |
+| [EXP-V-001](experiments/EXP-V-001.md) | The one R1-vault read: E0 vs `rerank-v1.0.0` vs `rerank-v1.1.0` (descriptive) |
 
 ## Analyses (`analyses/`)
 

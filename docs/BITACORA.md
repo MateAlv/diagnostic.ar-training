@@ -4043,3 +4043,17 @@ this task, whatever the result**; the last read needs Mateo's OK.
   −0.0008 [−0.0023, +0.0004].
 - Reading: on real patients with publication-reported negatives, the re-rankers don't help and v1.1 is slightly worse
   than E0. Descriptive; the tag decision for v1.1.0 is Mateo's. The vault is now spent.
+
+## 2026-10-05: Close-out: final decisions and balanced summaries (ADR-0016)
+- **Decisions (Mateo):** staging runs the question agent with Q2b plus `rerank-v1.0.0`; production later by routing to the
+  pinned image. `rerank-v1.1.0` is not released (never tagged; diagnostic.ar-model PR #7 merged, PR #8 marks it as not
+  released and its staging handoff as not to be executed). No more model experiments: Front B's candidate budget and the
+  R1 vault are spent. The web keeps asking for onset age (PR #87) and will show it in the doctor's final output, as
+  clinical information, not as a model input.
+- **Docs:** new `docs/decisions/0016-final-deployment-and-close-out.md`; STATE, README and INDEX now lead with what was
+  built, what was measured (with Δ and CI) and the limits with their context. EVIDENCE_INDEX has a headline table and the
+  EXP-B-006 and EXP-V-001 rows; TABLES has T0 (headline), T26 (EXP-B-006) and T27 (EXP-V-001).
+- **Checks:** `verify_numbers.py` extended with 37 numbers: 676 checked, 672 match, the same 4 known differences
+  (matplotlib stubbed outside the repo). No experiment doc, pre-registration or result text was edited. No sealed read.
+- **Precision recorded:** Q2b beats Q0 (the S3 v1 questioner), +0.0049 [+0.0027, +0.0069]; against Q1, the previous
+  production selector, +0.0017 [−0.0006, +0.0043] is not distinguishable from zero.
