@@ -1,0 +1,119 @@
+{
+  "artifact_id": "results-EXP-V-001-r1-v1-vault-final-report",
+  "kind": "final-report",
+  "created_at": "2026-10-05T16:56:43+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "ff95c1f11d35bd863d91076e814b315865681ccc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "cohort": "r1-v1/vault",
+    "kb": "kb-v3",
+    "systems": {
+      "E0": {
+        "neg": 0.0,
+        "sex": 0.0,
+        "age": 0.0,
+        "onset": 0.0
+      },
+      "rerank-v1.0.0": {
+        "neg": 0.5,
+        "sex": 0.0,
+        "age": 0.0,
+        "onset": 0.0
+      },
+      "rerank-v1.1.0": {
+        "neg": 0.5,
+        "sex": 0.0,
+        "age": 0.0,
+        "onset": 0.25
+      }
+    },
+    "top_k": 200
+  },
+  "params_hash": "85993f4e5cd266c974161e421a0a3c113992bb88893da25dd1fd7e8858a3c17e",
+  "outputs": [
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__E0__given.ranks.jsonl",
+      "sha256": "00ea7febc8609d3bdcf0aee62ba23da552d3c01018e98d3d9899b26a684e42e2",
+      "bytes": 382138
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__E0__given.summary.json",
+      "sha256": "cca64396869dab58509493cfbed3675270ee31680ea2e71ad544b75b76f35a13",
+      "bytes": 2122
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.0.0__given.ranks.jsonl",
+      "sha256": "e70c2d55e0264e88686e0df373f1bcf9ff5fe8e3c4184b6b21ff71ad6b3fcf5b",
+      "bytes": 382148
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.0.0__given.summary.json",
+      "sha256": "cd51072620f9f954e40813050a1abe022a9fc5f86caceb13416e50056ba69ae7",
+      "bytes": 2124
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.1.0__given.ranks.jsonl",
+      "sha256": "fdd07820e2f8ff604009f7a1b07a85b2d1a8a9055343219a5c39bed65e749949",
+      "bytes": 382153
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.1.0__given.summary.json",
+      "sha256": "f41742740aa05496971172ec67457b84139879968dd787229a749581648cec0e",
+      "bytes": 2119
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__E0__present.ranks.jsonl",
+      "sha256": "72a9300c428cdc42c4358c689d2cb7be1b20b901a06e487bc111c01a52d86009",
+      "bytes": 383723
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__E0__present.summary.json",
+      "sha256": "64d85152086d7c83adffdd068c9941aa11c716b1f47f1d017a0caf27bd467c88",
+      "bytes": 1849
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.0.0__present.ranks.jsonl",
+      "sha256": "72a9300c428cdc42c4358c689d2cb7be1b20b901a06e487bc111c01a52d86009",
+      "bytes": 383723
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.0.0__present.summary.json",
+      "sha256": "64d85152086d7c83adffdd068c9941aa11c716b1f47f1d017a0caf27bd467c88",
+      "bytes": 1849
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.1.0__present.ranks.jsonl",
+      "sha256": "72a9300c428cdc42c4358c689d2cb7be1b20b901a06e487bc111c01a52d86009",
+      "bytes": 383723
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__rerank-v1.1.0__present.summary.json",
+      "sha256": "64d85152086d7c83adffdd068c9941aa11c716b1f47f1d017a0caf27bd467c88",
+      "bytes": 1849
+    },
+    {
+      "path": "results/EXP-V-001/r1-v1-vault__final-report__report.json",
+      "sha256": "ae78962782dc6f91427d9ffc1df70f2dfba05d314ecfee0041a0d79bc8244bb0",
+      "bytes": 18955
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

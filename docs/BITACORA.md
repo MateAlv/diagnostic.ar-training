@@ -4035,3 +4035,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
   [−0.0008, +0.0079]. Present view: all three identical, every contrast exactly 0. Outputs in
   `results/EXP-V-001/r1-v1-dev__*`, manifest `results-EXP-V-001-r1-v1-dev-final-report`.
 - **Sealed data:** the R1 vault is still never read; no ledger row was added.
+
+## 2026-10-05: EXP-V-001, the one R1-vault read
+- Ledger `ff95c1f11d35`, pre-registered at d276321. 1,771 patients, 352 publications.
+- MRR: E0 0.4136, rerank-v1.0.0 0.4114, rerank-v1.1.0 0.4106.
+- v1.1 vs E0 **−0.0031 [−0.0055, −0.0005]** (CI excludes 0); v1.0 vs E0 −0.0022 [−0.0046, +0.0002]; v1.1 − v1.0
+  −0.0008 [−0.0023, +0.0004].
+- Reading: on real patients with publication-reported negatives, the re-rankers don't help and v1.1 is slightly worse
+  than E0. Descriptive; the tag decision for v1.1.0 is Mateo's. The vault is now spent.
