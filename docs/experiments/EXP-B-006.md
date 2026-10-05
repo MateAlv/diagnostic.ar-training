@@ -197,6 +197,8 @@ Front B, from `docs/TEST_LEDGER.md`:
   candidate, this would be the 4th and exceeds the budget.** This needs Mateo's explicit ruling. It is an
   onset-on-rr-v1 re-basing of candidate 2, spending no new S3-test read.
 - After this, no Front B candidate is left under the conservative count.
+- **Ruling, 2026-10-04 (Mateo):** EXP-B-004's descriptive read does not count as a candidate, so this is the
+  3rd and last Front B release candidate. Mateo also approved running the one sealed read as pre-registered here.
 
 ## On PASS and on FAIL
 - **PASS:** the candidate is a release candidate for `rerank-v1.1.0`: build and gate the bundle in

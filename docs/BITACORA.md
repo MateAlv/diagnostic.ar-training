@@ -3944,3 +3944,10 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Production mapping and mismatches** (class midpoint vs exact age, independent minima in PR #87, S3 exact ages vs web classes)
   are in EXP-B-006.md.
 - Code: `eval/release_check.py`, `dxt rerank release-check`, `tests/test_release_check.py`, `scripts/exp_b006_*.py`.
+
+## 2026-10-04: Mateo's rulings on onset (recorded 2026-10-05)
+- **Precisar list rule:** the onset-score selector failed its dev check, so the web Precisar button uses the
+  most-reported symptoms (`onset-prompt-terms-v1`, 206 terms, 90% of R1-train patients; PR #107).
+- **EXP-B-004 is not a Front B release candidate** (descriptive, nothing gated). EXP-B-006 is the 3rd and last.
+- **EXP-B-006's one R1-test read is approved,** to run after the re-ranker and Q2b are deployed to production.
+
