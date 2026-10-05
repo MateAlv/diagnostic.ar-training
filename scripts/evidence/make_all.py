@@ -11,6 +11,10 @@ MODULES = [
     "fig_e_categories",
     "fig_f_literature",
     "fig_g_frontA",
+    "fig_h_l1_frontier",
+    "fig_i_l4_strategies",
+    "fig_j_expb004_forest",
+    "fig_k_expb005",
     "verify_numbers",
     "make_tables",
 ]

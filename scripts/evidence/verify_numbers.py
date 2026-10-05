@@ -536,7 +536,277 @@ def analyses():
     add("ANALYSIS-002 E0 uncited MRR", d2, "0.405", f, float(txt["not_cited"][2]))
 
 
+def _tsv_rows(rel):
+    with open(ROOT / rel, encoding="utf-8", newline="") as fh:
+        return list(csv.DictReader((ln for ln in fh if not ln.startswith("#")), delimiter="\t"))
+
+
+def _ci(cid, doc, printed_ci, f, v):
+    add(f"{cid} CI low", doc, printed_ci[0], f, v["ci95"][0])
+    add(f"{cid} CI high", doc, printed_ci[1], f, v["ci95"][1])
+
+
+def s3_builds():
+    adr14 = "docs/decisions/0014-reranker-v11-and-s3-v2.md"
+    adr15 = "docs/decisions/0015-onset-follow-up-s3-v3.md"
+    for sid, doc, dev, test, sha in [
+        ("s3-v2", adr14, 9872, 9696, "fb7d47f04d161aa3c01dbcec133717de52ee06c6a16709872a205f18ef65c58e"),
+        ("s3-v3", adr15, 3106, 6974, "746ca7bca7efa24eb4e5497731a063a4d092dc8ced55b1f0ef0993a0e56164db"),
+        ("s3-v3b", "docs/BITACORA.md", 4577, 10509, "61660f7a32572f4007c8bbdd8afe4d952cd6bf0e681833360198f2b6082c4925"),
+    ]:
+        f = f"data/splits/{sid}.json"
+        d = load(f)
+        add(f"{sid} dev cases", doc, dev, f, d["counts"]["dev"])
+        add(f"{sid} test cases", doc, test, f, d["counts"]["test"])
+        add(f"{sid} content sha256", doc, sha, f, d["content_sha256"])
+    f = "data/s3/s3-v3b-eligible-genes.summary.json"
+    d = load(f)
+    add("s3-v3b eligible genes", "docs/BITACORA.md", 397, f, d["eligible_genes"])
+    add("s3-v3b cases per gene", "docs/BITACORA.md", 38, f, d["cases_per_gene"])
+    add("s3-v3b expected cases", "docs/BITACORA.md", 15086, f, d["expected_cases"])
+    f = "data/s3/s3-v3-eligible-genes.summary.json"
+    d = load(f)
+    add("s3-v3 eligible genes", adr15, 120, f, d["eligible_genes"])
+    add("s3-v3 expected cases", adr15, 10080, f, d["expected_cases"])
+    f = "results/EXP-B-004/kb-weight-sums.json"
+    sums = {r["kb"]: r for r in load(f)}
+    for kb, off, below in [("kb-v6", 633, 14), ("kb-v7", 601, 11), ("kb-v8", 633, 14)]:
+        add(f"ADR-0014 {kb} genes with weight sum != 1", adr14, off, f, sums[kb]["genes_sum_not_1"])
+        add(f"ADR-0014 {kb} genes with weight sum < 0.99", adr14, below, f, sums[kb]["genes_sum_below"]["0.99"])
+    add("ADR-0014 kb-v6 minimum weight sum", adr14, "0.5", f, sums["kb-v6"]["min_sum"])
+
+
+def exp_b004():
+    doc = "docs/experiments/EXP-B-004.md"
+    f = "results/EXP-B-004/dev-search.tsv"
+    rows = {(r["arm_id"]): r for r in _tsv_rows(f)}
+    for arm, delta, lo, hi, harmed, helped, r1, r1lo, r1hi in [
+        ("L1:propagated:k0.5:w0.5", "+0.0063", "+0.0051", "+0.0075", "0.049", "0.233", "-0.0020", "-0.0097", "+0.0044"),
+        ("L1:gated:tau0.4:k0.5:w0.5", "+0.0065", "+0.0052", "+0.0078", "0.045", "0.237", "+0.0028", "+0.0006", "+0.0050"),
+        ("L1:propagated:k0.8:w0.75", "+0.0132", "+0.0111", "+0.0154", "0.074", "0.331", "-0.0091", "-0.0300", "+0.0056"),
+        ("L1:capped:cap2:k0.5:w2", "+0.0161", "+0.0133", "+0.0188", "0.092", "0.367", "-0.0125", "-0.0382", "+0.0057"),
+        ("L1:llr:k0.5:w0.5", "+0.0079", "+0.0065", "+0.0093", "0.055", "0.253", "-0.0020", "-0.0097", "+0.0044"),
+        ("L2:propagated:k0.5:w0.5:kb-v8", "+0.0064", "+0.0052", "+0.0076", "0.047", "0.236", "-0.0094", "-0.0241", "+0.0007"),
+        ("L3:onset:w0.5", "+0.0117", "+0.0101", "+0.0133", "0.052", "0.300", "-0.0004", "-0.0086", "+0.0069"),
+        ("L3:onset:w2", "+0.0172", "+0.0147", "+0.0197", "0.084", "0.339", "-0.0127", "-0.0228", "-0.0024"),
+        ("L3:sex:w0.5", "+0.0064", "+0.0052", "+0.0076", "0.053", "0.241", "-0.0022", "-0.0098", "+0.0043"),
+    ]:
+        r = rows[arm]
+        c = f"EXP-B-004 dev {arm}"
+        add(f"{c} delta", doc, delta, f, float(r["delta_mrr"]))
+        add(f"{c} CI low", doc, lo, f, float(r["ci_lo"]))
+        add(f"{c} CI high", doc, hi, f, float(r["ci_hi"]))
+        add(f"{c} harmed", doc, harmed, f, float(r["harmed"]))
+        add(f"{c} helped", doc, helped, f, float(r["helped"]))
+        add(f"{c} R1-dev delta", doc, r1, f, float(r["r1dev_delta"]))
+        add(f"{c} R1-dev CI low", doc, r1lo, f, float(r["r1dev_ci_lo"]))
+        add(f"{c} R1-dev CI high", doc, r1hi, f, float(r["r1dev_ci_hi"]))
+    add("EXP-B-004 dev L1 arms logged", doc, 48, f, sum(1 for r in rows.values() if r["lever"] == "L1"))
+    add("EXP-B-004 dev L2 arms logged", doc, 6, f, sum(1 for r in rows.values() if r["lever"] == "L2"))
+    add("EXP-B-004 dev L3 arms logged", doc, 12, f, sum(1 for r in rows.values() if r["lever"] == "L3"))
+    add("EXP-B-004 dev n per arm", doc, 9750, f, int(rows["L1:propagated:k0.5:w0.5"]["n"]))
+
+    f = "results/EXP-B-004/sealed-analysis.json"
+    d = load(f)
+    add("EXP-B-004 sealed n", doc, 9565, f, d["n"])
+    for key, delta, lo, hi, harmed, helped, mrr, vf, flo, fhi in [
+        ("F", "+0.0066", "+0.0054", "+0.0079", "0.0506", "0.2235", "0.3562", None, None, None),
+        ("rr-v1 formula on kb-v6", "+0.0077", "+0.0063", "+0.0092", "0.0576", "0.2432", "0.3572", "+0.0011", "+0.0003", "+0.0018"),
+        ("F on kb-v7", "+0.0070", "+0.0057", "+0.0083", "0.0504", "0.2277", "0.3565", "+0.0003", "+0.0001", "+0.0006"),
+        ("F + onset 0.5", "+0.0124", "+0.0107", "+0.0140", "0.0499", "0.2942", "0.3619", "+0.0057", "+0.0045", "+0.0069"),
+        ("F + sex 0.5", "+0.0070", "+0.0057", "+0.0083", "0.0525", "0.2311", "0.3565", "+0.0003", "+0.0000", "+0.0007"),
+        ("F + age_mean 0.5", "+0.0073", "+0.0059", "+0.0088", "0.0631", "0.2477", "0.3568", "+0.0007", "-0.0001", "+0.0014"),
+        ("frontier <=7.5% (propagated k0.8 w0.75)", "+0.0143", "+0.0123", "+0.0164", "0.0741", "0.3255", "0.3639", "+0.0077", "+0.0062", "+0.0093"),
+        ("frontier <=10% (capped C2 w2)", "+0.0165", "+0.0138", "+0.0190", "0.0944", "0.3613", "0.3660", "+0.0098", "+0.0076", "+0.0120"),
+    ]:
+        s = d[key]
+        e = s["vs_E0+answers"]
+        c = f"EXP-B-004 sealed {key}"
+        add(f"{c} delta", doc, delta, f, e["delta"])
+        add(f"{c} CI low", doc, lo, f, e["ci95"][0])
+        add(f"{c} CI high", doc, hi, f, e["ci95"][1])
+        add(f"{c} harmed", doc, harmed, f, e["harmed"])
+        add(f"{c} helped", doc, helped, f, e["helped"])
+        add(f"{c} MRR final", doc, mrr, f, s["mrr_final"])
+        if vf is not None:
+            v = s["vs_F"]
+            add(f"{c} delta vs F", doc, vf, f, v["delta"])
+            add(f"{c} vs F CI low", doc, flo, f, v["ci95"][0])
+            add(f"{c} vs F CI high", doc, fhi, f, v["ci95"][1])
+    sizes = d["subset_sizes"]
+    for k, n in [("lit_onset", 509), ("lit_onset_src_hpoa", 349), ("lit_onset_src_orphanet", 26),
+                 ("lit_onset_src_orphanet_exact_alignment", 86), ("lit_onset_src_none", 48),
+                 ("lit_onset_age_known", 391)]:
+        add(f"EXP-B-004 sealed subset size {k}", doc, n, f, sizes[k])
+    h3 = d["H3"]["F + onset 0.5"]
+    add("EXP-B-004 sealed onset lit_onset delta", doc, "+0.0064", f, h3["lit_onset"]["vs_E0+answers"]["delta"])
+    add("EXP-B-004 sealed onset lit_onset harmed", doc, "0.081", f, h3["lit_onset"]["vs_E0+answers"]["harmed"])
+    add("EXP-B-004 sealed onset lit_onset vs F", doc, "+0.0021", f, h3["lit_onset"]["vs_F"]["delta"])
+    add("EXP-B-004 sealed onset lit_onset vs F CI low", doc, "-0.0027", f, h3["lit_onset"]["vs_F"]["ci95"][0])
+    add("EXP-B-004 sealed onset lit_onset vs F CI high", doc, "+0.0063", f, h3["lit_onset"]["vs_F"]["ci95"][1])
+    add("EXP-B-004 sealed onset hpoa delta", doc, "+0.0085", f, h3["lit_onset_src_hpoa"]["vs_E0+answers"]["delta"])
+
+
+def exp_q001():
+    doc = "docs/experiments/EXP-Q-001.md"
+    f = "results/EXP-Q-001/dev-search.tsv"
+    rows = _tsv_rows(f)
+
+    def find(strategy, noise):
+        return next(r for r in rows if r["strategy"] == strategy and float(r["noise"]) == noise)
+
+    for strat, noise, delta, lo, hi, harmed, rrh in [
+        ("Q0", 0, "+0.0275", "+0.0250", "+0.0298", "0.081", "0.049"),
+        ("Q2", 0, "+0.0328", "+0.0300", "+0.0355", "0.085", "0.051"),
+        ("Q2b-lam0.3", 0, "+0.0337", "+0.0308", "+0.0365", "0.086", "0.049"),
+        ("Q2b-lam0.6", 0, "+0.0339", "+0.0310", "+0.0368", "0.084", "0.048"),
+        ("Q1", 0, "+0.0332", "+0.0302", "+0.0361", "0.077", "0.059"),
+        ("Q0", 0.05, "+0.0148", "+0.0117", "+0.0176", "0.166", "0.049"),
+        ("Q2b-lam0.6", 0.05, "+0.0203", "+0.0170", "+0.0236", "0.168", "0.049"),
+    ]:
+        r = find(strat, noise)
+        c = f"EXP-Q-001 dev {strat} noise {noise}"
+        add(f"{c} primary", doc, delta, f, float(r["delta_primary"]))
+        add(f"{c} CI low", doc, lo, f, float(r["ci_lo"]))
+        add(f"{c} CI high", doc, hi, f, float(r["ci_hi"]))
+        add(f"{c} harmed", doc, harmed, f, float(r["harmed_primary"]))
+        add(f"{c} re-ranker harmed", doc, rrh, f, float(r["reranker_harmed"]))
+    add("EXP-Q-001 dev cases", doc, 9750, f, int(find("Q0", 0)["cases"]))
+
+    f = "results/EXP-Q-001/sealed-analysis.json"
+    d = load(f)
+    add("EXP-Q-001 sealed n", doc, 9565, f, d["n"])
+    for key, delta, lo, hi, harmed, helped, qe, rre, rrh in [
+        ("Q2b", "+0.0330", "+0.0301", "+0.0360", "0.0811", "0.3803", "+0.0263", "+0.0067", "0.0477"),
+        ("Q0", "+0.0281", "+0.0255", "+0.0308", "0.0825", "0.3606", "+0.0215", "+0.0066", "0.0506"),
+        ("Q1", "+0.0312", "+0.0284", "+0.0340", "0.0792", "0.3800", "+0.0256", "+0.0056", "0.0558"),
+        ("Q2b-noise", "+0.0177", "+0.0143", "+0.0210", "0.1603", "0.3570", "+0.0118", "+0.0059", "0.0490"),
+        ("Q0-noise", "+0.0153", "+0.0120", "+0.0185", "0.1612", "0.3428", "+0.0089", "+0.0063", "0.0528"),
+    ]:
+        v = d[key]
+        c = f"EXP-Q-001 sealed {key}"
+        add(f"{c} primary", doc, delta, f, v["primary"]["delta"])
+        add(f"{c} CI low", doc, lo, f, v["primary"]["ci95"][0])
+        add(f"{c} CI high", doc, hi, f, v["primary"]["ci95"][1])
+        add(f"{c} harmed", doc, harmed, f, v["primary"]["harmed"])
+        add(f"{c} helped", doc, helped, f, v["primary"]["helped"])
+        add(f"{c} questioner effect", doc, qe, f, v["questioner_effect"]["delta"])
+        add(f"{c} re-ranker effect", doc, rre, f, v["reranker_effect"]["delta"])
+        add(f"{c} re-ranker harmed", doc, rrh, f, v["reranker_effect"]["harmed"])
+    p1 = d["P1"]["paired_Q2b_minus_Q0"]
+    add("EXP-Q-001 P1 delta", doc, "+0.0049", f, p1["delta"])
+    add("EXP-Q-001 P1 CI low", doc, "+0.0027", f, p1["ci95"][0])
+    add("EXP-Q-001 P1 CI high", doc, "+0.0069", f, p1["ci95"][1])
+    add("EXP-Q-001 P1 harmed", doc, "0.1476", f, p1["harmed"])
+    add("EXP-Q-001 P1 helped", doc, "0.2027", f, p1["helped"])
+    add("EXP-Q-001 P1 re-ranker harmed under Q2b", doc, "0.0477", f, d["P1"]["reranker_effect_harmed_Q2b"])
+    s1 = d["S1"]["paired_Q2b_minus_Q1"]
+    add("EXP-Q-001 S1 delta", doc, "+0.0017", f, s1["delta"])
+    add("EXP-Q-001 S1 CI low", doc, "-0.0006", f, s1["ci95"][0])
+    add("EXP-Q-001 S1 CI high", doc, "+0.0043", f, s1["ci95"][1])
+    s2 = d["S2"]["paired_Q2b_minus_Q0_noise0.05"]
+    add("EXP-Q-001 S2 delta", doc, "+0.0024", f, s2["delta"])
+    add("EXP-Q-001 S2 CI low", doc, "-0.0002", f, s2["ci95"][0])
+    add("EXP-Q-001 S2 CI high", doc, "+0.0050", f, s2["ci95"][1])
+
+
+def exp_b005():
+    doc = "docs/experiments/EXP-B-005.md"
+    f = "results/EXP-B-005/dev-analysis.json"
+    d = load(f)
+    add("EXP-B-005 dev cases interviewed", doc, 4562, f, d["cases"])
+    add("EXP-B-005 dev literature cases", doc, 2934, f, d["mask_sizes"]["lit"])
+    for arm, delta, lo, hi, harmed, r1, r1lo, r1hi in [
+        ("F+onset0.25", "+0.0021", "+0.0006", "+0.0036", "4.16", "-0.0006", "-0.0086", "+0.0060"),
+        ("F+onset0.5", "+0.0035", "+0.0011", "+0.0058", "6.00", "-0.0004", "-0.0086", "+0.0069"),
+        ("F+onset1", "+0.0038", "+0.0000", "+0.0076", "7.81", "-0.0052", "-0.0133", "+0.0024"),
+    ]:
+        a = d["arms"][arm]
+        v, e = a["vs_F"]["lit"], a["vs_e0"]["lit"]
+        c = f"EXP-B-005 dev {arm}"
+        add(f"{c} delta vs F", doc, delta, f, v["delta"])
+        add(f"{c} CI low", doc, lo, f, v["ci95"][0])
+        add(f"{c} CI high", doc, hi, f, v["ci95"][1])
+        add(f"{c} harmed % vs E0+answers", doc, harmed, f, e["harmed"] * 100)
+        add(f"{c} R1-dev delta", doc, r1, f, a["r1dev"]["delta"])
+        add(f"{c} R1-dev CI low", doc, r1lo, f, a["r1dev"]["ci95"][0])
+        add(f"{c} R1-dev CI high", doc, r1hi, f, a["r1dev"]["ci95"][1])
+    ref = d["reference"]["vs_e0"]["lit"]
+    add("EXP-B-005 dev F vs E0+answers", doc, "+0.0089", f, ref["delta"])
+    add("EXP-B-005 dev F vs E0+answers CI low", doc, "+0.0067", f, ref["ci95"][0])
+    add("EXP-B-005 dev F vs E0+answers CI high", doc, "+0.0115", f, ref["ci95"][1])
+    add("EXP-B-005 dev F harmed %", doc, "3.03", f, ref["harmed"] * 100)
+    for arm, al, kn, knh in [("F+onset0.25", "+0.0025", "+0.0042", "5.84"), ("F+onset0.5", "+0.0042", "+0.0069", "8.28"),
+                             ("F+onset1", "+0.0053", "+0.0088", "11.40")]:
+        a = d["arms"][arm]
+        add(f"EXP-B-005 dev {arm} all-cases delta vs F", doc, al, f, a["vs_F"]["all"]["delta"])
+        add(f"EXP-B-005 dev {arm} known-onset delta vs F", doc, kn, f, a["vs_F"]["known"]["delta"])
+        add(f"EXP-B-005 dev {arm} known-onset harmed %", doc, knh, f, a["vs_e0"]["known"]["harmed"] * 100)
+
+    f = "results/EXP-B-005/sealed-analysis.json"
+    d = load(f)
+    add("EXP-B-005 sealed cases interviewed", doc, 10458, f, d["cases"])
+    p1 = d["P1"]["F+onset0.25"]
+    add("EXP-B-005 sealed P1 n", doc, 6745, f, p1["n"])
+    add("EXP-B-005 sealed P1 delta", doc, "+0.0023", f, p1["delta"])
+    add("EXP-B-005 sealed P1 CI low", doc, "+0.0013", f, p1["ci95"][0])
+    add("EXP-B-005 sealed P1 CI high", doc, "+0.0034", f, p1["ci95"][1])
+    add("EXP-B-005 sealed P1 harmed %", doc, "4.63", f, p1["harmed"] * 100)
+    arm = d["arms"]["F+onset0.25"]
+    add("EXP-B-005 sealed P1 helped %", doc, "28.35", f, arm["vs_e0"]["lit"]["helped"] * 100)
+    ref = d["reference"]["vs_e0"]["lit"]
+    add("EXP-B-005 sealed F vs E0+answers", doc, "+0.0076", f, ref["delta"])
+    add("EXP-B-005 sealed F vs E0+answers CI low", doc, "+0.0060", f, ref["ci95"][0])
+    add("EXP-B-005 sealed F vs E0+answers CI high", doc, "+0.0092", f, ref["ci95"][1])
+    add("EXP-B-005 sealed F harmed %", doc, "3.45", f, ref["harmed"] * 100)
+    for key, n, delta, lo, hi, harmed in [
+        ("all", 10458, "+0.0027", "+0.0019", "+0.0036", "4.75"),
+        ("known", 6200, "+0.0046", "+0.0031", "+0.0061", "5.40"),
+        ("lit_known", 3993, "+0.0039", "+0.0021", "+0.0056", "5.58"),
+        ("lit_unknown", 2752, "+0.0000", None, None, "3.23"),
+        ("lit_src_hpoa", 4802, "+0.0025", "+0.0013", "+0.0038", "4.56"),
+        ("lit_src_orphanet", 355, "+0.0004", "-0.0033", "+0.0036", "3.94"),
+        ("lit_src_orphanet_exact_alignment", 978, "+0.0023", "-0.0001", "+0.0046", "5.42"),
+        ("lit_src_none", 610, "+0.0022", "-0.0012", "+0.0062", "4.26"),
+    ]:
+        v, e = arm["vs_F"][key], arm["vs_e0"][key]
+        c = f"EXP-B-005 sealed {key}"
+        add(f"{c} n", doc, n, f, v["n"])
+        add(f"{c} delta vs F", doc, delta, f, v["delta"])
+        if lo is not None:
+            add(f"{c} CI low", doc, lo, f, v["ci95"][0])
+            add(f"{c} CI high", doc, hi, f, v["ci95"][1])
+        add(f"{c} harmed %", doc, harmed, f, e["harmed"] * 100)
+
+
+def corrections():
+    adr = "docs/decisions/0012-data-quality-gate.md"
+    half_a = "results/realism/v0.3-baseline.json"
+    full = "results/realism/v0.3-full-baseline.json"
+    add(
+        "ADR-0012 correction: V03 half A terms per case (8.42)",
+        adr,
+        "8.42",
+        half_a,
+        load(half_a)["g2c_terms_per_case"]["present"]["sim"]["mean"],
+    )
+    add(
+        "ADR-0012 correction: V03-full terms per case (10.21)",
+        adr,
+        "10.21",
+        full,
+        load(full)["g2c_terms_per_case"]["present"]["sim"]["mean"],
+    )
+    pct = load(full)["g2c_terms_per_case"]["present"]
+    add("ADR-0012 correction: V03-full p10", adr, "4", full, pct["sim"]["percentiles"]["10"])
+    add("ADR-0012 correction: V03-full p90", adr, "18", full, pct["sim"]["percentiles"]["90"])
+    add("ADR-0012 correction: R1-train p10", adr, "2", full, pct["r1_train"]["percentiles"]["10"])
+    add("ADR-0012 correction: R1-train p90", adr, "17", full, pct["r1_train"]["percentiles"]["90"])
+
+
 def verdict(printed: str, value) -> str:
+    if printed == str(value) and len(printed) == 64:
+        return "MATCH"
     try:
         p = Decimal(printed.lstrip("+"))
     except Exception:
@@ -550,7 +820,22 @@ def verdict(printed: str, value) -> str:
 
 
 def main() -> None:
-    for fn in (exp_000, exp_b001, exp_b002, exp_s3, exp_b003, exp_a, gate, literature, analyses):
+    for fn in (
+        exp_000,
+        exp_b001,
+        exp_b002,
+        exp_s3,
+        exp_b003,
+        exp_a,
+        gate,
+        literature,
+        analyses,
+        s3_builds,
+        exp_b004,
+        exp_q001,
+        exp_b005,
+        corrections,
+    ):
         try:
             fn()
         except Exception as e:  # keep going so one broken lookup does not hide the rest

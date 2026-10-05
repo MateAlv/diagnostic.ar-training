@@ -2,7 +2,8 @@
 
 - **Front:** B
 - **Registered:** 2026-10-03, by Mateo Alvarez (written by the assistant)
-- **Status:** planned. The design is fixed now. The **final system list for
+- **Status (updated 2026-10-04):** completed. The dev search (2026-10-03) and the one sealed S3-v2-test read (2026-10-03, descriptive, no gate) are done; see "Dev search log", "Results" and "Verdict" below. The status and 2026-10-03 lines that follow are the text as registered, left unchanged.
+- **Status at registration:** planned. The design is fixed now. The **final system list for
   the sealed read is added as a dated addendum before the read** (phase 4),
   chosen by the selection rule below.
 - **2026-10-03:** the dev search (phase 3) is done and logged below; the sealed read has not happened.

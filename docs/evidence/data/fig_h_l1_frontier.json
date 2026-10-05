@@ -1,0 +1,594 @@
+{
+ "dev_L1_arms": [
+  {
+   "arm": "L1:llr:k0.5:w0.5",
+   "ci95": [
+    0.006492,
+    0.009281
+   ],
+   "config": "2b6a00674f4c",
+   "delta": 0.007896,
+   "harmed": 0.05487,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:llr:k0.5:w0.75",
+   "ci95": [
+    0.008602,
+    0.012155
+   ],
+   "config": "022d08bba4ef",
+   "delta": 0.010349,
+   "harmed": 0.06441,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:llr:k0.5:w1",
+   "ci95": [
+    0.01088,
+    0.014977
+   ],
+   "config": "c0aa705df747",
+   "delta": 0.012859,
+   "harmed": 0.07303,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:llr:k0.5:w1.5",
+   "ci95": [
+    0.012476,
+    0.017605
+   ],
+   "config": "d99deb89262b",
+   "delta": 0.015052,
+   "harmed": 0.08297,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:llr:k0.5:w2",
+   "ci95": [
+    0.012215,
+    0.018043
+   ],
+   "config": "7a049149fb15",
+   "delta": 0.015097,
+   "harmed": 0.09282,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:llr:k0.5:w3",
+   "ci95": [
+    0.010066,
+    0.016937
+   ],
+   "config": "3b09b1cd408a",
+   "delta": 0.01349,
+   "harmed": 0.11108,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w0.5",
+   "ci95": [
+    0.006508,
+    0.009342
+   ],
+   "config": "3c5494823313",
+   "delta": 0.007945,
+   "harmed": 0.05549,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w0.75",
+   "ci95": [
+    0.008331,
+    0.01185
+   ],
+   "config": "d1a0f08e733b",
+   "delta": 0.010027,
+   "harmed": 0.06503,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w1",
+   "ci95": [
+    0.0102,
+    0.014294
+   ],
+   "config": "458b78788223",
+   "delta": 0.012155,
+   "harmed": 0.07354,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w1.5",
+   "ci95": [
+    0.011903,
+    0.01712
+   ],
+   "config": "e898052a6df9",
+   "delta": 0.014507,
+   "harmed": 0.08482,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w2",
+   "ci95": [
+    0.010904,
+    0.016696
+   ],
+   "config": "90a58acdd4a6",
+   "delta": 0.013765,
+   "harmed": 0.09364,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.2:k0.5:w3",
+   "ci95": [
+    0.00699,
+    0.014021
+   ],
+   "config": "a4ade4b87607",
+   "delta": 0.010555,
+   "harmed": 0.11344,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w0.5",
+   "ci95": [
+    0.005299,
+    0.007856
+   ],
+   "config": "aa2e98c3b9fc",
+   "delta": 0.006599,
+   "harmed": 0.05528,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w0.75",
+   "ci95": [
+    0.007647,
+    0.010905
+   ],
+   "config": "0981d1697b61",
+   "delta": 0.009238,
+   "harmed": 0.06472,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w1",
+   "ci95": [
+    0.010131,
+    0.013897
+   ],
+   "config": "780c4f554bfe",
+   "delta": 0.011997,
+   "harmed": 0.07262,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w1.5",
+   "ci95": [
+    0.012745,
+    0.017494
+   ],
+   "config": "9c44fcd5fb28",
+   "delta": 0.015084,
+   "harmed": 0.08267,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w2",
+   "ci95": [
+    0.013313,
+    0.018804
+   ],
+   "config": "84296576dc8e",
+   "delta": 0.016068,
+   "harmed": 0.092,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.5:w3",
+   "ci95": [
+    0.012282,
+    0.018847
+   ],
+   "config": "407e0d70ad8a",
+   "delta": 0.015481,
+   "harmed": 0.10913,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w0.5",
+   "ci95": [
+    0.005078,
+    0.007483
+   ],
+   "config": "8ecd5b320f33",
+   "delta": 0.006287,
+   "harmed": 0.04851,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w0.75",
+   "ci95": [
+    0.007337,
+    0.010361
+   ],
+   "config": "2d35a0f3dae4",
+   "delta": 0.008868,
+   "harmed": 0.05877,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w1",
+   "ci95": [
+    0.009179,
+    0.012739
+   ],
+   "config": "53c67989ab01",
+   "delta": 0.010926,
+   "harmed": 0.06523,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w1.5",
+   "ci95": [
+    0.011394,
+    0.015705
+   ],
+   "config": "f14a794c5ddf",
+   "delta": 0.013524,
+   "harmed": 0.07856,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w2",
+   "ci95": [
+    0.013004,
+    0.017882
+   ],
+   "config": "5a80f575f46e",
+   "delta": 0.015366,
+   "harmed": 0.08585,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.5:w3",
+   "ci95": [
+    0.013144,
+    0.01899
+   ],
+   "config": "953454658fce",
+   "delta": 0.015974,
+   "harmed": 0.09897,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w0.5",
+   "ci95": [
+    0.008921,
+    0.012389
+   ],
+   "config": "8309ce9b889e",
+   "delta": 0.010623,
+   "harmed": 0.06113,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w0.75",
+   "ci95": [
+    0.011137,
+    0.015412
+   ],
+   "config": "c34cb31bd53f",
+   "delta": 0.013242,
+   "harmed": 0.07426,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w1",
+   "ci95": [
+    0.012028,
+    0.016836
+   ],
+   "config": "bfc6de1adab0",
+   "delta": 0.014408,
+   "harmed": 0.08205,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w1.5",
+   "ci95": [
+    0.012392,
+    0.018119
+   ],
+   "config": "a372fb5fb72a",
+   "delta": 0.015217,
+   "harmed": 0.09415,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w2",
+   "ci95": [
+    0.01096,
+    0.017684
+   ],
+   "config": "e0c177520e5e",
+   "delta": 0.014194,
+   "harmed": 0.10769,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:propagated:k0.8:w3",
+   "ci95": [
+    0.002976,
+    0.011196
+   ],
+   "config": "2a4b77988e3e",
+   "delta": 0.007091,
+   "harmed": 0.13815,
+   "r1dev_pass": "0"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w0.5",
+   "ci95": [
+    0.007012,
+    0.009988
+   ],
+   "config": "dcc9988853f5",
+   "delta": 0.008479,
+   "harmed": 0.06646,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w0.75",
+   "ci95": [
+    0.009519,
+    0.013197
+   ],
+   "config": "e34a4777ac48",
+   "delta": 0.011355,
+   "harmed": 0.0799,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w1",
+   "ci95": [
+    0.010988,
+    0.015235
+   ],
+   "config": "d547718a010c",
+   "delta": 0.013145,
+   "harmed": 0.08564,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w1.5",
+   "ci95": [
+    0.013565,
+    0.018895
+   ],
+   "config": "519485fef7fc",
+   "delta": 0.016237,
+   "harmed": 0.10103,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w2",
+   "ci95": [
+    0.013855,
+    0.020033
+   ],
+   "config": "edacb67ca05d",
+   "delta": 0.016882,
+   "harmed": 0.11487,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap2:k0.8:w3",
+   "ci95": [
+    0.008822,
+    0.016549
+   ],
+   "config": "a26afc57846d",
+   "delta": 0.012726,
+   "harmed": 0.14082,
+   "r1dev_pass": "0"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w0.5",
+   "ci95": [
+    0.00516,
+    0.007783
+   ],
+   "config": "8e8b70d00a1c",
+   "delta": 0.006487,
+   "harmed": 0.04472,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w0.75",
+   "ci95": [
+    0.00709,
+    0.010319
+   ],
+   "config": "f09a0f3b5076",
+   "delta": 0.008652,
+   "harmed": 0.05364,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w1",
+   "ci95": [
+    0.008096,
+    0.011997
+   ],
+   "config": "78870ab362be",
+   "delta": 0.009957,
+   "harmed": 0.06103,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w1.5",
+   "ci95": [
+    0.008816,
+    0.013696
+   ],
+   "config": "01299ec656c6",
+   "delta": 0.011225,
+   "harmed": 0.07169,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w2",
+   "ci95": [
+    0.007852,
+    0.013391
+   ],
+   "config": "889d20b4d418",
+   "delta": 0.010589,
+   "harmed": 0.08021,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:gated:tau0.4:k0.5:w3",
+   "ci95": [
+    0.003266,
+    0.009854
+   ],
+   "config": "ca9750d4283f",
+   "delta": 0.006624,
+   "harmed": 0.09559,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap1:k0.5:w1",
+   "ci95": [
+    0.007398,
+    0.010358
+   ],
+   "config": "d5a298c1b1f2",
+   "delta": 0.008866,
+   "harmed": 0.07036,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap1:k0.5:w2",
+   "ci95": [
+    0.011499,
+    0.015609
+   ],
+   "config": "5885f1c46a34",
+   "delta": 0.013607,
+   "harmed": 0.09026,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap1:k0.5:w3",
+   "ci95": [
+    0.014109,
+    0.019447
+   ],
+   "config": "c9f21caac5c8",
+   "delta": 0.016783,
+   "harmed": 0.10595,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap3:k0.5:w1",
+   "ci95": [
+    0.010731,
+    0.014835
+   ],
+   "config": "ef72d959baec",
+   "delta": 0.012695,
+   "harmed": 0.07323,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap3:k0.5:w2",
+   "ci95": [
+    0.012421,
+    0.018171
+   ],
+   "config": "a8165098813f",
+   "delta": 0.015268,
+   "harmed": 0.09272,
+   "r1dev_pass": "1"
+  },
+  {
+   "arm": "L1:capped:cap3:k0.5:w3",
+   "ci95": [
+    0.010565,
+    0.017327
+   ],
+   "config": "b2d3888804ea",
+   "delta": 0.01393,
+   "harmed": 0.11067,
+   "r1dev_pass": "1"
+  }
+ ],
+ "sealed": {
+  "F": {
+   "ci95": [
+    0.005402296282174655,
+    0.007930188531891412
+   ],
+   "config": "8ecd5b320f33",
+   "delta": 0.0066417002956131645,
+   "dev_ci95": [
+    0.005078,
+    0.007483
+   ],
+   "dev_delta": 0.006287,
+   "dev_harmed": 0.04851,
+   "harmed": 0.05060115002613696
+  },
+  "frontier <=10% (capped C2 w2)": {
+   "ci95": [
+    0.013848572485553465,
+    0.01901326357439196
+   ],
+   "config": "84296576dc8e",
+   "delta": 0.016464157585700055,
+   "dev_ci95": [
+    0.013313,
+    0.018804
+   ],
+   "dev_delta": 0.016068,
+   "dev_harmed": 0.092,
+   "harmed": 0.09440669106116048
+  },
+  "frontier <=7.5% (propagated k0.8 w0.75)": {
+   "ci95": [
+    0.012291489303476191,
+    0.016449134568665078
+   ],
+   "config": "c34cb31bd53f",
+   "delta": 0.014346222765682422,
+   "dev_ci95": [
+    0.011137,
+    0.015412
+   ],
+   "dev_delta": 0.013242,
+   "dev_harmed": 0.07426,
+   "harmed": 0.07412441191845269
+  },
+  "rr-v1 formula on kb-v6": {
+   "ci95": [
+    0.006251980978577108,
+    0.009206676791377998
+   ],
+   "config": "2b6a00674f4c",
+   "delta": 0.007694168173362532,
+   "dev_ci95": [
+    0.006492,
+    0.009281
+   ],
+   "dev_delta": 0.007896,
+   "dev_harmed": 0.05487,
+   "harmed": 0.05760585467851542
+  }
+ }
+}

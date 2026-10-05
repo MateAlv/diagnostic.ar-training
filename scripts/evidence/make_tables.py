@@ -538,14 +538,264 @@ def literature():
     )
 
 
+def dev_tsv(rel):
+    with open(ROOT / rel, encoding="utf-8", newline="") as fh:
+        return list(csv.DictReader((ln for ln in fh if not ln.startswith("#")), delimiter="\t"))
+
+
+def b004_dev():
+    src = "results/EXP-B-004/dev-search.tsv"
+    rows = dev_tsv(src)
+    head = ["arm", "config", "kb", "Delta MRR", "95% CI", "harmed", "helped", "n", "R1-dev Delta", "R1-dev CI", "R1 pass"]
+
+    def row(r):
+        return [
+            r["arm_id"],
+            r["config_hash"],
+            r["kb"],
+            f"{float(r['delta_mrr']):+.4f}",
+            f"[{float(r['ci_lo']):+.4f}, {float(r['ci_hi']):+.4f}]",
+            f"{float(r['harmed']):.4f}",
+            f"{float(r['helped']):.4f}",
+            r["n"],
+            f"{float(r['r1dev_delta']):+.4f}",
+            f"[{float(r['r1dev_ci_lo']):+.4f}, {float(r['r1dev_ci_hi']):+.4f}]",
+            r["r1dev_pass"],
+        ]
+
+    for lever, tid in (("L1", "T18"), ("L2", "T19"), ("L3", "T20")):
+        sel = [r for r in rows if r["lever"] == lever]
+        h(
+            f"{tid}. EXP-B-004 dev search, {lever} ({len(sel)} rows), S3-v2-dev (9,750 cases), Delta vs E0+answers",
+            f"{src} (CI over genes, 2,000 resamples, seed 0; R1-dev CI over publications). Split: S3-v2-dev, R1-dev",
+        )
+        table(head, [row(r) for r in sel])
+    ref = [r for r in rows if r["lever"] not in ("L1", "L2", "L3")]
+    h("T20b. EXP-B-004 dev search, reference rows (not search arms)", src)
+    table(head, [row(r) for r in ref])
+
+
+def b004_sealed():
+    src = "results/EXP-B-004/sealed-analysis.json"
+    d = load(src)
+    h(
+        "T21. EXP-B-004 sealed S3-v2-test (descriptive, no gate), interview Q0 budget 9",
+        f"{src}; n = {d['n']}; CI over genes, 2,000 resamples, seed 0. Split: S3-v2-test (sealed)",
+    )
+    rows = []
+    for k, v in d.items():
+        if isinstance(v, dict) and "vs_E0+answers" in v:
+            e, f = v["vs_E0+answers"], v["vs_F"]
+            rows.append(
+                [
+                    k,
+                    v["config"],
+                    f"{e['delta']:+.4f}",
+                    ci(e["ci95"]),
+                    f"{e['harmed']:.4f}",
+                    f"{e['helped']:.4f}",
+                    f"{v['mrr_final']:.4f}",
+                    f"{f['delta']:+.4f}",
+                    ci(f["ci95"]),
+                ]
+            )
+    table(
+        ["system", "config", "Delta vs E0+answers", "95% CI", "harmed", "helped", "MRR final", "Delta vs F", "95% CI vs F"],
+        rows,
+    )
+    h(
+        "T21b. EXP-B-004 sealed, H3 subsets: Delta vs E0+answers [95% CI] by subset",
+        f"{src}, key H3; subset sizes: "
+        + ", ".join(f"{k} {v}" for k, v in d["subset_sizes"].items()),
+    )
+    subs = list(d["subset_sizes"])
+    for ref in ("vs_E0+answers", "vs_F"):
+        L.append(f"H3 subsets, {ref}:")
+        L.append("")
+        rows = [
+            [sysn]
+            + [
+                f"{x[ref]['delta']:+.4f} {ci(x[ref]['ci95'])}"
+                for x in (d["H3"][sysn][sub] for sub in subs)
+            ]
+            for sysn in d["H3"]
+        ]
+        table(["system"] + subs, rows)
+
+
+def q001():
+    src = "results/EXP-Q-001/dev-search.tsv"
+    h(
+        "T22. EXP-Q-001 dev search (L4), S3-v2-dev (9,750 cases), re-ranker F",
+        f"{src}; primary = Delta MRR vs E0-initial, CI over genes. Split: S3-v2-dev",
+    )
+    rows = []
+    for r in dev_tsv(src):
+        rows.append(
+            [
+                r["strategy"],
+                r["config_hash"],
+                r["noise"],
+                f"{float(r['delta_primary']):+.4f}",
+                f"[{float(r['ci_lo']):+.4f}, {float(r['ci_hi']):+.4f}]",
+                r["harmed_primary"],
+                r["questioner_delta"],
+                r["reranker_delta"],
+                r["reranker_harmed"],
+                r["mrr_initial"],
+                r["mrr_final"],
+                r["top10_initial"],
+                r["top10_final"],
+            ]
+        )
+    table(
+        [
+            "strategy",
+            "config",
+            "noise",
+            "primary Delta",
+            "95% CI",
+            "harmed",
+            "questioner effect",
+            "re-ranker effect",
+            "re-ranker harmed",
+            "MRR initial",
+            "MRR final",
+            "top-10 initial",
+            "top-10 final",
+        ],
+        rows,
+    )
+    src = "results/EXP-Q-001/sealed-analysis.json"
+    d = load(src)
+    h(
+        "T23. EXP-Q-001 sealed S3-v2-test, primary Delta vs E0-initial (P1 pre-registered and gated; rest reported)",
+        f"{src}; n = {d['n']}; CI over genes, 2,000 resamples, seed 0. Split: S3-v2-test (sealed)",
+    )
+    rows = []
+    for k in ("Q2b", "Q0", "Q1", "Q2b-noise", "Q0-noise"):
+        v = d[k]
+        p, qe, rr = v["primary"], v["questioner_effect"], v["reranker_effect"]
+        rows.append(
+            [
+                k,
+                f"{p['delta']:+.4f}",
+                ci(p["ci95"]),
+                f"{p['harmed']:.4f}",
+                f"{p['helped']:.4f}",
+                f"{qe['delta']:+.4f} {ci(qe['ci95'])}",
+                f"{rr['delta']:+.4f} {ci(rr['ci95'])}",
+                f"{rr['harmed']:.4f}",
+            ]
+        )
+    table(
+        ["run", "primary Delta", "95% CI", "harmed", "helped", "questioner effect", "re-ranker effect", "re-ranker harmed"],
+        rows,
+    )
+    p1 = d["P1"]
+    table(
+        ["test", "paired Delta", "95% CI", "harmed", "helped", "gate"],
+        [
+            [
+                "P1 Q2b - Q0 (gated)",
+                f"{p1['paired_Q2b_minus_Q0']['delta']:+.4f}",
+                ci(p1["paired_Q2b_minus_Q0"]["ci95"]),
+                f"{p1['paired_Q2b_minus_Q0']['harmed']:.4f}",
+                f"{p1['paired_Q2b_minus_Q0']['helped']:.4f}",
+                f"pass={p1['pass']}; re-ranker harmed under Q2b {p1['reranker_effect_harmed_Q2b']:.4f} (cap {p1['harm_cap']})",
+            ],
+            *[
+                [
+                    name,
+                    f"{x['delta']:+.4f}",
+                    ci(x["ci95"]),
+                    f"{x['harmed']:.4f}",
+                    f"{x['helped']:.4f}",
+                    "reported, not gated",
+                ]
+                for name, x in (
+                    ("S1 Q2b - Q1", d["S1"]["paired_Q2b_minus_Q1"]),
+                    ("S2 Q2b - Q0, 5% noise", d["S2"]["paired_Q2b_minus_Q0_noise0.05"]),
+                )
+            ],
+        ],
+    )
+
+
+def b005():
+    keys = ["all", "known", "lit", "lit_known", "lit_unknown"] + [
+        f"lit_src_{s}" for s in ("hpoa", "orphanet", "orphanet_exact_alignment", "none")
+    ]
+    for part, tid, split in (("dev", "T24", "S3-v3b-dev"), ("sealed", "T25", "S3-v3b-test (sealed)")):
+        src = f"results/EXP-B-005/{part}-analysis.json"
+        d = load(src)
+        arms = d["arms"]
+        h(
+            f"{tid}. EXP-B-005 {part}: Delta (F + onset w) - F by subset, and harmed vs E0+answers",
+            f"{src}; {d['cases']} cases interviewed; CI over genes, 2,000 resamples, seed 0. Split: {split}. "
+            "P1 population is `lit`",
+        )
+        rows = []
+        for arm, a in arms.items():
+            for k in keys:
+                v, e = a["vs_F"][k], a["vs_e0"][k]
+                rows.append(
+                    [
+                        arm,
+                        a["config_hash"],
+                        k,
+                        v["n"],
+                        f"{v['delta']:+.4f}",
+                        ci(v["ci95"]),
+                        f"{e['harmed']:.4f}",
+                        f"{e['delta']:+.4f}",
+                        ci(e["ci95"]),
+                    ]
+                )
+        ref = d["reference"]["vs_e0"]["lit"]
+        table(
+            ["arm", "config", "subset", "n", "Delta vs F", "95% CI", "harmed vs E0+answers", "Delta vs E0+answers", "95% CI vs E0+answers"],
+            rows,
+        )
+        L.append(
+            f"F alone vs E0+answers on `lit`: {ref['delta']:+.4f} {ci(ref['ci95'])}, harmed {ref['harmed']:.4f}, n {ref['n']}."
+        )
+        L.append("")
+        if part == "dev":
+            table(
+                ["arm", "R1-dev Delta", "95% CI", "R1-dev harmed", "feasible", "selected"],
+                [
+                    [
+                        k,
+                        f"{a['r1dev']['delta']:+.4f}",
+                        ci(a["r1dev"]["ci95"]),
+                        f"{a['r1dev']['harmed']:.4f}",
+                        a["feasible"],
+                        k == d["selected"],
+                    ]
+                    for k, a in arms.items()
+                ],
+            )
+        else:
+            p = d["P1"]["F+onset0.25"]
+            L.append(
+                f"P1: Delta {p['delta']:+.4f} {ci(p['ci95'])}, harmed {p['harmed']:.4f}, n {p['n']}, "
+                f"CI lower bound > 0: {p['ci_lower_gt_0']}, harmed <= 5%: {p['harmed_le_cap']}, pass: {p['pass']}. "
+                f"Session code {d['code_sha_session'][:7]}."
+            )
+            L.append("")
+
+
 def main() -> None:
     L.append("# Evidence tables (numbers only)")
     L.append("")
     L.append(
         "Generated by `scripts/evidence/make_tables.py` from committed result files; do not edit by hand. "
-        "Splits: R1-dev, R1-test (sealed), S3-dev, S3-test (sealed), train-side as stated in each table."
+        "Splits: R1-dev, R1-test (sealed), S3-dev, S3-test (sealed), S3-v2-dev, S3-v2-test (sealed), S3-v3b-dev, S3-v3b-test (sealed), train-side as stated in each table."
     )
     for fn in (e0, b001, b002, s3, b003, release, front_a, gate, g2b_dev, terms, categories, literature):
+        fn()
+    for fn in (b004_dev, b004_sealed, q001, b005):
         fn()
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
     print("wrote", OUT)
