@@ -2,7 +2,7 @@
 
 - **Front:** B
 - **Registered:** 2026-10-04, by Mateo Alvarez (release path approved 2026-10-04; written by the assistant)
-- **Status:** pre-registered, sealed read not done. The phase 1 text of this file (dev justification plan) is
+- **Status:** completed 2026-10-05: sealed read done, **PASS** (see Results). Status at registration: pre-registered, sealed read not done. The phase 1 text of this file (dev justification plan) is
   superseded by this one; its dev rule is repeated below unchanged.
 - **Governing decisions:** ADR-0015 (onset), ADR-0014 (rr-v1, S3), EXP-B-003 (the gate this one mirrors),
   EXP-B-005 (onset on S3 v3b).
@@ -217,9 +217,34 @@ Front B, from `docs/TEST_LEDGER.md`:
 - 36 R1-train patients carry non-age onset classes; they receive no onset input.
 
 ## Results
-(After the sealed read.)
+Sealed read 2026-10-05T16:31:35Z, ledger row `r1-v1/test | EXP-B-006 | 885c825268ca`, pre-registered at db8175f.
+Report: `results/EXP-B-006/r1-v1-test__release-check__report.json`. 2,548 patients (350 publication groups), 1,310
+with usable onset. MRR, paired bootstrap over publications, 2,000 resamples, seed 0.
+
+| Check | Result | Rule | |
+|---|---|---|---|
+| ID1 no onset: candidate = rr-v1 | 0 mismatches / 2,548 | bit-identical | pass |
+| ID2 present only: candidate = E0 | 0 mismatches / 2,548 | bit-identical | pass |
+| ID3 no usable onset: candidate = rr-v1 | 0 mismatches / 1,238 | bit-identical | pass |
+| N2 candidate vs E0 | −0.0028 [−0.0078, +0.0013], harmed 11.3%, helped 13.2% | CI upper ≥ 0, point ≥ −0.02 | pass |
+| N3 candidate − rr-v1 | −0.0003 [−0.0019, +0.0008], harmed 5.3%, helped 10.0% | CI lower ≥ −0.01 | pass |
+
+Reference: rr-v1 vs E0 −0.0025 [−0.0070, +0.0013] (harmed 9.0%, helped 6.3%), the same as EXP-B-003.
+
+Not gated (descriptive):
+
+| Subset | candidate − rr-v1 | candidate vs E0 |
+|---|---|---|
+| with usable onset (1,310) | −0.0006 [−0.0038, +0.0015], harmed 10.2%, helped 19.5% | −0.0020 [−0.0084, +0.0031] |
+| without usable onset (1,238) | 0 (identical) | −0.0036 |
+
+Against the expectations written before the read: identity and N2 as expected. N3 came out at −0.0003 instead of
+about +0.002: no measurable onset gain on real patients.
 
 ## Verdict
-(After the sealed read.)
+**PASS.** Onset at weight 0.25 on top of rr-v1 does not harm real patients, and the identities hold. It shows **no
+measurable gain on real R1 patients** (−0.0003 [−0.0019, +0.0008]); its only positive evidence is simulated
+(S3-v3b-dev +0.0021 [+0.0007, +0.0035] for this system; EXP-B-005 sealed +0.0023 for F + onset). By the rule
+fixed above, the candidate may become `rerank-v1.1.0` after Mateo's go-ahead. This was the last Front B candidate.
 
 ## Addenda
