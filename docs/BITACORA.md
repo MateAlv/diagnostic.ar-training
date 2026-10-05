@@ -4077,3 +4077,8 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Q2b goes into production; only the re-ranking on missing symptoms (`rerank-v1.0.0`) stays in staging, for the data
   reason in the Data limitations section. README, STATE, INDEX intro, ADR-0016 and EVIDENCE_INDEX row 9 reworded; no
   number touched.
+
+## 2026-10-05: close-out
+- Production handoff for Q2b with the re-ranking off: diagnostic.ar-model PR #10.
+- Onset shown in the doctor's output: MateAlv/diagnostic.ar PR #95 (2c3ce11).
+- Docs wording pass and data-limitations section: training #118 and #119, model #9, informe #4.

@@ -67,14 +67,15 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 
 ## Decisions of 2026-10-05 (Mateo; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))
 1. **Q2b goes into production** (the question agent with Q2b on). The re-ranking on missing symptoms
-   (`rerank-v1.0.0`) stays in staging only, for the data reason in the Data limitations section. Route to production:
-   the pinned image (no shadow mode).
+   (`rerank-v1.0.0`) stays in staging only, for the data reason in the Data limitations section. Production change:
+   a web release including 785060d, with `PREGUNTAS_RERANK_NEGATIONS=false`; the model route stays as it is.
+   Handoff: diagnostic.ar-model `docs/HANDOFF-deploy-prod-q2b.md` (PR #10).
 2. **`rerank-v1.1.0` (onset) is not released.** It is built and merged in diagnostic.ar-model (PR #7) but never
    tagged.
 3. **No more model experiments.** Front B's candidate budget and the R1 vault are both spent.
 4. **The web keeps asking for onset age** in Precisar (MateAlv/diagnostic.ar PR #87), and it is being added to the final
-   output the doctor sees (results and the saved consultation; a web PR is in progress). It is kept as clinical
-   information for the doctor, not as a model input: the model ignores it.
+   output the doctor sees: results, the saved consultation and the question-session summary (PR #95, merged
+   2c3ce11). It is kept as clinical information for the doctor, not as a model input: the model ignores it.
 
 ## Deadlines (from `/home/mate/diagnostic.ar/informe/`)
 - informe draft to the director: **2026-10-15**;
@@ -86,7 +87,7 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 - Every sealed read is in [TEST_LEDGER.md](TEST_LEDGER.md).
 
 ## Open items for Mateo
-- Production go-ahead after staging is verified.
+- Hand `docs/HANDOFF-deploy-prod-q2b.md` (diagnostic.ar-model) to the deploy agent for the production rollout.
 - The GeneReviews permission email (Mateo is sending it; not blocking).
 - Informe: written by the students; this repo only supplies evidence.
 
