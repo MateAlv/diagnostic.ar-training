@@ -3,8 +3,8 @@
 This repo holds what was built and measured on top of GenPhenAI to add sex, age and negated symptoms to gene
 prioritisation. In short: a question agent (Q2b selection) that adds confirmed and ruled-out findings to each case, a re-ranker
 that uses the ruled-out findings, onset age in the doctor's final output, a literature-enriched patient simulator,
-and an evaluation infrastructure with sealed splits and pre-registration. Q2b and `rerank-v1.0.0` are deployed in
-staging. The summary with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
+and an evaluation infrastructure with sealed splits and pre-registration. Q2b goes into production; the re-ranking on
+missing symptoms (`rerank-v1.0.0`) stays in staging only. The summary with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
 [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
 | If you need… | Read |

@@ -13,9 +13,9 @@ Final decisions: [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
   doctor's summary a more precise phenotype. Per case on the sealed simulated test (S3-v2-test, n = 9,565, Q2b
   λ = 0.6, noise 0): 1.04 confirmed ("yes") and 7.87 ruled-out ("no") findings added, over 8.90 questions
   (`results/EXP-B-004/sealed/s3-v2-test__Q2b-lam0.6__cfg-8ecd5b320f33__noise0.report.json`; the answers are the
-  simulator's). Deployed in staging.
-- **"No"-answer re-ranker `rerank-v1.0.0`**: reorders the GNN's genes using the ruled-out findings. Deployed in
-  staging.
+  simulator's). Goes into production.
+- **"No"-answer re-ranker `rerank-v1.0.0`**: reorders the GNN's genes using the ruled-out findings. Stays in
+  staging only (see Data limitations).
 - **Onset age** gives the doctor a more precise clinical summary: it is shown in the final output (results and the
   saved consultation; a web PR is in progress), after the age selector in Precisar (PR #87).
 - **A literature-enriched patient simulator** (`rare-disease-simulator` 0.5.4), built with strong curation: 97
@@ -58,7 +58,7 @@ v0.3-era simulated data and recorded: R1-dev Δ vs E0 from −0.0913 [−0.1223,
   The interview path is measured on simulated interviews (S3); there is no real-user measurement.
 
 ## Data limitations
-We lack the data to test or simulate, correctly, whether these changes improve or reduce performance on real patients. This is why the re-ranker is in staging and not in production, and why the GNN retraining and `rerank-v1.1.0` were not deployed.
+We lack the data to test or simulate, correctly, whether these changes improve or reduce performance on real patients. This is why the re-ranking on missing symptoms (`rerank-v1.0.0`) stays in staging only (Q2b goes into production), and why the GNN retraining and `rerank-v1.1.0` were not deployed.
 - **Interview negations:** no real-patient dataset with interview yes/no answers exists. R1 has only negatives written in publications, a different input from the agent's "no" answers. The effect on real patients is estimated in simulation only (S3; EXP-B-003 +0.0044 [+0.0032, +0.0057], n = 9,990). `rerank-v1.0.0` stays in staging until real sessions (interview answers plus confirmed diagnoses) can be collected and evaluated.
 - **Training data:** no synthetic data was realistic enough to retrain the GNN on. The simulator's realism gate (ADR-0012) was measured: G2b 0.159 on R1-dev vs UP 0.231 and V03-full 0.095. Real patients are few and reserved for evaluation (R1 splits). Retraining with age, sex and negations could not be validated.
 - **Literature data:** literature onset ages cover part of the entities (S3 v2: 1,027 cases, 5.25%, with literature onset; S3 v3: 120 eligible genes), so the onset effect is simulated on that subset. Real-patient reads: EXP-B-006 vs rr-v1 -0.0003 [-0.0019, +0.0008] (n = 2,548); EXP-V-001 MRR v1.1 0.4106, v1.0 0.4114, E0 0.4136 (n = 1,771). `rerank-v1.1.0` was not released.
@@ -66,8 +66,9 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 - **Future work:** collect consented real sessions on the platform to evaluate the points above.
 
 ## Decisions of 2026-10-05 (Mateo; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))
-1. **Deployed (staging):** the question agent with Q2b on, plus `rerank-v1.0.0`. Production later, by routing to the
-   pinned image (no shadow mode).
+1. **Q2b goes into production** (the question agent with Q2b on). The re-ranking on missing symptoms
+   (`rerank-v1.0.0`) stays in staging only, for the data reason in the Data limitations section. Route to production:
+   the pinned image (no shadow mode).
 2. **`rerank-v1.1.0` (onset) is not released.** It is built and merged in diagnostic.ar-model (PR #7) but never
    tagged.
 3. **No more model experiments.** Front B's candidate budget and the R1 vault are both spent.
