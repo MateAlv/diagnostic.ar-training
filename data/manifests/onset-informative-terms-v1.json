@@ -1,0 +1,61 @@
+{
+  "artifact_id": "onset-informative-terms-v1",
+  "kind": "onset-informative-terms",
+  "created_at": "2026-10-04T19:23:33+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "50acc372d4ac70b4e3722a87fa24dfc6f11b8aba",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "source:hpo_ontology",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "split:r1-v1/train",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "results:EXP-B-005/dev/ranks",
+      "sha256": "abe77dc024e62d5aee88f7c62a3bc8f43a2737a7478f7a50f7cc6838d838b7a0"
+    },
+    {
+      "id": "results:EXP-B-005/dev/interviews",
+      "sha256": "ddf4915744461403d906b86b19a63c78a64459f173689bd8ff60f3a5b82168f1"
+    }
+  ],
+  "params": {
+    "kb": "kb-v3",
+    "min_genes": 3,
+    "threshold_bits": 0.75,
+    "min_r1_train_count": 8,
+    "onset_smoothing": 0.1,
+    "gene_prior": "uniform",
+    "listed_terms": 354
+  },
+  "params_hash": "be329a0ec1b5e2ea14224108806d6a5be7d3712c14f8d9d1b73bad54f3bd1aa6",
+  "outputs": [
+    {
+      "path": "results/onset-informative-terms/onset-informative-terms-v1.json",
+      "sha256": "5a98076277365b4f357c627e29170c5beb4c28b42d43786d11ccdca37b1b330b",
+      "bytes": 51370
+    },
+    {
+      "path": "results/onset-informative-terms/term-scores-v1.json",
+      "sha256": "f8dd8a89854fcb0967eba35d1278830b6e74bcf8191b126ccac7cedcb9f514e2",
+      "bytes": 1031452
+    },
+    {
+      "path": "results/onset-informative-terms/dev-tertiles-v1.json",
+      "sha256": "7cf4c112232fdc519a94fc628ce0acaf77459e4433a5ac5744977490e94ae67d",
+      "bytes": 10838
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

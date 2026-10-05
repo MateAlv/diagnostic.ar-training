@@ -1,0 +1,1461 @@
+{
+ "version": "v1-most-reported",
+ "kb": "kb-v3",
+ "method": "Terms under Phenotypic abnormality (HP:0000118) ranked by the number of R1-train patients reporting the exact term; the smallest N whose list is reported by at least 90% of R1-train patients (at least one listed term), capped at 400. score_bits and n_genes are the onset-informative-terms-v1 mutual-information score, as data only.",
+ "selection": "r1-train frequency, smallest N covering >=90% of R1-train patients",
+ "threshold_bits": null,
+ "coverage_r1_train": 0.9001,
+ "coverage_curve": {
+  "50": 0.7165,
+  "100": 0.7972,
+  "200": 0.8981,
+  "300": 0.9344,
+  "400": 0.9464
+ },
+ "r1_train_patients": 4103,
+ "generated_from_commit": "fa6114c2113f5372d24d599d8af83be070019ae8",
+ "terms": [
+  {
+   "hpo_id": "HP:0001263",
+   "label_en": "Global developmental delay",
+   "score_bits": 0.764,
+   "n_genes": 1932,
+   "r1_train_count": 1154
+  },
+  {
+   "hpo_id": "HP:0000750",
+   "label_en": "Delayed speech and language development",
+   "score_bits": 0.8054,
+   "n_genes": 1219,
+   "r1_train_count": 796
+  },
+  {
+   "hpo_id": "HP:0001249",
+   "label_en": "Intellectual disability",
+   "score_bits": 0.81,
+   "n_genes": 2054,
+   "r1_train_count": 740
+  },
+  {
+   "hpo_id": "HP:0001252",
+   "label_en": "Hypotonia",
+   "score_bits": 0.7395,
+   "n_genes": 1843,
+   "r1_train_count": 623
+  },
+  {
+   "hpo_id": "HP:0004322",
+   "label_en": "Short stature",
+   "score_bits": 0.776,
+   "n_genes": 1395,
+   "r1_train_count": 475
+  },
+  {
+   "hpo_id": "HP:0000252",
+   "label_en": "Microcephaly",
+   "score_bits": 0.7939,
+   "n_genes": 1335,
+   "r1_train_count": 360
+  },
+  {
+   "hpo_id": "HP:0001270",
+   "label_en": "Motor delay",
+   "score_bits": 0.8403,
+   "n_genes": 1084,
+   "r1_train_count": 346
+  },
+  {
+   "hpo_id": "HP:0000316",
+   "label_en": "Hypertelorism",
+   "score_bits": 0.6842,
+   "n_genes": 828,
+   "r1_train_count": 335
+  },
+  {
+   "hpo_id": "HP:0031936",
+   "label_en": "Delayed ability to walk",
+   "score_bits": 0.8646,
+   "n_genes": 332,
+   "r1_train_count": 329
+  },
+  {
+   "hpo_id": "HP:0001250",
+   "label_en": "Seizure",
+   "score_bits": 0.8089,
+   "n_genes": 1986,
+   "r1_train_count": 322
+  },
+  {
+   "hpo_id": "HP:0011968",
+   "label_en": "Feeding difficulties",
+   "score_bits": 0.725,
+   "n_genes": 1272,
+   "r1_train_count": 320
+  },
+  {
+   "hpo_id": "HP:0000369",
+   "label_en": "Low-set ears",
+   "score_bits": 0.7211,
+   "n_genes": 777,
+   "r1_train_count": 246
+  },
+  {
+   "hpo_id": "HP:0000729",
+   "label_en": "Autistic behavior",
+   "score_bits": 0.7698,
+   "n_genes": 595,
+   "r1_train_count": 246
+  },
+  {
+   "hpo_id": "HP:0002650",
+   "label_en": "Scoliosis",
+   "score_bits": 0.7843,
+   "n_genes": 1145,
+   "r1_train_count": 242
+  },
+  {
+   "hpo_id": "HP:0000343",
+   "label_en": "Long philtrum",
+   "score_bits": 0.651,
+   "n_genes": 427,
+   "r1_train_count": 221
+  },
+  {
+   "hpo_id": "HP:0001572",
+   "label_en": "Macrodontia",
+   "score_bits": 0.5227,
+   "n_genes": 33,
+   "r1_train_count": 218
+  },
+  {
+   "hpo_id": "HP:0001508",
+   "label_en": "Failure to thrive",
+   "score_bits": 0.7069,
+   "n_genes": 1195,
+   "r1_train_count": 194
+  },
+  {
+   "hpo_id": "HP:0000486",
+   "label_en": "Strabismus",
+   "score_bits": 0.7626,
+   "n_genes": 1205,
+   "r1_train_count": 189
+  },
+  {
+   "hpo_id": "HP:0001155",
+   "label_en": "Abnormality of the hand",
+   "score_bits": 0.7854,
+   "n_genes": 1606,
+   "r1_train_count": 189
+  },
+  {
+   "hpo_id": "HP:0000463",
+   "label_en": "Anteverted nares",
+   "score_bits": 0.7302,
+   "n_genes": 494,
+   "r1_train_count": 184
+  },
+  {
+   "hpo_id": "HP:0000639",
+   "label_en": "Nystagmus",
+   "score_bits": 0.8562,
+   "n_genes": 1174,
+   "r1_train_count": 180
+  },
+  {
+   "hpo_id": "HP:0000347",
+   "label_en": "Micrognathia",
+   "score_bits": 0.7145,
+   "n_genes": 866,
+   "r1_train_count": 170
+  },
+  {
+   "hpo_id": "HP:0010864",
+   "label_en": "Severe intellectual disability",
+   "score_bits": 0.8499,
+   "n_genes": 398,
+   "r1_train_count": 163
+  },
+  {
+   "hpo_id": "HP:0000574",
+   "label_en": "Thick eyebrow",
+   "score_bits": 0.8084,
+   "n_genes": 152,
+   "r1_train_count": 159
+  },
+  {
+   "hpo_id": "HP:0033725",
+   "label_en": "Thin corpus callosum",
+   "score_bits": 0.8001,
+   "n_genes": 943,
+   "r1_train_count": 155
+  },
+  {
+   "hpo_id": "HP:0000175",
+   "label_en": "Cleft palate",
+   "score_bits": 0.5429,
+   "n_genes": 663,
+   "r1_train_count": 153
+  },
+  {
+   "hpo_id": "HP:0001382",
+   "label_en": "Joint hypermobility",
+   "score_bits": 0.7132,
+   "n_genes": 544,
+   "r1_train_count": 153
+  },
+  {
+   "hpo_id": "HP:0002353",
+   "label_en": "EEG abnormality",
+   "score_bits": 0.7373,
+   "n_genes": 635,
+   "r1_train_count": 153
+  },
+  {
+   "hpo_id": "HP:0007018",
+   "label_en": "Attention deficit hyperactivity disorder",
+   "score_bits": 0.9177,
+   "n_genes": 392,
+   "r1_train_count": 143
+  },
+  {
+   "hpo_id": "HP:0000164",
+   "label_en": "Abnormality of the dentition",
+   "score_bits": 0.7298,
+   "n_genes": 1014,
+   "r1_train_count": 140
+  },
+  {
+   "hpo_id": "HP:0001344",
+   "label_en": "Absent speech",
+   "score_bits": 0.7427,
+   "n_genes": 442,
+   "r1_train_count": 139
+  },
+  {
+   "hpo_id": "HP:0007663",
+   "label_en": "Reduced visual acuity",
+   "score_bits": 0.8626,
+   "n_genes": 624,
+   "r1_train_count": 138
+  },
+  {
+   "hpo_id": "HP:0000664",
+   "label_en": "Synophrys",
+   "score_bits": 0.8258,
+   "n_genes": 197,
+   "r1_train_count": 135
+  },
+  {
+   "hpo_id": "HP:0007565",
+   "label_en": "Multiple cafe-au-lait spots",
+   "score_bits": 0.4964,
+   "n_genes": 65,
+   "r1_train_count": 132
+  },
+  {
+   "hpo_id": "HP:0000325",
+   "label_en": "Triangular face",
+   "score_bits": 0.8384,
+   "n_genes": 174,
+   "r1_train_count": 131
+  },
+  {
+   "hpo_id": "HP:0001511",
+   "label_en": "Intrauterine growth retardation",
+   "score_bits": 0.7289,
+   "n_genes": 757,
+   "r1_train_count": 130
+  },
+  {
+   "hpo_id": "HP:0000414",
+   "label_en": "Bulbous nose",
+   "score_bits": 0.7488,
+   "n_genes": 187,
+   "r1_train_count": 129
+  },
+  {
+   "hpo_id": "HP:0000494",
+   "label_en": "Downslanted palpebral fissures",
+   "score_bits": 0.665,
+   "n_genes": 544,
+   "r1_train_count": 123
+  },
+  {
+   "hpo_id": "HP:0000218",
+   "label_en": "High palate",
+   "score_bits": 0.7205,
+   "n_genes": 832,
+   "r1_train_count": 120
+  },
+  {
+   "hpo_id": "HP:0001251",
+   "label_en": "Ataxia",
+   "score_bits": 0.9719,
+   "n_genes": 1147,
+   "r1_train_count": 120
+  },
+  {
+   "hpo_id": "HP:0000431",
+   "label_en": "Wide nasal bridge",
+   "score_bits": 0.6861,
+   "n_genes": 503,
+   "r1_train_count": 119
+  },
+  {
+   "hpo_id": "HP:0001999",
+   "label_en": "Abnormal facial shape",
+   "score_bits": 0.788,
+   "n_genes": 1190,
+   "r1_train_count": 116
+  },
+  {
+   "hpo_id": "HP:0001257",
+   "label_en": "Spasticity",
+   "score_bits": 0.9279,
+   "n_genes": 986,
+   "r1_train_count": 115
+  },
+  {
+   "hpo_id": "HP:0005280",
+   "label_en": "Depressed nasal bridge",
+   "score_bits": 0.6824,
+   "n_genes": 640,
+   "r1_train_count": 115
+  },
+  {
+   "hpo_id": "HP:0000219",
+   "label_en": "Thin upper lip vermilion",
+   "score_bits": 0.7482,
+   "n_genes": 340,
+   "r1_train_count": 113
+  },
+  {
+   "hpo_id": "HP:0000508",
+   "label_en": "Ptosis",
+   "score_bits": 0.8059,
+   "n_genes": 847,
+   "r1_train_count": 111
+  },
+  {
+   "hpo_id": "HP:0000662",
+   "label_en": "Nyctalopia",
+   "score_bits": 0.5571,
+   "n_genes": 244,
+   "r1_train_count": 109
+  },
+  {
+   "hpo_id": "HP:0002342",
+   "label_en": "Moderate intellectual disability",
+   "score_bits": 0.8379,
+   "n_genes": 197,
+   "r1_train_count": 109
+  },
+  {
+   "hpo_id": "HP:0000028",
+   "label_en": "Cryptorchidism",
+   "score_bits": 0.6752,
+   "n_genes": 777,
+   "r1_train_count": 108
+  },
+  {
+   "hpo_id": "HP:0001256",
+   "label_en": "Mild intellectual disability",
+   "score_bits": 0.9154,
+   "n_genes": 390,
+   "r1_train_count": 106
+  },
+  {
+   "hpo_id": "HP:0001631",
+   "label_en": "Atrial septal defect",
+   "score_bits": 0.6687,
+   "n_genes": 490,
+   "r1_train_count": 106
+  },
+  {
+   "hpo_id": "HP:0001629",
+   "label_en": "Ventricular septal defect",
+   "score_bits": 0.6609,
+   "n_genes": 646,
+   "r1_train_count": 104
+  },
+  {
+   "hpo_id": "HP:0025336",
+   "label_en": "Delayed ability to sit",
+   "score_bits": 0.86,
+   "n_genes": 116,
+   "r1_train_count": 102
+  },
+  {
+   "hpo_id": "HP:0002194",
+   "label_en": "Delayed gross motor development",
+   "score_bits": 0.8647,
+   "n_genes": 515,
+   "r1_train_count": 101
+  },
+  {
+   "hpo_id": "HP:0000767",
+   "label_en": "Pectus excavatum",
+   "score_bits": 0.6632,
+   "n_genes": 333,
+   "r1_train_count": 100
+  },
+  {
+   "hpo_id": "HP:0000407",
+   "label_en": "Sensorineural hearing impairment",
+   "score_bits": 0.783,
+   "n_genes": 1074,
+   "r1_train_count": 99
+  },
+  {
+   "hpo_id": "HP:0002119",
+   "label_en": "Ventriculomegaly",
+   "score_bits": 0.7615,
+   "n_genes": 808,
+   "r1_train_count": 99
+  },
+  {
+   "hpo_id": "HP:0008936",
+   "label_en": "Axial hypotonia",
+   "score_bits": 0.6667,
+   "n_genes": 343,
+   "r1_train_count": 97
+  },
+  {
+   "hpo_id": "HP:0000256",
+   "label_en": "Macrocephaly",
+   "score_bits": 0.7254,
+   "n_genes": 503,
+   "r1_train_count": 92
+  },
+  {
+   "hpo_id": "HP:0000286",
+   "label_en": "Epicanthus",
+   "score_bits": 0.706,
+   "n_genes": 627,
+   "r1_train_count": 91
+  },
+  {
+   "hpo_id": "HP:0000411",
+   "label_en": "Protruding ear",
+   "score_bits": 0.7885,
+   "n_genes": 232,
+   "r1_train_count": 91
+  },
+  {
+   "hpo_id": "HP:0008872",
+   "label_en": "Feeding difficulties in infancy",
+   "score_bits": 0.646,
+   "n_genes": 676,
+   "r1_train_count": 90
+  },
+  {
+   "hpo_id": "HP:0000403",
+   "label_en": "Recurrent otitis media",
+   "score_bits": 0.9241,
+   "n_genes": 253,
+   "r1_train_count": 89
+  },
+  {
+   "hpo_id": "HP:0000997",
+   "label_en": "Axillary freckling",
+   "score_bits": 0.3375,
+   "n_genes": 9,
+   "r1_train_count": 89
+  },
+  {
+   "hpo_id": "HP:0001272",
+   "label_en": "Cerebellar atrophy",
+   "score_bits": 1.0465,
+   "n_genes": 553,
+   "r1_train_count": 89
+  },
+  {
+   "hpo_id": "HP:0000545",
+   "label_en": "Myopia",
+   "score_bits": 0.8926,
+   "n_genes": 468,
+   "r1_train_count": 88
+  },
+  {
+   "hpo_id": "HP:0001166",
+   "label_en": "Arachnodactyly",
+   "score_bits": 0.8312,
+   "n_genes": 141,
+   "r1_train_count": 88
+  },
+  {
+   "hpo_id": "HP:0002069",
+   "label_en": "Bilateral tonic-clonic seizure",
+   "score_bits": 0.901,
+   "n_genes": 437,
+   "r1_train_count": 86
+  },
+  {
+   "hpo_id": "HP:0001260",
+   "label_en": "Dysarthria",
+   "score_bits": 1.015,
+   "n_genes": 739,
+   "r1_train_count": 85
+  },
+  {
+   "hpo_id": "HP:0002750",
+   "label_en": "Delayed skeletal maturation",
+   "score_bits": 0.7983,
+   "n_genes": 388,
+   "r1_train_count": 81
+  },
+  {
+   "hpo_id": "HP:0003487",
+   "label_en": "Babinski sign",
+   "score_bits": 0.9238,
+   "n_genes": 339,
+   "r1_train_count": 81
+  },
+  {
+   "hpo_id": "HP:0011344",
+   "label_en": "Severe global developmental delay",
+   "score_bits": 0.7628,
+   "n_genes": 252,
+   "r1_train_count": 81
+  },
+  {
+   "hpo_id": "HP:0000540",
+   "label_en": "Hypermetropia",
+   "score_bits": 0.7009,
+   "n_genes": 290,
+   "r1_train_count": 80
+  },
+  {
+   "hpo_id": "HP:0002553",
+   "label_en": "Highly arched eyebrow",
+   "score_bits": 0.6885,
+   "n_genes": 201,
+   "r1_train_count": 80
+  },
+  {
+   "hpo_id": "HP:0002616",
+   "label_en": "Aortic root aneurysm",
+   "score_bits": 0.643,
+   "n_genes": 83,
+   "r1_train_count": 80
+  },
+  {
+   "hpo_id": "HP:0000294",
+   "label_en": "Low anterior hairline",
+   "score_bits": 0.6674,
+   "n_genes": 137,
+   "r1_train_count": 79
+  },
+  {
+   "hpo_id": "HP:0000510",
+   "label_en": "Rod-cone dystrophy",
+   "score_bits": 0.5381,
+   "n_genes": 281,
+   "r1_train_count": 79
+  },
+  {
+   "hpo_id": "HP:0002020",
+   "label_en": "Gastroesophageal reflux",
+   "score_bits": 0.7426,
+   "n_genes": 533,
+   "r1_train_count": 79
+  },
+  {
+   "hpo_id": "HP:0011800",
+   "label_en": "Midface retrusion",
+   "score_bits": 0.7066,
+   "n_genes": 307,
+   "r1_train_count": 79
+  },
+  {
+   "hpo_id": "HP:0000365",
+   "label_en": "Hearing impairment",
+   "score_bits": 0.7839,
+   "n_genes": 1648,
+   "r1_train_count": 77
+  },
+  {
+   "hpo_id": "HP:0000582",
+   "label_en": "Upslanted palpebral fissure",
+   "score_bits": 0.7724,
+   "n_genes": 356,
+   "r1_train_count": 77
+  },
+  {
+   "hpo_id": "HP:0001156",
+   "label_en": "Brachydactyly",
+   "score_bits": 0.5815,
+   "n_genes": 398,
+   "r1_train_count": 76
+  },
+  {
+   "hpo_id": "HP:0002240",
+   "label_en": "Hepatomegaly",
+   "score_bits": 0.8135,
+   "n_genes": 716,
+   "r1_train_count": 75
+  },
+  {
+   "hpo_id": "HP:0001347",
+   "label_en": "Hyperreflexia",
+   "score_bits": 1.0111,
+   "n_genes": 847,
+   "r1_train_count": 74
+  },
+  {
+   "hpo_id": "HP:0011220",
+   "label_en": "Prominent forehead",
+   "score_bits": 0.7067,
+   "n_genes": 312,
+   "r1_train_count": 73
+  },
+  {
+   "hpo_id": "HP:0001763",
+   "label_en": "Pes planus",
+   "score_bits": 0.8573,
+   "n_genes": 373,
+   "r1_train_count": 72
+  },
+  {
+   "hpo_id": "HP:0030052",
+   "label_en": "Inguinal freckling",
+   "score_bits": 0.419,
+   "n_genes": 9,
+   "r1_train_count": 70
+  },
+  {
+   "hpo_id": "HP:0000319",
+   "label_en": "Smooth philtrum",
+   "score_bits": 0.7431,
+   "n_genes": 184,
+   "r1_train_count": 69
+  },
+  {
+   "hpo_id": "HP:0000341",
+   "label_en": "Narrow forehead",
+   "score_bits": 0.8093,
+   "n_genes": 216,
+   "r1_train_count": 69
+  },
+  {
+   "hpo_id": "HP:0002360",
+   "label_en": "Sleep disturbance",
+   "score_bits": 1.0097,
+   "n_genes": 616,
+   "r1_train_count": 69
+  },
+  {
+   "hpo_id": "HP:0000520",
+   "label_en": "Proptosis",
+   "score_bits": 0.6109,
+   "n_genes": 288,
+   "r1_train_count": 68
+  },
+  {
+   "hpo_id": "HP:0001510",
+   "label_en": "Growth delay",
+   "score_bits": 0.7891,
+   "n_genes": 1953,
+   "r1_train_count": 68
+  },
+  {
+   "hpo_id": "HP:0002376",
+   "label_en": "Developmental regression",
+   "score_bits": 0.6574,
+   "n_genes": 507,
+   "r1_train_count": 68
+  },
+  {
+   "hpo_id": "HP:0000278",
+   "label_en": "Retrognathia",
+   "score_bits": 0.7154,
+   "n_genes": 403,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0000280",
+   "label_en": "Coarse facial features",
+   "score_bits": 0.7898,
+   "n_genes": 241,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0000527",
+   "label_en": "Long eyelashes",
+   "score_bits": 0.6451,
+   "n_genes": 127,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0001518",
+   "label_en": "Small for gestational age",
+   "score_bits": 0.7783,
+   "n_genes": 321,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0002720",
+   "label_en": "Decreased circulating IgA concentration",
+   "score_bits": 0.8837,
+   "n_genes": 93,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0002850",
+   "label_en": "Decreased circulating total IgM",
+   "score_bits": 0.8836,
+   "n_genes": 71,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0030084",
+   "label_en": "Clinodactyly",
+   "score_bits": 0.7254,
+   "n_genes": 624,
+   "r1_train_count": 65
+  },
+  {
+   "hpo_id": "HP:0000470",
+   "label_en": "Short neck",
+   "score_bits": 0.7175,
+   "n_genes": 425,
+   "r1_train_count": 64
+  },
+  {
+   "hpo_id": "HP:0009053",
+   "label_en": "Distal lower limb muscle weakness",
+   "score_bits": 0.8223,
+   "n_genes": 105,
+   "r1_train_count": 64
+  },
+  {
+   "hpo_id": "HP:0000490",
+   "label_en": "Deeply set eye",
+   "score_bits": 0.7561,
+   "n_genes": 260,
+   "r1_train_count": 63
+  },
+  {
+   "hpo_id": "HP:0001274",
+   "label_en": "Agenesis of corpus callosum",
+   "score_bits": 0.6635,
+   "n_genes": 483,
+   "r1_train_count": 63
+  },
+  {
+   "hpo_id": "HP:0007994",
+   "label_en": "Peripheral visual field loss",
+   "score_bits": 0.3816,
+   "n_genes": 152,
+   "r1_train_count": 63
+  },
+  {
+   "hpo_id": "HP:0008897",
+   "label_en": "Postnatal growth retardation",
+   "score_bits": 0.7678,
+   "n_genes": 280,
+   "r1_train_count": 63
+  },
+  {
+   "hpo_id": "HP:0000358",
+   "label_en": "Posteriorly rotated ears",
+   "score_bits": 0.5949,
+   "n_genes": 472,
+   "r1_train_count": 62
+  },
+  {
+   "hpo_id": "HP:0005484",
+   "label_en": "Secondary microcephaly",
+   "score_bits": 0.7929,
+   "n_genes": 208,
+   "r1_train_count": 62
+  },
+  {
+   "hpo_id": "HP:0001762",
+   "label_en": "Talipes equinovarus",
+   "score_bits": 0.8361,
+   "n_genes": 453,
+   "r1_train_count": 61
+  },
+  {
+   "hpo_id": "HP:0004325",
+   "label_en": "Decreased body weight",
+   "score_bits": 0.8219,
+   "n_genes": 1663,
+   "r1_train_count": 61
+  },
+  {
+   "hpo_id": "HP:0000098",
+   "label_en": "Tall stature",
+   "score_bits": 0.6907,
+   "n_genes": 207,
+   "r1_train_count": 60
+  },
+  {
+   "hpo_id": "HP:0000455",
+   "label_en": "Broad nasal tip",
+   "score_bits": 0.65,
+   "n_genes": 181,
+   "r1_train_count": 59
+  },
+  {
+   "hpo_id": "HP:0000717",
+   "label_en": "Autism",
+   "score_bits": 0.7572,
+   "n_genes": 278,
+   "r1_train_count": 59
+  },
+  {
+   "hpo_id": "HP:0000189",
+   "label_en": "Narrow palate",
+   "score_bits": 0.7148,
+   "n_genes": 252,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0001083",
+   "label_en": "Ectopia lentis",
+   "score_bits": 0.764,
+   "n_genes": 42,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0002059",
+   "label_en": "Cerebral atrophy",
+   "score_bits": 0.8593,
+   "n_genes": 709,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0002151",
+   "label_en": "Increased circulating lactate concentration",
+   "score_bits": 0.8091,
+   "n_genes": 260,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0003196",
+   "label_en": "Short nose",
+   "score_bits": 0.634,
+   "n_genes": 326,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0003774",
+   "label_en": "Stage 5 chronic kidney disease",
+   "score_bits": 0.5301,
+   "n_genes": 145,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0004209",
+   "label_en": "Clinodactyly of the 5th finger",
+   "score_bits": 0.686,
+   "n_genes": 431,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0004315",
+   "label_en": "Decreased circulating IgG concentration",
+   "score_bits": 0.9779,
+   "n_genes": 99,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0010862",
+   "label_en": "Delayed fine motor development",
+   "score_bits": 0.8399,
+   "n_genes": 55,
+   "r1_train_count": 58
+  },
+  {
+   "hpo_id": "HP:0002714",
+   "label_en": "Downturned corners of mouth",
+   "score_bits": 0.6831,
+   "n_genes": 180,
+   "r1_train_count": 57
+  },
+  {
+   "hpo_id": "HP:0001634",
+   "label_en": "Mitral valve prolapse",
+   "score_bits": 0.5936,
+   "n_genes": 130,
+   "r1_train_count": 55
+  },
+  {
+   "hpo_id": "HP:0034295",
+   "label_en": "Reduced cerebral white matter volume",
+   "score_bits": 0.7315,
+   "n_genes": 45,
+   "r1_train_count": 54
+  },
+  {
+   "hpo_id": "HP:0000268",
+   "label_en": "Dolichocephaly",
+   "score_bits": 0.7811,
+   "n_genes": 223,
+   "r1_train_count": 53
+  },
+  {
+   "hpo_id": "HP:0002007",
+   "label_en": "Frontal bossing",
+   "score_bits": 0.6901,
+   "n_genes": 439,
+   "r1_train_count": 53
+  },
+  {
+   "hpo_id": "HP:0007340",
+   "label_en": "Lower limb muscle weakness",
+   "score_bits": 0.8726,
+   "n_genes": 245,
+   "r1_train_count": 53
+  },
+  {
+   "hpo_id": "HP:0000348",
+   "label_en": "High forehead",
+   "score_bits": 0.6779,
+   "n_genes": 434,
+   "r1_train_count": 52
+  },
+  {
+   "hpo_id": "HP:0001873",
+   "label_en": "Thrombocytopenia",
+   "score_bits": 0.782,
+   "n_genes": 405,
+   "r1_train_count": 52
+  },
+  {
+   "hpo_id": "HP:0002188",
+   "label_en": "Delayed CNS myelination",
+   "score_bits": 0.7764,
+   "n_genes": 220,
+   "r1_train_count": 52
+  },
+  {
+   "hpo_id": "HP:0200134",
+   "label_en": "Epileptic encephalopathy",
+   "score_bits": 0.5789,
+   "n_genes": 122,
+   "r1_train_count": 52
+  },
+  {
+   "hpo_id": "HP:0000121",
+   "label_en": "Nephrocalcinosis",
+   "score_bits": 0.9466,
+   "n_genes": 103,
+   "r1_train_count": 51
+  },
+  {
+   "hpo_id": "HP:0001290",
+   "label_en": "Generalized hypotonia",
+   "score_bits": 0.7778,
+   "n_genes": 830,
+   "r1_train_count": 51
+  },
+  {
+   "hpo_id": "HP:0031956",
+   "label_en": "Elevated circulating aspartate aminotransferase concentration",
+   "score_bits": 0.8324,
+   "n_genes": 79,
+   "r1_train_count": 51
+  },
+  {
+   "hpo_id": "HP:0031964",
+   "label_en": "Elevated circulating alanine aminotransferase concentration",
+   "score_bits": 0.7965,
+   "n_genes": 79,
+   "r1_train_count": 51
+  },
+  {
+   "hpo_id": "HP:0000405",
+   "label_en": "Conductive hearing impairment",
+   "score_bits": 0.7014,
+   "n_genes": 484,
+   "r1_train_count": 50
+  },
+  {
+   "hpo_id": "HP:0001655",
+   "label_en": "Patent foramen ovale",
+   "score_bits": 0.6644,
+   "n_genes": 141,
+   "r1_train_count": 50
+  },
+  {
+   "hpo_id": "HP:0410263",
+   "label_en": "Brain imaging abnormality",
+   "score_bits": 0.7846,
+   "n_genes": 258,
+   "r1_train_count": 50
+  },
+  {
+   "hpo_id": "HP:0000023",
+   "label_en": "Inguinal hernia",
+   "score_bits": 0.78,
+   "n_genes": 333,
+   "r1_train_count": 49
+  },
+  {
+   "hpo_id": "HP:0000337",
+   "label_en": "Broad forehead",
+   "score_bits": 0.7178,
+   "n_genes": 232,
+   "r1_train_count": 49
+  },
+  {
+   "hpo_id": "HP:0002061",
+   "label_en": "Lower limb spasticity",
+   "score_bits": 0.9163,
+   "n_genes": 285,
+   "r1_train_count": 49
+  },
+  {
+   "hpo_id": "HP:0003236",
+   "label_en": "Elevated circulating creatine kinase concentration",
+   "score_bits": 1.0155,
+   "n_genes": 309,
+   "r1_train_count": 49
+  },
+  {
+   "hpo_id": "HP:0001744",
+   "label_en": "Splenomegaly",
+   "score_bits": 0.7829,
+   "n_genes": 529,
+   "r1_train_count": 48
+  },
+  {
+   "hpo_id": "HP:0002093",
+   "label_en": "Respiratory insufficiency",
+   "score_bits": 0.8106,
+   "n_genes": 788,
+   "r1_train_count": 48
+  },
+  {
+   "hpo_id": "HP:0100704",
+   "label_en": "Cerebral visual impairment",
+   "score_bits": 0.7314,
+   "n_genes": 196,
+   "r1_train_count": 48
+  },
+  {
+   "hpo_id": "HP:0000637",
+   "label_en": "Long palpebral fissure",
+   "score_bits": 0.6096,
+   "n_genes": 73,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0001643",
+   "label_en": "Patent ductus arteriosus",
+   "score_bits": 0.6697,
+   "n_genes": 432,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0001942",
+   "label_en": "Metabolic acidosis",
+   "score_bits": 0.7182,
+   "n_genes": 255,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0002373",
+   "label_en": "Febrile seizure (within the age range of 3 months to 6 years)",
+   "score_bits": 0.843,
+   "n_genes": 150,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0009732",
+   "label_en": "Plexiform neurofibroma",
+   "score_bits": 0.1819,
+   "n_genes": 7,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0010648",
+   "label_en": "Dermal translucency",
+   "score_bits": 0.7133,
+   "n_genes": 28,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0032794",
+   "label_en": "Myoclonic seizure",
+   "score_bits": 0.7958,
+   "n_genes": 292,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0045075",
+   "label_en": "Sparse eyebrow",
+   "score_bits": 0.7117,
+   "n_genes": 164,
+   "r1_train_count": 47
+  },
+  {
+   "hpo_id": "HP:0000322",
+   "label_en": "Short philtrum",
+   "score_bits": 0.7599,
+   "n_genes": 243,
+   "r1_train_count": 46
+  },
+  {
+   "hpo_id": "HP:0002395",
+   "label_en": "Lower limb hyperreflexia",
+   "score_bits": 0.9068,
+   "n_genes": 95,
+   "r1_train_count": 46
+  },
+  {
+   "hpo_id": "HP:0007359",
+   "label_en": "Focal-onset seizure",
+   "score_bits": 0.8281,
+   "n_genes": 352,
+   "r1_train_count": 46
+  },
+  {
+   "hpo_id": "HP:0010976",
+   "label_en": "Decreased total B cell count",
+   "score_bits": 0.9267,
+   "n_genes": 52,
+   "r1_train_count": 46
+  },
+  {
+   "hpo_id": "HP:0001644",
+   "label_en": "Dilated cardiomyopathy",
+   "score_bits": 0.6953,
+   "n_genes": 200,
+   "r1_train_count": 45
+  },
+  {
+   "hpo_id": "HP:0002015",
+   "label_en": "Dysphagia",
+   "score_bits": 0.9761,
+   "n_genes": 697,
+   "r1_train_count": 45
+  },
+  {
+   "hpo_id": "HP:0002079",
+   "label_en": "Hypoplasia of the corpus callosum",
+   "score_bits": 0.7618,
+   "n_genes": 561,
+   "r1_train_count": 45
+  },
+  {
+   "hpo_id": "HP:0000400",
+   "label_en": "Macrotia",
+   "score_bits": 0.7182,
+   "n_genes": 395,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0000448",
+   "label_en": "Prominent nose",
+   "score_bits": 0.8876,
+   "n_genes": 114,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0000718",
+   "label_en": "Aggressive behavior",
+   "score_bits": 0.8805,
+   "n_genes": 323,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0000954",
+   "label_en": "Single transverse palmar crease",
+   "score_bits": 0.7174,
+   "n_genes": 230,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0000964",
+   "label_en": "Eczematoid dermatitis",
+   "score_bits": 0.8077,
+   "n_genes": 290,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0001212",
+   "label_en": "Prominent fingertip pads",
+   "score_bits": 0.7293,
+   "n_genes": 45,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0003212",
+   "label_en": "Increased circulating IgE concentration",
+   "score_bits": 0.6882,
+   "n_genes": 43,
+   "r1_train_count": 44
+  },
+  {
+   "hpo_id": "HP:0001265",
+   "label_en": "Hyporeflexia",
+   "score_bits": 0.8881,
+   "n_genes": 467,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0001324",
+   "label_en": "Muscle weakness",
+   "score_bits": 0.9787,
+   "n_genes": 1140,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0001903",
+   "label_en": "Anemia",
+   "score_bits": 0.7698,
+   "n_genes": 717,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0002019",
+   "label_en": "Constipation",
+   "score_bits": 0.8728,
+   "n_genes": 458,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0002066",
+   "label_en": "Gait ataxia",
+   "score_bits": 1.0563,
+   "n_genes": 282,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0002205",
+   "label_en": "Recurrent respiratory infections",
+   "score_bits": 0.8518,
+   "n_genes": 699,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0200055",
+   "label_en": "Small hand",
+   "score_bits": 0.8467,
+   "n_genes": 120,
+   "r1_train_count": 43
+  },
+  {
+   "hpo_id": "HP:0001067",
+   "label_en": "Neurofibroma",
+   "score_bits": 0.3684,
+   "n_genes": 22,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0001310",
+   "label_en": "Dysmetria",
+   "score_bits": 1.1555,
+   "n_genes": 195,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0001332",
+   "label_en": "Dystonia",
+   "score_bits": 0.9195,
+   "n_genes": 607,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0001639",
+   "label_en": "Hypertrophic cardiomyopathy",
+   "score_bits": 0.8673,
+   "n_genes": 360,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0001761",
+   "label_en": "Pes cavus",
+   "score_bits": 0.9249,
+   "n_genes": 329,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0002719",
+   "label_en": "Recurrent infections",
+   "score_bits": 0.8831,
+   "n_genes": 1027,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0003259",
+   "label_en": "Elevated circulating creatinine concentration",
+   "score_bits": 0.8575,
+   "n_genes": 65,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0006532",
+   "label_en": "Recurrent pneumonia",
+   "score_bits": 0.8347,
+   "n_genes": 163,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0009737",
+   "label_en": "Lisch nodules",
+   "score_bits": 0.2615,
+   "n_genes": 5,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0012385",
+   "label_en": "Camptodactyly",
+   "score_bits": 0.6491,
+   "n_genes": 361,
+   "r1_train_count": 42
+  },
+  {
+   "hpo_id": "HP:0000276",
+   "label_en": "Long face",
+   "score_bits": 0.8184,
+   "n_genes": 256,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0000648",
+   "label_en": "Optic atrophy",
+   "score_bits": 0.8076,
+   "n_genes": 723,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0000989",
+   "label_en": "Pruritus",
+   "score_bits": 0.901,
+   "n_genes": 133,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0001943",
+   "label_en": "Hypoglycemia",
+   "score_bits": 0.6975,
+   "n_genes": 349,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0002136",
+   "label_en": "Broad-based gait",
+   "score_bits": 0.9156,
+   "n_genes": 122,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0004349",
+   "label_en": "Reduced bone mineral density",
+   "score_bits": 0.854,
+   "n_genes": 605,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0005110",
+   "label_en": "Atrial fibrillation",
+   "score_bits": 0.7287,
+   "n_genes": 106,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0012736",
+   "label_en": "Profound global developmental delay",
+   "score_bits": 0.6301,
+   "n_genes": 72,
+   "r1_train_count": 41
+  },
+  {
+   "hpo_id": "HP:0000307",
+   "label_en": "Pointed chin",
+   "score_bits": 0.6548,
+   "n_genes": 139,
+   "r1_train_count": 40
+  },
+  {
+   "hpo_id": "HP:0000518",
+   "label_en": "Cataract",
+   "score_bits": 0.8374,
+   "n_genes": 918,
+   "r1_train_count": 40
+  },
+  {
+   "hpo_id": "HP:0000248",
+   "label_en": "Brachycephaly",
+   "score_bits": 0.707,
+   "n_genes": 257,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0000687",
+   "label_en": "Widely spaced teeth",
+   "score_bits": 0.7583,
+   "n_genes": 124,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0000739",
+   "label_en": "Anxiety",
+   "score_bits": 1.036,
+   "n_genes": 490,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0000822",
+   "label_en": "Hypertension",
+   "score_bits": 0.7921,
+   "n_genes": 461,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0001348",
+   "label_en": "Brisk reflexes",
+   "score_bits": 0.9668,
+   "n_genes": 120,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0002283",
+   "label_en": "Global brain atrophy",
+   "score_bits": 0.9621,
+   "n_genes": 70,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0025190",
+   "label_en": "Bilateral tonic-clonic seizure with generalized onset",
+   "score_bits": 0.861,
+   "n_genes": 56,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0025811",
+   "label_en": "Trichorrhexis invaginata",
+   "score_bits": null,
+   "n_genes": null,
+   "r1_train_count": 39
+  },
+  {
+   "hpo_id": "HP:0000238",
+   "label_en": "Hydrocephalus",
+   "score_bits": 0.574,
+   "n_genes": 456,
+   "r1_train_count": 38
+  },
+  {
+   "hpo_id": "HP:0000303",
+   "label_en": "Mandibular prognathia",
+   "score_bits": 0.7613,
+   "n_genes": 224,
+   "r1_train_count": 38
+  },
+  {
+   "hpo_id": "HP:0000821",
+   "label_en": "Hypothyroidism",
+   "score_bits": 0.7654,
+   "n_genes": 403,
+   "r1_train_count": 38
+  }
+ ]
+}
