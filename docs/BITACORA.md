@@ -3992,10 +3992,10 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **#110** EXP-B-006 phase 1, pre-registration of rr-v1 + onset 0.25 (merged 15:02:45Z). **#108** evidence pack v2 (15:04:46Z). **#107** onset-informative terms v1, with `onset-prompt-terms-v1` (15:07:35Z). #109 (CI fix, above) went in first, at 15:00:25Z; main is d0e4b2a after #107 and CI is green.
 - No sealed read in any of them. EXP-B-006's R1-test read stays pending until the re-ranker and Q2b are deployed (Mateo's 2026-10-04 ruling, entry above).
 
-### 2026-10-05 — web — onset feature in Precisar: MateAlv/diagnostic.ar PR #87 (open)
+### 2026-10-05 — web — onset feature in Precisar: MateAlv/diagnostic.ar PR #87 (merged)
 - **What:** the Precisar dialog asks «¿A qué edad empezó este síntoma?» (optional; HPO onset classes or exact age), and the button shows on the 206 most-reported symptoms (`onset-prompt-terms-v1`, from PR #107) as well as on refinable ones. Branch `feat/onset-precisar`; the API repo is untouched.
 - **Effect:** none on ranking yet. The onset goes to `/rank-genes` as optional extra fields and the current API ignores them; it will matter only when the API's re-ranker uses onset (EXP-B-006). Nothing is sent to the question agent. Stored per symptom in `symptoms_extracted` (no migration).
-- **Pointers:** the input mapping and its mismatches with S3 are in `docs/experiments/EXP-B-006.md` ("Production input mapping"); list provenance in `docs/analyses/ONSET-INFORMATIVE-TERMS-v1.md` and `results/onset-informative-terms/onset-prompt-terms-v1.json`. Not merged at the time of this entry; the PR body has the tests and screenshots.
+- **Pointers:** the input mapping and its mismatches with S3 are in `docs/experiments/EXP-B-006.md` ("Production input mapping"); list provenance in `docs/analyses/ONSET-INFORMATIVE-TERMS-v1.md` and `results/onset-informative-terms/onset-prompt-terms-v1.json`. **Merged 2026-10-05** (merge commit 84db86b on diagnostic.ar main); the cloud-copy publish succeeded and production on nodo0 is unchanged. The PR body has the tests and screenshots.
 
 ### 2026-10-05 — docs — Documentation entry points refreshed
 - `docs/STATE.md` rewritten as a clean 2026-10-05 snapshot; `docs/INDEX.md` now links every ADR, experiment, analysis and the evidence pack, and the glossary gained S3, kb-vN, half B, rr-v1, F, Q0 to Q2b, onset, harmed share, sealed read and `DXT_SEALED_READ`; `docs/decisions/README.md` has an Outcome column; `EVIDENCE_INDEX.md` has rows for the onset-terms negative result, `onset-prompt-terms-v1` and EXP-B-006's status.
