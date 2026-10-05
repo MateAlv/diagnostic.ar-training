@@ -46,11 +46,11 @@ patients (R1) the re-ranker is neutral by construction when there are no
 negations. There is no real-user measurement.
 
 ## The onset web feature
-- **MateAlv/diagnostic.ar PR #87** (branch `feat/onset-precisar`, **open**,
-  not merged as of this snapshot): the age selector in Precisar. The button
-  shows on the 206 most-reported symptoms (`onset-prompt-terms-v1`, 90.01% of
-  R1-train patients) and on refinable ones. The API ignores the new fields
-  until the re-ranker uses onset.
+- **MateAlv/diagnostic.ar PR #87, merged 2026-10-05** (merge commit 84db86b on
+  main; cloud-copy publish succeeded, **production on nodo0 unchanged**): the
+  age selector in Precisar. The button shows on the 206 most-reported symptoms
+  (`onset-prompt-terms-v1`, 90.01% of R1-train patients) and on refinable ones.
+  The API ignores the new fields until the re-ranker uses onset.
 - The onset-score selector (354 terms) **failed its dev check**; it is not
   the selection rule. See
   [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md).
