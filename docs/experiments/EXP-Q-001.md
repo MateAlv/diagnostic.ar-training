@@ -2,7 +2,8 @@
 
 - **Front:** B (questioner)
 - **Registered:** 2026-10-03, by Mateo Alvarez (written by the assistant)
-- **Status:** planned. The strategy list for the sealed read is added as an
+- **Status (updated 2026-10-04):** completed. The dev search and the one sealed S3-v2-test read (2026-10-03) are done, P1 passes; see "Dev search log", "Results (sealed S3-v2-test, 2026-10-03)" and "Verdict" below. The status and 2026-10-03 lines that follow are the text as registered, left unchanged.
+- **Status at registration:** planned. The strategy list for the sealed read is added as an
   addendum before the read.
 - **2026-10-03:** the dev search (phase 3) is done and logged below; the sealed read has not happened.
 - **Governing decision:** ADR-0014.

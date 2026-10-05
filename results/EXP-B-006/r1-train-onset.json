@@ -1,0 +1,32 @@
+{
+ "both_usable_and_feature_level": 1133,
+ "disease_onset_term": 1359,
+ "disease_onset_term_in_feature_map": 1323,
+ "disease_onset_term_not_in_feature_map": {
+  "HP:0034197": 14,
+  "HP:0034198": 20,
+  "HP:0034199": 2
+ },
+ "disease_onset_years": 1085,
+ "part": "r1-v1/train",
+ "patients": 4103,
+ "same_onset_bin_when_both": 954,
+ "usable_and_excluded": 2160,
+ "usable_by_feature": 2408,
+ "usable_by_feature_share": 0.5869,
+ "usable_by_onset_bin": {
+  "0": 52,
+  "1": 755,
+  "2": 721,
+  "3": 338,
+  "4": 185,
+  "5": 246,
+  "6": 98,
+  "7": 13
+ },
+ "usable_or_feature_level": 2567,
+ "usable_or_feature_level_share": 0.6256,
+ "with_excluded_terms": 3713,
+ "with_feature_level_onset": 1292,
+ "with_feature_level_onset_share": 0.3149
+}

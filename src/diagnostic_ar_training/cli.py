@@ -370,6 +370,95 @@ def rerank_eval(
         )
 
 
+@rerank_app.command("release-check")
+def rerank_release_check(
+    exp: str = typer.Option("EXP-B-006", help="Pre-registered experiment id"),
+    cohort: str = typer.Option(
+        "r1-v1/dev", help="r1-v1/dev, or r1-v1/test (sealed: --reason and DXT_SEALED_READ=<exp>)"
+    ),
+    reason: str = typer.Option("", help="Required for the sealed cohort"),
+) -> None:
+    """EXP-B-006: rr-v1[neg=0.5] + onset 0.25 vs rr-v1 and E0 on R1, and the pre-registered verdict.
+
+    The sealed read is `DXT_SEALED_READ=EXP-B-006 dxt rerank release-check --exp EXP-B-006
+    --cohort r1-v1/test --reason ...`, run once.
+    """
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import harness, release_check
+    from diagnostic_ar_training.lineage import ledger
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    try:
+        release_check.check_request(exp, cohort, reason)
+    except ValueError as e:
+        raise typer.BadParameter(str(e)) from e
+    state = code_state()
+    if state.dirty:
+        raise typer.BadParameter("commit your code first: results must be reproducible from a SHA")
+    if not ledger.is_preregistered(ledger.EXPERIMENTS_DIR / f"{exp}.md"):
+        raise typer.BadParameter(f"docs/experiments/{exp}.md must be committed before the run")
+    kb_manifest = load_manifest(release_check.KB_ID)
+    knowledge = GeneKnowledge(
+        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    )
+    base = GenPheniaV3()
+    cases = access.load(cohort, exp_id=exp, reason=reason)
+    groups = splits.publication_groups("r1-v1")
+    report, records = release_check.evaluate(base, knowledge, cases, groups)
+    report["verdict"] = release_check.verdict(report)
+    report |= {"cohort": cohort, "kb": release_check.KB_ID, "top_k": release_check.TOP_K}
+
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = cohort.replace("/", "-")
+    outputs = [harness.write(exp, cohort, name, "given", recs)[0] for name, recs in records.items()]
+    report_path = out_dir / f"{stem}__release-check__report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = base.lineage_inputs() + [
+        {"id": f"artifact:{release_check.KB_ID}", "sha256": kb_manifest.outputs[0].sha256},
+        {"id": "split:r1-v1", "sha256": sha256_file(SPLITS_DIR / "r1-v1.json")},
+    ]
+    params = {
+        "cohort": cohort,
+        "kb": release_check.KB_ID,
+        "reference": release_check.REFERENCE.as_dict(),
+        "candidate": release_check.CANDIDATE.as_dict(),
+        "top_k": release_check.TOP_K,
+    }
+    write_manifest(
+        build_manifest(
+            f"results-{exp}-{stem}-release-check", "release-check", inputs, params, outputs, state=state
+        )
+    )
+    typer.echo(
+        json.dumps(
+            {k: report[k] for k in ("cases", "cases_with_usable_onset", "identity", "verdict")}, indent=1
+        )
+    )
+    for name, d in report["given"].items():
+        typer.echo(
+            f"{name:20} dMRR {d['delta']:+.4f} [{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] "
+            f"harmed {d['harmed']:.3f} helped {d['helped']:.3f}"
+        )
+    if not report["verdict"]["pass"]:
+        typer.echo("release check FAILED", err=True)
+        raise typer.Exit(1)
+
+
 @rerank_app.command("grid")
 def rerank_grid(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-B-001"),
@@ -2412,6 +2501,11 @@ def s3_interview_cmd(
     if heldout != "annot-split-v2" and not allow_kb_mismatch:
         raise typer.BadParameter(f"{kb_id} must be built without half B of annot-split-v2, not {heldout!r}")
     reranker_name, beta, rr_config = question_run.load_reranker(reranker)
+    rr_manifest = None
+    if rr_config is not None and rr_config.kb_id != kb_id:
+        rr_manifest = load_manifest(rr_config.kb_id)
+        if rr_manifest.params.get("heldout_annotations_dropped") != "annot-split-v2":
+            raise typer.BadParameter(f"{rr_config.kb_id} must be built without half B of annot-split-v2")
     chosen = question_run.make_strategy(strategy, lam)
     slabel = question_run.strategy_label(strategy, lam)
     data = next(p for p in fetch_outputs(load_manifest("s3-data-v2")) if p.name.endswith(".jsonl.gz"))
@@ -2422,13 +2516,7 @@ def s3_interview_cmd(
     knowledge = GeneKnowledge(kb_data, ontology)
     rr_knowledge = None
     if rr_config is not None:
-        if rr_config.kb_id == kb_id:
-            rr_data = kb_data
-        else:
-            rr_manifest = load_manifest(rr_config.kb_id)
-            if rr_manifest.params.get("heldout_annotations_dropped") != "annot-split-v2":
-                raise typer.BadParameter(f"{rr_config.kb_id} must be built without half B of annot-split-v2")
-            rr_data = kb.read(fetch_outputs(rr_manifest)[0])
+        rr_data = kb_data if rr_manifest is None else kb.read(fetch_outputs(rr_manifest)[0])
         rr_knowledge = rr_config.knowledge(rr_data, ontology)
     e0 = GenPheniaV3()
     ctx = questioning.Context(e0, knowledge, ontology, beta, top_k, rr_knowledge)
