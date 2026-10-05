@@ -4008,3 +4008,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Staging only for now.** Production later by routing `/genphenai` to the
   pinned image (option a). No shadow mode.
 - The project plan's end date stays 2026-11-07.
+
+## 2026-10-05: EXP-B-006 sealed R1-test read: PASS, no real-patient gain
+- One read, ledgered (`885c825268ca`), pre-registered at db8175f, after the staging deploy of rerank-v1.0.0 + Q2b.
+- Identities hold (0 mismatches). N2 candidate vs E0 −0.0028 [−0.0078, +0.0013]; N3 candidate − rr-v1 −0.0003
+  [−0.0019, +0.0008]. Both pass.
+- On the 1,310 patients with usable onset: −0.0006 [−0.0038, +0.0015] (helped 19.5%, harmed 10.2%).
+- Reading: onset is safe on real patients but shows no measurable gain there; the gain is simulated only. Release
+  of `rerank-v1.1.0` waits for Mateo's go-ahead. Details: EXP-B-006 Results.

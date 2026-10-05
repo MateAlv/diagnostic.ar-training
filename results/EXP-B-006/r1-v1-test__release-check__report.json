@@ -1,0 +1,133 @@
+{
+ "cases": 2548,
+ "cases_with_excluded": 1897,
+ "cases_with_usable_onset": 1310,
+ "cohort": "r1-v1/test",
+ "descriptive": {
+  "with_usable_onset": {
+   "candidate_vs_e0": {
+    "ci95": [
+     -0.008414586890562448,
+     0.0030657347205802665
+    ],
+    "delta": -0.002041093836024052,
+    "harmed": 0.10763358778625955,
+    "helped": 0.19083969465648856,
+    "metric": "mrr",
+    "n": 1310,
+    "n_units": 277,
+    "resample_unit": "group"
+   },
+   "candidate_vs_rr_v1": {
+    "ci95": [
+     -0.0038020969459058827,
+     0.0015247554559410328
+    ],
+    "delta": -0.0006274428461507767,
+    "harmed": 0.10229007633587786,
+    "helped": 0.19541984732824427,
+    "metric": "mrr",
+    "n": 1310,
+    "n_units": 277,
+    "resample_unit": "group"
+   },
+   "cases": 1310
+  },
+  "without_usable_onset": {
+   "candidate_vs_e0": {
+    "ci95": [
+     -0.010759553000088459,
+     0.002836478674046294
+    ],
+    "delta": -0.0035588007672343936,
+    "harmed": 0.11793214862681745,
+    "helped": 0.06946688206785137,
+    "metric": "mrr",
+    "n": 1238,
+    "n_units": 105,
+    "resample_unit": "group"
+   },
+   "candidate_vs_rr_v1": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "delta": 0.0,
+    "harmed": 0.0,
+    "helped": 0.0,
+    "metric": "mrr",
+    "n": 1238,
+    "n_units": 105,
+    "resample_unit": "group"
+   },
+   "cases": 1238
+  }
+ },
+ "given": {
+  "candidate_vs_e0": {
+   "ci95": [
+    -0.007831780887229908,
+    0.0012537068238376607
+   ],
+   "delta": -0.0027785040325854346,
+   "harmed": 0.11263736263736264,
+   "helped": 0.13186813186813187,
+   "metric": "mrr",
+   "n": 2548,
+   "n_units": 350,
+   "resample_unit": "group"
+  },
+  "candidate_vs_rr_v1": {
+   "ci95": [
+    -0.0018996543822545108,
+    0.0008249503646335262
+   ],
+   "delta": -0.00032258639264423774,
+   "harmed": 0.05259026687598116,
+   "helped": 0.10047095761381476,
+   "metric": "mrr",
+   "n": 2548,
+   "n_units": 350,
+   "resample_unit": "group"
+  },
+  "rr_v1_vs_e0": {
+   "ci95": [
+    -0.006997393162358007,
+    0.0013314642526157585
+   ],
+   "delta": -0.002455917639941197,
+   "harmed": 0.08987441130298274,
+   "helped": 0.06318681318681318,
+   "metric": "mrr",
+   "n": 2548,
+   "n_units": 350,
+   "resample_unit": "group"
+  }
+ },
+ "identity": {
+  "given_view_cases_without_usable_onset_candidate_vs_rr_v1": {
+   "cases": 1238,
+   "mismatches": 0
+  },
+  "no_onset_view_candidate_vs_rr_v1": {
+   "cases": 2548,
+   "mismatches": 0
+  },
+  "present_view_candidate_vs_e0": {
+   "cases": 2548,
+   "mismatches": 0
+  }
+ },
+ "kb": "kb-v3",
+ "top_k": 200,
+ "verdict": {
+  "checks": {
+   "ID1_no_onset_identical_to_rr_v1": true,
+   "ID2_present_identical_to_e0": true,
+   "ID3_cases_without_usable_onset_identical_to_rr_v1": true,
+   "N2_candidate_vs_e0": true,
+   "N3_candidate_vs_rr_v1": true
+  },
+  "pass": true
+ }
+}

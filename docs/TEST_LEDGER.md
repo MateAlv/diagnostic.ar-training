@@ -26,3 +26,4 @@ Rules: `docs/EVAL_PROTOCOL.md` §2.
 | 2026-10-03T22:56:09+00:00 | s3-v2/test | EXP-B-004 | c1342164fcb4 | EXP-B-004 and EXP-Q-001 sealed read, pre-registered 75cb7f0, B-frontier75 |
 | 2026-10-03T22:57:31+00:00 | s3-v2/test | EXP-B-004 | c1342164fcb4 | EXP-B-004 and EXP-Q-001 sealed read, pre-registered 75cb7f0, B-frontier10 |
 | 2026-10-04T18:31:09+00:00 | s3-v3b/test | EXP-B-005 | a7f83f5856b3 | EXP-B-005 sealed read (pre-registered a7f83f5) |
+| 2026-10-05T16:31:35+00:00 | r1-v1/test | EXP-B-006 | 885c825268ca | EXP-B-006 R1-test no-regression (pre-registered db8175f) |
