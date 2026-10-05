@@ -4016,3 +4016,22 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - On the 1,310 patients with usable onset: −0.0006 [−0.0038, +0.0015] (helped 19.5%, harmed 10.2%).
 - Reading: onset is safe on real patients but shows no measurable gain there; the gain is simulated only. Release
   of `rerank-v1.1.0` waits for Mateo's go-ahead. Details: EXP-B-006 Results.
+
+## 2026-10-05: EXP-V-001 pre-registered: the final R1-vault read (not done)
+- **What:** `docs/experiments/EXP-V-001.md` registers the one vault read of the project (approved by Mateo,
+  2026-10-05): E0, rerank-v1.0.0 (`fe58053033fa`) and rerank-v1.1.0 (`71713c8d15b0`, the final chosen system)
+  scored in one session, in the given and present-only views. MRR primary, plus top-1, top-10 and top-100; paired
+  bootstrap over publications, 2,000 resamples, seed 0; harmed and helped; contrasts v1.1 vs E0, v1.0 vs E0,
+  v1.1 − v1.0, and the onset subset. **Descriptive, not a gate**: it cannot change a release decision, and a bug
+  found afterwards gets a new pre-registration (the vault is not re-read).
+- **Code:** `dxt rerank final-report` (`eval/final_report.py`, scoring reused from `release_check`). Every refusal
+  (env var, reason, committed pre-registration, clean tree, vault already in the ledger) runs before any data is
+  loaded or the ledger touched; mocked tests in `tests/test_final_report.py` pin that order and the
+  once-only rule. The ledger's experiment-id pattern gained `V` (`EXP-V-NNN`), which it refused before.
+- **Dry run, R1-dev (not sealed, no ledger row), code `d276321`:** 1,883 patients, 324 publications, 1,039 with a
+  usable onset. It reproduces EXP-B-006's R1-dev dry run exactly: E0 MRR 0.4485; rr-v1 vs E0 −0.0067
+  [−0.0235, +0.0051], harmed 0.116, helped 0.079; v1.1 vs E0 −0.0048 [−0.0221, +0.0073], harmed 0.130, helped
+  0.099; v1.1 − v1.0 +0.0019 [−0.0002, +0.0046], harmed 0.041, helped 0.066; onset subset +0.0035
+  [−0.0008, +0.0079]. Present view: all three identical, every contrast exactly 0. Outputs in
+  `results/EXP-V-001/r1-v1-dev__*`, manifest `results-EXP-V-001-r1-v1-dev-final-report`.
+- **Sealed data:** the R1 vault is still never read; no ledger row was added.

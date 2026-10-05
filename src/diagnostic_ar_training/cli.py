@@ -459,6 +459,117 @@ def rerank_release_check(
         raise typer.Exit(1)
 
 
+@rerank_app.command("final-report")
+def rerank_final_report(
+    exp: str = typer.Option("EXP-V-001", help="Pre-registered experiment id"),
+    cohort: str = typer.Option(
+        "r1-v1/dev",
+        help="r1-v1/dev (dry run), or r1-v1/vault (sealed, opens once: --reason and DXT_SEALED_READ=<exp>)",
+    ),
+    reason: str = typer.Option("", help="Required for the vault"),
+) -> None:
+    """EXP-V-001: E0, rerank-v1.0.0 and rerank-v1.1.0 side by side on R1. Descriptive, not a gate.
+
+    The sealed read is `DXT_SEALED_READ=EXP-V-001 dxt rerank final-report --exp EXP-V-001
+    --cohort r1-v1/vault --reason ...`, run once. Every refusal comes before any data is loaded.
+    """
+    from diagnostic_ar_training import RESULTS_DIR, splits
+    from diagnostic_ar_training.cohorts import access
+    from diagnostic_ar_training.eval import final_report, harness, release_check
+    from diagnostic_ar_training.lineage.gitinfo import code_state
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import (
+        build_manifest,
+        fetch_outputs,
+        load_manifest,
+        write_manifest,
+    )
+    from diagnostic_ar_training.lineage.registry import Purpose, open_source
+    from diagnostic_ar_training.ontology import Ontology
+    from diagnostic_ar_training.rerank import kb
+    from diagnostic_ar_training.rerank.features import GeneKnowledge
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    try:
+        final_report.preflight(exp, cohort, reason)
+    except (ValueError, LineageError) as e:
+        raise typer.BadParameter(str(e)) from e
+    state = code_state()
+    kb_manifest = load_manifest(final_report.KB_ID)
+    knowledge = GeneKnowledge(
+        kb.read(fetch_outputs(kb_manifest)[0]), Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
+    )
+    base = GenPheniaV3()
+    groups = splits.publication_groups(final_report.SPLIT)
+    cases = access.load(cohort, exp_id=exp, reason=reason)
+    report, records = final_report.evaluate(base, knowledge, cases, groups)
+    report |= {
+        "cohort": cohort,
+        "kb": final_report.KB_ID,
+        "top_k": final_report.TOP_K,
+        "code_sha": state.sha,
+        "systems": {
+            name: {"weights": w.as_dict(), "config_hash": final_report.CONFIG_HASHES.get(name)}
+            for name, w in final_report.SYSTEMS.items()
+        },
+    }
+
+    out_dir = RESULTS_DIR / exp
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = cohort.replace("/", "-")
+    outputs = [
+        path
+        for view, by_system in records.items()
+        for name, recs in by_system.items()
+        for path in harness.write(exp, cohort, name, view, recs)
+    ]
+    report_path = out_dir / f"{stem}__final-report__report.json"
+    report_path.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
+    outputs.append(report_path)
+    inputs = base.lineage_inputs() + [
+        {"id": f"artifact:{final_report.KB_ID}", "sha256": kb_manifest.outputs[0].sha256},
+        {
+            "id": f"split:{final_report.SPLIT}",
+            "sha256": sha256_file(SPLITS_DIR / f"{final_report.SPLIT}.json"),
+        },
+    ]
+    params = {
+        "cohort": cohort,
+        "kb": final_report.KB_ID,
+        "systems": {name: w.as_dict() for name, w in final_report.SYSTEMS.items()},
+        "top_k": release_check.TOP_K,
+    }
+    write_manifest(
+        build_manifest(
+            f"results-{exp}-{stem}-final-report", "final-report", inputs, params, outputs, state=state
+        )
+    )
+    typer.echo(report["note"])
+    typer.echo(
+        f"cases {report['cases']} (publications {report['publications']}), "
+        f"usable onset {report['cases_with_usable_onset']}"
+    )
+    for view, block in report["views"].items():
+        for name, s in block["systems"].items():
+            typer.echo(
+                f"{view:8} {name:14} MRR {s['mrr']:.4f} [{s['mrr_ci95'][0]:.4f},{s['mrr_ci95'][1]:.4f}] "
+                f"top1 {s['top1']:.4f} top10 {s['top10']:.4f} top100 {s['top100']:.4f}"
+            )
+        for label, c in block["contrasts"].items():
+            d = c["mrr"]
+            typer.echo(
+                f"{view:8} {label:16} dMRR {d['delta']:+.4f} [{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] "
+                f"harmed {d['harmed']:.3f} helped {d['helped']:.3f}"
+            )
+    for label, block in report["onset_subset"].items():
+        if block["n"]:
+            d = block["contrasts"]["v1.1_minus_v1.0"]["mrr"]
+            typer.echo(
+                f"onset {label:22} n {block['n']} v1.1-v1.0 dMRR {d['delta']:+.4f} "
+                f"[{d['ci95'][0]:+.4f},{d['ci95'][1]:+.4f}] harmed {d['harmed']:.3f} helped {d['helped']:.3f}"
+            )
+
+
 @rerank_app.command("grid")
 def rerank_grid(
     exp: str = typer.Option(..., help="Pre-registered experiment id, e.g. EXP-B-001"),
