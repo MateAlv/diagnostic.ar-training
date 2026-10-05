@@ -9,8 +9,8 @@
 - informe draft to the director: **2026-10-15** (10 days left);
 - informe delivery: **2026-11-01** (27 days left).
 
-PLAN.md still carries the original project window ending 2026-11-07; the
-informe delivery date above is the binding one.
+Mateo, 2026-10-05: the project plan's end date stays **2026-11-07**
+(PLAN.md). The informe repo lists 2026-11-01 for the delivery.
 
 **Repo:** main at d0e4b2a or later; PRs #107 to #110 merged today, CI green.
 
@@ -56,14 +56,17 @@ negations. There is no real-user measurement.
   [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md).
 
 ## Next steps, in Mateo's order
-1. **Deploy the re-ranker and Q2b to production.** Handoff:
-   diagnostic.ar-model `docs/HANDOFF-deploy-rerank-v1.md`. The web pin
-   `QUESTION_AGENT_COMMIT` moves from 53a4107 to 495bfac.
+1. **Deploy the re-ranker and Q2b, staging only for now** (Mateo,
+   2026-10-05). The deploy agent runs it from diagnostic.ar-model
+   `docs/HANDOFF-deploy-staging-rerank-q2b.md`. The web pin
+   `QUESTION_AGENT_COMMIT` moves from 48d901e to 495bfac. Production comes
+   later, by routing to the pinned image (option a), with no shadow mode.
 2. **EXP-B-006 sealed R1-test read** (after step 1, per Mateo's 2026-10-04
    ruling), then release `rerank-v1.1.0` if it passes.
 3. **Final R1-vault read**: opens once, final system against E0
    ([EVAL_PROTOCOL.md](EVAL_PROTOCOL.md)).
-4. **Informe evidence refresh** (evidence only; the students write the informe).
+4. **Informe evidence refresh:** done 2026-10-05 (informe repo PRs #1 and
+   #2); refresh again after steps 1 to 3.
 
 ## Sealed-data budget
 - R1-dev realism reads: 3 of 3 used ([ledger](../results/realism/LEDGER.md)).
@@ -72,8 +75,8 @@ negations. There is no real-user measurement.
 - Every sealed read is in [TEST_LEDGER.md](TEST_LEDGER.md).
 
 ## Open items for Mateo
-- Production route for the re-ranker (brainy, not the pinned image) and
-  shadow mode: open decisions in the deploy handoff.
+- Production go-ahead after staging is verified. The route (pinned image)
+  and no shadow mode were decided on 2026-10-05.
 - The GeneReviews permission email: Mateo is sending it; not blocking.
 
 ## Invariants

@@ -4001,3 +4001,10 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - `docs/STATE.md` rewritten as a clean 2026-10-05 snapshot; `docs/INDEX.md` now links every ADR, experiment, analysis and the evidence pack, and the glossary gained S3, kb-vN, half B, rr-v1, F, Q0 to Q2b, onset, harmed share, sealed read and `DXT_SEALED_READ`; `docs/decisions/README.md` has an Outcome column; `EVIDENCE_INDEX.md` has rows for the onset-terms negative result, `onset-prompt-terms-v1` and EXP-B-006's status.
 - **Dates:** STATE.md uses the informe dates (draft to the director 2026-10-15, delivery 2026-11-01, from `diagnostic.ar/informe/`); PLAN.md still shows the original window to 2026-11-07.
 - `scripts/evidence/verify_numbers.py` re-run: 635 match, 4 differ, the same four as listed under Discrepancies. No result file, sealed split or code changed.
+
+## 2026-10-05: deploy decisions (Mateo)
+- The deploy agent runs it, with a new handoff (diagnostic.ar-model PR #6,
+  `docs/HANDOFF-deploy-staging-rerank-q2b.md`).
+- **Staging only for now.** Production later by routing `/genphenai` to the
+  pinned image (option a). No shadow mode.
+- The project plan's end date stays 2026-11-07.
