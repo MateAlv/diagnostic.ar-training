@@ -1,0 +1,62 @@
+{
+ "arms": [
+  {
+   "arm_id": "rr-v1",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "llr",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.0,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "2b6a00674f4c",
+   "lever": "B6",
+   "note": "production formula; drives the interview"
+  },
+  {
+   "arm_id": "rr-v1+onset0.25",
+   "config": {
+    "kb_id": "kb-v6",
+    "neg_cap": null,
+    "neg_form": "llr",
+    "neg_strength": 0.5,
+    "neg_tau": null,
+    "top_k": 200,
+    "weights": {
+     "age_any": 0.0,
+     "age_mean": 0.0,
+     "neg_annotated_share": 0.0,
+     "neg_llr": 0.5,
+     "onset": 0.25,
+     "sex_prior": 0.0,
+     "sex_restricted": 0.0
+    }
+   },
+   "config_hash": "4c5bdea377e0",
+   "lever": "B6",
+   "note": "rr-v1 with onset weight 0.25"
+  }
+ ],
+ "budget": 9,
+ "cases": 4562,
+ "code_sha": "5e35051316023907bbc14670175be12ff815445b",
+ "driver_arm": "rr-v1",
+ "driver_rank_parity": true,
+ "excluded_in_part": 15,
+ "exp": "EXP-B-006",
+ "kb": "kb-v6",
+ "lam": 0.6,
+ "noise": 0,
+ "split": "s3-v3b/dev",
+ "strategy": "Q2b"
+}

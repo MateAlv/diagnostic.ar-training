@@ -1,0 +1,66 @@
+{
+  "artifact_id": "results-EXP-B-006-r1-v1-dev-release-check",
+  "kind": "release-check",
+  "created_at": "2026-10-04T19:59:23+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "4db2add0be92b90bd618f31be5b9ed81ef6a7a52",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:kb-v3",
+      "sha256": "39d5f9213afab40090d15bdace663dc94d650b099e6b13643ced0633f4970fa8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "cohort": "r1-v1/dev",
+    "kb": "kb-v3",
+    "reference": {
+      "neg": 0.5,
+      "sex": 0.0,
+      "age": 0.0,
+      "onset": 0.0
+    },
+    "candidate": {
+      "neg": 0.5,
+      "sex": 0.0,
+      "age": 0.0,
+      "onset": 0.25
+    },
+    "top_k": 200
+  },
+  "params_hash": "b982de27b7d9ef6bde3d343bac9be7af87e3bbf0a790d16e187b599f8698f0b0",
+  "outputs": [
+    {
+      "path": "results/EXP-B-006/r1-v1-dev__E0__given.ranks.jsonl",
+      "sha256": "b38f7c27dcebae62227582894b4b3b0b6b2f91661c5de4395517336e7f1322b8",
+      "bytes": 403149
+    },
+    {
+      "path": "results/EXP-B-006/r1-v1-dev__rr-v1__given.ranks.jsonl",
+      "sha256": "1b3ab9abab0e809dfdf0989d5e7a46d4e03d87a37d3f62e156dc26d768c6f3bb",
+      "bytes": 403189
+    },
+    {
+      "path": "results/EXP-B-006/r1-v1-dev__candidate__given.ranks.jsonl",
+      "sha256": "0d5fff3d3b58c13d2b084226d44cd76472b572415a694a7fef530e9d7b243b5d",
+      "bytes": 403187
+    },
+    {
+      "path": "results/EXP-B-006/r1-v1-dev__release-check__report.json",
+      "sha256": "c4f166467a6a24d2a301b43be627b800dcd1855a1796f874b775b48d9e0dc3ca",
+      "bytes": 2765
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -3916,3 +3916,38 @@ this task, whatever the result**; the last read needs Mateo's OK.
   collect symptom-onset age (ADR-0015 prerequisite). A release would still need Mateo's go-ahead and the R1-test
   no-regression read (EXP-B-003 N1/N2); not done here.
 - Outputs: `results/EXP-B-005/sealed/`, `sealed-analysis.{md,json}`, manifest `results-EXP-B-005-s3-v3b-sealed-session`.
+
+### 2026-10-04 — experiment — EXP-B-006 phase 1: pre-registration of rr-v1 + onset 0.25 (rerank-v1.1.0); no sealed read
+- **Path (Mateo, 2026-10-04):** pre-register one candidate, one R1-test no-regression read, release `rerank-v1.1.0` on a
+  pass. This entry is the pre-registration only. No R1-test, R1-vault or S3-test load, `DXT_SEALED_READ` never set, no
+  ledger row.
+- **Candidate:** the production formula plus `onset` 0.25 on kb-v3 (sha256 `39d5f921…`, the KB in `rerank-v1.0.0`), config
+  `71713c8d15b0`; reference rr-v1 on kb-v3 `fe58053033fa`. **Hash discrepancy:** `8488e32fc7c2` is the same formula with
+  `kb_id = kb-v5`; the hash covers `kb_id`. kb-v3 has onset (9,487 / 12,802 diseases with `onset_years`; 4,642 / 5,192
+  genes), and its `onset_years` equals kb-v6's on all 12,773 shared diseases.
+- **Dev (S3-v3b-dev, one configuration, one Q2b interview driven by rr-v1 on kb-v6, 4,562 cases):** Δ (rr-v1 + onset
+  0.25) − rr-v1 on the 2,934 literature-onset cases **+0.0021 [+0.0007, +0.0035]**, harmed vs E0+answers **4.40%**;
+  R1-dev no-harm −0.0006 [−0.0086, +0.0060] pass. Candidate exists. Known-onset cases: harmed 5.99%.
+  `results/EXP-B-006/dev-analysis.{md,json}`, manifest `results-EXP-B-006-s3-v3b-dev-session` (code `5e35051`).
+- **R1-train onset (counts only):** 4,103 patients, **2,408 (58.7%) with usable onset** (1,085 exact age, 1,323 HPO class),
+  skewed to early onset (late: 13). So the R1-test read can measure onset's effect on real patients, on about 55% of them,
+  not only identity. `results/EXP-B-006/r1-train-onset.json`.
+- **Path parity:** `RerankConfig` path (dev) and `Weights` path (R1 gate) bit-identical on 400 R1-train patients, both systems.
+- **R1-dev dry run of the gate** (`dxt rerank release-check --cohort r1-v1/dev`, code `4db2add`): rr-v1 vs E0 reproduces
+  EXP-B-003's R1-dev numbers exactly (−0.0067 [−0.0235, +0.0051], harmed 0.116); candidate − rr-v1 +0.0019 [−0.0002, +0.0046];
+  identity mismatches 0 / 0 / 0; verdict pass.
+- **Gate (pinned in `eval/release_check.py` and its test):** ID1, ID2, ID3 bit-identity (0 mismatches); N2 candidate vs E0
+  CI upper >= 0 and point >= −0.02; N3 candidate − rr-v1 CI lower >= −0.01.
+- **Budget:** 3rd Front B release candidate if EXP-B-004's descriptive read is not counted, 4th (over budget) if it is.
+  Needs Mateo's ruling; flagged in the file.
+- **diagnostic.ar-model main does not implement onset** (negation only; `bundle.verify` rejects other weights).
+- **Production mapping and mismatches** (class midpoint vs exact age, independent minima in PR #87, S3 exact ages vs web classes)
+  are in EXP-B-006.md.
+- Code: `eval/release_check.py`, `dxt rerank release-check`, `tests/test_release_check.py`, `scripts/exp_b006_*.py`.
+
+## 2026-10-04: Mateo's rulings on onset (recorded 2026-10-05)
+- **Precisar list rule:** the onset-score selector failed its dev check, so the web Precisar button uses the
+  most-reported symptoms (`onset-prompt-terms-v1`, 206 terms, 90% of R1-train patients; PR #107).
+- **EXP-B-004 is not a Front B release candidate** (descriptive, nothing gated). EXP-B-006 is the 3rd and last.
+- **EXP-B-006's one R1-test read is approved,** to run after the re-ranker and Q2b are deployed to production.
+
