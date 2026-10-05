@@ -4070,3 +4070,5 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Checks:** `verify_numbers.py` (matplotlib stubbed outside the repo) before and after: 676 checked, 672 match, the same
   4 known differences; `data/number_checks.tsv` unchanged. No experiment doc, pre-registration, result file or other ADR
   edited. No sealed read.
+- **Addition (Mateo):** a "Data limitations" section (interview negations, training data, literature data, E0 on R1, future
+  work) in README, STATE and ADR-0016; numbers checked against EVIDENCE_INDEX (S3 v2 1,027 cases 5.25%; S3 v3 120 genes).

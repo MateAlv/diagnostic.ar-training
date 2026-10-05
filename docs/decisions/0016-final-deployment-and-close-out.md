@@ -36,6 +36,14 @@
   knowledge split and source separation described in ADR-0014 and ADR-0015.
   There is no real-user measurement.
 
+## Data limitations
+We lack the data to test or simulate, correctly, whether these changes improve or reduce performance on real patients. This is why the re-ranker is in staging and not in production, and why the GNN retraining and `rerank-v1.1.0` were not deployed.
+- **Interview negations:** no real-patient dataset with interview yes/no answers exists. R1 has only negatives written in publications, a different input from the agent's "no" answers. The effect on real patients is estimated in simulation only (S3; EXP-B-003 +0.0044 [+0.0032, +0.0057], n = 9,990). `rerank-v1.0.0` stays in staging until real sessions (interview answers plus confirmed diagnoses) can be collected and evaluated.
+- **Training data:** no synthetic data was realistic enough to retrain the GNN on. The simulator's realism gate (ADR-0012) was measured: G2b 0.159 on R1-dev vs UP 0.231 and V03-full 0.095. Real patients are few and reserved for evaluation (R1 splits). Retraining with age, sex and negations could not be validated.
+- **Literature data:** literature onset ages cover part of the entities (S3 v2: 1,027 cases, 5.25%, with literature onset; S3 v3: 120 eligible genes), so the onset effect is simulated on that subset. Real-patient reads: EXP-B-006 vs rr-v1 -0.0003 [-0.0019, +0.0008] (n = 2,548); EXP-V-001 MRR v1.1 0.4106, v1.0 0.4114, E0 0.4136 (n = 1,771). `rerank-v1.1.0` was not released.
+- **E0 on R1:** E0's training annotations derive in part from the same publications as R1, so E0 is favoured there and real-patient comparisons against it are conservative.
+- **Future work:** collect consented real sessions on the platform to evaluate the points above.
+
 ## Alternatives dropped
 - Tagging `rerank-v1.1.0` for staging: dropped, given the vault numbers above (v1.1 0.4106, v1.0 0.4114, E0 0.4136).
 - A further candidate, or a second vault read: dropped; both budgets are spent
