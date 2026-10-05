@@ -843,12 +843,12 @@ def headline():
         [
             ["Q2b over the baseline questioner Q0 (EXP-Q-001)", "+0.0049 [+0.0027, +0.0069]", "S3-v2-test (sealed, simulated)", "final MRR, same cases; vs Q1 (previous production selector) +0.0017 [-0.0006, +0.0043]", "T23"],
             ["rr-v1[neg=0.5] vs E0+answers (EXP-B-003)", "+0.0044 [+0.0032, +0.0057]", "S3-test (sealed, simulated)", "harmed 3.9%", "T5"],
-            ["rr-v1[neg=0.5] vs E0 (EXP-B-003)", "-0.0025 [-0.0070, +0.0013]", "R1-test (sealed, real)", "no regression; E0 favoured on R1; excluded terms are publication negatives", "T5"],
-            ["sex and age (EXP-B-004)", "no gain", "S3-v2 with source separation", "see T21b", "T21"],
+            ["rr-v1[neg=0.5] vs E0 (EXP-B-003)", "-0.0025 [-0.0070, +0.0013]", "R1-test (sealed, real)", "pre-registered no-regression gate passed; E0 favoured on R1; excluded terms are publication negatives", "T5"],
+            ["sex 0.5 and age_mean 0.5 vs F (EXP-B-004)", "sex +0.0003 [+0.0000, +0.0007]; age_mean +0.0007 [-0.0001, +0.0014]", "S3-v2-test (sealed, simulated), source separation", "descriptive; harmed 5.25% / 6.31%; subsets in T21b", "T21"],
             ["onset, F + onset 0.25 vs F (EXP-B-005)", "+0.0023 [+0.0013, +0.0034]", "S3-v3b-test (sealed, simulated)", "harmed 4.63%", "T25"],
-            ["onset, candidate - rr-v1 (EXP-B-006)", "-0.0003 [-0.0019, +0.0008]", "R1-test (sealed, real)", "no measurable gain", "T26"],
-            ["rerank-v1.1.0 vs E0 (EXP-V-001)", "-0.0031 [-0.0055, -0.0005]", "R1 vault (real)", "descriptive; not released; E0 favoured", "T27"],
-            ["rerank-v1.0.0 vs E0 (EXP-V-001)", "-0.0022 [-0.0046, +0.0002]", "R1 vault (real)", "descriptive; E0 favoured", "T27"],
+            ["onset, candidate - rr-v1 (EXP-B-006)", "-0.0003 [-0.0019, +0.0008]", "R1-test (sealed, real)", "pre-registered no-regression gate passed; E0 favoured on R1", "T26"],
+            ["rerank-v1.1.0 vs E0 (EXP-V-001)", "-0.0031 [-0.0055, -0.0005]", "R1 vault (real)", "descriptive; MRR 0.4106 vs E0 0.4136; not tagged (ADR-0016); E0 favoured", "T27"],
+            ["rerank-v1.0.0 vs E0 (EXP-V-001)", "-0.0022 [-0.0046, +0.0002]", "R1 vault (real)", "descriptive; MRR 0.4114 vs E0 0.4136; E0 favoured", "T27"],
         ],
     )
 

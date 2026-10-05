@@ -8,34 +8,47 @@ example "no tengo fiebre recurrente"). This is part of the Trabajo Profesional
 (FIUBA).
 
 ## What was built
+- **Question agent with Q2b selection** (`diagnosticar-question-agent`, `feat/agente-v2`): enriches each case with
+  follow-up questions and adds the confirmed and ruled-out findings of each round, which gives the model and the doctor's
+  summary a more precise phenotype. On the sealed simulated test (S3-v2-test, n = 9,565) Q2b added 1.04 confirmed
+  ("yes") and 7.87 ruled-out ("no") findings per case, 8.90 questions per case
+  (`results/EXP-B-004/sealed/s3-v2-test__Q2b-lam0.6__cfg-8ecd5b320f33__noise0.report.json`). Deployed in staging.
+- **"No"-answer re-ranker `rerank-v1.0.0`** (release channel: `diagnostic.ar-model`): uses the ruled-out findings to
+  reorder the GNN's genes. Deployed in staging.
+- **Onset age** in the final output the doctor sees: a more precise clinical summary (age selector in Precisar,
+  MateAlv/diagnostic.ar PR #87; a web PR for the final output is in progress).
 - **A literature-enriched patient simulator** (`rare-disease-simulator` 0.5.4): 97 literature shards (build v2),
   onset and presentation ages from the literature, PMID masking, pinned sources and manifests. The AI extraction
-  was checked: Codex cross-check 96.1% agreement; audit row error 2.0% [1.25, 3.17] and recall 93.3%.
+  was checked: Codex cross-check 96.1% agreement (715 of 744 rows); audit row error 2.0% [1.25, 3.17] and recall 93.3%.
 - **An evaluation infrastructure**, an open problem the anteproyecto itself names: frozen publication-level splits
   (`r1-v1`: train/dev/test/vault) with held-out PMID masking; pre-registration; a code-enforced sealed-read guard
   and ledger; simulated-interview benchmarks (S3 v1, v2, v3b) with a knowledge split and source separation for age
   and sex; every claim as a paired-bootstrap Δ vs E0 with a CI and the harmed share.
-- **Deployed in staging:** question selection **Q2b** and the "no"-answer re-ranker `rerank-v1.0.0`
-  (release channel: `diagnostic.ar-model`). The GNN was also reimplemented in PyTorch with parity tests.
+- **A PyTorch reimplementation of the GNN** with parity tests against production.
 
 ## What was measured
-| Result | Δ MRR [95% CI] |
-|---|---|
-| Q2b over the baseline questioner (sealed, simulated; EXP-Q-001) | +0.0049 [+0.0027, +0.0069] |
-| "No"-answer re-ranker (sealed, simulated; EXP-B-003) | +0.0044 [+0.0032, +0.0057] |
-| Same re-ranker vs E0 on real patients, R1-test (EXP-B-003) | −0.0025 [−0.0070, +0.0013]: no regression |
-| Sex and age, tested fairly (EXP-B-004) | no gain |
-| Onset: simulated (EXP-B-005) / real patients (EXP-B-006, EXP-V-001) | +0.0023 / no gain; `rerank-v1.1.0` not released |
+| Result | Δ MRR [95% CI] | Split, n |
+|---|---|---|
+| Q2b over the baseline questioner Q0 (EXP-Q-001) | +0.0049 [+0.0027, +0.0069] | S3-v2-test (sealed, simulated), 9,565 |
+| "No"-answer re-ranker vs E0+answers (EXP-B-003) | +0.0044 [+0.0032, +0.0057] | S3-test (sealed, simulated), 9,990 |
+| Same re-ranker vs E0, pre-registered no-regression gate (EXP-B-003) | −0.0025 [−0.0070, +0.0013]; gate passed | R1-test (sealed, real), 2,548 |
+| Onset in the re-ranker, F + onset 0.25 vs F (EXP-B-005) | +0.0023 [+0.0013, +0.0034] | S3-v3b-test (sealed, simulated), 6,745 |
+| Onset candidate vs rr-v1, pre-registered no-regression gate (EXP-B-006) | −0.0003 [−0.0019, +0.0008]; gate passed | R1-test (sealed, real), 2,548 |
+| R1 vault, MRR (EXP-V-001, descriptive) | E0 0.4136; `rerank-v1.0.0` 0.4114 (−0.0022 [−0.0046, +0.0002]); `rerank-v1.1.0` 0.4106 (−0.0031 [−0.0055, −0.0005]) | R1 vault (real), 1,771 |
+| Sex and age in the re-ranker vs F (EXP-B-004, descriptive) | sex 0.5 +0.0003 [+0.0000, +0.0007]; age_mean 0.5 +0.0007 [−0.0001, +0.0014] | S3-v2-test (sealed, simulated), 9,565 |
 
-The simulator's realism was measured against a gate fixed in advance (ADR-0012); the gate was not passed (G2b dev
-0.159 vs UP 0.231), which is why GNN retraining stopped. The retraining attempts (EXP-A-001, A-002f, A-003f) are
-documented.
+`rerank-v1.1.0` (onset) is built in `diagnostic.ar-model` and not tagged (ADR-0016).
 
-## Limits, with context
+The simulator's realism was measured against a gate fixed in advance (ADR-0012): G2b on R1-dev 0.159 (UP 0.231,
+V03-full 0.095), with 3 of 3 R1-dev reads used; GNN retraining stopped at that gate. The retraining attempts
+(EXP-A-001, A-002f, A-003f) are documented, each with its R1-dev Δ vs E0 and CI in
+`docs/evidence/EVIDENCE_INDEX.md` section 3.
+
+## Context for the real-patient numbers
 - E0 (GenPhenAI v3.0) was trained upstream on annotations that derive in part from the same published case reports
   R1 is built from, and could not be retrained or masked: E0 is favoured on R1.
-- R1's excluded terms are publication negatives, not interview "no" answers, so R1 cannot measure the production
-  input; efficacy on the interview path is simulated, with no real-user measurement.
+- R1's excluded terms are publication negatives, not interview "no" answers, so R1 does not measure the production
+  input; the interview path is measured on simulated interviews (S3), and there is no real-user measurement.
 
 Final decisions: [ADR-0016](docs/decisions/0016-final-deployment-and-close-out.md).
 
