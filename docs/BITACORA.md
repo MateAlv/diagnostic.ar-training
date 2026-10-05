@@ -4057,3 +4057,18 @@ this task, whatever the result**; the last read needs Mateo's OK.
   (matplotlib stubbed outside the repo). No experiment doc, pre-registration or result text was edited. No sealed read.
 - **Precision recorded:** Q2b beats Q0 (the S3 v1 questioner), +0.0049 [+0.0027, +0.0069]; against Q1, the previous
   production selector, +0.0017 [−0.0006, +0.0043] is not distinguishable from zero.
+
+## 2026-10-05: Wording pass over the summary-level docs (number-forward)
+- **Change (Mateo):** README, STATE, INDEX intro and one-line experiment entries, EVIDENCE_INDEX (headline table and row
+  commentary), TABLES T0 (through `make_tables.py`) and ADR-0016 (context and rationale wording only) now lead with what
+  each component does and adds, and state each result as score, CI, n and comparison instead of a verdict word. The
+  context sentences (E0 favoured on R1, R1 negatives are publication negatives) are stated once. No decision changed.
+- **Metric added to the summaries:** findings added per case by Q2b on S3-v2-test (n = 9,565, simulated answers):
+  1.04 confirmed ("yes"), 7.87 ruled-out ("no"), 8.90 questions
+  (`results/EXP-B-004/sealed/s3-v2-test__Q2b-lam0.6__cfg-8ecd5b320f33__noise0.report.json`). It is a count of simulated
+  answers, not a diagnostic-quality measure.
+- **Checks:** `verify_numbers.py` (matplotlib stubbed outside the repo) before and after: 676 checked, 672 match, the same
+  4 known differences; `data/number_checks.tsv` unchanged. No experiment doc, pre-registration, result file or other ADR
+  edited. No sealed read.
+- **Addition (Mateo):** a "Data limitations" section (interview negations, training data, literature data, E0 on R1, future
+  work) in README, STATE and ADR-0016; numbers checked against EVIDENCE_INDEX (S3 v2 1,027 cases 5.25%; S3 v3 120 genes).

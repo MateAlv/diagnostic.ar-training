@@ -1,9 +1,10 @@
 # Documentation index
 
 This repo holds what was built and measured on top of GenPhenAI to add sex, age and negated symptoms to gene
-prioritisation. In short: a literature-enriched patient simulator, an evaluation infrastructure with sealed splits
-and pre-registration, and a re-ranker plus a question-selection strategy that are deployed in staging. The summary
-with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
+prioritisation. In short: a question agent (Q2b selection) that adds confirmed and ruled-out findings to each case, a re-ranker
+that uses the ruled-out findings, onset age in the doctor's final output, a literature-enriched patient simulator,
+and an evaluation infrastructure with sealed splits and pre-registration. Q2b and `rerank-v1.0.0` are deployed in
+staging. The summary with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
 [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
 | If you need… | Read |
@@ -51,18 +52,18 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 |---|---|
 | [EXP-000](experiments/EXP-000.md) | E0 baseline on every cohort |
 | [EXP-A-000](experiments/EXP-A-000.md) | v3.0 through our PyTorch re-implementation (parity) |
-| [EXP-A-001](experiments/EXP-A-001.md) | Fine-tune v3.0 on simulator positives (failed) |
-| [EXP-A-002f](experiments/EXP-A-002f.md) | Negated answers into frozen v3.0 (failed) |
-| [EXP-A-003f](experiments/EXP-A-003f.md) | Sex, age, onset into frozen v3.0 (failed) |
+| [EXP-A-001](experiments/EXP-A-001.md) | Fine-tune v3.0 on simulator positives; R1-dev Δ vs E0 −0.0913 to −0.2075 |
+| [EXP-A-002f](experiments/EXP-A-002f.md) | Negated answers into frozen v3.0; R1-dev Δ vs E0 0 (c1 to c3) to −0.2788 |
+| [EXP-A-003f](experiments/EXP-A-003f.md) | Sex, age, onset into frozen v3.0; R1-dev Δ vs E0 −0.2090 to −0.2348 |
 | [EXP-A-004f](experiments/EXP-A-004f.md) | Negation plus covariates in frozen v3.0 (not run) |
 | [EXP-B-001](experiments/EXP-B-001.md) | rr-v1 feature grid searched on R1-dev |
 | [EXP-B-002](experiments/EXP-B-002.md) | rr-v2 weights learned on R1-train |
 | [EXP-S3-001](experiments/EXP-S3-001.md) | Negation as the app produces it, on simulated interviews |
 | [EXP-B-003](experiments/EXP-B-003.md) | Gate for rr-v1[neg=0.5]; passed, released as `rerank-v1.0.0` |
 | [EXP-B-004](experiments/EXP-B-004.md) | Re-ranker v1.1 on S3 v2 (descriptive) |
-| [EXP-Q-001](experiments/EXP-Q-001.md) | Better questions on S3 v2; Q2b beats Q0 |
+| [EXP-Q-001](experiments/EXP-Q-001.md) | Better questions on S3 v2; Q2b vs Q0 +0.0049 [+0.0027, +0.0069] |
 | [EXP-B-005](experiments/EXP-B-005.md) | Onset in the re-ranker on S3 v3b; P1 passed |
-| [EXP-B-006](experiments/EXP-B-006.md) | rr-v1 + onset 0.25 (`rerank-v1.1.0`), one R1-test read; passed, no measurable real-patient gain |
+| [EXP-B-006](experiments/EXP-B-006.md) | rr-v1 + onset 0.25 (`rerank-v1.1.0`), one R1-test read; gate passed, vs rr-v1 −0.0003 [−0.0019, +0.0008] |
 | [EXP-V-001](experiments/EXP-V-001.md) | The one R1-vault read: E0 vs `rerank-v1.0.0` vs `rerank-v1.1.0` (descriptive) |
 
 ## Analyses (`analyses/`)
@@ -80,7 +81,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [LITPANEL-v2](analyses/LITPANEL-v2.md) | The literature evaluation panel (G4) |
 | [LIT-CROSSCHECK-v1](analyses/LIT-CROSSCHECK-v1.md) | Blind re-extraction of 10% of literature rows |
 | [LIT-AUDIT-v1](analyses/LIT-AUDIT-v1.md) | Codex re-read of 98 sources: row error, recall |
-| [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md) | Which symptoms get the onset selector; the score failed its dev check |
+| [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md) | Which symptoms get the onset selector; dev tertiles Δ low +0.0069, mid +0.0040, high +0.0017 |
 
 ## Evidence for the informe (`evidence/`)
 
