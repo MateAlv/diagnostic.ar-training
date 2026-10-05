@@ -4072,3 +4072,8 @@ this task, whatever the result**; the last read needs Mateo's OK.
   edited. No sealed read.
 - **Addition (Mateo):** a "Data limitations" section (interview negations, training data, literature data, E0 on R1, future
   work) in README, STATE and ADR-0016; numbers checked against EVIDENCE_INDEX (S3 v2 1,027 cases 5.25%; S3 v3 120 genes).
+
+## 2026-10-05: Deployment wording (Mateo)
+- Q2b goes into production; only the re-ranking on missing symptoms (`rerank-v1.0.0`) stays in staging, for the data
+  reason in the Data limitations section. README, STATE, INDEX intro, ADR-0016 and EVIDENCE_INDEX row 9 reworded; no
+  number touched.
