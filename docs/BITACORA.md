@@ -3981,3 +3981,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
   symptoms: terms under HP:0000118 by R1-train count, smallest N covering >= 90% of R1-train patients (cap 400):
   **N = 206, coverage 0.9001** (curve 50/100/200/300/400: 0.717/0.797/0.898/0.934/0.946).
   Artifact `onset-prompt-terms-v1` (`results/onset-informative-terms/onset-prompt-terms-v1.json`). R1-train only.
+
+### 2026-10-05 — infra — CI fix (PR #109): CI on main had failed on every run since 2026-09-28
+- **Finding:** all 108 runs of `ci.yml` on main since 2026-09-28 had failed (112 runs listed by `gh run list`: 108 failures, 4 successes, the successes after this fix). Nobody had been gated by CI.
+- **Cause 1, collection error:** CI has no torch, so collecting `tests/test_gnn_interviewed.py` errored. The test now uses `pytest.importorskip("torch")`, as `test_gnn_train.py`, `test_gnn_model.py` and `test_gnn_frozen.py` already did (caece5a).
+- **Cause 2, refusal order:** with the collection error gone, the next failure was the CLI fetching the S3 data before refusing a re-ranker KB that keeps annot-split half B. The refusal now comes first, so a bad KB is rejected before any fetch (93eccf7; `cli.py` and the test).
+- **Scope:** code and test only; no result, manifest or sealed read touched. Merged 2026-10-05T15:00:25Z.
+
+### 2026-10-05 — merge — PRs #107, #108 and #110 merged
+- **#110** EXP-B-006 phase 1, pre-registration of rr-v1 + onset 0.25 (merged 15:02:45Z). **#108** evidence pack v2 (15:04:46Z). **#107** onset-informative terms v1, with `onset-prompt-terms-v1` (15:07:35Z). #109 (CI fix, above) went in first, at 15:00:25Z; main is d0e4b2a after #107 and CI is green.
+- No sealed read in any of them. EXP-B-006's R1-test read stays pending until the re-ranker and Q2b are deployed (Mateo's 2026-10-04 ruling, entry above).
+
+### 2026-10-05 — web — onset feature in Precisar: MateAlv/diagnostic.ar PR #87 (open)
+- **What:** the Precisar dialog asks «¿A qué edad empezó este síntoma?» (optional; HPO onset classes or exact age), and the button shows on the 206 most-reported symptoms (`onset-prompt-terms-v1`, from PR #107) as well as on refinable ones. Branch `feat/onset-precisar`; the API repo is untouched.
+- **Effect:** none on ranking yet. The onset goes to `/rank-genes` as optional extra fields and the current API ignores them; it will matter only when the API's re-ranker uses onset (EXP-B-006). Nothing is sent to the question agent. Stored per symptom in `symptoms_extracted` (no migration).
+- **Pointers:** the input mapping and its mismatches with S3 are in `docs/experiments/EXP-B-006.md` ("Production input mapping"); list provenance in `docs/analyses/ONSET-INFORMATIVE-TERMS-v1.md` and `results/onset-informative-terms/onset-prompt-terms-v1.json`. Not merged at the time of this entry; the PR body has the tests and screenshots.
+
+### 2026-10-05 — docs — Documentation entry points refreshed
+- `docs/STATE.md` rewritten as a clean 2026-10-05 snapshot; `docs/INDEX.md` now links every ADR, experiment, analysis and the evidence pack, and the glossary gained S3, kb-vN, half B, rr-v1, F, Q0 to Q2b, onset, harmed share, sealed read and `DXT_SEALED_READ`; `docs/decisions/README.md` has an Outcome column; `EVIDENCE_INDEX.md` has rows for the onset-terms negative result, `onset-prompt-terms-v1` and EXP-B-006's status.
+- **Dates:** STATE.md uses the informe dates (draft to the director 2026-10-15, delivery 2026-11-01, from `diagnostic.ar/informe/`); PLAN.md still shows the original window to 2026-11-07.
+- `scripts/evidence/verify_numbers.py` re-run: 635 match, 4 differ, the same four as listed under Discrepancies. No result file, sealed split or code changed.
