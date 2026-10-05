@@ -632,6 +632,43 @@ EXP-B-005 sealed lit_src_none delta vs F	docs/experiments/EXP-B-005.md	+0.0022	r
 EXP-B-005 sealed lit_src_none CI low	docs/experiments/EXP-B-005.md	-0.0012	results/EXP-B-005/sealed-analysis.json	-0.00121121	MATCH
 EXP-B-005 sealed lit_src_none CI high	docs/experiments/EXP-B-005.md	+0.0062	results/EXP-B-005/sealed-analysis.json	0.00618699	MATCH
 EXP-B-005 sealed lit_src_none harmed %	docs/experiments/EXP-B-005.md	4.26	results/EXP-B-005/sealed-analysis.json	4.2623	MATCH
+EXP-Q-001 S1 Q2b-Q1 delta	docs/evidence/TABLES.md	+0.0017	results/EXP-Q-001/sealed-analysis.json	0.00174275	MATCH
+EXP-Q-001 S1 Q2b-Q1 CI low	docs/evidence/TABLES.md	-0.0006	results/EXP-Q-001/sealed-analysis.json	-0.000588437	MATCH
+EXP-Q-001 S1 Q2b-Q1 CI high	docs/evidence/TABLES.md	+0.0043	results/EXP-Q-001/sealed-analysis.json	0.00429039	MATCH
+EXP-B-006 R1-test candidate vs E0 delta	docs/experiments/EXP-B-006.md	-0.0028	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.0027785	MATCH
+EXP-B-006 R1-test candidate vs E0 CI low	docs/experiments/EXP-B-006.md	-0.0078	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.00783178	MATCH
+EXP-B-006 R1-test candidate vs E0 CI high	docs/experiments/EXP-B-006.md	+0.0013	results/EXP-B-006/r1-v1-test__release-check__report.json	0.00125371	MATCH
+EXP-B-006 R1-test candidate vs E0 harmed	docs/experiments/EXP-B-006.md	0.113	results/EXP-B-006/r1-v1-test__release-check__report.json	0.112637	MATCH
+EXP-B-006 R1-test candidate vs E0 helped	docs/experiments/EXP-B-006.md	0.132	results/EXP-B-006/r1-v1-test__release-check__report.json	0.131868	MATCH
+EXP-B-006 R1-test candidate - rr-v1 delta	docs/experiments/EXP-B-006.md	-0.0003	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.000322586	MATCH
+EXP-B-006 R1-test candidate - rr-v1 CI low	docs/experiments/EXP-B-006.md	-0.0019	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.00189965	MATCH
+EXP-B-006 R1-test candidate - rr-v1 CI high	docs/experiments/EXP-B-006.md	+0.0008	results/EXP-B-006/r1-v1-test__release-check__report.json	0.00082495	MATCH
+EXP-B-006 R1-test candidate - rr-v1 harmed	docs/experiments/EXP-B-006.md	0.053	results/EXP-B-006/r1-v1-test__release-check__report.json	0.0525903	MATCH
+EXP-B-006 R1-test candidate - rr-v1 helped	docs/experiments/EXP-B-006.md	0.100	results/EXP-B-006/r1-v1-test__release-check__report.json	0.100471	MATCH
+EXP-B-006 R1-test rr-v1 vs E0 delta	docs/experiments/EXP-B-006.md	-0.0025	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.00245592	MATCH
+EXP-B-006 R1-test rr-v1 vs E0 CI low	docs/experiments/EXP-B-006.md	-0.0070	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.00699739	MATCH
+EXP-B-006 R1-test rr-v1 vs E0 CI high	docs/experiments/EXP-B-006.md	+0.0013	results/EXP-B-006/r1-v1-test__release-check__report.json	0.00133146	MATCH
+EXP-B-006 R1-test rr-v1 vs E0 harmed	docs/experiments/EXP-B-006.md	0.090	results/EXP-B-006/r1-v1-test__release-check__report.json	0.0898744	MATCH
+EXP-B-006 R1-test rr-v1 vs E0 helped	docs/experiments/EXP-B-006.md	0.063	results/EXP-B-006/r1-v1-test__release-check__report.json	0.0631868	MATCH
+EXP-B-006 R1-test usable-onset delta	docs/experiments/EXP-B-006.md	-0.0006	results/EXP-B-006/r1-v1-test__release-check__report.json	-0.000627443	MATCH
+EXP-B-006 R1-test cases	docs/experiments/EXP-B-006.md	2548	results/EXP-B-006/r1-v1-test__release-check__report.json	2548	MATCH
+EXP-B-006 R1-test usable onset	docs/experiments/EXP-B-006.md	1310	results/EXP-B-006/r1-v1-test__release-check__report.json	1310	MATCH
+EXP-V-001 patients	docs/experiments/EXP-V-001.md	1771	results/EXP-V-001/r1-v1-vault__final-report__report.json	1771	MATCH
+EXP-V-001 publications	docs/experiments/EXP-V-001.md	352	results/EXP-V-001/r1-v1-vault__final-report__report.json	352	MATCH
+EXP-V-001 usable onset	docs/experiments/EXP-V-001.md	969	results/EXP-V-001/r1-v1-vault__final-report__report.json	969	MATCH
+EXP-V-001 E0 MRR	docs/experiments/EXP-V-001.md	0.4136	results/EXP-V-001/r1-v1-vault__final-report__report.json	0.413628	MATCH
+EXP-V-001 rerank-v1.0.0 MRR	docs/experiments/EXP-V-001.md	0.4114	results/EXP-V-001/r1-v1-vault__final-report__report.json	0.411413	MATCH
+EXP-V-001 rerank-v1.1.0 MRR	docs/experiments/EXP-V-001.md	0.4106	results/EXP-V-001/r1-v1-vault__final-report__report.json	0.410573	MATCH
+EXP-V-001 v1.1 vs E0 delta	docs/experiments/EXP-V-001.md	-0.0031	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00305494	MATCH
+EXP-V-001 v1.1 vs E0 CI low	docs/experiments/EXP-V-001.md	-0.0055	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00550712	MATCH
+EXP-V-001 v1.1 vs E0 CI high	docs/experiments/EXP-V-001.md	-0.0005	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00052606	MATCH
+EXP-V-001 v1.0 vs E0 delta	docs/experiments/EXP-V-001.md	-0.0022	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00221439	MATCH
+EXP-V-001 v1.0 vs E0 CI low	docs/experiments/EXP-V-001.md	-0.0046	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00457271	MATCH
+EXP-V-001 v1.0 vs E0 CI high	docs/experiments/EXP-V-001.md	+0.0002	results/EXP-V-001/r1-v1-vault__final-report__report.json	0.000162722	MATCH
+EXP-V-001 v1.1 - v1.0 delta	docs/experiments/EXP-V-001.md	-0.0008	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.000840544	MATCH
+EXP-V-001 v1.1 - v1.0 CI low	docs/experiments/EXP-V-001.md	-0.0023	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00233988	MATCH
+EXP-V-001 v1.1 - v1.0 CI high	docs/experiments/EXP-V-001.md	+0.0004	results/EXP-V-001/r1-v1-vault__final-report__report.json	0.000420394	MATCH
+EXP-V-001 usable-onset v1.1-v1.0 delta	docs/experiments/EXP-V-001.md	-0.0015	results/EXP-V-001/r1-v1-vault__final-report__report.json	-0.00153623	MATCH
 ADR-0012 correction: V03 half A terms per case (8.42)	docs/decisions/0012-data-quality-gate.md	8.42	results/realism/v0.3-baseline.json	8.42448	MATCH
 ADR-0012 correction: V03-full terms per case (10.21)	docs/decisions/0012-data-quality-gate.md	10.21	results/realism/v0.3-full-baseline.json	10.2052	MATCH
 ADR-0012 correction: V03-full p10	docs/decisions/0012-data-quality-gate.md	4	results/realism/v0.3-full-baseline.json	4	MATCH

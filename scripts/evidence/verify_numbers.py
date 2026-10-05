@@ -804,6 +804,49 @@ def corrections():
     add("ADR-0012 correction: R1-train p90", adr, "17", full, pct["r1_train"]["percentiles"]["90"])
 
 
+def exp_b006_v001():
+    doc = "docs/evidence/TABLES.md"
+    q = "results/EXP-Q-001/sealed-analysis.json"
+    s1 = load(q)["S1"]["paired_Q2b_minus_Q1"]
+    for k, p, val in [("delta", "+0.0017", s1["delta"]), ("CI low", "-0.0006", s1["ci95"][0]), ("CI high", "+0.0043", s1["ci95"][1])]:
+        add(f"EXP-Q-001 S1 Q2b-Q1 {k}", doc, p, q, val)
+    doc = "docs/experiments/EXP-B-006.md"
+    f = "results/EXP-B-006/r1-v1-test__release-check__report.json"
+    d = load(f)
+    g = d["given"]
+    for name, key, rows in [
+        ("candidate vs E0", "candidate_vs_e0", ("-0.0028", "-0.0078", "+0.0013", "0.113", "0.132")),
+        ("candidate - rr-v1", "candidate_vs_rr_v1", ("-0.0003", "-0.0019", "+0.0008", "0.053", "0.100")),
+        ("rr-v1 vs E0", "rr_v1_vs_e0", ("-0.0025", "-0.0070", "+0.0013", "0.090", "0.063")),
+    ]:
+        v = g[key]
+        for lbl, p, val in zip(("delta", "CI low", "CI high", "harmed", "helped"), rows, (v["delta"], v["ci95"][0], v["ci95"][1], v["harmed"], v["helped"])):
+            add(f"EXP-B-006 R1-test {name} {lbl}", doc, p, f, val)
+    v = d["descriptive"]["with_usable_onset"]["candidate_vs_rr_v1"]
+    add("EXP-B-006 R1-test usable-onset delta", doc, "-0.0006", f, v["delta"])
+    add("EXP-B-006 R1-test cases", doc, 2548, f, d["cases"])
+    add("EXP-B-006 R1-test usable onset", doc, 1310, f, d["cases_with_usable_onset"])
+    doc = "docs/experiments/EXP-V-001.md"
+    f = "results/EXP-V-001/r1-v1-vault__final-report__report.json"
+    d = load(f)
+    add("EXP-V-001 patients", doc, 1771, f, d["cases"])
+    add("EXP-V-001 publications", doc, 352, f, d["publications"])
+    add("EXP-V-001 usable onset", doc, 969, f, d["cases_with_usable_onset"])
+    v = d["views"]["given"]
+    for sysn, p in [("E0", "0.4136"), ("rerank-v1.0.0", "0.4114"), ("rerank-v1.1.0", "0.4106")]:
+        add(f"EXP-V-001 {sysn} MRR", doc, p, f, v["systems"][sysn]["mrr"])
+    for name, key, rows in [
+        ("v1.1 vs E0", "v1.1_vs_E0", ("-0.0031", "-0.0055", "-0.0005")),
+        ("v1.0 vs E0", "v1.0_vs_E0", ("-0.0022", "-0.0046", "+0.0002")),
+        ("v1.1 - v1.0", "v1.1_minus_v1.0", ("-0.0008", "-0.0023", "+0.0004")),
+    ]:
+        c = v["contrasts"][key]["mrr"]
+        for lbl, p, val in zip(("delta", "CI low", "CI high"), rows, (c["delta"], c["ci95"][0], c["ci95"][1])):
+            add(f"EXP-V-001 {name} {lbl}", doc, p, f, val)
+    c = d["onset_subset"]["with_usable_onset"]["contrasts"]["v1.1_minus_v1.0"]["mrr"]
+    add("EXP-V-001 usable-onset v1.1-v1.0 delta", doc, "-0.0015", f, c["delta"])
+
+
 def verdict(printed: str, value) -> str:
     if printed == str(value) and len(printed) == 64:
         return "MATCH"
@@ -834,6 +877,7 @@ def main() -> None:
         exp_b004,
         exp_q001,
         exp_b005,
+        exp_b006_v001,
         corrections,
     ):
         try:
