@@ -2,7 +2,11 @@
 
 import random
 
-from diagnostic_ar_training.gnn import data, interviewed
+import pytest
+
+pytest.importorskip("torch")
+
+from diagnostic_ar_training.gnn import data, interviewed  # noqa: E402
 
 
 def rows():

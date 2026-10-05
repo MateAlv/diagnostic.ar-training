@@ -1,0 +1,67 @@
+{
+  "artifact_id": "results-EXP-B-006-s3-v3b-dev-session",
+  "kind": "onset-session",
+  "created_at": "2026-10-04T19:55:51+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5e35051316023907bbc14670175be12ff815445b",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v6",
+      "sha256": "a7dc86f95f6f96b7398bab9038d281d1f4b645464b1128fa3db9a9c6f6c64a48"
+    },
+    {
+      "id": "artifact:s3-data-v3b",
+      "sha256": "0b9319f8b139f79d3121208f1cd491905c855401144c22805a89a6286101eb47"
+    },
+    {
+      "id": "artifact:s3-data-v3b-excl-v1",
+      "sha256": "75c539ce07db797ba5905b07ee0f79335739c1fa67d60498131f826c740de920"
+    },
+    {
+      "id": "split:s3-v3b",
+      "sha256": "e1d44d93c912e0784ebf7e3b1e0029aa67b15719281495f0b178f8cc2d3c5be2"
+    },
+    {
+      "id": "file:arms",
+      "sha256": "906cbc7112b6d741a4c31884e6ce63766682534c51c56e9041d25764127de76d"
+    }
+  ],
+  "params": {
+    "split": "s3-v3b/dev",
+    "lam": 0.6,
+    "arms": [
+      "rr-v1",
+      "rr-v1+onset0.25"
+    ],
+    "cases": 4562,
+    "r1_dev": true
+  },
+  "params_hash": "96dfd7205e0645a540687cfc51ec51a3b3cccd3ed4326482fef1bbf2740340f5",
+  "outputs": [
+    {
+      "path": "results/EXP-B-006/dev/interviews.jsonl.gz",
+      "sha256": "014fc5508d626bee0cf854a6d1688dfff7303651645b37313d118406cae2797f",
+      "bytes": 489934
+    },
+    {
+      "path": "results/EXP-B-006/dev/ranks.tsv.gz",
+      "sha256": "4d5dd996f86508ec0a62222069ebb4d82f1aca349a5a6e0ede5102cfb36dcc53",
+      "bytes": 36938
+    },
+    {
+      "path": "results/EXP-B-006/dev/r1dev.json",
+      "sha256": "b7a58d260755046ed18a8cba6ffdc466aa1cce5cf902c4d3f97e5db8e3ec6a09",
+      "bytes": 586
+    },
+    {
+      "path": "results/EXP-B-006/dev/session.json",
+      "sha256": "dab68533d7e3b728c9588cf676a50e03da18747dffd0a23583795fd9679638ff",
+      "bytes": 1242
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
