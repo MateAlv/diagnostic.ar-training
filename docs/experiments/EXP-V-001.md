@@ -2,7 +2,7 @@
 
 - **Front:** B
 - **Registered:** 2026-10-05, by Mateo Alvarez (the one vault read approved 2026-10-05; written by the assistant)
-- **Status:** pre-registered, vault read not done.
+- **Status:** completed 2026-10-05: the one vault read is done (see Results). Status at registration: pre-registered, vault read not done.
 - **Governing rules:** EVAL_PROTOCOL §2 ("the vault opens once for the whole project, at the end, to report the final
   chosen system and E0 side by side"), §6 (reporting), EXP-B-003 and EXP-B-006 (metrics and views).
 
@@ -114,9 +114,37 @@ bands is reported as it is, with no re-reading and no change to the release deci
 - MCRD and DDD carry neither excluded terms nor onset, so both re-rankers equal E0 there; not read.
 
 ## Results
-(filled after the read)
+Vault read 2026-10-05T16:55:13Z, ledger row `r1-v1/vault | EXP-V-001 | ff95c1f11d35`, pre-registered at d276321.
+Report: `results/EXP-V-001/r1-v1-vault__final-report__report.json`. 1,771 patients (352 publications), 969 with
+usable onset. Descriptive only.
+
+| System (given view) | MRR [95% CI] | top-1 | top-10 | top-100 |
+|---|---|---|---|---|
+| E0 | 0.4136 [0.3364, 0.4946] | 0.3478 | 0.5505 | 0.6821 |
+| rerank-v1.0.0 | 0.4114 [0.3353, 0.4917] | 0.3478 | 0.5421 | 0.6810 |
+| rerank-v1.1.0 | 0.4106 [0.3346, 0.4910] | 0.3467 | 0.5370 | 0.6821 |
+
+| Contrast (given view) | Δ MRR [95% CI] | harmed | helped |
+|---|---|---|---|
+| rerank-v1.1.0 vs E0 | **−0.0031 [−0.0055, −0.0005]** | 11.9% | 6.9% |
+| rerank-v1.0.0 vs E0 | −0.0022 [−0.0046, +0.0002] | 9.7% | 5.6% |
+| rerank-v1.1.0 − rerank-v1.0.0 | −0.0008 [−0.0023, +0.0004] | 4.7% | 4.2% |
+| v1.1 − v1.0, cases with usable onset (969) | −0.0015 [−0.0042, +0.0009] | 8.7% | 7.6% |
+| v1.1 − v1.0, cases without usable onset (802) | 0 (identical) | 0 | 0 |
+
+Present view: every system equals E0 exactly (all contrasts 0), as expected.
+
+Against the expectations: the present view and v1.1 − v1.0 are as expected. **rerank-v1.1.0 vs E0 came out with a
+CI that excludes 0** (expected to include it): on the vault's real patients, re-ranking with their
+publication-reported negatives and onset is slightly worse than E0 (−0.0031 MRR; top-10 0.5505 → 0.5370).
+rerank-v1.0.0 vs E0 is in the same direction, with its CI just including 0.
 
 ## Verdict
-(filled after the read: descriptive only; no release decision depends on it)
+Descriptive, not a gate. On R1's untouched vault, neither re-ranker improves on E0 for real patients, and
+`rerank-v1.1.0` is slightly but measurably worse (−0.0031 [−0.0055, −0.0005]). Context, declared before the read: R1's
+excluded terms are negatives reported in publications, not interview "no" answers, which is the only input
+production sends (EXP-B-003); the re-rankers' positive evidence is simulated only (S3). By this experiment's rules,
+the result does not change a release decision; whether to tag `rerank-v1.1.0`, which still needs Mateo's explicit OK,
+is his call with this number in view.
 
 ## Addenda
