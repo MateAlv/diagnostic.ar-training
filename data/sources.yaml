@@ -35,6 +35,15 @@ hpo_annotations:
   local_candidates:
     - ../diagnostic.ar-model/data/raw/hpo/phenotype.hpoa
 
+hpo_annotations_2025_11_24:
+  role: knowledge
+  version: "2025-11-24"
+  filename: phenotype.hpoa
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2025-11-24/phenotype.hpoa
+  sha256: 1f161ec53897d54abc87a817cf08e722dfddbf34d4eb9bba74f260b074451aad
+  license: HPO license (free use with attribution)
+  notes: The HPO annotation release E0 (v3.0) was trained on. Used only to mark publications E0 could have seen (ADR-0017); never a KB input.
+
 hpo_genes_to_disease:
   role: knowledge
   version: "2026-02-16"
@@ -78,6 +87,15 @@ phenopacket_store:
   notes: 10,377 published patients with sex, age, onset and excluded features. Split by publication (data/splits/r1-v1.json).
   local_candidates:
     - /home/mate/diagnostic.ar/qa-agente-claude/data/phenopacket-store/0.1.27/all_phenopackets.zip
+
+phenopacket_store_0_1_25:
+  role: knowledge
+  version: "0.1.25"
+  filename: all_phenopackets.zip
+  url: https://github.com/monarch-initiative/phenopacket-store/releases/download/0.1.25/all_phenopackets.zip
+  sha256: 27ad6b989b3922e68ad0a0f40bd969f9d6ec66294e44a87d0a8fb5a9faea2362
+  license: CC-BY-4.0
+  notes: Release of 2025-08-04, the last before E0's training annotations. Used only for the publication ids it contains, to mark publications released after it (ADR-0017); its patients are never loaded.
 
 mcrd:
   role: eval
