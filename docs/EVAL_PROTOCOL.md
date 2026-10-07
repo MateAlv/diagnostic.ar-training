@@ -294,3 +294,22 @@ simulator or to dev.
 8. **Front B stays on production's output.** Front B systems consume the
    `genphenia_v3` ONNX distribution; they never use GinV3 or retrained
    weights (Mateo, 2026-09-29).
+
+## 10. Phase 2: real-patient restart (ADR-0017)
+
+Phase 2 keeps every rule above. It adds new parts and does not change `r1-v1`.
+
+| Part | What | Access |
+|---|---|---|
+| `p2-v1` train / dev | `r1-v1` train / dev (5,986 patients) | free: fit on train, select on dev |
+| `p2-v1` test (confirmation) | `r1-v1` test and vault publication groups that are not post-E0 | sealed; one pre-registered read per candidate; at most 3 in Phase 2 |
+| `p2-v1` vault (final check, R1 part) | `r1-v1` test and vault groups that are post-E0 | sealed; opens once |
+| `p2-fresh-v1` vault (final check, fresh part) | phenopacket-store `main` at 2026-10-20: patients not in 0.1.27, post-E0, uncited in HPO 2026-02-16 | sealed; opens once, in the same read as `p2-v1` vault |
+
+- **Post-E0 [code]:** no PMID of the publication group is in phenopacket-store 0.1.25, and none is cited in HPO
+  2025-11-24, the annotations E0 was trained on.
+- **No simulated claims.** Phase 2 claims come from real patients only.
+- **Learned candidates use gene-agnostic features.** Per-gene patient statistics from R1-train lowered R1-dev
+  (P2-PROBES-v1 §3).
+- **Curation is one-way.** It may only make a knowledge rule more conservative.
+- **Experiment ids are `EXP-P-NNN`.** Gates are in [PHASE2.md](PHASE2.md) and are repeated in each pre-registration.

@@ -60,6 +60,10 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 
 Final decisions: [ADR-0016](docs/decisions/0016-final-deployment-and-close-out.md).
 
+**Phase 2 (from 2026-10-07):** a restart on real patients toward a pre-registered gain from sex, age, onset and
+absent symptoms, with a final check on publications GenPhenAI never saw: [docs/PHASE2.md](docs/PHASE2.md),
+[ADR-0017](docs/decisions/0017-phase-2-real-patient-restart.md).
+
 **Start here:** [`docs/INDEX.md`](docs/INDEX.md).
 
 ## Quickstart

@@ -4082,3 +4082,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Production handoff for Q2b with the re-ranking off: diagnostic.ar-model PR #10.
 - Onset shown in the doctor's output: MateAlv/diagnostic.ar PR #95 (2c3ce11).
 - Docs wording pass and data-limitations section: training #118 and #119, model #9, informe #4.
+
+## 2026-10-07: Phase 2 starts, a restart on real patients (ADR-0017)
+- **Decision (Mateo):** restart the model work to reach a real gain from sex, age, onset and absent symptoms, as the
+  anteproyecto promises. A small, guaranteed gain comes first. ADR-0016's "no more model experiments" is superseded;
+  its deployment decisions stand. Mateo approved the plan in [PHASE2.md](PHASE2.md) and asked for a final check with
+  more than 400 patients, from publications GenPhenAI never saw.
+- **Probes, P2-PROBES-v1:** R1 train + dev, 5,986 patients; 33 configurations, all logged in
+  [analyses/P2-PROBES-v1.md](analyses/P2-PROBES-v1.md). Code `scripts/analysis/p2_probes.py` at `4772852`; outputs in
+  `results/analyses/P2-PROBES-v1/`.
+  - Sex + strict age/onset constraints: Δ MRR +0.00088 [+0.00039, +0.00151], 493 helped, 0 harmed.
+  - Obligate negation ×0.1: +0.00067 [+0.00012, +0.00129], 6 harmed.
+  - Lenient onset rules, which use incomplete onset data, harm 25 to 86 patients.
+  - Per-gene sex and age priors learned on R1-train lower R1-dev (sex, w 1: −0.00497 [−0.01074, −0.00038]).
+  - E0's MRR is 0.612 on publications cited in its training annotations (HPO 2025-11-24) and 0.066 on post-E0
+    publications, where 52% of genes are in its vocabulary.
+- **Sources pinned:** `phenopacket_store_0_1_25` and `hpo_annotations_2025_11_24`. Both are used only to mark the
+  publications E0 could have seen.
+- **Final check defined:** `p2-v1` vault (R1 test and vault, post-E0, about 732 patients) plus `p2-fresh-v1`
+  (phenopacket-store `main` at 2026-10-20, post-E0, 349 patients on 2026-10-07).
+- **Sealed data:** no sealed patient loaded; for R1 test and vault only case ids and PMIDs were counted. No ledger row.

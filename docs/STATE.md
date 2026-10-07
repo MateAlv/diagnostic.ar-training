@@ -1,11 +1,30 @@
 # Current state (handoff snapshot)
 
-**Snapshot: 2026-10-05, close-out.** Overwritten at each checkpoint; history lives in
-[BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PLAN.md](PLAN.md),
+**Snapshot: 2026-10-07, Phase 2 started.** Overwritten at each checkpoint; history lives in
+[BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PHASE2.md](PHASE2.md), [PLAN.md](PLAN.md),
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
-Final decisions: [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
-## Summary
+## Phase 2: real-patient restart (in progress; [ADR-0017](decisions/0017-phase-2-real-patient-restart.md))
+- **Goal:** a pre-registered gain on real patients from sex, age, onset and absent symptoms over GenPhenAI v3.0 (E0).
+  Safe candidates go first.
+- **Data:** development on `p2-v1` train and dev (`r1-v1` train and dev, 5,986 patients); confirmation on `p2-v1` test
+  (about 3,587); a final check on about 1,081 patients from publications E0 never saw (`p2-v1` vault plus
+  `p2-fresh-v1`, frozen on 2026-10-20).
+- **Done (2026-10-07):**
+  - ADR-0017 and the plan;
+  - two sources pinned (phenopacket-store 0.1.25, HPO 2025-11-24);
+  - [P2-PROBES-v1](analyses/P2-PROBES-v1.md): sex + strict age/onset Δ MRR +0.00088 [+0.00039, +0.00151] with 0 harmed
+    on R1 train + dev; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications.
+- **Next:**
+  - `p2-v1` split code and freeze;
+  - `safe-v1` code and gene curation;
+  - EXP-P-001 pre-registration and confirmation read, around 10-11 after Mateo's go;
+  - Tracks 2 and 3 on dev.
+- **Phase 2 sealed budget:**
+  - `p2-v1` test: 0 of 3 confirmation reads used.
+  - Final check: not read.
+
+## Phase 1 summary (closed 2026-10-05; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))
 
 ### What was built
 - **Question agent with Q2b selection** (`diagnosticar-question-agent`, `feat/agente-v2`): enriches each case with
@@ -81,12 +100,13 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 - informe draft to the director: **2026-10-15**;
 - informe delivery: **2026-11-01**. The project plan's end date stays **2026-11-07** (PLAN.md).
 
-## Sealed-data budget (all spent)
+## Phase 1 sealed-data budget (all spent)
 - R1-dev realism reads: 3 of 3 used ([ledger](../results/realism/LEDGER.md)).
 - R1-test: read by EXP-000, EXP-B-003 and EXP-B-006. R1-vault: read once, by EXP-V-001.
 - Every sealed read is in [TEST_LEDGER.md](TEST_LEDGER.md).
 
 ## Open items for Mateo
+- Phase 2: a "go" before each sealed read; spot-check 20 curated genes; approval before anything goes to production.
 - Hand `docs/HANDOFF-deploy-prod-q2b.md` (diagnostic.ar-model) to the deploy agent for the production rollout.
 - The GeneReviews permission email (Mateo is sending it; not blocking).
 - Informe: written by the students; this repo only supplies evidence.
@@ -102,4 +122,5 @@ We lack the data to test or simulate, correctly, whether these changes improve o
   before reading them.
 - `pkill -f` can match your own shell; kill by exact PID.
 - Worktree agents push with `PYTHONPATH=<worktree>/src`.
-- Disk is tight (about 11 GB free on `/` at last check).
+- Disk: about 43 GB free on `/` (2026-10-06). Heavy data lives on `/mnt/windows/tp-data` through symlinks.
+- Agents work in their own worktrees; a worktree is removed once its PR is merged.
