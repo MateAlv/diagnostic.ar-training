@@ -1,0 +1,39 @@
+{
+  "artifact_id": "curation-queue-safe-kb-v1a",
+  "kind": "safe-curation-queue",
+  "created_at": "2026-10-07T23:38:44+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "5fa0572cf4bf972906dc573b2bfd048776120364",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:safe-kb-v1a",
+      "sha256": "df17d50fc4cc7876942cbaedb216791bf581a921331ef439dea9caac91ed7ce5"
+    },
+    {
+      "id": "source:genereviews@2026-10-01",
+      "sha256": "5cb3378e5e67be2628fea27c453f2febcaf680f0a18ce6a9a90e059d1b988015"
+    },
+    {
+      "id": "source:medlineplus_genetics@2026-10-01",
+      "sha256": "8b5c979b9ff3a2c124603591f9188d4cb714560d00ff343242262328afe57e94"
+    }
+  ],
+  "params": {
+    "kb": "safe-kb-v1a",
+    "onset_min_years": 1.0,
+    "match": "case-sensitive symbol token"
+  },
+  "params_hash": "4f79fb25d9788d277edb3eaec616d261768a64431a8d0d6fa92a4118672bada2",
+  "outputs": [
+    {
+      "path": "results/P2/safe-kb-v1a/curation_queue.csv",
+      "sha256": "c2836449d0a8153dd440ddfd725cdaf10fc80b81d4be6db69ee77cd1209c3a6a",
+      "bytes": 182065
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
