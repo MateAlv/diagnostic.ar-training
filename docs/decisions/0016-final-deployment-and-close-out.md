@@ -1,6 +1,6 @@
 # ADR-0016: Final deployment and close-out of the model experiments
 
-- **Status:** Accepted, 2026-10-05 (Mateo).
+- **Status:** Accepted, 2026-10-05 (Mateo). Decision 3 (no more model experiments) superseded by [ADR-0017](0017-phase-2-real-patient-restart.md) on 2026-10-07.
 - **Context:**
   - Front B's three candidates are decided: `rerank-v1.0.0` (EXP-B-003), the
     sex/age and onset variants (EXP-B-004, EXP-B-005) and `rerank-v1.1.0`

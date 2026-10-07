@@ -1,0 +1,529 @@
+{
+ "code_commit": "47728525c2584b26d74d5c8c31cd0d75dbfe532d",
+ "cases": 5986,
+ "publication_groups": 1030,
+ "e0_mrr": 0.4423833380382101,
+ "male_limited_genes": 100,
+ "female_limited_genes": 41,
+ "genes_with_strict_onset": 2786,
+ "strict_onset_at_least_years": {
+  "1": 596,
+  "5": 296,
+  "10": 240,
+  "16": 192,
+  "40": 7
+ },
+ "configs": {
+  "sex_hard": {
+   "n": 5986,
+   "helped": 187,
+   "harmed": 0,
+   "helped_publications": 48,
+   "delta_mrr": 1.9233473460339066e-06,
+   "ci95": [
+    1.9398198425960323e-07,
+    4.742391128024426e-06
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "age_lenient_m0": {
+   "n": 5986,
+   "helped": 248,
+   "harmed": 60,
+   "helped_publications": 113,
+   "delta_mrr": -0.002559755795967209,
+   "ci95": [
+    -0.00507297737116067,
+    -0.0008053705290629336
+   ],
+   "top10_entered": 1,
+   "top10_left": 20
+  },
+  "onset_lenient_m0": {
+   "n": 5986,
+   "helped": 318,
+   "harmed": 86,
+   "helped_publications": 115,
+   "delta_mrr": -0.006376119646101572,
+   "ci95": [
+    -0.012276105183702528,
+    -0.002298783179357744
+   ],
+   "top10_entered": 5,
+   "top10_left": 48
+  },
+  "age_lenient_m2": {
+   "n": 5986,
+   "helped": 205,
+   "harmed": 41,
+   "helped_publications": 94,
+   "delta_mrr": -0.0011546804997360164,
+   "ci95": [
+    -0.002350573295189774,
+    -0.00024655430243561297
+   ],
+   "top10_entered": 0,
+   "top10_left": 10
+  },
+  "onset_lenient_m2": {
+   "n": 5986,
+   "helped": 265,
+   "harmed": 29,
+   "helped_publications": 90,
+   "delta_mrr": -0.0013636786564196089,
+   "ci95": [
+    -0.002738083743909693,
+    -0.0003559245659575394
+   ],
+   "top10_entered": 3,
+   "top10_left": 13
+  },
+  "age_lenient_m5": {
+   "n": 5986,
+   "helped": 176,
+   "harmed": 31,
+   "helped_publications": 84,
+   "delta_mrr": -0.0003511159860478926,
+   "ci95": [
+    -0.0009606485021387962,
+    9.21796268299071e-05
+   ],
+   "top10_entered": 0,
+   "top10_left": 4
+  },
+  "onset_lenient_m5": {
+   "n": 5986,
+   "helped": 240,
+   "harmed": 25,
+   "helped_publications": 80,
+   "delta_mrr": -0.0007145622950078882,
+   "ci95": [
+    -0.0017277104898444022,
+    3.338732602812661e-05
+   ],
+   "top10_entered": 2,
+   "top10_left": 9
+  },
+  "age_strict_m0": {
+   "n": 5986,
+   "helped": 237,
+   "harmed": 0,
+   "helped_publications": 100,
+   "delta_mrr": 0.00043055829853333704,
+   "ci95": [
+    0.0001355257018695076,
+    0.0007944540935889618
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "onset_strict_m0": {
+   "n": 5986,
+   "helped": 296,
+   "harmed": 0,
+   "helped_publications": 102,
+   "delta_mrr": 0.0006463575516880926,
+   "ci95": [
+    0.00021620278580542445,
+    0.0012230211948164147
+   ],
+   "top10_entered": 3,
+   "top10_left": 0
+  },
+  "age_strict_m2": {
+   "n": 5986,
+   "helped": 189,
+   "harmed": 0,
+   "helped_publications": 78,
+   "delta_mrr": 0.00025967203126592026,
+   "ci95": [
+    1.9179315146383328e-05,
+    0.0005739498085510143
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "onset_strict_m2": {
+   "n": 5986,
+   "helped": 228,
+   "harmed": 0,
+   "helped_publications": 73,
+   "delta_mrr": 0.00025749406131523114,
+   "ci95": [
+    5.5622029865609e-05,
+    0.0005514749738600226
+   ],
+   "top10_entered": 2,
+   "top10_left": 0
+  },
+  "age_strict_m5": {
+   "n": 5986,
+   "helped": 165,
+   "harmed": 0,
+   "helped_publications": 71,
+   "delta_mrr": 0.00016395774350093316,
+   "ci95": [
+    1.0669213527539389e-05,
+    0.000397970344220827
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "onset_strict_m5": {
+   "n": 5986,
+   "helped": 203,
+   "harmed": 0,
+   "helped_publications": 63,
+   "delta_mrr": 0.00024304082450044037,
+   "ci95": [
+    4.3766197384814914e-05,
+    0.0005338745113865879
+   ],
+   "top10_entered": 1,
+   "top10_left": 0
+  },
+  "neg_obligate_hard": {
+   "n": 5986,
+   "helped": 686,
+   "harmed": 11,
+   "helped_publications": 156,
+   "delta_mrr": -0.00014446367230745786,
+   "ci95": [
+    -0.0026919184160332896,
+    0.0013492745749047253
+   ],
+   "top10_entered": 9,
+   "top10_left": 8
+  },
+  "neg_obligate_x0.3": {
+   "n": 5986,
+   "helped": 336,
+   "harmed": 5,
+   "helped_publications": 100,
+   "delta_mrr": 0.0005628733401982837,
+   "ci95": [
+    0.0001620769455568302,
+    0.001056611747034604
+   ],
+   "top10_entered": 1,
+   "top10_left": 1
+  },
+  "neg_obligate_x0.1": {
+   "n": 5986,
+   "helped": 455,
+   "harmed": 6,
+   "helped_publications": 121,
+   "delta_mrr": 0.0006717130862257062,
+   "ci95": [
+    0.00012008734089600113,
+    0.0012898449367159484
+   ],
+   "top10_entered": 6,
+   "top10_left": 1
+  },
+  "neg_obligate_x0.01": {
+   "n": 5986,
+   "helped": 577,
+   "harmed": 8,
+   "helped_publications": 137,
+   "delta_mrr": 0.0005308348194263577,
+   "ci95": [
+    -0.00042749652134762076,
+    0.0013102838345908465
+   ],
+   "top10_entered": 7,
+   "top10_left": 1
+  },
+  "age_lenient_m0_x0.3": {
+   "n": 5986,
+   "helped": 158,
+   "harmed": 44,
+   "helped_publications": 85,
+   "delta_mrr": -0.00013446879153200287,
+   "ci95": [
+    -0.0005286147921384456,
+    0.00016447212704480527
+   ],
+   "top10_entered": 0,
+   "top10_left": 2
+  },
+  "onset_lenient_m0_x0.3": {
+   "n": 5986,
+   "helped": 212,
+   "harmed": 41,
+   "helped_publications": 86,
+   "delta_mrr": 0.00017471839080779889,
+   "ci95": [
+    -0.0002487799053516797,
+    0.000694317968806354
+   ],
+   "top10_entered": 1,
+   "top10_left": 1
+  },
+  "age_lenient_m0_x0.1": {
+   "n": 5986,
+   "helped": 188,
+   "harmed": 45,
+   "helped_publications": 94,
+   "delta_mrr": -2.922292462473986e-05,
+   "ci95": [
+    -0.0005554073847407985,
+    0.00042212634278394277
+   ],
+   "top10_entered": 1,
+   "top10_left": 2
+  },
+  "onset_lenient_m0_x0.1": {
+   "n": 5986,
+   "helped": 250,
+   "harmed": 45,
+   "helped_publications": 97,
+   "delta_mrr": 0.00029065096166964256,
+   "ci95": [
+    -0.00025496407241322304,
+    0.0009554717031630232
+   ],
+   "top10_entered": 3,
+   "top10_left": 2
+  },
+  "xlinked_f0.5_m1.0": {
+   "n": 5986,
+   "helped": 349,
+   "harmed": 10,
+   "helped_publications": 125,
+   "delta_mrr": 0.0002493242548166509,
+   "ci95": [
+    -0.00017475326728480959,
+    0.0006290665377113571
+   ],
+   "top10_entered": 2,
+   "top10_left": 0
+  },
+  "xlinked_f0.3_m1.0": {
+   "n": 5986,
+   "helped": 433,
+   "harmed": 12,
+   "helped_publications": 159,
+   "delta_mrr": 0.00017278964785714257,
+   "ci95": [
+    -0.00047476233293807115,
+    0.0006812682473024494
+   ],
+   "top10_entered": 2,
+   "top10_left": 2
+  },
+  "xlinked_f0.1_m1.0": {
+   "n": 5986,
+   "helped": 538,
+   "harmed": 14,
+   "helped_publications": 194,
+   "delta_mrr": 0.0001353055235443634,
+   "ci95": [
+    -0.0006068417022975559,
+    0.0007505094212505052
+   ],
+   "top10_entered": 3,
+   "top10_left": 2
+  },
+  "xlinked_f1.0_m0.5": {
+   "n": 5986,
+   "helped": 126,
+   "harmed": 0,
+   "helped_publications": 63,
+   "delta_mrr": 4.37658708701088e-05,
+   "ci95": [
+    8.405139742127063e-06,
+    0.00010753294914932282
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "xlinked_f0.3_m0.5": {
+   "n": 5986,
+   "helped": 559,
+   "harmed": 12,
+   "helped_publications": 181,
+   "delta_mrr": 0.0002165555187272514,
+   "ci95": [
+    -0.0004359134337658558,
+    0.0007213848416888346
+   ],
+   "top10_entered": 2,
+   "top10_left": 2
+  },
+  "learned_sex_w0.5_dev": {
+   "n": 1883,
+   "helped": 115,
+   "harmed": 144,
+   "helped_publications": 52,
+   "delta_mrr": -0.0029720614105835453,
+   "ci95": [
+    -0.008141779386059214,
+    0.0009790215512088675
+   ],
+   "top10_entered": 1,
+   "top10_left": 2
+  },
+  "learned_ageband_w0.5_dev": {
+   "n": 1883,
+   "helped": 250,
+   "harmed": 231,
+   "helped_publications": 72,
+   "delta_mrr": -0.005340907105468608,
+   "ci95": [
+    -0.02071979950170593,
+    0.0048100153699944075
+   ],
+   "top10_entered": 14,
+   "top10_left": 22
+  },
+  "learned_onsetband_w0.5_dev": {
+   "n": 1883,
+   "helped": 105,
+   "harmed": 74,
+   "helped_publications": 40,
+   "delta_mrr": 9.286779617540985e-05,
+   "ci95": [
+    -0.0021426401200793106,
+    0.002128294573005983
+   ],
+   "top10_entered": 6,
+   "top10_left": 2
+  },
+  "learned_sex_w1.0_dev": {
+   "n": 1883,
+   "helped": 181,
+   "harmed": 214,
+   "helped_publications": 69,
+   "delta_mrr": -0.004972494460531901,
+   "ci95": [
+    -0.01073591392128283,
+    -0.00037703479645571366
+   ],
+   "top10_entered": 3,
+   "top10_left": 27
+  },
+  "learned_ageband_w1.0_dev": {
+   "n": 1883,
+   "helped": 296,
+   "harmed": 294,
+   "helped_publications": 78,
+   "delta_mrr": -0.009491549829218541,
+   "ci95": [
+    -0.034293983067414775,
+    0.006624195532170061
+   ],
+   "top10_entered": 20,
+   "top10_left": 38
+  },
+  "learned_onsetband_w1.0_dev": {
+   "n": 1883,
+   "helped": 119,
+   "harmed": 84,
+   "helped_publications": 44,
+   "delta_mrr": -1.3553732454349059e-05,
+   "ci95": [
+    -0.003770257165070112,
+    0.0031018317232875143
+   ],
+   "top10_entered": 8,
+   "top10_left": 7
+  },
+  "sex_hard_plus_age_onset_strict": {
+   "n": 5986,
+   "helped": 493,
+   "harmed": 0,
+   "helped_publications": 153,
+   "delta_mrr": 0.0008815263996195058,
+   "ci95": [
+    0.00039311958788966207,
+    0.001509896258270435
+   ],
+   "top10_entered": 3,
+   "top10_left": 0
+  }
+ },
+ "top10_lists": {
+  "sex_known": 5489,
+  "sex_impossible_in_top10": 9,
+  "age_known": 4934,
+  "age_impossible_in_top10": 257
+ },
+ "era_counts_by_part": {
+  "dev|<=0.1.25/E0-cited": 1232,
+  "dev|<=0.1.25/not-cited": 208,
+  "dev|post-0.1.25/E0-cited": 92,
+  "dev|post-0.1.25/not-cited": 351,
+  "test|<=0.1.25/E0-cited": 1066,
+  "test|<=0.1.25/not-cited": 929,
+  "test|post-0.1.25/E0-cited": 140,
+  "test|post-0.1.25/not-cited": 413,
+  "train|<=0.1.25/E0-cited": 1958,
+  "train|<=0.1.25/not-cited": 1006,
+  "train|post-0.1.25/E0-cited": 456,
+  "train|post-0.1.25/not-cited": 683,
+  "vault|<=0.1.25/E0-cited": 947,
+  "vault|<=0.1.25/not-cited": 260,
+  "vault|post-0.1.25/E0-cited": 245,
+  "vault|post-0.1.25/not-cited": 319
+ },
+ "e0_by_era_train_dev": {
+  "<=0.1.25/E0-cited": {
+   "n": 3190,
+   "in_vocab": 1.0,
+   "mrr": 0.6117688039426293,
+   "mrr_in_vocab": 0.6117688039426293
+  },
+  "<=0.1.25/not-cited": {
+   "n": 1214,
+   "in_vocab": 0.9703459637561779,
+   "mrr": 0.41051138604498505,
+   "mrr_in_vocab": 0.4230567255166485
+  },
+  "post-0.1.25/E0-cited": {
+   "n": 548,
+   "in_vocab": 0.541970802919708,
+   "mrr": 0.23732447007916233,
+   "mrr_in_vocab": 0.4378916148261985
+  },
+  "post-0.1.25/not-cited": {
+   "n": 1034,
+   "in_vocab": 0.5193423597678917,
+   "mrr": 0.065908650539405,
+   "mrr_in_vocab": 0.12690790439058616
+  }
+ },
+ "post_e0_train_dev": {
+  "sex_hard_plus_age_onset_strict": {
+   "n": 1034,
+   "helped": 263,
+   "harmed": 0,
+   "helped_publications": 55,
+   "delta_mrr": 9.981071662962791e-05,
+   "ci95": [
+    2.8047066817982666e-05,
+    0.00020286130616703902
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  },
+  "neg_obligate_x0.1": {
+   "n": 1034,
+   "helped": 92,
+   "harmed": 0,
+   "helped_publications": 23,
+   "delta_mrr": 3.4816489021065395e-05,
+   "ci95": [
+    2.3304897516741995e-07,
+    0.00011646275580062926
+   ],
+   "top10_entered": 0,
+   "top10_left": 0
+  }
+ },
+ "new_since_0_1_27": {
+  "new-pub/not-E0-cited": 349,
+  "new-pub/E0-cited/cited-2026-02-16": 57
+ }
+}

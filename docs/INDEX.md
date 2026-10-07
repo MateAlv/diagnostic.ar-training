@@ -7,9 +7,14 @@ and an evaluation infrastructure with sealed splits and pre-registration. Q2b go
 missing symptoms (`rerank-v1.0.0`) stays in staging only. The summary with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
 [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
+**Phase 2 (from 2026-10-07):** a restart on real patients toward a pre-registered gain from sex, age, onset and absent
+symptoms, with a final check on publications GenPhenAI never saw. Plan and status: [PHASE2.md](PHASE2.md); decision:
+[ADR-0017](decisions/0017-phase-2-real-patient-restart.md).
+
 | If you need… | Read |
 |---|---|
 | **Where things stand right now; open decisions; next steps** | [STATE.md](STATE.md) |
+| **Phase 2 plan, tracks, gates and schedule** | [PHASE2.md](PHASE2.md) |
 | The goal, the two fronts, phases and dates, guardrails | [PLAN.md](PLAN.md) |
 | What was done, when, with which numbers, and what worked or didn't | [BITACORA.md](BITACORA.md) (newest entry at the bottom) |
 | How data may flow; sources, manifests, known gaps | [DATA_LINEAGE.md](DATA_LINEAGE.md) |
@@ -44,7 +49,8 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [0013](decisions/0013-literature-enrichment.md) | Enrich profiles from GeneReviews and open-access cohorts |
 | [0014](decisions/0014-reranker-v11-and-s3-v2.md) | Re-ranker v1.1 and better questions on S3 v2 |
 | [0015](decisions/0015-onset-follow-up-s3-v3.md) | Does onset age help the re-ranker; S3 v3 and v3b |
-| [0016](decisions/0016-final-deployment-and-close-out.md) | Final deployment (Q2b + `rerank-v1.0.0`), `rerank-v1.1.0` not released, no more model experiments |
+| [0016](decisions/0016-final-deployment-and-close-out.md) | Final deployment (Q2b + `rerank-v1.0.0`), `rerank-v1.1.0` not released, no more model experiments (superseded by 0017) |
+| [0017](decisions/0017-phase-2-real-patient-restart.md) | Phase 2: restart on real patients; `p2-v1` confirmation and a post-E0 final check |
 
 ## Experiments
 
@@ -82,6 +88,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [LIT-CROSSCHECK-v1](analyses/LIT-CROSSCHECK-v1.md) | Blind re-extraction of 10% of literature rows |
 | [LIT-AUDIT-v1](analyses/LIT-AUDIT-v1.md) | Codex re-read of 98 sources: row error, recall |
 | [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md) | Which symptoms get the onset selector; dev tertiles Δ low +0.0069, mid +0.0040, high +0.0017 |
+| [P2-PROBES-v1](analyses/P2-PROBES-v1.md) | Phase 2 sizing on R1 train + dev: sex + strict onset +0.00088 [+0.00039, +0.00151], 0 harmed; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications |
 
 ## Evidence for the informe (`evidence/`)
 
@@ -116,6 +123,9 @@ Figures and data files are in `evidence/figures/` and `evidence/data/`.
 | **Onset** | Age at which a symptom (or the disease) began; the re-ranker feature of ADR-0015 and the web «Precisar» age selector |
 | **Sealed read, ledger** | One load of a sealed split under a pre-registered experiment, from a clean tree; each is a row in [TEST_LEDGER.md](TEST_LEDGER.md) |
 | **DXT_SEALED_READ** | Environment variable that must equal the experiment id for a sealed split to load; set on that one command only |
+| **Post-E0** | A publication group with no PMID in phenopacket-store 0.1.25 and none cited in HPO 2025-11-24 (E0's training annotations); ADR-0017 |
+| **p2-v1, p2-fresh-v1** | Phase 2 splits: `r1-v1` train/dev for development, R1 test+vault split into confirmation (not post-E0) and final (post-E0), plus fresh post-E0 patients from phenopacket-store `main` at 2026-10-20 |
+| **safe-v1, ltr-v1, ft-v1** | Phase 2 candidates: knowledge-only constraints; a re-ranker learned on R1-train; the fine-tuned GNN |
 
 ## Related locations
 
