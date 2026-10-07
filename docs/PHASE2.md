@@ -39,6 +39,15 @@ is a success when it is real; safe candidates go first.
   (`results/P2/safe-kb-v1a/curation_queue.csv`). Dry run vs E0: dev +0.00196 [−0.00002, +0.00392], 3 harmed
   (0.16%); train −0.00004 [−0.00132, +0.00095], 28 harmed (0.68%). Per rule and subset in
   [BITACORA.md](BITACORA.md) (2026-10-07).
+- **Open before pre-registration (decided on dev, logged):**
+  - **Onset as a hard block can bury a correct gene.** On dev, one TRIM63 patient went from rank 1 to 5,028: the
+    disease's juvenile-onset row cites the patient's own paper, which is masked, and the remaining row says middle
+    age. Tomorrow's dev comparison: onset ×0.1 and ×0.01 instead of the hard block. The choice is made for a bounded
+    worst case, not for the dev Δ.
+  - **Negation on train harms 31 patients.** For 24 of them the obligate row cites the patient's own train paper,
+    which the held-out mask keeps. Dev, where the patient's paper is masked: +0.00146 [+0.00014, +0.00309], 2 harmed.
+  - **Curation scope.** GeneReviews can cite held-out papers, so evidence that cites a held-out PMID must not be
+    used. Tomorrow's decision: curate only the 141 sex genes, or all 756 with that guard.
 
 ### Track 2: `ltr-v1`, a re-ranker learned on real patients
 - **Model:** a LightGBM ranker over E0's top 100, fitted on `p2-v1` train and selected on dev, with at most 20
@@ -72,7 +81,8 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | Date | Step | Status |
 |---|---|---|
 | 10-07 | ADR-0017, P2-PROBES-v1, sources pinned | done |
-| 10-07 to 10-09 | `p2-v1` split code and freeze; `safe-v1` code; gene curation | in progress |
+| 10-07 | `p2-v1` split code and freeze (#122); `safe-v1` code, `safe-kb-v1a`, dev dry run (#123) | done |
+| 10-08 to 10-09 | Track 1 onset form (dev), gene curation, `safe-kb-v1` | next |
 | 10-10 | `safe-v1` on dev; pre-register EXP-P-001; independent review | planned |
 | 10-11 | EXP-P-001 confirmation read, after Mateo's go | planned |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |

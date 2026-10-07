@@ -4208,3 +4208,18 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Outputs:** `results/EXP-P-001/r1-v1-{dev,train}__*` (ranks of E0 and the four variants, report), manifests
   `results-EXP-P-001-r1-v1-{dev,train}-safe-v1-safe-kb-v1a`. `dxt lineage verify`: ok.
 - **Sealed data:** none loaded; no ledger row; `DXT_SEALED_READ` never set.
+
+## 2026-10-07 (night): checkpoint, Phase 2 day 1
+- **Merged:** #121 (ADR-0017, plan, P2-PROBES-v1), #122 (`p2-v1` frozen, `p2-fresh-v1` builder, EXP-P ids) and #123
+  (`safe-v1`, `safe-kb-v1a`, dev dry run, curation queue). The Track 1 PR had a doc conflict with #122 (BITACORA and
+  DATA_LINEAGE); both sides were kept, and the `safe-v1` knowledge section became DATA_LINEAGE §10. Agent worktrees
+  were removed after merging.
+- **Reading of the dry run:**
+  - Sex alone is safe and microscopic: 94 dev patients helped, 0 harmed.
+  - Onset as a hard block harmed one dev patient badly, through the masked juvenile-onset row of their own paper
+    (TRIM63, rank 1 → 5,028).
+  - Negation helps on dev, +0.00146 [+0.00014, +0.00309]. On train it harms where the obligate rows come from the
+    patient's own paper.
+  - Tomorrow's first step compares softer onset forms on dev. The open choices are listed in PHASE2.md, "Open before
+    pre-registration".
+- **Sealed data:** none read. Phase 2 confirmation reads used: 0 of 3.
