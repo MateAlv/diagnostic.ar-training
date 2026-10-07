@@ -11,7 +11,7 @@ from diagnostic_ar_training.lineage.registry import LineageError
 
 LEDGER = DOCS_DIR / "TEST_LEDGER.md"
 EXPERIMENTS_DIR = DOCS_DIR / "experiments"
-EXP_ID = re.compile(r"^EXP-(000|[ABV]-\d{3}|S3-\d{3})$")
+EXP_ID = re.compile(r"^EXP-(000|[ABVP]-\d{3}|S3-\d{3})$")
 SEALED_READ_ENV = "DXT_SEALED_READ"
 ROW = "| {when} | {split}/{part} | {exp} | {sha} | {reason} |\n"
 
@@ -40,7 +40,7 @@ def is_preregistered(path) -> bool:
 def record_access(split_id: str, part: str, exp_id: str, reason: str) -> None:
     """Refuses unless the experiment is pre-registered and the code is committed."""
     if not EXP_ID.match(exp_id):
-        raise LineageError(f"{exp_id!r} is not an experiment id (EXP-000, EXP-A-001, EXP-B-001, ...)")
+        raise LineageError(f"{exp_id!r} is not an experiment id (EXP-000, EXP-B-001, EXP-P-001, ...)")
     registration = EXPERIMENTS_DIR / f"{exp_id}.md"
     if not registration.exists():
         raise LineageError(

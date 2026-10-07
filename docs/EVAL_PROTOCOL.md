@@ -306,8 +306,18 @@ Phase 2 keeps every rule above. It adds new parts and does not change `r1-v1`.
 | `p2-v1` vault (final check, R1 part) | `r1-v1` test and vault groups that are post-E0 | sealed; opens once |
 | `p2-fresh-v1` vault (final check, fresh part) | phenopacket-store `main` at 2026-10-20: patients not in 0.1.27, post-E0, uncited in HPO 2026-02-16 | sealed; opens once, in the same read as `p2-v1` vault |
 
-- **Post-E0 [code]:** no PMID of the publication group is in phenopacket-store 0.1.25, and none is cited in HPO
-  2025-11-24, the annotations E0 was trained on.
+- **Post-E0 [code]:** the publication group has at least one PMID, no PMID of it is in phenopacket-store 0.1.25,
+  and none is cited in HPO 2025-11-24, the annotations E0 was trained on. A group without PMIDs is not post-E0.
+- **Splits [code]:** `splits.SPECS` builds `p2-v1` from the frozen `r1-v1` and its publication groups
+  (`data/splits/p2-v1.json`, content sha256 `b1ccdada…`). `p2-fresh-v1` is built by `dxt split freeze-fresh
+  p2-fresh-v1 --source <snapshot>` and has a single part, `vault`.
+  - In `p2-fresh-v1`, the PMID rules (in 0.1.27, post-E0, cited in HPO 2026-02-16) apply to whole publication
+    groups, formed among the patients that are new since 0.1.27 and pass the `r1-v1` parser. The split file
+    records the patients and groups excluded by each rule.
+- **Sealed reads [code]:** `p2-v1` test and vault and `p2-fresh-v1` vault use the §2 guards (`DXT_SEALED_READ`,
+  committed pre-registration, clean tree, ledger row). The ledger and the vault-opens-once rule are keyed by split
+  id, so `p2-v1/vault` and `p2-fresh-v1/vault` each open once, independently of the spent `r1-v1/vault`. The final
+  check is one experiment that loads both vaults, which writes two ledger rows.
 - **No simulated claims.** Phase 2 claims come from real patients only.
 - **Learned candidates use gene-agnostic features.** Per-gene patient statistics from R1-train lowered R1-dev
   (P2-PROBES-v1 §3).

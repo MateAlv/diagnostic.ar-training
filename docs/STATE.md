@@ -15,8 +15,9 @@
   - two sources pinned (phenopacket-store 0.1.25, HPO 2025-11-24);
   - [P2-PROBES-v1](analyses/P2-PROBES-v1.md): sex + strict age/onset Δ MRR +0.00088 [+0.00039, +0.00151] with 0 harmed
     on R1 train + dev; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications.
+  - `p2-v1` frozen (`b1ccdada…`): test 3,587 patients in 567 groups; vault 732 in 135 post-E0 groups. The
+    `p2-fresh-v1` builder is ready; a dry run on `main@85ffd78` keeps 340 patients.
 - **Next:**
-  - `p2-v1` split code and freeze;
   - `safe-v1` code and gene curation;
   - EXP-P-001 pre-registration and confirmation read, around 10-11 after Mateo's go;
   - Tracks 2 and 3 on dev.
