@@ -9,6 +9,7 @@ import typer
 from diagnostic_ar_training import DATA_DIR, MANIFESTS_DIR, SPLITS_DIR
 from diagnostic_ar_training.cli_lit import lit_app
 from diagnostic_ar_training.cli_lit_extract import extract_app
+from diagnostic_ar_training.cli_safe import safe_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
@@ -31,6 +32,7 @@ app.add_typer(knowledge_app, name="knowledge")
 app.add_typer(sim_app, name="sim")
 app.add_typer(lit_app, name="lit-sources")
 app.add_typer(extract_app, name="lit")
+app.add_typer(safe_app, name="safe")
 
 
 @kb_app.command("build")
