@@ -123,7 +123,8 @@ Figures and data files are in `evidence/figures/` and `evidence/data/`.
 | **Onset** | Age at which a symptom (or the disease) began; the re-ranker feature of ADR-0015 and the web «Precisar» age selector |
 | **Sealed read, ledger** | One load of a sealed split under a pre-registered experiment, from a clean tree; each is a row in [TEST_LEDGER.md](TEST_LEDGER.md) |
 | **DXT_SEALED_READ** | Environment variable that must equal the experiment id for a sealed split to load; set on that one command only |
-| **Post-E0** | A publication group with no PMID in phenopacket-store 0.1.25 and none cited in HPO 2025-11-24 (E0's training annotations); ADR-0017 |
+| **Post-E0** | A publication group with at least one PMID, none in phenopacket-store 0.1.25 and none cited in HPO 2025-11-24 (E0's training annotations); ADR-0017 |
+| **EXP-P-NNN** | Phase 2 experiment ids, accepted by the ledger like EXP-A/B/V |
 | **p2-v1, p2-fresh-v1** | Phase 2 splits: `r1-v1` train/dev for development, R1 test+vault split into confirmation (not post-E0) and final (post-E0), plus fresh post-E0 patients from phenopacket-store `main` at 2026-10-20 |
 | **safe-v1, ltr-v1, ft-v1** | Phase 2 candidates: knowledge-only constraints; a re-ranker learned on R1-train; the fine-tuned GNN |
 
