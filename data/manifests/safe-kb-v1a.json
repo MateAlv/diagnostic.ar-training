@@ -1,0 +1,110 @@
+{
+  "artifact_id": "safe-kb-v1a",
+  "kind": "safe-kb",
+  "created_at": "2026-10-07T23:37:03+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "c264596713037cdd2429817ad2737d001128bcf9",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:hgnc@2026-09-25",
+      "sha256": "3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "heldout-pmids:r1-v1",
+      "sha256": "3d99720c0e30fdd039be37e9ee713cc4356c6c3641d6bcf4dcb50686d2cf5abc"
+    },
+    {
+      "id": "overrides:data/curation/safe-v1-overrides.csv",
+      "sha256": "8e38b0c6d72366b602ff72894a7b8eaa844e532273481a9a2532c22b61260999"
+    }
+  ],
+  "params": {
+    "schema": "safe-kb/1",
+    "bundle_format": "safe-v1-bundle/1",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "mask_split": "r1-v1",
+    "mask_scope": "heldout",
+    "associations": "hpo_genes_to_disease without POLYGENIC",
+    "onset_lower_years": {
+      "hpo": {
+        "HP:0030674": -1,
+        "HP:0011460": -1,
+        "HP:0011461": -1,
+        "HP:0034199": -1,
+        "HP:0034198": -1,
+        "HP:0034197": -1,
+        "HP:0003577": 0,
+        "HP:0003623": 0,
+        "HP:0410280": 0,
+        "HP:0003593": 0,
+        "HP:0011463": 1,
+        "HP:0003621": 5,
+        "HP:0011462": 16,
+        "HP:0025708": 16,
+        "HP:0025709": 19,
+        "HP:0025710": 25,
+        "HP:0003581": 16,
+        "HP:0003596": 40,
+        "HP:0003584": 60
+      },
+      "orphanet": {
+        "Antenatal": -1,
+        "Neonatal": 0,
+        "Infancy": 0,
+        "Childhood": 1,
+        "Adolescent": 10,
+        "Adult": 16,
+        "Elderly": 60,
+        "All ages": 0
+      }
+    },
+    "onset_strict": "every OMIM disease of the gene has onset data",
+    "obligate": "HP:0040280, 100%, or n/n with n >= 5",
+    "negation_factor": 0.1,
+    "overrides": "data/curation/safe-v1-overrides.csv",
+    "overrides_applied": 0
+  },
+  "params_hash": "c1d1e354e11a651c9b7c412a7df4f28216257508880b9f29393394161133d02d",
+  "outputs": [
+    {
+      "path": "data/interim/safe/safe-kb-v1a/safe-kb.json.gz",
+      "sha256": "df17d50fc4cc7876942cbaedb216791bf581a921331ef439dea9caac91ed7ce5",
+      "bytes": 339961
+    },
+    {
+      "path": "data/safe/safe-kb-v1a/safe-v1-bundle.json",
+      "sha256": "d587db5f530120ce4c78a840224e041641ffc1edb01ef74a0a6aded0ced74838",
+      "bytes": 256916
+    },
+    {
+      "path": "data/safe/safe-kb-v1a/stats.json",
+      "sha256": "0a913f388aedae1da2d6a181c59b41a2bb680efc7e336558a7e5fbe8e68ec7fb",
+      "bytes": 991
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
