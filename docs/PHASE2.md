@@ -35,6 +35,10 @@ is a success when it is real; safe candidates go first.
   or more (596) is checked against the pinned GeneReviews and MedlinePlus snapshots. Curation may only remove a gene
   from a rule or lower its onset bound. Mateo spot-checks 20 random genes.
 - **Dev expectation (P2-PROBES-v1):** sex + onset about +0.0009 MRR with 0 harmed; negation about +0.0007.
+- **Status (2026-10-07):** code and `safe-kb-v1a` (uncurated) built; curation queue of 756 genes ready
+  (`results/P2/safe-kb-v1a/curation_queue.csv`). Dry run vs E0: dev +0.00196 [−0.00002, +0.00392], 3 harmed
+  (0.16%); train −0.00004 [−0.00132, +0.00095], 28 harmed (0.68%). Per rule and subset in
+  [BITACORA.md](BITACORA.md) (2026-10-07).
 
 ### Track 2: `ltr-v1`, a re-ranker learned on real patients
 - **Model:** a LightGBM ranker over E0's top 100, fitted on `p2-v1` train and selected on dev, with at most 20

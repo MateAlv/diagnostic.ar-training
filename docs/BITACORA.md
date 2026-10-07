@@ -4102,3 +4102,70 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Final check defined:** `p2-v1` vault (R1 test and vault, post-E0, about 732 patients) plus `p2-fresh-v1`
   (phenopacket-store `main` at 2026-10-20, post-E0, 349 patients on 2026-10-07).
 - **Sealed data:** no sealed patient loaded; for R1 test and vault only case ids and PMIDs were counted. No ledger row.
+
+## 2026-10-07: Phase 2 Track 1, `safe-v1`: code, `safe-kb-v1a`, dry run on R1 dev and train (EXP-P-001, not pre-registered yet)
+- **Configuration:** `safe-v1` as PHASE2.md Track 1 fixes it, on E0 run with present terms:
+  - sex: genes limited to the other sex go below every other gene (sex known);
+  - onset: genes whose strict earliest onset is later than the patient's onset (else current age; negative
+    values count as 0) go below every other gene; Infantile onset counts as 0;
+  - negation: × 0.1 for genes whose every annotated disease has an obligate phenotype (HP:0040280, "100%",
+    n/n with n ≥ 5) covered by an excluded term (the term or one of its ancestors).
+
+  Blocked genes keep their order; the block is scaled by a power of two below the smallest kept probability,
+  then renormalised. With no input that changes a gene, the output is E0's array.
+- **Code:** `src/diagnostic_ar_training/safe/` (knowledge, overrides, bundle, system, queue), `eval/safe_eval.py`,
+  `cli_safe.py` (`dxt safe build|queue|eval|confirm`), tests `tests/test_safe.py` (30, mocked). The ledger's
+  experiment-id pattern gained `P` (`EXP-P-NNN`). `dxt safe confirm` is implemented and tested with mocks only;
+  it was not run.
+- **Knowledge, `safe-kb-v1a`** (code `c264596`, uncurated, header-only overrides file): 100 male-limited and 41
+  female-limited genes (the same 141 as P2-PROBES-v1); 2,895 genes with a strict earliest onset, 615 of them at
+  ≥ 1 year (P2-PROBES-v1: 2,786 and 596 with every R1 publication masked); 679 negatable genes. Bundle
+  `data/safe/safe-kb-v1a/safe-v1-bundle.json` (256,916 bytes). DATA_LINEAGE §9.
+- **Curation queue:** `results/P2/safe-kb-v1a/curation_queue.csv`, 756 rows (141 sex, 615 onset); 391 rows have a
+  GeneReviews chapter mentioning the symbol and 308 a MedlinePlus condition page. Manifest
+  `curation-queue-safe-kb-v1a`.
+- **Dry run** (`dxt safe eval`, code `5fa0572`; Δ vs E0 with the paired publication-cluster bootstrap, 2,000
+  resamples, seed 0; harmed/helped are cases whose true gene ranks lower/higher than under E0):
+
+  | Part | System | n | Δ MRR [95% CI] | Helped | Harmed | Top 1 | Top 10 |
+  |---|---|---|---|---|---|---|---|
+  | dev | safe-v1 (all rules) | 1,883 | +0.00196 [−0.00002, +0.00392] | 259 (13.75%) | 3 (0.16%) | +6/−1 | +2/−1 |
+  | dev | sex only | 1,883 | +0.00000048 [+0.00000004, +0.00000139] | 94 | 0 | +0/−0 | +0/−0 |
+  | dev | onset only | 1,883 | +0.00050 [−0.00109, +0.00167] | 182 | 1 (0.05%) | +1/−1 | +2/−1 |
+  | dev | negation only | 1,883 | +0.00146 [+0.00014, +0.00309] | 110 | 2 (0.11%) | +5/−0 | +0/−0 |
+  | train | safe-v1 (all rules) | 4,103 | −0.00004 [−0.00132, +0.00095] | 540 (13.16%) | 28 (0.68%) | +2/−5 | +6/−3 |
+  | train | sex only | 4,103 | +0.00000259 [+0.00000006, +0.00000695] | 93 | 0 | +0/−0 | +0/−0 |
+  | train | onset only | 4,103 | +0.00037 [+0.00007, +0.00081] | 241 | 0 | +2/−0 | +0/−0 |
+  | train | negation only | 4,103 | −0.00042 [−0.00166, +0.00055] | 339 | 31 (0.76%) | +0/−5 | +6/−3 |
+
+  E0 MRR: dev 0.4485 (324 publications), train 0.4396 (706). Present view (sex, age, onset and excluded terms
+  removed): 0 cases differ from E0, bit for bit, on both parts.
+- **safe-v1 by subset, dev:** gene in vocabulary (1,680) +0.00220 [−0.00014, +0.00447]; sex known (1,703)
+  +0.00213 [+0.00007, +0.00433]; age known (1,636) +0.00225 [+0.00004, +0.00463]; onset known (534) +0.00336
+  [−0.00266, +0.00908]; excluded terms known (1,764) +0.00206 [−0.00001, +0.00427].
+- **safe-v1 by subset, train:** gene in vocabulary (3,522) −0.00005 [−0.00141, +0.00114]; sex known (3,786)
+  +0.00004 [−0.00115, +0.00098]; age known (3,072) −0.00053 [−0.00197, +0.00061]; onset known (1,085) −0.00084
+  [−0.00382, +0.00141]; excluded terms known (3,713) −0.00021 [−0.00165, +0.00084].
+- **The harmed cases:**
+  - Dev, onset (1): `PMID_25801283_proband_III_4`, TRIM63, rank 1 → 5,028, onset 15 y. OMIM:621270's remaining
+    onset row is Middle age onset (PMID:30372688); its Juvenile onset row cites PMID:25801283, a dev publication,
+    and is masked.
+  - Dev, negation (2): two ASS1 patients of PMID:23099195 (ranks 19 → 30 and 2 → 5) with Oroticaciduria
+    (HP:0003218) excluded, annotated 14/14 for OMIM:215700 (PMID:35433176).
+  - Train, negation (31): 24 ATP6V0C (21 from PMID:36074901, 3 from PMID:37161035), 4 EIF4A2, 2 ESAM, 1 HNRNPC.
+    For 24 of them (ATP6V0C of PMID:36074901, ESAM, HNRNPC) the obligate rows of their gene's disease cite the
+    patient's own publication. The mask is the held-out one (dev, test and vault PMIDs), so train publications
+    stay in this knowledge; P2-PROBES-v1 masked every R1 publication.
+- **Deviations from PHASE2.md and P2-PROBES-v1:**
+  - Mask: `r1-v1` held-out PMIDs (as `p2-v1` will use), not every R1 PMID as in the probes.
+  - Infantile onset = 0 for both HPO HP:0003593 and Orphanet "Infancy" (probes: 28 days).
+  - HGNC lookup by approved symbol first: 79 genes get another location, no sex limitation changes.
+  - A gene whose disease names match both sexes would be limited to neither (0 genes).
+  - Ranks are the harness's (ties count against the true gene); the probes split ties.
+  - Curation-queue disease names come from HPOA, so ORPHA ids without an HPOA row have an empty name.
+  - `dxt safe eval` reads free parts only and needs no pre-registration.
+  - Knowledge outputs that verify against their manifest are read locally; `safe-kb-v1a` was not published as
+    a release.
+- **Outputs:** `results/EXP-P-001/r1-v1-{dev,train}__*` (ranks of E0 and the four variants, report), manifests
+  `results-EXP-P-001-r1-v1-{dev,train}-safe-v1-safe-kb-v1a`. `dxt lineage verify`: ok.
+- **Sealed data:** none loaded; no ledger row; `DXT_SEALED_READ` never set.

@@ -144,6 +144,7 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-10-07 | Artifact `safe-kb-v1a` built (not published) | safe-v1 knowledge, uncurated, from `c264596`: 100 male-limited and 41 female-limited genes, 2,895 genes with a strict earliest onset (615 at ≥ 1 year), 679 negatable genes; bundle and stats committed in `data/safe/safe-kb-v1a/` (§9) |
 | 2026-09-30 | Source added | `orphanet_phenotypes`: Orphadata product 4 (2026-06-23), release `data-snapshot-2026-09-30-product4` |
 | 2026-09-30 | Simulator v0.4 artifacts built and published | `hpoa-recount-v1`, `cardinal-v1`, `report-model-v1` (superseded by `report-model-v2`, same fit in the simulator's format), `genes-v2`, `simcal-v04-v1`, `literature-panel-v1` (§7) |
 | 2026-09-30 | Realism baselines | `dxt sim realism` on UP (`graphens_sim_20251202`) and V03 (`ds-sim0.3.1-A-n100-s1001`), plus a smoke run on the ANALYSIS-001 10-gene sample; ledgered as baselines |
@@ -239,3 +240,47 @@ in ADR-0013 amendment 3. Each choice is counted in the report.
   - After population size, a row for both sexes beats a sex-restricted
     row.
 - **Onset column** stays empty: no feature row carries a feature onset age.
+
+## 9. safe-v1 knowledge (Phase 2 Track 1, ADR-0017)
+
+`dxt safe build --id <id> [--overrides data/curation/safe-v1-overrides.csv]`
+builds the knowledge of `safe-v1` (PHASE2.md Track 1). Code: `safe/knowledge.py`,
+`safe/overrides.py`, `safe/bundle.py`; tests: `tests/test_safe.py`.
+
+- **Inputs:**
+  - `hpo_genes_to_disease`, without POLYGENIC associations;
+  - `hpo_annotations` 2026-02-16, with every row citing a `r1-v1` dev, test or vault PMID masked
+    (`data/splits/r1-v1.heldout-pmids.txt`, the same mask as `p2-v1`). Train PMIDs are not masked;
+  - `orphanet_ages_2026_06`, `hgnc`, `hpo_ontology`;
+  - the gene vocabulary of the `genphenia_v3` bundle (E0's 5,229 genes);
+  - the overrides CSV, when given (its sha256 is a manifest input).
+- **Outputs:**
+  - `data/interim/safe/<id>/safe-kb.json.gz` (`safe-kb/1`): per gene, its diseases, the sex limitation and its
+    reasons, the strict earliest onset with each disease's lower bound, HPO onset terms and Orphanet classes,
+    and the obligate phenotypes of each annotated disease; plus disease names, the ancestor closure of every
+    obligate term and the applied overrides;
+  - `data/safe/<id>/safe-v1-bundle.json` (`safe-v1-bundle/1`), committed: what production needs. Its format is
+    documented in `safe/bundle.py`, which is the pure-numpy `apply` that ships with it;
+  - `data/safe/<id>/stats.json`, committed.
+- **Rules** (from `scripts/analysis/p2_probes.py`, P2-PROBES-v1):
+  - Sex: male-limited for a Y-chromosome gene outside the pseudo-autosomal regions (`y_chromosome`), Y-linked-only
+    inheritance (`y_linked_inheritance`) or every disease name matching male infertility (`names`);
+    female-limited when every disease name matches a female-only condition. A sex-reversal or DSD disease
+    blocks the rule. A gene matching both sexes would be limited to neither (0 genes in `safe-kb-v1a`).
+  - Onset: the lowest class lower bound among the gene's diseases (HPO onset terms, Orphanet classes), kept only
+    when every OMIM disease of the gene has onset data. Infantile onset (HP:0003593, Orphanet "Infancy") counts
+    as 0, not 28 days as in the probes.
+  - Obligate: HP:0040280, "100%", or n/n with n ≥ 5.
+  - HGNC locations are looked up by approved symbol before previous and alias symbols (the probes took the first
+    match). In `safe-kb-v1a` this changes the location of 79 genes and no sex limitation.
+- **Overrides** (`data/curation/safe-v1-overrides.csv`; columns `gene, rule, action, value_years,
+  evidence_quote, source_file, curator`) may only remove a gene from the sex or onset rule or lower its onset
+  bound; the build refuses anything else, and rows without evidence (ADR-0017 decision 8).
+- **Curation queue:** `dxt safe queue --kb <id> --out results/P2/<id>/curation_queue.csv` lists every
+  sex-limited gene and every gene with a strict earliest onset ≥ 1 year, with the evidence above and the files of
+  the pinned GeneReviews chapters and MedlinePlus condition pages that mention the symbol (case-sensitive token
+  match). Manifest `curation-queue-<id>`.
+
+| Artifact | Male-limited | Female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y / ≥ 40 y) | Negatable genes | Overrides |
+|---|---|---|---|---|---|
+| `safe-kb-v1a` | 100 | 41 | 2,895 (615 / 308 / 202 / 8) | 679 | 0 (uncurated) |
