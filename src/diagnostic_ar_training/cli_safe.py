@@ -32,7 +32,11 @@ def _kb_output(kb_id: str, name: str) -> tuple[Path, str]:
     m = manifest.load_manifest(kb_id)
     if m.kind != "safe-kb":
         raise typer.BadParameter(f"{kb_id} is a {m.kind!r} artifact, not a safe-kb")
-    for path, out in zip(manifest.fetch_outputs(m), m.outputs, strict=True):
+    local = [manifest.output_path(o) for o in m.outputs]
+    # Local files that verify against the manifest are used as they are; only a missing one needs the release.
+    if not all(p.is_file() for p in local) or manifest.verify_outputs(m):
+        local = manifest.fetch_outputs(m)
+    for path, out in zip(local, m.outputs, strict=True):
         if path.name == name:
             return path, out.sha256
     raise LineageError(f"{kb_id} has no output named {name}")

@@ -623,3 +623,26 @@ def test_final_check_runs_end_to_end_on_mocked_vaults(good, built, monkeypatch, 
     assert (
         tmp_path / "manifests" / "results-EXP-P-001-p2-v1+p2-fresh-v1-vault-safe-v1-safe-kb-x.json"
     ).exists()
+
+
+def test_kb_outputs_are_read_locally_when_they_verify(monkeypatch, tmp_path):
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+
+    path = tmp_path / "safe-v1-bundle.json"
+    path.write_text("{}")
+    ref = manifest.OutputRef(path=str(path), sha256=sha256_file(path), bytes=2)
+    m = manifest.Manifest(
+        artifact_id="safe-kb-x",
+        kind="safe-kb",
+        created_at="t",
+        code={},
+        inputs=[],
+        params={},
+        params_hash="h",
+        outputs=[ref],
+    )
+    monkeypatch.setattr(manifest, "load_manifest", lambda artifact_id: m)
+    assert cli_safe._kb_output("safe-kb-x", "safe-v1-bundle.json") == (path, ref.sha256)
+    path.write_text("{ }")
+    with pytest.raises(LineageError, match="never published"):
+        cli_safe._kb_output("safe-kb-x", "safe-v1-bundle.json")
