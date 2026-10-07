@@ -40,7 +40,7 @@ def is_preregistered(path) -> bool:
 def record_access(split_id: str, part: str, exp_id: str, reason: str) -> None:
     """Refuses unless the experiment is pre-registered and the code is committed."""
     if not EXP_ID.match(exp_id):
-        raise LineageError(f"{exp_id!r} is not an experiment id (EXP-000, EXP-A-001, EXP-B-001, ...)")
+        raise LineageError(f"{exp_id!r} is not an experiment id (EXP-000, EXP-B-001, EXP-P-001, ...)")
     registration = EXPERIMENTS_DIR / f"{exp_id}.md"
     if not registration.exists():
         raise LineageError(

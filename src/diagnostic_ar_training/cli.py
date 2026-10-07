@@ -2475,6 +2475,25 @@ def sources_verify() -> None:
     typer.echo("all sources match their pinned sha256")
 
 
+@sources_app.command("snapshot-github")
+def sources_snapshot_github(
+    name: str = typer.Option(..., help="New source name, e.g. phenopacket_store_main_2026_10_20"),
+    before: str = typer.Option(..., help="UTC timestamp; the last commit strictly before it is pinned"),
+    repo: str = typer.Option("monarch-initiative/phenopacket-store"),
+    branch: str = typer.Option("main"),
+    license: str = typer.Option("CC-BY-4.0"),
+    raw_dir: Path = typer.Option(None, help="Defaults to data/raw"),
+) -> None:
+    """Download a commit tarball into data/raw/<name>/; print the data/sources.yaml entry to add by hand."""
+    from diagnostic_ar_training import RAW_DIR
+    from diagnostic_ar_training.lineage.snapshot import snapshot_github
+
+    if name in registry.load_sources():
+        raise typer.BadParameter(f"{name} is already in data/sources.yaml")
+    snap = snapshot_github(name, repo, branch, before, raw_dir or RAW_DIR)
+    typer.echo(f"# {snap.path}\n{snap.sources_entry(license)}")
+
+
 @split_app.command("freeze")
 def split_freeze(split_id: str) -> None:
     from diagnostic_ar_training import splits
@@ -2483,13 +2502,38 @@ def split_freeze(split_id: str) -> None:
     typer.echo(json.dumps({"content_sha256": body["content_sha256"], "stats": body["stats"]}, indent=1))
 
 
+@split_app.command("freeze-fresh")
+def split_freeze_fresh(
+    split_id: str,
+    source: str = typer.Option(..., help="Pinned snapshot source (dxt sources snapshot-github)"),
+) -> None:
+    """Freeze a fresh split (ADR-0017 §4) from a pinned phenopacket-store snapshot; counts only."""
+    from diagnostic_ar_training import splits
+
+    body = splits.freeze_fresh(split_id, source)
+    shown = {k: body[k] for k in ("content_sha256", "exclusions", "stats")}
+    typer.echo(json.dumps(shown, indent=1))
+
+
+SPLIT_SHOWN = (
+    "split_id",
+    "source",
+    "inputs",
+    "rule",
+    "sealed_parts",
+    "parse_drops",
+    "group_status_by_parent_part",
+    "exclusions",
+    "stats",
+)
+
+
 @split_app.command("show")
 def split_show(split_id: str) -> None:
     from diagnostic_ar_training import splits
 
     body = splits.load_frozen(split_id)
-    shown = {k: body[k] for k in ("split_id", "source", "rule", "sealed_parts", "parse_drops", "stats")}
-    typer.echo(json.dumps(shown, indent=1))
+    typer.echo(json.dumps({k: body[k] for k in SPLIT_SHOWN if k in body}, indent=1))
 
 
 @split_app.command("heldout-pmids")

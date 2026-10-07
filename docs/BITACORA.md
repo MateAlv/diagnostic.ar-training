@@ -4103,6 +4103,45 @@ this task, whatever the result**; the last read needs Mateo's OK.
   (phenopacket-store `main` at 2026-10-20, post-E0, 349 patients on 2026-10-07).
 - **Sealed data:** no sealed patient loaded; for R1 test and vault only case ids and PMIDs were counted. No ledger row.
 
+## 2026-10-07: `p2-v1` frozen; `p2-fresh-v1` builder ready, not frozen
+- **Code** (branch `p2/splits`, `cb3443b`):
+  - `splits.py`: the `p2-v1` builder, derived from `r1-v1`, and the `p2-fresh-v1` builder;
+  - `lineage/snapshot.py` and `dxt sources snapshot-github`, which pin a commit tarball;
+  - `dxt split freeze-fresh`, and `dxt split show` for the new fields;
+  - the ledger accepts `EXP-P-NNN`.
+  - Tests: `tests/test_splits_p2.py` (20), `tests/test_snapshot.py` (2), and `tests/test_committed_splits.py`, which
+    now checks `p2-v1` too.
+- **`p2-v1` frozen** from the clean tree at `cb3443b`, with content sha256 `b1ccdada1b353f20…`. Re-freezing reproduces
+  the file byte for byte. With the refactored code, `r1-v1` recomputes to `b007aa17…`, byte for byte.
+
+  | Part | Patients | Publication groups | Post-E0 groups | Genes |
+  |---|---|---|---|---|
+  | train | 4,103 | 706 | 129 | 409 |
+  | dev | 1,883 | 324 | 61 | 235 |
+  | test | 3,587 | 567 | 0 | 310 |
+  | vault | 732 | 135 | 135 | 103 |
+
+- **Group status by `r1-v1` part** (post-E0 / PMID in 0.1.25 / cited in HPO 2025-11-24 only / no PMID):
+  - train 129 / 495 / 82 / 0;
+  - dev 61 / 237 / 26 / 0;
+  - test 67 / 250 / 33 / 0;
+  - vault 68 / 244 / 40 / 0.
+
+  Of the 702 `r1-v1` test and vault groups, 135 are post-E0 and form `p2-v1` vault; the other 567 form `p2-v1` test.
+- **Masking:** `p2-v1`'s held-out PMIDs equal `r1-v1`'s and the committed `r1-v1.heldout-pmids.txt`, checked on the
+  raw cohort.
+- **Fresh-builder dry run** (counts only; scratch directory; nothing written to `data/raw` or `data/splits`):
+  - Snapshot: `main@85ffd78` (committed 2026-10-07T14:34:29Z); tarball sha256 `0f5261d8…`, the same on two downloads.
+  - 10,782 phenopackets. Excluded:
+    - 10,376 whose id is in 0.1.27;
+    - 9 by the parser (6 not single-gene, 3 without present terms);
+    - 57 in 15 groups cited in HPO 2025-11-24;
+    - 0 by every other rule.
+  - Kept: 340 patients in 86 groups. ADR-0017's 349 is the count before the parser (406 new ids − 57 cited).
+  - With these numbers, the final check would have 732 + 340 = 1,072 patients.
+- **Sealed data:** computing the `p2-v1` assignment read `r1-v1` test and vault case ids and PMIDs, plus the per-part
+  counts that `r1-v1.json` already records. There were no scores and no metrics, and no ledger row was written.
+  `DXT_SEALED_READ` was never set.
 ## 2026-10-07: Phase 2 Track 1, `safe-v1`: code, `safe-kb-v1a`, dry run on R1 dev and train (EXP-P-001, not pre-registered yet)
 - **Configuration:** `safe-v1` as PHASE2.md Track 1 fixes it, on E0 run with present terms:
   - sex: genes limited to the other sex go below every other gene (sex known);
@@ -4120,7 +4159,7 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Knowledge, `safe-kb-v1a`** (code `c264596`, uncurated, header-only overrides file): 100 male-limited and 41
   female-limited genes (the same 141 as P2-PROBES-v1); 2,895 genes with a strict earliest onset, 615 of them at
   ≥ 1 year (P2-PROBES-v1: 2,786 and 596 with every R1 publication masked); 679 negatable genes. Bundle
-  `data/safe/safe-kb-v1a/safe-v1-bundle.json` (256,916 bytes). DATA_LINEAGE §9.
+  `data/safe/safe-kb-v1a/safe-v1-bundle.json` (256,916 bytes). DATA_LINEAGE §10.
 - **Curation queue:** `results/P2/safe-kb-v1a/curation_queue.csv`, 756 rows (141 sex, 615 onset); 391 rows have a
   GeneReviews chapter mentioning the symbol and 308 a MedlinePlus condition page. Manifest
   `curation-queue-safe-kb-v1a`.

@@ -19,6 +19,8 @@ flowchart LR
     V3[genphenia-v3.0 bundle<br/>role: baseline]
   end
   PPS --> SPLIT[data/splits/r1-v1.json<br/>train/dev/test/vault]
+  SPLIT --> P2[data/splits/p2-v1.json<br/>Phase 2, §9]
+  E0SEEN[phenopacket-store 0.1.25,<br/>HPO 2025-11-24] --> P2
   SPLIT --> HELD[held-out PMIDs]
   HPO --> MASK[masked HPOA]
   HELD --> MASK
@@ -108,6 +110,7 @@ flowchart LR
 | 2025-11-24 | inside the v3.0 bundle (`hp.json`) | v3.0's own graphs (parity) |
 | 2025-03-17 | v3.0 embeddings (BioBERT-NLI memmap) | Node features; missing terms are zero vectors |
 | 2025-11-24 | phenopacket-store 0.1.27 metadata | The cohort's annotations |
+| 2025-11-24 | `hpo_annotations_2025_11_24` (`phenotype.hpoa`) | Only its `reference` column: marks publications E0 could have seen (post-E0, §9) |
 | 2026-01-08 | diagnostic.ar-api gateway `hp.obo` | Production extraction (outside this repo) |
 
 Every evaluation reports the share of case terms that are unknown to the
@@ -144,7 +147,9 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
-| 2026-10-07 | Artifact `safe-kb-v1a` built (not published) | safe-v1 knowledge, uncurated, from `c264596`: 100 male-limited and 41 female-limited genes, 2,895 genes with a strict earliest onset (615 at ≥ 1 year), 679 negatable genes; bundle and stats committed in `data/safe/safe-kb-v1a/` (§9) |
+| 2026-10-07 | Split `p2-v1` frozen | content sha256 `b1ccdada1b353f200ee0331293553db23dd5cf551d59537e1aade03577732851`, derived from `r1-v1` (§9) |
+| 2026-10-07 | Sources added | `phenopacket_store_0_1_25` and `hpo_annotations_2025_11_24` (ADR-0017), used only to mark post-E0 publications |
+| 2026-10-07 | Artifact `safe-kb-v1a` built (not published) | safe-v1 knowledge, uncurated, from `c264596`: 100 male-limited and 41 female-limited genes, 2,895 genes with a strict earliest onset (615 at ≥ 1 year), 679 negatable genes; bundle and stats committed in `data/safe/safe-kb-v1a/` (§10) |
 | 2026-09-30 | Source added | `orphanet_phenotypes`: Orphadata product 4 (2026-06-23), release `data-snapshot-2026-09-30-product4` |
 | 2026-09-30 | Simulator v0.4 artifacts built and published | `hpoa-recount-v1`, `cardinal-v1`, `report-model-v1` (superseded by `report-model-v2`, same fit in the simulator's format), `genes-v2`, `simcal-v04-v1`, `literature-panel-v1` (§7) |
 | 2026-09-30 | Realism baselines | `dxt sim realism` on UP (`graphens_sim_20251202`) and V03 (`ds-sim0.3.1-A-n100-s1001`), plus a smoke run on the ANALYSIS-001 10-gene sample; ledgered as baselines |
@@ -241,7 +246,38 @@ in ADR-0013 amendment 3. Each choice is counted in the report.
     row.
 - **Onset column** stays empty: no feature row carries a feature onset age.
 
-## 9. safe-v1 knowledge (Phase 2 Track 1, ADR-0017)
+## 9. Phase 2 splits (ADR-0017)
+
+| Split | Inputs | Parts |
+|---|---|---|
+| `p2-v1` (frozen 2026-10-07, `b1ccdada…`) | `split:r1-v1` (`b007aa17…`), `phenopacket_store_0_1_25`, `hpo_annotations_2025_11_24`; patients from `phenopacket_store` (0.1.27) | train 4,103 / dev 1,883 / test 3,587 / vault 732 patients |
+| `p2-fresh-v1` (to be frozen 2026-10-20) | a snapshot of phenopacket-store `main`, `phenopacket_store` (0.1.27), `phenopacket_store_0_1_25`, `hpo_annotations_2025_11_24`, `hpo_annotations` (2026-02-16) | vault only |
+
+- **`p2-v1`** keeps `r1-v1` train and dev and re-partitions the `r1-v1` test and vault publication groups by post-E0
+  status. The file records group counts by status for each `r1-v1` part (`group_status_by_parent_part`). Its
+  held-out PMIDs equal `r1-v1`'s (`tests/test_committed_splits.py`), so `r1-v1.heldout-pmids.txt` stays the mask.
+- **0.1.25 and HPO 2025-11-24 are read for PMIDs only:** the `id` and `metaData.externalReferences` of each 0.1.25
+  phenopacket, and the `reference` column of `phenotype.hpoa`.
+- **The fresh snapshot** is a GitHub tarball of one commit. Only `notebooks/<cohort>/phenopackets/*.json` members are
+  read, in path order; a repeated phenopacket id keeps its first file.
+
+### Pinning the snapshot and freezing `p2-fresh-v1`
+1. `dxt sources snapshot-github --name phenopacket_store_main_2026_10_20 --before 2026-10-20T00:00:00Z`
+   - It resolves the last commit on `main` committed strictly before the timestamp (GitHub commits API, committer
+     date).
+   - It downloads `https://github.com/monarch-initiative/phenopacket-store/archive/<sha>.tar.gz` into
+     `data/raw/<name>/phenopacket-store-<sha>.tar.gz`.
+   - It prints the `data/sources.yaml` entry: role `cohort`, version `main@<sha7>`, the archive URL, the commit page
+     as `upstream_url`, the sha256, license and notes.
+2. Paste the entry into `data/sources.yaml`, run `dxt sources verify`, and commit.
+3. From that clean tree, run `dxt split freeze-fresh p2-fresh-v1 --source phenopacket_store_main_2026_10_20`.
+   Commit `data/splits/p2-fresh-v1.json` and add its hash prefix to `tests/test_committed_splits.py`.
+4. `dxt split freeze p2-fresh-v1` re-checks the frozen file later, from the `cohort_source` it records.
+
+The tarball of `main@85ffd78` downloaded twice on 2026-10-07 had the same sha256 (`0f5261d8…`). If GitHub ever
+serves different bytes for the pinned commit, `dxt sources fetch` refuses them. The pinned bytes can then be
+published as a release asset of this repo (ADR-0005), keeping the archive URL as `upstream_url`.
+## 10. safe-v1 knowledge (Phase 2 Track 1, ADR-0017)
 
 `dxt safe build --id <id> [--overrides data/curation/safe-v1-overrides.csv]`
 builds the knowledge of `safe-v1` (PHASE2.md Track 1). Code: `safe/knowledge.py`,
