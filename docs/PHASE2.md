@@ -46,6 +46,7 @@ is a success when it is real; safe candidates go first.
   - excluded-term evidence by annotated frequency band;
   - how well the present terms fit the gene, with a frequency-aware likelihood ratio over the masked HPO knowledge;
   - annotation richness.
+- **Monotone constraints:** see the Phase 1 lessons below.
 - **Ablation:** the same model without sex, age, onset and excluded terms. The difference measures the anteproyecto's
   inputs.
 
@@ -78,8 +79,20 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 Informe draft: 10-15. Informe delivery: 11-01.
 
 ## Gates (fixed here, repeated in each pre-registration)
-- **Confirmation:** Δ MRR CI lower bound > 0, with Holm correction across Phase 2 confirmation reads, and harmed ≤ 0.5%.
+- **Confirmation:** Δ MRR CI lower bound > 0, with Holm correction across Phase 2 confirmation reads, and harmed ≤ 5%
+  (Phase 1's cap for re-rankers).
 - **Final check:** reported for every candidate, with no gate. It is the clean, post-E0 estimate.
 - **Production:**
-  - `safe-v1` may go to production after it passes confirmation and Mateo says go.
+  - `safe-v1` may go to production when it passes confirmation with harmed ≤ 0.5% and Mateo says go.
   - Learned candidates also need a final-check Δ CI lower bound ≥ 0.
+
+## Lessons from Phase 1 that bind Tracks 2 and 3
+- **R1's excluded terms favour the true gene.** Authors report as absent the features typical of the syndrome they
+  suspect. A model learned on R1 therefore rewards genes that annotate the patient's absent findings: EXP-B-002 reached
+  dev +0.056, almost all of it from negation, and that gain cannot be deployed (EXP-B-002 Verdict and Addendum 1). In
+  the app, absent findings come from questions about the candidates' features.
+- **Phase 2 learned models only let absent findings lower a gene's score.** Every negation-conflict feature has a
+  monotone non-increasing constraint, so the model cannot learn the reporting pattern. Sex, age and onset
+  incompatibility features are constrained the same way.
+- **Sex, age and onset added at most +0.002 each as soft features** (EXP-B-002), consistent with P2-PROBES-v1. Their
+  gains come from knowledge-complete constraints, not from learned per-gene statistics.
