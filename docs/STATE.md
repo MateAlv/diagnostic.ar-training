@@ -1,6 +1,6 @@
 # Current state (handoff snapshot)
 
-**Snapshot: 2026-10-07, Phase 2 started.** Overwritten at each checkpoint; history lives in
+**Snapshot: 2026-10-07 (night), Phase 2 day 1 checkpoint.** Overwritten at each checkpoint; history lives in
 [BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PHASE2.md](PHASE2.md), [PLAN.md](PLAN.md),
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
 
@@ -8,8 +8,8 @@
 - **Goal:** a pre-registered gain on real patients from sex, age, onset and absent symptoms over GenPhenAI v3.0 (E0).
   Safe candidates go first.
 - **Data:** development on `p2-v1` train and dev (`r1-v1` train and dev, 5,986 patients); confirmation on `p2-v1` test
-  (about 3,587); a final check on about 1,081 patients from publications E0 never saw (`p2-v1` vault plus
-  `p2-fresh-v1`, frozen on 2026-10-20).
+  (3,587); a final check on about 1,072 patients from publications E0 never saw (`p2-v1` vault, 732, plus
+  `p2-fresh-v1`, 340 on 2026-10-07, frozen on 2026-10-20).
 - **Done (2026-10-07):**
   - ADR-0017 and the plan;
   - two sources pinned (phenopacket-store 0.1.25, HPO 2025-11-24);
@@ -17,10 +17,14 @@
     on R1 train + dev; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications.
   - `p2-v1` frozen (`b1ccdada…`): test 3,587 patients in 567 groups; vault 732 in 135 post-E0 groups. The
     `p2-fresh-v1` builder is ready; a dry run on `main@85ffd78` keeps 340 patients.
-- **Next:**
-  - `safe-v1` code and gene curation;
-  - EXP-P-001 pre-registration and confirmation read, around 10-11 after Mateo's go;
-  - Tracks 2 and 3 on dev.
+  - `safe-v1` (Track 1) code and `safe-kb-v1a` (#123). Dry run vs E0: dev +0.00196 [−0.00002, +0.00392], 3 harmed
+    (0.16%); train −0.00004 [−0.00132, +0.00095], 28 harmed. Details in BITACORA (2026-10-07).
+- **Next (2026-10-08), in order:**
+  1. Track 1 onset form on dev: hard block vs ×0.1 vs ×0.01 (PHASE2.md, "Open before pre-registration").
+  2. Curation scope (141 sex genes, or all 756 with a held-out-PMID guard); agents; `safe-kb-v1`.
+  3. EXP-P-001 pre-registration, independent review, Mateo's go, then the confirmation read on `p2-v1` test.
+  4. Launch Tracks 2 (`ltr-v1`) and 3 (`ft-v1`): agents reuse `safe/`; absent findings may only lower a score.
+  5. 2026-10-20: freeze `p2-fresh-v1` (DATA_LINEAGE §9), then the final check.
 - **Phase 2 sealed budget:**
   - `p2-v1` test: 0 of 3 confirmation reads used.
   - Final check: not read.
