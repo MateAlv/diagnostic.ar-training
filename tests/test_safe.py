@@ -420,8 +420,16 @@ GROUPS = {f"c{i}": f"g{i // 3}" for i in range(30)}
 def test_evaluate_reports_each_rule_and_subset(rules):
     cases = make_cases()
     report, records = safe_eval.evaluate(FakeBase(), rules, cases, GROUPS)
-    assert set(records) == {"E0", "safe-v1", "safe-v1[sex]", "safe-v1[onset]", "safe-v1[negation]"}
-    assert set(report["variants"]) == {"sex", "onset", "negation", "all"}
+    assert set(records) == {
+        "E0",
+        "safe-v1",
+        "safe-v1[sex]",
+        "safe-v1[onset]",
+        "safe-v1[negation]",
+        "safe-v1[sex+onset]",
+    }
+    assert set(report["variants"]) == {"sex", "onset", "negation", "sex+onset", "all"}
+    assert report["variants"]["sex+onset"]["rules"] == ["sex", "onset"]
     assert report["identity"] == {"present_view_all_rules_vs_e0_mismatches": 0}
     assert report["subset_sizes"]["gene_in_vocab"] == 24
     assert report["subset_sizes"]["onset_known"] == 6

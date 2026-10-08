@@ -213,8 +213,11 @@ def safe_eval_cmd(
     onset_factor: float | None = typer.Option(
         None, help="Dev variant: multiply onset-incompatible genes by this instead of blocking them"
     ),
+    tag: str = typer.Option(
+        "", help="Appended to the run label, so a rerun of the same configuration writes new files (e.g. v2)"
+    ),
 ) -> None:
-    """Dry run on a free part: safe-v1 and each rule alone vs E0, overall and on the subsets."""
+    """Dry run on a free part: safe-v1, each rule alone and sex + onset vs E0, overall and on the subsets."""
     from diagnostic_ar_training import splits
     from diagnostic_ar_training.eval import safe_eval
     from diagnostic_ar_training.lineage.hashing import sha256_file
@@ -229,6 +232,10 @@ def safe_eval_cmd(
         raise typer.BadParameter(str(e)) from e
     # The knowledge id is part of the label so that runs with different artifacts never share output files.
     label = f"{split}/{part}/{kb_id}" + ("" if onset_factor is None else f"/onset-x{onset_factor:g}")
+    if tag:
+        if not tag.replace("-", "").replace(".", "").isalnum():
+            raise typer.BadParameter("--tag takes letters, digits, '-' and '.' only")
+        label += f"/{tag}"
     ensure_new(_run_id(exp, label, kb_id))
     state = _require_clean()
     bundle_path, bundle_sha = _kb_output(kb_id, BUNDLE_FILE)

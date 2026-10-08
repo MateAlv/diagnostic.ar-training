@@ -96,6 +96,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | EXP-P-001 read: safe-v1 Δ +0.00029 [−0.00053, +0.00097], harmed 0.25%; gate not passed; sex and onset alone: 0 harmed | done |
 | 10-09 onward | Pre-register `safe-v1[sex+onset]` for the final check; resume Tracks 2 and 3 | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
+| 10-08 | `dxt final-check` (both vaults loaded once, every candidate on the same cases); `safe-v1[sex+onset]` dev +0.00100 [+0.00030, +0.00179], train +0.00036 [+0.00007, +0.00080], 0 harmed | done |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
 | 10-20 | Freeze `p2-fresh-v1`; final check (one read) | planned |
