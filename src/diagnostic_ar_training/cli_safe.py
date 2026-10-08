@@ -48,6 +48,9 @@ def safe_build(
     overrides: str = typer.Option(
         "", help="Curation overrides CSV, e.g. data/curation/safe-v1-overrides.csv"
     ),
+    onset_factor: float | None = typer.Option(
+        None, help="Multiply onset-incompatible genes by this instead of blocking them (bundle onset_factor)"
+    ),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
     """Build the safe knowledge artifact and its production bundle; held-out PMIDs are masked."""
@@ -98,7 +101,9 @@ def safe_build(
     committed = DATA_DIR / "safe" / kb_id
     committed.mkdir(parents=True, exist_ok=True)
     bundle_path, stats_path = committed / BUNDLE_FILE, committed / "stats.json"
-    exported = bundle.export(built, kb_id)
+    if onset_factor is not None and not 0 < onset_factor < 1:
+        raise typer.BadParameter("--onset-factor must be in (0, 1)")
+    exported = bundle.export(built, kb_id, onset_factor=onset_factor)
     bundle_path.write_text(json.dumps(exported, sort_keys=True, separators=(",", ":")) + "\n")
     stats_path.write_text(json.dumps(stats, indent=1, sort_keys=True) + "\n")
 
@@ -110,6 +115,7 @@ def safe_build(
     params = {
         "schema": knowledge.SCHEMA,
         "bundle_format": bundle.FORMAT,
+        "onset_factor": onset_factor,
         "vocabulary": "E0 (genphenia_v3) genes",
         "mask_split": MASK_SPLIT,
         "mask_scope": MASK_SCOPE,

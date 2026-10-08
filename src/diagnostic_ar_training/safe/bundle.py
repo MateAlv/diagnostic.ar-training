@@ -37,7 +37,9 @@ RULES = ("sex", "onset", "negation")
 NEGATION_FACTOR = 0.1
 
 
-def export(kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR) -> dict:
+def export(
+    kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR, onset_factor: float | None = None
+) -> dict:
     """The bundle of a safe knowledge artifact (`safe-kb/1`)."""
     genes, obligate = {}, {}
     for symbol, record in sorted(kb["genes"].items()):
@@ -56,6 +58,7 @@ def export(kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR) -> di
         "format": FORMAT,
         "kb_id": kb_id,
         "negation_factor": negation_factor,
+        **({} if onset_factor is None else {"onset_factor": onset_factor}),
         "genes": genes,
         "obligate": obligate,
         "ancestors_or_self": {t: a for t, a in sorted(kb["ancestors_or_self"].items()) if t in used},
