@@ -101,7 +101,8 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | EXP-P-006 (final check) pre-registered; ft-v1.1 feature attribution | done |
 | 10-08 | `p2-fresh-v1` frozen now (ADR-0017 Amendment 2): 340 patients; EXP-P-006 reviewed (GO) | done |
 | 10-08 | EXP-P-006 final check: `safe-v1[sex+onset]` +0.00029 [+0.00001, +0.00075] (**H1 passed**); `ft-v1.1` +0.00054 [+0.00005, +0.00129] (**H2 holds**); 3 harmed of 1,072 | done |
-| next | Summary and evidence docs for the informe; production decision (Mateo) | next |
+| 10-08 | Mateo: `ft-v1.1` flagged production-ready (ADR-0018); evidence summary updated | done |
+| later | Integration through `diagnostic.ar-model` (unmasked production knowledge, API inputs, staging first) | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-08 | `dxt final-check` (both vaults loaded once, every candidate on the same cases); `safe-v1[sex+onset]` dev +0.00100 [+0.00030, +0.00179], train +0.00036 [+0.00007, +0.00080], 0 harmed | done |
 | 10-08 | Track 3 X-linked fix, grid rerun (EXP-P-003 addendum), candidate `ft-v1.1-c1-lin-all-ens` | done |

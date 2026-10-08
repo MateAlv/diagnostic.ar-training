@@ -7,7 +7,19 @@ example "no tengo fiebre recurrente"). This is part of the Trabajo Profesional
 *Diagnóstico de Enfermedades Genéticas Poco Frecuentes mediante Deep Learning*
 (FIUBA).
 
-## What was built
+## Phase 2 result: a production-ready model that uses the new inputs (ADR-0018)
+- **`ft-v1.1-c1-lin-all-ens`:** GenPhenAI v3.0, frozen, plus a trained branch. It has 7 non-negative weights over sex,
+  onset, X-linked and absent-symptom knowledge features, fitted on 4,103 real patients
+  (`docs/evidence/figures/fig_f_ft_v11_architecture.png`).
+- **Confirmed on sealed real patients,** pre-registered and independently reviewed:
+  - EXP-P-005: Δ MRR **+0.00138 [+0.00070, +0.00232]** on 3,587 patients, 0.17% harmed.
+  - EXP-P-006: **+0.00054 [+0.00005, +0.00129]** on 1,072 patients from publications GenPhenAI never saw, 0.28%
+    harmed.
+- **The knowledge-only sex + onset rules** also passed the final check: +0.00029 [+0.00001, +0.00075].
+- **Integration into production is the next step,** through `diagnostic.ar-model`. Details: [docs/PHASE2.md](docs/PHASE2.md),
+  [ADR-0018](docs/decisions/0018-ft-v11-production-ready.md).
+
+## What was built (Phase 1)
 - **Question agent with Q2b selection** (`diagnosticar-question-agent`, `feat/agente-v2`): enriches each case with
   follow-up questions and adds the confirmed and ruled-out findings of each round, which gives the model and the doctor's
   summary a more precise phenotype. On the sealed simulated test (S3-v2-test, n = 9,565) Q2b added 1.04 confirmed
