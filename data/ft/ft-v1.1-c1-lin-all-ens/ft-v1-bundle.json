@@ -1,0 +1,123 @@
+{
+ "format": "ft-v1-bundle/2",
+ "kb_id": "ft-kb-all-v2",
+ "features": [
+  "sex_mismatch",
+  "onset_strict_late",
+  "onset_strict_gap",
+  "onset_lenient_gap",
+  "xlr_female",
+  "neg_obligate",
+  "neg_embed"
+ ],
+ "covariates": [
+  "male",
+  "female",
+  "log1p_age",
+  "age_known",
+  "log1p_onset",
+  "onset_known",
+  "log1p_n_present",
+  "log1p_n_excluded"
+ ],
+ "members": [
+  {
+   "active_features": [
+    "sex_mismatch",
+    "onset_strict_late",
+    "onset_strict_gap",
+    "onset_lenient_gap",
+    "xlr_female",
+    "neg_obligate",
+    "neg_embed"
+   ],
+   "active_covariates": [
+    "male",
+    "female",
+    "log1p_age",
+    "age_known",
+    "log1p_onset",
+    "onset_known",
+    "log1p_n_present",
+    "log1p_n_excluded"
+   ],
+   "theta": [
+    1.804491639137268,
+    2.254751682281494,
+    2.019500732421875,
+    0.0,
+    2.8226232528686523,
+    2.9550282955169678,
+    0.0
+   ],
+   "mlp": null
+  },
+  {
+   "active_features": [
+    "sex_mismatch",
+    "onset_strict_late",
+    "onset_strict_gap",
+    "onset_lenient_gap",
+    "xlr_female",
+    "neg_obligate",
+    "neg_embed"
+   ],
+   "active_covariates": [
+    "male",
+    "female",
+    "log1p_age",
+    "age_known",
+    "log1p_onset",
+    "onset_known",
+    "log1p_n_present",
+    "log1p_n_excluded"
+   ],
+   "theta": [
+    2.3633527755737305,
+    2.447314500808716,
+    2.21175479888916,
+    0.0,
+    2.8281166553497314,
+    3.009808301925659,
+    0.0
+   ],
+   "mlp": null
+  },
+  {
+   "active_features": [
+    "sex_mismatch",
+    "onset_strict_late",
+    "onset_strict_gap",
+    "onset_lenient_gap",
+    "xlr_female",
+    "neg_obligate",
+    "neg_embed"
+   ],
+   "active_covariates": [
+    "male",
+    "female",
+    "log1p_age",
+    "age_known",
+    "log1p_onset",
+    "onset_known",
+    "log1p_n_present",
+    "log1p_n_excluded"
+   ],
+   "theta": [
+    2.228532552719116,
+    2.7134244441986084,
+    2.3857126235961914,
+    0.0,
+    2.7085275650024414,
+    2.980670928955078,
+    0.0
+   ],
+   "mlp": null
+  }
+ ],
+ "model_ids": [
+  "ft-v1.1-c1-lin-all-s0",
+  "ft-v1.1-c1-lin-all-s1",
+  "ft-v1.1-c1-lin-all-s2"
+ ]
+}
