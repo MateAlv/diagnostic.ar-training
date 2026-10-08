@@ -41,8 +41,9 @@ def paired_bootstrap(
     n_resamples: int = 2000,
     seed: int = 0,
     groups: Sequence[str] | None = None,
+    level: float | None = None,
 ) -> dict:
-    """Delta new - base on the same cases, with a percentile 95% CI.
+    """Delta new - base on the same cases, with a percentile 95% CI (and a `level` CI when given).
 
     With `groups`, whole groups are resampled (cluster bootstrap). R1 must pass
     its publication groups: patients of one paper are not independent, and
@@ -64,7 +65,7 @@ def paired_bootstrap(
         deltas = sums[picks].sum(axis=1) / sizes[picks].sum(axis=1)
         unit, n_units = "group", int(sizes.size)
     lo, hi = np.percentile(deltas, [2.5, 97.5])
-    return {
+    out = {
         "metric": metric,
         "delta": float(diff.mean()),
         "ci95": [float(lo), float(hi)],
@@ -72,6 +73,11 @@ def paired_bootstrap(
         "resample_unit": unit,
         "n_units": n_units,
     }
+    if level is not None:
+        tail = 100 * (1 - level) / 2
+        out["ci_level"] = level
+        out["ci"] = [float(x) for x in np.percentile(deltas, [tail, 100 - tail])]
+    return out
 
 
 def bootstrap_ci(

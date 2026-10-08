@@ -382,10 +382,11 @@ def test_override_rows_are_validated():
             row(**bad)
 
 
-def test_committed_overrides_file_is_header_only_and_valid(tmp_path):
+def test_committed_overrides_file_is_valid(tmp_path):
     path = REPO_ROOT / "data" / "curation" / "safe-v1-overrides.csv"
-    assert path.read_text().strip() == ",".join(overrides.COLUMNS)
-    assert overrides.read(path) == []
+    assert path.read_text().splitlines()[0] == ",".join(overrides.COLUMNS)
+    rows = overrides.read(path)  # validates every row as conservative
+    assert len(rows) == 49  # the 2026-10-08 sex-gene curation removals
     bad = tmp_path / "bad.csv"
     bad.write_text("gene,rule\n")
     with pytest.raises(overrides.OverrideError):
