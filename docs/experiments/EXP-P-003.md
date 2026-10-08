@@ -2,7 +2,8 @@
 
 - **Front:** Phase 2, Track 3 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md))
 - **Registered:** 2026-10-08, by the Track 3 agent for Mateo, before any dev run
-- **Status:** dev search done (2026-10-08); selected `c1-lin-all`. No sealed read is planned here; a confirmation read of the selected candidate needs its own
+- **Status:** dev search done (2026-10-08); selected `c1-lin-all`. Rerun with fixed X-linked features (addendum):
+  `c1-lin-all` selected again, candidate `ft-v1.1-c1-lin-all-ens`; `ft-v1-c1-lin-all-ens` is superseded. No sealed read is planned here; a confirmation read of the selected candidate needs its own
   pre-registration (`dxt ft confirm`, implemented and tested with mocks only).
 
 ## Hypothesis
@@ -187,3 +188,72 @@ two flaws in the X-linked features:
   the report `results/EXP-P-003/report-ft-v1.1.json`. Every original `ft-v1` output stays unchanged.
 - Dev was read once per run by the original search, and the fix comes from a train-side review; this rerun is a second
   dev read of each configuration, disclosed here.
+
+**Results (ft-v1.1).** Code `1bb3926` (fix), knowledge `ft-kb-all-v2` built from it; grid runs from `bb3b897`,
+ensembles and the ablation from `1ca949e`, report and train analysis from `f844ba0` (the code under `src/` is the
+same in all four). Outputs: `results/EXP-P-003/ft-v1.1-*` (27 `ft-run` manifests, 2 ensemble evaluations),
+`results/EXP-P-003/report-ft-v1.1.json` (manifest `results-EXP-P-003-report-ft-v1.1`),
+`results/EXP-P-003/ft-v1.1-c1-lin-all-ens-train-harmed.json` (`scripts/analysis/ft_v11_train_harmed.py`). No `ft-v1`
+output changed. No sealed part was loaded.
+
+- **Knowledge:** XLR-only genes 164 → 125. The 39 dropped have generic HP:0001417 alone (28) or with HP:0001419 (11),
+  among them PCDH19, DMD, ARX, CHM, RPGR. Everything else in the knowledge is identical to `ft-kb-all-v1`.
+- **Setup checks:** as before (E0 ranks equal EXP-P-001's on all dev and train patients; every run valid; c1–c6 dev
+  present-only view bit-identical to E0). c2 and c3 do not use the changed features and reproduce their `ft-v1`
+  numbers.
+
+**Dev, all 1,883 patients, Δ MRR vs E0 (E0 0.4485); mean ± sd over seeds 0–2:**
+
+| Config | Params | Dev Δ | Mean CI | Harmed | Present view | Post-E0 (351) | Train Δ | Held-out train Δ |
+|---|---|---|---|---|---|---|---|---|
+| **c1-lin-all** | 7 | **+0.00291 ± 0.00006** | [+0.00138, +0.00463] | 0.11% | 0 | +0.00007 | +0.00033 | +0.00209 |
+| c2-lin-safe3 | 3 | +0.00230 ± 0.00000 | [+0.00080, +0.00399] | 0.11% | 0 | +0.00007 | +0.00060 | +0.00158 |
+| c3-lin-noxl | 6 | +0.00241 ± 0.00006 | [+0.00087, +0.00409] | 0.11% | 0 | +0.00007 | +0.00060 | +0.00158 |
+| c4-mlp16 | 270 | +0.00233 ± 0.00085 | [−0.00011, +0.00451] | 0.21% | 0 | +0.00008 | +0.00046 | +0.00220 |
+| c5-mlp16-lr0.01 | 270 | +0.00298 ± 0.00000 | [+0.00145, +0.00470] | 0.11% | 0 | +0.00007 | +0.00039 | +0.00220 |
+| c6-mlp64 | 1,038 | +0.00248 ± 0.00017 | [+0.00060, +0.00444] | 0.19% | 0 | +0.00008 | +0.00042 | +0.00220 |
+| c7-cls-l2sp1e-2 | 2,682,747 | +0.02462 ± 0.00295 | [+0.00517, +0.04883] | 1.81% | +0.02517 | +0.00003 | +0.03128 | +0.00977 |
+| c8-cls-l2sp1e-4 | 2,682,747 | +0.08149 ± 0.00112 | [+0.03130, +0.14065] | 6.09% | +0.08238 | +0.00622 | +0.11688 | +0.04099 |
+
+Median seed-mean dev Δ of the 8 configurations: +0.00270.
+
+- **θ of c1 (feature order `sex_mismatch`, `onset_strict_late`, `onset_strict_gap`, `onset_lenient_gap`,
+  `xlr_female`, `neg_obligate`, `neg_embed`):** seed 0 [1.80, 2.25, 2.02, 0, 2.82, 2.96, 0], seed 1 [2.36, 2.45,
+  2.21, 0, 2.83, 3.01, 0], seed 2 [2.23, 2.71, 2.39, 0, 2.71, 2.98, 0]. `onset_lenient_gap` and `neg_embed` stay at 0.
+  Best epochs 8–9 (ft-v1: 22–25).
+
+**Selection outcome (rule unchanged):** c1–c6 eligible. Highest seed mean c5 (+0.002985); c1 (+0.002910) is within
+0.0005 with 7 parameters instead of 270, so **`c1-lin-all` is selected again**, in its candidate form
+**`ft-v1.1-c1-lin-all-ens`**, bundle `data/ft/ft-v1.1-c1-lin-all-ens/ft-v1-bundle.json`, sha256
+`89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340`, knowledge `ft-kb-all-v2`.
+
+| | Dev Δ [95% CI] | Helped / harmed | Top-1 | Top-10 |
+|---|---|---|---|---|
+| Seed 0 (pre-declared single seed) | +0.00287 [+0.00134, +0.00459] | 290 / 2 | +7 / −0 | +4 / −0 |
+| **Ensemble of seeds 0–2 (`ft-v1.1-c1-lin-all-ens`)** | **+0.00289 [+0.00136, +0.00461]** | 291 / 2 (0.11%) | +7 / −0 | +4 / −0 |
+| Ablation ensemble, no sex/age/onset (`ft-v1.1-c1-lin-all-nosexage-ens`; `neg_obligate` θ 2.92–2.99) | +0.00146 [+0.00013, +0.00309] | 118 / 2 | +5 / −0 | +0 / −0 |
+| `ft-v1-c1-lin-all-ens`, for reference | +0.00313 [+0.00159, +0.00485] | 345 / 2 | +7 / −0 | +4 / −0 |
+
+Ensemble subsets (dev): in-vocabulary 1,680 +0.00324; sex known 1,703 +0.00316; age known 1,636 +0.00330; onset known
+534 +0.00625 [+0.00222, +0.01116]; excluded known 1,764 +0.00276; **post-E0 351 +0.00007 [+0.00001, +0.00020]**, 0
+harmed; gene in train 1,328 +0.00243; gene not in train 555 +0.00398 [+0.00085, +0.00802]. The 2 harmed dev patients
+and the 4 top-10 entries are the same as `ft-v1`'s (2 ASS1 patients of one publication). Against `ft-v1`, dev Δ is
+0.00024 lower: 236 dev patients change rank and 54 are no longer helped (43 male, 11 female, none with a gene whose
+flag changed). The cause is smaller weights, not the X-linked flag: early stopping now picks epoch 8–9 instead of
+22–25, so every feature's θ is lower and competing genes are pushed down less.
+
+**Train (4,103, in-sample):** +0.00034 [−0.00132, +0.00183], **13 harmed (0.32%)**, top-1 +3/−6, top-10 +11/−3;
+held-out train groups (512): +0.00209 [+0.00065, +0.00456], 0 harmed. `ft-v1` harmed 21: 8 are no longer harmed,
+13 still are, none is new.
+- Of the 21, 16 were females whose gene was XLR-only in `ft-kb-all-v1`. The 7 whose gene lost the flag (all PCDH19,
+  PMID:30451291) are fixed, back to E0's rank or better. An eighth, an F8 female at E0 rank 1, is no longer harmed
+  because the smaller `xlr_female` weight (2.79 vs 3.03) no longer moves her.
+- **Still harmed (13):**
+  - 8 females whose gene is XLR-only in `ft-kb-all-v2` too, harmed by `xlr_female` (−2.79 on the true gene): OFD1 ×5
+    (PMID:11179005), F8 ×2 (PMID:33275657), ZIC3 ×1. For OFD1 and F8 this comes from the PMID mask: unmasked, OFD1
+    also has orofaciodigital syndrome I (HP:0001423) and F8 thrombophilia 13 (HP:0001417), so neither would be
+    XLR-only; with every `r1-v1` PMID masked, only retinitis pigmentosa 23 (OFD1) and hemophilia A (F8) keep an
+    inheritance row. ZIC3 is XLR-only even unmasked (heterotaxy 1, VACTERL), and the patient is an affected female.
+  - 5 EIF4A2 patients (PMID:40610405, 3 female, 2 male), harmed by `neg_obligate` (−2.98): their excluded terms
+    cover an obligate phenotype of every disease of the gene. This is Track 1's negation rule and is unchanged by the
+    fix.

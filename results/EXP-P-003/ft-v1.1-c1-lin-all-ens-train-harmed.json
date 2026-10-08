@@ -1,0 +1,328 @@
+{
+ "new": "ft-v1.1-c1-lin-all-ens",
+ "old": "ft-v1-c1-lin-all-ens",
+ "train_cases": 4103,
+ "old_harmed": 21,
+ "new_harmed": 13,
+ "old_harmed_no_longer_harmed": 8,
+ "still_harmed": 13,
+ "newly_harmed": 0,
+ "old_harmed_female_gene_xlr_only_v1": 16,
+ "of_which_gene_xlr_only_v2": 9,
+ "patients_new_harmed": [
+  {
+   "case_id": "PMID_11179005_Family_10",
+   "gene": "OFD1",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 8,
+   "rank_e0": 105.0,
+   "rank_ft_v1": 345.0,
+   "rank_new": 321.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_11179005_Family_27",
+   "gene": "OFD1",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 10,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 2.0,
+   "rank_new": 2.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_11179005_Family_28",
+   "gene": "OFD1",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 9,
+   "rank_e0": 2.0,
+   "rank_ft_v1": 18.0,
+   "rank_new": 17.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_11179005_Family_3",
+   "gene": "OFD1",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 12,
+   "rank_e0": 8.0,
+   "rank_ft_v1": 22.0,
+   "rank_new": 22.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_11179005_Family_6",
+   "gene": "OFD1",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 14,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 3.0,
+   "rank_new": 3.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_17295247_Individual_III_3",
+   "gene": "ZIC3",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 2,
+   "rank_e0": 2.0,
+   "rank_ft_v1": 5.0,
+   "rank_new": 4.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_33275657_Family_A_II_3_proband",
+   "gene": "F8",
+   "sex": "female",
+   "age_years": 53.0,
+   "onset_years": 31.0,
+   "n_excluded": 1,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 2.0,
+   "rank_new": 2.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_33275657_Family_B_III_1",
+   "gene": "F8",
+   "sex": "female",
+   "age_years": 19.0,
+   "onset_years": 19.0,
+   "n_excluded": 4,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 4.0,
+   "rank_new": 4.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true,
+   "true_gene_contributions": {
+    "xlr_female": -2.7864
+   }
+  },
+  {
+   "case_id": "PMID_40610405_Individual_1",
+   "gene": "EIF4A2",
+   "sex": "female",
+   "age_years": 12.0,
+   "onset_years": null,
+   "n_excluded": 28,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 2.0,
+   "rank_new": 2.0,
+   "gene_xlr_only_ft_kb_v1": false,
+   "gene_xlr_only_ft_kb_v2": false,
+   "true_gene_contributions": {
+    "neg_obligate": -2.9818
+   }
+  },
+  {
+   "case_id": "PMID_40610405_Individual_12",
+   "gene": "EIF4A2",
+   "sex": "male",
+   "age_years": 9.0,
+   "onset_years": null,
+   "n_excluded": 25,
+   "rank_e0": 401.0,
+   "rank_ft_v1": 539.0,
+   "rank_new": 538.0,
+   "gene_xlr_only_ft_kb_v1": false,
+   "gene_xlr_only_ft_kb_v2": false,
+   "true_gene_contributions": {
+    "neg_obligate": -2.9818
+   }
+  },
+  {
+   "case_id": "PMID_40610405_Individual_2",
+   "gene": "EIF4A2",
+   "sex": "female",
+   "age_years": null,
+   "onset_years": null,
+   "n_excluded": 29,
+   "rank_e0": 137.0,
+   "rank_ft_v1": 351.0,
+   "rank_new": 340.0,
+   "gene_xlr_only_ft_kb_v1": false,
+   "gene_xlr_only_ft_kb_v2": false,
+   "true_gene_contributions": {
+    "neg_obligate": -2.9818
+   }
+  },
+  {
+   "case_id": "PMID_40610405_Individual_3",
+   "gene": "EIF4A2",
+   "sex": "female",
+   "age_years": 3.5833333333333335,
+   "onset_years": null,
+   "n_excluded": 27,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 4.0,
+   "rank_new": 4.0,
+   "gene_xlr_only_ft_kb_v1": false,
+   "gene_xlr_only_ft_kb_v2": false,
+   "true_gene_contributions": {
+    "neg_obligate": -2.9818
+   }
+  },
+  {
+   "case_id": "PMID_40610405_Individual_6",
+   "gene": "EIF4A2",
+   "sex": "male",
+   "age_years": 2.0,
+   "onset_years": null,
+   "n_excluded": 28,
+   "rank_e0": 8.0,
+   "rank_ft_v1": 28.0,
+   "rank_new": 28.0,
+   "gene_xlr_only_ft_kb_v1": false,
+   "gene_xlr_only_ft_kb_v2": false,
+   "true_gene_contributions": {
+    "neg_obligate": -2.9818
+   }
+  }
+ ],
+ "patients_old_harmed_only": [
+  {
+   "case_id": "PMID_30451291_II_8",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 66.0,
+   "onset_years": null,
+   "n_excluded": 5,
+   "rank_e0": 145.0,
+   "rank_ft_v1": 1830.0,
+   "rank_new": 129.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_IV_11",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 22.0,
+   "onset_years": 1.5833333333333335,
+   "n_excluded": 5,
+   "rank_e0": 12.0,
+   "rank_ft_v1": 42.0,
+   "rank_new": 12.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_IV_3",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 14.0,
+   "onset_years": 2.5,
+   "n_excluded": 6,
+   "rank_e0": 16.0,
+   "rank_ft_v1": 58.0,
+   "rank_new": 15.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_IV_4",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 12.0,
+   "onset_years": 1.5833333333333335,
+   "n_excluded": 4,
+   "rank_e0": 18.0,
+   "rank_ft_v1": 66.0,
+   "rank_new": 17.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_IV_5",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 10.0,
+   "onset_years": 0.6666666666666666,
+   "n_excluded": 4,
+   "rank_e0": 18.0,
+   "rank_ft_v1": 66.0,
+   "rank_new": 17.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_I_6",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 68.0,
+   "onset_years": null,
+   "n_excluded": 4,
+   "rank_e0": 5.0,
+   "rank_ft_v1": 58.0,
+   "rank_new": 4.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_30451291_V_1",
+   "gene": "PCDH19",
+   "sex": "female",
+   "age_years": 6.0,
+   "onset_years": 1.5833333333333335,
+   "n_excluded": 6,
+   "rank_e0": 27.0,
+   "rank_ft_v1": 85.0,
+   "rank_new": 27.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": false
+  },
+  {
+   "case_id": "PMID_33275657_Family_A_I_4",
+   "gene": "F8",
+   "sex": "female",
+   "age_years": 77.0,
+   "onset_years": 49.0,
+   "n_excluded": 2,
+   "rank_e0": 1.0,
+   "rank_ft_v1": 2.0,
+   "rank_new": 1.0,
+   "gene_xlr_only_ft_kb_v1": true,
+   "gene_xlr_only_ft_kb_v2": true
+  }
+ ]
+}

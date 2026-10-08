@@ -147,6 +147,8 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-10-08 | Artifact `ft-kb-all-v2` built (not published) | ft-v1.1 knowledge from `1bb3926` (`ft-kb/2`), same sources, mask and overrides as `ft-kb-all-v1`; XLR-only now needs the explicit HP:0001419 (125 genes, was 164; 39 generic-X-linked genes dropped), no XLD flag; otherwise identical to v1; `ft-kb.json.gz` sha256 `18cf37f1…` (§11) |
+| 2026-10-08 | EXP-P-003 addendum runs and bundles (ft-v1.1) | 27 `ft-run` manifests `results-EXP-P-003-ft-v1.1-*` (8 configurations × 3 seeds and the c1 ablation × 3); bundles `ft-v1.1-c1-lin-all-ens` (sha256 `89e3ea09…`) and `ft-v1.1-c1-lin-all-nosexage-ens`; `results-EXP-P-003-report-ft-v1.1`; `results-EXP-P-003-ft-v1.1-c1-lin-all-ens-train-harmed` (§11) |
 | 2026-10-08 | Artifact `ft-kb-all-v1` built (not published) | ft-v1 knowledge from `c70070e`, every `r1-v1` PMID masked: 75 male- and 17 female-limited genes (49 overrides), 2,786 strict onsets, 164 XLR-only, 23 XLD-only, 659 negatable; `ft-kb.json.gz` sha256 `d3996021…` (§11) |
 | 2026-10-08 | EXP-P-003 runs and bundles | 27 `ft-run` manifests (8 configurations × 3 seeds and the c1 ablation × 3); bundles `ft-v1-c1-lin-all-ens` (sha256 `5a26e537…`) and `ft-v1-c1-lin-all-nosexage-ens` (§11) |
 | 2026-10-07 | Split `p2-v1` frozen | content sha256 `b1ccdada1b353f200ee0331293553db23dd5cf551d59537e1aade03577732851`, derived from `r1-v1` (§9) |
@@ -348,6 +350,13 @@ builds the knowledge of `safe-v1` (PHASE2.md Track 1). Code: `safe/knowledge.py`
 | Artifact | Male / female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y) | Lenient onset | XLR-only / XLD-only | Negatable | Profile terms (gene-term pairs) |
 |---|---|---|---|---|---|---|
 | `ft-kb-all-v1` | 75 / 17 (49 overrides) | 2,786 (596 / 296 / 192) | 4,656 | 164 / 23 | 659 | 9,971 (234,712) |
+| `ft-kb-all-v2` | 75 / 17 (49 overrides) | 2,786 (596 / 296 / 192) | 4,656 | 125 / – | 659 | 9,971 (234,712) |
+
+**ft-v1.1 (EXP-P-003 addendum).** `ft-kb/2` and `ft-v1-bundle/2` replace `ft-kb/1` and `ft-v1-bundle/1`: XLR-only
+counts only genes whose inheritance terms are all HP:0001419 (generic HP:0001417 no longer qualifies), and the XLD
+flag and the `xld_male` feature are gone (7 features). The current code refuses version 1 knowledge and bundles; the
+`ft-v1` artifacts are reproducible from `d2e9182`. Runs, bundles and the report use the prefix `ft-v1.1`
+(`results/EXP-P-003/ft-v1.1-*`, `data/ft/ft-v1.1-*`, `results/EXP-P-003/report-ft-v1.1.json`).
 ## 12. ltr-v1 knowledge and model (Phase 2 Track 2, EXP-P-002)
 
 Code: `ltr/knowledge.py`, `ltr/bundle.py`, `ltr/train.py`, `cli_ltr.py`; tests: `tests/test_ltr.py`.

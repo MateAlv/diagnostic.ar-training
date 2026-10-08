@@ -81,6 +81,9 @@ is a success when it is real; safe candidates go first.
   top-10 +4/−0; post-E0 dev +0.00009; train +0.00023. Without sex, age and onset: +0.00146. The classifier
   configurations (not selectable) reach +0.025 and +0.087 through learned per-gene weights. Details in
   [EXP-P-003](experiments/EXP-P-003.md) and BITACORA 2026-10-08.
+- **ft-v1.1 (2026-10-08, EXP-P-003 addendum):** `xlr_female` now needs explicit HP:0001419 and `xld_male` is gone;
+  the same grid and rule select `c1-lin-all` again. `ft-v1.1-c1-lin-all-ens`: dev +0.00289 [+0.00136, +0.00461],
+  2 harmed (0.11%), top-10 +4/−0; post-E0 dev +0.00007; train +0.00034 with 13 harmed (`ft-v1`: 21).
 
 ### Track 4: vocabulary update (future work)
 48% of post-E0 patients have a gene outside E0's 5,229 genes. Covering them is probably the largest gain on new
@@ -96,6 +99,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | EXP-P-001 read: safe-v1 Δ +0.00029 [−0.00053, +0.00097], harmed 0.25%; gate not passed; sex and onset alone: 0 harmed | done |
 | 10-09 onward | Pre-register `safe-v1[sex+onset]` for the final check; resume Tracks 2 and 3 | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
+| 10-08 | Track 3 X-linked fix, grid rerun (EXP-P-003 addendum), candidate `ft-v1.1-c1-lin-all-ens` | done |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
 | 10-20 | Freeze `p2-fresh-v1`; final check (one read) | planned |
