@@ -78,7 +78,7 @@ def ltr_kb(
     _check_mask_scope(rerank_kb)
     _check_mask_scope(safe_kb)
     state = _require_clean()
-    rerank_path, rerank_sha = _output(rerank_kb, "kb", "kb.json.gz")
+    rerank_path, rerank_sha = _output(rerank_kb, "rerank-kb", "kb.json.gz")
     safe_path, safe_sha = _output(safe_kb, "safe-kb", SAFE_BUNDLE)
     ontology = Ontology.from_json(open_source("hpo_ontology", Purpose.KB))
     vocabulary = V3Inputs(unpack_bundle()).genes
