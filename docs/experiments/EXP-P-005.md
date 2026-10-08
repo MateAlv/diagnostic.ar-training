@@ -3,7 +3,7 @@
 - **Front:** Phase 2, Track 3 ([PHASE2.md](../PHASE2.md); [EXP-P-003](EXP-P-003.md) and its ft-v1.1 addendum)
 - **Registered:** 2026-10-08, by the main session. It replaces EXP-P-004, which was withdrawn before its read. Mateo's
   go for a Track 3 confirmation read was given on 2026-10-08.
-- **Status:** registered; sealed read pending the independent review
+- **Status:** registered. The independent review (2026-10-08) gave GO, and its masking note is folded in above.
 
 ## Hypothesis
 On `p2-v1` test, `ft-v1.1-c1-lin-all-ens` ranks the causal gene higher than E0 on average: Δ MRR > 0.
@@ -25,8 +25,10 @@ On `p2-v1` test, `ft-v1.1-c1-lin-all-ens` ranks the causal gene higher than E0 o
   - **What is already known about these patients.** `ft-v1.1` shares three features with `safe-v1` (sex mismatch,
     strict onset, obligate negation), whose results on these patients are known from EXP-P-001. The negation rule
     harmed 9 test patients there (ATP6V0C, HMGCR), and `neg_obligate` stays in.
-  - **A known artefact of masking.** OFD1 and F8 count as X-linked-recessive-only only because the mask removes their
-    other inheritance rows. Female patients with those genes can be penalised, as 7 train patients were.
+  - **A known artefact of masking.** Four genes count as X-linked-recessive-only only because the mask removes their
+    other inheritance rows: OFD1 and F8 (7 train females penalised), plus SLC9A6 (its X-linked-dominant
+    female-restricted row cites PMID:35198730, which is outside train and dev) and THOC2. Female patients with these
+    genes can be penalised. Found by the independent review; the candidate is not changed.
 - **Command:** `DXT_SEALED_READ=EXP-P-005 .venv/bin/dxt ft confirm --exp EXP-P-005 --split p2-v1 --part test --bundle
   ft-v1.1-c1-lin-all-ens --kb ft-kb-all-v2 --reason "EXP-P-005 confirmation read"`
 - **Then:** `.venv/bin/python scripts/analysis/exp_p_gate.py EXP-P-005 p2-v1-test-ft-v1.1-c1-lin-all-ens
@@ -46,7 +48,7 @@ On `p2-v1` test, `ft-v1.1-c1-lin-all-ens` ranks the causal gene higher than E0 o
 - helped and harmed shares;
 - top-1 and top-10 entries and exits;
 - the dev → test drop;
-- harms on EXP-P-001's 9 patients, and on female patients with OFD1 or F8;
+- harms on EXP-P-001's 9 patients, and on female patients with OFD1, F8, SLC9A6 or THOC2;
 - the split by E0's training annotations;
 - a check that E0's ranks equal EXP-P-001's.
 
