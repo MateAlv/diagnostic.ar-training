@@ -88,3 +88,21 @@ E0 on 3,587 sealed real patients.
 
 The production criterion of harmed ≤ 0.5% is met. Under PHASE2.md, a learned candidate also needs the final check
 before production, so production waits for it (2026-10-20).
+
+## Addendum 1, 2026-10-08: which features carry the gain (descriptive, free parts)
+`scripts/analysis/ft_feature_attribution.py` → `results/analyses/FT-ATTRIBUTION-v1/report.json`. Each variant sets
+some θ to 0 without refitting. Δ MRR vs E0 [95% CI], with harmed share.
+
+| Variant | Dev (1,883) | Train (4,103) |
+|---|---|---|
+| All features | +0.00289 [+0.00136, +0.00461], 0.11% | +0.00034 [−0.00132, +0.00183], 0.32% |
+| Only negation (`neg_obligate`, θ 2.98) | +0.00146 [+0.00013, +0.00309], 0.11% | +0.00023 [−0.00072, +0.00094], 0.12% |
+| Only onset (`onset_strict_late` 2.47, `onset_strict_gap` 2.21) | +0.00093 [+0.00026, +0.00169], 0% | +0.00036 [+0.00007, +0.00080], 0% |
+| Only `xlr_female` (θ 2.79) | +0.00077 [+0.00014, +0.00168], 0% | −0.00025 [−0.00160, +0.00074], 0.19% |
+| Only `sex_mismatch` (θ 2.13) | +0.00000 | +0.00000 |
+| `onset_lenient_gap`, `neg_embed` | θ = 0 (unused) | θ = 0 |
+
+- On dev the three active groups add up: negation 0.00146 + onset 0.00093 + X-linked 0.00077 ≈ 0.00289.
+- Onset is the only group that is positive with 0 harmed on both dev and train.
+- `xlr_female` is negative on train, where the masking artefact (OFD1, F8) concentrates.
+- The sealed test patients are not scored again; this attribution uses free parts only.
