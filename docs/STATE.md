@@ -26,7 +26,8 @@
   4. Launch Tracks 2 (`ltr-v1`) and 3 (`ft-v1`): agents reuse `safe/`; absent findings may only lower a score.
   5. 2026-10-20: freeze `p2-fresh-v1` (DATA_LINEAGE §9), then the final check.
 - **Phase 2 sealed budget:**
-  - `p2-v1` test: 0 of 3 confirmation reads used.
+  - `p2-v1` test: 1 of 3 confirmation reads used. EXP-P-001: safe-v1 Δ +0.00029 [−0.00053, +0.00097], gate not passed;
+    the onset rule alone gave +0.00016 [+0.00007, +0.00032] with 0 harmed (descriptive).
   - Final check: not read.
 
 ## Phase 1 summary (closed 2026-10-05; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))

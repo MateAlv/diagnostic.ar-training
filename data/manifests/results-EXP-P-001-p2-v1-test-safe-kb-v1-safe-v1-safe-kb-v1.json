@@ -1,0 +1,95 @@
+{
+  "artifact_id": "results-EXP-P-001-p2-v1-test-safe-kb-v1-safe-v1-safe-kb-v1",
+  "kind": "safe-eval",
+  "created_at": "2026-10-08T15:57:52+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "655048562d349e6586e0edfdaf71175bf80af731",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:safe-kb-v1/safe-v1-bundle.json",
+      "sha256": "28646c4a10d47e6994840a31462ffc0e4afb74efaab9b39e544fdb61824eb899"
+    },
+    {
+      "id": "split:p2-v1",
+      "sha256": "93196707eef34ed7179680972ead0ce03ec738f6a121cb1bc4b765db8e32011d"
+    }
+  ],
+  "params": {
+    "cohort": "p2-v1/test/safe-kb-v1",
+    "kb": "safe-kb-v1",
+    "systems": [
+      "E0",
+      "safe-v1",
+      "safe-v1[negation]",
+      "safe-v1[onset]",
+      "safe-v1[sex]"
+    ]
+  },
+  "params_hash": "8db413f1a3506e23cdf914301402586ea250dc1134b2388129bfda7ec85eb773",
+  "outputs": [
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__E0__all.ranks.jsonl",
+      "sha256": "c49fe464e0e8cb0e4bdace8f29e0ea68f8f28fed5c13639113d76b6a2dafd2e9",
+      "bytes": 1308700
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__E0__all.summary.json",
+      "sha256": "ddfc69039645f63fb8629946e2ed6fbabc6ca8ce175e1163ce63f5b14dae4c17",
+      "bytes": 1968
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[sex]__all.ranks.jsonl",
+      "sha256": "95d9140016c46f3f782492c10201a1caca74a208e24e775a0d4a72439436cc9e",
+      "bytes": 1465996
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[sex]__all.summary.json",
+      "sha256": "37dac02fa4e515fe191b91cc1ce0f13c9234afa7d5b696e20e419461355415fe",
+      "bytes": 1953
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[onset]__all.ranks.jsonl",
+      "sha256": "f9030212ebbc7aefeff2c68bc1fa8d65bbce07974cb5a443d69c448cd50521d8",
+      "bytes": 1466712
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[onset]__all.summary.json",
+      "sha256": "6bf1be1bc4b34a1fb73651a01bc6942ee0d1af266be6fb4d0114ad9a2a3cf892",
+      "bytes": 1953
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[negation]__all.ranks.jsonl",
+      "sha256": "01bf9dceaba965a3851302eb43f7d35fea2f7fc770f628c71fdff93b7c916d56",
+      "bytes": 1466096
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1[negation]__all.summary.json",
+      "sha256": "2937511d0039681023d3e4930005c7e682577a446bd6f2c18773cc989d6c544d",
+      "bytes": 1955
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1__all.ranks.jsonl",
+      "sha256": "4024cce4ec7f708e7e11b98493c1d8118013c998d4231c2f2e873a5b1c9b56b0",
+      "bytes": 1471090
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1__all.summary.json",
+      "sha256": "dfcd2780948361deb3bdf21d1210829f42b278ef5a619af9796dd09a5356414d",
+      "bytes": 1969
+    },
+    {
+      "path": "results/EXP-P-001/p2-v1-test-safe-kb-v1__safe-v1__safe-kb-v1__report.json",
+      "sha256": "fab473ab2828abba393a3d1fbe052cb3bc90be48a31cb9dd35e6fe94d9f66e61",
+      "bytes": 13555
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
