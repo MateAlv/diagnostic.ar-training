@@ -4504,3 +4504,19 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - An H1 pass with harmed ≤ 0.5% makes `safe-v1[sex+onset]` a production candidate after Mateo's go.
   - The knowledge that PMID masking cannot reach is disclosed.
   - Stale 2026-10-20 mentions are updated in PHASE2, STATE, INDEX, EVAL_PROTOCOL and DATA_LINEAGE.
+
+## 2026-10-08: EXP-P-006, the final check (one read, both vaults): H1 passed, H2 holds
+- **Read:** sealed read after the independent review (GO) and Mateo's go. Ledger rows `p2-v1/vault` and
+  `p2-fresh-v1/vault` (`70efa8d0cdf0`).
+- **Data:** 1,072 patients in 221 publication groups, all post-E0. E0 MRR 0.128; 55.2% of genes in E0's vocabulary.
+  The present view equals E0 for every system.
+- **H1, `safe-v1[sex+onset]`:** Δ MRR **+0.00029 [+0.00001, +0.00075]**, 180 helped, 3 harmed (0.28%). **Passed.**
+- **H2, `ft-v1.1`:** Δ MRR **+0.00054 [+0.00005, +0.00129]**, 257 helped, 3 harmed (0.28%). **Holds** (lower bound
+  ≥ 0).
+- **Per vault:** `ft-v1.1` is positive on both, with `p2-fresh-v1` at +0.00027 [+0.00001, +0.00093] and 0 harmed.
+- **Harmed:** the same 3 patients under both systems, from one CDK4 family (PMID:40210435). Their true gene was below
+  rank 3,400 under E0.
+- **Phase 2 status:**
+  - Confirmed on sealed real patients: `ft-v1.1` (EXP-P-005 and EXP-P-006) and `safe-v1[sex+onset]` (EXP-P-006).
+  - Both meet the production criteria; production waits for Mateo's go.
+  - Confirmation reads used: 2 of 3. Both final-check vaults are now spent.

@@ -31,7 +31,8 @@
       [+0.00007, +0.00032] with 0 harmed (descriptive).
     - **EXP-P-005, ft-v1.1** (the network with the new inputs, trained on real patients): **Δ +0.00138 [+0.00070,
       +0.00232], harmed 0.17%, gate passed.**
-  - Final check: not read.
+  - Final check, EXP-P-006 (1,072 post-E0 patients, read once): `safe-v1[sex+onset]` +0.00029 [+0.00001, +0.00075],
+    H1 passed; `ft-v1.1` +0.00054 [+0.00005, +0.00129], H2 holds; 3 harmed (0.28%).
 
 ## Phase 1 summary (closed 2026-10-05; [ADR-0016](decisions/0016-final-deployment-and-close-out.md))
 

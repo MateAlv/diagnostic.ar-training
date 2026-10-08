@@ -3,7 +3,7 @@
 - **Front:** Phase 2 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md)
   decisions 3–5)
 - **Registered:** 2026-10-08, by the main session for Mateo (go for the final check given 2026-10-08)
-- **Status:** registered. The independent review (2026-10-08) gave GO, and its notes are folded in. ADR-0017 Amendment 2 moves the `p2-fresh-v1` freeze to 2026-10-08T19:35:00Z, before any read. The read
+- **Status:** done. Read once on 2026-10-08 (ledger `70efa8d0cdf0`, both vaults). **H1 passed; H2 holds.** The independent review (2026-10-08) gave GO, and its notes are folded in. ADR-0017 Amendment 2 moves the `p2-fresh-v1` freeze to 2026-10-08T19:35:00Z, before any read. The read
   follows: once, all systems together.
 
 ## Hypotheses
@@ -77,7 +77,34 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
   0. If so, the result reads "not confirmed on post-E0 patients", not "no effect".
 
 ## Results
-(Filled in after the read.)
+Read on 2026-10-08 from `70efa8d`. Ledger rows: `p2-v1/vault` and `p2-fresh-v1/vault`, both under EXP-P-006. Outputs:
+`results/EXP-P-006/final-check/` (report, ranks per system, `*__gate.json`); manifest `results-EXP-P-006-final-check`.
+
+1,072 patients (732 + 340) in 221 publication groups, all from publications E0's training annotations never cite.
+E0's MRR here is 0.128; 55.2% have a gene in E0's vocabulary. Δ is against E0, with the 95% CI of the publication-cluster
+bootstrap.
+
+| System | All (1,072) | `p2-v1` vault (732) | `p2-fresh-v1` (340) | Helped / harmed | Top 10 |
+|---|---|---|---|---|---|
+| **`safe-v1[sex+onset]` (H1)** | **+0.00029 [+0.00001, +0.00075]** | +0.00042 [+0.00002, +0.00112] | +0.000003 [0, 0] | 180 / 3 (0.28%) | +1/−0 |
+| **`ft-v1.1-c1-lin-all-ens` (H2)** | **+0.00054 [+0.00005, +0.00129]** | +0.00067 [+0.00004, +0.00175] | +0.00027 [+0.00001, +0.00093] | 257 / 3 (0.28%) | +2/−0 |
+| `safe-v1` (as in EXP-P-001) | +0.00031 [+0.00002, +0.00078] | +0.00045 [+0.00003, +0.00115] | +0.000003 | 223 / 3 | +1/−0 |
+| `safe-v1[onset]` | +0.00029 [+0.00001, +0.00075] | +0.00042 [+0.00002, +0.00112] | +0.000003 | 134 / 3 | +1/−0 |
+| `safe-v1[negation]` | +0.00002 [+0.00000, +0.00006] | +0.00003 | +0.00000 | 110 / 0 | 0 |
+| `safe-v1[sex]` | +0.000002 | +0.000003 | +0.000001 | 75 / 0 | 0 |
+
+- **Harmed:** the same 3 patients under both systems, from one family (PMID:40210435, CDK4). Their true gene was deep
+  in E0's list: ranks 3,466 → 3,680, 3,982 → 4,210 and 3,488 → 3,691 under `safe-v1[sex+onset]`; up to 4,360 under
+  `ft-v1.1`.
+- **The `p2-fresh-v1` part** (86 publications released after 0.1.27) has small effects. Under `ft-v1.1`: +0.00027
+  [+0.00001, +0.00093], 61 helped, 0 harmed.
 
 ## Verdict
-(Filled in after the read.)
+- **H1 passed:** the 95% CI lower bound of `safe-v1[sex+onset]` is +0.00001 > 0, and harmed is 0.28%.
+  - On patients from publications GenPhenAI never saw, the knowledge-only sex and onset rules rank the causal gene
+    higher than E0.
+  - The production criterion (harmed ≤ 0.5%) is met; production needs Mateo's go.
+- **H2 holds:** the 95% CI lower bound of `ft-v1.1` is +0.00005 ≥ 0, with harmed 0.28%. With EXP-P-005's
+  confirmation, `ft-v1.1` meets PHASE2.md's production criteria for a learned candidate; production needs Mateo's go.
+- **Size:** the effects are small in MRR (+0.0003 to +0.0005 on a baseline of 0.128) and positive with few harms on
+  both independent checks.
