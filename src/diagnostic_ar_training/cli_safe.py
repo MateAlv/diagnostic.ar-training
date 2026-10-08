@@ -221,7 +221,8 @@ def safe_eval_cmd(
         safe_eval.check_free_part(split, part)
     except ValueError as e:
         raise typer.BadParameter(str(e)) from e
-    label = f"{split}/{part}" + ("" if onset_factor is None else f"/onset-x{onset_factor:g}")
+    # The knowledge id is part of the label so that runs with different artifacts never share output files.
+    label = f"{split}/{part}/{kb_id}" + ("" if onset_factor is None else f"/onset-x{onset_factor:g}")
     ensure_new(_run_id(exp, label, kb_id))
     state = _require_clean()
     bundle_path, bundle_sha = _kb_output(kb_id, BUNDLE_FILE)
@@ -281,7 +282,7 @@ def safe_confirm(
     from diagnostic_ar_training.safe.bundle import SafeRules, load
     from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
-    label = "+".join(split) + f"/{part}"
+    label = "+".join(split) + f"/{part}/{kb_id}"
     ensure_new(_run_id(exp, label, kb_id))
     state = code_state()
     bundle_path, bundle_sha = _kb_output(kb_id, BUNDLE_FILE)
