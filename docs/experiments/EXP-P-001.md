@@ -133,3 +133,17 @@ Descriptive, not a confirmed claim: the sex and onset rules, alone, helped 74 an
 onset alone gives +0.00016 [+0.00007, +0.00032]. The negation rule carries the variance and every harm. Testing sex +
 onset as a pre-registered hypothesis needs data this read did not touch: the post-E0 final check (`p2-v1` vault plus
 `p2-fresh-v1`). The choice of that hypothesis is informed by this read, and it is disclosed as such.
+
+## Addendum 1, 2026-10-08: the read split by E0's training annotations (descriptive)
+`scripts/analysis/exp_p001_by_citation.py` → `results/EXP-P-001/p2-v1-test-safe-kb-v1__by_citation.json`. A patient
+counts as "cited" when HPO 2025-11-24, the annotations E0 was trained on, cites their publication.
+
+| Patients | n (groups) | E0 MRR | safe-v1 Δ [95% CI] | Onset rule alone Δ [95% CI] |
+|---|---|---|---|---|
+| Cited in E0's training annotations | 2,398 (435) | 0.551 | +0.00030 [−0.00071, +0.00111] | +0.00016 [+0.00005, +0.00033] |
+| Not cited | 1,189 (132) | 0.244 | +0.00028 [−0.00114, +0.00174] | +0.00017 [+0.00003, +0.00056] |
+
+- Two thirds of the confirmation set come from publications E0's training annotations cite, and E0's MRR there is
+  0.551, against 0.244 on the rest.
+- The onset rule's gain has the same size in both groups. It does not depend on whether E0 saw the paper.
+- Post-hoc and descriptive. The pre-registered verdict stands.
