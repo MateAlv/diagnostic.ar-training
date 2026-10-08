@@ -3,7 +3,8 @@
 - **Front:** Phase 2, Track 3 ([PHASE2.md](../PHASE2.md); [EXP-P-003](EXP-P-003.md) and its ft-v1.1 addendum)
 - **Registered:** 2026-10-08, by the main session. It replaces EXP-P-004, which was withdrawn before its read. Mateo's
   go for a Track 3 confirmation read was given on 2026-10-08.
-- **Status:** registered. The independent review (2026-10-08) gave GO, and its masking note is folded in above.
+- **Status:** done. The sealed read ran on 2026-10-08 (ledger `0feeb5d71e4f`), after the independent review's GO
+  and Mateo's go. **Gate passed.**
 
 ## Hypothesis
 On `p2-v1` test, `ft-v1.1-c1-lin-all-ens` ranks the causal gene higher than E0 on average: Δ MRR > 0.
@@ -60,7 +61,30 @@ On `p2-v1` test, `ft-v1.1-c1-lin-all-ens` ranks the causal gene higher than E0 o
   confirmed", not "no effect".
 
 ## Results
-(Filled in after the read.)
+Read on 2026-10-08 from `0feeb5d`. Ledger row `p2-v1/test | EXP-P-005 | 0feeb5d71e4f`. Outputs:
+`results/EXP-P-005/p2-v1-test-ft-v1.1-c1-lin-all-ens/` (ranks, report, `gate.json`); manifest
+`results-EXP-P-005-p2-v1-test-ft-v1.1-c1-lin-all-ens`.
+
+3,587 patients in 567 publication groups. Δ is against E0. E0's ranks equal EXP-P-001's for all 3,587 patients.
+
+| System | Δ MRR | 95% CI | 98.33% CI (gate) | Helped | Harmed | Top 1 | Top 10 |
+|---|---|---|---|---|---|---|---|
+| **ft-v1.1-c1-lin-all-ens** | **+0.00138** | **[+0.00070, +0.00232]** | **[+0.00058, +0.00256]** | 639 (17.8%) | 6 (0.17%) | +3/−0 | +5/−1 |
+
+- **All 6 harmed patients carry the masking artefact disclosed before the read.** They are female patients with OFD1
+  (3: ranks 15 → 32, 16 → 38, 6 → 19) and SLC9A6 (3, all ranked below 200 under both systems). Of the 15 OFD1 and 4
+  SLC9A6 test patients, the other 13 are unchanged or improved.
+- **EXP-P-001's 9 harmed patients** (ATP6V0C, HMGCR) are not harmed here. Seven improve (e.g. ATP6V0C 7 → 5, HMGCR
+  3 → 2) and two are unchanged. The learned negation weight is softer than `safe-v1`'s fixed ×0.1.
+- **By E0's training annotations:**
+  - cited, 2,398 patients: +0.00144 [+0.00069, +0.00229];
+  - not cited, 1,189 patients: +0.00126 [+0.00018, +0.00405].
+- **Dev → test:** +0.00289 → +0.00138.
 
 ## Verdict
-(Filled in after the read.)
+**Gate passed:** the 98.33% CI lower bound is +0.00058 > 0, and harmed is 0.17%, within the 5% gate. The network
+extended with sex, age/onset and absent-symptom inputs, trained on real patients, ranks the causal gene higher than
+E0 on 3,587 sealed real patients.
+
+The production criterion of harmed ≤ 0.5% is met. Under PHASE2.md, a learned candidate also needs the final check
+before production, so production waits for it (2026-10-20).
