@@ -427,6 +427,45 @@ def ft_report(exp: str = typer.Option("EXP-P-003")) -> None:
     typer.echo(json.dumps(out["selection"], indent=1))
 
 
+def verified_bundle(bundle_id: str, kb_id: str) -> tuple[dict, Path, str | None]:
+    """(bundle, its path, the experiment its members were fitted in) of a verified ft-bundle on `kb_id`."""
+    from diagnostic_ar_training.ft.bundle import load
+    from diagnostic_ar_training.lineage import manifest
+
+    m = manifest.load_manifest(bundle_id)
+    problems = manifest.verify_outputs(m)
+    if m.kind != "ft-bundle" or problems:
+        raise LineageError(f"{bundle_id}: not a verified ft-bundle (kind {m.kind!r}; {problems})")
+    bundle_path = next(manifest.output_path(o) for o in m.outputs if o.path.endswith("ft-v1-bundle.json"))
+    bundle = load(bundle_path)
+    if bundle["kb_id"] != kb_id:
+        raise LineageError(f"{bundle_id} was trained on {bundle['kb_id']}, not {kb_id}")
+    return bundle, bundle_path, m.params.get("exp")
+
+
+def ft_system(base, e0, bundle: dict, bundle_id: str, kb_path: Path, kb_id: str, deltas_exp: str):
+    """`FtV1` for a loaded bundle on v3.0 (`base`) through the shared E0 logits `e0`."""
+    from diagnostic_ar_training.ft.bundle import FtResidual, Knowledge, load_deltas
+    from diagnostic_ar_training.ft.system import FtV1
+    from diagnostic_ar_training.rerank import kb as kb_io
+
+    knowledge = Knowledge(
+        kb_io.read(kb_path), base.genes, (base.inputs.emb_index, base.inputs.vectors), kb_id
+    )
+    residual = FtResidual(bundle, knowledge, load_deltas(bundle, MODELS_DIR / deltas_exp))
+    pooler = None
+    if residual.needs_pooled:
+        from diagnostic_ar_training.ft import replay as ft_replay
+        from diagnostic_ar_training.gnn.model import load_v3
+
+        v3 = load_v3(base.inputs.root, map_location="cpu")
+
+        def pooler(case):
+            return ft_replay.pooled_vectors(v3, base.inputs, [case.present], "cpu")[0]
+
+    return FtV1(e0, residual, bundle_id, pooler)
+
+
 @ft_app.command("confirm")
 def ft_confirm(
     exp: str = typer.Option(..., help="Pre-registered experiment id"),
@@ -454,45 +493,22 @@ def ft_confirm(
     from diagnostic_ar_training.eval import harness
     from diagnostic_ar_training.ft import evaluate as ft_eval
     from diagnostic_ar_training.ft import runs
-    from diagnostic_ar_training.ft.bundle import FtResidual, Knowledge, load, load_deltas
-    from diagnostic_ar_training.ft.system import E0Logits, E0System, FtV1
+    from diagnostic_ar_training.ft.system import E0Logits, E0System
     from diagnostic_ar_training.lineage import manifest
     from diagnostic_ar_training.lineage.gitinfo import code_state
     from diagnostic_ar_training.lineage.hashing import sha256_file
     from diagnostic_ar_training.lineage.registry import Purpose
-    from diagnostic_ar_training.rerank import kb as kb_io
     from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
     label = "+".join(split) + f"-{part}"
     artifact_id = f"results-{exp}-{label}-{bundle_id}"
     manifest.ensure_new(artifact_id)
     state = code_state()
-    m = manifest.load_manifest(bundle_id)
-    problems = manifest.verify_outputs(m)
-    if m.kind != "ft-bundle" or problems:
-        raise LineageError(f"{bundle_id}: not a verified ft-bundle (kind {m.kind!r}; {problems})")
-    bundle_path = next(manifest.output_path(o) for o in m.outputs if o.path.endswith("ft-v1-bundle.json"))
-    bundle = load(bundle_path)
-    if bundle["kb_id"] != kb_id:
-        raise LineageError(f"{bundle_id} was trained on {bundle['kb_id']}, not {kb_id}")
+    bundle, bundle_path, bundle_exp = verified_bundle(bundle_id, kb_id)
     kb_path, kb_sha = _kb_output(kb_id)
     base = GenPheniaV3()
     e0 = E0Logits(base)
-    knowledge = Knowledge(
-        kb_io.read(kb_path), base.genes, (base.inputs.emb_index, base.inputs.vectors), kb_id
-    )
-    residual = FtResidual(bundle, knowledge, load_deltas(bundle, MODELS_DIR / m.params.get("exp", exp)))
-    pooler = None
-    if residual.needs_pooled:
-        from diagnostic_ar_training.ft import replay as ft_replay
-        from diagnostic_ar_training.gnn.model import load_v3
-
-        v3 = load_v3(base.inputs.root, map_location="cpu")
-
-        def pooler(case):
-            return ft_replay.pooled_vectors(v3, base.inputs, [case.present], "cpu")[0]
-
-    system = FtV1(e0, residual, bundle_id, pooler)
+    system = ft_system(base, e0, bundle, bundle_id, kb_path, kb_id, bundle_exp or exp)
     by_split = {}
     for split_id in split:
         groups = splits.publication_groups(split_id)

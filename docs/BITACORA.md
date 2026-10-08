@@ -4377,6 +4377,60 @@ this task, whatever the result**; the last read needs Mateo's OK.
   what to do with the 2 remaining configurations (for example richness removed or coarsened) is for the main
   session.
 - **Sealed data:** none loaded; `DXT_SEALED_READ` never set; no ledger row. `dxt lineage verify`: ok.
+## 2026-10-08: EXP-P-001 addendum; EXP-P-004 registered, then withdrawn before its read
+- **EXP-P-001 Addendum 1** (descriptive, `scripts/analysis/exp_p001_by_citation.py`):
+
+  | Test patients | n | E0 MRR | Onset rule Δ [95% CI] |
+  |---|---|---|---|
+  | Publications cited in E0's training annotations | 2,398 | 0.551 | +0.00016 [+0.00005, +0.00033] |
+  | Not cited | 1,189 | 0.244 | +0.00017 [+0.00003, +0.00056] |
+
+- **EXP-P-004:** `ft-v1-c1-lin-all-ens` on `p2-v1` test, pre-registered (#132).
+  - The independent review gave GO, but found that `xlr_female` treats generic X-linked inheritance as recessive
+    (16 of 21 train harms: females with PCDH19, OFD1, F8, ZIC3) and that `xld_male` has a large weight with no
+    supporting patient.
+  - EXP-P-004 is withdrawn before any read. The features are being fixed and the candidate reselected under EXP-P-003's
+    rule.
+  - The gate script now also reads `dxt ft confirm` outputs.
+- **Wording:** PHASE2.md now names the gate correction as Bonferroni at 1 − 0.05/3, as EXP-P-001 applied it.
+- **Sealed data:** none read. Confirmation reads used: 1 of 3.
+## 2026-10-08: `dxt final-check` built; `safe-v1[sex+onset]` on dev and train
+- **Why:** each vault opens once, and `dxt safe confirm` and `dxt ft confirm` each load their own data, so they
+  cannot both read the vaults. The final check (ADR-0017 decision 5) needs every candidate scored from one load.
+- **Code** (`a329db4`):
+  - `safe_eval.VARIANTS` gains `sex+onset`, named `safe-v1[sex+onset]`. The other variants and their names are
+    unchanged.
+  - `dxt safe eval --tag`: appended to the run label, so a rerun writes new files.
+  - `dxt final-check` (`cli_final.py`, `eval/final_check.py`) reads `p2-v1` vault and `p2-fresh-v1` vault, each
+    loaded once. On the same cases it scores E0, `safe-v1`, `[sex+onset]`, `[sex]`, `[onset]`, `[negation]` and
+    the ft-v1 bundle.
+    - Every refusal comes before any data is loaded or the ledger touched: preflight, output id, both splits
+      frozen with disjoint vaults, then the three artifacts.
+    - E0's network runs once per case.
+  - `cli_ft.verified_bundle` and `cli_ft.ft_system` are now shared by `ft confirm` and the final check.
+  - Tests: `tests/test_final_check.py` (7, mocked; the real `load_part` and ledger on fake vaults).
+- **Dev and train, `safe-kb-v1`** (code `a329db4`; runs `results-EXP-P-001-r1-v1-{dev,train}-safe-kb-v1-v2-…`):
+
+  | Part | `safe-v1[sex+onset]` Δ MRR [95% CI] | Helped | Harmed | Top 1 | Top 10 |
+  |---|---|---|---|---|---|
+  | dev (1,883) | +0.00100 [+0.00030, +0.00179] | 183 (9.7%) | 0 | +1/−0 | +2/−0 |
+  | train (4,103) | +0.00036 [+0.00007, +0.00080] | 249 (6.1%) | 0 | +2/−0 | +0/−0 |
+
+  - The Δ equals the onset rule alone to five decimals. The sex rule adds 21 helped patients on dev and 40 on train.
+  - On onset known: dev +0.00219 [+0.00047, +0.00460] (534 patients); train +0.00089 [+0.00018, +0.00214] (1,085).
+- **The old variants are unchanged:** E0 and the four existing systems have identical ranks and records (latency
+  aside) to `r1-v1-{dev,train}-safe-kb-v1` on all 5,986 patients. Every `vs_e0` and subset contrast is equal.
+- **Rehearsal of the final-check path on dev** (free; nothing written): `fc.evaluate` with the real artifacts,
+  dev split by publication into two pseudo-components.
+  - It reproduces `safe-v1` +0.00246 and `ft-v1-c1-lin-all-ens` +0.00313 [+0.00159, +0.00485] with 2 harmed.
+    That bundle is the candidate withdrawn with EXP-P-004 (entry above). The final check takes the reselected
+    bundle and its knowledge through `--ft-bundle` and `--ft-kb`.
+  - The present view equals E0 for all six candidates.
+  - E0's network ran 1,883 times for 1,883 patients.
+- **Today `dxt final-check` refuses:** `p2-fresh-v1` is not frozen. It will be frozen on 2026-10-20, per
+  DATA_LINEAGE §9.
+- **Sealed data:** none loaded; `DXT_SEALED_READ` never set; no ledger row. The final check's pre-registration is
+  the main session's. `dxt lineage verify`: ok.
 ## 2026-10-08: Track 3, X-linked features fixed (ft-v1.1) and the dev selection rerun (EXP-P-003 addendum)
 - **Why:** the independent review before EXP-P-004 found, on train, that `xlr_female` counted generic HP:0001417 as
   X-linked recessive (16 of `ft-v1`'s 21 harmed train patients were such females) and that `xld_male` had θ 5.2–5.5

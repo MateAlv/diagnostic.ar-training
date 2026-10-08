@@ -385,3 +385,24 @@ Code: `ltr/knowledge.py`, `ltr/bundle.py`, `ltr/train.py`, `cli_ltr.py`; tests: 
 - **Selection run** `results-EXP-P-002-r1-v1-ltr-v1`: `results/EXP-P-002/` (the report of every configuration
   and the ranks of E0, `ltr-v1` and the ablation on train and dev). Its inputs add `phenopacket_store_0_1_25`
   and `hpo_annotations_2025_11_24`, read only to label post-E0 dev publications.
+
+## 13. The Phase 2 final check (ADR-0017 decision 5)
+
+`DXT_SEALED_READ=<exp> dxt final-check --exp <exp> --safe-kb <id> --ft-bundle <id> --ft-kb <id> --reason ...`
+(`cli_final.py`, `eval/final_check.py`; tests `tests/test_final_check.py`) is the one read of `p2-v1` vault and
+`p2-fresh-v1` vault.
+- **Before anything is loaded or ledgered:**
+  - `safe_eval.preflight` for both splits;
+  - the output id is new;
+  - both splits are frozen, each with a vault part, and no case id is in both vaults;
+  - the `safe-kb` bundle, the `ft-bundle` (verified, trained on `--ft-kb`) and the `ft-kb` are verified;
+  - then every system is built and both splits' publication groups are computed.
+- **Read:** each vault through `splits.load_part` once, ledgered as usual. E0 (present terms, production ONNX) is
+  memoised and shared, so it runs once per case. On the same cases the read scores `safe-v1` and its rule subsets
+  (`[sex+onset]`, `[sex]`, `[onset]`, `[negation]`) and the ft-v1 bundle.
+- **Outputs** in `results/<exp>/final-check/`:
+  - `report.json`: every system vs E0, overall, on the safe report's subsets and per vault. Groups are prefixed by
+    their split. It also holds the present-view identity check.
+  - `p2-v1+p2-fresh-v1-vault__<system>__all.{ranks.jsonl,summary.json}` for E0 and each system.
+- **Manifest:** `results-<exp>-final-check`, kind `final-check`. Its inputs are E0's bundle, the three artifacts and
+  both frozen splits.

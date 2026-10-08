@@ -2,7 +2,8 @@
 
 - **Front:** Phase 2, Track 3 ([PHASE2.md](../PHASE2.md), [EXP-P-003](EXP-P-003.md))
 - **Registered:** 2026-10-08, by the main session for Mateo (go given 2026-10-08, after an independent review)
-- **Status:** registered; sealed read pending the independent review
+- **Status:** **withdrawn before its read** (2026-10-08). No sealed data was loaded and no ledger row exists; see
+  Addendum 1.
 
 ## Hypothesis
 On `p2-v1` test, `ft-v1-c1-lin-all-ens` ranks the causal gene higher than E0 on average: Δ MRR > 0.
@@ -57,3 +58,16 @@ On `p2-v1` test, `ft-v1-c1-lin-all-ens` ranks the causal gene higher than E0 on 
 
 ## Verdict
 (Filled in after the read.)
+
+## Addendum 1, 2026-10-08: withdrawn before the read
+The independent review (verdict GO, no blocking issue) found two flaws in the candidate's features, both visible on
+train:
+- **`xlr_female` counts generic HP:0001417 ("X-linked inheritance") as recessive.** It therefore penalises female
+  patients for disorders that affect females, such as PCDH19, OFD1, F8 and ZIC3. 16 of the 21 train patients the
+  candidate harms are such females.
+- **`xld_male` has θ≈5.3** although train and dev hold no patient with an X-linked-dominant-only gene. It would
+  penalise males for genes such as PHEX, where males are affected.
+
+Mateo's go covered this read, but the read would have measured a candidate with a known defect. The features are
+fixed and the candidate reselected on dev under EXP-P-003's registered rule (EXP-P-003 addendum), and a new
+pre-registration replaces this one. Phase 2 confirmation reads used: still 1 of 3.
