@@ -3,7 +3,7 @@
 from collections.abc import Iterable
 
 from diagnostic_ar_training.cohorts.schema import Case
-from diagnostic_ar_training.safe.bundle import RULES, SafeRules, rescale
+from diagnostic_ar_training.safe.bundle import RULES, SafeRules, rescale_factors
 from diagnostic_ar_training.systems import Scored, System
 
 NAME = "safe-v1"
@@ -48,7 +48,8 @@ class SafeV1:
             return scored
         inputs = case_inputs(case)
         contradicted, blocked = self.rules.masks(self.genes, inputs, self.active)
-        probs = rescale(scored.probs, contradicted, blocked, self.rules.negation_factor)
+        factors, hard = self.rules.changes(self.genes, inputs, self.active)
+        probs = rescale_factors(scored.probs, factors, hard)
         info = {
             **scored.info,
             "safe_contradicted": int(contradicted.sum()),

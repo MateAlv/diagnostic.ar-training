@@ -5,6 +5,8 @@ unchanged. `SafeV1` (safe/system.py) scores through this same code, so what was 
 
 Bundle format (`format: safe-v1-bundle/1`), one JSON object:
 - `kb_id`: the knowledge artifact it was exported from; `negation_factor`: 0.1.
+- `onset_factor` (optional): when present, onset-incompatible genes are multiplied by it instead of being
+  blocked (step 2 then covers only the sex rule).
 - `genes`: {symbol: {"sex": "male" | "female", "earliest_onset_years": float}}; each key is present only when
   the rule applies to the gene. `sex` names the only sex the gene's diseases affect.
 - `obligate`: {symbol: {disease id: [HPO ids]}}, only for genes whose every annotated disease has at least one
@@ -35,7 +37,9 @@ RULES = ("sex", "onset", "negation")
 NEGATION_FACTOR = 0.1
 
 
-def export(kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR) -> dict:
+def export(
+    kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR, onset_factor: float | None = None
+) -> dict:
     """The bundle of a safe knowledge artifact (`safe-kb/1`)."""
     genes, obligate = {}, {}
     for symbol, record in sorted(kb["genes"].items()):
@@ -54,6 +58,7 @@ def export(kb: dict, kb_id: str, negation_factor: float = NEGATION_FACTOR) -> di
         "format": FORMAT,
         "kb_id": kb_id,
         "negation_factor": negation_factor,
+        **({} if onset_factor is None else {"onset_factor": onset_factor}),
         "genes": genes,
         "obligate": obligate,
         "ancestors_or_self": {t: a for t, a in sorted(kb["ancestors_or_self"].items()) if t in used},
@@ -80,6 +85,8 @@ class SafeRules:
             raise ValueError(f"not a {FORMAT} bundle")
         self.bundle = bundle
         self.negation_factor = float(bundle["negation_factor"])
+        onset_factor = bundle.get("onset_factor")
+        self.onset_factor = None if onset_factor is None else float(onset_factor)
         covers: dict[str, set[str]] = {}
         for term, ancestors in bundle["ancestors_or_self"].items():
             for a in ancestors:
@@ -108,13 +115,24 @@ class SafeRules:
     def masks(
         self, genes: Sequence[str], case_inputs: Mapping, rules: Iterable[str] = RULES
     ) -> tuple[np.ndarray, np.ndarray]:
-        """(contradicted, blocked) boolean masks over `genes`."""
+        """(contradicted, blocked) boolean masks over `genes`; onset-incompatible genes count as blocked."""
+        contradicted, blocked, late = self._masks(genes, case_inputs, rules)
+        return contradicted, blocked | late
+
+    def _masks(
+        self, genes: Sequence[str], case_inputs: Mapping, rules: Iterable[str] = RULES
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """(contradicted, sex-blocked, onset-incompatible) boolean masks over `genes`."""
         rules = set(rules)
         if unknown := rules - set(RULES):
             raise ValueError(f"unknown rules {sorted(unknown)}")
         arr = self._arrays(genes)
         n = len(arr["onset"])
-        contradicted, blocked = np.zeros(n, dtype=bool), np.zeros(n, dtype=bool)
+        contradicted, blocked, late = (
+            np.zeros(n, dtype=bool),
+            np.zeros(n, dtype=bool),
+            np.zeros(n, dtype=bool),
+        )
         excluded = set(case_inputs.get("excluded") or ())
         if "negation" in rules and excluded:
             covered = set().union(*(self._covers.get(e, ()) for e in excluded))
@@ -129,21 +147,41 @@ class SafeRules:
             ref = case_inputs.get("onset_years")
             ref = case_inputs.get("age_years") if ref is None else ref
             if ref is not None:
-                blocked |= arr["onset"] > max(float(ref), 0.0)
-        return contradicted, blocked
+                late = arr["onset"] > max(float(ref), 0.0)
+        return contradicted, blocked, late
+
+    def changes(
+        self, genes: Sequence[str], case_inputs: Mapping, rules: Iterable[str] = RULES
+    ) -> tuple[np.ndarray | None, np.ndarray]:
+        """(per-gene factors, or None when no gene is scaled; hard-blocked mask)."""
+        contradicted, blocked, late = self._masks(genes, case_inputs, rules)
+        if self.onset_factor is None:
+            blocked, late = blocked | late, np.zeros_like(late)
+        if not (contradicted.any() or late.any()):
+            return None, blocked
+        factors = np.where(contradicted, self.negation_factor, 1.0) * np.where(
+            late, self.onset_factor or 1.0, 1.0
+        )
+        return factors, blocked
 
     def apply(
         self, probs: np.ndarray, genes: Sequence[str], case_inputs: Mapping, rules: Iterable[str] = RULES
     ) -> np.ndarray:
-        contradicted, blocked = self.masks(genes, case_inputs, rules)
-        return rescale(probs, contradicted, blocked, self.negation_factor)
+        factors, blocked = self.changes(genes, case_inputs, rules)
+        return rescale_factors(probs, factors, blocked)
 
 
 def rescale(probs: np.ndarray, contradicted: np.ndarray, blocked: np.ndarray, factor: float) -> np.ndarray:
     """Apply the negation factor and the hard block; return `probs` itself when nothing changes."""
+    factors = np.where(contradicted, factor, 1.0) if contradicted.any() else None
+    return rescale_factors(probs, factors, blocked)
+
+
+def rescale_factors(probs: np.ndarray, factors: np.ndarray | None, blocked: np.ndarray) -> np.ndarray:
+    """Multiply by per-gene `factors`, then apply the hard block; `probs` itself if nothing changes."""
     out = None
-    if contradicted.any():
-        out = np.asarray(probs, dtype=np.float64) * np.where(contradicted, factor, 1.0)
+    if factors is not None:
+        out = np.asarray(probs, dtype=np.float64) * factors
         out /= out.sum()
     if blocked.any() and not blocked.all():
         p = np.asarray(probs, dtype=np.float64) if out is None else out

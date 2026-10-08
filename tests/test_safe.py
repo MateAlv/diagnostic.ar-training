@@ -165,6 +165,28 @@ def rules(built):
     return bundle.SafeRules(bundle.export(built[0], "safe-kb-test"))
 
 
+def test_soft_onset_scales_instead_of_blocking(built):
+    b = {**bundle.export(built[0], "safe-kb-test"), "onset_factor": 0.1}
+    soft, hard = bundle.SafeRules(b), bundle.SafeRules(bundle.export(built[0], "safe-kb-test"))
+    genes = VOCAB
+    i = {g: k for k, g in enumerate(genes)}
+    inputs = {"age_years": 0.5}
+    factors, blocked = soft.changes(genes, inputs)
+    assert not blocked.any()
+    assert {g for g in genes if factors[i[g]] == 0.1} == {"ADULT", "CHILD", "ORPHA"}
+    _, hard_blocked = hard.changes(genes, inputs)
+    assert {g for g in genes if hard_blocked[i[g]]} == {"ADULT", "CHILD", "ORPHA"}
+    assert soft.masks(genes, inputs)[1].sum() == 3  # masks still reports onset genes as blocked
+    p = np.full(len(genes), 1.0 / len(genes))
+    out = soft.apply(p, genes, inputs)
+    assert np.isclose(out.sum(), 1.0)
+    assert np.isclose(out[i["ADULT"]] / out[i["MALE1"]], 0.1)
+    # The sex rule stays a hard block under a soft onset factor.
+    factors, blocked = soft.changes(genes, {"sex": "female", "age_years": 0.5})
+    assert {g for g in genes if blocked[i[g]]} == {"MALE1", "YGENE", "YINH"}
+    assert soft.apply(p, genes, {}) is p
+
+
 def test_export_has_only_applicable_rules(built):
     b = bundle.export(built[0], "safe-kb-test")
     assert b["format"] == bundle.FORMAT and b["negation_factor"] == 0.1
