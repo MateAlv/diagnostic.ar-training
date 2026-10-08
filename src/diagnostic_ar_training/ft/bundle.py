@@ -11,8 +11,8 @@ logits' = logits_E0 + r, r_g = Σ_k w_k(patient) · c_k(patient, g), and w_k(pat
     rule);
   - `onset_strict_gap`, `onset_lenient_gap`: log1p of the years by which the strict / lenient earliest onset
     is later than the reference age (0 when it is not later);
-  - `xlr_female`, `xld_male`: a female patient and an X-linked-recessive-only gene; a male patient and an
-    X-linked-dominant-only gene;
+  - `xlr_female`: a female patient and a gene whose diseases are all explicitly X-linked recessive
+    (`ft-kb/2`);
   - `neg_obligate`: safe-v1's negation rule (the excluded terms cover an obligate phenotype of every annotated
     disease of the gene);
   - `neg_embed`: the mean, over the excluded terms, of the highest cosine similarity between the excluded term
@@ -23,9 +23,14 @@ logits' = logits_E0 + r, r_g = Σ_k w_k(patient) · c_k(patient, g), and w_k(pat
 - w(patient) = −max(θ, 0) ⊙ softplus(m(z)) / ln 2, where z are the patient covariates (`COVARIATES`) and m is
   a small MLP whose last layer starts at 0 (or absent: w = −max(θ, 0)). θ starts at 0, so the untrained
   residual is exactly 0, and absent findings and incompatibilities can only lower a gene's score.
-- No parameter is per gene: the only per-gene inputs are knowledge (`ft-kb/1`), never learned from patients.
+- No parameter is per gene: the only per-gene inputs are knowledge (`ft-kb/2`), never learned from patients.
 
-Weights bundle (`format: ft-v1-bundle/1`), one JSON object:
+ft-v1.1 (`ft-v1-bundle/2`, `ft-kb/2`) replaced ft-v1 (`ft-v1-bundle/1`, `ft-kb/1`) before ft-v1's sealed
+read: ft-v1 counted generic X-linked inheritance as recessive in `xlr_female`, and had an `xld_male` feature
+that would penalise males for X-linked dominant genes where males are affected. Version 1 bundles and
+knowledge are refused.
+
+Weights bundle (`format: ft-v1-bundle/2`), one JSON object:
 - `kb_id`; `features`, `covariates`: the names above, in order;
 - `members`: a list; the residual is the mean of the members' residuals (an ensemble of seeds). Each member
   has `active_features` and `active_covariates` (the rest are held at 0), `theta` [K], and `mlp`, null or
@@ -48,14 +53,14 @@ import numpy as np
 from diagnostic_ar_training.safe.bundle import SafeRules
 from diagnostic_ar_training.safe.bundle import export as safe_export
 
-FORMAT = "ft-v1-bundle/1"
+FORMAT = "ft-v1-bundle/2"
+KB_SCHEMA = "ft-kb/2"
 FEATURES = (
     "sex_mismatch",
     "onset_strict_late",
     "onset_strict_gap",
     "onset_lenient_gap",
     "xlr_female",
-    "xld_male",
     "neg_obligate",
     "neg_embed",
 )
@@ -71,7 +76,7 @@ COVARIATES = (
 )
 # The anteproyecto's inputs, grouped: the ablation drops "sex" and "age" (age and onset).
 FEATURE_GROUPS = {
-    "sex": ("sex_mismatch", "xlr_female", "xld_male"),
+    "sex": ("sex_mismatch", "xlr_female"),
     "age": ("onset_strict_late", "onset_strict_gap", "onset_lenient_gap"),
     "negation": ("neg_obligate", "neg_embed"),
 }
@@ -108,7 +113,7 @@ def covariates(case_inputs: Mapping) -> np.ndarray:
 
 
 class Knowledge:
-    """`ft-kb/1` as arrays over one gene vocabulary.
+    """`ft-kb/2` as arrays over one gene vocabulary.
 
     `embeddings` is (term -> row, vectors [rows, dim]), v3.0's input embeddings; without it `neg_embed` is 0.
     """
@@ -120,6 +125,8 @@ class Knowledge:
         embeddings: tuple[Mapping[str, int], np.ndarray] | None = None,
         kb_id: str = "",
     ) -> None:
+        if kb.get("schema") != KB_SCHEMA:
+            raise ValueError(f"knowledge schema {kb.get('schema')!r}; this module reads {KB_SCHEMA}")
         self.genes = tuple(genes)
         safe = kb["safe"]["genes"]
         extra = kb["genes"]
@@ -133,7 +140,6 @@ class Knowledge:
             [extra.get(g, {}).get("lenient_onset_years", -np.inf) for g in self.genes], dtype=np.float64
         )
         self.xlr = np.array([bool(extra.get(g, {}).get("xlr_only")) for g in self.genes])
-        self.xld = np.array([bool(extra.get(g, {}).get("xld_only")) for g in self.genes])
         self.rules = SafeRules(safe_export(kb["safe"], kb_id))
         self.embedded = embeddings is not None
         self._profiles(extra, embeddings)
@@ -189,7 +195,6 @@ class Knowledge:
         if sex:
             f[0] = self.female if sex == "male" else self.male
             f[4] = self.xlr if sex == "female" else 0
-            f[5] = self.xld if sex == "male" else 0
         ref = reference_age(case_inputs)
         if ref is not None:
             strict_gap = np.clip(self.strict - ref, 0.0, None)
@@ -199,8 +204,8 @@ class Knowledge:
         excluded = list(case_inputs.get("excluded") or ())
         if excluded:
             contradicted, _ = self.rules.masks(self.genes, {"excluded": excluded}, ("negation",))
-            f[6] = contradicted
-            f[7] = self.neg_embed(excluded)
+            f[5] = contradicted
+            f[6] = self.neg_embed(excluded)
         return f
 
 

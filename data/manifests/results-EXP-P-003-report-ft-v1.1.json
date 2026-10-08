@@ -1,0 +1,143 @@
+{
+  "artifact_id": "results-EXP-P-003-report-ft-v1.1",
+  "kind": "ft-report",
+  "created_at": "2026-10-08T18:39:46+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "f844ba0fec996d473a580cbed4e74e39959bb468",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-ens",
+      "sha256": "23bf309e04bb6b4417b6bc1901743b709780e60be4a8a7bcd5af198d33d406c7"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-nosexage-ens",
+      "sha256": "b43a6a7647cdd32a16653aa115a3dcefe53985ded049993a1c34ad636de9eef4"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-nosexage-s0",
+      "sha256": "66c2d9add2b465237cfea0a32d3bc8640922a09fc9c4b9980272fb7d47caffbc"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-nosexage-s1",
+      "sha256": "aefe542c1ff2f618f62a3abf2b90edabb5a1423d7874cde14d71354e934275f8"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-nosexage-s2",
+      "sha256": "c527d42967087952bd99fc461c53708b1dac675afa2d75273856969e31ac2f0d"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-s0",
+      "sha256": "ede2a62b7231d68e600c94fddbc34e8afb9e60534e841cfa11b778ee3ba95214"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-s1",
+      "sha256": "e3a831b8ea534e77abf7028da02e4e78da38cef0362dace714d434c565b1f69d"
+    },
+    {
+      "id": "summary:ft-v1.1-c1-lin-all-s2",
+      "sha256": "5b42012e2a927512bf898b2800126f02620e7648f4f96dd63c08c85e20fa2943"
+    },
+    {
+      "id": "summary:ft-v1.1-c2-lin-safe3-s0",
+      "sha256": "ed804a1beaec159113cf2e2adab1111696dbfb8a535a70bc4ef96b55e34b459f"
+    },
+    {
+      "id": "summary:ft-v1.1-c2-lin-safe3-s1",
+      "sha256": "07c3f5c7419e227bf037f1895288629317701b0a275a6779f16bad947ff5ddd8"
+    },
+    {
+      "id": "summary:ft-v1.1-c2-lin-safe3-s2",
+      "sha256": "eb00e926bf8374d7a87242c0f9fd4fe42b4f9a52f9b1581fd2d99636ad787294"
+    },
+    {
+      "id": "summary:ft-v1.1-c3-lin-noxl-s0",
+      "sha256": "ad2fe6f425c9d66c1415f397c4acca396ae62ba1c029aa288fa032bff1ce502d"
+    },
+    {
+      "id": "summary:ft-v1.1-c3-lin-noxl-s1",
+      "sha256": "676afbb0b0102cb5511e2341e47e3c6485bd0bd0c7df701f83cf7d17bc6a5d14"
+    },
+    {
+      "id": "summary:ft-v1.1-c3-lin-noxl-s2",
+      "sha256": "dcf23d86efd36a8a68a07b4aed3b0793dc9ebbdace9c82d207e68387a0c38b81"
+    },
+    {
+      "id": "summary:ft-v1.1-c4-mlp16-s0",
+      "sha256": "2a159b846dccf044e5160928d18dab2c957e91d9ba88e45909b1eb285b1b7848"
+    },
+    {
+      "id": "summary:ft-v1.1-c4-mlp16-s1",
+      "sha256": "3163b37186c7c4f0bd0ae0fd279a363efeeb55bc1ae5f206760fb898a4238f79"
+    },
+    {
+      "id": "summary:ft-v1.1-c4-mlp16-s2",
+      "sha256": "612e9f1b7c495ae78ff79bfabf0dd024f0e3cf3ada5bd36194ba7f4baf1cea03"
+    },
+    {
+      "id": "summary:ft-v1.1-c5-mlp16-lr0.01-s0",
+      "sha256": "4778e00d3d119aba99130cdd775b73dce0561a5a56e2cc9e0c8964d309589036"
+    },
+    {
+      "id": "summary:ft-v1.1-c5-mlp16-lr0.01-s1",
+      "sha256": "a0554063a2ddfb779e070fc41b99458b0b276d416335facb2775479363dfadec"
+    },
+    {
+      "id": "summary:ft-v1.1-c5-mlp16-lr0.01-s2",
+      "sha256": "e79b3f50ce3f5e6f6f30c2cc360b98f6f7eedc92a027fad49c3f2e9c65bc75eb"
+    },
+    {
+      "id": "summary:ft-v1.1-c6-mlp64-s0",
+      "sha256": "1f7788e3e6469238f0322acd06630cdd330f31a4b28b112a246f0b1a543f3b98"
+    },
+    {
+      "id": "summary:ft-v1.1-c6-mlp64-s1",
+      "sha256": "af63b22d09f23b945bccd9928984b8a6bf6d5960050c031bd87268d922609b1b"
+    },
+    {
+      "id": "summary:ft-v1.1-c6-mlp64-s2",
+      "sha256": "90de11bf56745237ba59ed5993ff3c3e9d5a55351945a53b69e2a6d4de17e7f8"
+    },
+    {
+      "id": "summary:ft-v1.1-c7-cls-l2sp1e-2-s0",
+      "sha256": "021e50c2d7b9ed5a436176f48e07961ebf9e65c6d99b6d70bbfe2351bd8a0b99"
+    },
+    {
+      "id": "summary:ft-v1.1-c7-cls-l2sp1e-2-s1",
+      "sha256": "f8e162eede3faa977735bdd0179e297fbe650cb23ee40c520c2a6ff60e33d539"
+    },
+    {
+      "id": "summary:ft-v1.1-c7-cls-l2sp1e-2-s2",
+      "sha256": "a3f8bce02e53433ad2a6c38e58e62a4a4ff573eefa8a402be029e21757e52a05"
+    },
+    {
+      "id": "summary:ft-v1.1-c8-cls-l2sp1e-4-s0",
+      "sha256": "951436df8b66d76c6be4f13a02b3e0888efb93468709858aaac4562760bdbde2"
+    },
+    {
+      "id": "summary:ft-v1.1-c8-cls-l2sp1e-4-s1",
+      "sha256": "da191548ee5ae3a45c6235ae4331f498155e57bf1a34a7d11bc5140d2a5f45d9"
+    },
+    {
+      "id": "summary:ft-v1.1-c8-cls-l2sp1e-4-s2",
+      "sha256": "7fa47be02168b75b12041ae152b29705e90a4ce6dc74915b827e8f51bb726946"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-003",
+    "prefix": "ft-v1.1",
+    "rule": "configs.select"
+  },
+  "params_hash": "e53031d523b30cf85acbfe6009d0e9e48a2f65bf4dc2abb12a211d4d458ddf63",
+  "outputs": [
+    {
+      "path": "results/EXP-P-003/report-ft-v1.1.json",
+      "sha256": "eaf589f78f43a034e9628a00e93cf4bad0dee074dfbeab351d8202025ae61be6",
+      "bytes": 27688
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

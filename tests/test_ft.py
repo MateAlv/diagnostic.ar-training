@@ -31,6 +31,7 @@ from diagnostic_ar_training.lineage import gitinfo, ledger, manifest
 from diagnostic_ar_training.safe import knowledge as safe_knowledge
 from diagnostic_ar_training.safe import overrides as curation
 
+K = len(FEATURES)
 PARENTS = {"HP:3": {"HP:2"}, "HP:2": {"HP:1"}, "HP:1": set(), "HP:9": set(), "HP:7": set()}
 
 
@@ -54,9 +55,17 @@ def annotations():
             "OMIM:5": "Childhood epilepsy",
             "OMIM:6": "X-linked thing",
             "OMIM:7": "X-linked dominant thing",
+            "OMIM:8": "Generic X-linked thing",
         }
     )
-    ann.inheritance.update({"OMIM:6": {"HP:0001419"}, "OMIM:7": {"HP:0001423"}})
+    ann.inheritance.update(
+        {
+            "OMIM:6": {"HP:0001419"},
+            "OMIM:7": {"HP:0001423"},
+            "OMIM:8": {"HP:0001417"},
+            "OMIM:10": {"HP:0001417", "HP:0001419"},
+        }
+    )
     ann.onset_terms.update({"OMIM:4": {"HP:0003581"}, "OMIM:5": {"HP:0011463"}})
     ann.phenotypes.update(
         {
@@ -75,6 +84,8 @@ G2D = {
     "CHILD": {"OMIM:5"},
     "XLR": {"OMIM:6"},
     "XLD": {"OMIM:7"},
+    "XLGEN": {"OMIM:8"},
+    "XLGEN_XLR": {"OMIM:6", "OMIM:10"},
     "MIXED": {"OMIM:4", "OMIM:99"},
 }
 GENES = (*G2D, "NOTHING")
@@ -105,8 +116,11 @@ def idx(gene):
 def test_knowledge_extras_and_overrides(built):
     kb, stats = built
     g = kb["genes"]
-    assert g["XLR"].get("xlr_only") and not g["XLR"].get("xld_only")
-    assert g["XLD"].get("xld_only") and not g["XLD"].get("xlr_only")
+    assert kb["schema"] == "ft-kb/2"
+    # X-linked recessive only means HP:0001419 alone; generic X-linked (HP:0001417) does not count.
+    assert [x for x in GENES if g[x].get("xlr_only")] == ["XLR"]
+    assert not any("xld_only" in r for r in g.values())
+    assert stats["xlr_only"] == 1 and stats["xl_generic_not_xlr_only"] == 2
     assert g["ADULT"]["lenient_onset_years"] == 16 and g["MIXED"]["lenient_onset_years"] == 16
     assert "onset" not in kb["safe"]["genes"]["MIXED"]  # OMIM:99 has no onset: not strict
     assert g["ADULT"]["profile"] == ["HP:3", "HP:9"] and g["NOTHING"]["profile"] == []
@@ -125,7 +139,8 @@ def test_features_follow_each_known_input(know):
     assert (
         f[i["sex_mismatch"], idx("MALE1")] == 1 and f[i["sex_mismatch"], idx("FEMALE1")] == 0
     )  # curated away
-    assert f[i["xlr_female"], idx("XLR")] == 1 and f[i["xld_male"]].sum() == 0
+    assert f[i["xlr_female"], idx("XLR")] == 1 and f[i["xlr_female"]].sum() == 1
+    assert f[i["xlr_female"], idx("XLGEN")] == 0 and f[i["xlr_female"], idx("XLGEN_XLR")] == 0
     # Onset 2 y (not the age 30): ADULT starts at 16 -> late by 14; CHILD at 1 -> not late.
     assert f[i["onset_strict_late"], idx("ADULT")] == 1 and f[i["onset_strict_late"], idx("CHILD")] == 0
     assert math.isclose(f[i["onset_strict_gap"], idx("ADULT")], math.log1p(14), rel_tol=1e-6)
@@ -143,7 +158,8 @@ def test_unknown_inputs_give_zero_features(know):
     assert not know.features({}).any()
     male = know.features({"sex": "male"})
     assert male[FEATURES.index("sex_mismatch")].sum() == 0  # FEMALE1 was curated out
-    assert male[FEATURES.index("xld_male"), idx("XLD")] == 1
+    assert not male[:, idx("XLD")].any() and not male[FEATURES.index("xlr_female")].any()
+    assert "xld_male" not in FEATURES and len(FEATURES) == 7
 
 
 def test_negative_ages_count_as_zero(know):
@@ -179,7 +195,7 @@ def test_untrained_residual_is_exactly_e0(know):
 
 
 def test_residual_only_lowers_and_ignores_negative_theta(know):
-    theta = [1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 3.0, -5.0]  # a negative θ counts as 0
+    theta = [1.0, 2.0, 0.5, 0.5, 1.0, 3.0, -5.0]  # a negative θ counts as 0
     res = FtResidual(bundle_of(member(theta)), know)
     inputs = {"sex": "female", "onset_years": 2.0, "excluded": ["HP:3"]}
     r = res.residual(inputs)
@@ -208,11 +224,17 @@ def test_mlp_modulation_starts_at_one_and_ensemble_averages(know):
 
 def test_bundle_guards(know, built):
     with pytest.raises(ValueError, match="bundle"):
-        FtResidual({**bundle_of(member([0.0] * 8)), "format": "x"}, know)
+        FtResidual({**bundle_of(member([0.0] * K)), "format": "x"}, know)
+    with pytest.raises(ValueError, match="bundle"):
+        FtResidual({**bundle_of(member([0.0] * K)), "format": "ft-v1-bundle/1"}, know)
+    with pytest.raises(ValueError, match="features"):
+        FtResidual({**bundle_of(member([0.0] * K)), "features": [*FEATURES, "xld_male"]}, know)
     with pytest.raises(ValueError, match="embeddings"):
-        FtResidual(bundle_of(member([0.0] * 7 + [1.0])), Knowledge(built[0], GENES, None))
+        FtResidual(bundle_of(member([0.0] * (K - 1) + [1.0])), Knowledge(built[0], GENES, None))
     with pytest.raises(ValueError, match="classifier"):
-        FtResidual(bundle_of({**member([0.0] * 8), "classifier_delta": "x.npz"}), know)
+        FtResidual(bundle_of({**member([0.0] * K), "classifier_delta": "x.npz"}), know)
+    with pytest.raises(ValueError, match="ft-kb/2"):
+        Knowledge({**built[0], "schema": "ft-kb/1"}, GENES)
 
 
 def test_covariates_layout():
@@ -244,7 +266,7 @@ class FakeBase:
 
 def test_system_matches_apply_and_e0(know):
     e0 = E0Logits(FakeBase())
-    theta = [200.0] + [0.0] * 7
+    theta = [200.0] + [0.0] * (K - 1)
     system = FtV1(e0, FtResidual(bundle_of(member(theta)), know), "ft")
     woman = Case(case_id="a", cohort="c", gene="ADULT", present=("HP:9",), sex=Sex.FEMALE)
     nobody = Case(case_id="b", cohort="c", gene="ADULT", present=("x",))
@@ -273,8 +295,9 @@ def test_ablation_keeps_negation_only():
 def test_grid_is_the_preregistered_budget():
     assert len(configs.CONFIGS) == 8
     assert set(configs.SELECTABLE) == set(configs.CONFIGS) - {"c7-cls-l2sp1e-2", "c8-cls-l2sp1e-4"}
-    assert configs.n_parameters("c1-lin-all") == 8
-    assert configs.n_parameters("c4-mlp16") == 8 + 8 * 16 + 16 + 16 * 8 + 8
+    assert configs.n_parameters("c1-lin-all") == 7
+    assert configs.n_parameters("c3-lin-noxl") == 6 and "xlr_female" not in configs.NO_XL
+    assert configs.n_parameters("c4-mlp16") == 7 + 8 * 16 + 16 + 16 * 7 + 7
     assert configs.n_parameters("c7-cls-l2sp1e-2") > 5229 * 512
 
 
@@ -320,7 +343,7 @@ def test_torch_residual_matches_numpy_and_starts_at_zero(know):
     torch.nn.functional.cross_entropy(model(feats, z), target).backward()
     assert model.theta.grad.abs().sum() > 0  # θ learns from the first step
     with torch.no_grad():
-        model.theta.copy_(torch.tensor([1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 3.0, -1.0]))
+        model.theta.copy_(torch.tensor([1.0, 2.0, 0.5, 0.5, 1.0, 3.0, -1.0]))
         model.mlp[2].weight.normal_()
     model.project()
     assert model.theta[-1] == 0
@@ -470,7 +493,7 @@ def test_bundle_json_round_trip(tmp_path, know):
     from diagnostic_ar_training.ft.bundle import load
 
     path = tmp_path / "b.json"
-    path.write_text(json.dumps(bundle_of(member([0.5] * 8))))
+    path.write_text(json.dumps(bundle_of(member([0.5] * K))))
     assert FtResidual(load(path), know).residual({"sex": "female"}).min() < 0
     path.write_text(json.dumps({"format": "other"}))
     with pytest.raises(ValueError):

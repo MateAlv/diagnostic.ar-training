@@ -76,7 +76,7 @@ class ResidualNet(nn.Module):
         self.theta.clamp_(min=0).mul_(self.feature_mask)
 
     def member(self, classifier_delta: str | None = None) -> dict:
-        """This model as a member of an `ft-v1-bundle/1`."""
+        """This model as a member of an `ft-v1-bundle/2`."""
         mlp = None
         if self.mlp is not None:
             mlp = {

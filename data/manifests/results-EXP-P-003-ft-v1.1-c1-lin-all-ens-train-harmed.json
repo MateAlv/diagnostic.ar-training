@@ -1,0 +1,56 @@
+{
+  "artifact_id": "results-EXP-P-003-ft-v1.1-c1-lin-all-ens-train-harmed",
+  "kind": "ft-train-harmed",
+  "created_at": "2026-10-08T18:09:22+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "f844ba0fec996d473a580cbed4e74e39959bb468",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "ranks:ft-v1-c1-lin-all-ens/train",
+      "sha256": "a256c96e2e682c9f0186c48a284ad4f90cee0c731c056d9ee616a2131cc69b11"
+    },
+    {
+      "id": "ranks:ft-v1.1-c1-lin-all-ens/train",
+      "sha256": "6266a7de591c9c1c36beb43fb9322f4a9dd3c2c8757bcdb99d6381419553bf3c"
+    },
+    {
+      "id": "ranks:EXP-P-001/E0/train",
+      "sha256": "7d9221f7eb2cf4b5cc01b06f95e3fc2e533ede8fad6fd38b654e8a0966077d92"
+    },
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-ens",
+      "sha256": "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-003",
+    "new": "ft-v1.1-c1-lin-all-ens",
+    "old": "ft-v1-c1-lin-all-ens",
+    "script": "scripts/analysis/ft_v11_train_harmed.py"
+  },
+  "params_hash": "9bbefce44028efa7c8152e8a18a3721d320db20405b0801bdc1681922650f2c8",
+  "outputs": [
+    {
+      "path": "results/EXP-P-003/ft-v1.1-c1-lin-all-ens-train-harmed.json",
+      "sha256": "8e6b4830f239065d7851ae8e0fde023e9da1fd42bfe3961c6b188c11960a62b3",
+      "bytes": 7328
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

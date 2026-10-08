@@ -1,0 +1,63 @@
+{
+  "artifact_id": "results-EXP-P-003-ft-v1.1-c1-lin-all-nosexage-ens",
+  "kind": "ft-ensemble-eval",
+  "created_at": "2026-10-08T18:08:51+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "1ca949ed513db6526d46d5e5a53a707b123f2e73",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-nosexage-ens",
+      "sha256": "c355bd72601f796cb845f274b51ff95e1128929218d7dda1b01e75ec017817b5"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-003",
+    "config_name": "c1-lin-all-nosexage",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "kb": "ft-kb-all-v2",
+    "combine": "mean residual"
+  },
+  "params_hash": "6a67cf7c3dcb9efb6321682c8e494b94944d98075b51fa4b5b3fbce72d138142",
+  "outputs": [
+    {
+      "path": "results/EXP-P-003/ft-v1.1-c1-lin-all-nosexage-ens/summary.json",
+      "sha256": "b43a6a7647cdd32a16653aa115a3dcefe53985ded049993a1c34ad636de9eef4",
+      "bytes": 10473
+    },
+    {
+      "path": "results/EXP-P-003/ft-v1.1-c1-lin-all-nosexage-ens/r1-v1-dev.ranks.jsonl",
+      "sha256": "b172382fbc563cab6e2579ef76048d78fa60e02da5d4203966bdf5d7603a24fd",
+      "bytes": 152513
+    },
+    {
+      "path": "results/EXP-P-003/ft-v1.1-c1-lin-all-nosexage-ens/r1-v1-train.ranks.jsonl",
+      "sha256": "5f71642662ad910f777666dcbc8b6194b4ddb544fc15a4d436e8aa3da004ce82",
+      "bytes": 341787
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

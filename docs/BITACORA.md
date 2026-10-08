@@ -4431,3 +4431,27 @@ this task, whatever the result**; the last read needs Mateo's OK.
   DATA_LINEAGE §9.
 - **Sealed data:** none loaded; `DXT_SEALED_READ` never set; no ledger row. The final check's pre-registration is
   the main session's. `dxt lineage verify`: ok.
+## 2026-10-08: Track 3, X-linked features fixed (ft-v1.1) and the dev selection rerun (EXP-P-003 addendum)
+- **Why:** the independent review before EXP-P-004 found, on train, that `xlr_female` counted generic HP:0001417 as
+  X-linked recessive (16 of `ft-v1`'s 21 harmed train patients were such females) and that `xld_male` had θ 5.2–5.5
+  with no supporting patient in train or dev. EXP-P-004 was withdrawn before its read.
+- **Code** (`1bb3926`): `ft/knowledge.py` (`ft-kb/2`: XLR-only needs every inheritance term to be HP:0001419; no XLD
+  flag), `ft/bundle.py` (`ft-v1-bundle/2`, 7 features, `xld_male` removed; version 1 knowledge and bundles refused),
+  run prefix `ft-v1.1` (`ft/configs.py`), `dxt ft report` writes `report-ft-v1.1.json` with a manifest; tests in
+  `tests/test_ft.py` (generic and mixed X-linked genes are not XLR-only).
+- **Knowledge `ft-kb-all-v2`:** same sources, mask and overrides as v1; XLR-only 164 → 125 genes; nothing else
+  differs.
+- **Grid rerun** (8 configurations × seeds 0–2, same rule; all 24 runs valid; every number in the EXP-P-003
+  addendum): c1 +0.00291, c2 +0.00230, c3 +0.00241, c4 +0.00233, c5 +0.00298, c6 +0.00248, c7 +0.02462, c8 +0.08149
+  (seed means). **Selected `c1-lin-all` again** (c5 is +0.00008 higher with 270 parameters).
+  - `ft-v1.1-c1-lin-all-ens` (sha256 `89e3ea09…`): dev +0.00289 [+0.00136, +0.00461], 291 helped / 2 harmed
+    (0.11%), top-1 +7/−0, top-10 +4/−0; post-E0 dev +0.00007 [+0.00001, +0.00020]; ablation (negation only)
+    +0.00146 [+0.00013, +0.00309].
+  - Train +0.00034 [−0.00132, +0.00183], **13 harmed** (`ft-v1`: 21; 8 fixed, none new). Still harmed: 8 females
+    with OFD1, F8 or ZIC3, which are XLR-only in the masked knowledge (for OFD1 and F8 only because the PMID mask
+    removes their X-linked-dominant or generic disease rows), and 5 EIF4A2 patients harmed by `neg_obligate`.
+  - Dev Δ is 0.00024 below `ft-v1`, from smaller weights (best epoch 8–9 instead of 22–25), not from the flag.
+- **GPU:** 34.0 s of fitting over 27 runs, peak 1.4 GB; wall time about 2.3 h (two grid processes in parallel; the
+  classifier runs dominate).
+- **Sealed data:** none loaded; `DXT_SEALED_READ` never set. The rerun is a second dev read of each configuration,
+  disclosed in the addendum.

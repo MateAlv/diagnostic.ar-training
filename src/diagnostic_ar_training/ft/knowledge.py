@@ -1,4 +1,4 @@
-"""The ft-v1 knowledge artifact (`ft-kb/1`): what the residual's compatibility features read, per gene of E0.
+"""The ft-v1 knowledge artifact (`ft-kb/2`): what the residual's compatibility features read, per gene of E0.
 
 It is built from the same sources and rules as safe-v1 (`safe/knowledge.py`), but with every `r1-v1` PMID
 masked (`splits.mask_pmids("r1-v1", "all")`), so a training patient never sees annotations curated from their
@@ -9,8 +9,9 @@ own paper.
   skipped and listed.
 - `genes`, per gene:
   - `lenient_onset_years`: the lowest onset lower bound among the gene's diseases that have onset data;
-  - `xlr_only` / `xld_only`: every HPO inheritance term of the gene's diseases is X-linked recessive or
-    X-linked (HP:0001419, HP:0001417) / X-linked dominant (HP:0001423), as in P2-PROBES-v1 §2;
+  - `xlr_only`: every HPO inheritance term of the gene's diseases is the explicit X-linked recessive term
+    (HP:0001419). Generic X-linked inheritance (HP:0001417) does not qualify: it also covers disorders that
+    affect females (e.g. PCDH19). `ft-kb/1` counted it, and had an `xld_only` flag, which is gone;
   - `profile`: the phenotype terms annotated to the gene's diseases (aspect P, not NOT), sorted.
 """
 
@@ -20,9 +21,14 @@ from collections.abc import Callable, Iterable
 from diagnostic_ar_training.safe import knowledge as safe_knowledge
 from diagnostic_ar_training.safe import overrides as curation
 
-SCHEMA = "ft-kb/1"
-XLR = frozenset({"HP:0001419", "HP:0001417"})
-XLD = frozenset({"HP:0001423"})
+SCHEMA = "ft-kb/2"
+XLR = frozenset({"HP:0001419"})
+X_LINKED = frozenset({"HP:0001417", "HP:0001419"})
+
+
+def xlr_only(inheritance: set[str]) -> bool:
+    """X-linked recessive only: every inheritance term is the explicit HP:0001419."""
+    return bool(inheritance) and inheritance <= XLR
 
 
 def apply_overrides(kb: dict, rows: list[curation.Override]) -> tuple[dict, list[dict]]:
@@ -64,14 +70,14 @@ def build(
         record: dict = {"profile": profile}
         if onsets:
             record["lenient_onset_years"] = min(onsets)
-        if inheritance and inheritance <= XLR:
+        if xlr_only(inheritance):
             record["xlr_only"] = True
-        if inheritance and inheritance <= XLD:
-            record["xld_only"] = True
         out[g] = record
         stats["genes_with_lenient_onset"] += bool(onsets)
         stats["xlr_only"] += "xlr_only" in record
-        stats["xld_only"] += "xld_only" in record
+        stats["xl_generic_not_xlr_only"] += (
+            bool(inheritance) and inheritance <= X_LINKED and not xlr_only(inheritance)
+        )
         stats["genes_with_profile"] += bool(profile)
         stats["profile_pairs"] += len(profile)
     kb = {"schema": SCHEMA, "safe": safe, "genes": out, "overrides_skipped": skipped}

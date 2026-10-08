@@ -108,7 +108,7 @@ def artifacts(tmp_path):
     safe_path = tmp_path / "safe-v1-bundle.json"
     safe_path.write_text(json.dumps(safe_bundle.export(kb["safe"], "safe-kb-x", onset_factor=0.01)))
     ft_path = tmp_path / "ft-v1-bundle.json"
-    ft = bundle_of(member([1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 3.0, 0.0]))
+    ft = bundle_of(member([1.0, 2.0, 0.5, 0.5, 1.0, 3.0, 0.0]))
     ft_path.write_text(json.dumps(ft))
     return {"kb": kb, "kb_path": kb_path, "safe_path": safe_path, "ft": ft, "ft_path": ft_path}
 
