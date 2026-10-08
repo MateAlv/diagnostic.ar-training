@@ -19,6 +19,7 @@ dependencies = [
 dev = ["pytest>=8", "ruff>=0.6"]
 baseline = ["onnxruntime>=1.18"]
 gnn = ["torch>=2.4", "onnx>=1.16"]
+ltr = ["lightgbm>=4.3"]
 
 [project.scripts]
 dxt = "diagnostic_ar_training.cli:app"

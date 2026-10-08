@@ -348,3 +348,31 @@ builds the knowledge of `safe-v1` (PHASE2.md Track 1). Code: `safe/knowledge.py`
 | Artifact | Male / female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y) | Lenient onset | XLR-only / XLD-only | Negatable | Profile terms (gene-term pairs) |
 |---|---|---|---|---|---|---|
 | `ft-kb-all-v1` | 75 / 17 (49 overrides) | 2,786 (596 / 296 / 192) | 4,656 | 164 / 23 | 659 | 9,971 (234,712) |
+## 12. ltr-v1 knowledge and model (Phase 2 Track 2, EXP-P-002)
+
+Code: `ltr/knowledge.py`, `ltr/bundle.py`, `ltr/train.py`, `cli_ltr.py`; tests: `tests/test_ltr.py`.
+
+- **`safe-kb-all-v1`** (`dxt safe build --id safe-kb-all-v1 --mask-scope all --overrides
+  data/curation/safe-v1-overrides.csv --onset-factor 0.01`): the §10 knowledge with every `r1-v1` PMID masked
+  (`data/splits/r1-v1.all-pmids.txt`, input `all-pmids:r1-v1`) instead of the held-out ones, so that a train
+  patient's flags never come from their own paper. 23,979 of 282,723 HPOA rows masked (held-out mask: 15,412).
+  75 male-limited and 17 female-limited genes (the same 49 overrides), 2,786 genes with a strict earliest onset
+  (596 ≥ 1 y), 659 negatable genes. Bundle sha256 `ed1983f1…`, committed in `data/safe/safe-kb-all-v1/`.
+- **`ltr-kb-v1`** (`dxt ltr kb --id ltr-kb-v1 --rerank-kb kb-v4 --safe-kb safe-kb-all-v1`), format `ltr-kb/1`:
+  - Inputs: `kb-v4` (schema 2, ADR-0007 frequencies, every `r1-v1` PMID masked, gene weights `genes-v1`), the
+    `safe-kb-all-v1` bundle, `hpo_ontology` 2026-02-16 and E0's vocabulary. Both knowledge inputs must have
+    mask scope `all`; the command refuses others.
+  - Content: per E0 gene its weighted diseases (5,000 of 5,229 genes have any), the lenient earliest onset
+    (lowest onset lower bound over diseases with data, 4,479 genes), X-linked-recessive-only (149) and
+    X-linked-dominant-only (18) flags; the annotations of 8,879 diseases (188,399 rows); the parents of the
+    18,690 phenotype terms and 3,840 old-id resolutions; the information content of 11,387 terms over those
+    diseases; the background P(term | gene) averaged over the vocabulary; and the `safe-kb-all-v1` bundle.
+  - Output: `data/interim/ltr/ltr-kb-v1/ltr-kb.json.gz` (1.0 MB, not committed); `data/ltr/ltr-kb-v1/stats.json`.
+- **`ltr-v1`** (`dxt ltr select --kb ltr-kb-v1 --id ltr-v1`), kind `ltr-model`: the configuration selected on dev,
+  fitted on `r1-v1` train. Outputs in `data/ltr/ltr-v1/`, committed: `spec.json` (`ltr-v1-spec/1`: features,
+  monotone constraints, family, shrink, `top_k`, the knowledge id and sha256) and `model.txt` (LightGBM text),
+  plus `ablation/` when the ablation is a model. Production ships these with `ltr-kb.json.gz`,
+  `ltr/bundle.py` and `safe/bundle.py` (numpy only; no LightGBM needed to apply).
+- **Selection run** `results-EXP-P-002-r1-v1-ltr-v1`: `results/EXP-P-002/` (the report of every configuration
+  and the ranks of E0, `ltr-v1` and the ablation on train and dev). Its inputs add `phenopacket_store_0_1_25`
+  and `hpo_annotations_2025_11_24`, read only to label post-E0 dev publications.

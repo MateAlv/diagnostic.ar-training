@@ -1,0 +1,130 @@
+{
+  "artifact_id": "results-EXP-P-002-r1-v1-ltr-v1",
+  "kind": "ltr-select",
+  "created_at": "2026-10-08T13:18:49+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "13d1efc529e97fc093e97e50716e9ac8b9698a9d",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ltr-kb-v1",
+      "sha256": "cff889d8112eef8d07bf8946f5acc63f8651acc29bd0ab9af512ddc25fea491e"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "source:phenopacket_store_0_1_25@0.1.25",
+      "sha256": "27ad6b989b3922e68ad0a0f40bd969f9d6ec66294e44a87d0a8fb5a9faea2362"
+    },
+    {
+      "id": "source:hpo_annotations_2025_11_24@2025-11-24",
+      "sha256": "1f161ec53897d54abc87a817cf08e722dfddbf34d4eb9bba74f260b074451aad"
+    }
+  ],
+  "params": {
+    "split": "r1-v1",
+    "parts": [
+      "train",
+      "dev"
+    ],
+    "kb": "ltr-kb-v1",
+    "grid": [
+      "residual_new-l3-m100",
+      "residual_new-l3-m1000",
+      "residual_new-l7-m100",
+      "residual_new-l7-m1000",
+      "residual-l3-m100-s1",
+      "residual-l3-m1000-s1",
+      "residual-l7-m100-s1",
+      "residual-l7-m1000-s1",
+      "residual-l15-m100-s1",
+      "residual-l15-m1000-s1",
+      "residual-l3-m100-s0.25",
+      "residual-l3-m1000-s0.25",
+      "residual-l7-m100-s0.25",
+      "residual-l7-m1000-s0.25",
+      "residual-l15-m100-s0.25",
+      "residual-l15-m1000-s0.25",
+      "free-l15-m100",
+      "free-l31-m1000"
+    ]
+  },
+  "params_hash": "c2c31ee46a30295d66db5e9557ebaec136891ff2cb1505d746f31dc2512a678b",
+  "outputs": [
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__E0__all.ranks.jsonl",
+      "sha256": "984e9cce5da5d270054b88ee0caaec7da32ec2d5cfd560bf5a4ff74ee068c192",
+      "bytes": 1463053
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__E0__all.summary.json",
+      "sha256": "a2b7eec4047507f7b8956de8f474cea8ad7ad5ac30a752b40dfaaefde0d56b57",
+      "bytes": 2534
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__ltr-v1__all.ranks.jsonl",
+      "sha256": "13c554e4f172f60efefd8727a7106d7a4c0456fb7719e4d64d53cdbe2b39748f",
+      "bytes": 1552544
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__ltr-v1__all.summary.json",
+      "sha256": "902dff4e29c476e0cbc73a424a47d564f7d789046944626c418b6de34abc5cf1",
+      "bytes": 2547
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__ltr-v1-ablation__all.ranks.jsonl",
+      "sha256": "c1686e69f71f6d36629d72e68e4bac80d5f5441a1ad46dbae344c7eb7fb80f19",
+      "bytes": 1552501
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-train-ltr-v1__ltr-v1-ablation__all.summary.json",
+      "sha256": "4dfa911d69579a024d554a77c8b4020986abf0ef85caff50351ea81f9867d00f",
+      "bytes": 2554
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__E0__all.ranks.jsonl",
+      "sha256": "a2923aabe5ff2dac3ae15ed8d655ae9308e2a0cca0661f3cb50c63423c881849",
+      "bytes": 667087
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__E0__all.summary.json",
+      "sha256": "01a731ab44af3b2b29a45e3057a9df03973f842b1fe68d892bfbef24fd308e69",
+      "bytes": 2001
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__ltr-v1__all.ranks.jsonl",
+      "sha256": "4874095a872810028329bea616724c06d7568e92ade8ba443cfc8f86b765ff39",
+      "bytes": 707977
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__ltr-v1__all.summary.json",
+      "sha256": "c46991a07a2d48e1876b78c8ebcb21844d27078919d6e3dc87fe4cfa42d63b6a",
+      "bytes": 2009
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__ltr-v1-ablation__all.ranks.jsonl",
+      "sha256": "75aa7a6213c3cc958a8e72caa01a770fa738f98b2af0b3857c5b08de8ca12877",
+      "bytes": 707937
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-dev-ltr-v1__ltr-v1-ablation__all.summary.json",
+      "sha256": "65e28de9086b1c49c3412889cc132ac60be3e19a40010dcfb21773d3621db772",
+      "bytes": 2014
+    },
+    {
+      "path": "results/EXP-P-002/r1-v1-ltr-v1__selection.json",
+      "sha256": "4ea95bdeba59b862794e53ed8a6ca3fc9878daf8c279826feed9774c5fd6e983",
+      "bytes": 51549
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

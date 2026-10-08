@@ -51,9 +51,13 @@ def safe_build(
     onset_factor: float | None = typer.Option(
         None, help="Multiply onset-incompatible genes by this instead of blocking them (bundle onset_factor)"
     ),
+    mask_scope: str = typer.Option(
+        MASK_SCOPE,
+        help="r1-v1 PMIDs to mask: heldout (dev, test, vault) or all (every part; models fitted on train)",
+    ),
     publish: bool = typer.Option(False, help="Upload as a release of this repo (ADR-0005)"),
 ) -> None:
-    """Build the safe knowledge artifact and its production bundle; held-out PMIDs are masked."""
+    """Build the safe knowledge artifact and its production bundle; held-out (or all) r1-v1 PMIDs masked."""
     from diagnostic_ar_training import splits
     from diagnostic_ar_training.lineage import registry
     from diagnostic_ar_training.lineage.hashing import sha256_file
@@ -67,6 +71,8 @@ def safe_build(
     from diagnostic_ar_training.systems.genphenia_v3 import SOURCE as E0_SOURCE
     from diagnostic_ar_training.systems.genphenia_v3 import V3Inputs, unpack_bundle
 
+    if mask_scope not in splits.MASK_SCOPES:
+        raise typer.BadParameter(f"--mask-scope must be one of {sorted(splits.MASK_SCOPES)}")
     ensure_new(kb_id)
     state = _require_clean()
     rows = []
@@ -77,8 +83,8 @@ def safe_build(
             raise typer.BadParameter(str(e)) from e
     paths = {n: open_source(n, Purpose.KB) for n in KB_SOURCES}
     vocabulary = V3Inputs(unpack_bundle()).genes
-    splits.write_mask(MASK_SPLIT, MASK_SCOPE)  # refuses if the committed list drifted from the split
-    mask_path = splits.mask_path(MASK_SPLIT, MASK_SCOPE)
+    splits.write_mask(MASK_SPLIT, mask_scope)  # refuses if the committed list drifted from the split
+    mask_path = splits.mask_path(MASK_SPLIT, mask_scope)
     ontology = Ontology.from_json(paths["hpo_ontology"])
     built, stats = knowledge.build(
         vocabulary,
@@ -109,7 +115,7 @@ def safe_build(
 
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in (*KB_SOURCES, E0_SOURCE)]
-    inputs.append({"id": f"{MASK_SCOPE}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
+    inputs.append({"id": f"{mask_scope}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
     if overrides:
         inputs.append({"id": f"overrides:{overrides}", "sha256": sha256_file(Path(overrides))})
     params = {
@@ -118,7 +124,7 @@ def safe_build(
         "onset_factor": onset_factor,
         "vocabulary": "E0 (genphenia_v3) genes",
         "mask_split": MASK_SPLIT,
-        "mask_scope": MASK_SCOPE,
+        "mask_scope": mask_scope,
         "associations": "hpo_genes_to_disease without POLYGENIC",
         "onset_lower_years": built["onset_lower_years"],
         "onset_strict": "every OMIM disease of the gene has onset data",

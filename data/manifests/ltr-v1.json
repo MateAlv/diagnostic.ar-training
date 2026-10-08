@@ -1,0 +1,116 @@
+{
+  "artifact_id": "ltr-v1",
+  "kind": "ltr-model",
+  "created_at": "2026-10-08T13:18:49+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "13d1efc529e97fc093e97e50716e9ac8b9698a9d",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ltr-kb-v1",
+      "sha256": "cff889d8112eef8d07bf8946f5acc63f8651acc29bd0ab9af512ddc25fea491e"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    }
+  ],
+  "params": {
+    "spec": {
+      "format": "ltr-v1-spec/1",
+      "config": {
+        "name": "residual-l3-m100-s0.25",
+        "family": "residual",
+        "num_leaves": 3,
+        "min_data_in_leaf": 100,
+        "learning_rate": 0.05,
+        "lambda_l2": 1.0,
+        "max_rounds": 2000,
+        "early_stopping": 100,
+        "shrink": 0.25
+      },
+      "family": "residual",
+      "ablation": false,
+      "features": [
+        "e0_logp",
+        "e0_logrank",
+        "e0_gap_top1",
+        "present_llr_sum",
+        "present_llr_mean",
+        "present_explained",
+        "present_resnik_bma",
+        "richness_terms",
+        "richness_diseases",
+        "sex_mismatch",
+        "xlr_female",
+        "xld_male",
+        "onset_late",
+        "onset_gap_strict",
+        "onset_gap_lenient",
+        "negation_contradicted",
+        "excl_obligate",
+        "excl_very_frequent",
+        "excl_frequent",
+        "excl_occasional",
+        "excl_unknown_frequency"
+      ],
+      "monotone": {
+        "e0_logp": 1,
+        "e0_logrank": -1,
+        "e0_gap_top1": 1,
+        "present_llr_sum": 0,
+        "present_llr_mean": 0,
+        "present_explained": 0,
+        "present_resnik_bma": 0,
+        "richness_terms": 0,
+        "richness_diseases": 0,
+        "sex_mismatch": -1,
+        "xlr_female": -1,
+        "xld_male": -1,
+        "onset_late": -1,
+        "onset_gap_strict": -1,
+        "onset_gap_lenient": -1,
+        "negation_contradicted": -1,
+        "excl_obligate": -1,
+        "excl_very_frequent": -1,
+        "excl_frequent": -1,
+        "excl_occasional": -1,
+        "excl_unknown_frequency": -1
+      },
+      "init_e0_logp": true,
+      "shrink": 0.25,
+      "top_k": 100,
+      "kb_id": "ltr-kb-v1",
+      "kb_sha256": "cff889d8112eef8d07bf8946f5acc63f8651acc29bd0ab9af512ddc25fea491e"
+    },
+    "selected_by": "results-EXP-P-002-r1-v1-ltr-v1",
+    "fitted_on": "r1-v1/train"
+  },
+  "params_hash": "43ff9b87d46fe9b28c263fe24d0aa698210b31ab2ab9de2df6fc2062cdf12790",
+  "outputs": [
+    {
+      "path": "data/ltr/ltr-v1/spec.json",
+      "sha256": "0d5ccf40379c6d375c86d7624c2ad0180e6d47057a3bde53863bcd7b9d132919",
+      "bytes": 1430
+    },
+    {
+      "path": "data/ltr/ltr-v1/model.txt",
+      "sha256": "832b59eda6cb3fb95dbfeae607b9ed900ab8bca8810a542b02d585ed968bc124",
+      "bytes": 136075
+    },
+    {
+      "path": "data/ltr/ltr-v1/ablation/spec.json",
+      "sha256": "0f0e369635bceb8fec465d370058a8c6e43d3f9c6668b394d36198e210eba98e",
+      "bytes": 887
+    },
+    {
+      "path": "data/ltr/ltr-v1/ablation/model.txt",
+      "sha256": "1cad4d245b5dc219cb4d5c50cffa10b5c44900114df538c185f9e6459099f606",
+      "bytes": 116144
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

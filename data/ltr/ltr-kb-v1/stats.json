@@ -1,0 +1,16 @@
+{
+ "annotations": 188399,
+ "diseases": 8879,
+ "genes": 5229,
+ "genes_lenient_onset": 4479,
+ "genes_with_knowledge": 5000,
+ "genes_xld_only": 18,
+ "genes_xlr_only": 149,
+ "phenotype_terms": 18690,
+ "resolvable_old_ids": 3840,
+ "safe_kb_id": "safe-kb-all-v1",
+ "safe_negatable": 659,
+ "safe_sex_limited": 92,
+ "safe_strict_onset": 2786,
+ "terms_with_ic": 11387
+}

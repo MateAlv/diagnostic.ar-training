@@ -60,6 +60,10 @@ is a success when it is real; safe candidates go first.
   - how well the present terms fit the gene, with a frequency-aware likelihood ratio over the masked HPO knowledge;
   - annotation richness.
 - **Monotone constraints:** see the Phase 1 lessons below.
+- **Status (2026-10-08):** `ltr-v1` selected on dev among 18 configurations (EXP-P-002): +0.05129 [+0.01257,
+  +0.10568], harmed 4.67%; new inputs over the ablation +0.00136 [+0.00036, +0.00273]; post-E0 dev +0.00151
+  [−0.00019, +0.00474]. 60% of the dev gain is one NF1 publication, and annotation richness can act as a gene
+  proxy (BITACORA 2026-10-08).
 - **Ablation:** the same model without sex, age, onset and excluded terms. The difference measures the anteproyecto's
   inputs.
 

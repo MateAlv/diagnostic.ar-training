@@ -4340,3 +4340,40 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **GPU:** 32.7 s of fitting in total, peak 1.6 GB; wall time 83 min for the grid, mostly CPU evaluation (the
   classifier runs pool each case on CPU).
 - **Sealed data:** none loaded; `DXT_SEALED_READ` never set. `dxt ft confirm` exists with mocked tests only.
+## 2026-10-08: Track 2, `ltr-v1` built and selected on dev (EXP-P-002)
+- **Code:** `ltr/` (features, numpy LightGBM evaluator, `apply`, knowledge build, fitting), `cli_ltr.py`
+  (`dxt ltr kb | select | confirm`), `eval/ltr_eval.py`; `dxt safe build --mask-scope`; tests `tests/test_ltr.py`
+  (22 tests; `dxt ltr confirm` only mocked, never run). `lightgbm` is the optional extra `ltr`,
+  installed in CI.
+- **Artifacts:** `safe-kb-all-v1` (Track 1 knowledge, every `r1-v1` PMID masked, curated, onset ×0.01; 23,979 HPOA
+  rows masked), `ltr-kb-v1` (from `kb-v4` + `safe-kb-all-v1`), model `ltr-v1`. DATA_LINEAGE §12.
+- **Train-only development before the grid was fixed** (inner 20% of train groups, no dev read): `residual_new`
+  l3 +0.00087 (harmed 2.2%); `residual` l3/l7 +0.067/+0.096 at shrink 1 (harmed 11–15%), +0.009/+0.029 at shrink
+  0.25 (harmed 5.1/5.0%); `free` l15 +0.085 (harmed 13.7%). These set the shrink values {1, 0.25}.
+- **Dev selection** (`dxt ltr select`, code `13d1efc`; 18 configurations of the 20 allowed, all in
+  [EXP-P-002](experiments/EXP-P-002.md) with train numbers):
+
+  | Family | Configurations | Dev Δ MRR range | Dev harmed range |
+  |---|---|---|---|
+  | residual_new | 4 | +0.00070 to +0.00100 | 2.50–4.09% |
+  | residual, shrink 1 | 6 | +0.11454 to +0.13541 | 9.67–11.79% |
+  | residual, shrink 0.25 | 6 | +0.04995 to +0.06409 | 4.67–6.16% |
+  | free | 2 | +0.12567 to +0.12587 | 11.84–13.60% |
+
+  Median over the 18: +0.06326. Six have harmed ≤ 5%.
+- **Selected (highest dev Δ with harmed ≤ 5%):** `residual-l3-m100-s0.25`.
+  - Dev vs E0: +0.05129 [+0.01257, +0.10568], harmed 88 (4.67%), helped 435 (23.10%), top 1 +111/−4, top 10
+    +29/−2. MRR 0.4485 → 0.4998.
+  - Ablation (refitted without sex, age, onset, excluded terms) vs E0: +0.04993 [+0.01146, +0.10461], harmed 4.78%.
+  - **ltr-v1 vs ablation, dev: +0.00136 [+0.00036, +0.00273],** helped 54, harmed 18 (0.96%), top 1 +4/−0.
+  - Post-E0 dev (351 patients): +0.00151 [−0.00019, +0.00474], harmed 12 (3.42%); vs ablation −0.00000.
+  - Train vs E0: +0.02340 [+0.01211, +0.03503], harmed 3.56%; vs ablation +0.00061 [−0.00029, +0.00143].
+  - The shipped numpy path reproduces the selection's ranks for all 5,986 patients.
+- **Concentration:** PMID:26178382 (136 NF1 patients) carries 60% of the dev gain (NF1 at rank 1: E0 45, ltr-v1
+  120); the top five publications 85%, two of them LMNA cohorts. Without PMID:26178382: +0.0221 (ablation +0.0206).
+- **Richness as a gene proxy:** `richness_terms` holds 57.5% of the split gain. It is unique to 53 of 5,229 genes,
+  NF1 and LMNA among them, and train has 158 NF1 and 64 LMNA patients. This is a route for a per-gene prior,
+  which P2-PROBES-v1 §3 rules out. The selected model is not proposed for pre-registration as is; the choice of
+  what to do with the 2 remaining configurations (for example richness removed or coarsened) is for the main
+  session.
+- **Sealed data:** none loaded; `DXT_SEALED_READ` never set; no ledger row. `dxt lineage verify`: ok.

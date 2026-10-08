@@ -10,6 +10,7 @@ from diagnostic_ar_training import DATA_DIR, MANIFESTS_DIR, SPLITS_DIR
 from diagnostic_ar_training.cli_ft import ft_app
 from diagnostic_ar_training.cli_lit import lit_app
 from diagnostic_ar_training.cli_lit_extract import extract_app
+from diagnostic_ar_training.cli_ltr import ltr_app
 from diagnostic_ar_training.cli_safe import safe_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
 from diagnostic_ar_training.lineage import registry
@@ -35,6 +36,7 @@ app.add_typer(lit_app, name="lit-sources")
 app.add_typer(extract_app, name="lit")
 app.add_typer(safe_app, name="safe")
 app.add_typer(ft_app, name="ft")
+app.add_typer(ltr_app, name="ltr")
 
 
 @kb_app.command("build")
