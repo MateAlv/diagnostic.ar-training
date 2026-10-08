@@ -71,6 +71,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [EXP-B-005](experiments/EXP-B-005.md) | Onset in the re-ranker on S3 v3b; P1 passed |
 | [EXP-B-006](experiments/EXP-B-006.md) | rr-v1 + onset 0.25 (`rerank-v1.1.0`), one R1-test read; gate passed, vs rr-v1 −0.0003 [−0.0019, +0.0008] |
 | [EXP-V-001](experiments/EXP-V-001.md) | The one R1-vault read: E0 vs `rerank-v1.0.0` vs `rerank-v1.1.0` (descriptive) |
+| [EXP-P-001](experiments/EXP-P-001.md) | Phase 2 Track 1: `safe-v1` (`safe-kb-v1`) on `p2-v1` test; registered 2026-10-08 |
 
 ## Analyses (`analyses/`)
 
