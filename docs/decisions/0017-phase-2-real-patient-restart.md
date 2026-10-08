@@ -113,5 +113,5 @@
   2026-10-20T00:00Z. Every other part of decision 4 is unchanged.
 - **Why:** 2026-10-20 was chosen only to collect more patients (about 25 per week). Mateo asked for the final check
   before the informe draft (2026-10-15).
-- **Blind:** the change is made without reading any fresh patient, and no final-check data has been loaded. The rule
+- **Blind:** the change is made without scoring any fresh patient (they are parsed only for counts), and no final-check data has been loaded. The rule
   stays fixed in advance of the data.

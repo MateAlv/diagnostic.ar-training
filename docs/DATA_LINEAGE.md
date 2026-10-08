@@ -255,7 +255,7 @@ in ADR-0013 amendment 3. Each choice is counted in the report.
 | Split | Inputs | Parts |
 |---|---|---|
 | `p2-v1` (frozen 2026-10-07, `b1ccdada…`) | `split:r1-v1` (`b007aa17…`), `phenopacket_store_0_1_25`, `hpo_annotations_2025_11_24`; patients from `phenopacket_store` (0.1.27) | train 4,103 / dev 1,883 / test 3,587 / vault 732 patients |
-| `p2-fresh-v1` (to be frozen 2026-10-20) | a snapshot of phenopacket-store `main`, `phenopacket_store` (0.1.27), `phenopacket_store_0_1_25`, `hpo_annotations_2025_11_24`, `hpo_annotations` (2026-02-16) | vault only |
+| `p2-fresh-v1` (frozen 2026-10-08, `2a9438d0…`, from `phenopacket_store_main_2026_10_08`; ADR-0017 Amendment 2) | a snapshot of phenopacket-store `main`, `phenopacket_store` (0.1.27), `phenopacket_store_0_1_25`, `hpo_annotations_2025_11_24`, `hpo_annotations` (2026-02-16) | vault only |
 
 - **`p2-v1`** keeps `r1-v1` train and dev and re-partitions the `r1-v1` test and vault publication groups by post-E0
   status. The file records group counts by status for each `r1-v1` part (`group_status_by_parent_part`). Its
@@ -266,7 +266,8 @@ in ADR-0013 amendment 3. Each choice is counted in the report.
   read, in path order; a repeated phenopacket id keeps its first file.
 
 ### Pinning the snapshot and freezing `p2-fresh-v1`
-1. `dxt sources snapshot-github --name phenopacket_store_main_2026_10_20 --before 2026-10-20T00:00:00Z`
+1. `dxt sources snapshot-github --name phenopacket_store_main_<date> --before <UTC cutoff>`. On 2026-10-08 this was
+   `phenopacket_store_main_2026_10_08` with cutoff `2026-10-08T19:35:00Z` (ADR-0017 Amendment 2).
    - It resolves the last commit on `main` committed strictly before the timestamp (GitHub commits API, committer
      date).
    - It downloads `https://github.com/monarch-initiative/phenopacket-store/archive/<sha>.tar.gz` into

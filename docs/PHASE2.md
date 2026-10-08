@@ -99,13 +99,13 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | EXP-P-001 read: safe-v1 Δ +0.00029 [−0.00053, +0.00097], harmed 0.25%; gate not passed; sex and onset alone: 0 harmed | done |
 | 10-08 | Track 3 fixed (ft-v1.1); EXP-P-005 read: Δ +0.00138 [+0.00070, +0.00232], harmed 0.17%, **gate passed** | done |
 | 10-08 | EXP-P-006 (final check) pre-registered; ft-v1.1 feature attribution | done |
-| 10-20 | Freeze `p2-fresh-v1` (DATA_LINEAGE §9), then EXP-P-006's single read | next |
+| 10-08 | `p2-fresh-v1` frozen now (ADR-0017 Amendment 2): 340 patients; EXP-P-006 reviewed (GO) | done |
+| 10-08 | EXP-P-006's single read | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-08 | `dxt final-check` (both vaults loaded once, every candidate on the same cases); `safe-v1[sex+onset]` dev +0.00100 [+0.00030, +0.00179], train +0.00036 [+0.00007, +0.00080], 0 harmed | done |
 | 10-08 | Track 3 X-linked fix, grid rerun (EXP-P-003 addendum), candidate `ft-v1.1-c1-lin-all-ens` | done |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
-| 10-20 | Freeze `p2-fresh-v1`; final check (one read) | planned |
 | 10-21 to 10-27 | Release (`diagnostic.ar-model`), docs, informe evidence | planned |
 
 Informe draft: 10-15. Informe delivery: 11-01.

@@ -304,7 +304,7 @@ Phase 2 keeps every rule above. It adds new parts and does not change `r1-v1`.
 | `p2-v1` train / dev | `r1-v1` train / dev (5,986 patients) | free: fit on train, select on dev |
 | `p2-v1` test (confirmation) | `r1-v1` test and vault publication groups that are not post-E0 | sealed; one pre-registered read per candidate; at most 3 in Phase 2 |
 | `p2-v1` vault (final check, R1 part) | `r1-v1` test and vault groups that are post-E0 | sealed; opens once |
-| `p2-fresh-v1` vault (final check, fresh part) | phenopacket-store `main` at 2026-10-20: patients not in 0.1.27, post-E0, uncited in HPO 2026-02-16 | sealed; opens once, in the same read as `p2-v1` vault |
+| `p2-fresh-v1` vault (final check, fresh part) | phenopacket-store `main` at 2026-10-08 (ADR-0017 Amendment 2; first planned for 2026-10-20): patients not in 0.1.27, post-E0, uncited in HPO 2026-02-16 | sealed; opens once, in the same read as `p2-v1` vault |
 
 - **Post-E0 [code]:** the publication group has at least one PMID, no PMID of it is in phenopacket-store 0.1.25,
   and none is cited in HPO 2025-11-24, the annotations E0 was trained on. A group without PMIDs is not post-E0.

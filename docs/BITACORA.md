@@ -4491,3 +4491,16 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **`p2-fresh-v1` frozen,** content sha256 `2a9438d0…`. Vault: 340 patients, 86 publication groups (all post-E0),
   47 genes. Sex known 271, age 275, onset 139, excluded terms 277. Counts only; no patient was scored.
 - **Final check (EXP-P-006):** `p2-v1` vault (732) + `p2-fresh-v1` vault (340) = 1,072 patients.
+
+## 2026-10-08: EXP-P-006 independent review: GO; notes folded in before the read
+- **Review:** GO, no blocking issue. Its checks:
+  - fresh-split exclusions verified: 0 of the 86 PMIDs in any R1, 0.1.25, 0.1.27 or either HPO release;
+  - the `p2-v1` vault masked in both knowledge artifacts;
+  - the command rehearsed on dev pseudo-vaults, with ranks equal to the committed runs;
+  - the gate script working with bracketed system names.
+- **Folded in before the read (EXP-P-006):**
+  - The `p2-v1` vault patients were scored in Phase 1 by E0 and the old re-rankers, never by a Phase 2 candidate.
+  - H2 is read as `ci[0] >= 0` from its `gate.json`.
+  - An H1 pass with harmed ≤ 0.5% makes `safe-v1[sex+onset]` a production candidate after Mateo's go.
+  - The knowledge that PMID masking cannot reach is disclosed.
+  - Stale 2026-10-20 mentions are updated in PHASE2, STATE, INDEX, EVAL_PROTOCOL and DATA_LINEAGE.

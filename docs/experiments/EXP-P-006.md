@@ -3,7 +3,7 @@
 - **Front:** Phase 2 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md)
   decisions 3–5)
 - **Registered:** 2026-10-08, by the main session for Mateo (go for the final check given 2026-10-08)
-- **Status:** registered. ADR-0017 Amendment 2 moves the `p2-fresh-v1` freeze to 2026-10-08T19:35:00Z, before any read. The read
+- **Status:** registered. The independent review (2026-10-08) gave GO, and its notes are folded in. ADR-0017 Amendment 2 moves the `p2-fresh-v1` freeze to 2026-10-08T19:35:00Z, before any read. The read
   follows: once, all systems together.
 
 ## Hypotheses
@@ -24,8 +24,9 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
 | `safe-v1[sex]`, `[onset]`, `[negation]` | `safe-kb-v1` | descriptive |
 
 ## Data
-- **`p2-v1` vault:** the R1 test and vault publication groups that are post-E0. 732 patients in 135 groups; never
-  read.
+- **`p2-v1` vault:** the R1 test and vault publication groups that are post-E0. 732 patients in 135 groups. Never
+  scored by a Phase 2 candidate. Phase 1 did score them: E0 and the Phase 1 re-rankers in EXP-000, B-003, B-006
+  (67 groups from R1 test) and EXP-V-001 (68 groups from R1 vault).
 - **`p2-fresh-v1` vault:** phenopacket-store `main` at its last commit before 2026-10-08T19:35:00Z (ADR-0017 Amendment 2), under ADR-0017 §4's
   rule. Frozen on 2026-10-08 (`2a9438d0…`): 340 patients in 86 groups, at `main@85ffd78`. It has never been read; it is pinned
   and frozen by DATA_LINEAGE §9's procedure before the read.
@@ -33,7 +34,9 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
   the annotations E0 was trained on.
 - **Disclosure:** H1 was chosen after EXP-P-001's read of `p2-v1` test. There the onset and sex rules alone harmed no
   patient, onset alone gave +0.00016 [+0.00007, +0.00032], and the negation rule carried every harm. The final-check
-  patients are disjoint from `p2-v1` test and from every development part, and they are unread. The hypothesis was
+  patients are disjoint from `p2-v1` test and from every development part, and no Phase 2 candidate has scored
+  them. EXP-P-001 Addendum 1 also showed onset on test patients from papers E0 does not cite: +0.00017 [+0.00003,
+  +0.00056]. The hypothesis was
   informed by test, and it is tested here on independent data.
 - **Command, after the freeze:**
   `DXT_SEALED_READ=EXP-P-006 .venv/bin/dxt final-check --exp EXP-P-006 --safe-kb safe-kb-v1 --ft-bundle
@@ -46,7 +49,16 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
 - **Primary:** Δ MRR, `safe-v1[sex+onset]` − E0, over all final-check patients (both vaults), with misses counted as
   0. The bootstrap is paired and resamples publication groups (2,000 resamples, seed 0).
 - **H1 passes** if the 95% CI lower bound is above 0 and harmed ≤ 5%.
-- **H2** is reported with its CI. `ft-v1.1` may go to production if the H2 lower bound is ≥ 0, after Mateo's go.
+- **H2:** read `ci[0] >= 0` from the H2 `gate.json` (95%, n_reads 1). The script's `passed` field tests a lower
+  bound above 0, so it is not H2's rule. `ft-v1.1` may go to production if H2 holds, after Mateo's go.
+- **What an H1 pass means for production:** `safe-v1[sex+onset]` becomes a production candidate (knowledge-only) if
+  H1 passes with harmed ≤ 0.5%, after Mateo's go. It has no separate confirmation read: this read is its
+  confirmation, on data independent of every earlier choice.
+- **Knowledge that PMID masking cannot reach, disclosed before the read:** `genes_to_disease`, HPOA rows referenced
+  by OMIM or ORPHA, Orphanet ages (2026-06-23, newer than HPO 2026-02-16), and the agent-curated sex removals.
+  - These can only reduce harms, so they favour the candidates.
+  - In the other direction, the all-mask artefact of EXP-P-005 (OFD1, F8, SLC9A6 and THOC2 in females) can recur for
+    `ft-v1.1`.
 
 ## Also reported (descriptive)
 - every system vs E0, overall and per vault, with harmed and helped and top-1 and top-10 entries and exits;
@@ -55,7 +67,7 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
 - the share whose gene is outside E0's vocabulary.
 
 ## Expectations
-- **Post-E0 dev patients** (1,034; P2-PROBES-v1 §5):
+- **Post-E0 R1 train + dev patients** (1,034; P2-PROBES-v1 §5):
   - E0 MRR 0.066, and 52% have a gene in E0's vocabulary.
   - Sex + age/onset (hard): +0.00010 [+0.00003, +0.00020], 0 harmed.
   - ft-v1.1: +0.00007 [+0.00001, +0.00020], 0 harmed.
