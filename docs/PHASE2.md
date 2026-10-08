@@ -31,9 +31,9 @@ is a success when it is real; safe candidates go first.
   - Ages below 0 count as 0. Infantile onset counts as 0, a conservative choice.
 - **Negation.** The probability is multiplied by 0.1 when the patient's excluded terms cover an obligate phenotype of
   every annotated disease of the gene. Obligate means HP:0040280, "100%", or n/n with n ≥ 5.
-- **Curation, done by agents.** Each sex-limited gene (141) and each onset-bounded gene with an earliest onset of 1 year
-  or more (596) is checked against the pinned GeneReviews and MedlinePlus snapshots. Curation may only remove a gene
-  from a rule or lower its onset bound. Mateo spot-checks 20 random genes.
+- **Curation, done by agents:** only the 141 sex-limited genes, 49 removed (BITACORA 2026-10-08). The agents used
+  their own knowledge rather than quotes; see the EXP-P-001 deviations. Curation may only remove a gene or lower a
+  bound. Mateo spot-checks 20 random genes. Onset genes are not curated; the ×0.01 factor bounds them.
 - **Dev expectation (P2-PROBES-v1):** sex + onset about +0.0009 MRR with 0 harmed; negation about +0.0007.
 - **Status (2026-10-07):** code and `safe-kb-v1a` (uncurated) built; curation queue of 756 genes ready
   (`results/P2/safe-kb-v1a/curation_queue.csv`). Dry run vs E0: dev +0.00196 [−0.00002, +0.00392], 3 harmed
@@ -89,8 +89,6 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | Track 1 onset form chosen on dev: ×0.01 (BITACORA 2026-10-08) | done |
 | 10-08 | Sex-gene curation (141 → 92), `safe-kb-v1`, EXP-P-001 pre-registered | done |
 | 10-08 to 10-09 | Independent review of EXP-P-001, Mateo's spot-check and go, confirmation read | next |
-| 10-10 | `safe-v1` on dev; pre-register EXP-P-001; independent review | planned |
-| 10-11 | EXP-P-001 confirmation read, after Mateo's go | planned |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
 | 10-20 | Freeze `p2-fresh-v1`; final check (one read) | planned |

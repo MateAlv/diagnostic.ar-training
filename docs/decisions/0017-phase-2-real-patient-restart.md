@@ -101,3 +101,9 @@
   - the `p2-v1` and `p2-fresh-v1` split builders, with the existing sealed-read guards (`DXT_SEALED_READ`, pre-registration, clean tree, ledger, vault once);
   - the `safe-v1` system.
 - **Phase 1 is untouched:** documents, results and ledger rows are not edited.
+
+## Amendment, 2026-10-08 (before any Phase 2 sealed read)
+- **Decision 9:** the confirmation gate is CI lower bound > 0 with harmed ≤ 5%. Harmed ≤ 0.5% is the production
+  criterion, as fixed in PHASE2.md "Gates" on 2026-10-07 and in EXP-P-001.
+- **Decision 8:** the sex curation used the agents' own knowledge, not quotes, and onset genes were not curated. This
+  is recorded as a deviation in EXP-P-001.
