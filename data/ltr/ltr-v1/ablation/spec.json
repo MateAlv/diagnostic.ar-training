@@ -1,0 +1,43 @@
+{
+ "ablation": true,
+ "config": {
+  "early_stopping": 100,
+  "family": "residual",
+  "lambda_l2": 1.0,
+  "learning_rate": 0.05,
+  "max_rounds": 2000,
+  "min_data_in_leaf": 100,
+  "name": "residual-l3-m100-s0.25",
+  "num_leaves": 3,
+  "shrink": 0.25
+ },
+ "family": "residual",
+ "features": [
+  "e0_logp",
+  "e0_logrank",
+  "e0_gap_top1",
+  "present_llr_sum",
+  "present_llr_mean",
+  "present_explained",
+  "present_resnik_bma",
+  "richness_terms",
+  "richness_diseases"
+ ],
+ "format": "ltr-v1-spec/1",
+ "init_e0_logp": true,
+ "kb_id": "ltr-kb-v1",
+ "kb_sha256": "cff889d8112eef8d07bf8946f5acc63f8651acc29bd0ab9af512ddc25fea491e",
+ "monotone": {
+  "e0_gap_top1": 1,
+  "e0_logp": 1,
+  "e0_logrank": -1,
+  "present_explained": 0,
+  "present_llr_mean": 0,
+  "present_llr_sum": 0,
+  "present_resnik_bma": 0,
+  "richness_diseases": 0,
+  "richness_terms": 0
+ },
+ "shrink": 0.25,
+ "top_k": 100
+}
