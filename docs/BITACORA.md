@@ -4377,6 +4377,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
   what to do with the 2 remaining configurations (for example richness removed or coarsened) is for the main
   session.
 - **Sealed data:** none loaded; `DXT_SEALED_READ` never set; no ledger row. `dxt lineage verify`: ok.
+## 2026-10-08: EXP-P-001 addendum; EXP-P-004 registered, then withdrawn before its read
+- **EXP-P-001 Addendum 1** (descriptive, `scripts/analysis/exp_p001_by_citation.py`):
+
+  | Test patients | n | E0 MRR | Onset rule Δ [95% CI] |
+  |---|---|---|---|
+  | Publications cited in E0's training annotations | 2,398 | 0.551 | +0.00016 [+0.00005, +0.00033] |
+  | Not cited | 1,189 | 0.244 | +0.00017 [+0.00003, +0.00056] |
+
+- **EXP-P-004:** `ft-v1-c1-lin-all-ens` on `p2-v1` test, pre-registered (#132).
+  - The independent review gave GO, but found that `xlr_female` treats generic X-linked inheritance as recessive
+    (16 of 21 train harms: females with PCDH19, OFD1, F8, ZIC3) and that `xld_male` has a large weight with no
+    supporting patient.
+  - EXP-P-004 is withdrawn before any read. The features are being fixed and the candidate reselected under EXP-P-003's
+    rule.
+  - The gate script now also reads `dxt ft confirm` outputs.
+- **Wording:** PHASE2.md now names the gate correction as Bonferroni at 1 − 0.05/3, as EXP-P-001 applied it.
+- **Sealed data:** none read. Confirmation reads used: 1 of 3.
 ## 2026-10-08: `dxt final-check` built; `safe-v1[sex+onset]` on dev and train
 - **Why:** each vault opens once, and `dxt safe confirm` and `dxt ft confirm` each load their own data, so they
   cannot both read the vaults. The final check (ADR-0017 decision 5) needs every candidate scored from one load.
@@ -4406,6 +4423,8 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Rehearsal of the final-check path on dev** (free; nothing written): `fc.evaluate` with the real artifacts,
   dev split by publication into two pseudo-components.
   - It reproduces `safe-v1` +0.00246 and `ft-v1-c1-lin-all-ens` +0.00313 [+0.00159, +0.00485] with 2 harmed.
+    That bundle is the candidate withdrawn with EXP-P-004 (entry above). The final check takes the reselected
+    bundle and its knowledge through `--ft-bundle` and `--ft-kb`.
   - The present view equals E0 for all six candidates.
   - E0's network ran 1,883 times for 1,883 patients.
 - **Today `dxt final-check` refuses:** `p2-fresh-v1` is not frozen. It will be frozen on 2026-10-20, per

@@ -105,7 +105,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 Informe draft: 10-15. Informe delivery: 11-01.
 
 ## Gates (fixed here, repeated in each pre-registration)
-- **Confirmation:** Δ MRR CI lower bound > 0, with Holm correction across Phase 2 confirmation reads, and harmed ≤ 5%
+- **Confirmation:** Δ MRR CI lower bound > 0, at level 1 − 0.05/3 (Bonferroni across Phase 2's 3 confirmation reads; conservative relative to Holm), and harmed ≤ 5%
   (Phase 1's cap for re-rankers).
 - **Final check:** reported for every candidate, with no gate. It is the clean, post-E0 estimate.
 - **Production:**
