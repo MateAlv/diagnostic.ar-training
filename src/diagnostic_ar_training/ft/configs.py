@@ -11,6 +11,8 @@ from collections.abc import Mapping
 
 from diagnostic_ar_training.ft.bundle import COVARIATE_GROUPS, COVARIATES, FEATURE_GROUPS, FEATURES
 
+# Run and bundle ids: ft-v1.1 is the grid rerun with the fixed X-linked features (EXP-P-003, addendum).
+PREFIX = "ft-v1.1"
 SEEDS = (0, 1, 2)
 HELD_OUT_SHARE = 0.2
 HELD_OUT_SALT = "ft-v1/inner"
@@ -26,7 +28,7 @@ def inner_split(groups: Mapping[str, str], case_ids, share: float = HELD_OUT_SHA
 
 
 SAFE3 = ("sex_mismatch", "onset_strict_late", "neg_obligate")
-NO_XL = tuple(f for f in FEATURES if f not in ("xlr_female", "xld_male"))
+NO_XL = tuple(f for f in FEATURES if f != "xlr_female")
 CLASSIFIER = {"classifier": True, "lr_classifier": 1e-4, "replay_weight": 1.0}
 
 CONFIGS: dict[str, dict] = {

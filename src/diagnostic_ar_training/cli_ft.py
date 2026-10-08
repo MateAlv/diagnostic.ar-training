@@ -46,7 +46,7 @@ def _kb_output(kb_id: str) -> tuple[Path, str]:
 
 @ft_app.command("kb")
 def ft_kb(
-    kb_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. ft-kb-all-v1"),
+    kb_id: str = typer.Option(..., "--id", help="Immutable artifact id, e.g. ft-kb-all-v2"),
     overrides: str = typer.Option(
         "data/curation/safe-v1-overrides.csv", help="safe-v1 curation overrides ('' for none)"
     ),
@@ -108,7 +108,6 @@ def ft_kb(
         "associations": "hpo_genes_to_disease without POLYGENIC",
         "safe_rules": "safe/knowledge.py (safe-kb/1)",
         "xlr_only": sorted(ft_knowledge.XLR),
-        "xld_only": sorted(ft_knowledge.XLD),
         "profile": "aspect P, qualifier not NOT, of the gene's diseases",
         "overrides": overrides or None,
     }
@@ -146,14 +145,15 @@ def _require_preregistered(exp: str) -> None:
 @ft_app.command("grid")
 def ft_grid(
     exp: str = typer.Option("EXP-P-003", help="Pre-registered experiment id"),
-    kb_id: str = typer.Option("ft-kb-all-v1", "--kb"),
+    kb_id: str = typer.Option("ft-kb-all-v2", "--kb"),
     config: list[str] = typer.Option(..., help="Configurations of ft/configs.py (or <name>-nosexage)"),
     seed: list[int] = typer.Option([0, 1, 2]),
     device: str = typer.Option("cuda"),
 ) -> None:
     """Fit each configuration × seed on R1-train (early stopping on held-out train groups), report it vs E0.
 
-    Dev and train are reported. Writes results/<exp>/ft-v1-<config>-s<seed>/ with a manifest; the weights go
+    Dev and train are reported. Writes results/<exp>/<PREFIX>-<config>-s<seed>/ (PREFIX in ft/configs.py) with
+    a manifest; the weights go
     to data/interim/models/ft.
     """
     import time
@@ -173,7 +173,7 @@ def ft_grid(
             configs.config(name)
         except ValueError as e:
             raise typer.BadParameter(str(e)) from e
-        ensure_new(f"results-{exp}-ft-v1-{name}-s{s}")
+        ensure_new(f"results-{exp}-{configs.PREFIX}-{name}-s{s}")
     state = _require_clean()
     _require_preregistered(exp)
     wall = time.perf_counter()
@@ -191,7 +191,7 @@ def ft_grid(
     for name, s in todo:
         start = time.perf_counter()
         cfg = ft_train.FitConfig(seed=s, **configs.config(name))
-        model_id = f"ft-v1-{name}-s{s}"
+        model_id = f"{configs.PREFIX}-{name}-s{s}"
         out_dir, model_dir = RESULTS_DIR / exp / model_id, MODELS_DIR / exp / model_id
         if out_dir.exists() or model_dir.exists():
             raise typer.BadParameter(f"{out_dir} or {model_dir} exists; run ids are never reused")
@@ -302,15 +302,15 @@ def _member(exp: str, model_id: str) -> dict:
 @ft_app.command("ensemble")
 def ft_ensemble(
     exp: str = typer.Option("EXP-P-003"),
-    kb_id: str = typer.Option("ft-kb-all-v1", "--kb"),
+    kb_id: str = typer.Option("ft-kb-all-v2", "--kb"),
     config: str = typer.Option(..., help="A configuration whose seeds all ran"),
     seed: list[int] = typer.Option([0, 1, 2]),
     device: str = typer.Option("cuda"),
 ) -> None:
     """The mean of a configuration's seed residuals as one bundle, reported vs E0 on dev and train.
 
-    Writes the bundle to data/ft/ft-v1-<config>-ens/ (committed; classifier deltas stay in data/interim) and
-    the report to results/<exp>/ft-v1-<config>-ens/, each with a manifest.
+    Writes the bundle to data/ft/<PREFIX>-<config>-ens/ (committed; classifier deltas stay in data/interim)
+    and the report to results/<exp>/<PREFIX>-<config>-ens/, each with a manifest.
     """
     import time
 
@@ -320,13 +320,13 @@ def ft_ensemble(
     from diagnostic_ar_training.lineage.hashing import sha256_file
     from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
 
-    bundle_id = f"ft-v1-{config}-ens"
+    bundle_id = f"{configs.PREFIX}-{config}-ens"
     ensure_new(bundle_id)
     ensure_new(f"results-{exp}-{bundle_id}")
     state = _require_clean()
     _require_preregistered(exp)
     start = time.perf_counter()
-    model_ids = [f"ft-v1-{config}-s{s}" for s in seed]
+    model_ids = [f"{configs.PREFIX}-{config}-s{s}" for s in seed]
     members = [_member(exp, m) for m in model_ids]
     bundle = runs.bundle(kb_id, members, model_ids)
     bundle_path = runs.write_json(DATA_DIR / "ft" / bundle_id / "ft-v1-bundle.json", bundle)
@@ -366,14 +366,20 @@ def ft_ensemble(
 @ft_app.command("report")
 def ft_report(exp: str = typer.Option("EXP-P-003")) -> None:
     """Every run of the grid, mean ± sd per configuration, and the pre-registered selection;
-    results/<exp>/report.json."""
+    results/<exp>/report-<PREFIX>.json, with a manifest."""
     import statistics
 
     from diagnostic_ar_training.ft import configs, runs
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
 
+    artifact_id = f"results-{exp}-report-{configs.PREFIX}"
+    ensure_new(artifact_id)
+    state = _require_clean()
     rows: dict[str, list[dict]] = {}
     ensembles = {}
-    for path in sorted((RESULTS_DIR / exp).glob("ft-v1-*/summary.json")):
+    summaries = sorted((RESULTS_DIR / exp).glob(f"{configs.PREFIX}-*/summary.json"))
+    for path in summaries:
         s = json.loads(path.read_text())
         if "bundle_id" in s:
             ensembles[s["config_name"]] = {"bundle_id": s["bundle_id"], **s["row"]}
@@ -405,7 +411,10 @@ def ft_report(exp: str = typer.Option("EXP-P-003")) -> None:
         "selection": configs.select({n: by_config[n] for n in grid}),
         "ensembles": ensembles,
     }
-    runs.write_json(RESULTS_DIR / exp / "report.json", out)
+    out_path = runs.write_json(RESULTS_DIR / exp / f"report-{configs.PREFIX}.json", out)
+    refs = [{"id": f"summary:{p.parent.name}", "sha256": sha256_file(p)} for p in summaries]
+    params = {"exp": exp, "prefix": configs.PREFIX, "rule": "configs.select"}
+    write_manifest(build_manifest(artifact_id, "ft-report", refs, params, [out_path], state=state))
     for name, agg in by_config.items():
         d, h = agg["dev_delta"], agg["dev_harmed"]
         typer.echo(
@@ -425,7 +434,7 @@ def ft_confirm(
     part: str = typer.Option(..., help="test (confirmation) or vault (final check, opens once)"),
     bundle_id: str = typer.Option(..., "--bundle", help="The ft-bundle artifact the pre-registration names"),
     kb_id: str = typer.Option(
-        "ft-kb-all-v1", "--kb", help="The knowledge artifact the pre-registration names"
+        "ft-kb-all-v2", "--kb", help="The knowledge artifact the pre-registration names"
     ),
     reason: str = typer.Option("", help="Required"),
 ) -> None:

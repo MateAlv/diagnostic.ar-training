@@ -165,3 +165,25 @@ its candidate form `ft-v1-c1-lin-all-ens` (bundle sha256 `5a26e537…`). c7 and 
 per-gene weights).
 
 ## Addenda
+
+### Addendum: X-linked features fixed before any confirmation read (2026-10-08)
+**Why.** An independent review of `ft-v1-c1-lin-all-ens` on train (before EXP-P-004's read, which was withdrawn) found
+two flaws in the X-linked features:
+- `xlr_female` treated generic HP:0001417 ("X-linked inheritance") as X-linked recessive, so it penalised female
+  patients for disorders that affect females (PCDH19 among them). 16 of the 21 train patients the candidate harmed
+  were such females.
+- `xld_male` learned θ 5.24–5.52 (seeds 0–2) although train and dev hold no patient whose gene is X-linked-dominant-only. As a blanket
+  rule it is wrong (males are affected in, e.g., PHEX-related XLH), and nothing in the data supports it.
+
+**Fix (written before the rerun).**
+- `xlr_female` fires only for genes whose diseases' inheritance terms are all the explicit HP:0001419. Generic
+  HP:0001417, alone or mixed with HP:0001419, no longer qualifies (`ft/knowledge.py`, schema `ft-kb/2`).
+- `xld_male` is removed: 7 features, bundle format `ft-v1-bundle/2` (`ft/bundle.py`). Version 1 bundles and knowledge
+  are refused by the new code; the `ft-v1` artifacts stay as they are, reproducible from `d2e9182`.
+- New knowledge `ft-kb-all-v2`, same sources, same mask (every `r1-v1` PMID) and same overrides as `ft-kb-all-v1`.
+- Nothing else changes: the same 8 configurations ("all" now means the 7 features, so c1 has 7 parameters and the
+  MLPs 270; c3 drops `xlr_female` only), seeds 0–2, the same early stopping, the same rule (`configs.select`), the
+  same ablation of the selected configuration. Run ids `ft-v1.1-<config>-s<seed>`, the candidate `ft-v1.1-<config>-ens`,
+  the report `results/EXP-P-003/report-ft-v1.1.json`. Every original `ft-v1` output stays unchanged.
+- Dev was read once per run by the original search, and the fix comes from a train-side review; this rerun is a second
+  dev read of each configuration, disclosed here.
