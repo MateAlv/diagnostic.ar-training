@@ -1,0 +1,76 @@
+{
+  "artifact_id": "ft-kb-all-v1",
+  "kind": "ft-kb",
+  "created_at": "2026-10-08T13:19:10+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "c70070e040ec48c1acca7a997fbe2e95a5f5a4d6",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_genes_to_disease@2026-02-16",
+      "sha256": "364429870dd8326c5d293eeec31c3f1c89351c8d63a9d66c294b171966fa8b60"
+    },
+    {
+      "id": "source:hpo_annotations@2026-02-16",
+      "sha256": "5d7aedee5f6218e9952fceba5f883df2cc4a0c1938e55d8d2616c15c517964fb"
+    },
+    {
+      "id": "source:orphanet_ages_2026_06@2026-06-23",
+      "sha256": "38fef7e9e398addb147e57df7bb523e5ef072e03c0208ae81b37a2fd200af1ab"
+    },
+    {
+      "id": "source:hgnc@2026-09-25",
+      "sha256": "3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "overrides:data/curation/safe-v1-overrides.csv",
+      "sha256": "3a67c74e2881273c8d0be64177781749beba91eac72cedac7f88c98377338cea"
+    }
+  ],
+  "params": {
+    "schema": "ft-kb/1",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "mask_split": "r1-v1",
+    "mask_scope": "all",
+    "associations": "hpo_genes_to_disease without POLYGENIC",
+    "safe_rules": "safe/knowledge.py (safe-kb/1)",
+    "xlr_only": [
+      "HP:0001417",
+      "HP:0001419"
+    ],
+    "xld_only": [
+      "HP:0001423"
+    ],
+    "profile": "aspect P, qualifier not NOT, of the gene's diseases",
+    "overrides": "data/curation/safe-v1-overrides.csv"
+  },
+  "params_hash": "2bfb1504fab2e68ac18659740c76cddcf0f609caec7e2f1fc24340f26f1bf2a3",
+  "outputs": [
+    {
+      "path": "data/interim/ft/ft-kb-all-v1/ft-kb.json.gz",
+      "sha256": "d3996021da372fa93844d6aae86a05a43de865da161ac8ce9cac59f42564b2b8",
+      "bytes": 837946
+    },
+    {
+      "path": "data/ft/ft-kb-all-v1/stats.json",
+      "sha256": "a410997629809b4f97b1dc5b9bed0327965506ae497c7e7cb0de03717396bdaa",
+      "bytes": 1281
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
