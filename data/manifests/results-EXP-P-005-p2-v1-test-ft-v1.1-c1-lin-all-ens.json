@@ -1,0 +1,57 @@
+{
+  "artifact_id": "results-EXP-P-005-p2-v1-test-ft-v1.1-c1-lin-all-ens",
+  "kind": "ft-confirm",
+  "created_at": "2026-10-08T18:59:20+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "0feeb5d71e4f12787ca944058c5ac3138ac66090",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-ens",
+      "sha256": "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:p2-v1",
+      "sha256": "93196707eef34ed7179680972ead0ce03ec738f6a121cb1bc4b765db8e32011d"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-005",
+    "splits": [
+      "p2-v1"
+    ],
+    "part": "test",
+    "bundle": "ft-v1.1-c1-lin-all-ens",
+    "kb": "ft-kb-all-v2"
+  },
+  "params_hash": "8d38916d962ee832f4b61e8cd59fd2041abe438a496e4f0a8fe170e9ed00e749",
+  "outputs": [
+    {
+      "path": "results/EXP-P-005/p2-v1-test-ft-v1.1-c1-lin-all-ens/report.json",
+      "sha256": "3f5f5b5db40f75d9a93be4542c663fabfe4d1b4c1a9319d2ddf9e980e79f39c0",
+      "bytes": 3520
+    },
+    {
+      "path": "results/EXP-P-005/p2-v1-test-ft-v1.1-c1-lin-all-ens/E0.ranks.jsonl",
+      "sha256": "1a133b647bac1d4c63b5ebffe1b739ac89a33680b985782222a6f60cd1c5e228",
+      "bytes": 319632
+    },
+    {
+      "path": "results/EXP-P-005/p2-v1-test-ft-v1.1-c1-lin-all-ens/ft-v1.1-c1-lin-all-ens.ranks.jsonl",
+      "sha256": "8bc845bd5e10c8bca4822c19043e46f8d4229c8f91717d3378cbb11f625a3a27",
+      "bytes": 319618
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

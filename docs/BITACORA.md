@@ -4455,3 +4455,14 @@ this task, whatever the result**; the last read needs Mateo's OK.
   classifier runs dominate).
 - **Sealed data:** none loaded; `DXT_SEALED_READ` never set. The rerun is a second dev read of each configuration,
   disclosed in the addendum.
+
+## 2026-10-08: EXP-P-005, confirmation read 2 of 3: ft-v1.1 passes
+- **Review:** SLC9A6 and THOC2 were added to the masking-artefact disclosure before the read (#137).
+- **Read:** sealed read, ledger `0feeb5d71e4f`, on `p2-v1` test (3,587 patients).
+- **Result:** `ft-v1.1-c1-lin-all-ens` vs E0, Δ MRR **+0.00138 [+0.00070, +0.00232]**; gate CI at 98.33% **[+0.00058,
+  +0.00256]**. Helped 639, harmed 6 (0.17%). Top 1: +3/−0. Top 10: +5/−1. **Gate passed.**
+- **The 6 harmed patients are the disclosed masking artefact:** females with OFD1 (3) and SLC9A6 (3).
+- **EXP-P-001's 9 harmed patients** (negation) are unharmed here: seven improve and two are unchanged.
+- **By E0's training annotations:** cited +0.00144 [+0.00069, +0.00229]; not cited +0.00126 [+0.00018, +0.00405].
+- **Next:** the final check on 2026-10-20 with `dxt final-check`. Production for `ft-v1.1` waits for it (PHASE2.md).
+  Phase 2 confirmation reads used: 2 of 3.
