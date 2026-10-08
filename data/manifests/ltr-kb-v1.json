@@ -1,0 +1,55 @@
+{
+  "artifact_id": "ltr-kb-v1",
+  "kind": "ltr-kb",
+  "created_at": "2026-10-08T13:15:13+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "46719b251e6bceafe0cca2afeaacb6dc46612f5c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:kb-v4",
+      "sha256": "a6bd0e5d8eec46694a0522062708811f067d62cd98985f2426b04a75c6a52eca"
+    },
+    {
+      "id": "artifact:safe-kb-all-v1/safe-v1-bundle.json",
+      "sha256": "ed1983f11a35d31eea3dc4cc7ea58f5ec431cc8e650c8ca217e1b44b60ccb95b"
+    },
+    {
+      "id": "source:hpo_ontology@2026-02-16",
+      "sha256": "cb3b756ac11d1308372136bf4f7f8db2ad1c51f64a795e09400e5ffb2a273243"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    }
+  ],
+  "params": {
+    "format": "ltr-kb/1",
+    "rerank_kb": "kb-v4",
+    "safe_kb": "safe-kb-all-v1",
+    "mask_split": "r1-v1",
+    "mask_scope": "all",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "epsilon": 0.01,
+    "unknown_frequency": 0.3,
+    "ic": "-log(share of the vocabulary's diseases annotating the term or a descendant)",
+    "background": "mean P(term | gene) over the vocabulary"
+  },
+  "params_hash": "ab28ef2492cf108eabc15c9aa432bd45519ce0e5f6512566b6e8ec2c5c8d7a7a",
+  "outputs": [
+    {
+      "path": "data/interim/ltr/ltr-kb-v1/ltr-kb.json.gz",
+      "sha256": "cff889d8112eef8d07bf8946f5acc63f8651acc29bd0ab9af512ddc25fea491e",
+      "bytes": 1032663
+    },
+    {
+      "path": "data/ltr/ltr-kb-v1/stats.json",
+      "sha256": "3282c2afdf6460f0d7078788d07b1cee6e622c3e64a79c03b0b4670612a09395",
+      "bytes": 361
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
