@@ -28,3 +28,4 @@ Rules: `docs/EVAL_PROTOCOL.md` §2.
 | 2026-10-04T18:31:09+00:00 | s3-v3b/test | EXP-B-005 | a7f83f5856b3 | EXP-B-005 sealed read (pre-registered a7f83f5) |
 | 2026-10-05T16:31:35+00:00 | r1-v1/test | EXP-B-006 | 885c825268ca | EXP-B-006 R1-test no-regression (pre-registered db8175f) |
 | 2026-10-05T16:55:13+00:00 | r1-v1/vault | EXP-V-001 | ff95c1f11d35 | EXP-V-001 final R1-vault read (pre-registered d276321) |
+| 2026-10-08T15:57:41+00:00 | p2-v1/test | EXP-P-001 | 655048562d34 | EXP-P-001 confirmation read (pre-registered 6550485; Mateo's go 2026-10-08) |

@@ -1,0 +1,28 @@
+{
+ "metric": "mrr",
+ "delta": 0.0002939714064256362,
+ "ci95": [
+  -0.0005270184005277267,
+  0.000967963284386621
+ ],
+ "n": 3587,
+ "resample_unit": "group",
+ "n_units": 567,
+ "ci_level": 0.9833333333333333,
+ "ci": [
+  -0.0007451984050170482,
+  0.0011530847342703769
+ ],
+ "harmed": 0.002509060496236409,
+ "helped": 0.12712573180931142,
+ "exp": "EXP-P-001",
+ "label": "p2-v1-test-safe-kb-v1",
+ "system": "safe-v1",
+ "n_reads": 3,
+ "gate": {
+  "ci_lower_above_0": false,
+  "harmed_at_most_5pct": true,
+  "production_harmed_at_most_0.5pct": true,
+  "passed": false
+ }
+}
