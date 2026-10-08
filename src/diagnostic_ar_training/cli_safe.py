@@ -198,6 +198,9 @@ def safe_eval_cmd(
     split: str = typer.Option("r1-v1", help="Split id; the parts read here are free"),
     part: str = typer.Option("dev", help="train or dev"),
     exp: str = typer.Option("EXP-P-001", help="Experiment the dry run belongs to (results/<exp>/)"),
+    onset_factor: float | None = typer.Option(
+        None, help="Dev variant: multiply onset-incompatible genes by this instead of blocking them"
+    ),
 ) -> None:
     """Dry run on a free part: safe-v1 and each rule alone vs E0, overall and on the subsets."""
     from diagnostic_ar_training import splits
@@ -212,16 +215,27 @@ def safe_eval_cmd(
         safe_eval.check_free_part(split, part)
     except ValueError as e:
         raise typer.BadParameter(str(e)) from e
-    label = f"{split}/{part}"
+    label = f"{split}/{part}" + ("" if onset_factor is None else f"/onset-x{onset_factor:g}")
     ensure_new(_run_id(exp, label, kb_id))
     state = _require_clean()
     bundle_path, bundle_sha = _kb_output(kb_id, BUNDLE_FILE)
-    rules = SafeRules(load(bundle_path))
+    bundle = load(bundle_path)
+    if onset_factor is not None:
+        if not 0 < onset_factor < 1:
+            raise typer.BadParameter("--onset-factor must be in (0, 1)")
+        bundle = {**bundle, "onset_factor": onset_factor}
+    rules = SafeRules(bundle)
     base = GenPheniaV3()
     cases = splits.load_part(split, part, Purpose.EVAL)
     groups = splits.publication_groups(split)
     report, records = safe_eval.evaluate(base, rules, cases, groups)
-    report |= {"cohort": label, "kb": kb_id, "bundle_sha256": bundle_sha, "code_sha": state.sha}
+    report |= {
+        "cohort": label,
+        "kb": kb_id,
+        "bundle_sha256": bundle_sha,
+        "onset_factor": onset_factor,
+        "code_sha": state.sha,
+    }
     inputs = [
         *base.lineage_inputs(),
         {"id": f"artifact:{kb_id}/{BUNDLE_FILE}", "sha256": bundle_sha},
