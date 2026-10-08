@@ -27,7 +27,7 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
 - **`p2-v1` vault:** the R1 test and vault publication groups that are post-E0. 732 patients in 135 groups; never
   read.
 - **`p2-fresh-v1` vault:** phenopacket-store `main` at its last commit before 2026-10-08T19:35:00Z (ADR-0017 Amendment 2), under ADR-0017 §4's
-  rule. 340 patients on `main@85ffd78`; the frozen count is recorded at freeze. It has never been read; it is pinned
+  rule. Frozen on 2026-10-08 (`2a9438d0…`): 340 patients in 86 groups, at `main@85ffd78`. It has never been read; it is pinned
   and frozen by DATA_LINEAGE §9's procedure before the read.
 - **Post-E0:** no PMID of the publication group is in phenopacket-store 0.1.25, and none is cited in HPO 2025-11-24,
   the annotations E0 was trained on.

@@ -4482,3 +4482,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **EXP-P-006 pre-registered:** the final check. H1 (primary): `safe-v1[sex+onset]`, Δ MRR with 95% CI lower bound
   above 0. H2: `ft-v1.1`, CI lower bound ≥ 0 for production. One read of `p2-v1` vault and `p2-fresh-v1` vault after
   the 2026-10-20 freeze.
+
+## 2026-10-08: `p2-fresh-v1` frozen now (ADR-0017 Amendment 2)
+- **Amendment 2 (Mateo):** the snapshot cutoff moved from 2026-10-20 to 2026-10-08T19:35:00Z, so the final check is
+  ready before the informe draft. No fresh patient was read when the change was made.
+- **Source:** `phenopacket_store_main_2026_10_08` = `main@85ffd78` (committed 2026-10-07T14:34:29Z), sha256
+  `0f5261d8…`. This is the same tarball as the 2026-10-07 dry run, since there were no new commits since.
+- **`p2-fresh-v1` frozen,** content sha256 `2a9438d0…`. Vault: 340 patients, 86 publication groups (all post-E0),
+  47 genes. Sex known 271, age 275, onset 139, excluded terms 277. Counts only; no patient was scored.
+- **Final check (EXP-P-006):** `p2-v1` vault (732) + `p2-fresh-v1` vault (340) = 1,072 patients.

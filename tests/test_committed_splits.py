@@ -35,6 +35,10 @@ def test_p2_v1_is_the_split_phase_2_names():
     assert splits.load_frozen("p2-v1")["content_sha256"].startswith("b1ccdada")
 
 
+def test_p2_fresh_v1_is_the_split_phase_2_names():
+    assert splits.load_frozen("p2-fresh-v1")["content_sha256"].startswith("2a9438d0")
+
+
 def test_p2_v1_is_derived_from_r1_v1():
     r1, p2 = splits.load_frozen("r1-v1"), splits.load_frozen("p2-v1")
     assert p2["inputs"][0] == {"id": "split:r1-v1", "sha256": r1["content_sha256"]}
