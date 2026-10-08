@@ -20,10 +20,24 @@ on average: Δ MRR > 0.
    terms.
 2. **Onset:** a gene's probability is multiplied by 0.01 when its strict earliest onset is later than the patient's
    onset, or the current age when onset is unknown. Negative ages count as 0, and so does Infantile onset. "Strict"
-   means every OMIM disease of the gene has onset data in HPO or Orphanet 2026-06.
+   means every OMIM disease of the gene has HPO onset data. Orphanet ages (2026-06) add bounds for ORPHA diseases;
+   ORPHA-only diseases without onset data do not block the rule (7 genes, e.g. AP1S3, BCL6); ×0.01 bounds their
+   effect.
 3. **Sex:** genes whose every disease is limited to the other sex go below every other gene, keeping their order.
    There are 75 male-limited and 17 female-limited genes, after the 2026-10-08 curation removed 49 of 141
    (`data/curation/safe-v1-overrides.csv`).
+
+**Deviations from ADR-0017, recorded before the read.**
+- **Sex curation source (decision 8).** The 49 removals and 92 keeps came from the agents' own biomedical knowledge
+  (`source_file: knowledge`), not from quotes of the pinned GeneReviews and MedlinePlus snapshots. That knowledge may
+  include test papers.
+  - Curation can only remove genes from the rule.
+  - Uncurated, the 141-gene rule harmed 0 of 5,986 free patients and moved MRR by about 1e-6, so it cannot
+    materially move Δ.
+- **Onset curation dropped** (BITACORA 2026-10-08). The ×0.01 factor bounds the onset rule's worst case.
+- **Residual knowledge leakage that PMID masking cannot reach:** Orphanet ages, and HPOA rows that cite OMIM or ORPHA
+  instead of a PMID. Both can only add or lower onset bounds of a patient's own disease, so they lower harm; they do
+  not create "helped" cases.
 
 Knowledge: HPO 2026-02-16 with the held-out mask (every `r1-v1` dev, test and vault PMID), plus Orphanet ages
 2026-06, HGNC 2026-09-25 and HPO genes_to_disease.
@@ -38,7 +52,9 @@ Knowledge: HPO 2026-02-16 with the held-out mask (every `r1-v1` dev, test and va
   - `safe-kb-v1`.
 - **Sealed read (this experiment):** `p2-v1` test, 3,587 patients in 567 publication groups, none of them post-E0.
   This is its first read and Phase 2 confirmation read 1 of 3.
-  - Sex known: 3,324. Age: 2,556. Onset: 1,870. Excluded terms: 2,876.
+  - Sex known: 3,324. Age: 2,556. Excluded terms: 2,876.
+  - Onset: the split stats count 1,870 with onset years or an onset class. The rule and the `onset_known` subset use
+    onset years only; patients with only an onset class fall back to current age. On dev, that is 534 of 1,046.
   - Command: `DXT_SEALED_READ=EXP-P-001 .venv/bin/dxt safe confirm --exp EXP-P-001 --split p2-v1 --part test --kb
     safe-kb-v1 --reason "EXP-P-001 confirmation read"`
   - Then: `.venv/bin/python scripts/analysis/exp_p_gate.py EXP-P-001 p2-v1-test-safe-kb-v1`
@@ -66,11 +82,20 @@ Knowledge: HPO 2026-02-16 with the held-out mask (every `r1-v1` dev, test and va
 ## Expectations (from dev)
 - **Dev, `safe-kb-v1`:** Δ +0.00246, 95% CI [+0.00090, +0.00416], 98.33% CI [+0.00072, +0.00464]; harmed 0.11% (2 of
   1,883); helped 13.0%.
-- **Train, where the patients' own papers are not masked:** −0.00005 [−0.00133, +0.00095], harmed 31, all from the
+- **Median over the dev configurations of the full system:** +0.00235. The four configurations are `safe-kb-v1a` with
+  the hard block (+0.00196), onset ×0.1 (+0.00223), onset ×0.01 (+0.00246) and `safe-kb-v1` (+0.00246). The 33 probe
+  configurations are rule subsets, listed in P2-PROBES-v1.
+- **Train, where the patients' own papers are not masked:** −0.00005 [−0.00133, +0.00094], harmed 31, all from the
   negation rule.
 - **Expected on test:** Δ between +0.0005 and +0.003, with harmed below 0.5%. If the train pattern carries over
   through publications whose obligate rows conflict with their patients, the lower bound may fall below 0. That
   outcome is reported as it comes.
+
+- **Seed sensitivity:** the 98.33% bound rests on about 17 draws per tail. On dev, seeds 1–5 gave lower bounds from
+  +0.00059 to +0.00069. Seed 0 binds. If the test lower bound lands within 1e-4 of 0, that is reported as
+  seed-sensitive.
+- **Independent review (2026-10-08, read-only):** GO, no blocking issue. Its notes are folded into this file before
+  the read.
 
 ## Results
 (Filled in after the read.)
