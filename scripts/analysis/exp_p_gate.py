@@ -2,8 +2,11 @@
 
 Usage: python scripts/analysis/exp_p_gate.py <EXP-id> <label> [system] [n_reads]
   e.g. python scripts/analysis/exp_p_gate.py EXP-P-001 p2-v1-test-safe-kb-v1
+       python scripts/analysis/exp_p_gate.py EXP-P-004 p2-v1-test-ft-v1-c1-lin-all-ens ft-v1-c1-lin-all-ens
 Reads results/<EXP-id>/<label>__E0__all.ranks.jsonl and <label>__<system>__all.ranks.jsonl (system defaults to
-safe-v1), pairs them by case, and resamples publication groups (2,000 draws, seed 0) as the harness does. The
+safe-v1); when results/<EXP-id>/<label> is a directory (`dxt ft confirm`), it reads <label>/E0.ranks.jsonl and
+<label>/<system>.ranks.jsonl instead. It pairs them by case, and resamples publication groups (2,000 draws,
+seed 0) as the harness does. The
 gate level is 1 - 0.05 / n_reads (default 3, the Phase 2 confirmation budget; PHASE2.md).
 """
 
@@ -20,7 +23,12 @@ out = Path("results") / exp
 
 
 def ranks(name: str) -> dict[str, dict]:
-    with open(out / f"{label}__{name}__all.ranks.jsonl") as f:
+    path = (
+        out / label / f"{name}.ranks.jsonl"
+        if (out / label).is_dir()
+        else out / f"{label}__{name}__all.ranks.jsonl"
+    )
+    with open(path) as f:
         return {r["case_id"]: r for r in map(json.loads, f)}
 
 
@@ -43,6 +51,6 @@ res["gate"] = {
     "production_harmed_at_most_0.5pct": res["harmed"] <= 0.005,
 }
 res["gate"]["passed"] = res["gate"]["ci_lower_above_0"] and res["gate"]["harmed_at_most_5pct"]
-path = out / f"{label}__{system}__gate.json"
+path = out / label / "gate.json" if (out / label).is_dir() else out / f"{label}__{system}__gate.json"
 path.write_text(json.dumps(res, indent=1) + "\n")
 print(json.dumps(res, indent=1))
