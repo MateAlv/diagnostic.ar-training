@@ -1,0 +1,49 @@
+// ft-v1.1 (EXP-P-003 ft-v1.1 addendum, EXP-P-005): E0 frozen + a zero-initialised, knowledge-conditioned residual.
+// Render: dot -Tsvg fig_f_ft_v11_architecture.dot -o fig_f_ft_v11_architecture.svg (and -Tpng -Gdpi=160).
+digraph ft_v11 {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=11, nodesep=0.35, ranksep=0.5, newrank=true];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#555555"];
+  edge  [fontname="Helvetica", fontsize=9, color="#555555"];
+
+  subgraph cluster_inputs {
+    label="Patient inputs"; style="rounded,dashed"; color="#999999";
+    present  [label="Present symptoms\n(HPO terms)"];
+    covs     [label="Sex · current age · onset age"];
+    excluded [label="Absent symptoms\n(excluded HPO terms)"];
+  }
+
+  subgraph cluster_e0 {
+    label="GenPhenAI v3.0 (E0), FROZEN: weights unchanged"; style="rounded,filled"; fillcolor="#eef2f7"; color="#7a8ca8";
+    graph_in [label="Patient HPO subgraph\n(terms + ancestors, 768-d embeddings)"];
+    gin      [label="GIN graph convolutions (512 hidden)\n+ attention pooling (4 heads)"];
+    cls      [label="Classifier\n→ 5,229 gene logits z_g"];
+    graph_in -> gin -> cls;
+  }
+
+  subgraph cluster_kb {
+    label="Per-gene knowledge (ft-kb-all-v2; every R1 paper masked)"; style="rounded,dashed"; color="#999999";
+    kb [label="HPO 2026-02-16 · Orphanet ages · HGNC\nsex limitation · strict earliest onset ·\nX-linked-recessive-only (HP:0001419) · obligate phenotypes"];
+  }
+
+  subgraph cluster_branch {
+    label="New branch, TRAINED on 4,103 real patients (r1-v1 train)"; style="rounded,filled"; fillcolor="#eef7ee"; color="#6aa06a";
+    feats [label=<<b>7 features per (patient, gene)</b><br/>f1 sex_mismatch<br/>f2 onset_strict_late<br/>f3 onset_strict_gap = log(1+gap)<br/>f4 onset_lenient_gap<br/>f5 xlr_female<br/>f6 neg_obligate<br/>f7 neg_embed>];
+    theta [label=<<b>7 learned weights θ<sub>k</sub> ≥ 0</b><br/>(mean of 3 seeds)<br/>θ1 2.13 · θ2 2.47 · θ3 2.21 · θ4 0<br/>θ5 2.79 · θ6 2.98 · θ7 0>, fillcolor="#d9f0d9"];
+    resid [label=<residual r<sub>g</sub> = − Σ<sub>k</sub> θ<sub>k</sub> f<sub>k</sub>(patient, g)<br/>starts at 0 → step 0 = E0 exactly<br/>can only LOWER a gene>];
+    feats -> resid; theta -> resid;
+  }
+
+  sum   [label="z_g + r_g", shape=circle, fillcolor="#fff7e0"];
+  soft  [label="softmax over 5,229 genes\n→ ranked gene list for the doctor", fillcolor="#fff7e0"];
+
+  present  -> graph_in;
+  covs     -> feats;
+  excluded -> feats;
+  kb       -> feats;
+  cls      -> sum [label="z_g"];
+  resid    -> sum [label="r_g"];
+  sum      -> soft;
+
+  mlp [label="Tried, not selected (c4, c6):\nMLP over 8 patient covariates\n(16 or 64 ReLU units) scaling θ per patient", style="rounded,dashed", fillcolor="#ffffff", color="#aaaaaa", fontcolor="#777777"];
+  mlp -> theta [style=dashed, color="#aaaaaa"];
+}
