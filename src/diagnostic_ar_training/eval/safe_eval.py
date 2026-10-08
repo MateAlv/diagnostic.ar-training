@@ -27,6 +27,7 @@ VARIANTS: dict[str, tuple[str, ...]] = {
     "sex": ("sex",),
     "onset": ("onset",),
     "negation": ("negation",),
+    "sex+onset": ("sex", "onset"),
     "all": RULES,
 }
 TOP_KS = (1, 10)
