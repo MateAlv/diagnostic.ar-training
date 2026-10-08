@@ -1,0 +1,136 @@
+{
+  "artifact_id": "results-EXP-P-006-final-check",
+  "kind": "final-check",
+  "created_at": "2026-10-08T19:50:30+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "70efa8d0cdf052f74de61d1894e801bf31974bb0",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:safe-kb-v1/safe-v1-bundle.json",
+      "sha256": "28646c4a10d47e6994840a31462ffc0e4afb74efaab9b39e544fdb61824eb899"
+    },
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-ens",
+      "sha256": "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:p2-v1",
+      "sha256": "93196707eef34ed7179680972ead0ce03ec738f6a121cb1bc4b765db8e32011d"
+    },
+    {
+      "id": "split:p2-fresh-v1",
+      "sha256": "a1ddaa3590a2ce526bfc2cbed3623993bb5bb2832e7805d9070f24a7c9738fb8"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-006",
+    "splits": [
+      "p2-v1",
+      "p2-fresh-v1"
+    ],
+    "part": "vault",
+    "systems": [
+      "E0",
+      "safe-v1",
+      "safe-v1[sex+onset]",
+      "safe-v1[sex]",
+      "safe-v1[onset]",
+      "safe-v1[negation]",
+      "ft-v1.1-c1-lin-all-ens"
+    ],
+    "safe_kb": "safe-kb-v1",
+    "ft_bundle": "ft-v1.1-c1-lin-all-ens",
+    "ft_kb": "ft-kb-all-v2"
+  },
+  "params_hash": "d31edd89133d65699ba3a462fcfd03b9c098f35a6abfb9b2a337a9025299ecca",
+  "outputs": [
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__E0__all.ranks.jsonl",
+      "sha256": "5938db773a0293031e91464d98655202664d11bfb1fd24625b901b13fc488c3f",
+      "bytes": 388084
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__E0__all.summary.json",
+      "sha256": "6092f73a10ec4efe1d8478f2c8873b2a780c9ed4f480509473244f84199d97ae",
+      "bytes": 2364
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1__all.ranks.jsonl",
+      "sha256": "410bc6b9b3d7192f08794e721f797d6ecb48b36777c4fe6b9e52931af6f34cea",
+      "bytes": 436562
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1__all.summary.json",
+      "sha256": "1e5e2f07bcfc8cc7a0290158031747b41673bfbbc2bdbc13c6853a1b77959abe",
+      "bytes": 2354
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[sex+onset]__all.ranks.jsonl",
+      "sha256": "be0cc5eebb520c9a8799b495a8fcacb40191154d15edc7eeff9bb0fc254f2bdf",
+      "bytes": 435845
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[sex+onset]__all.summary.json",
+      "sha256": "f1ca8ed0467a0b33c20059b69a13981b3341dd6b6abaa5399d176ec6920bc7fc",
+      "bytes": 2354
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[sex]__all.ranks.jsonl",
+      "sha256": "56dce4638c3ba4b1ea78327d439b8ad18c8070a950007de9489b530912dd4485",
+      "bytes": 434995
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[sex]__all.summary.json",
+      "sha256": "c5d601b345fd78811586b6d6ece63ec905f49bb995daa9b05cda0f5c2742f262",
+      "bytes": 2350
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[onset]__all.ranks.jsonl",
+      "sha256": "582aa251af356f4cf7330239c35a4100a6100fb0793c4bc9fafbfb98d518bd26",
+      "bytes": 435302
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[onset]__all.summary.json",
+      "sha256": "9f392477b2a320752cef0e0d39983173a16b0108820aa6174f0425047e499e1f",
+      "bytes": 2355
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[negation]__all.ranks.jsonl",
+      "sha256": "3e1bdcbea3d8079b6b6ca5f4ca926271b1e858ec5a26aef3b5e58f499f0117c6",
+      "bytes": 435005
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__safe-v1[negation]__all.summary.json",
+      "sha256": "97cd4a68e3e3904066cdfa7cbd0dd4038dbdb2fc8b45f4d246862eb445210d93",
+      "bytes": 2350
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__ft-v1.1-c1-lin-all-ens__all.ranks.jsonl",
+      "sha256": "42dacb7a14c66b8e1a78b6e41ce2215bf05305fd7435f8b6c64b727ec4f50089",
+      "bytes": 440569
+    },
+    {
+      "path": "results/EXP-P-006/final-check/p2-v1+p2-fresh-v1-vault__ft-v1.1-c1-lin-all-ens__all.summary.json",
+      "sha256": "9a96ed2e067c8ba61616b78ab56db2fa0fbb63fb636b23a440bfb55f0baabeec",
+      "bytes": 2365
+    },
+    {
+      "path": "results/EXP-P-006/final-check/report.json",
+      "sha256": "9d03de97b7e32290c404acb6410b5504c2a6d27c633456f5dbcc9c5305412906",
+      "bytes": 61596
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

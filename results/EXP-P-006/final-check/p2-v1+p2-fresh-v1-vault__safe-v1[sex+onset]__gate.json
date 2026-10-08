@@ -1,0 +1,28 @@
+{
+ "metric": "mrr",
+ "delta": 0.0002892770506123322,
+ "ci95": [
+  1.1091550167385934e-05,
+  0.0007547232650605896
+ ],
+ "n": 1072,
+ "resample_unit": "group",
+ "n_units": 221,
+ "ci_level": 0.95,
+ "ci": [
+  1.1091550167385934e-05,
+  0.0007547232650605896
+ ],
+ "harmed": 0.002798507462686567,
+ "helped": 0.16791044776119404,
+ "exp": "EXP-P-006",
+ "label": "final-check/p2-v1+p2-fresh-v1-vault",
+ "system": "safe-v1[sex+onset]",
+ "n_reads": 1,
+ "gate": {
+  "ci_lower_above_0": true,
+  "harmed_at_most_5pct": true,
+  "production_harmed_at_most_0.5pct": true,
+  "passed": true
+ }
+}

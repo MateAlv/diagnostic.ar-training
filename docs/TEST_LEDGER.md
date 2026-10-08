@@ -30,3 +30,5 @@ Rules: `docs/EVAL_PROTOCOL.md` §2.
 | 2026-10-05T16:55:13+00:00 | r1-v1/vault | EXP-V-001 | ff95c1f11d35 | EXP-V-001 final R1-vault read (pre-registered d276321) |
 | 2026-10-08T15:57:41+00:00 | p2-v1/test | EXP-P-001 | 655048562d34 | EXP-P-001 confirmation read (pre-registered 6550485; Mateo's go 2026-10-08) |
 | 2026-10-08T18:58:30+00:00 | p2-v1/test | EXP-P-005 | 0feeb5d71e4f | EXP-P-005 confirmation read (pre-registered 0feeb5d; Mateo's go 2026-10-08) |
+| 2026-10-08T19:50:15+00:00 | p2-v1/vault | EXP-P-006 | 70efa8d0cdf0 | EXP-P-006 final check (pre-registered 70efa8d; Mateo's go 2026-10-08) |
+| 2026-10-08T19:50:16+00:00 | p2-fresh-v1/vault | EXP-P-006 | 70efa8d0cdf0 | EXP-P-006 final check (pre-registered 70efa8d; Mateo's go 2026-10-08) |
