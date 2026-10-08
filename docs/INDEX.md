@@ -74,6 +74,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [EXP-P-001](experiments/EXP-P-001.md) | Phase 2 Track 1: `safe-v1` (`safe-kb-v1`) on `p2-v1` test; registered 2026-10-08 |
 | [EXP-P-004](experiments/EXP-P-004.md) | Withdrawn before its read (X-linked feature flaws found on train) |
 | [EXP-P-005](experiments/EXP-P-005.md) | Phase 2 Track 3: `ft-v1.1-c1-lin-all-ens` on `p2-v1` test (confirmation read 2 of 3) |
+| [EXP-P-006](experiments/EXP-P-006.md) | Phase 2 final check: `safe-v1[sex+onset]` (H1), `ft-v1.1` (H2) and the rest, on post-E0 patients; read after 2026-10-20 |
 | [EXP-P-003](experiments/EXP-P-003.md) | Phase 2 Track 3: `ft-v1` residual, dev grid of 8 × 3 seeds; selected `c1-lin-all` (dev +0.00313) |
 
 ## Analyses (`analyses/`)

@@ -4466,3 +4466,19 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **By E0's training annotations:** cited +0.00144 [+0.00069, +0.00229]; not cited +0.00126 [+0.00018, +0.00405].
 - **Next:** the final check on 2026-10-20 with `dxt final-check`. Production for `ft-v1.1` waits for it (PHASE2.md).
   Phase 2 confirmation reads used: 2 of 3.
+
+## 2026-10-08: ft-v1.1 feature attribution; EXP-P-006 (final check) pre-registered
+- **Attribution** (free parts, θ zeroed, no refit; EXP-P-005 Addendum 1). On dev:
+
+  | Feature group | Δ MRR alone [95% CI] | Harmed |
+  |---|---|---|
+  | negation | +0.00146 [+0.00013, +0.00309] | 0.11% |
+  | onset | +0.00093 [+0.00026, +0.00169] | 0 |
+  | X-linked recessive for females | +0.00077 [+0.00014, +0.00168] | 0 |
+  | sex mismatch | ≈ 0 | 0 |
+
+  - `onset_lenient_gap` and `neg_embed` ended at θ = 0.
+  - On train, onset is positive with 0 harmed (+0.00036), and `xlr_female` is negative (−0.00025).
+- **EXP-P-006 pre-registered:** the final check. H1 (primary): `safe-v1[sex+onset]`, Δ MRR with 95% CI lower bound
+  above 0. H2: `ft-v1.1`, CI lower bound ≥ 0 for production. One read of `p2-v1` vault and `p2-fresh-v1` vault after
+  the 2026-10-20 freeze.
