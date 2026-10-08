@@ -72,6 +72,11 @@ is a success when it is real; safe candidates go first.
   - early stopping on a held-out slice of `p2-v1` train;
   - selection on dev;
   - at most 8 runs × 3 seeds, all logged.
+- **Status (2026-10-08):** EXP-P-003 dev grid done (8 configurations × 3 seeds, all logged). Selected `c1-lin-all`
+  (linear residual, 8 θ): ensemble `ft-v1-c1-lin-all-ens` dev +0.00313 [+0.00159, +0.00485], 2 harmed (0.11%),
+  top-10 +4/−0; post-E0 dev +0.00009; train +0.00023. Without sex, age and onset: +0.00146. The classifier
+  configurations (not selectable) reach +0.025 and +0.087 through learned per-gene weights. Details in
+  [EXP-P-003](experiments/EXP-P-003.md) and BITACORA 2026-10-08.
 
 ### Track 4: vocabulary update (future work)
 48% of post-E0 patients have a gene outside E0's 5,229 genes. Covering them is probably the largest gain on new
@@ -87,6 +92,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 to 10-09 | Independent review of EXP-P-001, Mateo's spot-check and go, confirmation read | next |
 | 10-10 | `safe-v1` on dev; pre-register EXP-P-001; independent review | planned |
 | 10-11 | EXP-P-001 confirmation read, after Mateo's go | planned |
+| 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
 | 10-20 | Freeze `p2-fresh-v1`; final check (one read) | planned |

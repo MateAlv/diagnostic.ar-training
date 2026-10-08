@@ -147,6 +147,8 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-10-08 | Artifact `ft-kb-all-v1` built (not published) | ft-v1 knowledge from `c70070e`, every `r1-v1` PMID masked: 75 male- and 17 female-limited genes (49 overrides), 2,786 strict onsets, 164 XLR-only, 23 XLD-only, 659 negatable; `ft-kb.json.gz` sha256 `d3996021…` (§11) |
+| 2026-10-08 | EXP-P-003 runs and bundles | 27 `ft-run` manifests (8 configurations × 3 seeds and the c1 ablation × 3); bundles `ft-v1-c1-lin-all-ens` (sha256 `5a26e537…`) and `ft-v1-c1-lin-all-nosexage-ens` (§11) |
 | 2026-10-07 | Split `p2-v1` frozen | content sha256 `b1ccdada1b353f200ee0331293553db23dd5cf551d59537e1aade03577732851`, derived from `r1-v1` (§9) |
 | 2026-10-07 | Sources added | `phenopacket_store_0_1_25` and `hpo_annotations_2025_11_24` (ADR-0017), used only to mark post-E0 publications |
 | 2026-10-07 | Artifact `safe-kb-v1a` built (not published) | safe-v1 knowledge, uncurated, from `c264596`: 100 male-limited and 41 female-limited genes, 2,895 genes with a strict earliest onset (615 at ≥ 1 year), 679 negatable genes; bundle and stats committed in `data/safe/safe-kb-v1a/` (§10) |
@@ -320,3 +322,29 @@ builds the knowledge of `safe-v1` (PHASE2.md Track 1). Code: `safe/knowledge.py`
 | Artifact | Male-limited | Female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y / ≥ 40 y) | Negatable genes | Overrides |
 |---|---|---|---|---|---|
 | `safe-kb-v1a` | 100 | 41 | 2,895 (615 / 308 / 202 / 8) | 679 | 0 (uncurated) |
+
+## 11. ft-v1 knowledge, runs and bundles (Phase 2 Track 3, EXP-P-003)
+
+`dxt ft kb --id <id>` builds the knowledge the ft-v1 residual reads. Code: `ft/knowledge.py` (on top of
+`safe/knowledge.py`), `ft/bundle.py`; tests: `tests/test_ft.py`.
+
+- **Inputs:** the same sources as §10 (`hpo_genes_to_disease` without POLYGENIC, `hpo_annotations` 2026-02-16,
+  `orphanet_ages_2026_06`, `hgnc`, `hpo_ontology`, E0's gene vocabulary) and the curation overrides, but the mask is
+  **every** `r1-v1` PMID (`data/splits/r1-v1.all-pmids.txt`, train included), so a training patient never sees
+  annotations curated from their own paper. Overrides whose rule the gene no longer has under this mask are skipped
+  and listed (0 in `ft-kb-all-v1`).
+- **Outputs:** `data/interim/ft/<id>/ft-kb.json.gz` (`ft-kb/1`: a `safe-kb/1` document plus, per gene, the lenient
+  earliest onset, X-linked-recessive-only / X-linked-dominant-only flags and the annotated phenotype profile) and
+  `data/ft/<id>/stats.json`, committed.
+- **Runs** (`dxt ft grid`): `results/EXP-P-003/ft-v1-<config>-s<seed>/` (summary, curves, compact dev and train ranks)
+  with manifest `results-EXP-P-003-ft-v1-<config>-s<seed>` (kind `ft-run`). The weights (`member.json`,
+  `weights.pt`, and `delta.npz` for the classifier configurations) stay in `data/interim/models/ft/EXP-P-003/<model
+  id>/`; their sha256 are manifest outputs.
+- **Bundles** (`dxt ft ensemble`): `data/ft/ft-v1-<config>-ens/ft-v1-bundle.json` (`ft-v1-bundle/1`, committed; the
+  mean of the seed residuals), manifest `ft-v1-<config>-ens` (kind `ft-bundle`); its dev and train report is
+  `results-EXP-P-003-ft-v1-<config>-ens`. A bundle plus `ft-kb.json.gz`, v3.0's embeddings and `ft/bundle.py`
+  (numpy only, with `safe/bundle.py`) is what production would ship.
+
+| Artifact | Male / female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y) | Lenient onset | XLR-only / XLD-only | Negatable | Profile terms (gene-term pairs) |
+|---|---|---|---|---|---|---|
+| `ft-kb-all-v1` | 75 / 17 (49 overrides) | 2,786 (596 / 296 / 192) | 4,656 | 164 / 23 | 659 | 9,971 (234,712) |

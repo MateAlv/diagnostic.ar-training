@@ -1,0 +1,571 @@
+{
+ "model_id": "ft-v1-c5-mlp16-lr0.01-s1",
+ "config_name": "c5-mlp16-lr0.01",
+ "seed": 1,
+ "config": {
+  "hidden": 16,
+  "features": [
+   "sex_mismatch",
+   "onset_strict_late",
+   "onset_strict_gap",
+   "onset_lenient_gap",
+   "xlr_female",
+   "xld_male",
+   "neg_obligate",
+   "neg_embed"
+  ],
+  "covariates": [
+   "male",
+   "female",
+   "log1p_age",
+   "age_known",
+   "log1p_onset",
+   "onset_known",
+   "log1p_n_present",
+   "log1p_n_excluded"
+  ],
+  "lr": 0.01,
+  "lr_mlp": 0.002,
+  "weight_decay_mlp": 0.0001,
+  "batch_size": 128,
+  "max_epochs": 200,
+  "patience": 20,
+  "min_delta": 1e-05,
+  "seed": 1,
+  "classifier": false,
+  "lr_classifier": 0.0001,
+  "l2sp": 0.0,
+  "replay_weight": 0.0,
+  "replay_batch": 512
+ },
+ "n_parameters": 288,
+ "selectable": true,
+ "best_epoch": 10,
+ "epochs_run": 30,
+ "stopped_early": true,
+ "fit_seconds": 0.547937273000116,
+ "run_seconds": 56.273657833000016,
+ "max_gpu_memory_gb": 1.484257792,
+ "device": "NVIDIA GeForce RTX 4070 Ti",
+ "torch": "2.14.0+cu130",
+ "code": {
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "d2e91823d048eba652cba8eb7b1c888504fbafb6",
+  "dirty": false
+ },
+ "kb": "ft-kb-all-v1",
+ "counts": {
+  "train_cases": 4103,
+  "usable": 3522,
+  "skipped": {
+   "gene_not_in_vocab": 581,
+   "unscorable": 0
+  },
+  "held_out_groups_usable": 461,
+  "dev_cases": 1883,
+  "dev_subsets": {
+   "post_e0": 351,
+   "gene_in_train": 1328,
+   "gene_not_in_train": 555
+  },
+  "fit_rows": 3061,
+  "held_out_rows": 461
+ },
+ "replay": null,
+ "pooled_check": null,
+ "member": {
+  "active_features": [
+   "sex_mismatch",
+   "onset_strict_late",
+   "onset_strict_gap",
+   "onset_lenient_gap",
+   "xlr_female",
+   "xld_male",
+   "neg_obligate",
+   "neg_embed"
+  ],
+  "active_covariates": [
+   "male",
+   "female",
+   "log1p_age",
+   "age_known",
+   "log1p_onset",
+   "onset_known",
+   "log1p_n_present",
+   "log1p_n_excluded"
+  ],
+  "theta": [
+   0.7143417000770569,
+   0.6978728771209717,
+   0.6469024419784546,
+   0.0,
+   0.7261477112770081,
+   0.8184647560119629,
+   0.6377714276313782,
+   0.0
+  ]
+ },
+ "checks": {
+  "step0_residual_nonzero_entries": 0,
+  "theta_nonnegative": true,
+  "numpy_vs_torch_max_abs_residual_diff": 4.572646560063731e-06,
+  "dev_present_view_probs_differ": 0,
+  "e0": {
+   "dev_ranks_differ_from_exp_p001": 0,
+   "train_ranks_differ_from_exp_p001": 0
+  },
+  "valid": true
+ },
+ "row": {
+  "dev": {
+   "delta": 0.0031344628719064366,
+   "ci_low": 0.0015973665708332978,
+   "ci_high": 0.004860001952536361,
+   "harmed": 0.0010621348911311736,
+   "helped": 0.18321826872012745
+  },
+  "present_delta": 0.0,
+  "train_delta": 0.0005437929992846262,
+  "inner_delta": 0.0013239983200553894,
+  "post_e0_delta": 8.455478783635073e-05
+ },
+ "dev": {
+  "cases": 1883,
+  "e0": {
+   "n": 1883,
+   "unrankable": 203,
+   "mrr": 0.4484752324554731,
+   "top1": 0.33935209771641,
+   "top3": 0.5199150292087095,
+   "top5": 0.5847052575677111,
+   "top10": 0.6691449814126395,
+   "top20": 0.7174721189591078,
+   "top50": 0.7546468401486989,
+   "mrr_ci95": [
+    0.3985773121280017,
+    0.5039472803550786
+   ],
+   "ci_resample_unit": "publication"
+  },
+  "summary": {
+   "n": 1883,
+   "unrankable": 203,
+   "mrr": 0.4516096953273796,
+   "top1": 0.34306956983536907,
+   "top3": 0.5204460966542751,
+   "top5": 0.5889537971322358,
+   "top10": 0.6712692511949018,
+   "top20": 0.7195963887413701,
+   "top50": 0.7567711099309612,
+   "mrr_ci95": [
+    0.40210341561030993,
+    0.5075596332005397
+   ],
+   "ci_resample_unit": "publication"
+  },
+  "vs_e0": {
+   "metric": "mrr",
+   "delta": 0.0031344628719064366,
+   "ci95": [
+    0.0015973665708332978,
+    0.004860001952536361
+   ],
+   "n": 1883,
+   "resample_unit": "group",
+   "n_units": 324,
+   "harmed": 0.0010621348911311736,
+   "helped": 0.18321826872012745,
+   "helped_n": 345,
+   "harmed_n": 2,
+   "top1_entered": 7,
+   "top1_left": 0,
+   "top10_entered": 4,
+   "top10_left": 0
+  },
+  "subset_sizes": {
+   "gene_in_vocab": 1680,
+   "sex_known": 1703,
+   "age_known": 1636,
+   "onset_known": 534,
+   "excluded_known": 1764,
+   "post_e0": 351,
+   "gene_in_train": 1328,
+   "gene_not_in_train": 555
+  },
+  "subsets": {
+   "gene_in_vocab": {
+    "metric": "mrr",
+    "delta": 0.0035132104689284643,
+    "ci95": [
+     0.0017995936781880968,
+     0.005639880694785606
+    ],
+    "n": 1680,
+    "resample_unit": "group",
+    "n_units": 296,
+    "harmed": 0.0011904761904761906,
+    "helped": 0.20535714285714285,
+    "helped_n": 345,
+    "harmed_n": 2,
+    "top1_entered": 7,
+    "top1_left": 0,
+    "top10_entered": 4,
+    "top10_left": 0
+   },
+   "sex_known": {
+    "metric": "mrr",
+    "delta": 0.003429722333041686,
+    "ci95": [
+     0.001776783633254731,
+     0.00551833542296338
+    ],
+    "n": 1703,
+    "resample_unit": "group",
+    "n_units": 308,
+    "harmed": 0.0011743981209630064,
+    "helped": 0.2008220786846741,
+    "helped_n": 342,
+    "harmed_n": 2,
+    "top1_entered": 7,
+    "top1_left": 0,
+    "top10_entered": 4,
+    "top10_left": 0
+   },
+   "age_known": {
+    "metric": "mrr",
+    "delta": 0.0035751732902494734,
+    "ci95": [
+     0.0019186867608706076,
+     0.005651501397441864
+    ],
+    "n": 1636,
+    "resample_unit": "group",
+    "n_units": 294,
+    "harmed": 0.0012224938875305623,
+    "helped": 0.1949877750611247,
+    "helped_n": 319,
+    "harmed_n": 2,
+    "top1_entered": 7,
+    "top1_left": 0,
+    "top10_entered": 4,
+    "top10_left": 0
+   },
+   "onset_known": {
+    "metric": "mrr",
+    "delta": 0.006898087929166373,
+    "ci95": [
+     0.002754235031967126,
+     0.011714691537371855
+    ],
+    "n": 534,
+    "resample_unit": "group",
+    "n_units": 150,
+    "harmed": 0.0,
+    "helped": 0.352059925093633,
+    "helped_n": 188,
+    "harmed_n": 0,
+    "top1_entered": 5,
+    "top1_left": 0,
+    "top10_entered": 4,
+    "top10_left": 0
+   },
+   "excluded_known": {
+    "metric": "mrr",
+    "delta": 0.0030254283032661684,
+    "ci95": [
+     0.0014452080385916881,
+     0.005150823855329739
+    ],
+    "n": 1764,
+    "resample_unit": "group",
+    "n_units": 280,
+    "harmed": 0.0011337868480725624,
+    "helped": 0.1865079365079365,
+    "helped_n": 329,
+    "harmed_n": 2,
+    "top1_entered": 6,
+    "top1_left": 0,
+    "top10_entered": 4,
+    "top10_left": 0
+   },
+   "post_e0": {
+    "metric": "mrr",
+    "delta": 8.455478783635073e-05,
+    "ci95": [
+     1.1929050804839552e-05,
+     0.00022498124026515894
+    ],
+    "n": 351,
+    "resample_unit": "group",
+    "n_units": 61,
+    "harmed": 0.0,
+    "helped": 0.39886039886039887,
+    "helped_n": 140,
+    "harmed_n": 0,
+    "top1_entered": 0,
+    "top1_left": 0,
+    "top10_entered": 0,
+    "top10_left": 0
+   },
+   "gene_in_train": {
+    "metric": "mrr",
+    "delta": 0.002709168585851934,
+    "ci95": [
+     0.0011090037795785425,
+     0.004845836040989011
+    ],
+    "n": 1328,
+    "resample_unit": "group",
+    "n_units": 212,
+    "harmed": 0.0,
+    "helped": 0.16039156626506024,
+    "helped_n": 213,
+    "harmed_n": 0,
+    "top1_entered": 3,
+    "top1_left": 0,
+    "top10_entered": 3,
+    "top10_left": 0
+   },
+   "gene_not_in_train": {
+    "metric": "mrr",
+    "delta": 0.0041521039743936065,
+    "ci95": [
+     0.0009579723362152678,
+     0.008273859819386085
+    ],
+    "n": 555,
+    "resample_unit": "group",
+    "n_units": 115,
+    "harmed": 0.0036036036036036037,
+    "helped": 0.23783783783783785,
+    "helped_n": 132,
+    "harmed_n": 2,
+    "top1_entered": 4,
+    "top1_left": 0,
+    "top10_entered": 1,
+    "top10_left": 0
+   }
+  }
+ },
+ "train": {
+  "cases": 4103,
+  "e0": {
+   "n": 4103,
+   "unrankable": 581,
+   "mrr": 0.4395875697190281,
+   "top1": 0.3702169144528394,
+   "top3": 0.4681940043870339,
+   "top5": 0.5254691689008043,
+   "top10": 0.5786010236412381,
+   "top20": 0.6349012917377529,
+   "top50": 0.6972946624421156,
+   "mrr_ci95": [
+    0.3869536309251276,
+    0.4935093632358348
+   ],
+   "ci_resample_unit": "publication"
+  },
+  "summary": {
+   "n": 4103,
+   "unrankable": 581,
+   "mrr": 0.4401313627183128,
+   "top1": 0.36972946624421155,
+   "top3": 0.46965634901291736,
+   "top5": 0.5274189617353157,
+   "top10": 0.5803070923714355,
+   "top20": 0.6351450158420667,
+   "top50": 0.6972946624421156,
+   "mrr_ci95": [
+    0.3873130512330502,
+    0.4944536823717784
+   ],
+   "ci_resample_unit": "publication"
+  },
+  "vs_e0": {
+   "metric": "mrr",
+   "delta": 0.0005437929992846262,
+   "ci95": [
+    -0.0009502668055875977,
+    0.0018688885449780145
+   ],
+   "n": 4103,
+   "resample_unit": "group",
+   "n_units": 706,
+   "harmed": 0.004630757981964416,
+   "helped": 0.20984645381428224,
+   "helped_n": 861,
+   "harmed_n": 19,
+   "top1_entered": 3,
+   "top1_left": 5,
+   "top10_entered": 11,
+   "top10_left": 4
+  },
+  "subset_sizes": {
+   "gene_in_vocab": 3522,
+   "sex_known": 3786,
+   "age_known": 3072,
+   "onset_known": 1085,
+   "excluded_known": 3713,
+   "inner_val": 512,
+   "fit": 3591
+  },
+  "subsets": {
+   "gene_in_vocab": {
+    "metric": "mrr",
+    "delta": 0.0006334987723068774,
+    "ci95": [
+     -0.0011137105621093382,
+     0.0020908057953094228
+    ],
+    "n": 3522,
+    "resample_unit": "group",
+    "n_units": 627,
+    "harmed": 0.005394662123793299,
+    "helped": 0.2444633730834753,
+    "helped_n": 861,
+    "harmed_n": 19,
+    "top1_entered": 3,
+    "top1_left": 5,
+    "top10_entered": 11,
+    "top10_left": 4
+   },
+   "sex_known": {
+    "metric": "mrr",
+    "delta": 0.0005787439017123408,
+    "ci95": [
+     -0.0010146878978250006,
+     0.0019451260074484229
+    ],
+    "n": 3786,
+    "resample_unit": "group",
+    "n_units": 674,
+    "harmed": 0.005018489170628632,
+    "helped": 0.21949286846275753,
+    "helped_n": 831,
+    "harmed_n": 19,
+    "top1_entered": 3,
+    "top1_left": 5,
+    "top10_entered": 11,
+    "top10_left": 4
+   },
+   "age_known": {
+    "metric": "mrr",
+    "delta": 0.0003008213788175075,
+    "ci95": [
+     -0.0012333996948072936,
+     0.0014947516612636726
+    ],
+    "n": 3072,
+    "resample_unit": "group",
+    "n_units": 624,
+    "harmed": 0.004231770833333333,
+    "helped": 0.19401041666666666,
+    "helped_n": 596,
+    "harmed_n": 13,
+    "top1_entered": 2,
+    "top1_left": 4,
+    "top10_entered": 9,
+    "top10_left": 2
+   },
+   "onset_known": {
+    "metric": "mrr",
+    "delta": 0.0002575986012070895,
+    "ci95": [
+     -0.0026225632811378735,
+     0.002369389086462868
+    ],
+    "n": 1085,
+    "resample_unit": "group",
+    "n_units": 325,
+    "harmed": 0.0064516129032258064,
+    "helped": 0.2709677419354839,
+    "helped_n": 294,
+    "harmed_n": 7,
+    "top1_entered": 1,
+    "top1_left": 2,
+    "top10_entered": 0,
+    "top10_left": 0
+   },
+   "excluded_known": {
+    "metric": "mrr",
+    "delta": 0.000391650594694083,
+    "ci95": [
+     -0.0012789573981258895,
+     0.001799223041398065
+    ],
+    "n": 3713,
+    "resample_unit": "group",
+    "n_units": 595,
+    "harmed": 0.005117155938594129,
+    "helped": 0.20899542149205494,
+    "helped_n": 776,
+    "harmed_n": 19,
+    "top1_entered": 2,
+    "top1_left": 5,
+    "top10_entered": 11,
+    "top10_left": 4
+   },
+   "inner_val": {
+    "metric": "mrr",
+    "delta": 0.0013239983200553894,
+    "ci95": [
+     -0.0011102086672979366,
+     0.0039928445585041775
+    ],
+    "n": 512,
+    "resample_unit": "group",
+    "n_units": 133,
+    "harmed": 0.013671875,
+    "helped": 0.15625,
+    "helped_n": 80,
+    "harmed_n": 7,
+    "top1_entered": 1,
+    "top1_left": 0,
+    "top10_entered": 1,
+    "top10_left": 1
+   },
+   "fit": {
+    "metric": "mrr",
+    "delta": 0.00043255236318475696,
+    "ci95": [
+     -0.0013431338327355156,
+     0.0018759008509665746
+    ],
+    "n": 3591,
+    "resample_unit": "group",
+    "n_units": 573,
+    "harmed": 0.003341687552213868,
+    "helped": 0.2174881648565859,
+    "helped_n": 781,
+    "harmed_n": 12,
+    "top1_entered": 2,
+    "top1_left": 5,
+    "top10_entered": 10,
+    "top10_left": 3
+   }
+  }
+ },
+ "dev_present_view": {
+  "metric": "mrr",
+  "delta": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "n": 1883,
+  "resample_unit": "group",
+  "n_units": 324,
+  "harmed": 0.0,
+  "helped": 0.0,
+  "helped_n": 0,
+  "harmed_n": 0,
+  "top1_entered": 0,
+  "top1_left": 0,
+  "top10_entered": 0,
+  "top10_left": 0
+ },
+ "dev_present_identity": {
+  "scorable": 1883,
+  "probs_differ": 0
+ }
+}

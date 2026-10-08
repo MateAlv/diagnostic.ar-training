@@ -1,0 +1,61 @@
+{
+  "artifact_id": "ft-v1-c1-lin-all-ens",
+  "kind": "ft-bundle",
+  "created_at": "2026-10-08T14:07:53+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "d2e91823d048eba652cba8eb7b1c888504fbafb6",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-kb-all-v1",
+      "sha256": "d3996021da372fa93844d6aae86a05a43de865da161ac8ce9cac59f42564b2b8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "results-EXP-P-003-ft-v1-c1-lin-all-s0/member.json",
+      "sha256": "b7562ca3649854a48793799e346659cec1fb911e4dca3f912be998ec99803823"
+    },
+    {
+      "id": "results-EXP-P-003-ft-v1-c1-lin-all-s1/member.json",
+      "sha256": "ac69d8aef0bafb69b5802016f57c7b1545ac6599773e0c9d05b700bd53659cfd"
+    },
+    {
+      "id": "results-EXP-P-003-ft-v1-c1-lin-all-s2/member.json",
+      "sha256": "ee1492a49dae0e66e22bb3e0cfac63cd608dd8fe997472a5e97ab8da25191183"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-003",
+    "config_name": "c1-lin-all",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "kb": "ft-kb-all-v1",
+    "combine": "mean residual"
+  },
+  "params_hash": "32e598488bf2c9584034283d3329c2753259f70b221094d54522d41d5e60d59f",
+  "outputs": [
+    {
+      "path": "data/ft/ft-v1-c1-lin-all-ens/ft-v1-bundle.json",
+      "sha256": "5a26e537624651c737a18c044a41ea6072fac09d580e5ffda77a095ce04c80fa",
+      "bytes": 2202
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

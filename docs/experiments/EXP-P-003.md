@@ -2,7 +2,7 @@
 
 - **Front:** Phase 2, Track 3 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md))
 - **Registered:** 2026-10-08, by the Track 3 agent for Mateo, before any dev run
-- **Status:** dev search. No sealed read is planned here; a confirmation read of the selected candidate needs its own
+- **Status:** dev search done (2026-10-08); selected `c1-lin-all`. No sealed read is planned here; a confirmation read of the selected candidate needs its own
   pre-registration (`dxt ft confirm`, implemented and tested with mocks only).
 
 ## Hypothesis
@@ -92,7 +92,7 @@ configuration is > 0.
 - **Pipeline checks before registration** (train only, no dev read; logged in BITACORA 2026-10-08): the held-out
   train groups' MRR moved from E0's 0.5545 to 0.5559–0.5563 for linear and MLP residuals, and to 0.565 (L2-SP 1e-2)
   and 0.600 (L2-SP 1e-4) with the classifier. `neg_embed` and `onset_lenient_gap` ended at θ = 0.
-- **Tried:** filled in from `results/EXP-P-003/report.json`.
+- **Tried:** all 8 configurations × 3 seeds, plus the ablation of the selected one × 3 (Results).
 
 ## Expectations (written before any dev run)
 | Quantity | Expected |
@@ -105,9 +105,63 @@ configuration is > 0.
 | Post-E0 dev | about +0.0001 for c1–c6 (E0's MRR there is 0.066) |
 
 ## Results
-(Filled in after the grid.)
+Code at `c70070e` (registration and code), knowledge `ft-kb-all-v1` built from it (`d2e9182`); every run from `d2e9182`.
+Outputs: `results/EXP-P-003/` (`report.json` from `dxt ft report`; per run `summary.json`, `curves.json`, compact
+dev and train ranks), 27 `ft-run` manifests, and the bundles `ft-v1-c1-lin-all-ens` and
+`ft-v1-c1-lin-all-nosexage-ens`.
+
+- **Setup checks:** E0 through the production logits gives the EXP-P-001 E0 ranks on all 1,883 dev and 4,103 train
+  patients (0 differ). Every run is valid: untrained residual exactly 0; θ ≥ 0; numpy vs torch residual within
+  1e-3; c1–c6 dev present-only view bit-identical to E0 on every scorable case. Pooled vectors reproduce the ONNX
+  logits within 9.8e-4. Replay: 39,096 pseudo-patients over 4,887 genes, 0 dropped for overlap.
+- **Train:** 3,522 of 4,103 usable (581 genes outside E0's vocabulary); 3,061 fit rows, 461 held-out rows (512 of
+  4,103 train patients in the held-out groups).
+
+**Dev, all 1,883 patients, Δ MRR vs E0 (E0 0.4485); mean ± sd over seeds 0–2:**
+
+| Config | Params | Dev Δ | Mean CI | Harmed | Present view | Post-E0 (351) | Train Δ | Held-out train Δ |
+|---|---|---|---|---|---|---|---|---|
+| **c1-lin-all** | 8 | **+0.00313 ± 0.00000** | [+0.00159, +0.00485] | 0.11% | 0 | +0.00009 | +0.00022 | +0.00125 |
+| c2-lin-safe3 | 3 | +0.00230 ± 0.00000 | [+0.00080, +0.00399] | 0.11% | 0 | +0.00007 | +0.00060 | +0.00158 |
+| c3-lin-noxl | 6 | +0.00241 ± 0.00006 | [+0.00087, +0.00409] | 0.11% | 0 | +0.00007 | +0.00060 | +0.00158 |
+| c4-mlp16 | 288 | +0.00239 ± 0.00076 | [−0.00009, +0.00462] | 0.23% | 0 | +0.00010 | +0.00047 | +0.00128 |
+| c5-mlp16-lr0.01 | 288 | +0.00313 ± 0.00000 | [+0.00160, +0.00486] | 0.11% | 0 | +0.00008 | +0.00043 | +0.00132 |
+| c6-mlp64 | 1,104 | +0.00231 ± 0.00046 | [−0.00010, +0.00452] | 0.25% | 0 | +0.00011 | +0.00080 | +0.00129 |
+| c7-cls-l2sp1e-2 | 2,682,765 | +0.02480 ± 0.00294 | [+0.00535, +0.04904] | 1.63% | +0.02517 | +0.00005 | +0.03126 | +0.00881 |
+| c8-cls-l2sp1e-4 | 2,682,765 | +0.08740 ± 0.00703 | [+0.03511, +0.14732] | 6.30% | +0.08830 | +0.00781 | +0.13057 | +0.04230 |
+
+"Mean CI" is the mean over seeds of each seed's 95% CI bounds. Median seed-mean dev Δ of the 8 configurations:
++0.00277.
+
+- **θ (seed 0, feature order of `ft/bundle.py`):** c1 [3.28, 3.38, 2.85, 0, 3.03, 5.52, 3.12, 0]. `neg_embed` and
+  `onset_lenient_gap` are 0 in every run of every configuration (c4 seed 1: `onset_lenient_gap` 0.008).
+- **Early stopping:** best epochs 22–25 (c1), 8 (c2, c3), 1–14 (MLPs), 27–185 (classifier).
+- **c7, c8 (classifier, not selectable):** almost the whole Δ is in the present-only view, i.e. the retrained
+  classifier without the new inputs (c8: +0.0883 of +0.0874). On dev patients whose gene is not among train genes
+  (555) it is +0.003 to +0.006; harmed 29–32 (c7) and 113–123 (c8) patients; top-10 +25 to +94.
+
+**Selected configuration, `c1-lin-all`:**
+
+| | Dev Δ [95% CI] | Helped / harmed | Top-1 | Top-10 |
+|---|---|---|---|---|
+| Seed 0 (pre-declared single seed) | +0.00313 [+0.00159, +0.00485] | 346 / 2 | +7 / −0 | +4 / −0 |
+| **Ensemble of seeds 0–2 (`ft-v1-c1-lin-all-ens`)** | **+0.00313 [+0.00159, +0.00485]** | 345 / 2 (0.11%) | +7 / −0 | +4 / −0 |
+| Ablation ensemble, no sex/age/onset (`neg_obligate` only; θ 2.92–2.99) | +0.00146 [+0.00013, +0.00309] | 118 / 2 | +5 / −0 | +0 / −0 |
+
+Ensemble subsets (dev): in-vocabulary 1,680 +0.00350; sex known 1,703 +0.00342; age known 1,636 +0.00357; onset
+known 534 +0.00688 [+0.00274, +0.01169]; excluded known 1,764 +0.00302; **post-E0 351 +0.00009 [+0.00001,
++0.00023]**, 0 harmed; gene in train 1,328 +0.00270; gene not in train 555 +0.00414 [+0.00095, +0.00825].
+Train (4,103, in-sample): +0.00023 [−0.00152, +0.00181], 21 harmed (0.51%), top-10 +12/−4; held-out train groups
+(512): +0.00125 [−0.00112, +0.00389], 7 harmed.
+
+- **GPU:** RTX 4070 Ti; 32.7 s of fitting over the 27 runs, peak 1.6 GB. The grid's wall time (82.8 min, plus the
+  ablation and ensembles) is CPU evaluation through the numpy apply, most of it the classifier runs' per-case CPU
+  pooling.
 
 ## Selection outcome
-(Filled in after the grid, by the rule above.)
+By the registered rule: c1–c6 are eligible (every seed valid, harmed ≤ 5%). The highest seed mean is c5
+(+0.003133); c1 (+0.003127) is within 0.0005 with 8 parameters instead of 288, so **`c1-lin-all` is selected**, in
+its candidate form `ft-v1-c1-lin-all-ens` (bundle sha256 `5a26e537…`). c7 and c8 are not selectable (§10,
+per-gene weights).
 
 ## Addenda
