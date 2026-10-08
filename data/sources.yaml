@@ -328,3 +328,13 @@ genereviews:
     Facts plus citations only (ADR-0013 rule 4). Chapters citing an R1 held-out PMID or
     touching an evaluation unit are dropped (lit-sources-v1). Private release asset; never
     redistribute publicly.
+
+phenopacket_store_main_2026_10_08:
+  role: cohort
+  version: main@85ffd78
+  filename: phenopacket-store-85ffd78f3c17442a7dbb143df916ed6f8680066e.tar.gz
+  url: https://github.com/monarch-initiative/phenopacket-store/archive/85ffd78f3c17442a7dbb143df916ed6f8680066e.tar.gz
+  upstream_url: https://github.com/monarch-initiative/phenopacket-store/commit/85ffd78f3c17442a7dbb143df916ed6f8680066e
+  sha256: 0f5261d844568baa7ad5da91865abb0ec61e673a0caa72381d6b1d2f4bc91e5e
+  license: CC-BY-4.0
+  notes: monarch-initiative/phenopacket-store main at its last commit before 2026-10-08T19:35:00Z (85ffd78f3c17442a7dbb143df916ed6f8680066e, committed 2026-10-07T14:34:29Z), as the GitHub tarball of that commit. Patients only through the fresh split frozen from it (ADR-0017 §4, Amendment 2).
