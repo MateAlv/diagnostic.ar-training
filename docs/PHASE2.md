@@ -83,7 +83,8 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-07 | ADR-0017, P2-PROBES-v1, sources pinned | done |
 | 10-07 | `p2-v1` split code and freeze (#122); `safe-v1` code, `safe-kb-v1a`, dev dry run (#123) | done |
 | 10-08 | Track 1 onset form chosen on dev: ×0.01 (BITACORA 2026-10-08) | done |
-| 10-08 to 10-09 | Sex-gene curation (141), `safe-kb-v1`, EXP-P-001 pre-registration | in progress |
+| 10-08 | Sex-gene curation (141 → 92), `safe-kb-v1`, EXP-P-001 pre-registered | done |
+| 10-08 to 10-09 | Independent review of EXP-P-001, Mateo's spot-check and go, confirmation read | next |
 | 10-10 | `safe-v1` on dev; pre-register EXP-P-001; independent review | planned |
 | 10-11 | EXP-P-001 confirmation read, after Mateo's go | planned |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |

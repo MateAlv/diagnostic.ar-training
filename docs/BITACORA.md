@@ -4248,3 +4248,33 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Curation scope:** only the 141 sex-limited genes (two Sonnet batches), because the sex rule is the only remaining
   hard block. Onset genes are no longer curated: the factor bounds their worst case, and GeneReviews can cite held-out
   papers.
+
+## 2026-10-08: sex-gene curation, `safe-kb-v1`, EXP-P-001 pre-registered
+- **Curation:** two Sonnet agents checked the 141 sex-limited genes of `safe-kb-v1a`. They kept 92 and removed 49.
+  - Removed examples: EIF2B2-5 (vanishing white matter in both sexes), meiosis genes that also affect the other
+    sex, ciliary and PCD genes, X-linked genes, and imprinting or maternal-effect genes.
+  - Both agents worked from their own knowledge, not from quotes of the local GeneReviews and MedlinePlus copies.
+    Removals only weaken the rule; the kept genes go to Mateo's 20-gene spot-check
+    (`results/P2/safe-kb-v1a/sex_curation_spotcheck_sample.tsv`).
+  - All verdicts: `results/P2/safe-kb-v1a/sex_curation_2026-10-08.jsonl`. Overrides:
+    `data/curation/safe-v1-overrides.csv`, 49 rows.
+- **`safe-kb-v1`:** curated, with onset ×0.01 in the bundle. It has 75 male-limited and 17 female-limited genes.
+  Bundle sha256 `28646c4a…`.
+- **Dry runs:**
+
+  | Part | Δ MRR [95% CI] | Harmed |
+  |---|---|---|
+  | dev | +0.00246 [+0.00090, +0.00416] | 2 |
+  | train | −0.00005 [−0.00133, +0.00095] | 31 |
+
+  - Sex alone: 61 dev patients helped, 0 harmed.
+  - Dev gate dry run with `scripts/analysis/exp_p_gate.py`: 98.33% CI [+0.00072, +0.00464].
+- **Bug found and fixed:** the first `safe-kb-v1` dry run overwrote the `safe-kb-v1a` ranks files, because output
+  names did not include the knowledge id, and `dxt lineage verify` flagged it.
+  - Its outputs were moved to the scratchpad, not deleted, and the committed v1a files restored.
+  - Run labels now include the knowledge id (`<split>/<part>/<kb>`), and the run was repeated with identical numbers.
+- **EXP-P-001 pre-registered** ([experiments/EXP-P-001.md](experiments/EXP-P-001.md)): `safe-v1` on `p2-v1` test.
+  - Gate: 98.33% CI lower bound > 0 and harmed ≤ 5%. Production criterion: harmed ≤ 0.5%.
+  - `paired_bootstrap` gained an optional `level`, with a test.
+  - The sealed read waits for an independent review and Mateo's go.
+- **Sealed data:** none read.

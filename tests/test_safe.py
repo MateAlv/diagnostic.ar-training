@@ -382,10 +382,11 @@ def test_override_rows_are_validated():
             row(**bad)
 
 
-def test_committed_overrides_file_is_header_only_and_valid(tmp_path):
+def test_committed_overrides_file_is_valid(tmp_path):
     path = REPO_ROOT / "data" / "curation" / "safe-v1-overrides.csv"
-    assert path.read_text().strip() == ",".join(overrides.COLUMNS)
-    assert overrides.read(path) == []
+    assert path.read_text().splitlines()[0] == ",".join(overrides.COLUMNS)
+    rows = overrides.read(path)  # validates every row as conservative
+    assert len(rows) == 49  # the 2026-10-08 sex-gene curation removals
     bad = tmp_path / "bad.csv"
     bad.write_text("gene,rule\n")
     with pytest.raises(overrides.OverrideError):
@@ -638,12 +639,14 @@ def test_final_check_runs_end_to_end_on_mocked_vaults(good, built, monkeypatch, 
     assert result.exit_code == 0, result.output
     assert loads == [(s, "vault", "EXP-P-001", REASON[1]) for s in ("p2-v1", "p2-fresh-v1")]
     out = tmp_path / "results" / "EXP-P-001"
-    report = json.loads((out / "p2-v1+p2-fresh-v1-vault__safe-v1__safe-kb-x__report.json").read_text())
+    report = json.loads(
+        (out / "p2-v1+p2-fresh-v1-vault-safe-kb-x__safe-v1__safe-kb-x__report.json").read_text()
+    )
     assert report["cases"] == 30 and set(report["components"]) == {"p2-v1", "p2-fresh-v1"}
     assert report["components"]["p2-v1"]["cases"] == 15
     assert report["publications"] == 10  # five groups per vault, prefixed by their split
     assert (
-        tmp_path / "manifests" / "results-EXP-P-001-p2-v1+p2-fresh-v1-vault-safe-v1-safe-kb-x.json"
+        tmp_path / "manifests" / "results-EXP-P-001-p2-v1+p2-fresh-v1-vault-safe-kb-x-safe-v1-safe-kb-x.json"
     ).exists()
 
 

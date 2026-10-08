@@ -1,0 +1,21 @@
+gene	current	verdict	reason	mateo_agrees
+AK7	male	remove	Reported with PCD-like/ciliary features beyond sperm; unsure	
+ARMC2	male	keep	Autosomal sperm-specific defect; no female phenotype known (knowledge)	
+CCDC146	male	keep	Autosomal sperm-specific defect; no female phenotype known (knowledge)	
+CDC20	female	keep	Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)	
+CFAP45	male	remove	Heterotaxy/situs inversus in both sexes	
+CFAP52	male	remove	Heterotaxy/situs inversus in both sexes	
+DNAH10	male	remove	Axonemal dynein gene with PCD association; unsure	
+DNAH2	male	keep	Autosomal sperm-specific defect; no female phenotype known (knowledge)	
+DNAH8	male	keep	Autosomal sperm-specific defect; no female phenotype known (knowledge)	
+DNALI1	male	remove	Axonemal dynein gene linked to PCD in both sexes	
+EIF2B4	female	remove	Vanishing white matter affects both sexes; ovarian failure is only one feature	
+PADI6	female	remove	maternal-effect BWMD; offspring of either sex affected	
+RNF212	male	remove	meiotic crossover gene; female meiosis/fertility also affected	
+STK33	male	keep	disorders limited to males by mechanism (spermatogenic/Y-linked)	
+SUN5	male	keep	disorders limited to males by mechanism (spermatogenic/Y-linked)	
+TDRD9	male	keep	disorders limited to males by mechanism (spermatogenic/Y-linked)	
+TEKT3	male	keep	disorders limited to males by mechanism (spermatogenic/Y-linked)	
+TERB2	male	remove	meiotic telomere gene; female meiosis affected in mice	
+TEX11	male	remove	X-linked; carrier/female involvement uncertain	
+USP9Y	male	keep	disorders limited to males by mechanism (spermatogenic/Y-linked)	

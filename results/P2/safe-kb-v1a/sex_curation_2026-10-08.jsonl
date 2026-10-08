@@ -1,0 +1,141 @@
+{"gene": "ACR", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ACTL7A", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ACTL9", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "AK7", "current": "male", "verdict": "remove", "reason": "Reported with PCD-like/ciliary features beyond sperm; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "AKAP3", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ARMC12", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ARMC2", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ASTL", "current": "female", "verdict": "keep", "reason": "Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "AURKC", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "BPY2", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "BRDT", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "BTG4", "current": "female", "verdict": "keep", "reason": "Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CATIP", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CATSPER1", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CCDC146", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CCDC34", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CCDC62", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CCIN", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CDC14A", "current": "male", "verdict": "remove", "reason": "Autosomal recessive deafness affects both sexes; infertility is secondary", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CDC20", "current": "female", "verdict": "keep", "reason": "Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CDY1", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CDY2A", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CEP112", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP251", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP44", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP45", "current": "male", "verdict": "remove", "reason": "Heterotaxy/situs inversus in both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP47", "current": "male", "verdict": "remove", "reason": "X-linked; female carriers/other phenotypes (neurodevelopmental) reported; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP52", "current": "male", "verdict": "remove", "reason": "Heterotaxy/situs inversus in both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP57", "current": "male", "verdict": "remove", "reason": "Ciliary gene also linked to PCD; not sex-limited", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP58", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP61", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP65", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP69", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP70", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CFAP91", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CHEK1", "current": "female", "verdict": "keep", "reason": "Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CLDN2", "current": "male", "verdict": "remove", "reason": "X-linked; also nephrolithiasis and tight-junction roles; female carriers possible", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "CT55", "current": "male", "verdict": "remove", "reason": "X-linked with weak evidence; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DAZ1", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DAZ2", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DAZ3", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DAZ4", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DDX3Y", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DIAPH2", "current": "female", "verdict": "remove", "reason": "X-linked; unsure about male phenotype and carrier mechanism", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNAH10", "current": "male", "verdict": "remove", "reason": "Axonemal dynein gene with PCD association; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNAH17", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNAH2", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNAH8", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNALI1", "current": "male", "verdict": "remove", "reason": "Axonemal dynein gene linked to PCD in both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DNHD1", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "DPY19L2", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "EIF2B2", "current": "female", "verdict": "remove", "reason": "Vanishing white matter affects both sexes; ovarian failure is only one feature", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "EIF2B3", "current": "female", "verdict": "remove", "reason": "Vanishing white matter affects both sexes; ovarian failure is only one feature", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "EIF2B4", "current": "female", "verdict": "remove", "reason": "Vanishing white matter affects both sexes; ovarian failure is only one feature", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "EIF2B5", "current": "female", "verdict": "remove", "reason": "Vanishing white matter affects both sexes; ovarian failure is only one feature", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ESR2", "current": "female", "verdict": "remove", "reason": "Perrault/ovarian dysgenesis; ESR2 variants also reported in male infertility; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "FLT1", "current": "female", "verdict": "remove", "reason": "Preeclampsia is not sex-limited by gene; fetal/male contribution and vascular roles", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "FSIP2", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "GCNA", "current": "male", "verdict": "remove", "reason": "X-linked with weak evidence; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "GDF9", "current": "female", "verdict": "keep", "reason": "Oocyte/zygote or ovarian defect with no known male phenotype (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "GGN", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "GGPS1", "current": "female", "verdict": "remove", "reason": "Muscular dystrophy and hearing loss affect both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "HFM1", "current": "female", "verdict": "remove", "reason": "Meiosis gene; POI and male azoospermia both reported", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "HROB", "current": "female", "verdict": "remove", "reason": "DNA repair/meiosis gene; Perrault/POI family, male infertility possible", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "HSF2BP", "current": "female", "verdict": "remove", "reason": "Meiosis gene; POI and male azoospermia reported", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "HSFY1", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "INSL3", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "IQCN", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "KCNU1", "current": "male", "verdict": "keep", "reason": "Autosomal sperm-specific defect; no female phenotype known (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "KDM5D", "current": "male", "verdict": "keep", "reason": "Y-linked spermatogenic failure; Y absent in females (knowledge)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "KHDC3L", "current": "female", "verdict": "remove", "reason": "Imprinting disturbances (BWS/MLID) in offspring of either sex", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "KLHL10", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "KPNA7", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "LRRC23", "current": "male", "verdict": "remove", "reason": "possible heterotaxy/ciliary phenotype in both sexes; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "M1AP", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MCM8", "current": "female", "verdict": "remove", "reason": "also male infertility/cancer predisposition; DNA repair gene", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MCM9", "current": "female", "verdict": "remove", "reason": "also male infertility, cancer predisposition; Perrault-type", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MEI1", "current": "female", "verdict": "remove", "reason": "meiosis gene; male azoospermia reported", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MNS1", "current": "male", "verdict": "remove", "reason": "heterotaxy with male infertility; heterotaxy affects both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MOS", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "MOV10L1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "NANOS1", "current": "male", "verdict": "remove", "reason": "unsure; reported also in other contexts; remove when in doubt", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "NLRP2", "current": "female", "verdict": "remove", "reason": "maternal-effect imprinting disorders (BWS) affect offspring of either sex", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "NLRP5", "current": "female", "verdict": "remove", "reason": "maternal-effect imprinting disorders affect offspring of either sex", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "NLRP7", "current": "female", "verdict": "remove", "reason": "molar pregnancy/imprinting disorders; offspring of either sex", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "NOBOX", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PADI6", "current": "female", "verdict": "remove", "reason": "maternal-effect BWMD; offspring of either sex affected", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PANX1", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PATL2", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PDHA2", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PLCZ1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PMFBP1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PNLDC1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "POF1B", "current": "female", "verdict": "remove", "reason": "X-linked; carriers and other phenotypes possible; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PRY", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "PRY2", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "QRICH2", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "RBMY1A1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "REC114", "current": "female", "verdict": "remove", "reason": "meiosis gene; male phenotype possible", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "RNF212", "current": "male", "verdict": "remove", "reason": "meiotic crossover gene; female meiosis/fertility also affected", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "RPL10L", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "RPS4Y2", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SEPTIN12", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SHOC1", "current": "male", "verdict": "remove", "reason": "meiosis gene; also premature ovarian insufficiency in women", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SLC26A8", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SPACA1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SPAG17", "current": "male", "verdict": "remove", "reason": "ciliary skeletal dysplasia (short-rib) in both sexes", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SPATA16", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SPINK2", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "STK33", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "STOX1", "current": "female", "verdict": "remove", "reason": "preeclampsia; fetal/paternal contribution, not sex-limited", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SUN5", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SYCP2", "current": "male", "verdict": "remove", "reason": "meiosis gene; female fertility phenotype likely", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SYCP2L", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "SYCP3", "current": "male", "verdict": "remove", "reason": "meiosis gene; also female recurrent miscarriage/oocyte aneuploidy", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TAF4B", "current": "male", "verdict": "remove", "reason": "female infertility/POI reported", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TBL1Y", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TDRD9", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TEKT3", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TERB1", "current": "male", "verdict": "remove", "reason": "meiotic telomere gene; female meiosis affected in mice", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TERB2", "current": "male", "verdict": "remove", "reason": "meiotic telomere gene; female meiosis affected in mice", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TEX11", "current": "male", "verdict": "remove", "reason": "X-linked; carrier/female involvement uncertain", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TEX14", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TEX15", "current": "male", "verdict": "remove", "reason": "POI reported in women", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TLE6", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TOP6BL", "current": "female", "verdict": "remove", "reason": "meiosis gene; male phenotype possible", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TSGA10", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TSPY1", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TTC29", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "TUBB8", "current": "female", "verdict": "remove", "reason": "also complex cortical dysplasia (not sex-limited)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "USP26", "current": "male", "verdict": "remove", "reason": "X-linked, disputed variants; unsure", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "USP9Y", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "VCY", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "WEE2", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "XKRY", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZFP36L2", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZMYND15", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZP1", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZP2", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZP3", "current": "female", "verdict": "keep", "reason": "oocyte/zygote defect, no known male phenotype", "evidence_quote": "", "source_file": "knowledge"}
+{"gene": "ZPBP", "current": "male", "verdict": "keep", "reason": "disorders limited to males by mechanism (spermatogenic/Y-linked)", "evidence_quote": "", "source_file": "knowledge"}

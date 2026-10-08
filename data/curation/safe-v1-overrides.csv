@@ -1,1 +1,50 @@
 gene,rule,action,value_years,evidence_quote,source_file,curator
+AK7,sex,remove,,Reported with PCD-like/ciliary features beyond sperm; unsure,knowledge,sonnet-curation-2026-10-08
+CDC14A,sex,remove,,Autosomal recessive deafness affects both sexes; infertility is secondary,knowledge,sonnet-curation-2026-10-08
+CFAP45,sex,remove,,Heterotaxy/situs inversus in both sexes,knowledge,sonnet-curation-2026-10-08
+CFAP47,sex,remove,,X-linked; female carriers/other phenotypes (neurodevelopmental) reported; unsure,knowledge,sonnet-curation-2026-10-08
+CFAP52,sex,remove,,Heterotaxy/situs inversus in both sexes,knowledge,sonnet-curation-2026-10-08
+CFAP57,sex,remove,,Ciliary gene also linked to PCD; not sex-limited,knowledge,sonnet-curation-2026-10-08
+CLDN2,sex,remove,,X-linked; also nephrolithiasis and tight-junction roles; female carriers possible,knowledge,sonnet-curation-2026-10-08
+CT55,sex,remove,,X-linked with weak evidence; unsure,knowledge,sonnet-curation-2026-10-08
+DIAPH2,sex,remove,,X-linked; unsure about male phenotype and carrier mechanism,knowledge,sonnet-curation-2026-10-08
+DNAH10,sex,remove,,Axonemal dynein gene with PCD association; unsure,knowledge,sonnet-curation-2026-10-08
+DNALI1,sex,remove,,Axonemal dynein gene linked to PCD in both sexes,knowledge,sonnet-curation-2026-10-08
+EIF2B2,sex,remove,,Vanishing white matter affects both sexes; ovarian failure is only one feature,knowledge,sonnet-curation-2026-10-08
+EIF2B3,sex,remove,,Vanishing white matter affects both sexes; ovarian failure is only one feature,knowledge,sonnet-curation-2026-10-08
+EIF2B4,sex,remove,,Vanishing white matter affects both sexes; ovarian failure is only one feature,knowledge,sonnet-curation-2026-10-08
+EIF2B5,sex,remove,,Vanishing white matter affects both sexes; ovarian failure is only one feature,knowledge,sonnet-curation-2026-10-08
+ESR2,sex,remove,,Perrault/ovarian dysgenesis; ESR2 variants also reported in male infertility; unsure,knowledge,sonnet-curation-2026-10-08
+FLT1,sex,remove,,Preeclampsia is not sex-limited by gene; fetal/male contribution and vascular roles,knowledge,sonnet-curation-2026-10-08
+GCNA,sex,remove,,X-linked with weak evidence; unsure,knowledge,sonnet-curation-2026-10-08
+GGPS1,sex,remove,,Muscular dystrophy and hearing loss affect both sexes,knowledge,sonnet-curation-2026-10-08
+HFM1,sex,remove,,Meiosis gene; POI and male azoospermia both reported,knowledge,sonnet-curation-2026-10-08
+HROB,sex,remove,,"DNA repair/meiosis gene; Perrault/POI family, male infertility possible",knowledge,sonnet-curation-2026-10-08
+HSF2BP,sex,remove,,Meiosis gene; POI and male azoospermia reported,knowledge,sonnet-curation-2026-10-08
+KHDC3L,sex,remove,,Imprinting disturbances (BWS/MLID) in offspring of either sex,knowledge,sonnet-curation-2026-10-08
+LRRC23,sex,remove,,possible heterotaxy/ciliary phenotype in both sexes; unsure,knowledge,sonnet-curation-2026-10-08
+MCM8,sex,remove,,also male infertility/cancer predisposition; DNA repair gene,knowledge,sonnet-curation-2026-10-08
+MCM9,sex,remove,,"also male infertility, cancer predisposition; Perrault-type",knowledge,sonnet-curation-2026-10-08
+MEI1,sex,remove,,meiosis gene; male azoospermia reported,knowledge,sonnet-curation-2026-10-08
+MNS1,sex,remove,,heterotaxy with male infertility; heterotaxy affects both sexes,knowledge,sonnet-curation-2026-10-08
+NANOS1,sex,remove,,unsure; reported also in other contexts; remove when in doubt,knowledge,sonnet-curation-2026-10-08
+NLRP2,sex,remove,,maternal-effect imprinting disorders (BWS) affect offspring of either sex,knowledge,sonnet-curation-2026-10-08
+NLRP5,sex,remove,,maternal-effect imprinting disorders affect offspring of either sex,knowledge,sonnet-curation-2026-10-08
+NLRP7,sex,remove,,molar pregnancy/imprinting disorders; offspring of either sex,knowledge,sonnet-curation-2026-10-08
+PADI6,sex,remove,,maternal-effect BWMD; offspring of either sex affected,knowledge,sonnet-curation-2026-10-08
+POF1B,sex,remove,,X-linked; carriers and other phenotypes possible; unsure,knowledge,sonnet-curation-2026-10-08
+REC114,sex,remove,,meiosis gene; male phenotype possible,knowledge,sonnet-curation-2026-10-08
+RNF212,sex,remove,,meiotic crossover gene; female meiosis/fertility also affected,knowledge,sonnet-curation-2026-10-08
+SHOC1,sex,remove,,meiosis gene; also premature ovarian insufficiency in women,knowledge,sonnet-curation-2026-10-08
+SPAG17,sex,remove,,ciliary skeletal dysplasia (short-rib) in both sexes,knowledge,sonnet-curation-2026-10-08
+STOX1,sex,remove,,"preeclampsia; fetal/paternal contribution, not sex-limited",knowledge,sonnet-curation-2026-10-08
+SYCP2,sex,remove,,meiosis gene; female fertility phenotype likely,knowledge,sonnet-curation-2026-10-08
+SYCP3,sex,remove,,meiosis gene; also female recurrent miscarriage/oocyte aneuploidy,knowledge,sonnet-curation-2026-10-08
+TAF4B,sex,remove,,female infertility/POI reported,knowledge,sonnet-curation-2026-10-08
+TERB1,sex,remove,,meiotic telomere gene; female meiosis affected in mice,knowledge,sonnet-curation-2026-10-08
+TERB2,sex,remove,,meiotic telomere gene; female meiosis affected in mice,knowledge,sonnet-curation-2026-10-08
+TEX11,sex,remove,,X-linked; carrier/female involvement uncertain,knowledge,sonnet-curation-2026-10-08
+TEX15,sex,remove,,POI reported in women,knowledge,sonnet-curation-2026-10-08
+TOP6BL,sex,remove,,meiosis gene; male phenotype possible,knowledge,sonnet-curation-2026-10-08
+TUBB8,sex,remove,,also complex cortical dysplasia (not sex-limited),knowledge,sonnet-curation-2026-10-08
+USP26,sex,remove,,"X-linked, disputed variants; unsure",knowledge,sonnet-curation-2026-10-08
