@@ -476,3 +476,48 @@ def test_load_model_refuses_other_kinds(monkeypatch):
     monkeypatch.setattr(manifest, "load_manifest", lambda artifact_id: m)
     with pytest.raises(typer.BadParameter, match="not an ltr-model"):
         cli_ltr._load_model("x")
+
+
+def test_select_runs_end_to_end_on_mocked_parts(built, monkeypatch, tmp_path):
+    pytest.importorskip("lightgbm")
+    from diagnostic_ar_training.rerank import kb as kb_io
+    from diagnostic_ar_training.systems import genphenia_v3
+
+    kb_path = tmp_path / "ltr-kb.json.gz"
+    kb_io.write(built[0], kb_path)
+    cases = make_cases() + [c.model_copy(update={"case_id": f"d{c.case_id}"}) for c in make_cases()]
+    groups = {c.case_id: f"g{i // 3}" for i, c in enumerate(cases)}
+    loads = []
+
+    def load_part(split_id, part, purpose, exp_id=None, reason=""):
+        loads.append((split_id, part, exp_id))
+        return cases[:30] if part == "train" else cases[30:]
+
+    (tmp_path / "r1-v1.json").write_text("{}")
+    monkeypatch.setattr(splits, "load_part", load_part)
+    monkeypatch.setattr(splits, "publication_groups", lambda split_id: groups)
+    monkeypatch.setattr(ltr_eval, "post_e0_cases", lambda cs, g: {cs[0].case_id})
+    monkeypatch.setattr(cli_ltr, "_output", lambda artifact_id, kind, name: (kb_path, "e" * 64))
+    monkeypatch.setattr(train, "grid", lambda: [train.Config("tiny", "residual", 3, 1, max_rounds=5)])
+    monkeypatch.setattr(genphenia_v3, "GenPheniaV3", FakeBase)
+    monkeypatch.setattr(gitinfo, "code_state", lambda *a, **k: CLEAN)
+    monkeypatch.setattr(manifest, "code_state", lambda *a, **k: CLEAN)
+    monkeypatch.setattr(cli_ltr, "RESULTS_DIR", tmp_path / "results")
+    monkeypatch.setattr(harness, "RESULTS_DIR", tmp_path / "results")
+    monkeypatch.setattr(cli_ltr, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(cli_ltr, "SPLITS_DIR", tmp_path)
+    monkeypatch.setattr(manifest, "MANIFESTS_DIR", tmp_path / "manifests")
+    result = run(["ltr", "select", "--kb", "ltr-kb-x", "--id", "ltr-x", "--exp", "EXP-P-002"])
+    assert result.exit_code == 0, result.output
+    assert [p for _, p, _ in loads] == ["train", "dev"] and {e for *_, e in loads} == {None}
+    report = json.loads((tmp_path / "results" / "EXP-P-002" / "r1-v1-ltr-x__selection.json").read_text())
+    assert report["winner"] == "tiny" and len(report["configurations"]) == 1
+    for part in ("train", "dev"):
+        assert report["reports"][part]["system_vs_selection_rank_mismatches"] == 0
+    assert report["reports"]["dev"]["subset_sizes"]["post_e0"] == 1
+    assert "ltr_vs_ablation" in report["reports"]["dev"]
+    model_dir = tmp_path / "data" / "ltr" / "ltr-x"
+    assert bundle.read_spec(model_dir / "spec.json")["family"] == "residual"
+    assert (model_dir / "ablation" / "model.txt").is_file()
+    for artifact in ("results-EXP-P-002-r1-v1-ltr-x", "ltr-x"):
+        assert (tmp_path / "manifests" / f"{artifact}.json").exists()
