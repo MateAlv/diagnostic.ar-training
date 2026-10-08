@@ -107,3 +107,11 @@
   criterion, as fixed in PHASE2.md "Gates" on 2026-10-07 and in EXP-P-001.
 - **Decision 8:** the sex curation used the agents' own knowledge, not quotes, and onset genes were not curated. This
   is recorded as a deviation in EXP-P-001.
+
+## Amendment 2, 2026-10-08: the fresh snapshot is taken now, not on 2026-10-20
+- **Change:** `p2-fresh-v1` uses phenopacket-store `main` at its last commit before **2026-10-08T19:35:00Z**, instead of
+  2026-10-20T00:00Z. Every other part of decision 4 is unchanged.
+- **Why:** 2026-10-20 was chosen only to collect more patients (about 25 per week). Mateo asked for the final check
+  before the informe draft (2026-10-15).
+- **Blind:** the change is made without reading any fresh patient, and no final-check data has been loaded. The rule
+  stays fixed in advance of the data.

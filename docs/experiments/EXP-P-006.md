@@ -3,7 +3,8 @@
 - **Front:** Phase 2 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md)
   decisions 3–5)
 - **Registered:** 2026-10-08, by the main session for Mateo (go for the final check given 2026-10-08)
-- **Status:** registered. `p2-fresh-v1` freezes on 2026-10-20, and the read follows: once, all systems together.
+- **Status:** registered. ADR-0017 Amendment 2 moves the `p2-fresh-v1` freeze to 2026-10-08T19:35:00Z, before any read. The read
+  follows: once, all systems together.
 
 ## Hypotheses
 - **H1 (primary):** on post-E0 patients, `safe-v1[sex+onset]` ranks the causal gene higher than E0 on average:
@@ -25,7 +26,7 @@ All systems are scored in one read by `dxt final-check` (`cli_final.py`, `eval/f
 ## Data
 - **`p2-v1` vault:** the R1 test and vault publication groups that are post-E0. 732 patients in 135 groups; never
   read.
-- **`p2-fresh-v1` vault:** phenopacket-store `main` at its last commit before 2026-10-20T00:00Z, under ADR-0017 §4's
+- **`p2-fresh-v1` vault:** phenopacket-store `main` at its last commit before 2026-10-08T19:35:00Z (ADR-0017 Amendment 2), under ADR-0017 §4's
   rule. 340 patients on `main@85ffd78`; the frozen count is recorded at freeze. It has never been read; it is pinned
   and frozen by DATA_LINEAGE §9's procedure before the read.
 - **Post-E0:** no PMID of the publication group is in phenopacket-store 0.1.25, and none is cited in HPO 2025-11-24,
