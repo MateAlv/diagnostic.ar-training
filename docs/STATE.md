@@ -9,7 +9,7 @@
   Safe candidates go first.
 - **Data:** development on `p2-v1` train and dev (`r1-v1` train and dev, 5,986 patients); confirmation on `p2-v1` test
   (3,587); a final check on about 1,072 patients from publications E0 never saw (`p2-v1` vault, 732, plus
-  `p2-fresh-v1`, 340 on 2026-10-07, frozen on 2026-10-20).
+  `p2-fresh-v1`, 340, frozen on 2026-10-08 by ADR-0017 Amendment 2).
 - **Done (2026-10-07):**
   - ADR-0017 and the plan;
   - two sources pinned (phenopacket-store 0.1.25, HPO 2025-11-24);
@@ -24,7 +24,7 @@
   2. Curation scope (141 sex genes, or all 756 with a held-out-PMID guard); agents; `safe-kb-v1`.
   3. EXP-P-001 pre-registration, independent review, Mateo's go, then the confirmation read on `p2-v1` test.
   4. Launch Tracks 2 (`ltr-v1`) and 3 (`ft-v1`): agents reuse `safe/`; absent findings may only lower a score.
-  5. 2026-10-20: freeze `p2-fresh-v1` (DATA_LINEAGE §9), then the final check.
+  5. `p2-fresh-v1` frozen on 2026-10-08 (Amendment 2); next is the final check (EXP-P-006).
 - **Phase 2 sealed budget:**
   - `p2-v1` test: 2 of 3 confirmation reads used.
     - EXP-P-001, safe-v1: Δ +0.00029 [−0.00053, +0.00097], gate not passed. The onset rule alone gave +0.00016

@@ -74,7 +74,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [EXP-P-001](experiments/EXP-P-001.md) | Phase 2 Track 1: `safe-v1` (`safe-kb-v1`) on `p2-v1` test; registered 2026-10-08 |
 | [EXP-P-004](experiments/EXP-P-004.md) | Withdrawn before its read (X-linked feature flaws found on train) |
 | [EXP-P-005](experiments/EXP-P-005.md) | Phase 2 Track 3: `ft-v1.1-c1-lin-all-ens` on `p2-v1` test (confirmation read 2 of 3) |
-| [EXP-P-006](experiments/EXP-P-006.md) | Phase 2 final check: `safe-v1[sex+onset]` (H1), `ft-v1.1` (H2) and the rest, on post-E0 patients; read after 2026-10-20 |
+| [EXP-P-006](experiments/EXP-P-006.md) | Phase 2 final check: `safe-v1[sex+onset]` (H1), `ft-v1.1` (H2) and the rest, on post-E0 patients; read once, 2026-10-08 |
 | [EXP-P-003](experiments/EXP-P-003.md) | Phase 2 Track 3: `ft-v1` residual, dev grid of 8 × 3 seeds; selected `c1-lin-all` (dev +0.00313) |
 
 ## Analyses (`analyses/`)
@@ -130,7 +130,7 @@ Figures and data files are in `evidence/figures/` and `evidence/data/`.
 | **DXT_SEALED_READ** | Environment variable that must equal the experiment id for a sealed split to load; set on that one command only |
 | **Post-E0** | A publication group with at least one PMID, none in phenopacket-store 0.1.25 and none cited in HPO 2025-11-24 (E0's training annotations); ADR-0017 |
 | **EXP-P-NNN** | Phase 2 experiment ids, accepted by the ledger like EXP-A/B/V |
-| **p2-v1, p2-fresh-v1** | Phase 2 splits: `r1-v1` train/dev for development, R1 test+vault split into confirmation (not post-E0) and final (post-E0), plus fresh post-E0 patients from phenopacket-store `main` at 2026-10-20 |
+| **p2-v1, p2-fresh-v1** | Phase 2 splits: `r1-v1` train/dev for development, R1 test+vault split into confirmation (not post-E0) and final (post-E0), plus fresh post-E0 patients from phenopacket-store `main` at 2026-10-08 (Amendment 2) |
 | **safe-v1, ltr-v1, ft-v1** | Phase 2 candidates: knowledge-only constraints; a re-ranker learned on R1-train; the fine-tuned GNN |
 
 ## Related locations
