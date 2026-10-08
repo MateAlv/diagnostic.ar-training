@@ -4,7 +4,14 @@
 [BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PHASE2.md](PHASE2.md), [PLAN.md](PLAN.md),
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
 
-## Phase 2: real-patient restart (in progress; [ADR-0017](decisions/0017-phase-2-real-patient-restart.md))
+## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
+- `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):
+  - EXP-P-005: +0.00138 [+0.00070, +0.00232] on 3,587 sealed patients;
+  - EXP-P-006: +0.00054 [+0.00005, +0.00129] on 1,072 post-E0 patients.
+- Integration into `diagnostic.ar-model` comes later: an unmasked production knowledge build, API inputs and staging
+  first.
+
+## Phase 2: real-patient restart (done; [ADR-0017](decisions/0017-phase-2-real-patient-restart.md))
 - **Goal:** a pre-registered gain on real patients from sex, age, onset and absent symptoms over GenPhenAI v3.0 (E0).
   Safe candidates go first.
 - **Data:** development on `p2-v1` train and dev (`r1-v1` train and dev, 5,986 patients); confirmation on `p2-v1` test

@@ -13,7 +13,32 @@ Updated 2026-10-05 (branch `docs/close-out`): EXP-B-006 and EXP-V-001 results, h
 - Status column of sections 7 and 8: **gated, pre-registered** = a pass/fail rule written before the sealed read; **descriptive** = sealed numbers with no gate, nothing selected from them; **dev** = search on a dev split, free reads.
 - On S3 v2 and S3 v3b, "Delta vs E0+answers" is the re-ranker's effect given the interview answers; "primary Delta vs E0-initial" (EXP-Q-001) is interview plus re-ranker against no questions. CIs resample genes (2,000 resamples, seed 0).
 
-## Headline results
+## Phase 2 headline: confirmed on sealed real patients (ADR-0017, ADR-0018)
+
+`ft-v1.1-c1-lin-all-ens` is the production-ready model (ADR-0018). It is GenPhenAI v3.0 (E0), frozen, plus a trained
+branch: 7 non-negative weights over sex, onset, X-linked and absent-symptom knowledge features, fitted on 4,103 real
+patients. Figure: `figures/fig_f_ft_v11_architecture.png`. Every row is a pre-registered read, reviewed
+independently, with Δ MRR vs E0 and a 95% CI from the publication-cluster bootstrap.
+
+| Result | Δ MRR [95% CI] | Data, n | Harmed | Outcome |
+|---|---|---|---|---|
+| `ft-v1.1` vs E0 (EXP-P-005) | +0.00138 [+0.00070, +0.00232]; gate CI at 98.33% [+0.00058, +0.00256] | `p2-v1` test (sealed, real), 3,587 | 0.17% | gate passed |
+| `ft-v1.1` vs E0, final check (EXP-P-006 H2) | +0.00054 [+0.00005, +0.00129] | post-E0 publications (sealed, real), 1,072 | 0.28% | holds |
+| `safe-v1[sex+onset]` vs E0, final check (EXP-P-006 H1) | +0.00029 [+0.00001, +0.00075] | post-E0 publications, 1,072 | 0.28% | passed |
+| `safe-v1` (sex + onset + negation rules) vs E0 (EXP-P-001) | +0.00029 [−0.00053, +0.00097] | `p2-v1` test, 3,587 | 0.25% | gate not passed; onset rule alone +0.00016 [+0.00007, +0.00032], 0 harmed |
+
+- **Which features carry the gain** (dev, EXP-P-005 Addendum 1):
+  - negation: +0.00146;
+  - onset: +0.00093, with 0 harmed;
+  - X-linked recessive in females: +0.00077;
+  - sex mismatch: ≈0.
+- **E0's home advantage** (P2-PROBES-v1; EXP-P-001 Addendum 1):
+  - E0's MRR is 0.551 on test patients from publications its training annotations cite, against 0.244 on the rest;
+  - it is 0.128 on the final check's post-E0 patients.
+  - The `ft-v1.1` gain is similar in both groups: +0.00144 and +0.00126 (EXP-P-005).
+- **Withdrawn before its read:** EXP-P-004. Its X-linked features were flawed, as found on train; ft-v1.1 fixed them.
+
+## Headline results (Phase 1)
 
 Full table with sources: [TABLES.md](TABLES.md) T0. Every contrast is a paired-bootstrap Delta MRR with a 95% CI.
 

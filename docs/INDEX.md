@@ -7,7 +7,7 @@ and an evaluation infrastructure with sealed splits and pre-registration. Q2b go
 missing symptoms (`rerank-v1.0.0`) stays in staging only. The summary with numbers is at the top of [STATE.md](STATE.md); the final decisions are in
 [ADR-0016](decisions/0016-final-deployment-and-close-out.md).
 
-**Phase 2 (from 2026-10-07):** a restart on real patients toward a pre-registered gain from sex, age, onset and absent
+**Phase 2 (2026-10-07 to 10-08):** `ft-v1.1` is production-ready ([ADR-0018](decisions/0018-ft-v11-production-ready.md)): +0.00138 [+0.00070, +0.00232] on 3,587 and +0.00054 [+0.00005, +0.00129] on 1,072 sealed real patients. Phase 2 was a restart on real patients toward a pre-registered gain from sex, age, onset and absent
 symptoms, with a final check on publications GenPhenAI never saw. Plan and status: [PHASE2.md](PHASE2.md); decision:
 [ADR-0017](decisions/0017-phase-2-real-patient-restart.md).
 
@@ -51,6 +51,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [0015](decisions/0015-onset-follow-up-s3-v3.md) | Does onset age help the re-ranker; S3 v3 and v3b |
 | [0016](decisions/0016-final-deployment-and-close-out.md) | Final deployment (Q2b + `rerank-v1.0.0`), `rerank-v1.1.0` not released, no more model experiments (superseded by 0017) |
 | [0017](decisions/0017-phase-2-real-patient-restart.md) | Phase 2: restart on real patients; `p2-v1` confirmation and a post-E0 final check |
+| [0018](decisions/0018-ft-v11-production-ready.md) | `ft-v1.1-c1-lin-all-ens` is the production-ready model; integration later |
 
 ## Experiments
 

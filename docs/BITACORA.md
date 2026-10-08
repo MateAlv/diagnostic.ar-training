@@ -4520,3 +4520,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - Confirmed on sealed real patients: `ft-v1.1` (EXP-P-005 and EXP-P-006) and `safe-v1[sex+onset]` (EXP-P-006).
   - Both meet the production criteria; production waits for Mateo's go.
   - Confirmation reads used: 2 of 3. Both final-check vaults are now spent.
+
+## 2026-10-08: `ft-v1.1` flagged production-ready (ADR-0018)
+- **Decision (Mateo):** Track 3's `ft-v1.1-c1-lin-all-ens` is the production-ready model. Integration comes later,
+  through `diagnostic.ar-model`, staging first. `safe-v1[sex+onset]` stays the knowledge-only fallback.
+- **Docs:** ADR-0018. The Phase 2 headline is added to EVIDENCE_INDEX, README, STATE and INDEX. The git tag
+  `ft-v1.1-production-ready` marks the commit.
+- **Before integration (ADR-0018):** an unmasked production knowledge build, which should remove the masking artefact
+  behind EXP-P-005's 6 harms (expected, not measured), and the API inputs.
