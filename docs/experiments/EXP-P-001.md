@@ -2,7 +2,7 @@
 
 - **Front:** Phase 2, Track 1 ([PHASE2.md](../PHASE2.md), [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md))
 - **Registered:** 2026-10-08, by the main session for Mateo
-- **Status:** registered; sealed read pending Mateo's go
+- **Status:** done. The sealed read ran on 2026-10-08 (ledger `655048562d34`) after Mateo's go.
 
 ## Hypothesis
 On real patients from publications E0 may have seen (`p2-v1` test), `safe-v1` ranks the causal gene higher than E0
@@ -98,7 +98,38 @@ Knowledge: HPO 2026-02-16 with the held-out mask (every `r1-v1` dev, test and va
   the read.
 
 ## Results
-(Filled in after the read.)
+Read on 2026-10-08 from `6550485`. Ledger row `p2-v1/test | EXP-P-001 | 655048562d34`. Outputs:
+`results/EXP-P-001/p2-v1-test-safe-kb-v1__*`; gate `..._safe-v1__gate.json`; manifest
+`results-EXP-P-001-p2-v1-test-safe-kb-v1-safe-v1-safe-kb-v1`. The present-only view matches E0 bit for bit.
+
+3,587 patients in 567 publication groups. E0 is the reference. Harmed and helped count patients whose true gene ranks
+lower or higher than under E0.
+
+| System | Δ MRR | 95% CI | 98.33% CI (gate) | Helped | Harmed | Top 1 | Top 10 |
+|---|---|---|---|---|---|---|---|
+| **safe-v1 (registered)** | **+0.00029** | [−0.00053, +0.00097] | **[−0.00075, +0.00115]** | 456 (12.7%) | 9 (0.25%) | +1/−1 | +2/−6 |
+| safe-v1[sex] | +0.000003 | [+0.00000, +0.00001] | — | 74 | 0 | +0/−0 | +0/−0 |
+| safe-v1[onset] | +0.00016 | [+0.00007, +0.00032] | — | 186 | 0 | +0/−0 | +1/−0 |
+| safe-v1[negation] | +0.00020 | [−0.00061, +0.00088] | — | 301 | 9 (0.25%) | +1/−1 | +1/−6 |
+
+- **Onset known (928 patients, onset in years):**
+  - safe-v1: −0.00092 [−0.00366, +0.00085].
+  - Onset rule alone: +0.00051 [+0.00015, +0.00104], 0 harmed.
+- **The 9 harmed patients all come from the negation rule, in two publications.**
+  - ATP6V0C, PMID:35600075, 6 patients: ranks 7 → 73 (×4), 58 → 108, 79 → 128.
+  - HMGCR, PMID:37167966, 3 patients: ranks 1 → 2, 3 → 95, 7 → 15.
+  - In each case an obligate annotation of the gene's disease is excluded in these patients. ATP6V0C also
+    accounted for 24 of the 31 train harms in the dry run.
+- **Dev → test:**
+  - safe-v1: +0.00246 → +0.00029.
+  - Onset rule: +0.00100 → +0.00016.
+  - Sex rule: both ≈ 0.
 
 ## Verdict
-(Filled in after the read.)
+**Gate not passed:** the 98.33% CI lower bound is −0.00075, not above 0. Harmed is 0.25%, within both the 5% gate and
+the 0.5% production criterion. `safe-v1` as registered is not confirmed and does not go to production on this read.
+
+Descriptive, not a confirmed claim: the sex and onset rules, alone, helped 74 and 186 test patients and harmed none;
+onset alone gives +0.00016 [+0.00007, +0.00032]. The negation rule carries the variance and every harm. Testing sex +
+onset as a pre-registered hypothesis needs data this read did not touch: the post-E0 final check (`p2-v1` vault plus
+`p2-fresh-v1`). The choice of that hypothesis is informed by this read, and it is disclosed as such.
