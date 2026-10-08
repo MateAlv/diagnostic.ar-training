@@ -4223,3 +4223,28 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - Tomorrow's first step compares softer onset forms on dev. The open choices are listed in PHASE2.md, "Open before
     pre-registration".
 - **Sealed data:** none read. Phase 2 confirmation reads used: 0 of 3.
+
+## 2026-10-08: Track 1 onset form chosen on dev: ×0.01 instead of the hard block
+- **Why:** the hard onset block buried one dev patient (TRIM63, rank 1 → 5,028) through a masked juvenile-onset row
+  (BITACORA 2026-10-07). A factor bounds the worst case, and the sex rule stays a hard block.
+- **Code:** the bundle gains an optional `onset_factor`, given by `dxt safe build --onset-factor` or by `dxt safe eval
+  --onset-factor` for a dev variant. Without it the behaviour is unchanged, bit for bit. Test
+  `test_soft_onset_scales_instead_of_blocking`.
+- **Dry runs** (`safe-kb-v1a`; Δ vs E0, paired publication-cluster bootstrap):
+
+  | Part | Onset form | Onset rule alone | Harmed | safe-v1 (all rules) | Harmed |
+  |---|---|---|---|---|---|
+  | dev | hard block (2026-10-07) | +0.00050 [−0.00109, +0.00167] | 1 | +0.00196 [−0.00002, +0.00392] | 3 |
+  | dev | ×0.1 | +0.00077 [+0.00019, +0.00143] | 0 | +0.00223 [+0.00077, +0.00390] | 2 |
+  | dev | **×0.01** | **+0.00100 [+0.00030, +0.00179]** | 0 | **+0.00246 [+0.00090, +0.00416]** | 2 |
+  | train | ×0.1 | +0.00036 [+0.00007, +0.00079] | 0 | −0.00005 [−0.00133, +0.00094] | 31 |
+  | train | ×0.01 | +0.00036 [+0.00007, +0.00080] | 0 | −0.00005 [−0.00133, +0.00094] | 31 |
+
+  Every harmed case left comes from the negation rule. On dev these are 2 ASS1 patients, whose obligate row
+  conflicts with their paper. On train, 24 of the 31 come from obligate rows that cite the patient's own train paper;
+  the held-out mask keeps those rows. Outputs are in `results/EXP-P-001/r1-v1-{dev,train}-onset-x{0.1,0.01}__*`.
+- **Choice:** onset ×0.01. Both factors give 0 harmed on dev and train, and ×0.01 keeps more of the effect. This is
+  three onset forms compared on dev, logged here as dev configurations.
+- **Curation scope:** only the 141 sex-limited genes (two Sonnet batches), because the sex rule is the only remaining
+  hard block. Onset genes are no longer curated: the factor bounds their worst case, and GeneReviews can cite held-out
+  papers.
