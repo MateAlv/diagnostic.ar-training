@@ -4279,6 +4279,27 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - The sealed read waits for an independent review and Mateo's go.
 - **Sealed data:** none read.
 
+## 2026-10-08: EXP-P-001, the first Phase 2 confirmation read (`p2-v1` test)
+- **Read:** sealed read after the independent review (GO) and Mateo's go. Ledger `655048562d34`, code `6550485`.
+  3,587 patients in 567 groups.
+- **Primary result:** `safe-v1` vs E0, Δ MRR +0.00029.
+  - 95% CI [−0.00053, +0.00097]; gate CI at 98.33% [−0.00075, +0.00115].
+  - Helped 456 (12.7%), harmed 9 (0.25%). Top 10: +2/−6.
+- **Gate not passed:** the CI lower bound is not above 0.
+- **Per rule (descriptive):**
+
+  | Rule alone | Δ MRR [95% CI] | Helped | Harmed |
+  |---|---|---|---|
+  | sex | +0.000003 | 74 | 0 |
+  | onset | +0.00016 [+0.00007, +0.00032] | 186 | 0 |
+  | negation | +0.00020 [−0.00061, +0.00088] | 301 | 9 |
+
+  The 9 harmed patients all come from the negation rule, in two publications: ATP6V0C (PMID:35600075, 6 patients)
+  and HMGCR (PMID:37167966, 3 patients).
+- **Dev → test drop:** +0.00246 → +0.00029.
+- **Next:** the sex + onset rules become a pre-registered final-check candidate, `safe-v1[sex+onset]`. The final check
+  is post-E0 data this read did not touch. The choice is informed by this read and disclosed as such. Phase 2
+  confirmation reads used: 1 of 3.
 ## 2026-10-08: Track 3, `ft-v1` on dev (EXP-P-003)
 - **What:** a zero-initialised residual on E0's logits, r_g = Σ_k w_k(patient) · c_k(patient, g), with w_k ≤ 0
   (θ ≥ 0 projected, times softplus of an MLP over the covariates whose last layer starts at 0), gene-agnostic

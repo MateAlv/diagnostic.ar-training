@@ -89,7 +89,8 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-07 | `p2-v1` split code and freeze (#122); `safe-v1` code, `safe-kb-v1a`, dev dry run (#123) | done |
 | 10-08 | Track 1 onset form chosen on dev: ×0.01 (BITACORA 2026-10-08) | done |
 | 10-08 | Sex-gene curation (141 → 92), `safe-kb-v1`, EXP-P-001 pre-registered | done |
-| 10-08 to 10-09 | Independent review of EXP-P-001, Mateo's spot-check and go, confirmation read | next |
+| 10-08 | EXP-P-001 read: safe-v1 Δ +0.00029 [−0.00053, +0.00097], harmed 0.25%; gate not passed; sex and onset alone: 0 harmed | done |
+| 10-09 onward | Pre-register `safe-v1[sex+onset]` for the final check; resume Tracks 2 and 3 | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-09 to 10-17 | Tracks 2 and 3 on dev | planned |
 | 10-18 to 10-19 | Pre-register the best learned candidate; confirmation read | planned |
