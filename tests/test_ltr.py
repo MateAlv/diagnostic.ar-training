@@ -1,5 +1,6 @@
 import json
 import math
+import re
 
 import numpy as np
 import pytest
@@ -350,8 +351,12 @@ def run(args):
     return CliRunner().invoke(app, args, env={"COLUMNS": "400"})
 
 
+def plain(result) -> str:
+    return re.sub(r"\x1b\[[0-9;]*m", "", result.output)
+
+
 def refused(result, text):
-    return result.exit_code != 0 and not isinstance(result.exception, Touched) and text in result.output
+    return result.exit_code != 0 and not isinstance(result.exception, Touched) and text in plain(result)
 
 
 def test_tripwires_are_live_once_every_check_passes(tripwires, good):
@@ -454,12 +459,12 @@ def test_knowledge_and_select_refuse_knowledge_not_masked_on_every_part(monkeypa
     monkeypatch.setattr(manifest, "load_manifest", lambda artifact_id: m)
     monkeypatch.setattr(manifest, "ensure_new", lambda artifact_id: None)
     result = run(["ltr", "kb", "--id", "ltr-kb-x", "--rerank-kb", "kb-v5", "--safe-kb", "safe-kb-v1"])
-    assert result.exit_code != 0 and "mask scope 'all'" in result.output
+    assert result.exit_code != 0 and "mask scope 'all'" in plain(result)
 
 
 def test_safe_build_refuses_an_unknown_mask_scope():
     result = run(["safe", "build", "--id", "safe-kb-x", "--mask-scope", "dev"])
-    assert result.exit_code != 0 and "--mask-scope" in result.output
+    assert result.exit_code != 0 and "--mask-scope must be one of" in plain(result)
 
 
 def test_load_model_refuses_other_kinds(monkeypatch):
