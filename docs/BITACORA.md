@@ -4300,3 +4300,43 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Next:** the sex + onset rules become a pre-registered final-check candidate, `safe-v1[sex+onset]`. The final check
   is post-E0 data this read did not touch. The choice is informed by this read and disclosed as such. Phase 2
   confirmation reads used: 1 of 3.
+## 2026-10-08: Track 3, `ft-v1` on dev (EXP-P-003)
+- **What:** a zero-initialised residual on E0's logits, r_g = Σ_k w_k(patient) · c_k(patient, g), with w_k ≤ 0
+  (θ ≥ 0 projected, times softplus of an MLP over the covariates whose last layer starts at 0), gene-agnostic
+  knowledge features (sex mismatch, strict onset late / gap, lenient onset gap, X-linked × sex, obligate negation,
+  excluded-term embedding similarity) and no per-gene parameter. Optional classifier configurations add ΔW, Δb to
+  v3.0's classifier with L2-SP and annotation-sampled replay. Code `ft/`, `cli_ft.py`; tests `tests/test_ft.py`
+  (23, mocked; 2 skip without torch).
+- **Knowledge `ft-kb-all-v1`:** every `r1-v1` PMID masked (train included), the 49 sex overrides all still apply;
+  DATA_LINEAGE §11.
+- **Pipeline checks before registration** (train only, no dev): held-out train groups' MRR 0.5545 → 0.5559–0.5563
+  (linear and MLP residuals), 0.565 and 0.600 (classifier, L2-SP 1e-2 and 1e-4).
+- **Pre-registration** `docs/experiments/EXP-P-003.md` committed at `c70070e`, before any dev run: 8 configurations ×
+  seeds 0–2, selection rule, the classifier configurations measured but not selectable (EVAL_PROTOCOL §10).
+- **Runs:** 24 grid runs + 3 ablation runs + 2 ensembles, all from `d2e9182`, all valid (untrained residual exactly
+  0, θ ≥ 0, numpy = torch within 1e-3, dev present view = E0 bit for bit for c1–c6). No run failed. E0's ranks
+  through the production logits equal EXP-P-001's on all dev and train patients.
+
+  | Config | Dev Δ (mean ± sd, 3 seeds) | Harmed | Post-E0 dev | Train Δ |
+  |---|---|---|---|---|
+  | c1-lin-all (8 params) | +0.00313 ± 0.00000 | 0.11% | +0.00009 | +0.00022 |
+  | c2-lin-safe3 | +0.00230 ± 0.00000 | 0.11% | +0.00007 | +0.00060 |
+  | c3-lin-noxl | +0.00241 ± 0.00006 | 0.11% | +0.00007 | +0.00060 |
+  | c4-mlp16 | +0.00239 ± 0.00076 | 0.23% | +0.00010 | +0.00047 |
+  | c5-mlp16-lr0.01 | +0.00313 ± 0.00000 | 0.11% | +0.00008 | +0.00043 |
+  | c6-mlp64 | +0.00231 ± 0.00046 | 0.25% | +0.00011 | +0.00080 |
+  | c7-cls-l2sp1e-2 | +0.02480 ± 0.00294 | 1.63% | +0.00005 | +0.03126 |
+  | c8-cls-l2sp1e-4 | +0.08740 ± 0.00703 | 6.30% | +0.00781 | +0.13057 |
+
+  Median of the 8 seed means: +0.00277. `neg_embed` and `onset_lenient_gap` ended at θ = 0 in every run.
+- **Selected (rule):** `c1-lin-all` (c5 is +0.000005 higher with 288 parameters). Ensemble `ft-v1-c1-lin-all-ens`: dev
+  +0.00313 [+0.00159, +0.00485], 345 helped, 2 harmed (0.11%), top-1 +7/−0, top-10 +4/−0; seed 0 identical.
+  Post-E0 dev +0.00009 [+0.00001, +0.00023]; genes not in train +0.00414; train +0.00023 [−0.00152, +0.00181] with
+  21 harmed; held-out train groups +0.00125.
+- **Ablation** (c1 without sex, age and onset: `neg_obligate` alone): dev +0.00146 [+0.00013, +0.00309], 2 harmed.
+  Sex, age and onset add +0.00167 on top of it.
+- **Classifier configurations:** the dev gain is in the present-only view (c8 +0.0883 of +0.0874), i.e. per-gene
+  weights learned from R1-train; +0.003 to +0.006 on dev genes absent from train.
+- **GPU:** 32.7 s of fitting in total, peak 1.6 GB; wall time 83 min for the grid, mostly CPU evaluation (the
+  classifier runs pool each case on CPU).
+- **Sealed data:** none loaded; `DXT_SEALED_READ` never set. `dxt ft confirm` exists with mocked tests only.

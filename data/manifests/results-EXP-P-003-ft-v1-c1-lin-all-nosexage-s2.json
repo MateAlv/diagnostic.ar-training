@@ -1,0 +1,91 @@
+{
+  "artifact_id": "results-EXP-P-003-ft-v1-c1-lin-all-nosexage-s2",
+  "kind": "ft-run",
+  "created_at": "2026-10-08T14:00:45+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "d2e91823d048eba652cba8eb7b1c888504fbafb6",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-kb-all-v1",
+      "sha256": "d3996021da372fa93844d6aae86a05a43de865da161ac8ce9cac59f42564b2b8"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    }
+  ],
+  "params": {
+    "hidden": 0,
+    "features": [
+      "neg_obligate",
+      "neg_embed"
+    ],
+    "covariates": [
+      "log1p_n_present",
+      "log1p_n_excluded"
+    ],
+    "lr": 0.05,
+    "lr_mlp": 0.01,
+    "weight_decay_mlp": 0.0001,
+    "batch_size": 128,
+    "max_epochs": 200,
+    "patience": 20,
+    "min_delta": 0.00001,
+    "seed": 2,
+    "classifier": false,
+    "lr_classifier": 0.0001,
+    "l2sp": 0.0,
+    "replay_weight": 0.0,
+    "replay_batch": 512,
+    "exp": "EXP-P-003",
+    "model_id": "ft-v1-c1-lin-all-nosexage-s2",
+    "config_name": "c1-lin-all-nosexage",
+    "device": "cuda"
+  },
+  "params_hash": "c233cc15b3a9dd68408d177a1bb7d7685257603ffdd97d1c966b6826cc5560c2",
+  "outputs": [
+    {
+      "path": "results/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/curves.json",
+      "sha256": "cc54bddd17a20c693175163e90e911e1cf47a3d3d81f2b34449a7d7fa908de2a",
+      "bytes": 6813
+    },
+    {
+      "path": "results/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/summary.json",
+      "sha256": "e774771f8d28e7883bde8d6cd508b2912d1eb1cfb850409f80455fc1f61ec94b",
+      "bytes": 11629
+    },
+    {
+      "path": "results/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/r1-v1-dev.ranks.jsonl",
+      "sha256": "4349b79e635cadc0d3ec48b174f91d8bd52220ede7bb2016ebd917a2798037f7",
+      "bytes": 152513
+    },
+    {
+      "path": "results/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/r1-v1-train.ranks.jsonl",
+      "sha256": "45d64078665ca0aa3c2e2155fefc15225da49482bf2a04923833e03d379af1d2",
+      "bytes": 341787
+    },
+    {
+      "path": "data/interim/models/ft/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/member.json",
+      "sha256": "7360d9df2fc77ccb7095ecc0c5387ad72ee9b5f2180e08f0082961176e0e117b",
+      "bytes": 231
+    },
+    {
+      "path": "data/interim/models/ft/EXP-P-003/ft-v1-c1-lin-all-nosexage-s2/weights.pt",
+      "sha256": "b75e54f424f2cf948be5ebf553a8df0ba588c990de3621cea9d8e1bf6cf41c3a",
+      "bytes": 2209
+    }
+  ],
+  "notes": "E0 frozen; the weights stay in data/interim/models/ft.",
+  "release": ""
+}
