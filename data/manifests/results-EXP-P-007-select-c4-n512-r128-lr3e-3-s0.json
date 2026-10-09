@@ -1,0 +1,70 @@
+{
+  "artifact_id": "results-EXP-P-007-select-c4-n512-r128-lr3e-3-s0",
+  "kind": "vocab-rows-run",
+  "created_at": "2026-10-09T00:43:26+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "9661a42469ba56b69ee8086ed5a4d2684911d04f",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    }
+  ],
+  "params": {
+    "new_per_gene": 512,
+    "replay_per_gene": 128,
+    "lr": 0.003,
+    "weight_decay": 0.0,
+    "batch_new": 256,
+    "batch_replay": 1024,
+    "max_epochs": 300,
+    "patience": 10,
+    "min_delta": 0.0001,
+    "seed": 0,
+    "exp": "EXP-P-007",
+    "run_id": "select-c4-n512-r128-lr3e-3-s0",
+    "config_name": "c4-n512-r128-lr3e-3",
+    "device": "cuda",
+    "relearned": "genes of the held-out train groups (vocab/standards.choose_genes)"
+  },
+  "params_hash": "2ac17e030d8b63cb0542354d0a2c1186084a15a5ffa2054d7c59a8070129cf7c",
+  "outputs": [
+    {
+      "path": "results/EXP-P-007/select/c4-n512-r128-lr3e-3-s0/curves.json",
+      "sha256": "0d07e537ff4f01c6b9873f948e64912ce14bd0b2aa05c46c29113eb7215bc36e",
+      "bytes": 35329
+    },
+    {
+      "path": "results/EXP-P-007/select/c4-n512-r128-lr3e-3-s0/summary.json",
+      "sha256": "c7ab2375a419f3115fdf91e23747cec8d547deafb797a8d38f121d05d3036d1a",
+      "bytes": 9453
+    },
+    {
+      "path": "results/EXP-P-007/select/c4-n512-r128-lr3e-3-s0/r1-v1-train.ranks.jsonl",
+      "sha256": "7630cdbc718cf9d94100d2574ddf30e9aa91211916cb56ad0dbab0c7a4bb4671",
+      "bytes": 342692
+    },
+    {
+      "path": "data/interim/models/vocab/EXP-P-007/select-c4-n512-r128-lr3e-3-s0/rows.pt",
+      "sha256": "b0768ee1b6f5cec1f0ba2a5f93ed1d10e9d835ea4edf3269471617bedebc7f4a",
+      "bytes": 159117
+    }
+  ],
+  "notes": "v3.0 frozen; only the relearned rows are trained; rows.pt stays in data/interim.",
+  "release": ""
+}
