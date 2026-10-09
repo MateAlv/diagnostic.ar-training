@@ -16,6 +16,7 @@ ft_app = typer.Typer(
 KB_SOURCES = ("hpo_genes_to_disease", "hpo_annotations", "orphanet_ages_2026_06", "hgnc", "hpo_ontology")
 KB_FILE = "ft-kb.json.gz"
 MASK_SPLIT, MASK_SCOPE = "r1-v1", "all"
+KB_MASK_SCOPES = ("all", "none")
 SPLIT = "r1-v1"
 MODELS_DIR = INTERIM_DIR / "models" / "ft"
 
@@ -50,8 +51,16 @@ def ft_kb(
     overrides: str = typer.Option(
         "data/curation/safe-v1-overrides.csv", help="safe-v1 curation overrides ('' for none)"
     ),
+    mask_scope: str = typer.Option(
+        MASK_SCOPE,
+        help="'all' masks every r1-v1 PMID (the evaluated knowledge); 'none' masks nothing (production only)",
+    ),
 ) -> None:
-    """Build the ft-v1 knowledge with every r1-v1 PMID masked (train, dev, test and vault)."""
+    """Build the ft-v1 knowledge, by default with every r1-v1 PMID masked (train, dev, test and vault).
+
+    `--mask-scope none` builds the production knowledge: the same sources, rules and overrides, with no PMID
+    masked. Patients whose papers it includes cannot evaluate it.
+    """
     from diagnostic_ar_training import splits
     from diagnostic_ar_training.ft import knowledge as ft_knowledge
     from diagnostic_ar_training.lineage import registry
@@ -65,6 +74,8 @@ def ft_kb(
     from diagnostic_ar_training.systems.genphenia_v3 import SOURCE as E0_SOURCE
     from diagnostic_ar_training.systems.genphenia_v3 import V3Inputs, unpack_bundle
 
+    if mask_scope not in KB_MASK_SCOPES:
+        raise typer.BadParameter(f"--mask-scope must be one of {KB_MASK_SCOPES}")
     ensure_new(kb_id)
     state = _require_clean()
     rows = []
@@ -75,13 +86,17 @@ def ft_kb(
             raise typer.BadParameter(str(e)) from e
     paths = {n: open_source(n, Purpose.KB) for n in KB_SOURCES}
     vocabulary = V3Inputs(unpack_bundle()).genes
-    splits.write_mask(MASK_SPLIT, MASK_SCOPE)  # refuses if the committed list drifted from the split
-    mask_path = splits.mask_path(MASK_SPLIT, MASK_SCOPE)
+    masked: list[str] = []
+    mask_path = None
+    if mask_scope != "none":
+        splits.write_mask(MASK_SPLIT, mask_scope)  # refuses if the committed list drifted from the split
+        mask_path = splits.mask_path(MASK_SPLIT, mask_scope)
+        masked = mask_path.read_text().split()
     ontology = Ontology.from_json(paths["hpo_ontology"])
     built, stats = ft_knowledge.build(
         vocabulary,
         knowledge.read_genes_to_disease(paths["hpo_genes_to_disease"]),
-        knowledge.read_annotations(paths["hpo_annotations"], mask_path.read_text().split()),
+        knowledge.read_annotations(paths["hpo_annotations"], masked),
         knowledge.read_orphanet_onsets(paths["orphanet_ages_2026_06"]),
         knowledge.read_hgnc_locations(paths["hgnc"]),
         ontology.ancestors,
@@ -97,14 +112,15 @@ def ft_kb(
     )
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in (*KB_SOURCES, E0_SOURCE)]
-    inputs.append({"id": f"{MASK_SCOPE}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
+    if mask_path is not None:
+        inputs.append({"id": f"{mask_scope}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
     if overrides:
         inputs.append({"id": f"overrides:{overrides}", "sha256": sha256_file(Path(overrides))})
     params = {
         "schema": ft_knowledge.SCHEMA,
         "vocabulary": "E0 (genphenia_v3) genes",
-        "mask_split": MASK_SPLIT,
-        "mask_scope": MASK_SCOPE,
+        "mask_split": MASK_SPLIT if mask_scope != "none" else None,
+        "mask_scope": mask_scope,
         "associations": "hpo_genes_to_disease without POLYGENIC",
         "safe_rules": "safe/knowledge.py (safe-kb/1)",
         "xlr_only": sorted(ft_knowledge.XLR),
@@ -464,6 +480,380 @@ def ft_system(base, e0, bundle: dict, bundle_id: str, kb_path: Path, kb_id: str,
             return ft_replay.pooled_vectors(v3, base.inputs, [case.present], "cpu")[0]
 
     return FtV1(e0, residual, bundle_id, pooler)
+
+
+@ft_app.command("prod-bundle")
+def ft_prod_bundle(
+    bundle_id: str = typer.Option(..., "--id", help="New immutable id, e.g. ft-v1.1-prod"),
+    source: str = typer.Option(..., "--from", help="The fitted ft-bundle whose members (θ) are kept"),
+    source_kb: str = typer.Option("ft-kb-all-v2", "--source-kb", help="The knowledge θ was fitted on"),
+    kb_id: str = typer.Option(..., "--kb", help="The production knowledge, e.g. ft-kb-prod-v1"),
+) -> None:
+    """A fitted bundle's members, unchanged, on another knowledge: θ is not refitted.
+
+    Writes data/ft/<id>/ft-v1-bundle.json with a manifest. The bundle records where θ came from.
+    """
+    from diagnostic_ar_training.ft import runs
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+
+    if kb_id == source_kb:
+        raise typer.BadParameter("--kb is the knowledge θ was fitted on: use the source bundle itself")
+    ensure_new(bundle_id)
+    state = _require_clean()
+    bundle, source_path, source_exp = verified_bundle(source, source_kb)
+    if any(m.get("classifier_delta") for m in bundle["members"]):
+        raise typer.BadParameter(f"{source} has classifier deltas, which are per gene: not supported here")
+    _, kb_sha = _kb_output(kb_id)
+    source_sha = sha256_file(source_path)
+    theta_source = {
+        "bundle": source,
+        "sha256": source_sha,
+        "fitted_on_kb": source_kb,
+        "exp": source_exp,
+        "refit": False,
+    }
+    out = {**bundle, "kb_id": kb_id, "theta_source": theta_source}
+    path = runs.write_json(DATA_DIR / "ft" / bundle_id / "ft-v1-bundle.json", out)
+    inputs = [
+        {"id": f"artifact:{source}", "sha256": source_sha},
+        {"id": f"artifact:{kb_id}", "sha256": kb_sha},
+    ]
+    params = {"from": source, "theta_fitted_on": source_kb, "refit": False, "kb": kb_id}
+    notes = f"θ of {source} (fitted on {source_kb}), unchanged; only the knowledge differs."
+    write_manifest(build_manifest(bundle_id, "ft-bundle", inputs, params, [path], notes=notes, state=state))
+    typer.echo(f"{bundle_id}: {len(bundle['members'])} members of {source} on {kb_id} -> {path}")
+
+
+PARITY_TOLERANCE = 1e-9
+
+
+@ft_app.command("prod-package")
+def ft_prod_package(
+    out: str = typer.Option(
+        "dist/ft-v1.1-prod", "--out", help="Package directory; its ft_prod.py is committed"
+    ),
+    artifact_id: str = typer.Option("", "--id", help="Default: <out directory name>-package"),
+    bundle_id: str = typer.Option("ft-v1.1-prod", "--bundle", help="The production ft-bundle"),
+    kb_id: str = typer.Option("ft-kb-prod-v1", "--kb", help="Its knowledge"),
+    evaluated_kb: str = typer.Option("ft-kb-all-v2", help="The evaluated knowledge, for the diff"),
+    n_cases: int = typer.Option(200, help="r1-v1 dev cases in the parity fixture"),
+    seed: int = typer.Option(0, help="Seed of the fixture's sample"),
+) -> None:
+    """Export an ft bundle for diagnostic.ar-model, check it on r1-v1 dev, and write its parity fixture.
+
+    Writes <out>/ (the export `<name>-bundle.json.gz`, the fixture, SHA256SUMS; `ft_prod.py` there is
+    committed code) and data/ft/<name>/package-report.json, with a manifest. θ comes from the bundle's
+    `theta_source` (a `dxt ft prod-bundle` bundle) or from the bundle itself on its own knowledge (e.g. the
+    confirmed `ft-v1.1-c1-lin-all-ens` on `ft-kb-all-v2`). Refuses to write anything if the standalone module
+    differs from `FtV1` by more than 1e-9 on any dev or synthetic case. Free parts only: r1-v1 dev. The dev
+    numbers are descriptive when the knowledge includes the dev papers.
+    """
+    import random
+    import time
+
+    import numpy as np
+
+    from diagnostic_ar_training import splits
+    from diagnostic_ar_training.cohorts.schema import Sex
+    from diagnostic_ar_training.eval import harness
+    from diagnostic_ar_training.ft import evaluate as ft_eval
+    from diagnostic_ar_training.ft import prod, runs
+    from diagnostic_ar_training.ft.bundle import FtResidual, Knowledge, softmax64
+    from diagnostic_ar_training.ft.system import E0Logits, E0System, FtV1, case_inputs
+    from diagnostic_ar_training.lineage import manifest
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.registry import Purpose
+    from diagnostic_ar_training.rerank import kb as kb_io
+    from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
+
+    out_dir = (Path(out) if Path(out).is_absolute() else prod.REPO_ROOT / out).absolute()
+    paths = prod.package_paths(out_dir)
+    if not paths["module"].is_file():
+        raise typer.BadParameter(f"{out} has no committed {paths['module'].name}: copy dist/ft-v1.1-prod's")
+    artifact_id = artifact_id or f"{out_dir.name}-package"
+    manifest.ensure_new(artifact_id)
+    state = _require_clean()
+    start = time.perf_counter()
+    bundle, bundle_path, bundle_exp = verified_bundle(bundle_id, kb_id)
+    source = prod.theta_source(bundle, bundle_id, sha256_file(bundle_path), bundle_exp)
+    source_bundle, source_path, _ = verified_bundle(source["bundle"], source["fitted_on_kb"])
+    kb_path, kb_sha = _kb_output(kb_id)
+    old_path, old_sha = _kb_output(evaluated_kb)
+    kb, old_kb = kb_io.read(kb_path), kb_io.read(old_path)
+    standalone = prod.load_standalone(paths["module"])
+    base = GenPheniaV3()
+    genes = base.genes
+    e0 = E0Logits(base)
+    embeddings = (base.inputs.emb_index, base.inputs.vectors)
+    kb_manifest = manifest.load_manifest(kb_id)
+    provenance = {
+        "model": bundle_id,
+        "knowledge": {
+            "id": kb_id,
+            "sha256": kb_sha,
+            "mask_scope": kb_manifest.params.get("mask_scope"),
+            "inputs": {i.id: i.sha256 for i in kb_manifest.inputs},
+        },
+        "theta": {
+            "bundle": source["bundle"],
+            "sha256": source["sha256"],
+            "fitted_on_kb": source["fitted_on_kb"],
+            "exp": source.get("exp"),
+            "refit": False,
+            "production_bundle": bundle_id,
+            "production_bundle_sha256": sha256_file(bundle_path),
+        },
+        "e0": base.lineage_inputs()[0],
+        "code": {"repo": state.repo, "sha": state.sha},
+        "decision": "docs/decisions/0018-ft-v11-production-ready.md",
+    }
+    exported = prod.export(bundle, kb, genes, provenance, standalone.FEATURES)
+    model = standalone.FtProd(exported)
+    _, dropped, _ = prod.split_features(bundle)
+
+    full = FtV1(e0, FtResidual(bundle, Knowledge(kb, genes, embeddings, kb_id)), bundle_id)
+    no_dropped = FtV1(
+        e0, FtResidual(prod.without(bundle, dropped), Knowledge(kb, genes, None, kb_id)), "drop"
+    )
+    evaluated = FtV1(
+        e0,
+        FtResidual(source_bundle, Knowledge(old_kb, genes, embeddings, evaluated_kb)),
+        source["bundle"],
+    )
+    dev_cases = splits.load_part(SPLIT, "dev", Purpose.EVAL)
+    groups = splits.publication_groups(SPLIT)
+    checks = {"dev_cases": len(dev_cases), "scorable": 0}
+    worst = dict.fromkeys(
+        (
+            "drop_max_abs_dp",
+            "ensemble_max_abs_dr",
+            "standalone_logits_max_abs_dp",
+            "standalone_log_probs_max_abs_dp",
+            "standalone_probs_max_abs_dp",
+        ),
+        0.0,
+    )
+    lookup = {g.upper(): i for i, g in enumerate(genes)}
+
+    def compare(case) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray] | None:
+        logits, _ = e0(case)
+        if logits is None:
+            return None
+        inputs = case_inputs(case)
+        expected = full.score(case).probs
+        e0_probs = softmax64(logits)
+        r_members = full.residual.residual(inputs)
+        r_mean = model.residual(inputs)
+        worst["drop_max_abs_dp"] = max(
+            worst["drop_max_abs_dp"], float(np.abs(no_dropped.score(case).probs - expected).max())
+        )
+        worst["ensemble_max_abs_dr"] = max(
+            worst["ensemble_max_abs_dr"], float(np.abs(r_members - r_mean).max())
+        )
+        for key, got in (
+            ("standalone_logits_max_abs_dp", model.apply(logits, inputs)),
+            ("standalone_log_probs_max_abs_dp", model.apply(np.log(e0_probs), inputs)),
+            ("standalone_probs_max_abs_dp", model.apply_probs(e0_probs, inputs)),
+        ):
+            worst[key] = max(worst[key], float(np.abs(got - expected).max()))
+        return logits, e0_probs, expected, r_mean
+
+    scored = {}
+    for case in dev_cases:
+        out = compare(case)
+        if out is not None:
+            checks["scorable"] += 1
+            if case.gene.upper() in lookup:
+                scored[case.case_id] = (case, *out)
+    sample = random.Random(seed).sample(sorted(scored), min(n_cases, len(scored)))
+    cases = []
+    for cid in sample:
+        case, logits, e0_probs, expected, r = scored[cid]
+        cases.append(
+            prod.fixture_case(
+                cid,
+                "r1-v1-dev",
+                case.gene,
+                lookup[case.gene.upper()],
+                case.present,
+                case_inputs(case),
+                logits,
+                e0_probs,
+                expected,
+                int((r < 0).sum()),
+            )
+        )
+
+    def top_negatable(e0_probs: np.ndarray) -> str | None:
+        for i in np.argsort(-e0_probs, kind="stable")[:20]:
+            if genes[i] in exported["obligate"]:
+                return genes[i]
+        return None
+
+    anchor = next(cid for cid in sample if top_negatable(scored[cid][2]))
+    anchor_case, anchor_logits, anchor_probs = scored[anchor][:3]
+    target = top_negatable(anchor_probs)
+    negating = sorted({terms[0] for terms in exported["obligate"][target].values()})
+    unknown = "HP:9999999"
+    synthetic = {
+        "no-inputs": {"sex": None, "age_years": None, "onset_years": None, "excluded": []},
+        "unknown-sex": {"sex": "unknown", "age_years": 30.0, "onset_years": None, "excluded": []},
+        "negative-age": {"sex": "female", "age_years": -2.0, "onset_years": None, "excluded": []},
+        "negative-onset": {"sex": "male", "age_years": 12.0, "onset_years": -0.5, "excluded": []},
+        "only-excluded": {
+            "sex": None,
+            "age_years": None,
+            "onset_years": None,
+            "excluded": [*negating, unknown],
+        },
+        "only-unknown-excluded": {"sex": None, "age_years": None, "onset_years": None, "excluded": [unknown]},
+        "all-inputs": {"sex": "female", "age_years": 40.0, "onset_years": 30.0, "excluded": negating},
+    }
+    for name, inputs in synthetic.items():
+        sex = Sex(inputs["sex"]) if inputs["sex"] in ("male", "female") else Sex.UNKNOWN
+        case = anchor_case.model_copy(
+            update={
+                "sex": sex,
+                "age_years": inputs["age_years"],
+                "onset_years": inputs["onset_years"],
+                "excluded": tuple(inputs["excluded"]),
+            }
+        )
+        _, _, expected, r = compare(case)
+        cases.append(
+            prod.fixture_case(
+                f"synthetic:{name}",
+                "synthetic",
+                anchor_case.gene,
+                lookup[anchor_case.gene.upper()],
+                anchor_case.present,
+                inputs,
+                anchor_logits,
+                anchor_probs,
+                expected,
+                int((r < 0).sum()),
+            )
+        )
+    identity = model.apply(anchor_logits, synthetic["no-inputs"])
+    checks["no_inputs_bit_identical_to_e0"] = bool(np.array_equal(identity, softmax64(anchor_logits)))
+    checks["no_inputs_apply_probs_returns_input"] = model.apply_probs(anchor_probs, {}) is anchor_probs
+    checks["parity_cases"] = len(cases)
+    checks |= worst
+    checks["tolerance"] = PARITY_TOLERANCE
+    parity = max(v for k, v in worst.items() if k.startswith("standalone_"))
+    checks["valid"] = bool(
+        parity <= PARITY_TOLERANCE
+        and worst["drop_max_abs_dp"] == 0.0
+        and worst["ensemble_max_abs_dr"] <= 1e-12
+        and checks["no_inputs_bit_identical_to_e0"]
+        and checks["no_inputs_apply_probs_returns_input"]
+    )
+    if not checks["valid"]:
+        raise LineageError(f"package checks failed, nothing written: {json.dumps(checks)}")
+
+    e0_dev = harness.run(E0System(e0), dev_cases, "all", groups)
+    prod_dev = harness.run(full, dev_cases, "all", groups)
+    evaluated_dev = harness.run(evaluated, dev_cases, "all", groups)
+    by_id = {c.case_id: c for c in dev_cases}
+    artefact = [
+        {
+            "case_id": a["case_id"],
+            "gene": a["gene"],
+            "rank_e0": a["rank"],
+            f"rank_{source['bundle']}": b["rank"],
+            f"rank_{bundle_id}": c["rank"],
+        }
+        for a, b, c in zip(e0_dev, evaluated_dev, prod_dev, strict=True)
+        if a["gene"].upper() in prod.ARTEFACT_GENES and by_id[a["case_id"]].sex == Sex.FEMALE
+    ]
+    sanity = {
+        "note": (
+            f"Descriptive only, not a claim: {kb_id} includes the dev papers' annotations, so dev patients "
+            "can see knowledge curated from their own publication."
+        ),
+        bundle_id: ft_eval.report(e0_dev, prod_dev, dev_cases),
+        f"{source['bundle']} (evaluated, {evaluated_kb})": ft_eval.report(e0_dev, evaluated_dev, dev_cases),
+        "female_artefact_gene_cases": artefact,
+    }
+
+    module_path, export_path, fixture_path = paths["module"], paths["bundle"], paths["fixture"]
+    kb_io.write(exported, export_path)
+    export_sha = sha256_file(export_path)
+    fixture = {
+        "format": prod.FIXTURE_FORMAT,
+        "bundle": {"file": export_path.name, "sha256": export_sha},
+        "module": {"file": module_path.name, "sha256": sha256_file(module_path)},
+        "tolerance": PARITY_TOLERANCE,
+        "selection": (
+            f"{len(sample)} scorable r1-v1 dev cases whose gene is in E0's vocabulary, "
+            f"random.Random({seed}).sample over the sorted case ids; then synthetic edge cases on the "
+            f"logits and present terms of {anchor} (excluded terms: an obligate phenotype per disease of "
+            f"{target}, E0's top negatable gene there, and the unknown id {unknown})"
+        ),
+        "expected": f"FtV1 (diagnostic_ar_training.ft.system) with {bundle_id} on {kb_id}, code {state.sha}",
+        "cases": cases,
+    }
+    kb_io.write(fixture, fixture_path)
+    sums = paths["sums"]
+    sums.write_text(
+        "".join(f"{sha256_file(p)}  {p.name}\n" for p in (module_path, export_path, fixture_path))
+    )
+    report = {
+        "artifact_id": artifact_id,
+        "bundle": bundle_id,
+        "kb": kb_id,
+        "code": state.as_dict(),
+        "files": {
+            p.name: {
+                "path": str(p.relative_to(prod.REPO_ROOT)),
+                "sha256": sha256_file(p),
+                "bytes": p.stat().st_size,
+            }
+            for p in (module_path, export_path, fixture_path)
+        },
+        "features": exported["features"],
+        "theta": dict(zip(exported["features"], exported["theta"], strict=True)),
+        "dropped_features": dropped,
+        "checks": checks,
+        "kb_diff": {"from": evaluated_kb, "to": kb_id, **prod.kb_diff(old_kb, kb, genes)},
+        "dev_sanity": sanity,
+        "run_seconds": runs.elapsed(start),
+    }
+    report_path = runs.write_json(paths["report"], report)
+    inputs = [
+        *base.lineage_inputs(),
+        {"id": f"artifact:{bundle_id}", "sha256": sha256_file(bundle_path)},
+        {"id": f"artifact:{source['bundle']}", "sha256": sha256_file(source_path)},
+        {"id": f"artifact:{kb_id}", "sha256": kb_sha},
+        {"id": f"artifact:{evaluated_kb}", "sha256": old_sha},
+        {"id": f"split:{SPLIT}", "sha256": sha256_file(SPLITS_DIR / f"{SPLIT}.json")},
+        {"id": f"code:{module_path.relative_to(prod.REPO_ROOT)}", "sha256": sha256_file(module_path)},
+    ]
+    params = {
+        "bundle": bundle_id,
+        "kb": kb_id,
+        "evaluated_kb": evaluated_kb,
+        "format": prod.FORMAT,
+        "fixture_format": prod.FIXTURE_FORMAT,
+        "n_cases": n_cases,
+        "seed": seed,
+        "tolerance": PARITY_TOLERANCE,
+        "part": f"{SPLIT}/dev",
+    }
+    outputs = [export_path, fixture_path, sums, report_path]
+    manifest.write_manifest(
+        manifest.build_manifest(artifact_id, "ft-prod-package", inputs, params, outputs, state=state)
+    )
+    typer.echo(json.dumps(checks, indent=1))
+    typer.echo(ft_eval.line(f"{bundle_id} dev (descriptive)", sanity[bundle_id]["vs_e0"]))
+    typer.echo(
+        ft_eval.line(
+            f"{source['bundle']} dev", sanity[f"{source['bundle']} (evaluated, {evaluated_kb})"]["vs_e0"]
+        )
+    )
+    for p in outputs:
+        typer.echo(f"{sha256_file(p)}  {p.stat().st_size:>9}  {p.relative_to(prod.REPO_ROOT)}")
 
 
 @ft_app.command("confirm")

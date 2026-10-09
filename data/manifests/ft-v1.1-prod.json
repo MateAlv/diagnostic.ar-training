@@ -1,0 +1,36 @@
+{
+  "artifact_id": "ft-v1.1-prod",
+  "kind": "ft-bundle",
+  "created_at": "2026-10-09T18:48:54+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "e8eb366398faa18970d62cccbcd05bed6dd99b48",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-ens",
+      "sha256": "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
+    },
+    {
+      "id": "artifact:ft-kb-prod-v1",
+      "sha256": "ccef7388c9a5ff41c1f0f37f249929522f92bd1378ca13b411459c79b9ee7c30"
+    }
+  ],
+  "params": {
+    "from": "ft-v1.1-c1-lin-all-ens",
+    "theta_fitted_on": "ft-kb-all-v2",
+    "refit": false,
+    "kb": "ft-kb-prod-v1"
+  },
+  "params_hash": "fa336767fa663569d6099010b65f85e9c24b270dd20fd22c03f9bf44e74b2875",
+  "outputs": [
+    {
+      "path": "data/ft/ft-v1.1-prod/ft-v1-bundle.json",
+      "sha256": "9c70b3b9c0e8c3ec36ecda6a3cccfb4386933161e633aa2cb69a4d53a140525d",
+      "bytes": 2288
+    }
+  ],
+  "notes": "θ of ft-v1.1-c1-lin-all-ens (fitted on ft-kb-all-v2), unchanged; only the knowledge differs.",
+  "release": ""
+}

@@ -1,0 +1,577 @@
+{
+ "note": "Descriptive, r1-v1 dev; ft-kb-prod-v1 includes the dev papers. Not a claim.",
+ "summary": {
+  "ft-v1.1-prod": {
+   "harmed": 11,
+   "harmed_with_neg_obligate": 11,
+   "harmed_by_own_paper_obligate": 8
+  },
+  "ft-v1.1-c1-lin-all-ens": {
+   "harmed": 2,
+   "harmed_with_neg_obligate": 2,
+   "harmed_by_own_paper_obligate": 0
+  }
+ },
+ "genes": {
+  "ASS1": 2,
+  "FBXO11": 8,
+  "KDM6B": 1
+ },
+ "cases": [
+  {
+   "case_id": "PMID_23099195_Patient_2",
+   "gene": "ASS1",
+   "pmids": [
+    "PMID:23099195"
+   ],
+   "sex": "female",
+   "age_years": 3.25,
+   "onset_years": null,
+   "n_excluded": 1,
+   "rank_e0": 19.0,
+   "ranks": {
+    "ft-v1.1-prod": 35.0,
+    "ft-v1.1-c1-lin-all-ens": 35.0
+   },
+   "harmed_by": [
+    "ft-v1.1-c1-lin-all-ens",
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:215700",
+      "obligate": "HP:0003218",
+      "excluded": [
+       "HP:0003218"
+      ],
+      "hpoa": [
+       {
+        "frequency": "14/14",
+        "obligate": true,
+        "reference": "PMID:35433176"
+       }
+      ],
+      "own_paper": false
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:215700",
+      "obligate": "HP:0003218",
+      "excluded": [
+       "HP:0003218"
+      ],
+      "hpoa": [
+       {
+        "frequency": "14/14",
+        "obligate": true,
+        "reference": "PMID:35433176"
+       }
+      ],
+      "own_paper": false
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "PMID_23099195_Patient_4",
+   "gene": "ASS1",
+   "pmids": [
+    "PMID:23099195"
+   ],
+   "sex": "female",
+   "age_years": 1.1666666666666667,
+   "onset_years": null,
+   "n_excluded": 1,
+   "rank_e0": 2.0,
+   "ranks": {
+    "ft-v1.1-prod": 5.0,
+    "ft-v1.1-c1-lin-all-ens": 5.0
+   },
+   "harmed_by": [
+    "ft-v1.1-c1-lin-all-ens",
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:215700",
+      "obligate": "HP:0003218",
+      "excluded": [
+       "HP:0003218"
+      ],
+      "hpoa": [
+       {
+        "frequency": "14/14",
+        "obligate": true,
+        "reference": "PMID:35433176"
+       }
+      ],
+      "own_paper": false
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:215700",
+      "obligate": "HP:0003218",
+      "excluded": [
+       "HP:0003218"
+      ],
+      "hpoa": [
+       {
+        "frequency": "14/14",
+        "obligate": true,
+        "reference": "PMID:35433176"
+       }
+      ],
+      "own_paper": false
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_10",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "female",
+   "age_years": 5.0,
+   "onset_years": null,
+   "n_excluded": 93,
+   "rank_e0": 1.0,
+   "ranks": {
+    "ft-v1.1-prod": 2.0,
+    "ft-v1.1-c1-lin-all-ens": 1.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_12",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "female",
+   "age_years": 1.5,
+   "onset_years": null,
+   "n_excluded": 92,
+   "rank_e0": 1.0,
+   "ranks": {
+    "ft-v1.1-prod": 4.0,
+    "ft-v1.1-c1-lin-all-ens": 1.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_13",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "male",
+   "age_years": 8.333333333333334,
+   "onset_years": null,
+   "n_excluded": 94,
+   "rank_e0": 2.0,
+   "ranks": {
+    "ft-v1.1-prod": 7.0,
+    "ft-v1.1-c1-lin-all-ens": 2.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_14",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "male",
+   "age_years": 9.833333333333334,
+   "onset_years": null,
+   "n_excluded": 95,
+   "rank_e0": 6.0,
+   "ranks": {
+    "ft-v1.1-prod": 30.0,
+    "ft-v1.1-c1-lin-all-ens": 6.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_19",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "male",
+   "age_years": 13.5,
+   "onset_years": null,
+   "n_excluded": 96,
+   "rank_e0": 23.0,
+   "ranks": {
+    "ft-v1.1-prod": 62.0,
+    "ft-v1.1-c1-lin-all-ens": 22.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_20",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "female",
+   "age_years": 15.333333333333334,
+   "onset_years": null,
+   "n_excluded": 92,
+   "rank_e0": 5.0,
+   "ranks": {
+    "ft-v1.1-prod": 9.0,
+    "ft-v1.1-c1-lin-all-ens": 5.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_3",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "male",
+   "age_years": 7.416666666666667,
+   "onset_years": null,
+   "n_excluded": 93,
+   "rank_e0": 3.0,
+   "ranks": {
+    "ft-v1.1-prod": 12.0,
+    "ft-v1.1-c1-lin-all-ens": 2.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_30057029_Individual_7",
+   "gene": "FBXO11",
+   "pmids": [
+    "PMID:30057029"
+   ],
+   "sex": "male",
+   "age_years": 15.0,
+   "onset_years": null,
+   "n_excluded": 94,
+   "rank_e0": 35.0,
+   "ranks": {
+    "ft-v1.1-prod": 100.0,
+    "ft-v1.1-c1-lin-all-ens": 34.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618089",
+      "obligate": "HP:0000486",
+      "excluded": [
+       "HP:0000486"
+      ],
+      "hpoa": [
+       {
+        "frequency": "8/8",
+        "obligate": true,
+        "reference": "PMID:30057029"
+       }
+      ],
+      "own_paper": true
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  },
+  {
+   "case_id": "PMID_31124279_Patient_6",
+   "gene": "KDM6B",
+   "pmids": [
+    "PMID:31124279"
+   ],
+   "sex": "male",
+   "age_years": 5.0,
+   "onset_years": null,
+   "n_excluded": 10,
+   "rank_e0": 406.0,
+   "ranks": {
+    "ft-v1.1-prod": 487.0,
+    "ft-v1.1-c1-lin-all-ens": 402.0
+   },
+   "harmed_by": [
+    "ft-v1.1-prod"
+   ],
+   "ft-v1.1-prod": {
+    "kb": "ft-kb-prod-v1",
+    "lowering": {
+     "neg_obligate": 2.9818
+    },
+    "contradicted_obligate": [
+     {
+      "disease": "OMIM:618505",
+      "obligate": "HP:0001256",
+      "excluded": [
+       "HP:0001249"
+      ],
+      "hpoa": [
+       {
+        "frequency": "14/14",
+        "obligate": true,
+        "reference": "PMID:37196654"
+       }
+      ],
+      "own_paper": false
+     }
+    ]
+   },
+   "ft-v1.1-c1-lin-all-ens": {
+    "kb": "ft-kb-all-v2",
+    "lowering": {},
+    "contradicted_obligate": []
+   }
+  }
+ ]
+}

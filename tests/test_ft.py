@@ -498,3 +498,35 @@ def test_bundle_json_round_trip(tmp_path, know):
     path.write_text(json.dumps({"format": "other"}))
     with pytest.raises(ValueError):
         load(path)
+
+
+def test_kb_mask_scope_must_be_all_or_none(tripwires):
+    result = run(["ft", "kb", "--id", "ft-kb-x", "--mask-scope", "heldout"])
+    assert refused(result, "must be one of")
+
+
+def test_kb_with_no_mask_keeps_every_row(tmp_path):
+    header = "database_id\tdisease_name\tqualifier\thpo_id\treference\tevidence\tonset\tfrequency\tsex\t"
+    header += "modifier\taspect\tbiocuration\n"
+    rows = [
+        "OMIM:1\tD\t\tHP:0001419\tPMID:1\tPCS\t\t\t\t\tI\tx\n",
+        "OMIM:1\tD\t\tHP:0001423\tPMID:2\tPCS\t\t\t\t\tI\tx\n",
+    ]
+    path = tmp_path / "phenotype.hpoa"
+    path.write_text("#comment\n" + header + "".join(rows))
+    masked = safe_knowledge.read_annotations(path, ["PMID:2"])
+    unmasked = safe_knowledge.read_annotations(path, [])
+    assert masked.inheritance["OMIM:1"] == {"HP:0001419"}
+    assert unmasked.inheritance["OMIM:1"] == {"HP:0001419", "HP:0001423"}
+    assert ft_knowledge.xlr_only(masked.inheritance["OMIM:1"])
+    assert not ft_knowledge.xlr_only(unmasked.inheritance["OMIM:1"])
+    assert unmasked.stats["rows_masked_heldout_pmid"] == 0
+
+
+def test_prod_bundle_refuses_its_own_fitting_knowledge(tripwires):
+    args = ["ft", "prod-bundle", "--id", "x", "--from", "b", "--kb", "ft-kb-all-v2"]
+    assert refused(run(args), "use the source bundle itself")
+
+
+def test_prod_package_refuses_a_directory_without_the_module(tripwires, tmp_path):
+    assert refused(run(["ft", "prod-package", "--out", str(tmp_path)]), "no committed")

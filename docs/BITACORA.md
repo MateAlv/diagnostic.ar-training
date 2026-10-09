@@ -4551,3 +4551,55 @@ this task, whatever the result**; the last read needs Mateo's OK.
   rows end at cosine 0.92 to E0's rows.
 - **GPU:** 6.8 min of fitting in total, plus 9.4 min of pseudo-patient pooling, mostly CPU graph building.
 - Details: [EXP-P-007](experiments/EXP-P-007.md).
+
+## 2026-10-09: `ft-v1.1` production packages (ADR-0018, before integration); the confirmed one is the default
+- **Recommended default: `dist/ft-v1.1-confirmed/`** (`ft-v1.1-confirmed-package`). It is the exact confirmed
+  artifact: the `ft-v1.1-c1-lin-all-ens` mean θ on `ft-kb-all-v2`, with no new knowledge build. Built with
+  `dxt ft prod-package --out dist/ft-v1.1-confirmed --bundle ft-v1.1-c1-lin-all-ens --kb ft-kb-all-v2`.
+  - Files: `ft-v1.1-confirmed-bundle.json.gz` (43.7 kB, sha256 `6bb6bb40…`) and `parity-fixture.json.gz` (4.4 MB).
+    The fixture has the same 200 dev cases (seed 0) as below, plus 7 edge cases.
+  - Parity vs `FtV1` on `ft-kb-all-v2`: max |Δp| 7.6e-19 from logits, 6.7e-16 from probabilities.
+  - Dev reproduces EXP-P-003: +0.00289 [+0.00136, +0.00461], 2 harmed.
+  - Known limitation: the masking artefact. OFD1, F8, SLC9A6 and THOC2 count as X-linked-recessive-only; this caused
+    EXP-P-005's 6 harms (0.17%).
+  - The unmasked package below is built but **not recommended**: it adds negation harms and was never confirmed on
+    sealed patients.
+- **Production knowledge `ft-kb-prod-v1`:** built with `dxt ft kb --mask-scope none`. It uses the same sources, code
+  and 49 sex overrides as the evaluated build, with no PMID masked. The default stays `all`.
+  - Against `ft-kb-all-v2`:
+    - sex limitation: 0 genes change;
+    - XLR-only: 7 change. OFD1, F8, SLC9A6 and THOC2 lose it, so the EXP-P-005 masking artefact is gone. CSTF2,
+      DOCK11 and MCTS1 gain it;
+    - strict onset: 288 change (287 gained);
+    - lenient onset: 133;
+    - negatable: 62 (57 gained, 5 lost).
+- **Production bundle `ft-v1.1-prod`:** the members of `ft-v1.1-c1-lin-all-ens` on `ft-kb-prod-v1`, built with
+  `dxt ft prod-bundle`. θ was fitted on `ft-kb-all-v2` and is not refitted; the bundle records this in
+  `theta_source`.
+- **Export (`dxt ft prod-package`):** `dist/ft-v1.1-prod/`:
+  - `ft_prod.py`, numpy and the standard library only;
+  - `ft-v1.1-prod-bundle.json.gz`, 45.8 kB, sha256 `db73e80f…`;
+  - `parity-fixture.json.gz`, 4.4 MB: 200 dev cases (seed 0) and 7 synthetic edge cases;
+  - `SHA256SUMS`.
+- **Export checks**, on all 1,883 dev patients plus the edge cases:
+  - θ is the mean of the 3 seeds. For linear members the mean of the residuals is the residual of the mean θ;
+    measured |Δr| ≤ 8.9e-16.
+  - `onset_lenient_gap` and `neg_embed` (θ = 0 in every seed) are dropped, with |Δp| = 0.
+  - The standalone module matches `FtV1`: max |Δp| 7.6e-19 from logits, 2.1e-15 from probabilities or
+    log-probabilities. The tolerance is 1e-9.
+  - With no input, the output is identical to E0.
+- **Dev sanity (descriptive, not a claim; the knowledge includes the dev papers):**
+  - `ft-v1.1-prod`: +0.00168 [−0.00128, +0.00419], 289 helped, 11 harmed (0.58%).
+  - The evaluated bundle on `ft-kb-all-v2`: +0.00289 [+0.00136, +0.00461], 2 harmed.
+  - All 11 harms go through `neg_obligate` (`scripts/analysis/ft_prod_dev_harmed.py`,
+    `results-ft-v1.1-prod-dev-harmed`):
+    - 8 are FBXO11 patients of PMID:30057029. That paper's n/n rows (e.g. strabismus 8/8) make FBXO11 negatable,
+      and the patients have the finding excluded;
+    - 1 is KDM6B;
+    - 2 are ASS1, harmed under both knowledges.
+  - The n/n ≥ 5 obligate rule is fooled by rows that count only the patients with the finding. This is open for
+    Mateo before integration.
+  - The 7 female OFD1 dev patients stay at rank 1.
+- **Handoff:** [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md). It recommends the confirmed package and documents the
+  unmasked one as not recommended. `diagnostic.ar-model` is unchanged. Free parts
+  only; no sealed data.
