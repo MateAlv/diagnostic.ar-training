@@ -4528,3 +4528,26 @@ this task, whatever the result**; the last read needs Mateo's OK.
   `ft-v1.1-production-ready` marks the commit.
 - **Before integration (ADR-0018):** an unmasked production knowledge build, which should remove the masking artefact
   behind EXP-P-005's 6 harms (expected, not measured), and the API inputs.
+
+## 2026-10-08: Track 4, new-row training and its standards test (EXP-P-007): (a) ratio 0.413, (b) Δ +0.00029
+- **Method (`vocab/`, `dxt vocab select|choose|final`):** v3.0's encoder and every other classifier row frozen. The
+  rows of a set of in-vocabulary genes are deleted and relearned from a seeded random draw, on pseudo-patients
+  sampled from the `ft-kb-all-v2` profiles (every `r1-v1` PMID masked), with replay pseudo-patients of the other
+  genes. Each gene counts once in the loss. Early stopping uses held-out pseudo-patients; no patient enters a fit.
+- **Registration** (`9661a42`), before any patient was scored with a relearned row. The criterion is (a) the dev
+  patients of the relearned genes: MRR ratio vs E0's rows ≥ 0.90; and (b) the other dev patients: Δ ≥ −0.001. The
+  rule relearns all 173 eligible dev genes (in vocabulary, with a masked profile; 1,547 patients).
+- **Selection, train only** (6 configurations × 3 seeds; 76 genes of the held-out train groups): (a) ratio
+  0.29-0.52. c1 (128 pseudo-patients per gene, 8 replay) is infeasible on (b) (−0.00272). The rule selects
+  `c2-n512-r32` (0.382 ± 0.016, (b) −0.00031). More pseudo-patients per gene lowered (a) and raised (b).
+- **Dev, read once** (ensemble of seeds 0-2):
+  - (a): MRR 0.4818 → 0.1991, ratio **0.413 [0.305, 0.516]**, top-10 0.745 → 0.412, 1,100 harmed.
+  - (b): **+0.00029 [+0.00003, +0.00068]**.
+  - Post-E0 patients of (a): ratio 0.816 [0.618, 0.989], 167 patients, E0 MRR 0.075.
+  - Train check: (a) 0.432, (b) +0.00220.
+  - **FAIL** against the registered criterion, so step 2 (the 133 annotated new genes) and the `p2-v1` test
+    pre-registration are not written.
+- **Checks:** E0's own rows through the pipeline: 0 train and 1 dev rank change. Frozen rows bit-identical. Relearned
+  rows end at cosine 0.92 to E0's rows.
+- **GPU:** 6.8 min of fitting in total, plus 9.4 min of pseudo-patient pooling, mostly CPU graph building.
+- Details: [EXP-P-007](experiments/EXP-P-007.md).

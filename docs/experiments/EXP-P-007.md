@@ -4,7 +4,8 @@
   [ADR-0017](../decisions/0017-phase-2-real-patient-restart.md))
 - **Registered:** 2026-10-08, by the Track 4 agent for Mateo, before any run that scores a patient with a relearned
   row
-- **Status:** registered. Free parts only (`r1-v1` train and dev); no sealed read is planned here.
+- **Status:** done (2026-10-08). Dev read once; FAIL against the registered criterion. Free parts only (`r1-v1`
+  train and dev); no sealed read.
 
 ## Question
 Mateo's condition for Track 4: new genes must be learned to GenPhenAI's own standard. New genes cannot be tested
@@ -136,9 +137,67 @@ estimate). Otherwise FAIL. (`vocab/standards.criterion`.)
 | Final cosine to E0's rows | about 0.9 |
 
 ## Results
-(to be filled after the runs)
+Code and registration at `9661a42`; selection runs from `9661a42`, `dxt vocab choose` from `532a293`
+(`results-EXP-P-007-selection`), the dev read from `dd81f73` (the code under `src/` is the same in all three). Outputs: `results/EXP-P-007/` (`select/<config>-s<seed>/`,
+`selection.json`, `final/c2-n512-r32-s<seed>/`, `final/c2-n512-r32-ens/`), 22 manifests
+`results-EXP-P-007-*`. The rows (`rows.pt`) stay in `data/interim/models/vocab/EXP-P-007/`; their sha256 are manifest
+outputs. No sealed part was loaded.
+
+**Selection (train only; (a) on 381 held-out-group patients of 76 genes, E0 MRR 0.5157; (b) on 2,979 train
+patients; mean ± sd over seeds 0-2):**
+
+| Config | (a) MRR ratio | (b) Δ MRR | Best epochs | Feasible |
+|---|---|---|---|---|
+| c1-n128-r8 | 0.518 ± 0.002 | −0.00272 | 253-255 | no |
+| **c2-n512-r32** | **0.382 ± 0.016** | −0.00031 | 91-104 | yes, **selected** |
+| c3-n512-r128 | 0.346 ± 0.018 | +0.00012 | 102-127 | yes |
+| c4-n512-r128-lr3e-3 | 0.368 ± 0.014 | +0.00034 | 162-203 | yes |
+| c5-n2048-r128 | 0.289 ± 0.003 | +0.00049 | 48-53 | yes |
+| c6-n512-r256 | 0.292 ± 0.008 | +0.00043 | 121-134 | yes |
+
+The highest feasible ratio is c2 (0.382); no other feasible configuration is within 0.01. Across the grid, more
+pseudo-patients per gene lower (a) and raise (b).
+
+**Dev read (`c2-n512-r32`, 173 genes relearned; ensemble of seeds 0-2):**
+
+| | Patients (groups) | E0 MRR | Relearned MRR | Ratio [95% CI] | Δ MRR [95% CI] | Top-1 E0 → new | Top-10 E0 → new | Helped / harmed |
+|---|---|---|---|---|---|---|---|---|
+| **(a) gene relearned** | 1,547 (260) | 0.4818 | 0.1991 | **0.413 [0.305, 0.516]** | −0.28267 [−0.35650, −0.22141] | 0.352 → 0.105 | 0.745 → 0.412 | 227 / 1,100 |
+| **(b) every other patient** | 336 (64) | 0.29520 | 0.29549 | 1.0010 [1.0001, 1.0024] | **+0.00029 [+0.00003, +0.00068]** | 0.280 → 0.280 | 0.321 → 0.321 | 18 / 5 |
+| All dev | 1,883 (324) | 0.4485 | 0.2163 | | −0.23218 [−0.29081, −0.18385] | 0.339 → 0.136 | 0.669 → 0.396 | 245 / 1,105 |
+
+(b) holds 133 patients of the 35 vocabulary genes without a masked profile and 203 out-of-vocabulary patients (rank
+∞ under both systems).
+
+- **Seeds:** (a) ratio 0.433, 0.411, 0.396 (0.413 ± 0.019); (b) Δ +0.00029, +0.00029, +0.00030.
+- **Subsets of (a):** post-E0 publications 167 patients (35 groups): E0 MRR 0.0754, relearned 0.0615, ratio 0.816
+  [0.618, 0.989], top-10 0.108 → 0.102. Gene in train 1,239: ratio 0.427 [0.290, 0.553]. Gene not in train 308:
+  ratio 0.357 [0.229, 0.509].
+- **Per gene (173):** median ratio of gene MRRs 0.379; 58 genes at ≥ 0.90; 53 genes with relearned MRR ≥ E0's.
+- **Train check** (same rows, all 4,103 train patients): (a) 1,622 patients, E0 0.5372, relearned 0.2321, ratio 0.432
+  [0.283, 0.556], top-10 0.696 → 0.356; (b) 2,481 patients, Δ +0.00220 [+0.00051, +0.00406], 515 helped / 125 harmed.
+- **Rows:** final mean cosine to E0's rows 0.917-0.922; mean norm 237-255 (E0's rows: 268); initial largest |cosine|
+  0.09-0.14. Best epochs 47-57.
+- **Pipeline checks:** E0's dev and train ranks equal EXP-P-001's (0 differ). E0's own rows through the pipeline
+  change 0 train ranks and 1 dev rank (the torch pooled vector reproduces the ONNX logits within 1e-3). Frozen rows
+  and v3.0's classifier unchanged bit for bit; non-relearned logits equal E0's on every checked case (300 per part).
+- **Ensemble rows** sha256 `2d3a9372b4055a129e958a4ff57166e31cbe87938f6f2b8cf8ff359e902eeff0`; seeds 0-2
+  `8ff67ccd…`, `f1689b6e…`, `9c9495c3…`.
+- **GPU (RTX 4070 Ti):** fitting 350 s for the 18 selection runs and 57 s for the 3 final seeds (peak 0.78 GB). Pooled
+  vectors of pseudo-patients 521 s and 45 s, mostly CPU graph building. Wall time 14.8 min (selection) and 2.0 min
+  (dev read).
 
 ## Verdict
-(to be filled after the dev read)
+**FAIL** against the registered criterion. (a) ratio 0.413 [0.305, 0.516] is below 0.90; (b) Δ +0.00029
+[+0.00003, +0.00068] meets ≥ −0.001.
+
+- Relearned rows keep calibration: they move other patients' ranks by less than E0's rows do.
+- They place the relearned genes' own patients much lower than E0's rows: top-10 0.745 → 0.412.
+- On post-E0 publications, where E0 has no home advantage, the ratio is 0.816 [0.618, 0.989]. This covers 167
+  patients, with E0 MRR 0.075.
+- The selection grid points the same way. More pseudo-patients per gene fit the masked annotations better (EXP-P-007
+  pre-registration pilot: pseudo-MRR 0.80-0.85 vs E0's rows 0.79), while real-patient MRR falls (ratio 0.52 → 0.29).
+- The step-2 description (adding the 133 annotated new genes) and the `p2-v1` test pre-registration are not written:
+  the registration made them conditional on PASS.
 
 ## Addenda

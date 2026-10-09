@@ -147,6 +147,7 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-10-08 | EXP-P-007 runs (Track 4, new-row training) | 18 `vocab-rows-run` manifests `results-EXP-P-007-select-<config>-s<seed>` (train only), `results-EXP-P-007-selection` (`vocab-selection`), 3 `vocab-rows-run` manifests `results-EXP-P-007-final-c2-n512-r32-s<seed>` and `results-EXP-P-007-final-c2-n512-r32-ens` (`vocab-rows-eval`, ensemble rows sha256 `2d3a9372…`); knowledge `ft-kb-all-v2` (§14) |
 | 2026-10-08 | Artifact `ft-kb-all-v2` built (not published) | ft-v1.1 knowledge from `1bb3926` (`ft-kb/2`), same sources, mask and overrides as `ft-kb-all-v1`; XLR-only now needs the explicit HP:0001419 (125 genes, was 164; 39 generic-X-linked genes dropped), no XLD flag; otherwise identical to v1; `ft-kb.json.gz` sha256 `18cf37f1…` (§11) |
 | 2026-10-08 | EXP-P-003 addendum runs and bundles (ft-v1.1) | 27 `ft-run` manifests `results-EXP-P-003-ft-v1.1-*` (8 configurations × 3 seeds and the c1 ablation × 3); bundles `ft-v1.1-c1-lin-all-ens` (sha256 `89e3ea09…`) and `ft-v1.1-c1-lin-all-nosexage-ens`; `results-EXP-P-003-report-ft-v1.1`; `results-EXP-P-003-ft-v1.1-c1-lin-all-ens-train-harmed` (§11) |
 | 2026-10-08 | Artifact `ft-kb-all-v1` built (not published) | ft-v1 knowledge from `c70070e`, every `r1-v1` PMID masked: 75 male- and 17 female-limited genes (49 overrides), 2,786 strict onsets, 164 XLR-only, 23 XLD-only, 659 negatable; `ft-kb.json.gz` sha256 `d3996021…` (§11) |
@@ -407,3 +408,21 @@ Code: `ltr/knowledge.py`, `ltr/bundle.py`, `ltr/train.py`, `cli_ltr.py`; tests: 
   - `p2-v1+p2-fresh-v1-vault__<system>__all.{ranks.jsonl,summary.json}` for E0 and each system.
 - **Manifest:** `results-<exp>-final-check`, kind `final-check`. Its inputs are E0's bundle, the three artifacts and
   both frozen splits.
+
+## 14. New-row training runs (Phase 2 Track 4, EXP-P-007)
+
+`dxt vocab select|choose|final` (`cli_vocab.py`, `vocab/rows.py`, `vocab/standards.py`, `vocab/runs.py`; tests
+`tests/test_vocab.py`).
+- **Inputs:** E0's bundle (`genphenia_v3`: the ONNX for the frozen logits, `best_model.pt` for the pooled vectors and
+  the frozen rows), `ft-kb-all-v2` (profiles with every `r1-v1` PMID masked), the frozen `r1-v1` split and its
+  all-PMID mask. Pseudo-patients are drawn from the profiles with `ft/replay.py`, with seeds 20261009 (relearned
+  genes), 20261008 (replay), 20261010 and 20261011 (early stopping). Pseudo-patients that equal an `r1-v1` patient's
+  (gene, present set) are dropped. No patient enters a fit; `select` loads only `r1-v1` train.
+- **Outputs:**
+  - `results/EXP-P-007/select/<config>-s<seed>/` (summary, curves, compact train ranks);
+  - `results/EXP-P-007/selection.json`;
+  - `results/EXP-P-007/final/c2-n512-r32-s<seed>/` and `final/c2-n512-r32-ens/` (summary with the dev and train
+    reports and the per-gene table; compact dev and train ranks).
+- **Rows:** `data/interim/models/vocab/EXP-P-007/<run>/rows.pt` (gene symbols, vocabulary indices, weight [n, 512],
+  bias [n]). They are gitignored and not published; their sha256 are manifest outputs. Ensemble `2d3a9372…`; seeds
+  0-2 `8ff67ccd…`, `f1689b6e…`, `9c9495c3…`.

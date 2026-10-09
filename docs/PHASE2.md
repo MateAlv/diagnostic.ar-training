@@ -88,6 +88,11 @@ is a success when it is real; safe candidates go first.
 ### Track 4: vocabulary update (future work)
 48% of post-E0 patients have a gene outside E0's 5,229 genes. Covering them is probably the largest gain on new
 publications, but it is not about the new inputs (ADR-0006, ADR-0017).
+- **Status (2026-10-08):** standards test done ([EXP-P-007](experiments/EXP-P-007.md), dev, free parts). New-row
+  training relearned 173 dev genes' rows from random initialisation, with v3.0 frozen and pseudo-patients from the
+  all-mask annotations. (a) MRR ratio vs E0's rows 0.413 [0.305, 0.516], top-10 0.745 → 0.412; (b) other patients
+  Δ +0.00029 [+0.00003, +0.00068]. FAIL against the registered criterion (ratio ≥ 0.90), so step 2 (the 133
+  annotated new genes) is not prepared.
 
 ## Schedule
 | Date | Step | Status |
@@ -102,6 +107,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | `p2-fresh-v1` frozen now (ADR-0017 Amendment 2): 340 patients; EXP-P-006 reviewed (GO) | done |
 | 10-08 | EXP-P-006 final check: `safe-v1[sex+onset]` +0.00029 [+0.00001, +0.00075] (**H1 passed**); `ft-v1.1` +0.00054 [+0.00005, +0.00129] (**H2 holds**); 3 harmed of 1,072 | done |
 | 10-08 | Mateo: `ft-v1.1` flagged production-ready (ADR-0018); evidence summary updated | done |
+| 10-08 | Track 4 standards test (EXP-P-007): new-row training, ratio 0.413 vs the 0.90 criterion; FAIL | done |
 | later | Integration through `diagnostic.ar-model` (unmasked production knowledge, API inputs, staging first) | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-08 | `dxt final-check` (both vaults loaded once, every candidate on the same cases); `safe-v1[sex+onset]` dev +0.00100 [+0.00030, +0.00179], train +0.00036 [+0.00007, +0.00080], 0 harmed | done |
