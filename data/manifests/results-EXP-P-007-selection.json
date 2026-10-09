@@ -1,0 +1,97 @@
+{
+  "artifact_id": "results-EXP-P-007-selection",
+  "kind": "vocab-selection",
+  "created_at": "2026-10-09T00:53:04+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "532a2933255ca336d15f08e835b04f76c69490ef",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "results-EXP-P-007-select-c1-n128-r8-s0/summary.json",
+      "sha256": "8f8e600fb2c49e2a2f54fb9d0ec162b7b8bb92d8536127a14651c5d3f98975b2"
+    },
+    {
+      "id": "results-EXP-P-007-select-c1-n128-r8-s1/summary.json",
+      "sha256": "5e00192af4dbed7951843c06ebc399f39bbe0d55bfb4b467d18151f69306dc0c"
+    },
+    {
+      "id": "results-EXP-P-007-select-c1-n128-r8-s2/summary.json",
+      "sha256": "ee0d609a075260ffb78985663de6d96bf927ac5ef3e1faf4b5b2042c1e5d7567"
+    },
+    {
+      "id": "results-EXP-P-007-select-c2-n512-r32-s0/summary.json",
+      "sha256": "90237a33e36de0a24b2ba3e38307eab4e763f588185272c9cf5e56d41f767ca4"
+    },
+    {
+      "id": "results-EXP-P-007-select-c2-n512-r32-s1/summary.json",
+      "sha256": "6841c27d0fccd15691910080a855ef8c7919d2abf928240f3e58a97e7d101431"
+    },
+    {
+      "id": "results-EXP-P-007-select-c2-n512-r32-s2/summary.json",
+      "sha256": "8148057fb8c0c249b54dfe7230b7910cb67a67f516c9fc018eda241a9700097f"
+    },
+    {
+      "id": "results-EXP-P-007-select-c3-n512-r128-s0/summary.json",
+      "sha256": "5c8ac9670d4e8b7dcf8da4221c7496c7a14d4ea7594718789bf3d69112e84794"
+    },
+    {
+      "id": "results-EXP-P-007-select-c3-n512-r128-s1/summary.json",
+      "sha256": "b02a818993780a31d5412860ca16ec44639d8df84746d7ed9a86b82d9bfa31ce"
+    },
+    {
+      "id": "results-EXP-P-007-select-c3-n512-r128-s2/summary.json",
+      "sha256": "edad90e2c1a0c12fdae1c4dd5d0e0c461a4fa1581c31d00a7d5e341a4616c50c"
+    },
+    {
+      "id": "results-EXP-P-007-select-c4-n512-r128-lr3e-3-s0/summary.json",
+      "sha256": "c7ab2375a419f3115fdf91e23747cec8d547deafb797a8d38f121d05d3036d1a"
+    },
+    {
+      "id": "results-EXP-P-007-select-c4-n512-r128-lr3e-3-s1/summary.json",
+      "sha256": "3fb2dd1a7be69770f6363b483723bad46181f82dace6190a4dc9df6d086629af"
+    },
+    {
+      "id": "results-EXP-P-007-select-c4-n512-r128-lr3e-3-s2/summary.json",
+      "sha256": "14beac11ed7f88b20e32ecae96598d7c4a2c0f041f722f6af34ddb8a199b5bb9"
+    },
+    {
+      "id": "results-EXP-P-007-select-c5-n2048-r128-s0/summary.json",
+      "sha256": "c6b3b11fd037999967af29cf343cac55e9568369a3050720b345d346eea08950"
+    },
+    {
+      "id": "results-EXP-P-007-select-c5-n2048-r128-s1/summary.json",
+      "sha256": "398a52bb155b311a31e7b99c3eabb4ab78eef6b0c5309c2907c7bf2cef863a3a"
+    },
+    {
+      "id": "results-EXP-P-007-select-c5-n2048-r128-s2/summary.json",
+      "sha256": "17541a9317d58f66d755b8f4a295bf19a800ff524b5c0a68301a679c57296131"
+    },
+    {
+      "id": "results-EXP-P-007-select-c6-n512-r256-s0/summary.json",
+      "sha256": "c958019d37f5bd27f6ffbc52e59327a23854e65dfc70599b1175458a857b3883"
+    },
+    {
+      "id": "results-EXP-P-007-select-c6-n512-r256-s1/summary.json",
+      "sha256": "971b188020d860419c8592cd491db9ae3d79e3c963b12ea0fd731ca06a69b1cf"
+    },
+    {
+      "id": "results-EXP-P-007-select-c6-n512-r256-s2/summary.json",
+      "sha256": "4c3712c7f2cbf4480507d28a2e384686f3f4570bd6757810430fde662a9b2e9e"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-007"
+  },
+  "params_hash": "8dcc46e33b31a22d38e20ca7ea0f1599e5ab81c67c1dc972f8efb8403464314f",
+  "outputs": [
+    {
+      "path": "results/EXP-P-007/selection.json",
+      "sha256": "2083b2a350d9bd398497173e77e5eea3a5bc2252811f8c1a2e24a91126fb6c53",
+      "bytes": 4686
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
