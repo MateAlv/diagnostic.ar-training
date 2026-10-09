@@ -14,6 +14,7 @@ from diagnostic_ar_training.cli_lit_extract import extract_app
 from diagnostic_ar_training.cli_ltr import ltr_app
 from diagnostic_ar_training.cli_safe import safe_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
+from diagnostic_ar_training.cli_vocab import vocab_app
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
 from diagnostic_ar_training.lineage.registry import LineageError
@@ -38,6 +39,7 @@ app.add_typer(extract_app, name="lit")
 app.add_typer(safe_app, name="safe")
 app.add_typer(ft_app, name="ft")
 app.add_typer(ltr_app, name="ltr")
+app.add_typer(vocab_app, name="vocab")
 app.command("final-check")(final_check)
 
 
