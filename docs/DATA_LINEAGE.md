@@ -359,6 +359,33 @@ counts only genes whose inheritance terms are all HP:0001419 (generic HP:0001417
 flag and the `xld_male` feature are gone (7 features). The current code refuses version 1 knowledge and bundles; the
 `ft-v1` artifacts are reproducible from `d2e9182`. Runs, bundles and the report use the prefix `ft-v1.1`
 (`results/EXP-P-003/ft-v1.1-*`, `data/ft/ft-v1.1-*`, `results/EXP-P-003/report-ft-v1.1.json`).
+**Production package (ADR-0018, 2026-10-09).** For integration through `diagnostic.ar-model`; see
+[HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md).
+- **`ft-kb-prod-v1`** (kind `ft-kb`, `dxt ft kb --mask-scope none`): the build above with **no** PMID masked (params
+  `mask_scope: none`, no mask input). It has the same sources and the same 49 overrides, all applied. It feeds
+  production only: an `r1-v1` patient can see annotations from their own paper, so it cannot evaluate anything on
+  `r1-v1`. Outputs: `data/interim/ft/ft-kb-prod-v1/ft-kb.json.gz` (sha256 `ccef7388…`) and
+  `data/ft/ft-kb-prod-v1/stats.json`.
+- **`ft-v1.1-prod`** (kind `ft-bundle`, `dxt ft prod-bundle`): `data/ft/ft-v1.1-prod/ft-v1-bundle.json`. It holds the
+  members of `ft-v1.1-c1-lin-all-ens` unchanged, with `kb_id: ft-kb-prod-v1`. `theta_source` records the source
+  bundle and its sha256, `fitted_on_kb: ft-kb-all-v2` and `refit: false`.
+- **`ft-v1.1-prod-package`** (kind `ft-prod-package`, `dxt ft prod-package`):
+  - outputs:
+    - `dist/ft-v1.1-prod/ft-v1.1-prod-bundle.json.gz` (`ft-v1.1-prod-bundle/1`, the standalone export);
+    - `dist/ft-v1.1-prod/parity-fixture.json.gz` (`ft-v1.1-prod-parity/1`);
+    - `dist/ft-v1.1-prod/SHA256SUMS`;
+    - `data/ft/ft-v1.1-prod/package-report.json`: the checks, the knowledge diff against `ft-kb-all-v2` and the
+      dev sanity run;
+  - `dist/ft-v1.1-prod/ft_prod.py` is committed code, recorded as an input;
+  - reads only `r1-v1` dev; the export is gzipped without a timestamp, so it is byte-reproducible.
+- **`results-ft-v1.1-prod-dev-harmed`** (kind `ft-analysis`, `scripts/analysis/ft_prod_dev_harmed.py`):
+  `data/ft/ft-v1.1-prod/dev-harmed.json`, the dev patients that either bundle harms, with the features and the
+  phenotype.hpoa rows behind them.
+
+| Artifact | Male / female-limited | Strict earliest onset (≥ 1 y / ≥ 5 y / ≥ 16 y) | Lenient onset | XLR-only | Negatable | Profile terms (gene-term pairs) |
+|---|---|---|---|---|---|---|
+| `ft-kb-prod-v1` | 75 / 17 (49 overrides) | 3,073 (650 / 328 / 212) | 4,735 | 124 | 711 | 10,282 (247,098) |
+
 ## 12. ltr-v1 knowledge and model (Phase 2 Track 2, EXP-P-002)
 
 Code: `ltr/knowledge.py`, `ltr/bundle.py`, `ltr/train.py`, `cli_ltr.py`; tests: `tests/test_ltr.py`.

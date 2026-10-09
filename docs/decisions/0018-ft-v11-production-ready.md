@@ -46,3 +46,11 @@ The knowledge-only `safe-v1[sex+onset]` also passed the final check (H1: +0.0002
 ## Consequences
 - STATE, README, INDEX and EVIDENCE_INDEX name `ft-v1.1` as production-ready.
 - `diagnostic.ar-model` is unchanged until integration.
+- **2026-10-09, production package.** Built as decided:
+  - knowledge `ft-kb-prod-v1` (no mask);
+  - bundle `ft-v1.1-prod` (θ of `ft-v1.1-c1-lin-all-ens`, not refitted);
+  - a standalone export with its parity fixture in `dist/ft-v1.1-prod/`.
+
+  OFD1, F8, SLC9A6 and THOC2 are no longer X-linked-recessive-only. A dev sanity run is descriptive only, because
+  the knowledge includes the dev papers: 11 harmed patients, all through `neg_obligate`, 8 of them from their own
+  paper's n/n annotations. Steps, files and limits: [HANDOFF-ft-v1.1-prod.md](../HANDOFF-ft-v1.1-prod.md).
