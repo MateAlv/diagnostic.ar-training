@@ -139,7 +139,7 @@ estimate). Otherwise FAIL. (`vocab/standards.criterion`.)
 ## Results
 Code and registration at `9661a42`; selection runs from `9661a42`, `dxt vocab choose` from `532a293`
 (`results-EXP-P-007-selection`), the dev read from `dd81f73` (the code under `src/` is the same in all three). Outputs: `results/EXP-P-007/` (`select/<config>-s<seed>/`,
-`selection.json`, `final/c2-n512-r32-s<seed>/`, `final/c2-n512-r32-ens/`), 22 manifests
+`selection.json`, `final/c2-n512-r32-s<seed>/`, `final/c2-n512-r32-ens/`), 23 manifests
 `results-EXP-P-007-*`. The rows (`rows.pt`) stay in `data/interim/models/vocab/EXP-P-007/`; their sha256 are manifest
 outputs. No sealed part was loaded.
 
