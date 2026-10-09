@@ -157,6 +157,33 @@ def test_bundle_guards(tmp_path, toy):
         ft_prod.FtProd(exported).apply(np.zeros(3), {})
 
 
+def test_theta_source_is_recorded_or_the_bundle_itself():
+    own = bundle_of([member(t) for t in LINEAR_THETA], kb_id="ft-kb-all-v2")
+    assert prod.theta_source(own, "ens", "abc", "EXP-P-003") == {
+        "bundle": "ens",
+        "sha256": "abc",
+        "fitted_on_kb": "ft-kb-all-v2",
+        "exp": "EXP-P-003",
+        "refit": False,
+    }
+    rebased = {
+        **own,
+        "kb_id": "ft-kb-prod-v1",
+        "theta_source": {"bundle": "ens", "fitted_on_kb": "ft-kb-all-v2"},
+    }
+    assert prod.theta_source(rebased, "prod", "def", None) == {
+        "bundle": "ens",
+        "fitted_on_kb": "ft-kb-all-v2",
+    }
+
+
+def test_package_paths_follow_the_directory_name():
+    paths = prod.package_paths(prod.REPO_ROOT / "dist" / "ft-v1.1-confirmed")
+    assert paths["bundle"].name == "ft-v1.1-confirmed-bundle.json.gz"
+    assert paths["report"] == prod.DATA_DIR / "ft" / "ft-v1.1-confirmed" / "package-report.json"
+    assert prod.package_paths(prod.DIST_DIR)["bundle"].name == prod.BUNDLE_FILE
+
+
 def test_kb_diff_counts_each_field(kb):
     ann = annotations()
     ann.inheritance["OMIM:6"] = {"HP:0001419", "HP:0001423"}
@@ -170,12 +197,13 @@ def test_kb_diff_counts_each_field(kb):
 # The committed export and parity fixture
 
 
-@pytest.fixture(scope="module")
-def shipped():
-    fixture = json.loads(gzip.decompress((prod.DIST_DIR / prod.FIXTURE_FILE).read_bytes()))
-    bundle_path = prod.DIST_DIR / fixture["bundle"]["file"]
+@pytest.fixture(scope="module", params=prod.PACKAGES)
+def shipped(request):
+    out_dir = prod.REPO_ROOT / "dist" / request.param
+    fixture = json.loads(gzip.decompress((out_dir / prod.FIXTURE_FILE).read_bytes()))
+    bundle_path = out_dir / fixture["bundle"]["file"]
     bundle = ft_prod.load(bundle_path, fixture["bundle"]["sha256"])
-    return ft_prod.FtProd(bundle), fixture
+    return ft_prod.FtProd(bundle), fixture, out_dir
 
 
 def case_logits(case):
@@ -183,15 +211,27 @@ def case_logits(case):
 
 
 def test_shipped_files_match_their_hashes(shipped):
-    _, fixture = shipped
-    assert fixture["module"]["sha256"] == hashlib.sha256(prod.STANDALONE.read_bytes()).hexdigest()
-    for line in (prod.DIST_DIR / "SHA256SUMS").read_text().splitlines():
+    _, fixture, out_dir = shipped
+    module = out_dir / fixture["module"]["file"]
+    assert module.read_bytes() == prod.STANDALONE.read_bytes()
+    assert fixture["module"]["sha256"] == hashlib.sha256(module.read_bytes()).hexdigest()
+    for line in (out_dir / "SHA256SUMS").read_text().splitlines():
         sha, name = line.split()
-        assert hashlib.sha256((prod.DIST_DIR / name).read_bytes()).hexdigest() == sha
+        assert hashlib.sha256((out_dir / name).read_bytes()).hexdigest() == sha
+
+
+def test_the_confirmed_package_is_the_confirmed_artifact():
+    out_dir = prod.REPO_ROOT / "dist" / "ft-v1.1-confirmed"
+    bundle = ft_prod.load(prod.package_paths(out_dir)["bundle"])
+    source = bundle["provenance"]["theta"]
+    assert bundle["provenance"]["knowledge"]["id"] == "ft-kb-all-v2"
+    assert bundle["provenance"]["knowledge"]["mask_scope"] == "all"
+    assert source["bundle"] == "ft-v1.1-c1-lin-all-ens" and source["fitted_on_kb"] == "ft-kb-all-v2"
+    assert source["sha256"] == "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
 
 
 def test_parity_with_the_training_code(shipped):
-    model, fixture = shipped
+    model, fixture, _ = shipped
     assert len(model.genes) == 5229 and len(fixture["cases"]) >= 200
     worst = 0.0
     for case in fixture["cases"]:
@@ -206,7 +246,7 @@ def test_parity_with_the_training_code(shipped):
 
 
 def test_identity_without_new_inputs(shipped):
-    model, fixture = shipped
+    model, fixture, _ = shipped
     for case in fixture["cases"]:
         z = case_logits(case)
         p = softmax64(z)
@@ -217,7 +257,7 @@ def test_identity_without_new_inputs(shipped):
 
 
 def test_no_gene_rises_above_renormalisation(shipped):
-    model, fixture = shipped
+    model, fixture, _ = shipped
     for case in fixture["cases"]:
         z = case_logits(case)
         p, r = softmax64(z), model.residual(case["inputs"])
@@ -229,8 +269,8 @@ def test_no_gene_rises_above_renormalisation(shipped):
 
 
 def test_determinism(shipped):
-    model, fixture = shipped
-    again = ft_prod.FtProd(ft_prod.load(prod.DIST_DIR / fixture["bundle"]["file"]))
+    model, fixture, out_dir = shipped
+    again = ft_prod.FtProd(ft_prod.load(out_dir / fixture["bundle"]["file"]))
     for case in fixture["cases"][:25] + fixture["cases"][-7:]:
         z = case_logits(case)
         first = model.apply(z, case["inputs"]).tobytes()

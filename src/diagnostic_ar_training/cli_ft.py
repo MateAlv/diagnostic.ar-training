@@ -530,7 +530,10 @@ PARITY_TOLERANCE = 1e-9
 
 @ft_app.command("prod-package")
 def ft_prod_package(
-    artifact_id: str = typer.Option("ft-v1.1-prod-package", "--id"),
+    out: str = typer.Option(
+        "dist/ft-v1.1-prod", "--out", help="Package directory; its ft_prod.py is committed"
+    ),
+    artifact_id: str = typer.Option("", "--id", help="Default: <out directory name>-package"),
     bundle_id: str = typer.Option("ft-v1.1-prod", "--bundle", help="The production ft-bundle"),
     kb_id: str = typer.Option("ft-kb-prod-v1", "--kb", help="Its knowledge"),
     evaluated_kb: str = typer.Option("ft-kb-all-v2", help="The evaluated knowledge, for the diff"),
@@ -539,10 +542,12 @@ def ft_prod_package(
 ) -> None:
     """Export an ft bundle for diagnostic.ar-model, check it on r1-v1 dev, and write its parity fixture.
 
-    Writes dist/ft-v1.1-prod/ (the export, the fixture, SHA256SUMS; `ft_prod.py` there is committed code) and
-    data/ft/<bundle>/package-report.json, with a manifest. Refuses to write anything if the standalone module
+    Writes <out>/ (the export `<name>-bundle.json.gz`, the fixture, SHA256SUMS; `ft_prod.py` there is
+    committed code) and data/ft/<name>/package-report.json, with a manifest. θ comes from the bundle's
+    `theta_source` (a `dxt ft prod-bundle` bundle) or from the bundle itself on its own knowledge (e.g. the
+    confirmed `ft-v1.1-c1-lin-all-ens` on `ft-kb-all-v2`). Refuses to write anything if the standalone module
     differs from `FtV1` by more than 1e-9 on any dev or synthetic case. Free parts only: r1-v1 dev. The dev
-    numbers are descriptive: the production knowledge includes the dev papers.
+    numbers are descriptive when the knowledge includes the dev papers.
     """
     import random
     import time
@@ -562,18 +567,21 @@ def ft_prod_package(
     from diagnostic_ar_training.rerank import kb as kb_io
     from diagnostic_ar_training.systems.genphenia_v3 import GenPheniaV3
 
+    out_dir = (Path(out) if Path(out).is_absolute() else prod.REPO_ROOT / out).absolute()
+    paths = prod.package_paths(out_dir)
+    if not paths["module"].is_file():
+        raise typer.BadParameter(f"{out} has no committed {paths['module'].name}: copy dist/ft-v1.1-prod's")
+    artifact_id = artifact_id or f"{out_dir.name}-package"
     manifest.ensure_new(artifact_id)
     state = _require_clean()
     start = time.perf_counter()
-    bundle, bundle_path, _ = verified_bundle(bundle_id, kb_id)
-    source = bundle.get("theta_source") or {}
-    if not source:
-        raise typer.BadParameter(f"{bundle_id} records no theta_source: build it with `dxt ft prod-bundle`")
+    bundle, bundle_path, bundle_exp = verified_bundle(bundle_id, kb_id)
+    source = prod.theta_source(bundle, bundle_id, sha256_file(bundle_path), bundle_exp)
     source_bundle, source_path, _ = verified_bundle(source["bundle"], source["fitted_on_kb"])
     kb_path, kb_sha = _kb_output(kb_id)
     old_path, old_sha = _kb_output(evaluated_kb)
     kb, old_kb = kb_io.read(kb_path), kb_io.read(old_path)
-    standalone = prod.load_standalone()
+    standalone = prod.load_standalone(paths["module"])
     base = GenPheniaV3()
     genes = base.genes
     e0 = E0Logits(base)
@@ -769,14 +777,13 @@ def ft_prod_package(
         "female_artefact_gene_cases": artefact,
     }
 
-    DIST = prod.DIST_DIR
-    export_path, fixture_path = DIST / prod.BUNDLE_FILE, DIST / prod.FIXTURE_FILE
+    module_path, export_path, fixture_path = paths["module"], paths["bundle"], paths["fixture"]
     kb_io.write(exported, export_path)
     export_sha = sha256_file(export_path)
     fixture = {
         "format": prod.FIXTURE_FORMAT,
-        "bundle": {"file": prod.BUNDLE_FILE, "sha256": export_sha},
-        "module": {"file": prod.STANDALONE.name, "sha256": sha256_file(prod.STANDALONE)},
+        "bundle": {"file": export_path.name, "sha256": export_sha},
+        "module": {"file": module_path.name, "sha256": sha256_file(module_path)},
         "tolerance": PARITY_TOLERANCE,
         "selection": (
             f"{len(sample)} scorable r1-v1 dev cases whose gene is in E0's vocabulary, "
@@ -788,9 +795,9 @@ def ft_prod_package(
         "cases": cases,
     }
     kb_io.write(fixture, fixture_path)
-    sums = DIST / "SHA256SUMS"
+    sums = paths["sums"]
     sums.write_text(
-        "".join(f"{sha256_file(p)}  {p.name}\n" for p in (prod.STANDALONE, export_path, fixture_path))
+        "".join(f"{sha256_file(p)}  {p.name}\n" for p in (module_path, export_path, fixture_path))
     )
     report = {
         "artifact_id": artifact_id,
@@ -803,7 +810,7 @@ def ft_prod_package(
                 "sha256": sha256_file(p),
                 "bytes": p.stat().st_size,
             }
-            for p in (prod.STANDALONE, export_path, fixture_path)
+            for p in (module_path, export_path, fixture_path)
         },
         "features": exported["features"],
         "theta": dict(zip(exported["features"], exported["theta"], strict=True)),
@@ -813,7 +820,7 @@ def ft_prod_package(
         "dev_sanity": sanity,
         "run_seconds": runs.elapsed(start),
     }
-    report_path = runs.write_json(DATA_DIR / "ft" / bundle_id / "package-report.json", report)
+    report_path = runs.write_json(paths["report"], report)
     inputs = [
         *base.lineage_inputs(),
         {"id": f"artifact:{bundle_id}", "sha256": sha256_file(bundle_path)},
@@ -821,7 +828,7 @@ def ft_prod_package(
         {"id": f"artifact:{kb_id}", "sha256": kb_sha},
         {"id": f"artifact:{evaluated_kb}", "sha256": old_sha},
         {"id": f"split:{SPLIT}", "sha256": sha256_file(SPLITS_DIR / f"{SPLIT}.json")},
-        {"id": f"code:{prod.STANDALONE.relative_to(prod.REPO_ROOT)}", "sha256": sha256_file(prod.STANDALONE)},
+        {"id": f"code:{module_path.relative_to(prod.REPO_ROOT)}", "sha256": sha256_file(module_path)},
     ]
     params = {
         "bundle": bundle_id,

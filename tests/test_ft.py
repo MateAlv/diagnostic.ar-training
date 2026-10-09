@@ -526,3 +526,7 @@ def test_kb_with_no_mask_keeps_every_row(tmp_path):
 def test_prod_bundle_refuses_its_own_fitting_knowledge(tripwires):
     args = ["ft", "prod-bundle", "--id", "x", "--from", "b", "--kb", "ft-kb-all-v2"]
     assert refused(run(args), "use the source bundle itself")
+
+
+def test_prod_package_refuses_a_directory_without_the_module(tripwires, tmp_path):
+    assert refused(run(["ft", "prod-package", "--out", str(tmp_path)]), "no committed")

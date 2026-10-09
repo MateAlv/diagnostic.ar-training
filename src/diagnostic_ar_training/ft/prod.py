@@ -17,11 +17,12 @@
 import base64
 import importlib.util
 from collections.abc import Mapping, Sequence
+from pathlib import Path
 from types import ModuleType
 
 import numpy as np
 
-from diagnostic_ar_training import REPO_ROOT
+from diagnostic_ar_training import DATA_DIR, REPO_ROOT
 from diagnostic_ar_training.ft.bundle import FEATURES, Knowledge
 from diagnostic_ar_training.safe import knowledge as safe_knowledge
 from diagnostic_ar_training.safe.bundle import export as safe_export
@@ -32,6 +33,7 @@ DIST_DIR = REPO_ROOT / "dist" / "ft-v1.1-prod"
 STANDALONE = DIST_DIR / "ft_prod.py"
 BUNDLE_FILE = "ft-v1.1-prod-bundle.json.gz"
 FIXTURE_FILE = "parity-fixture.json.gz"
+PACKAGES = ("ft-v1.1-confirmed", "ft-v1.1-prod")
 ARTEFACT_GENES = ("OFD1", "F8", "SLC9A6", "THOC2")
 TOP = 50
 
@@ -41,6 +43,32 @@ def load_standalone(path=STANDALONE) -> ModuleType:
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def package_paths(out_dir: Path) -> dict[str, Path]:
+    """The files of a package directory `dist/<name>/`; `ft_prod.py` there is committed code."""
+    out_dir = Path(out_dir)
+    return {
+        "module": out_dir / STANDALONE.name,
+        "bundle": out_dir / f"{out_dir.name}-bundle.json.gz",
+        "fixture": out_dir / FIXTURE_FILE,
+        "sums": out_dir / "SHA256SUMS",
+        "report": DATA_DIR / "ft" / out_dir.name / "package-report.json",
+    }
+
+
+def theta_source(bundle: Mapping, bundle_id: str, bundle_sha: str, exp: str | None) -> dict:
+    """Where θ was fitted: the `theta_source` a bundle records, or the bundle itself on its own knowledge."""
+    recorded = bundle.get("theta_source")
+    if recorded:
+        return dict(recorded)
+    return {
+        "bundle": bundle_id,
+        "sha256": bundle_sha,
+        "fitted_on_kb": bundle["kb_id"],
+        "exp": exp,
+        "refit": False,
+    }
 
 
 def effective_theta(bundle: Mapping) -> np.ndarray:
