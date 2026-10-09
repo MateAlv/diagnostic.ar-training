@@ -2,7 +2,8 @@
 
 It is built from the same sources and rules as safe-v1 (`safe/knowledge.py`), but with every `r1-v1` PMID
 masked (`splits.mask_pmids("r1-v1", "all")`), so a training patient never sees annotations curated from their
-own paper.
+own paper. The production knowledge (`dxt ft kb --mask-scope none`, ADR-0018) is the same build with nothing
+masked; it cannot be evaluated on `r1-v1`.
 
 - `safe`: a `safe-kb/1` document (sex limitation, strict earliest onset, obligate phenotypes), with the
   curation overrides that still apply under this mask. An override whose rule the gene no longer has is

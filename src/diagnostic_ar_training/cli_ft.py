@@ -16,6 +16,7 @@ ft_app = typer.Typer(
 KB_SOURCES = ("hpo_genes_to_disease", "hpo_annotations", "orphanet_ages_2026_06", "hgnc", "hpo_ontology")
 KB_FILE = "ft-kb.json.gz"
 MASK_SPLIT, MASK_SCOPE = "r1-v1", "all"
+KB_MASK_SCOPES = ("all", "none")
 SPLIT = "r1-v1"
 MODELS_DIR = INTERIM_DIR / "models" / "ft"
 
@@ -50,8 +51,16 @@ def ft_kb(
     overrides: str = typer.Option(
         "data/curation/safe-v1-overrides.csv", help="safe-v1 curation overrides ('' for none)"
     ),
+    mask_scope: str = typer.Option(
+        MASK_SCOPE,
+        help="'all' masks every r1-v1 PMID (the evaluated knowledge); 'none' masks nothing (production only)",
+    ),
 ) -> None:
-    """Build the ft-v1 knowledge with every r1-v1 PMID masked (train, dev, test and vault)."""
+    """Build the ft-v1 knowledge, by default with every r1-v1 PMID masked (train, dev, test and vault).
+
+    `--mask-scope none` builds the production knowledge: the same sources, rules and overrides, with no PMID
+    masked. Patients whose papers it includes cannot evaluate it.
+    """
     from diagnostic_ar_training import splits
     from diagnostic_ar_training.ft import knowledge as ft_knowledge
     from diagnostic_ar_training.lineage import registry
@@ -65,6 +74,8 @@ def ft_kb(
     from diagnostic_ar_training.systems.genphenia_v3 import SOURCE as E0_SOURCE
     from diagnostic_ar_training.systems.genphenia_v3 import V3Inputs, unpack_bundle
 
+    if mask_scope not in KB_MASK_SCOPES:
+        raise typer.BadParameter(f"--mask-scope must be one of {KB_MASK_SCOPES}")
     ensure_new(kb_id)
     state = _require_clean()
     rows = []
@@ -75,13 +86,17 @@ def ft_kb(
             raise typer.BadParameter(str(e)) from e
     paths = {n: open_source(n, Purpose.KB) for n in KB_SOURCES}
     vocabulary = V3Inputs(unpack_bundle()).genes
-    splits.write_mask(MASK_SPLIT, MASK_SCOPE)  # refuses if the committed list drifted from the split
-    mask_path = splits.mask_path(MASK_SPLIT, MASK_SCOPE)
+    masked: list[str] = []
+    mask_path = None
+    if mask_scope != "none":
+        splits.write_mask(MASK_SPLIT, mask_scope)  # refuses if the committed list drifted from the split
+        mask_path = splits.mask_path(MASK_SPLIT, mask_scope)
+        masked = mask_path.read_text().split()
     ontology = Ontology.from_json(paths["hpo_ontology"])
     built, stats = ft_knowledge.build(
         vocabulary,
         knowledge.read_genes_to_disease(paths["hpo_genes_to_disease"]),
-        knowledge.read_annotations(paths["hpo_annotations"], mask_path.read_text().split()),
+        knowledge.read_annotations(paths["hpo_annotations"], masked),
         knowledge.read_orphanet_onsets(paths["orphanet_ages_2026_06"]),
         knowledge.read_hgnc_locations(paths["hgnc"]),
         ontology.ancestors,
@@ -97,14 +112,15 @@ def ft_kb(
     )
     sources = registry.load_sources()
     inputs = [sources[n].as_input() for n in (*KB_SOURCES, E0_SOURCE)]
-    inputs.append({"id": f"{MASK_SCOPE}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
+    if mask_path is not None:
+        inputs.append({"id": f"{mask_scope}-pmids:{MASK_SPLIT}", "sha256": sha256_file(mask_path)})
     if overrides:
         inputs.append({"id": f"overrides:{overrides}", "sha256": sha256_file(Path(overrides))})
     params = {
         "schema": ft_knowledge.SCHEMA,
         "vocabulary": "E0 (genphenia_v3) genes",
-        "mask_split": MASK_SPLIT,
-        "mask_scope": MASK_SCOPE,
+        "mask_split": MASK_SPLIT if mask_scope != "none" else None,
+        "mask_scope": mask_scope,
         "associations": "hpo_genes_to_disease without POLYGENIC",
         "safe_rules": "safe/knowledge.py (safe-kb/1)",
         "xlr_only": sorted(ft_knowledge.XLR),
@@ -464,6 +480,49 @@ def ft_system(base, e0, bundle: dict, bundle_id: str, kb_path: Path, kb_id: str,
             return ft_replay.pooled_vectors(v3, base.inputs, [case.present], "cpu")[0]
 
     return FtV1(e0, residual, bundle_id, pooler)
+
+
+@ft_app.command("prod-bundle")
+def ft_prod_bundle(
+    bundle_id: str = typer.Option(..., "--id", help="New immutable id, e.g. ft-v1.1-prod"),
+    source: str = typer.Option(..., "--from", help="The fitted ft-bundle whose members (θ) are kept"),
+    source_kb: str = typer.Option("ft-kb-all-v2", "--source-kb", help="The knowledge θ was fitted on"),
+    kb_id: str = typer.Option(..., "--kb", help="The production knowledge, e.g. ft-kb-prod-v1"),
+) -> None:
+    """A fitted bundle's members, unchanged, on another knowledge: θ is not refitted.
+
+    Writes data/ft/<id>/ft-v1-bundle.json with a manifest. The bundle records where θ came from.
+    """
+    from diagnostic_ar_training.ft import runs
+    from diagnostic_ar_training.lineage.hashing import sha256_file
+    from diagnostic_ar_training.lineage.manifest import build_manifest, ensure_new, write_manifest
+
+    if kb_id == source_kb:
+        raise typer.BadParameter("--kb is the knowledge θ was fitted on: use the source bundle itself")
+    ensure_new(bundle_id)
+    state = _require_clean()
+    bundle, source_path, source_exp = verified_bundle(source, source_kb)
+    if any(m.get("classifier_delta") for m in bundle["members"]):
+        raise typer.BadParameter(f"{source} has classifier deltas, which are per gene: not supported here")
+    _, kb_sha = _kb_output(kb_id)
+    source_sha = sha256_file(source_path)
+    theta_source = {
+        "bundle": source,
+        "sha256": source_sha,
+        "fitted_on_kb": source_kb,
+        "exp": source_exp,
+        "refit": False,
+    }
+    out = {**bundle, "kb_id": kb_id, "theta_source": theta_source}
+    path = runs.write_json(DATA_DIR / "ft" / bundle_id / "ft-v1-bundle.json", out)
+    inputs = [
+        {"id": f"artifact:{source}", "sha256": source_sha},
+        {"id": f"artifact:{kb_id}", "sha256": kb_sha},
+    ]
+    params = {"from": source, "theta_fitted_on": source_kb, "refit": False, "kb": kb_id}
+    notes = f"θ of {source} (fitted on {source_kb}), unchanged; only the knowledge differs."
+    write_manifest(build_manifest(bundle_id, "ft-bundle", inputs, params, [path], notes=notes, state=state))
+    typer.echo(f"{bundle_id}: {len(bundle['members'])} members of {source} on {kb_id} -> {path}")
 
 
 @ft_app.command("confirm")
