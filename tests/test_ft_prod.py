@@ -198,7 +198,7 @@ def test_parity_with_the_training_code(shipped):
         z = case_logits(case)
         idx = case["indices"]
         p = model.apply(z, case["inputs"])
-        assert np.abs(softmax64(z)[idx] - case["e0_probs"]).max() == 0
+        assert np.abs(softmax64(z)[idx] - case["e0_probs"]).max() <= 1e-15
         worst = max(worst, float(np.abs(p[idx] - case["expected_probs"]).max()))
         assert prod.rank(p, case["gene_index"]) == case["rank_expected"]
         assert int((model.residual(case["inputs"]) < 0).sum()) == case["genes_lowered"]

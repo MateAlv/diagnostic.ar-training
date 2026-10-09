@@ -93,7 +93,7 @@ From `dist/ft-v1.1-prod/` in this repo (also listed in `SHA256SUMS` there):
 4. **Port the tests.**
    - **Parity:** for each fixture case, decode `e0_logits_f32_b64` (little-endian float32, base64), then call
      `apply(logits, inputs)`. The result must match `expected_probs` at `indices` within 1e-9, give the same
-     `rank_expected` for `gene_index`. `ft_prod.softmax64(logits)` must equal `e0_probs` exactly. The fixture has 200
+     `rank_expected` for `gene_index`. `ft_prod.softmax64(logits)` must match `e0_probs` within 1e-15 (exact on the same machine). The fixture has 200
      `r1-v1` dev cases and 7 synthetic edge cases: no inputs, unknown sex, negative age, negative onset, only
      excluded terms, only an unknown excluded id, and every input.
    - **With the vendored engine** (as `test_rerank_parity.py`): run v3.0 on each case's `present` terms and check

@@ -502,7 +502,7 @@ def test_bundle_json_round_trip(tmp_path, know):
 
 def test_kb_mask_scope_must_be_all_or_none(tripwires):
     result = run(["ft", "kb", "--id", "ft-kb-x", "--mask-scope", "heldout"])
-    assert refused(result, "--mask-scope")
+    assert refused(result, "must be one of")
 
 
 def test_kb_with_no_mask_keeps_every_row(tmp_path):
@@ -525,4 +525,4 @@ def test_kb_with_no_mask_keeps_every_row(tmp_path):
 
 def test_prod_bundle_refuses_its_own_fitting_knowledge(tripwires):
     args = ["ft", "prod-bundle", "--id", "x", "--from", "b", "--kb", "ft-kb-all-v2"]
-    assert refused(run(args), "--kb is the knowledge")
+    assert refused(run(args), "use the source bundle itself")
