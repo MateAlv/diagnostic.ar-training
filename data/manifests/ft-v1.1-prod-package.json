@@ -1,0 +1,76 @@
+{
+  "artifact_id": "ft-v1.1-prod-package",
+  "kind": "ft-prod-package",
+  "created_at": "2026-10-09T18:54:38+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "abbb278270a0af12bad41858db04992d28943129",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-v1.1-prod",
+      "sha256": "9c70b3b9c0e8c3ec36ecda6a3cccfb4386933161e633aa2cb69a4d53a140525d"
+    },
+    {
+      "id": "artifact:ft-v1.1-c1-lin-all-ens",
+      "sha256": "89e3ea09c1e491de29b2d7c6f7955bba7ab6bbb575c47fc17756336c601db340"
+    },
+    {
+      "id": "artifact:ft-kb-prod-v1",
+      "sha256": "ccef7388c9a5ff41c1f0f37f249929522f92bd1378ca13b411459c79b9ee7c30"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "code:dist/ft-v1.1-prod/ft_prod.py",
+      "sha256": "054893684cfda65d7ddbc835f5c1baa45bb159690e98ca14bf192e2ebaaea63d"
+    }
+  ],
+  "params": {
+    "bundle": "ft-v1.1-prod",
+    "kb": "ft-kb-prod-v1",
+    "evaluated_kb": "ft-kb-all-v2",
+    "format": "ft-v1.1-prod-bundle/1",
+    "fixture_format": "ft-v1.1-prod-parity/1",
+    "n_cases": 200,
+    "seed": 0,
+    "tolerance": 1e-9,
+    "part": "r1-v1/dev"
+  },
+  "params_hash": "f8e79a910fa50028112078dc509cd9a2a2e66f9a45729a89d1dd8f7b928f2550",
+  "outputs": [
+    {
+      "path": "dist/ft-v1.1-prod/ft-v1.1-prod-bundle.json.gz",
+      "sha256": "db73e80fa931126b5b81ff04df38f0e871ef41ecb7a434d7e489c6ef327e1f10",
+      "bytes": 45793
+    },
+    {
+      "path": "dist/ft-v1.1-prod/parity-fixture.json.gz",
+      "sha256": "b6fc76152cd87de5f57f43426f35562b941832919fcce766ad5fec84bfe3e3c9",
+      "bytes": 4363620
+    },
+    {
+      "path": "dist/ft-v1.1-prod/SHA256SUMS",
+      "sha256": "937a8d3d3d02edbe33dec945a8e070e173841fae62daaeb9064aca145b0cf559",
+      "bytes": 260
+    },
+    {
+      "path": "data/ft/ft-v1.1-prod/package-report.json",
+      "sha256": "80824d3d5a7c3ec461d78eb33560efc866be795ec73f7f30d56990a56ab0de92",
+      "bytes": 15093
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
