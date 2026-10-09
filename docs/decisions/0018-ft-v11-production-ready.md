@@ -54,3 +54,10 @@ The knowledge-only `safe-v1[sex+onset]` also passed the final check (H1: +0.0002
   OFD1, F8, SLC9A6 and THOC2 are no longer X-linked-recessive-only. A dev sanity run is descriptive only, because
   the knowledge includes the dev papers: 11 harmed patients, all through `neg_obligate`, 8 of them from their own
   paper's n/n annotations. Steps, files and limits: [HANDOFF-ft-v1.1-prod.md](../HANDOFF-ft-v1.1-prod.md).
+- **2026-10-09, recommended package.** The production default is `dist/ft-v1.1-confirmed/`
+  (`ft-v1.1-confirmed-package`): the confirmed bundle on `ft-kb-all-v2`, exactly what passed EXP-P-005 and EXP-P-006.
+  - Its known limitation is the masking artefact (OFD1, F8, SLC9A6, THOC2; 6 harms, 0.17%, in EXP-P-005).
+  - The unmasked `ft-v1.1-prod` is built but not recommended. On dev (descriptive) it gives +0.00168 with 11 harmed,
+    all through the n/n ≥ 5 obligate rule, 8 of them on rows from the patients' own paper. It has no sealed
+    confirmation. This replaces "Before integration"'s plan to ship an unmasked build.
+

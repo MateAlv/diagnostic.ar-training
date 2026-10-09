@@ -15,7 +15,7 @@ symptoms, with a final check on publications GenPhenAI never saw. Plan and statu
 |---|---|
 | **Where things stand right now; open decisions; next steps** | [STATE.md](STATE.md) |
 | **Phase 2 plan, tracks, gates and schedule** | [PHASE2.md](PHASE2.md) |
-| How to integrate `ft-v1.1` into `diagnostic.ar-model` (files, sha256, tests, rollback) | [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md) |
+| How to integrate `ft-v1.1` into `diagnostic.ar-model` (recommended package, files, sha256, tests, rollback) | [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md) |
 | The goal, the two fronts, phases and dates, guardrails | [PLAN.md](PLAN.md) |
 | What was done, when, with which numbers, and what worked or didn't | [BITACORA.md](BITACORA.md) (newest entry at the bottom) |
 | How data may flow; sources, manifests, known gaps | [DATA_LINEAGE.md](DATA_LINEAGE.md) |

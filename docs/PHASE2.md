@@ -108,7 +108,7 @@ publications, but it is not about the new inputs (ADR-0006, ADR-0017).
 | 10-08 | EXP-P-006 final check: `safe-v1[sex+onset]` +0.00029 [+0.00001, +0.00075] (**H1 passed**); `ft-v1.1` +0.00054 [+0.00005, +0.00129] (**H2 holds**); 3 harmed of 1,072 | done |
 | 10-08 | Mateo: `ft-v1.1` flagged production-ready (ADR-0018); evidence summary updated | done |
 | 10-08 | Track 4 standards test (EXP-P-007): new-row training, ratio 0.413 vs the 0.90 criterion; FAIL | done |
-| 10-09 | Production package: `ft-kb-prod-v1` (no mask), `ft-v1.1-prod`, standalone export and parity fixture in `dist/ft-v1.1-prod/`, [handoff](HANDOFF-ft-v1.1-prod.md); dev sanity (descriptive) +0.00168, 11 harmed via `neg_obligate` | done |
+| 10-09 | Production packages, [handoff](HANDOFF-ft-v1.1-prod.md). **Default: `dist/ft-v1.1-confirmed/`**, the confirmed bundle on `ft-kb-all-v2`, with parity ≤ 1e-9. Also built, not recommended: `dist/ft-v1.1-prod/` (unmasked `ft-kb-prod-v1`; dev, descriptive: +0.00168, 11 harmed via `neg_obligate`) | done |
 | later | Integration through `diagnostic.ar-model` (API inputs, staging first; Mateo) | next |
 | 10-08 | Track 3 `ft-v1` dev grid (EXP-P-003), candidate `ft-v1-c1-lin-all-ens` | done |
 | 10-08 | `dxt final-check` (both vaults loaded once, every candidate on the same cases); `safe-v1[sex+onset]` dev +0.00100 [+0.00030, +0.00179], train +0.00036 [+0.00007, +0.00080], 0 harmed | done |

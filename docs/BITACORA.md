@@ -4552,7 +4552,18 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **GPU:** 6.8 min of fitting in total, plus 9.4 min of pseudo-patient pooling, mostly CPU graph building.
 - Details: [EXP-P-007](experiments/EXP-P-007.md).
 
-## 2026-10-09: `ft-v1.1` production package (ADR-0018, before integration)
+## 2026-10-09: `ft-v1.1` production packages (ADR-0018, before integration); the confirmed one is the default
+- **Recommended default: `dist/ft-v1.1-confirmed/`** (`ft-v1.1-confirmed-package`). It is the exact confirmed
+  artifact: the `ft-v1.1-c1-lin-all-ens` mean θ on `ft-kb-all-v2`, with no new knowledge build. Built with
+  `dxt ft prod-package --out dist/ft-v1.1-confirmed --bundle ft-v1.1-c1-lin-all-ens --kb ft-kb-all-v2`.
+  - Files: `ft-v1.1-confirmed-bundle.json.gz` (43.7 kB, sha256 `6bb6bb40…`) and `parity-fixture.json.gz` (4.4 MB).
+    The fixture has the same 200 dev cases (seed 0) as below, plus 7 edge cases.
+  - Parity vs `FtV1` on `ft-kb-all-v2`: max |Δp| 7.6e-19 from logits, 6.7e-16 from probabilities.
+  - Dev reproduces EXP-P-003: +0.00289 [+0.00136, +0.00461], 2 harmed.
+  - Known limitation: the masking artefact. OFD1, F8, SLC9A6 and THOC2 count as X-linked-recessive-only; this caused
+    EXP-P-005's 6 harms (0.17%).
+  - The unmasked package below is built but **not recommended**: it adds negation harms and was never confirmed on
+    sealed patients.
 - **Production knowledge `ft-kb-prod-v1`:** built with `dxt ft kb --mask-scope none`. It uses the same sources, code
   and 49 sex overrides as the evaluated build, with no PMID masked. The default stays `all`.
   - Against `ft-kb-all-v2`:
@@ -4589,5 +4600,6 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - The n/n ≥ 5 obligate rule is fooled by rows that count only the patients with the finding. This is open for
     Mateo before integration.
   - The 7 female OFD1 dev patients stay at rank 1.
-- **Handoff:** [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md). `diagnostic.ar-model` is unchanged. Free parts
+- **Handoff:** [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md). It recommends the confirmed package and documents the
+  unmasked one as not recommended. `diagnostic.ar-model` is unchanged. Free parts
   only; no sealed data.

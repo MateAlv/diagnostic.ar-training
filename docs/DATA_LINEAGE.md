@@ -378,6 +378,12 @@ flag and the `xld_male` feature are gone (7 features). The current code refuses 
       dev sanity run;
   - `dist/ft-v1.1-prod/ft_prod.py` is committed code, recorded as an input;
   - reads only `r1-v1` dev; the export is gzipped without a timestamp, so it is byte-reproducible.
+- **`ft-v1.1-confirmed-package`** (kind `ft-prod-package`): the same command with `--out dist/ft-v1.1-confirmed
+  --bundle ft-v1.1-c1-lin-all-ens --kb ft-kb-all-v2`. It packages the confirmed bundle on its own knowledge; θ comes
+  from the bundle itself, since it records no `theta_source`. This is the **recommended production package**.
+  - Outputs: `dist/ft-v1.1-confirmed/ft-v1.1-confirmed-bundle.json.gz`, `parity-fixture.json.gz`, `SHA256SUMS`, and
+    `data/ft/ft-v1.1-confirmed/package-report.json`.
+  - `dist/ft-v1.1-confirmed/ft_prod.py` is the same file as `dist/ft-v1.1-prod/ft_prod.py`; a test checks this.
 - **`results-ft-v1.1-prod-dev-harmed`** (kind `ft-analysis`, `scripts/analysis/ft_prod_dev_harmed.py`):
   `data/ft/ft-v1.1-prod/dev-harmed.json`, the dev patients that either bundle harms, with the features and the
   phenotype.hpoa rows behind them.
