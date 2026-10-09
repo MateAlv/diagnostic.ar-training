@@ -1,0 +1,75 @@
+{
+  "artifact_id": "results-EXP-P-007-final-c2-n512-r32-ens",
+  "kind": "vocab-rows-eval",
+  "created_at": "2026-10-09T00:55:15+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "dd81f735e3c0510a91564d7c5ad4742aa53c4dbf",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:ft-kb-all-v2",
+      "sha256": "18cf37f11773d4218a9a390d7949c8d6875627c139e920535a547bc296a456d4"
+    },
+    {
+      "id": "split:r1-v1",
+      "sha256": "5835ff0bdf93b6d5e8725ea03600a86c29e98cba01a753778e40ff6c41bfe495"
+    },
+    {
+      "id": "all-pmids:r1-v1",
+      "sha256": "0bbc2572d86aca81cef0cd209b3c0663b9044b09f3ae93907dae4cc2f38ede7c"
+    },
+    {
+      "id": "results-EXP-P-007-final-c2-n512-r32-s0/rows.pt",
+      "sha256": "8ff67ccd6f375e28fca84688444a774c0c58ac89a5d1b85e8dcccbf3456d5ff2"
+    },
+    {
+      "id": "results-EXP-P-007-final-c2-n512-r32-s1/rows.pt",
+      "sha256": "f1689b6e8cae6a4a95365632e2d3f7ee7636de9761d8f3366f7f5c1df1e9b11a"
+    },
+    {
+      "id": "results-EXP-P-007-final-c2-n512-r32-s2/rows.pt",
+      "sha256": "9c9495c3dff160c1630f04fd745051e031880d0fc5fd80a02703bde654b5d84c"
+    }
+  ],
+  "params": {
+    "exp": "EXP-P-007",
+    "config_name": "c2-n512-r32",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "combine": "mean of the seed rows"
+  },
+  "params_hash": "6701053300b1065d66a080bb21f2808b9899e77671e1c302c194188c80ecf7cb",
+  "outputs": [
+    {
+      "path": "results/EXP-P-007/final/c2-n512-r32-ens/summary.json",
+      "sha256": "8a808f019c430b1b8d3c88a27bd9ac6b6b31108ae0c0876f7ab671713c8c2f02",
+      "bytes": 29816
+    },
+    {
+      "path": "results/EXP-P-007/final/c2-n512-r32-ens/r1-v1-dev.ranks.jsonl",
+      "sha256": "a45d0f53104d0f99d7f077e65dd0d4a16bbf684ac81b5bd13dbb278f21056b26",
+      "bytes": 153509
+    },
+    {
+      "path": "results/EXP-P-007/final/c2-n512-r32-ens/r1-v1-train.ranks.jsonl",
+      "sha256": "03fb12f298574f739b815a6dc504641e26ff6798de949e9d0938ca8e81898213",
+      "bytes": 343000
+    },
+    {
+      "path": "data/interim/models/vocab/EXP-P-007/final-c2-n512-r32-ens/rows.pt",
+      "sha256": "2d3a9372b4055a129e958a4ff57166e31cbe87938f6f2b8cf8ff359e902eeff0",
+      "bytes": 359437
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
