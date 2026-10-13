@@ -72,6 +72,11 @@
 - E0 stays the production model until a v4.0 passes the read and Mateo decides.
 - The prospective set (phenopacket-store 0.1.28+, probably 2027) stays available for a later, cleaner check.
 
-## Open (for Mateo before pre-registration)
-- **The gate's form.** Recommended: the CI lower bound of Δ MRR on uncited vault patients > 0, with cited reported.
-  The alternative is to also require overall Δ > 0, which is unlikely given the cited loss.
+## Acceptance criterion (Mateo, 2026-10-13)
+- **The improvement must be shown on data v3.0 never saw.** The primary and only gating population is the `p3-v1`
+  vault patients whose publication group is `uncited_e0_knowledge`: 2,678 patients in 417 groups, none cited by HPO
+  2025-03-03.
+- **PASS** when the lower bound of the 95% publication-cluster CI of Δ MRR (v4.0 − E0) on that population is > 0.
+- **Not gating:** results on cited patients and overall are reported. A number from data E0 had in its knowledge
+  cannot support a claim.
+- **The candidate is selected before the read** by grid search on FIT/SELECT and checked on CONFIRM. One read.

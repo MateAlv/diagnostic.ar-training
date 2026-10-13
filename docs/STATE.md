@@ -12,7 +12,8 @@
   ablation ladder; no literature negation anywhere; knowledge = E0's (HPOA 2025-03-03).
 - `p3-v1` frozen (`3e928b3d…`): train 5,986 (free; cross-validation); vault 4,659 (sealed; one read, only on Mateo's
   go). Agents never open the vault.
-- Waiting for Mateo: the gate's form (ADR-0019, Open).
+- Gate (Mateo): improvement on data v3.0 never saw; Δ MRR CI lower bound > 0 on the 2,678 vault patients uncited by
+  E0's knowledge. Grid search before the single read.
 
 ## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
 - `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):

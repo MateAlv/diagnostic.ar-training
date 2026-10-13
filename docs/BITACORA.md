@@ -4643,3 +4643,10 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - Heldout PMIDs: `p3-v1.heldout-pmids.txt` (`08dcc1a9…`).
   - Only counts were computed; no metric on any vault patient.
 - **Records:** ADR-0019 and PHASE3.md (ablation ladder, backlog B1–B11).
+
+## 2026-10-13: ADR-0019 gate decided (Mateo)
+- The claim must come from data v3.0 never saw. The gate is: on `p3-v1` vault patients uncited by E0's knowledge
+  (HPOA 2025-03-03), the lower bound of the 95% publication-cluster CI of Δ MRR is > 0.
+- Cited and overall results are reported but do not gate.
+- The candidate is chosen by grid search on FIT/SELECT and checked on CONFIRM before the single read.
+- PRs #147 and #148 merged at Mateo's request.
