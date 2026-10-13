@@ -4680,3 +4680,27 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - `_RelatedTerms`, `_maybe_generalize`, `_specialize` and `_related_noise_term`, driven by fitted parameters.
   - Everything patient-fitted per term or per gene, and all negation logic, is dropped (SIM4-v1 §5).
 - No sealed part and no CONFIRM fold read. `dxt lineage verify` ok.
+## 2026-10-13: Phase 3 training and evaluation harness `v4/` (branch `p3/v4-harness`)
+- **Code:** `src/diagnostic_ar_training/v4/`, `dxt v4 train|eval|grid|throughput`, ladder configs `configs/p3/`
+  (R0–R7, R6-on-R2, `R5-ratio-grid`, `R8-grid`), tests `tests/test_v4_*.py`.
+  - One model class, `GinV4`: GinV3 plus the observed flag, IC (HPOA 2025-03-03, negations dropped), typed up/down
+    edges, attention + mean pooling and covariates. Every option starts at an exact zero, and `"-"` can be masked.
+  - Patients come from `splits.load_part("p3-v1", train)` with `sim4.folds`. CONFIRM is refused in code. Patients
+    get present terms only.
+  - Selection uses MRR on uncited patients in the SELECT fold. Every grid configuration and seed is logged in
+    `results/P3/GRID_LOG.jsonl`, and grids resume.
+- **Step-0 parity (E0 warm start vs E0 as released, production ONNX):** every per-patient rank is identical, on
+  SELECT (1,456 patients) and FIT (3,597), with the defaults and with every zero-initialised option on.
+  - SELECT MRR: uncited 0.4034, all 0.5388.
+  - FIT MRR: uncited 0.1778, all 0.4110. The folds differ a lot (SELECT uncited has only 93 groups).
+- **Throughput** (RTX 4070 Ti, 16 CPUs, an E0-like scratch sampler outside `src/`, about 28 nodes per graph):
+  - loader alone: 13k graphs/s with 1 worker, 48k with 4, 82k with 12, 91k with 14;
+  - full bf16 training steps with 12 workers: 36k graphs/s at batch 128, 57k at batch 256, 53k at 512, 48k at
+    1,024;
+  - a 1-hour run gets about 130M samples at batch 128 and 200M at batch 256. E0 trained on 26M in total.
+- **Smoke run** `smoke-949f2abd5f` (exploratory, not a result; scratch sampler, not `sim4`):
+  - 10 min from E0, lr 1e-4, batch 256, 33.6M samples;
+  - SELECT uncited Δ MRR vs E0 +0.0144 [−0.0044, +0.0230], at a checkpoint chosen on SELECT itself, so biased;
+  - the FIT train-check gives +0.0071 on uncited and −0.0066 on cited.
+- **Pending:** the `samplers.sim4` adapter must match `sim4`'s final constructor once `p3/sim4` lands. R3–R7 need
+  the path of `sim4`'s FIT-fold parameters file.

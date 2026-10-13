@@ -15,6 +15,7 @@ from diagnostic_ar_training.cli_ltr import ltr_app
 from diagnostic_ar_training.cli_safe import safe_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
 from diagnostic_ar_training.cli_sim4 import sim4_app
+from diagnostic_ar_training.cli_v4 import v4_app
 from diagnostic_ar_training.cli_vocab import vocab_app
 from diagnostic_ar_training.lineage import registry
 from diagnostic_ar_training.lineage.manifest import Manifest, verify_outputs
@@ -42,6 +43,7 @@ app.add_typer(safe_app, name="safe")
 app.add_typer(ft_app, name="ft")
 app.add_typer(ltr_app, name="ltr")
 app.add_typer(vocab_app, name="vocab")
+app.add_typer(v4_app, name="v4")
 app.command("final-check")(final_check)
 
 

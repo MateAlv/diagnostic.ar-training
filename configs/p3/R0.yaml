@@ -1,0 +1,11 @@
+# R0: E0's weights through GinV4, no update (step-0 evaluation only). E0 as released (production ONNX) is
+# scored by `dxt v4 eval --run R0`; this run checks that the torch warm start reproduces it.
+label: R0
+seed: 0
+sim:
+  preset: e0
+arch:
+  init: e0
+train:
+  max_samples: 0
+  num_workers: 0

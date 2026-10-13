@@ -10,6 +10,8 @@ data/raw
 data/interim
 data/processed/
 runs/
+# Phase 3 results rows (small JSON, committed by the main session).
+!results/P3/runs/
 results/**/*.npz
 results/**/*.pt
 results/**/*.onnx

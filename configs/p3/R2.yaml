@@ -1,0 +1,19 @@
+# R2: R1 with per-disease, frequency-weighted term sampling (sim4 preset freq). No params file: the defaults
+# gamma = 1 (proportional) and f0 = 0.5 apply, so this rung uses no patient-fitted parameter.
+label: R2
+seed: 0
+sim:
+  preset: freq
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12
