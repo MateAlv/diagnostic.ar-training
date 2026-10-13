@@ -1,0 +1,19 @@
+# R3: R2 with term count, imprecision and over-specification fitted on FIT folds (sim4 preset real).
+label: R3
+seed: 0
+sim:
+  preset: real
+  # params: <sim4 fit output on FIT folds; its sha256 enters the run id>
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

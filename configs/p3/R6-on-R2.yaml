@@ -1,0 +1,23 @@
+# R6 on R2 alone: the input encoding on the frequency-weighted simulator, to separate it from R3-R5.
+label: R6-on-R2
+seed: 0
+sim:
+  preset: freq
+encoding:
+  observed_flag: true
+  ic_feature: true
+  edges: both
+  drop_dash: true
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

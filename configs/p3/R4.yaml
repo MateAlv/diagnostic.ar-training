@@ -1,0 +1,19 @@
+# R4: R3 with off-profile terms from FIT folds' unexplained terms (sim4 preset real_noise).
+label: R4
+seed: 0
+sim:
+  preset: real_noise
+  # params: <sim4 fit output on FIT folds; its sha256 enters the run id>
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

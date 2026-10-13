@@ -1,0 +1,18 @@
+# R1: E0's architecture from scratch on E0's simulator recipe (sim4 preset e0), E0's training knobs.
+label: R1
+seed: 0
+sim:
+  preset: e0
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

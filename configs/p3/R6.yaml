@@ -1,0 +1,25 @@
+# R6: R5 plus the input encoding: observed flag, IC (HPOA 2025-03-03), edges both ways, no "-" class.
+label: R6
+seed: 0
+sim:
+  preset: real_noise
+  # params: <sim4 fit output on FIT folds>
+  real_ratio: 0.1
+encoding:
+  observed_flag: true
+  ic_feature: true
+  edges: both
+  drop_dash: true
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

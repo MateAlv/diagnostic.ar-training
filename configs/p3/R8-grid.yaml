@@ -1,0 +1,16 @@
+# R8: hyperparameters and architecture on the best rung (set `base` to it once R1-R7 are read).
+# 16 product points + 3 extra points, seed 0, 45 min each: about 15 h with evaluations. Re-run the same command
+# to resume; `--minutes` caps one invocation. Finalists get more seeds in a follow-up grid.
+grid_id: R8
+base: configs/p3/R7.yaml
+total_minutes: 900
+seeds: [0]
+axes:
+  arch.hidden: [512, 1024]
+  arch.layers: [3, 4]
+  arch.pooling: [attention, attention_mean]
+  train.lr: [2.0e-4, 5.0e-4]
+points:
+  - {arch.init: e0, train.lr: 1.0e-4}
+  - {arch.init: e0, train.lr: 3.0e-5}
+  - {arch.dropout: 0.1}

@@ -1,0 +1,7 @@
+# Tunes R5's real-patient ratio on SELECT. Every point and seed is logged in results/P3/GRID_LOG.jsonl.
+grid_id: R5-ratio
+base: configs/p3/R5.yaml
+total_minutes: 330
+seeds: [0]
+axes:
+  sim.real_ratio: [0.02, 0.05, 0.1, 0.2, 0.4]

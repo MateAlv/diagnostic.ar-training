@@ -1,0 +1,20 @@
+# R5: R4 plus real FIT-fold patients mixed into training (present terms only). Ratio tuned by R5-ratio-grid.yaml.
+label: R5
+seed: 0
+sim:
+  preset: real_noise
+  # params: <sim4 fit output on FIT folds>
+  real_ratio: 0.1
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: plateau
+  plateau_factor: 0.5
+  plateau_patience: 3
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12
