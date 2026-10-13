@@ -10,7 +10,7 @@ from diagnostic_ar_training.lineage.hashing import sha256_json
 
 FROZEN = sorted(p.stem for p in SPLITS_DIR.glob("*.json"))
 ALL_PARTS = {p.value for p in splits.Part}
-PARTS = {"r1-v1": ALL_PARTS, "p2-v1": ALL_PARTS, "p2-fresh-v1": {"vault"}}
+PARTS = {"r1-v1": ALL_PARTS, "p2-v1": ALL_PARTS, "p2-fresh-v1": {"vault"}, "p3-v1": {"train", "vault"}}
 
 
 def expected_parts(split_id):

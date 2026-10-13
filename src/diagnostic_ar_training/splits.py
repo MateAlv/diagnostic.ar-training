@@ -11,6 +11,9 @@ Phase 2 (ADR-0017) adds two kinds of split:
   could have seen them;
 - a fresh split (`p2-fresh-v1`) takes the patients of a pinned phenopacket-store snapshot that are new since
   the cohort release and whose publications E0 never saw.
+
+Phase 3 (ADR-0019) adds a union split (`p3-v1`): the development parts of `p2-v1` become one training part,
+and every sealed patient of Phase 2 becomes one vault, opened once.
 """
 
 import hashlib
@@ -59,12 +62,15 @@ class SplitSpec:
     parent: str = ""
     """A derived split re-partitions the publication groups of this frozen split."""
     fresh: bool = False
+    members: tuple[str, ...] = ()
+    """A union split re-labels the parts of these frozen splits (UNION_PARTS)."""
 
 
 SPECS = {
     "r1-v1": SplitSpec("r1-v1", "phenopacket_store", salt="diagnostic.ar-training/r1-v1"),
     "p2-v1": SplitSpec("p2-v1", "phenopacket_store", parent="r1-v1"),
     "p2-fresh-v1": SplitSpec("p2-fresh-v1", fresh=True),
+    "p3-v1": SplitSpec("p3-v1", "phenopacket_store", members=("p2-v1", "p2-fresh-v1")),
 }
 
 # What E0 could have seen (ADR-0017 §2), and what bounds the fresh split (§4): the cohort release and the
@@ -110,6 +116,8 @@ def _part_of(bucket: int) -> Part:
 
 def _all_cases(spec: SplitSpec) -> tuple[list[Case], Counter]:
     drops: Counter = Counter()
+    if spec.members:
+        return _union_cases(spec)
     if spec.fresh:
         frozen = load_frozen(spec.split_id)
         wanted = {i for ids in frozen["case_ids"].values() for i in ids}
@@ -139,6 +147,8 @@ def _part_stats(assignment: dict[Part, list[str]], cases: list[Case], groups: di
 
 
 def compute(spec: SplitSpec) -> dict:
+    if spec.members:
+        return _compute_union(spec)
     if spec.parent:
         return _compute_derived(spec)
     if spec.fresh:
@@ -284,6 +294,94 @@ def _compute_derived(spec: SplitSpec) -> dict:
         "group_status_by_parent_part": {
             part: _status_counts(status[g] for g in gs) for part, gs in sorted(parent_groups.items())
         },
+        "stats": stats,
+        "case_ids": {part.value: sorted(ids) for part, ids in assignment.items()},
+    }
+    body["content_sha256"] = sha256_json(body)
+    return body
+
+
+# --- Union split for Phase 3 (ADR-0019) ------------------------------------------------------------------
+
+# Part of a member split -> part of the union.
+UNION_PARTS = {Part.TRAIN: Part.TRAIN, Part.DEV: Part.TRAIN, Part.TEST: Part.VAULT, Part.VAULT: Part.VAULT}
+E0_KNOWLEDGE = "hpo_annotations_2025_03_03"
+CITED_BY_E0_KNOWLEDGE = "cited_e0_knowledge"
+UNCITED_BY_E0_KNOWLEDGE = "uncited_e0_knowledge"
+KNOWLEDGE_STATUSES = (CITED_BY_E0_KNOWLEDGE, UNCITED_BY_E0_KNOWLEDGE, NO_PMID)
+UNION_RULE = (
+    "train = {members[0]} train and dev; vault = {members[0]} test and vault and every part of the other "
+    "members ({rest}), sealed and opened once (ADR-0019). Publication groups are recomputed over the union "
+    "and may not straddle parts. A group is cited_e0_knowledge when one of its PMIDs is in the reference "
+    "column of HPO phenotype.hpoa 2025-03-03, the release E0 was trained on; uncited_e0_knowledge when it "
+    "has PMIDs and none is; no_pmid otherwise"
+)
+
+
+def _union_cases(spec: SplitSpec) -> tuple[list[Case], Counter]:
+    cases: list[Case] = []
+    drops: Counter = Counter()
+    for member in spec.members:
+        member_cases, member_drops = _all_cases(SPECS[member])
+        wanted = {i for ids in load_frozen(member)["case_ids"].values() for i in ids}
+        cases += [c for c in member_cases if c.case_id in wanted]
+        drops += member_drops
+    ids = [c.case_id for c in cases]
+    if len(ids) != len(set(ids)):
+        raise LineageError(f"{spec.split_id}: a case id appears in two member splits")
+    return cases, drops
+
+
+def _e0_knowledge_cited() -> set[str]:
+    return cited_pmids(open_source(E0_KNOWLEDGE, Purpose.EVAL))
+
+
+def knowledge_status(pmids: set[str], cited: set[str]) -> str:
+    if not pmids:
+        return NO_PMID
+    return CITED_BY_E0_KNOWLEDGE if pmids & cited else UNCITED_BY_E0_KNOWLEDGE
+
+
+def _compute_union(spec: SplitSpec) -> dict:
+    member_part: dict[str, tuple[str, Part]] = {}
+    for member in spec.members:
+        for p, ids in load_frozen(member)["case_ids"].items():
+            for cid in ids:
+                member_part[cid] = (member, Part(p))
+    cases, drops = _all_cases(spec)
+    if {c.case_id for c in cases} != set(member_part):
+        raise LineageError(f"{spec.split_id}: the member sources no longer give the cases they froze")
+    groups = _components(cases)
+    assignment: dict[Part, list[str]] = {Part.TRAIN: [], Part.VAULT: []}
+    group_part: dict[str, Part] = {}
+    for case in cases:
+        member, part = member_part[case.case_id]
+        part = UNION_PARTS[part] if member == spec.members[0] else Part.VAULT
+        if group_part.setdefault(groups[case.case_id], part) != part:
+            raise LineageError(f"{spec.split_id}: publication group {groups[case.case_id]} straddles parts")
+        assignment[part].append(case.case_id)
+
+    cited = _e0_knowledge_cited()
+    status = {g: knowledge_status(p, cited) for g, p in group_pmids(cases, groups).items()}
+    stats = _part_stats(assignment, cases, groups)
+    for part, ids in assignment.items():
+        by_status = {s: [i for i in ids if status[groups[i]] == s] for s in KNOWLEDGE_STATUSES}
+        stats[part.value]["by_e0_knowledge"] = {
+            s: {"cases": len(v), "publications": len({groups[i] for i in v})} for s, v in by_status.items()
+        }
+        stats[part.value]["from_member_part"] = dict(
+            sorted(Counter(f"{member_part[i][0]}/{member_part[i][1].value}" for i in ids).items())
+        )
+    sources = load_sources()
+    body = {
+        "split_id": spec.split_id,
+        "source": sources[spec.source].as_input(),
+        "inputs": [{"id": f"split:{m}", "sha256": load_frozen(m)["content_sha256"]} for m in spec.members]
+        + [sources[E0_KNOWLEDGE].as_input()],
+        "rule": UNION_RULE.format(members=spec.members, rest=", ".join(spec.members[1:])),
+        "sealed_parts": [Part.VAULT.value],
+        "parse_drops": dict(sorted(drops.items())),
+        "group_status": dict(sorted(status.items())),
         "stats": stats,
         "case_ids": {part.value: sorted(ids) for part, ids in assignment.items()},
     }
