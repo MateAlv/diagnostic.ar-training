@@ -64,6 +64,17 @@ MRR on uncited patients (ADR-0019 §6). Every rung also reports cited, in- and o
 - **Nested selection:** configurations are selected on inner folds, and the outer-fold estimate is reported. Every
   configuration and seed is logged.
 
+## 2b. Reading rule for the ladder (fixed before any rung is trained, 2026-10-13)
+- SELECT's uncited stratum is small: 93 publication groups, E0 MRR 0.403. On FIT folds, E0's uncited MRR is 0.178.
+- Every rung is therefore read on two sets, each against E0:
+  - **SELECT uncited:** the primary set; Δ MRR with its CI;
+  - **FIT uncited:** the train check. It is admissible for rungs that do not mix in real patients, because the
+    simulator's patient-fitted part is global (SIM4-v1).
+- **A rung counts as an improvement** when Δ is positive on both sets and SELECT's CI lower bound is above −0.01.
+  Otherwise it is "not shown".
+- **Reported for every rung:** cited, out-of-vocabulary and harmed counts.
+- **First batch (`configs/p3/L1-grid.yaml`):** R1–R4 from scratch and R4 warm-started from E0 (R4w), 90 min each.
+
 ## 3. Rules specific to Phase 3
 - **Knowledge:** HPOA 2025-03-03 and E0's gene list only, for the evaluated model.
 - **No literature negations anywhere:** no NOT rows, no 0/n rows, no excluded terms in training or evaluation
