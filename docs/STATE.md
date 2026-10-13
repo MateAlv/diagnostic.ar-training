@@ -4,6 +4,12 @@
 [BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PHASE2.md](PHASE2.md), [PLAN.md](PLAN.md),
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
 
+## Phase 3 (opened 2026-10-13): toward a v4.0
+- Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
+  (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
+  about 0.13 to 0.42, not 0.6.
+- Waiting for Mateo: the Phase 3 scope (§6) and the evaluation design, including the sealed set (§7).
+
 ## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
 - `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):
   - EXP-P-005: +0.00138 [+0.00070, +0.00232] on 3,587 sealed patients;

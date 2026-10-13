@@ -1,0 +1,414 @@
+{
+ "n_uncited": 2248,
+ "n_miss": 1407,
+ "patterns": {
+  "A1 OOV, annotated only from own paper (or not at all) even in HPO 2026-02": {
+   "n_miss": 412,
+   "share_of_misses": 0.2928216062544421,
+   "pubs": 52,
+   "n_all_in_pattern": 412,
+   "miss_rate_in_pattern": 1.0,
+   "resnik_top10_among_misses": 0.0,
+   "top_genes": [
+    [
+     "INPP4A",
+     30
+    ],
+    [
+     "UBR5",
+     29
+    ],
+    [
+     "RAB3A",
+     27
+    ],
+    [
+     "MED16",
+     25
+    ],
+    [
+     "MAU2",
+     20
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "MAU2",
+     "n_present": 11,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "TM2D3",
+     "n_present": 35,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "RAB3A",
+     "n_present": 4,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "ZSCAN10",
+     "n_present": 9,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    }
+   ]
+  },
+  "A2 OOV, other-paper annotations exist in HPO 2026-02": {
+   "n_miss": 121,
+   "share_of_misses": 0.08599857853589196,
+   "pubs": 24,
+   "n_all_in_pattern": 121,
+   "miss_rate_in_pattern": 1.0,
+   "resnik_top10_among_misses": 0.0,
+   "top_genes": [
+    [
+     "MSL2",
+     25
+    ],
+    [
+     "AMOTL1",
+     18
+    ],
+    [
+     "TRA2B",
+     13
+    ],
+    [
+     "GTF3C3",
+     12
+    ],
+    [
+     "ELFN1",
+     11
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "AMOTL1",
+     "n_present": 22,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "MSL2",
+     "n_present": 8,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "BAIAP2",
+     "n_present": 7,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    },
+    {
+     "gene": "MSL2",
+     "n_present": 9,
+     "explained": 0.0,
+     "gene_terms": 0,
+     "e0_rank": null,
+     "resnik_pg_rank": null,
+     "inh": "none/other"
+    }
+   ]
+  },
+  "B gene with <10 annotated terms": {
+   "n_miss": 113,
+   "share_of_misses": 0.08031272210376687,
+   "pubs": 18,
+   "n_all_in_pattern": 128,
+   "miss_rate_in_pattern": 0.8828125,
+   "resnik_top10_among_misses": 0.017699115044247787,
+   "top_genes": [
+    [
+     "SOX17",
+     44
+    ],
+    [
+     "LIM2",
+     21
+    ],
+    [
+     "CST3",
+     16
+    ],
+    [
+     "KCNK3",
+     9
+    ],
+    [
+     "CFAP57",
+     6
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "KCNK3",
+     "n_present": 11,
+     "explained": 0.0,
+     "gene_terms": 7,
+     "e0_rank": 5022.0,
+     "resnik_pg_rank": 4949.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "SOX17",
+     "n_present": 8,
+     "explained": 0.0,
+     "gene_terms": 9,
+     "e0_rank": 2557.0,
+     "resnik_pg_rank": 3373.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "CST3",
+     "n_present": 9,
+     "explained": 0.11,
+     "gene_terms": 7,
+     "e0_rank": 2045.0,
+     "resnik_pg_rank": 2108.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "CST3",
+     "n_present": 7,
+     "explained": 0.29,
+     "gene_terms": 7,
+     "e0_rank": 844.0,
+     "resnik_pg_rank": 623.5,
+     "inh": "AD"
+    }
+   ]
+  },
+  "C sparse phenotype (<=2 present terms)": {
+   "n_miss": 89,
+   "share_of_misses": 0.06325515280739161,
+   "pubs": 29,
+   "n_all_in_pattern": 121,
+   "miss_rate_in_pattern": 0.7355371900826446,
+   "resnik_top10_among_misses": 0.0449438202247191,
+   "top_genes": [
+    [
+     "ANKRD11",
+     20
+    ],
+    [
+     "SATB2",
+     10
+    ],
+    [
+     "LMNA",
+     6
+    ],
+    [
+     "TRIM28",
+     5
+    ],
+    [
+     "IKZF1",
+     4
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "ANKRD11",
+     "n_present": 2,
+     "explained": 1.0,
+     "gene_terms": 101,
+     "e0_rank": 137.0,
+     "resnik_pg_rank": 454.5,
+     "inh": "AD"
+    },
+    {
+     "gene": "TGFB3",
+     "n_present": 1,
+     "explained": 1.0,
+     "gene_terms": 112,
+     "e0_rank": 418.0,
+     "resnik_pg_rank": 573.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "SATB2",
+     "n_present": 2,
+     "explained": 1.0,
+     "gene_terms": 148,
+     "e0_rank": 1297.0,
+     "resnik_pg_rank": 716.5,
+     "inh": "AD"
+    },
+    {
+     "gene": "LAMB1",
+     "n_present": 2,
+     "explained": 0.0,
+     "gene_terms": 26,
+     "e0_rank": 2268.0,
+     "resnik_pg_rank": 1364.5,
+     "inh": "AR"
+    }
+   ]
+  },
+  "D phenotype mostly outside the gene's annotated profile (<50% explained)": {
+   "n_miss": 306,
+   "share_of_misses": 0.21748400852878466,
+   "pubs": 95,
+   "n_all_in_pattern": 354,
+   "miss_rate_in_pattern": 0.864406779661017,
+   "resnik_top10_among_misses": 0.05228758169934641,
+   "top_genes": [
+    [
+     "IKZF1",
+     28
+    ],
+    [
+     "NBAS",
+     26
+    ],
+    [
+     "UNC13A",
+     22
+    ],
+    [
+     "NOTCH3",
+     21
+    ],
+    [
+     "FDXR",
+     19
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "FDXR",
+     "n_present": 18,
+     "explained": 0.44,
+     "gene_terms": 40,
+     "e0_rank": 651.0,
+     "resnik_pg_rank": 141.0,
+     "inh": "AR"
+    },
+    {
+     "gene": "F8",
+     "n_present": 10,
+     "explained": 0.2,
+     "gene_terms": 50,
+     "e0_rank": 144.0,
+     "resnik_pg_rank": 18.0,
+     "inh": "XL"
+    },
+    {
+     "gene": "NBAS",
+     "n_present": 9,
+     "explained": 0.44,
+     "gene_terms": 45,
+     "e0_rank": 12.0,
+     "resnik_pg_rank": 7.0,
+     "inh": "AR"
+    },
+    {
+     "gene": "IKZF1",
+     "n_present": 5,
+     "explained": 0.0,
+     "gene_terms": 47,
+     "e0_rank": 139.0,
+     "resnik_pg_rank": 132.0,
+     "inh": "AD"
+    }
+   ]
+  },
+  "E well explained (>=50%), still missed": {
+   "n_miss": 366,
+   "share_of_misses": 0.2601279317697228,
+   "pubs": 65,
+   "n_all_in_pattern": 1112,
+   "miss_rate_in_pattern": 0.329136690647482,
+   "resnik_top10_among_misses": 0.12568306010928962,
+   "top_genes": [
+    [
+     "ANKRD11",
+     74
+    ],
+    [
+     "SATB2",
+     73
+    ],
+    [
+     "TMEM216",
+     55
+    ],
+    [
+     "PPP2R1A",
+     27
+    ],
+    [
+     "FBXO11",
+     13
+    ]
+   ],
+   "examples": [
+    {
+     "gene": "HMGCS2",
+     "n_present": 11,
+     "explained": 0.64,
+     "gene_terms": 21,
+     "e0_rank": 13.0,
+     "resnik_pg_rank": 10.0,
+     "inh": "AR"
+    },
+    {
+     "gene": "SATB2",
+     "n_present": 6,
+     "explained": 0.83,
+     "gene_terms": 148,
+     "e0_rank": 30.0,
+     "resnik_pg_rank": 342.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "SATB2",
+     "n_present": 5,
+     "explained": 0.8,
+     "gene_terms": 148,
+     "e0_rank": 208.0,
+     "resnik_pg_rank": 984.0,
+     "inh": "AD"
+    },
+    {
+     "gene": "ANKRD11",
+     "n_present": 8,
+     "explained": 0.62,
+     "gene_terms": 101,
+     "e0_rank": 199.0,
+     "resnik_pg_rank": 157.5,
+     "inh": "AD"
+    }
+   ]
+  }
+ }
+}

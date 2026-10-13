@@ -1,0 +1,2 @@
+present terms: 52266, without embedding: 107 (0.20%); patients with >=1: 72/5986
+hpo_genes_to_phenotype: 5251 annotated genes; outside v3.0 vocab: 145; vocab genes not annotated: 123

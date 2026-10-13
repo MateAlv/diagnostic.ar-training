@@ -4603,3 +4603,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Handoff:** [HANDOFF-ft-v1.1-prod.md](HANDOFF-ft-v1.1-prod.md). It recommends the confirmed package and documents the
   unmasked one as not recommended. `diagnostic.ar-model` is unchanged. Free parts
   only; no sealed data.
+
+## 2026-10-13: Phase 3 opened; P3-AUDIT-v1 (audit of E0 and ft-v1.1, options for a v4.0)
+- **Mateo's request:** audit v3.0 and ft-v1.1 (limitations, leakage, architecture, modules) and brainstorm a v4.0 that
+  improves prediction on new patients, without leakage or overfitting; some harm is acceptable for a larger real gain.
+- **Data:** `p2-v1` train + dev only (5,986 patients) and rank files already on disk. No sealed part, no ledger row.
+- **Write-up:** [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md); scripts `scripts/analysis/p3_audit/`, outputs
+  `results/analyses/P3-AUDIT-v1/`.
+- **Findings:**
+  - E0 was trained only on simulated patients from HPO 2025-03-03, 5,000 per gene, with uniform term choice,
+    imprecision as the only noise and a demo Poisson(5) term count; selected on simulated val MRR 0.781.
+  - E0 MRR, uncited & in-vocabulary: 0.330 [0.244, 0.404] (cited & in-vocabulary 0.597); post-0.1.25 uncited &
+    in-vocabulary 0.127 [0.076, 0.198]. 99% of uncited out-of-vocabulary genes have no annotation in HPO 2025-11-24.
+  - The explained share drives E0: < 25% → 0.041, ≥ 75% → 0.493 on uncited & in-vocabulary patients.
+  - Re-read by citation, EXP-A-001 c1 lost −0.125 on cited and −0.010 [−0.036, +0.014] on uncited dev patients;
+    EXP-P-007 −0.315 and −0.036.
+  - Training-free scorers (8 configurations × 2 knowledge releases) do not beat E0 on uncited patients (best Δ −0.077
+    [−0.136, −0.013]). Fusion, 15 configurations (listed in `configs_tried.txt`), tuned on train: dev uncited at most
+    +0.0028 [−0.0026, +0.0085] for the train-selected one; all hurt cited patients.
+  - Terms without an embedding: 0.20% of present terms. HPO 2026-02-16 annotates 145 genes outside E0's outputs.
+- **Next:** Mateo chooses the Phase 3 scope and the evaluation design (P3-AUDIT-v1 §6–§7).

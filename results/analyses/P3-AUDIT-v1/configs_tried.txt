@@ -1,0 +1,34 @@
+Phase 3 error analysis (2026-10-13), p2-v1 train+dev only (5,986 patients, 1,030 publication groups). No sealed part loaded.
+Repo HEAD 0b189f7 (clean tree, untouched). Bootstrap: 2,000 resamples of publication groups, seed 0.
+
+Systems scored
+ E0  GenPhenAI v3.0, present terms, recomputed (MRR 0.44238 = P2-PROBES-v1)
+ ft  ft-v1.1-c1-lin-all-ens, cached ranks results/EXP-P-003/ft-v1.1-c1-lin-all-ens/r1-v1-{train,dev}.ranks.jsonl
+
+Training-free scorers (sim.py). KB = hpo_annotations_2025_11_24 (aspect P, no NOT, no HP:0040285, no 0/n),
+gene-disease = hpo_genes_to_disease 2026-02-16 minus POLYGENIC, ontology hp.json 2026-02-16, patient terms restricted
+to HP:0000118 subtree. Per patient, every row citing one of the patient's own PMIDs is dropped. IC = -log(share of
+entities whose ancestor closure contains the term). Universe: 5,052 genes (4,988 also in E0's 5,229).
+  1 gene|resnik_pg       gene-union profile, Resnik best-match average patient->gene
+  2 gene|resnik_sym      gene-union profile, symmetric BMA (0.5 p->g + 0.5 g->p)
+  3 gene|heur_exact      a*wj - b*wi - g*wk, a 1, b .3, g .15, w = gene-level IC, exact term match
+  4 gene|heur_prop       same, j = patient terms in the gene's ancestor closure, k = gene terms not in patient closure
+  5 disease|resnik_pg    Phenomizer-style: disease-level p->d BMA, disease IC, gene = max over its diseases
+  6 disease|resnik_sym   disease-level symmetric BMA
+  7 disease|heur_exact   heuristic at disease level, gene = max
+  8 disease|heur_prop    heuristic (propagated) at disease level, gene = max
+  9-16 the same 8 with KB = hpo_annotations 2026-02-16 (descriptive only, not time-matched; used for the OOV question)
+
+Fusion (q4.py) with the scorer chosen on train MRR (disease|resnik_pg 0.1908 > gene|resnik_pg 0.1889 > gene|resnik_sym
+0.1699 > disease|resnik_sym 0.1588 > gene|heur_prop 0.0374). Universe = E0 vocab U KB genes. Missing score -> per-patient min.
+ round 1: rrf_k10_lam{0.25,0.5,1.0}, rrf_k60_lam{0.25,0.5,1.0}  [1/(k+r_E0) + lam/(k+r_sim), competition ranks]
+          z_lam{0.1,0.25,0.5,1.0}                               [z(E0 log p) + lam z(sim), z over the patient's genes]
+ round 2 (round 1 chose the grid edge): z_lam{0.01,0.02,0.05}; z_gate0.5_lam{0.1,0.25} (blend only when E0 top prob < 0.5)
+ selection: (a) train MRR over all train -> z_lam0.01; (b) train MRR over uncited train -> z_lam0.05
+ dev, all 15 configs (dev dMRR all / dev dMRR uncited):
+  rrf_k10_lam0.25 -0.0571/+0.0016  rrf_k10_lam0.5 -0.1028/+0.0042  rrf_k10_lam1.0 -0.1546/+0.0066
+  rrf_k60_lam0.25 -0.1349/+0.0022  rrf_k60_lam0.5 -0.1539/+0.0042  rrf_k60_lam1.0 -0.1756/+0.0057
+  z_lam0.1 -0.0350/+0.0067  z_lam0.25 -0.0993/+0.0129  z_lam0.5 -0.1428/+0.0161  z_lam1.0 -0.1823/+0.0083
+  z_lam0.01 -0.0000/+0.0011  z_lam0.02 -0.0015/+0.0013  z_lam0.05 -0.0070/+0.0028
+  z_gate0.5_lam0.1 -0.0002/+0.0037  z_gate0.5_lam0.25 -0.0019/+0.0069
+  median dev dMRR (all) over the 15: -0.0993

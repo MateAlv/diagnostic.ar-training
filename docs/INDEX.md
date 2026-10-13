@@ -97,6 +97,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [LIT-AUDIT-v1](analyses/LIT-AUDIT-v1.md) | Codex re-read of 98 sources: row error, recall |
 | [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md) | Which symptoms get the onset selector; dev tertiles Δ low +0.0069, mid +0.0040, high +0.0017 |
 | [P2-PROBES-v1](analyses/P2-PROBES-v1.md) | Phase 2 sizing on R1 train + dev: sex + strict onset +0.00088 [+0.00039, +0.00151], 0 harmed; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications |
+| [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md) | Phase 3 audit on R1 train + dev: how E0 was trained, E0 MRR 0.330 on uncited in-vocabulary patients vs 0.597 cited, Phase 1 losses re-read by citation, options for a v4.0 |
 
 ## Evidence for the informe (`evidence/`)
 
