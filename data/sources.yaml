@@ -42,7 +42,18 @@ hpo_annotations_2025_11_24:
   url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2025-11-24/phenotype.hpoa
   sha256: 1f161ec53897d54abc87a817cf08e722dfddbf34d4eb9bba74f260b074451aad
   license: HPO license (free use with attribution)
-  notes: The HPO annotation release E0 (v3.0) was trained on. Used only to mark publications E0 could have seen (ADR-0017); never a KB input.
+  notes: Used to mark publications E0 could have seen (ADR-0017); never a KB input. E0 was in fact trained on the 2025-03-03 release (P3-AUDIT-v1 §1), so this is a superset of what E0 saw.
+
+hpo_annotations_2025_03_03:
+  role: knowledge
+  version: "2025-03-03"
+  filename: phenotype.hpoa
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2025-03-03/phenotype.hpoa
+  sha256: e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1
+  license: HPO license (free use with attribution)
+  notes: The HPO annotation release E0 (v3.0) was trained on; byte-identical to GraPhens@7aef83d data/phenotype.hpoa (P3-AUDIT-v1 §1). Phase 3 (ADR-0019) uses it to mark publications E0's knowledge cites, and as v4.0's knowledge cut.
+  local_candidates:
+    - ../GenPhenAI/GraPhens/data/phenotype.hpoa
 
 hpo_genes_to_disease:
   role: knowledge

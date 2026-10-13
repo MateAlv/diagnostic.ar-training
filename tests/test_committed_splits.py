@@ -10,7 +10,7 @@ from diagnostic_ar_training.lineage.hashing import sha256_json
 
 FROZEN = sorted(p.stem for p in SPLITS_DIR.glob("*.json"))
 ALL_PARTS = {p.value for p in splits.Part}
-PARTS = {"r1-v1": ALL_PARTS, "p2-v1": ALL_PARTS, "p2-fresh-v1": {"vault"}}
+PARTS = {"r1-v1": ALL_PARTS, "p2-v1": ALL_PARTS, "p2-fresh-v1": {"vault"}, "p3-v1": {"train", "vault"}}
 
 
 def expected_parts(split_id):
@@ -56,3 +56,7 @@ def test_p2_v1_is_derived_from_r1_v1():
 def test_p2_v1_masks_the_same_pmids_as_r1_v1():
     committed = set((SPLITS_DIR / "r1-v1.heldout-pmids.txt").read_text().split())
     assert splits.heldout_pmids("p2-v1") == splits.heldout_pmids("r1-v1") == committed
+
+
+def test_p3_v1_is_the_split_phase_3_names():
+    assert splits.load_frozen("p3-v1")["content_sha256"].startswith("3e928b3d")
