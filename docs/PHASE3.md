@@ -4,8 +4,44 @@ Decision record: [ADR-0019](decisions/0019-phase-3-v4-retraining.md). Evidence: 
 Data: `p3-v1` (train 5,986 free; vault 4,659 sealed, one read on Mateo's go).
 
 ## 1. Status
-- 2026-10-13: audit done; `p3-v1` frozen; HPO 2025-03-03 registered; simulator audit running (reuse
-  `rare-disease-simulator` or rewrite).
+- **Done (2026-10-13):**
+  - audit;
+  - `p3-v1` frozen;
+  - HPO 2025-03-03 registered.
+- **Simulator audit: rewrite, do not reuse.**
+  - Every layer of `rare-disease-simulator` fitted on patients memorised: per-gene rho 0.52 on train vs 0.16 on dev
+    (candidate 6); the upstream simulator gave 0.24 vs 0.23.
+  - It also turns literature negations into negatives and uses newer knowledge.
+  - The new module is `sim4/`. From `rare-disease-simulator` it reuses only the budget-scaled sampling idea and
+    frequency parsing.
+- **Running:** `sim4/` (branch `p3/sim4`) and the training/evaluation harness `v4/` (branch `p3/v4-harness`).
+
+## 1b. Folds of `p3-v1` train (`sim4/folds.py`)
+Each publication group gets fold = sha256(`diagnostic.ar-training/p3-v1-cv:` + group) mod 5.
+
+| Folds | Role |
+|---|---|
+| 0, 1, 2 | **FIT:** simulator statistics, real patients mixed into training |
+| 3 | **SELECT:** early stopping, ladder comparisons, grid selection |
+| 4 | **CONFIRM:** untouched internal check of the finalists, read only by the main session (`DXT_P3_CONFIRM=1`, logged in `results/P3/CONFIRM_LEDGER.md`), before the vault pre-registration |
+
+- **Why not k-fold retraining:** a training run takes hours, and the simulator's patient-fitted part is global
+  (about 15 parameters plus one pooled vocabulary), so one fit/select/confirm split is affordable.
+- **Selection bias:** reusing SELECT across many configurations biases its estimate upward. CONFIRM and then the
+  vault measure without that bias.
+
+## 1c. Simulator rules (`sim4`, from the simulator audit)
+- **Knowledge:** E0's own: HPOA 2025-03-03 and E0's `genes_to_phenotype` (GraPhens@7aef83d).
+- **Literature negations dropped, a declared deviation from E0's knowledge:**
+  - E0's `genes_to_phenotype` has about 788 NOT-only rows and about 1,981 rows at frequency 0/n;
+  - E0 trained on them as positives;
+  - `sim4` drops them, together with NOT rows, 0/n and 0% rows and HP:0040285.
+- **Patient-fitted parameters are global and low-dimensional:**
+  - about 15 parameters;
+  - one pooled, gene-agnostic vocabulary of off-profile terms;
+  - no per-gene or per-term parameter fitted on patients.
+- **Fitting set:** only FIT-fold patients whose publication E0's knowledge does not cite, weighted per publication.
+- **Findings emitted:** phenotypic-abnormality terms only; never a term together with one of its ancestors.
 
 ## 2. Ablation ladder (cross-validation on `p3-v1` train, publication-grouped)
 

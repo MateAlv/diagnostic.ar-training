@@ -50,8 +50,11 @@
    - phenopacket excluded terms are neither training inputs nor evaluation inputs;
    - no "obligate" rule is derived from n/n rows.
 
+   E0's own gene–phenotype file contains such rows as positives (about 788 NOT-only, about 1,981 0/n). `sim4`
+   drops them too: a declared deviation from strict knowledge parity, in the direction of less knowledge.
    Absent symptoms remain outside v4.0; ft-v1.1's branch (or a refit) can sit on top later, measured separately.
-5. **Development** uses publication-grouped cross-validation on `p3-v1` train only.
+5. **Development** uses publication-grouped folds of `p3-v1` train only: FIT (0–2), SELECT (3) and CONFIRM (4,
+   main session only, logged); see PHASE3.md §1b.
    - Fold assignment is a salted hash of the publication group.
    - Every simulator statistic estimated from patients is fitted on the training folds only.
    - Every configuration and seed is logged (`results/P3/`, BITACORA), including grid searches.
