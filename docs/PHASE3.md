@@ -12,9 +12,11 @@ Data: `p3-v1` (train 5,986 free; vault 4,659 sealed, one read on Mateo's go).
   - Every layer of `rare-disease-simulator` fitted on patients memorised: per-gene rho 0.52 on train vs 0.16 on dev
     (candidate 6); the upstream simulator gave 0.24 vs 0.23.
   - It also turns literature negations into negatives and uses newer knowledge.
-  - The new module is `sim4/`. From `rare-disease-simulator` it reuses only the budget-scaled sampling idea and
-    frequency parsing.
-- **Running:** `sim4/` (branch `p3/sim4`) and the training/evaluation harness `v4/` (branch `p3/v4-harness`).
+  - The new module is `sim4/`. From `rare-disease-simulator@cfc20da` it ports frequency parsing,
+    `budget_scaled_probabilities` and the related-term moves (generalise, specialise, related noise), now driven by
+    the fitted global parameters (SIM4-v1).
+- **Done:** `sim4/` (PR #149), harness `v4/` (PR #150), ladder batch 1 (§2c, no rung improved).
+- **Next:** batch 2 (§2d), starting with the harness fix and the reproduction of E0.
 
 ## 1b. Folds of `p3-v1` train (`sim4/folds.py`)
 Each publication group gets fold = sha256(`diagnostic.ar-training/p3-v1-cv:` + group) mod 5.
@@ -74,6 +76,94 @@ MRR on uncited patients (ADR-0019 §6). Every rung also reports cited, in- and o
   Otherwise it is "not shown".
 - **Reported for every rung:** cited, out-of-vocabulary and harmed counts.
 - **First batch (`configs/p3/L1-grid.yaml`):** R1–R4 from scratch and R4 warm-started from E0 (R4w), 90 min each.
+
+## 2c. Batch 1 results (2026-10-13; exploratory, train folds only)
+Run rows: `results/P3/runs/`, `results/P3/GRID_LOG.jsonl`; histories and log in `data/interim/v4/`. Seed 0 only.
+
+| Rung | SELECT uncited Δ vs E0, best eval [CI] | SELECT uncited MRR at plateau (E0 0.403) | FIT uncited Δ [CI] | SELECT cited Δ |
+|---|---|---|---|---|
+| R1 (e0 recipe) | +0.002 [−0.053, +0.026] | 0.372 | −0.030 [−0.071, +0.002] | −0.093 |
+| R2 (`freq`) | −0.117 [−0.185, +0.003] | 0.274 | +0.006 [−0.029, +0.038] | −0.077 |
+| R3 (`real`) | −0.056 [−0.081, −0.001] | 0.316 | +0.005 [−0.029, +0.039] | −0.085 |
+| R4 (`real_noise`) | −0.031 [−0.057, −0.014] | 0.326 | +0.036 [−0.008, +0.084] | −0.045 |
+| R4w (E0 init, lr 1e-4) | stopped at 55 of 90 min | 0.351; its best eval is step 0 (E0 itself) | — | — |
+
+- **Verdict by the §2b rule:** no rung is an improvement.
+- **The batch is not a clean test of the simulator, for three reasons found afterwards:**
+  1. **The learning rate collapsed.** The `plateau` schedule halves the rate after 3 evaluations without a new best
+     SELECT MRR, and it has no floor (`min_lr_ratio` applies only to `cosine`). SELECT has 93 uncited groups, so
+     its MRR stalls early. Every run fell from 5e-4 to below 2.5e-5 by step about 150k (10–35 min, about 19M
+     samples) and to about 4e-6 by step 185k. Each run therefore trained for less than one E0 epoch at a useful
+     rate, and the remaining 55–80 min did nothing. E0 lowered its rate once per epoch on simulated validation,
+     over 18 epochs (about 330M samples).
+  2. **R1 does not reproduce E0** (plateau 0.372 vs 0.403 on SELECT uncited, −0.09 on cited). Every later rung
+     carries that deficit, so comparing a rung with E0 mixes the deficit with the rung's own effect. Candidate
+     causes, to separate in §2d: the schedule (1); the dropped literature negations (about 2,800 rows that E0
+     learned as positives); E0's fixed 5,000-per-gene set vs our fresh stream.
+  3. **R2 changed two things:** `freq` sets `recipe: disease` (pick one disease, then its findings) and
+     `frequency: fitted` together. Its −0.117 cannot be attributed to frequency weighting alone.
+- **The best-eval column is biased upward:** it is the best of 50–260 noisy evaluations on SELECT itself. The plateau
+  value (median of evaluations from step 200k) is the fairer reading.
+- **SELECT and FIT disagree:** relative to R1, R2–R4 lose on SELECT but gain on FIT (R4 +0.066). FIT is where the
+  simulator's global parameters were fitted, which may favour R3/R4 there (not R2, which uses no fitted
+  parameters). The per-group drivers of the disagreement are not yet analysed (§2d, step A3).
+- **R4w:** warm-starting E0 and training on `real_noise` at lr 1e-4 lowers SELECT uncited from 0.403 to about 0.35
+  within 60k steps. Continued simulated training erodes E0.
+
+## 2d. Plan for batch 2 (written 2026-10-13, before any batch-2 run)
+Order matters: each step is read before the next one is launched. GPU estimates are on the RTX 4070 Ti.
+
+**A. Fix the harness and reproduce E0 (gate before any rung is re-read).**
+- **A1. Schedule fix (code, no GPU):**
+  - The plateau scale gets a floor at `min_lr_ratio`.
+  - The ladder default becomes `cosine` over a fixed sample budget, so the rate does not depend on SELECT noise.
+  - SELECT is still evaluated every 10k steps, for monitoring and checkpoint choice only.
+  - Every run reports two readings: its best checkpoint, and its *final* checkpoint (not chosen on SELECT).
+  - A test pins the floor and the cosine shape.
+- **A2. R1 reproduction runs:**
+
+  | Run | Change from R1 | Budget | Question |
+  |---|---|---|---|
+  | R1c-90 | cosine, 90 min (about 165M samples) | 1.5 h | does the schedule alone close the gap? |
+  | R1c-180 | cosine, 180 min (about 330M, E0's total exposure) | 3 h | does it need E0's exposure? |
+  | R1c-90 s1 | seed 1 | 1.5 h | seed noise of the reading |
+  | R1neg (diagnostic only, **needs Mateo's OK**) | knowledge with E0's negation rows kept as positives | 1.5 h | how much of the gap is the negation deviation? Never a v4 candidate. |
+
+  - **Gate A:** R1's final checkpoint is within 0.02 of E0 on SELECT uncited, FIT uncited and SELECT cited.
+  - If the gap stays, the next diagnostic is E0's fixed 5,000-per-gene set (a replay of a fixed sample) before any
+    rung is re-read. The ladder does not proceed against a control that is far below E0.
+- **A3. SELECT vs FIT diagnosis (CPU, from the batch 1 rank files):** per-group Δ for R2 and R4 vs R1 on both
+  sets; whether a few SELECT groups drive the loss; Δ by explained share and by annotation count.
+
+**B. Re-run the simulator rungs on the fixed harness** (budget from A2, 2 seeds each, about 12 h).
+- R2 is split so each change is measured on its own:
+  - **R2a** `recipe: disease`, `frequency: uniform`;
+  - **R2b** R2a + `frequency: fitted` (the γ, f0 defaults from SIM4-v1).
+- Then R3 (`real`) and R4 (`real_noise`).
+- **Reading:** each rung against the previous rung and against R1 (its matched control); the §2b rule against E0 is
+  still reported. The vault gate (ADR-0019) is unchanged and is always against E0.
+- **The reading uses the final checkpoint and the seed mean,** plus the best checkpoint for reference.
+
+**C. Real patients (R5).**
+- **R5:** the best simulator rung from B (or R1 if none helped) with real FIT-fold patients mixed in at a ratio of
+  0.05, 0.1, 0.25 or 0.5. Each publication's weight is capped (the Track 2 lesson). Read on SELECT only: FIT
+  patients are in training, so the FIT train check no longer applies.
+- **R5w:** E0 warm start, low lr (1e-5 and 3e-5), the same mix. R4w showed that simulated data alone erodes E0;
+  this asks whether real patients can add to E0 without that.
+- About 8 h.
+
+**D. Encoding and covariates (R6, R7)** on the best of B/C, and R6 also on R1, to separate the encoding from the
+simulator. About 6 h.
+
+**E. Grid (R8)** on the best rung: hidden size, layers, pooling, dropout, lr, batch size, scratch vs E0 start. About
+5–8 h, with the configurations and seeds logged.
+
+**F. Claim.** CONFIRM check of at most 3 finalists (main session), pre-registration, independent review, then
+Mateo's go for the one vault read.
+
+**Decisions for Mateo before batch 2:**
+1. R1neg: allow a diagnostic run with E0's negation rows kept, only to measure the gap, never as a candidate?
+2. The ladder's control changes from E0 to R1 for rung-to-rung readings; the vault gate stays against E0.
 
 ## 3. Rules specific to Phase 3
 - **Knowledge:** HPOA 2025-03-03 and E0's gene list only, for the evaluated model.

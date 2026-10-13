@@ -14,6 +14,8 @@
   go). Agents never open the vault.
 - Gate (Mateo): improvement on data v3.0 never saw; Δ MRR CI lower bound > 0 on the 2,678 vault patients uncited by
   E0's knowledge. Grid search before the single read.
+- Ladder batch 1 (2026-10-13): no rung improved; the learning-rate schedule collapsed and R1 did not reproduce E0.
+  Next: batch 2 plan in [PHASE3.md](PHASE3.md) §2d (harness fix and R1 reproduction first; two decisions for Mateo).
 
 ## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
 - `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):

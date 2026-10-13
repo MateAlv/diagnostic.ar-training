@@ -4704,3 +4704,27 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - the FIT train-check gives +0.0071 on uncited and −0.0066 on cited.
 - **Pending:** the `samplers.sim4` adapter must match `sim4`'s final constructor once `p3/sim4` lands. R3–R7 need
   the path of `sim4`'s FIT-fold parameters file.
+## 2026-10-13: Phase 3 ladder batch 1 (`configs/p3/L1-grid.yaml`); no rung improved; plan for batch 2
+- **Runs** (seed 0, 90 min each, exploratory on `p3-v1` train folds; no vault, no CONFIRM read): R1 `R1-179b7df65b`,
+  R2 `R2-7530916138`, R3 `R3-bb65d5e066`, R4 `R4-5ea113ec1b` complete. R4w `R4w-07624b85a2` stopped by hand at 55 of
+  90 min (its `last.pt` is kept and the grid would resume it). Rows in `results/P3/runs/` and
+  `results/P3/GRID_LOG.jsonl`. Histories and the full log are in `data/interim/v4/`.
+- **SELECT uncited Δ MRR vs E0 at the best evaluation:**
+
+  | Rung | Δ [CI] |
+  |---|---|
+  | R1 | +0.002 [−0.053, +0.026] |
+  | R2 | −0.117 [−0.185, +0.003] |
+  | R3 | −0.056 [−0.081, −0.001] |
+  | R4 | −0.031 [−0.057, −0.014] |
+
+  - FIT uncited: R1 −0.030; R2 +0.006; R3 +0.005; R4 +0.036.
+  - Plateau SELECT uncited MRR: 0.372, 0.274, 0.316 and 0.326 (E0 0.403).
+  - R4w fell from E0's 0.403 to about 0.35.
+- **Found afterwards:**
+  - The `plateau` schedule has no floor and keys on noisy SELECT MRR. The rate fell below 2.5e-5 by step about 150k
+    in every run, and later steps barely trained.
+  - R1 does not reproduce E0.
+  - `freq` changes the recipe and the frequency together.
+- **Plan:** PHASE3.md §2c–§2d (harness fix, R1 reproduction gate, R2 split into R2a/R2b, then R5 real patients).
+  Two decisions pending for Mateo (§2d).
