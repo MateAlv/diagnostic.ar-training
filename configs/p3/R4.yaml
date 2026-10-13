@@ -3,7 +3,7 @@ label: R4
 seed: 0
 sim:
   preset: real_noise
-  # params: <sim4 fit output on FIT folds; its sha256 enters the run id>
+  params: results/analyses/SIM4-v1/fit-folds-0-1-2.json
 arch:
   init: scratch
 train:

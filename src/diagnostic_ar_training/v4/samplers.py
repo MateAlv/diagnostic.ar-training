@@ -36,12 +36,12 @@ def sample_covariates(
 
 
 def sim4(preset: str, params: Path | None) -> Sampler:
-    from diagnostic_ar_training.sim4 import PRESETS, Sampler, fit, load_knowledge
+    from diagnostic_ar_training.sim4 import PRESETS, FittedParams, Sampler, load_knowledge
 
     if preset not in PRESETS:
         raise ValueError(f"unknown sim4 preset {preset!r}; one of {sorted(PRESETS)}")
-    fitted = fit.load(params) if params is not None else None
-    return Sampler(load_knowledge(), PRESETS[preset], fitted)
+    fitted = FittedParams.load(params) if params is not None else None
+    return Sampler(load_knowledge(), fitted, PRESETS[preset])
 
 
 def build(sim: SimConfig) -> Sampler:

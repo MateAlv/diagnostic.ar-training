@@ -1,4 +1,5 @@
-# R2: R1 with per-disease, frequency-weighted term sampling (sim4 preset freq).
+# R2: R1 with per-disease, frequency-weighted term sampling (sim4 preset freq). No params file: the defaults
+# gamma = 1 (proportional) and f0 = 0.5 apply, so this rung uses no patient-fitted parameter.
 label: R2
 seed: 0
 sim:

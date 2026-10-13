@@ -3,7 +3,7 @@ label: R7
 seed: 0
 sim:
   preset: real_noise
-  # params: <sim4 fit output on FIT folds>
+  params: results/analyses/SIM4-v1/fit-folds-0-1-2.json
   real_ratio: 0.1
 encoding:
   observed_flag: true

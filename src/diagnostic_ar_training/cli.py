@@ -14,6 +14,7 @@ from diagnostic_ar_training.cli_lit_extract import extract_app
 from diagnostic_ar_training.cli_ltr import ltr_app
 from diagnostic_ar_training.cli_safe import safe_app
 from diagnostic_ar_training.cli_sim import knowledge_app, sim_app
+from diagnostic_ar_training.cli_sim4 import sim4_app
 from diagnostic_ar_training.cli_v4 import v4_app
 from diagnostic_ar_training.cli_vocab import vocab_app
 from diagnostic_ar_training.lineage import registry
@@ -35,6 +36,7 @@ app.add_typer(kb_app, name="kb")
 app.add_typer(artifacts_app, name="artifacts")
 app.add_typer(knowledge_app, name="knowledge")
 app.add_typer(sim_app, name="sim")
+app.add_typer(sim4_app, name="sim4")
 app.add_typer(lit_app, name="lit-sources")
 app.add_typer(extract_app, name="lit")
 app.add_typer(safe_app, name="safe")

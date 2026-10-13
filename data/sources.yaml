@@ -55,6 +55,26 @@ hpo_annotations_2025_03_03:
   local_candidates:
     - ../GenPhenAI/GraPhens/data/phenotype.hpoa
 
+hpo_ontology_2025_03_03:
+  role: knowledge
+  version: "2025-03-03"
+  filename: hp.json
+  url: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2025-03-03/hp.json
+  sha256: bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191
+  license: HPO license (free use with attribution)
+  notes: The ontology of the HPO release E0 was trained on (ADR-0019 §3). sim4's knowledge cut (docs/analyses/SIM4-v1.md); patient terms are mapped to it through alt_id / replaced_by.
+
+e0_genes_to_phenotype:
+  role: knowledge
+  version: GraPhens@7aef83d
+  filename: genes_to_phenotype.txt
+  url: https://raw.githubusercontent.com/gianluccacolangelo/GraPhens/7aef83d/data/genes_to_phenotype.txt
+  sha256: 54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a
+  license: HPO license (free use with attribution); file from the GenPhenAI authors
+  notes: E0's gene list and gene -> disease -> term rows (5,229 symbols incl. "-"; matches no official HPO release, BITACORA 2026-10-13). E0's output index is the sorted set of its gene symbols. sim4 drops its NOT-only and zero-frequency rows (ADR-0019 §4), a declared deviation from E0's knowledge.
+  local_candidates:
+    - ../GenPhenAI/GraPhens/data/genes_to_phenotype.txt
+
 hpo_genes_to_disease:
   role: knowledge
   version: "2026-02-16"
