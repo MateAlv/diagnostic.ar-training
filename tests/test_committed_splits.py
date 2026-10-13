@@ -56,3 +56,7 @@ def test_p2_v1_is_derived_from_r1_v1():
 def test_p2_v1_masks_the_same_pmids_as_r1_v1():
     committed = set((SPLITS_DIR / "r1-v1.heldout-pmids.txt").read_text().split())
     assert splits.heldout_pmids("p2-v1") == splits.heldout_pmids("r1-v1") == committed
+
+
+def test_p3_v1_is_the_split_phase_3_names():
+    assert splits.load_frozen("p3-v1")["content_sha256"].startswith("3e928b3d")

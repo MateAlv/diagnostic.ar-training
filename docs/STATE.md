@@ -4,11 +4,15 @@
 [BITACORA.md](BITACORA.md). Entry points: [INDEX.md](INDEX.md), [PHASE2.md](PHASE2.md), [PLAN.md](PLAN.md),
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
 
-## Phase 3 (opened 2026-10-13): toward a v4.0
+## Phase 3 (opened 2026-10-13): toward a v4.0 ([ADR-0019](decisions/0019-phase-3-v4-retraining.md), [PHASE3.md](PHASE3.md))
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.
-- Waiting for Mateo: the Phase 3 scope (§6) and the evaluation design, including the sealed set (§7).
+- Scope (Mateo): a pristine frequency-weighted simulator fitted on real training patients, plus input encoding, as an
+  ablation ladder; no literature negation anywhere; knowledge = E0's (HPOA 2025-03-03).
+- `p3-v1` frozen (`3e928b3d…`): train 5,986 (free; cross-validation); vault 4,659 (sealed; one read, only on Mateo's
+  go). Agents never open the vault.
+- Waiting for Mateo: the gate's form (ADR-0019, Open).
 
 ## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
 - `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):

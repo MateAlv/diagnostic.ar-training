@@ -4623,3 +4623,23 @@ this task, whatever the result**; the last read needs Mateo's OK.
     +0.0028 [−0.0026, +0.0085] for the train-selected one; all hurt cited patients.
   - Terms without an embedding: 0.20% of present terms. HPO 2026-02-16 annotates 145 genes outside E0's outputs.
 - **Next:** Mateo chooses the Phase 3 scope and the evaluation design (P3-AUDIT-v1 §6–§7).
+
+## 2026-10-13: Phase 3 scope (ADR-0019); `p3-v1` frozen; HPO 2025-03-03 registered
+- **Mateo's decisions:**
+  - options 1 (frequency-weighted, real-fitted simulator) and 3 (input encoding) of P3-AUDIT-v1, measured separately;
+  - no literature negation may influence anything;
+  - make the simulator as pristine as possible;
+  - freeze the sealed set now and open it only on his word;
+  - long GPU grid searches are fine.
+- **Knowledge check:** E0's `phenotype.hpoa` is byte-identical to HPO release 2025-03-03 (sha256 `e12a07b4…`), now
+  registered as `hpo_annotations_2025_03_03`. E0's `genes_to_phenotype.txt` (GraPhens@7aef83d, 424,277 lines, 5,229
+  genes) matches no official release: it is a superset of 2025-03-03's genes (5,129; 0 missing) and differs from
+  2024-12-12, 2025-01-16, 2025-05-06, 2025-08-11 and 2025-09-01.
+- **`p3-v1`**, the union split (code `splits._compute_union`, tests `tests/test_splits_p3.py`), frozen from a clean tree
+  at the commit before this entry:
+  - content `3e928b3d…`;
+  - train = `p2-v1` train + dev: 5,986 patients, 1,030 groups, 2,722 uncited by E0's knowledge;
+  - vault = `p2-v1` test + vault + `p2-fresh-v1`: 4,659 patients, 788 groups, 2,678 uncited.
+  - Heldout PMIDs: `p3-v1.heldout-pmids.txt` (`08dcc1a9…`).
+  - Only counts were computed; no metric on any vault patient.
+- **Records:** ADR-0019 and PHASE3.md (ablation ladder, backlog B1–B11).

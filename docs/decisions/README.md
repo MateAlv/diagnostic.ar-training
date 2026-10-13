@@ -24,3 +24,4 @@ with a new one and link both ways.
 | [0016](0016-final-deployment-and-close-out.md) | Final deployment and close-out of the model experiments | Accepted 2026-10-05 | Q2b + `rerank-v1.0.0` deployed in staging; `rerank-v1.1.0` not released (EXP-V-001); no more model experiments (superseded by 0017, 2026-10-07) |
 | [0017](0017-phase-2-real-patient-restart.md) | Phase 2: a restart on real patients with a post-E0 final check | Accepted 2026-10-07 | Done: EXP-P-005 and EXP-P-006 passed; see 0018 |
 | [0018](0018-ft-v11-production-ready.md) | `ft-v1.1-c1-lin-all-ens` is the production-ready model; integration later | Accepted 2026-10-08 | In force |
+| [0019](0019-phase-3-v4-retraining.md) | Phase 3: a v4.0 retrained on a pristine simulator and real patients, with one sealed read (`p3-v1` vault) | Accepted 2026-10-13 | In force; gate form open |
