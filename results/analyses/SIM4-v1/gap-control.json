@@ -1,0 +1,56 @@
+{
+ "code": {
+  "dirty": false,
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "606d9b5de65e0531bc964c695a973d8cb8e82a6c"
+ },
+ "config": {
+  "categories": "e0",
+  "count_slope": false,
+  "counts": "e0",
+  "covariates": false,
+  "frequency": "proportional",
+  "group_weight": 0.2,
+  "max_tries": 20,
+  "name": "freq_prop_nofit",
+  "off_mix": 0.5,
+  "off_profile": "none",
+  "recipe": "disease"
+ },
+ "params": "FittedParams()",
+ "runs": {
+  "0": {
+   "eval_fold": 0.17390481604464647,
+   "fit_folds_matched_n": 0.2656768516791022,
+   "gap_ci95": [
+    0.03879894383990168,
+    0.15859571618850757
+   ],
+   "gap_fit_minus_eval": 0.09177203563445577,
+   "gap_genes": 9,
+   "genes_scored": 9
+  },
+  "1": {
+   "eval_fold": 0.16117932987450553,
+   "fit_folds_matched_n": 0.21458438290034396,
+   "gap_ci95": [
+    0.007786484507281651,
+    0.10237521140748534
+   ],
+   "gap_fit_minus_eval": 0.053405053025838464,
+   "gap_genes": 9,
+   "genes_scored": 9
+  },
+  "2": {
+   "eval_fold": 0.19588729632969898,
+   "fit_folds_matched_n": 0.24683022555934697,
+   "gap_ci95": [
+    -0.012199722848504409,
+    0.11208251239391766
+   ],
+   "gap_fit_minus_eval": 0.050942929229648014,
+   "gap_genes": 9,
+   "genes_scored": 9
+  }
+ }
+}

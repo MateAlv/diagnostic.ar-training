@@ -4650,3 +4650,33 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Cited and overall results are reported but do not gate.
 - The candidate is chosen by grid search on FIT/SELECT and checked on CONFIRM before the single read.
 - PRs #147 and #148 merged at Mateo's request.
+
+## 2026-10-13: `sim4`, the Phase 3 simulator (SIM4-v1)
+- **What:** a new, minimal simulator `src/diagnostic_ar_training/sim4/` with presets `e0`, `freq`, `real` and
+  `real_noise` (ladder rungs R1–R4), the fold contract `sim4/folds.py` (FIT 0–2, SELECT 3, CONFIRM 4) and the CLI
+  `dxt sim4 knowledge|fit|validate|sample`. Write-up: [SIM4-v1](analyses/SIM4-v1.md).
+- **Sources added:** `hpo_ontology_2025_03_03` and `e0_genes_to_phenotype` (role knowledge; sha256 verified after
+  `dxt sources fetch`).
+- **Knowledge `sim4-kb-v1`:**
+  - dropped from HPOA 2025-03-03: 711 NOT rows and 2,011 zero-frequency rows;
+  - dropped from E0's file: 774 NOT-only rows, 1,980 zero-frequency rows and 17,027 non-finding rows. This is a
+    declared deviation from E0's knowledge;
+  - 5,226 genes are simulable, and the gene index equals E0's.
+- **Fit `sim4-fit-v1`:** FIT folds, 1,038 uncited patients in 234 publications.
+  - `γ` 0.755, `f0` 0.302, count slope 0.110;
+  - category shares: exact 0.760, ancestors 0.044, descendants 0.196;
+  - off-profile share Beta(0.861, 2.263);
+  - a 104-term pooled vocabulary.
+  - In all: 14 scalars, one 25-bin histogram and one vocabulary; nothing per gene or per term.
+- **Validation `sim4-validation-v1`:** SELECT fold, 595 uncited patients. Seven configurations tried, all logged:
+  - C2ST: `e0` 0.918, `freq` 0.834, `real` 0.884, `real_noise` 0.714 [0.513, 0.796];
+  - variants: neighbourhood noise 0.789, mixed 0.775, no slope 0.883;
+  - E0 MRR on real patients 0.490 vs `real_noise` 0.432 and neighbourhood 0.508; `e0` gives 0.711.
+  - Per-gene rho gap (FIT − SELECT, 9 genes) is 0.025–0.098. An unfitted control gives 0.051–0.092, so the gap is
+    fold composition, not memorisation.
+- **Ported from rare-disease-simulator@cfc20da** (provenance headers):
+  - frequency parsing, with zero rows now dropped before pooling;
+  - `budget_scaled_probabilities`;
+  - `_RelatedTerms`, `_maybe_generalize`, `_specialize` and `_related_noise_term`, driven by fitted parameters.
+  - Everything patient-fitted per term or per gene, and all negation logic, is dropped (SIM4-v1 §5).
+- No sealed part and no CONFIRM fold read. `dxt lineage verify` ok.

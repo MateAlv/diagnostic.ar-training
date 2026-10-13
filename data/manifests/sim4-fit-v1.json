@@ -1,0 +1,46 @@
+{
+  "artifact_id": "sim4-fit-v1",
+  "kind": "sim4-fit",
+  "created_at": "2026-10-13T14:05:26+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "606d9b5de65e0531bc964c695a973d8cb8e82a6c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    },
+    {
+      "id": "split:p3-v1",
+      "sha256": "3e928b3d0e830e6ab80c65019abe136bb3590763e3b5a89e6c5ed338fb221f10"
+    }
+  ],
+  "params": {
+    "folds": [
+      0,
+      1,
+      2
+    ],
+    "uncited_only": true
+  },
+  "params_hash": "d64855567bf9e85df7f078fa11e42fd5369c4e1eaf9c9ecaaa89d9a35c910ee7",
+  "outputs": [
+    {
+      "path": "results/analyses/SIM4-v1/fit-folds-0-1-2.json",
+      "sha256": "1e70ae56d07c8f922aa0d04f33eb7853bbf0261f9d33f37d77b85ec8241909af",
+      "bytes": 7596
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

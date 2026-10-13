@@ -1,0 +1,37 @@
+{
+  "artifact_id": "sim4-kb-v1",
+  "kind": "sim4-knowledge",
+  "created_at": "2026-10-13T14:05:09+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "606d9b5de65e0531bc964c695a973d8cb8e82a6c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    }
+  ],
+  "params": {
+    "content_sha256": "b29567459c3e076c7ce9a36a830f564cede3855b81a355189ef4f82b473d414e"
+  },
+  "params_hash": "8db8e0b41a849900c872de2af936b481ab7dfacabb1a404eac53326ce4937b38",
+  "outputs": [
+    {
+      "path": "data/sim4/sim4-kb-v1.stats.json",
+      "sha256": "9e5712553a20c56e8e01076002add2de2cd4a5ed00e89fc1039b926bc809b278",
+      "bytes": 1115
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

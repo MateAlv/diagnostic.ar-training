@@ -147,6 +147,8 @@ model's ontology or zero-embedded.
 
 | Date | Event | Details |
 |---|---|---|
+| 2026-10-13 | sim4 artifacts (SIM4-v1) | `sim4-kb-v1` (knowledge record, content `b2956745…`), `sim4-fit-v1` (global fit on `p3-v1` FIT folds 0–2, uncited publications), `sim4-validation-v1` (SELECT fold 3); outputs in `data/sim4/` and `results/analyses/SIM4-v1/` |
+| 2026-10-13 | Sources added | `hpo_ontology_2025_03_03` (hp.json of E0's HPO release, downloaded, sha256 verified) and `e0_genes_to_phenotype` (GraPhens@7aef83d; the raw URL and the local copy have the same sha256); role knowledge |
 | 2026-10-08 | EXP-P-007 runs (Track 4, new-row training) | 18 `vocab-rows-run` manifests `results-EXP-P-007-select-<config>-s<seed>` (train only), `results-EXP-P-007-selection` (`vocab-selection`), 3 `vocab-rows-run` manifests `results-EXP-P-007-final-c2-n512-r32-s<seed>` and `results-EXP-P-007-final-c2-n512-r32-ens` (`vocab-rows-eval`, ensemble rows sha256 `2d3a9372…`); knowledge `ft-kb-all-v2` (§14) |
 | 2026-10-08 | Artifact `ft-kb-all-v2` built (not published) | ft-v1.1 knowledge from `1bb3926` (`ft-kb/2`), same sources, mask and overrides as `ft-kb-all-v1`; XLR-only now needs the explicit HP:0001419 (125 genes, was 164; 39 generic-X-linked genes dropped), no XLD flag; otherwise identical to v1; `ft-kb.json.gz` sha256 `18cf37f1…` (§11) |
 | 2026-10-08 | EXP-P-003 addendum runs and bundles (ft-v1.1) | 27 `ft-run` manifests `results-EXP-P-003-ft-v1.1-*` (8 configurations × 3 seeds and the c1 ablation × 3); bundles `ft-v1.1-c1-lin-all-ens` (sha256 `89e3ea09…`) and `ft-v1.1-c1-lin-all-nosexage-ens`; `results-EXP-P-003-report-ft-v1.1`; `results-EXP-P-003-ft-v1.1-c1-lin-all-ens-train-harmed` (§11) |
