@@ -1,0 +1,67 @@
+{
+  "artifact_id": "sim4-validation-v1",
+  "kind": "sim4-validation",
+  "created_at": "2026-10-13T14:06:04+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "606d9b5de65e0531bc964c695a973d8cb8e82a6c",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    },
+    {
+      "id": "split:p3-v1",
+      "sha256": "3e928b3d0e830e6ab80c65019abe136bb3590763e3b5a89e6c5ed338fb221f10"
+    }
+  ],
+  "params": {
+    "fit_folds": [
+      0,
+      1,
+      2
+    ],
+    "eval_fold": 3,
+    "presets": [
+      "e0",
+      "freq",
+      "real",
+      "real_noise",
+      "real_noise_nbhd",
+      "real_noise_mix",
+      "real_noslope"
+    ],
+    "reps": 5,
+    "seed": 0
+  },
+  "params_hash": "9258e8433b175e8c9a8bdfd0d56814a3dd6fa9fa7be7866f41aacc7fc1f1d36e",
+  "outputs": [
+    {
+      "path": "results/analyses/SIM4-v1/validation-fit012-eval3.json",
+      "sha256": "527287d2f852a287d97448a429fa5d06db49a5877532eeb1483012e11a07a70c",
+      "bytes": 19481
+    },
+    {
+      "path": "results/analyses/SIM4-v1/validation-fit012-eval3.md",
+      "sha256": "e8befff7b920400ccf24db90c43161224e11a36d056966590216f1a9ecc1cf78",
+      "bytes": 2089
+    },
+    {
+      "path": "results/analyses/SIM4-v1/fit-folds-0-1-2.json",
+      "sha256": "1e70ae56d07c8f922aa0d04f33eb7853bbf0261f9d33f37d77b85ec8241909af",
+      "bytes": 7596
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

@@ -1,0 +1,42 @@
+{
+ "artifact_id": "sim4-kb-v1",
+ "content_sha256": "b29567459c3e076c7ce9a36a830f564cede3855b81a355189ef4f82b473d414e",
+ "diseases_in_hpoa_after_filters": 12683,
+ "e0_index_matches_bundle": true,
+ "genes": 5229,
+ "simulable_genes": 5226,
+ "stats": {
+  "entities": {
+   "disease": 10100,
+   "frequency_known_share": 0.7191,
+   "genes_no_disease_only": 101,
+   "genes_simulable": 5226,
+   "genes_without_findings": 2,
+   "group": 2189,
+   "nodisease": 2285,
+   "orpha_name_duplicates_of_omim": 428
+  },
+  "genes_to_phenotype": {
+   "deduped_no_disease_rows": 53916,
+   "dropped_dash_gene": 289,
+   "dropped_not_only_in_hpoa": 774,
+   "dropped_not_phenotypic_abnormality": 17027,
+   "dropped_zero_frequency": 1980,
+   "genes": 5229,
+   "rows": 424276,
+   "rows_kept": 404206
+  },
+  "hpoa": {
+   "dropped_not_aspect_H": 7,
+   "dropped_not_aspect_P": 704,
+   "dropped_zero_frequency": 2011,
+   "pairs_dropped_not_phenotypic_abnormality": 8,
+   "pairs_kept": 251422,
+   "pairs_not_only": 704,
+   "pairs_pooled_multi_row": 430,
+   "pairs_zero_frequency_only": 1958,
+   "rows": 271776,
+   "rows_p_positive": 253979
+  }
+ }
+}
