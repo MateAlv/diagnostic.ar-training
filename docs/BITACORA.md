@@ -4754,3 +4754,20 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - SELECT capped Δ +0.059 [+0.002, +0.122], with the phenotype swap at −0.049.
   - FIT +0.104 [+0.062, +0.152] (tuned there).
   - SELECT harm is mostly the ANKRD11 paper, whose gene has no FIT memory (P3-BATCH1-DIAG §6).
+## 2026-10-14: R1c passes Gate A; K2 and the out-of-fold K1 reading
+- **R1c** (`configs/p3/b2/R1c.yaml`, cosine schedule, 90 min, best step 450k). Capped Δ vs E0
+  (P3-BATCH1-DIAG §7):
+  - final checkpoint: SELECT uncited −0.008 [−0.031, +0.015], FIT uncited −0.005, SELECT cited −0.008. **Gate A
+    passes**: the schedule was R1's gap.
+  - best checkpoint: SELECT uncited −0.002, FIT uncited −0.003, cited −0.031 / −0.033.
+  - Plain MRR on SELECT uncited: best +0.031, final −0.030 (ANKRD11 paper).
+  - Final checkpoint scored with `scripts/analysis/p3_batch1/final_checkpoint.py`.
+- **K2** (`scripts/analysis/p3_batch1/k2.py`, folds 0–3, nested out-of-fold selection, P3-BATCH1-DIAG §8):
+  - K1 out of fold, pooled: uncited capped Δ +0.076 [+0.041, +0.111], swap −0.048. Positive in all four folds
+    (+0.123, +0.096, +0.050, SELECT +0.024). Cited −0.016 [−0.050, +0.020].
+  - Boost cap and E0-confidence gate: no gain (+0.074).
+  - Harm comes from genes without memory (ANKRD11, SATB2, TMEM216: each its gene's only publication). A boost for
+    memory-less genes would be a cohort prior, so it is not used.
+  - A first draft left the query's publication in the per-gene null (pooled +0.081); fixed before this reading.
+- **Next:** K3 (learned similarity), R5 (GNN with real patients, from R1c), `dxt v4 eval` final-checkpoint
+  option.
