@@ -4810,3 +4810,13 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Decision:** `direct` is rejected (it matches the curators' per-gene term templates). ic max and ic top2 are
   carried forward.
 - Curator check not possible: every phenopacket's `createdBy` is the same (`curators.py`, fold 0–3 entries only).
+## 2026-10-14: R5-r30 and R5-r90 (GNN fine-tuned with real FIT patients, gene-balanced)
+- Runs `R5-r30-fa772ffa7e`, `R5-r90-455369622d` (from R1c's final checkpoint, 60 min each). P3-BATCH1-DIAG §10.
+- SELECT capped Δ vs E0, final checkpoints:
+  - R5-r30: uncited +0.051 [+0.020, +0.090], cited +0.085, swap −0.000. Helped 172, harmed 178.
+  - R5-r90: uncited +0.027 [−0.013, +0.072].
+- Parent terms: R5-r30 +0.022 [+0.003, +0.045]; R5-r90 −0.006.
+- Under phenotype swap, R5-r30 lifts genes with FIT patients by about 20% in raw rank (log2 −0.32 vs −0.08 for other
+  genes); invisible in capped MRR.
+- R5-r30 + K1 memory: +0.048; the memory adds nothing on top of R5.
+- Scripts: `r5_checks.py`, `r5_fusion.py`; `k2.py --dump`.

@@ -177,3 +177,36 @@ reflect curation instead of the clinical picture. `--perturb parent` replaces ev
   on these folds is a selection; CONFIRM reads it once.
 - The vault is curated the same way, so its gate cannot detect template matching. The parent-term reading is
   reported next to any vault result.
+
+## 10. R5: the GNN fine-tuned with real FIT patients
+`configs/p3/b2/R5-r30.yaml`, `R5-r90.yaml`: R1c's final checkpoint, 60 min, `real_draw: gene` (the gene is drawn as
+the simulator draws it, so the label marginal stays uniform). Real items are about 1.8% (r30) and 5.4% (r90) of the
+stream. R5 trains on FIT patients, so **SELECT is its only out-of-sample reading** (FIT uncited in-vocabulary
+reaches 0.92–0.98: memorised).
+
+| SELECT, capped Δ vs E0 | uncited | uncited in-vocab | cited | phenotype swap, uncited |
+|---|---|---|---|---|
+| R5-r30, final | **+0.051 [+0.020, +0.090]** | +0.071 [+0.026, +0.123] | +0.085 [+0.040, +0.136] | −0.000 [−0.001, +0.001] |
+| R5-r30, best (step 365k, chosen on SELECT) | +0.061 [+0.029, +0.101] | +0.085 | +0.086 | +0.000 |
+| R5-r90, final | +0.027 [−0.013, +0.072] | +0.037 | +0.052 | −0.000 |
+| *E0 + K1 memory, same SELECT patients (§8)* | +0.024 [−0.033, +0.086] | | | |
+
+Checks (`r5_checks.py`, `r5_fusion.py`, final checkpoints):
+- **Harm:** R5-r30 helps 172 and harms 178 SELECT uncited patients (E0 + K1: 73 and 404).
+- **Parent terms** (every present term moved to a parent, E0 and R5 both scored on them): R5-r30 +0.022
+  [+0.003, +0.045], so it keeps 43% of its gain (the ancestor-closure memory keeps 70–80%, §9). R5-r90 −0.006: more
+  real exposure, more template matching.
+- **Popularity, on raw ranks.** Capped MRR under phenotype swap sits at its floor (0.013), so it cannot show a weak
+  prior. On the swapped true gene's rank (SELECT uncited in-vocabulary):
+
+  | Run | gene has FIT patients (153) | gene has none (442) |
+  |---|---|---|
+  | R5-r30 | median 1,398 → 1,152; mean log2 ratio −0.32; 67% improved | 524 → 453; −0.08; 49% |
+  | R5-r90 | 1,398 → 1,396; −0.04; 54% | 524 → 443; −0.09; 52% |
+
+  R5-r30 lifts genes with real patients by about 20% in rank without their phenotype. The label marginal is
+  uniform, so this is not a count prior; it is a response to real-patient-style inputs. It is far below the ranks
+  that move MRR, but it is the effect the no-prior rule targets.
+- **R5 + K1** (memory evidence from §8, λ 4 and t 1 as chosen for fold 3): +0.048 [−0.018, +0.120]. K1 on top of
+  R5-r30 is −0.003 [−0.053, +0.050] and adds harm (356 harmed). The memory adds nothing once R5 has seen the same
+  patients.
