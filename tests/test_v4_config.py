@@ -82,7 +82,8 @@ def test_warm_start_from_a_run():
 def test_batch2_r5_configs():
     r = {p.stem: config.load(p) for p in sorted(BATCH2.glob("R5*.yaml"))}
     r1c = config.load(BATCH2 / "R1c.yaml")
-    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r90", "R5s-r30"]
+    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r30s1", "R5-r90", "R5s-r30"]
+    assert r["R5-r30s1"].seed == 1 and config.override(r["R5-r30s1"], {"seed": 0}).run_id.split("-")[-1] == r["R5-r30"].run_id.split("-")[-1]
     assert all(c.label == k and c.sim.real_draw == "gene" for k, c in r.items())
     assert [r[k].sim.real_ratio for k in ("R5-r10", "R5-r30", "R5-r90", "R5s-r30")] == [0.1, 0.3, 0.9, 0.3]
     assert r["R5-r10"].arch.init_run == r["R5-r30"].arch.init_run == (r1c.run_id, "last")
