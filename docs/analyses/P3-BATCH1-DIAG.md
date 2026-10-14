@@ -148,3 +148,32 @@ reading below is out of fold. K2 adds a cap B on the boost and a gate (no boost 
     amendment).
 - A first draft of `k2.py` left the query's own publication in the per-gene null. That raised the pooled Δ to
   +0.081; the version above removes it.
+
+## 9. K3: similarity variants and the curated-terms stress test
+`k2.py --sim {ic,idf,direct} --agg {max,top2} [--perturb parent]`, same nested out-of-fold protocol as §8. All six
+variants were run; none was tuned beyond the nested (λ, t) grid.
+- `ic`: disease-IC weights on the ancestor closure (K1).
+- `idf`: inverse frequency among fold 0–3 patients.
+- `direct`: disease IC on the present terms only, no ancestors.
+- `top2`: mean of the gene's two best publications, each scored by its best patient (`max`: best patient).
+
+**Stress test.** phenopacket-store curates each gene cohort into a shared term template, so exact-term matches can
+reflect curation instead of the clinical picture. `--perturb parent` replaces every query term by one of its parents
+(seeded) before the memory lookup. Memory, null and E0 keep the curated terms. Every phenopacket has the same
+`createdBy`, so a different-curator check is not possible (`curators.py`).
+
+| Uncited capped Δ, folds 0–3 pooled | Curated terms | Parent terms | Swap control (curated / parent) | Cited, curated |
+|---|---|---|---|---|
+| ic, max (K1) | +0.076 [+0.041, +0.111] | +0.055 [+0.030, +0.079] | −0.048 / −0.010 | −0.016 |
+| **ic, top2** | +0.084 [+0.048, +0.119] | **+0.062 [+0.036, +0.087]** | −0.047 / −0.008 | −0.011 |
+| idf, max | +0.070 [+0.042, +0.098] | +0.056 [+0.032, +0.080] | −0.020 / −0.005 | +0.022 |
+| idf, top2 | +0.077 [+0.041, +0.114] | not run | −0.056 | −0.030 |
+| direct, max | +0.094 [+0.062, +0.128] | +0.012 [+0.002, +0.023] | −0.029 / −0.003 | +0.020 |
+| direct, top2 | +0.103 [+0.069, +0.138] | +0.008 [+0.002, +0.016] | −0.031 / −0.001 | +0.026 |
+
+- **`direct` is rejected.** Its lead is exact template terms: it keeps under 15% of its gain with parent terms.
+- **The ancestor-closure similarities keep 70–80%** of their gain when every term is moved to a parent.
+- Carried forward: ic-max (K1) and ic-top2 (at most 3 finalists reach CONFIRM, PHASE3 §2e F). Choosing among them
+  on these folds is a selection; CONFIRM reads it once.
+- The vault is curated the same way, so its gate cannot detect template matching. The parent-term reading is
+  reported next to any vault result.
