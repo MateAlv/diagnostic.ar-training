@@ -1,8 +1,9 @@
 """`p3-v1` train patients for v4: publication group, E0-knowledge status, fold and strata (PHASE3.md §1b).
 
 - Patients come only from `splits.load_part("p3-v1", Part.TRAIN, …)`; the vault is never loaded.
-- Folds are `sim4.folds.fold_of(group)`: FIT (0-2) feeds training, SELECT (3) selects. The CONFIRM fold (4)
-  is refused here: only the main session reads it, through `sim4.folds` and its ledger.
+- Folds are `sim4.folds.fold_of(group)`: FIT (0-2) feeds training, SELECT (3) selects; a run can take its
+  real patients from other folds (`sim.real_folds`, any of 0-3). The CONFIRM fold (4) is refused here: only
+  the main session reads it, through `sim4.folds` and its ledger.
 - Publication groups are the connected components of the train patients. A `p3-v1` group never straddles
   parts, so they equal the frozen union's groups; each must carry a frozen `group_status`.
 - Excluded terms never reach v4: patients are stripped to their present terms here.
@@ -113,8 +114,12 @@ def load_train(keep_covariates: bool = False) -> list[Patient]:
 
 def load(fold_set: str, keep_covariates: bool = False) -> list[Patient]:
     """The patients of `fold_set` ('fit' or 'select')."""
-    folds = _folds()
-    return in_folds(load_train(keep_covariates), fold_numbers(fold_set, folds), folds.CONFIRM_FOLD)
+    return load_folds(fold_numbers(fold_set), keep_covariates)
+
+
+def load_folds(folds: Iterable[int], keep_covariates: bool = False) -> list[Patient]:
+    """The patients of explicit folds (e.g. `sim.real_folds`), in `load_train` order; CONFIRM is refused."""
+    return in_folds(load_train(keep_covariates), folds, _folds().CONFIRM_FOLD)
 
 
 def strata(status: str, gene_in_vocab: bool) -> list[str]:

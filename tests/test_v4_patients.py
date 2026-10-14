@@ -54,6 +54,17 @@ def test_load_goes_through_sim4_folds_and_refuses_confirm(monkeypatch, annotated
         patients.load("confirm")
 
 
+def test_load_folds_takes_explicit_training_folds_and_refuses_confirm(monkeypatch, annotated):
+    monkeypatch.setattr(patients, "_folds", lambda: FOLDS)
+    monkeypatch.setattr(patients, "load_train", lambda keep_covariates=False: annotated)
+    crossfit = patients.load_folds((1, 2, 3))
+    assert crossfit and {p.fold for p in crossfit} == {1, 2, 3}
+    assert crossfit == [p for p in annotated if p.fold in (1, 2, 3)]
+    assert patients.load_folds((0, 1, 2)) == patients.load("fit")
+    with pytest.raises(LineageError, match="CONFIRM"):
+        patients.load_folds((3, 4))
+
+
 def test_excluded_terms_never_enter_and_covariates_only_when_asked(annotated):
     assert all(p.case.excluded == () for p in annotated)
     assert all(p.case.sex == Sex.UNKNOWN and p.case.age_years is None for p in annotated)

@@ -10,6 +10,7 @@ torch = pytest.importorskip("torch")
 
 from diagnostic_ar_training.cohorts.schema import Case, Sex  # noqa: E402
 from diagnostic_ar_training.gnn.graphs import covariates  # noqa: E402
+from diagnostic_ar_training.lineage.registry import LineageError  # noqa: E402
 from diagnostic_ar_training.systems.genphenia_v3 import HpoDag, V3Inputs  # noqa: E402
 from diagnostic_ar_training.v4 import (  # noqa: E402
     config,
@@ -257,6 +258,20 @@ def test_real_items_come_from_fit_folds_only(ctx):
     )
     _, drawn = gene_shares(s, 2000)
     assert {it.group.split("-")[0] for it in drawn if it.real} == {"P0", "P1", "P2"}
+
+
+def test_real_patients_come_from_the_runs_real_folds(ctx):
+    assert ctx.patient_set((0, 1, 2)) is ctx.patient_set("fit")
+    cfg = toy_config(real_ratio=0.5, real_draw="gene", real_folds=[1, 2, 3])
+    row = runs.train_run(cfg, ctx, require_clean=False, log=lambda s: None)
+    pool = ctx.patient_set((1, 2, 3))
+    assert {p.fold for p in pool.patients} == {1, 2, 3} and row["n_real_fit_items"] == len(pool.patients)
+    assert row["real_folds"] == [1, 2, 3] and row["real_by_gene"]["patients"] == len(pool.patients)
+    for swap in (False, True):
+        for fold_set in runs.FOLD_SETS:
+            assert (runs.ranks_dir(cfg.run_id, "last", swap) / f"{fold_set}.ranks.jsonl").is_file()
+    with pytest.raises(LineageError, match="CONFIRM"):
+        ctx.patient_set((3, 4))
 
 
 def test_phenotype_swap_sets_pair_identically_for_every_run(ctx):
