@@ -24,6 +24,9 @@ RUN_INIT = re.compile(r"run:([A-Za-z0-9][A-Za-z0-9._-]*?)(?:@(best|last))?")
 SCHEDULES = ("cosine", "plateau", "constant")
 GENE_DRAWS = ("uniform",)
 REAL_DRAWS = ("patient", "gene")
+FIT_FOLDS = (0, 1, 2)
+REAL_FOLDS = (0, 1, 2, 3)
+CONFIRM_FOLD = 4
 E0_SHAPE = {"hidden": 512, "layers": 3}
 DEFAULT_FACTORY = "diagnostic_ar_training.v4.samplers:sim4"
 
@@ -38,13 +41,28 @@ class SimConfig:
     """`module:callable`, called as callable(preset, params_path) -> Sampler."""
     gene_draw: str = "uniform"
     real_ratio: float = 0.0
-    """Probability that a training item is a real FIT-fold patient instead of a simulated case."""
+    """Probability that a training item is a real patient (of `real_folds`) instead of a simulated case."""
     real_draw: str = "patient"
-    """'patient': the real item is a FIT patient drawn uniformly. 'gene': the gene is drawn as the simulator
-    draws it; when it has FIT patients, with probability `real_ratio` the item is one of them (publication
-    uniform among the gene's, then patient uniform within it), so the label marginal stays the simulator's."""
+    """'patient': the real item is a patient of `real_folds` drawn uniformly. 'gene': the gene is drawn as the
+    simulator draws it; when it has real patients, with probability `real_ratio` the item is one of them
+    (publication uniform among the gene's, then patient uniform within it), so the label marginal stays the
+    simulator's."""
+    real_folds: tuple[int, ...] = FIT_FOLDS
+    """`p3-v1` train folds the real patients come from, stored sorted: FIT (0-2) by default, any of 0-3. With
+    SELECT (3) among them, the best checkpoint is chosen on a fold seen in training, so read `last`. The
+    CONFIRM fold (4) is refused."""
 
     def __post_init__(self) -> None:
+        if not isinstance(self.real_folds, list | tuple) or any(type(f) is not int for f in self.real_folds):
+            raise ValueError("real_folds must be a list of fold numbers")
+        folds = tuple(self.real_folds)
+        if not folds or len(set(folds)) != len(folds):
+            raise ValueError("real_folds must be non-empty, without repeats")
+        if CONFIRM_FOLD in folds:
+            raise ValueError(f"real_folds: fold {CONFIRM_FOLD} is CONFIRM, never a training fold")
+        if not set(folds) <= set(REAL_FOLDS):
+            raise ValueError(f"real_folds must be among {REAL_FOLDS}")
+        object.__setattr__(self, "real_folds", tuple(sorted(folds)))
         if self.gene_draw not in GENE_DRAWS:
             raise ValueError(f"gene_draw must be one of {GENE_DRAWS}")
         if self.real_draw not in REAL_DRAWS:
@@ -160,7 +178,7 @@ class RunConfig:
 
 
 SECTIONS = {"sim": SimConfig, "encoding": EncodingConfig, "arch": ArchConfig, "train": TrainConfig}
-HASH_NEUTRAL = {"sim": {"real_draw": "patient"}}
+HASH_NEUTRAL = {"sim": {"real_draw": "patient", "real_folds": FIT_FOLDS}}
 
 
 def resolve(path: str | Path) -> Path:

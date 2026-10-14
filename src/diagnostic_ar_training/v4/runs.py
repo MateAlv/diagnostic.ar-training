@@ -10,6 +10,10 @@ Readings (`section`), each in the summary and the results row, with its ranks:
 - final checkpoint (`last.pt`): `final`, `ranks/last/`;
 - phenotype-swap control (`patients.phenotype_swap`) of either: `swap` / `final_swap`, `ranks/swap/` /
   `ranks/last/swap/`. Δ is vs E0 on the same swapped inputs (cached under R0's `ranks/swap/`).
+
+Real patients mixed into training come from `sim.real_folds` (FIT by default; the row's `real_folds`). The
+readings stay on SELECT and FIT whatever those folds, so a fold left out of them is read from the ranks by
+case id.
 """
 
 import json
@@ -126,13 +130,15 @@ class Context:
 
         return load_v3(self.inputs.root, map_location="cpu")
 
-    def patient_set(self, fold_set: str, keep_covariates: bool = False, swap: bool = False):
+    def patient_set(self, fold_set: str | tuple[int, ...], keep_covariates: bool = False, swap: bool = False):
+        """A named fold set ('fit', 'select') or explicit fold numbers (`sim.real_folds`); cached by folds."""
         from diagnostic_ar_training.v4 import patients
         from diagnostic_ar_training.v4.evaluate import PatientSet
 
-        key = (fold_set, keep_covariates, swap)
+        folds = patients.fold_numbers(fold_set) if isinstance(fold_set, str) else tuple(sorted(fold_set))
+        key = (folds, keep_covariates, swap)
         if key not in self._sets:
-            members, swap_from = patients.load(fold_set, keep_covariates), None
+            members, swap_from = patients.load_folds(folds, keep_covariates), None
             if swap:
                 members, swap_from = patients.phenotype_swap(members)
             self._sets[key] = PatientSet.build(members, self.builder, self.genes, swap_from)
@@ -222,7 +228,8 @@ def evaluate_run(
     swap: bool = False,
     fresh: bool = False,
 ) -> dict:
-    """One reading (`section`) of a run on SELECT and FIT (train check) vs E0: ranks, summary, results row.
+    """One reading (`section`) of a run on SELECT and FIT vs E0: ranks, summary, results row. FIT is a train
+    check when the real patients are FIT's (`sim.real_folds`); SELECT is held out unless it is among them.
 
     Other readings already in the summary and the row are kept, unless `fresh` (a new summary).
     """
@@ -274,7 +281,7 @@ def train_run(
     log: Callable[[str], None] = print,
 ) -> dict:
     """Train (or resume) one configuration, then read its best and final checkpoints, and their phenotype-swap
-    controls when real patients are mixed in. Complete runs are skipped."""
+    controls when real patients (of `sim.real_folds`) are mixed in. Complete runs are skipped."""
     from diagnostic_ar_training.v4 import data, model, samplers, train
 
     if is_complete(cfg.run_id) and not force:
@@ -295,7 +302,10 @@ def train_run(
     try:
         sampler = samplers.build(cfg.sim)
         samplers.check_genes(sampler, ctx.genes)
-        real = ctx.patient_set("fit", cfg.encoding.covariates).items() if cfg.sim.real_ratio > 0 else None
+        real = None
+        if cfg.sim.real_ratio > 0:
+            real = ctx.patient_set(cfg.sim.real_folds, cfg.encoding.covariates).items()
+            row["real_folds"] = list(cfg.sim.real_folds)
         stream = data.TrainStream(
             sampler,
             ctx.builder,

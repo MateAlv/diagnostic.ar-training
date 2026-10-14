@@ -1,4 +1,5 @@
-"""Training batches built on the fly: simulated cases, optionally mixed with real FIT-fold patients.
+"""Training batches built on the fly: simulated cases, optionally mixed with real patients of the run's
+`sim.real_folds` (FIT by default).
 
 - Each DataLoader worker owns `np.random.default_rng([seed, stream, worker])` and yields whole batches
   (`batch_size=None` in the DataLoader), so per-item overhead stays in the worker. `stream` changes on each

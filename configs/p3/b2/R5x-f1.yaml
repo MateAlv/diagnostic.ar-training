@@ -1,0 +1,25 @@
+# R5x-f1: R5-r30 with the real patients of folds [0, 2, 3] instead of FIT (0-2), for the four-fold
+# cross-fitted reading of R5-r30 (PHASE3.md §2e): fold 1 is held out, read from the final checkpoint's ranks
+# (`ranks/last/`, swap control included) by case id; R5-r30 itself is the run with fold 3 held out. SELECT
+# is a training fold here, so the best checkpoint means nothing: read `last` only.
+# Otherwise R5-r30: R1c's final checkpoint fine-tuned with real patients (present terms only), 30% of the
+# items of the genes with real patients, gene-balanced draw (`real_draw: gene`, no cohort gene prior).
+label: R5x-f1
+seed: 0
+sim:
+  preset: e0
+  real_ratio: 0.3
+  real_draw: gene
+  real_folds: [0, 2, 3]
+arch:
+  init: run:R1c-39306a6b7c@last
+train:
+  lr: 1.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: cosine
+  min_lr_ratio: 0.05
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12
