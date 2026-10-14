@@ -3,9 +3,13 @@
 - Each DataLoader worker owns `np.random.default_rng([seed, stream, worker])` and yields whole batches
   (`batch_size=None` in the DataLoader), so per-item overhead stays in the worker. `stream` changes on each
   resume, so a resumed run never replays its own samples.
-- Each item: with probability `real_ratio` a real patient (graphs precomputed in the parent and shared by
-  fork), otherwise a gene from the pool (uniform) and `sampler.sample(gene, rng)`. A simulated case with no
-  term in E0's DAG is redrawn and counted.
+- Each item, `real_draw: patient`: with probability `real_ratio` a real patient drawn uniformly (graphs
+  precomputed in the parent and shared by fork), otherwise a gene from the pool (uniform) and
+  `sampler.sample(gene, rng)`. A simulated case with no term in E0's DAG is redrawn and counted.
+- `real_draw: gene`: the simulated case is drawn first, so its gene follows the simulator's draw (redraws
+  included). When that gene has real patients, with probability `real_ratio` the item is one of them instead:
+  a publication uniform among the gene's, then a patient uniform within it. The label marginal is the
+  simulator's, whatever the number of real patients or publications per gene (no cohort gene prior).
 - Workers send DAG indices; `to_device` gathers E0's embedding (and the IC) from DAG-indexed tables on the
   device, so a batch carries ints only.
 """
@@ -30,6 +34,8 @@ class Item:
     target: int
     covariates: np.ndarray
     real: bool
+    group: str | None = None
+    """Publication group of a real patient."""
 
 
 def covariate_vector(sex: str, age_years: float | None, onset_years: float | None) -> np.ndarray:
@@ -78,6 +84,7 @@ class TrainStream(torch.utils.data.IterableDataset):
         real: list[Item] | None = None,
         real_ratio: float = 0.0,
         with_covariates: bool = False,
+        real_draw: str = "patient",
     ) -> None:
         super().__init__()
         if real_ratio > 0 and not real:
@@ -85,6 +92,15 @@ class TrainStream(torch.utils.data.IterableDataset):
         self.sampler, self.builder, self.pool = sampler, builder, np.asarray(gene_pool, dtype=np.int64)
         self.batch_size, self.seed, self.stream = batch_size, seed, stream
         self.real, self.real_ratio, self.with_covariates = real or [], real_ratio, with_covariates
+        self.real_draw = real_draw
+        self.real_by_gene: dict[int, list[list[Item]]] = {}
+        if real_draw == "gene":
+            in_pool = set(self.pool.tolist())
+            self.real_by_gene = {g: p for g, p in by_gene(self.real).items() if g in in_pool}
+            if real_ratio > 0 and not self.real_by_gene:
+                raise ValueError("no real patient has a gene of the simulator's pool")
+        elif real_draw != "patient":
+            raise ValueError(f"unknown real_draw {real_draw!r}")
         self.redraws = 0
 
     def _simulated(self, rng: np.random.Generator) -> Item:
@@ -100,9 +116,19 @@ class TrainStream(torch.utils.data.IterableDataset):
         raise RuntimeError(f"{MAX_REDRAWS} simulated cases in a row had no term in E0's DAG")
 
     def item(self, rng: np.random.Generator) -> Item:
+        if self.real_draw == "gene":
+            return self._gene_balanced(rng)
         if self.real_ratio and rng.random() < self.real_ratio:
             return self.real[int(rng.integers(len(self.real)))]
         return self._simulated(rng)
+
+    def _gene_balanced(self, rng: np.random.Generator) -> Item:
+        simulated = self._simulated(rng)
+        publications = self.real_by_gene.get(simulated.target)
+        if not publications or rng.random() >= self.real_ratio:
+            return simulated
+        publication = publications[int(rng.integers(len(publications)))]
+        return publication[int(rng.integers(len(publication)))]
 
     def __iter__(self):
         info = torch.utils.data.get_worker_info()
@@ -110,6 +136,16 @@ class TrainStream(torch.utils.data.IterableDataset):
         rng = np.random.default_rng([self.seed, self.stream, worker])
         while True:
             yield collate([self.item(rng) for _ in range(self.batch_size)])
+
+
+def by_gene(items: list[Item]) -> dict[int, list[list[Item]]]:
+    """Real items per target gene, then per publication group (groups in sorted order)."""
+    grouped: dict[int, dict[str, list[Item]]] = {}
+    for it in items:
+        if it.group is None:
+            raise ValueError("a gene-balanced draw needs each real item's publication group")
+        grouped.setdefault(it.target, {}).setdefault(it.group, []).append(it)
+    return {g: [pubs[k] for k in sorted(pubs)] for g, pubs in sorted(grouped.items())}
 
 
 def loader(stream: TrainStream, num_workers: int, pin_memory: bool) -> torch.utils.data.DataLoader:

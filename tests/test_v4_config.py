@@ -8,6 +8,7 @@ from diagnostic_ar_training.v4 import config, grid
 from diagnostic_ar_training.v4.config import ArchConfig, RunConfig
 
 LADDER = sorted((REPO_ROOT / "configs" / "p3").glob("R*.yaml"))
+BATCH2 = REPO_ROOT / "configs" / "p3" / "b2"
 
 
 def test_hash_ignores_the_label_and_covers_every_other_field():
@@ -18,6 +19,8 @@ def test_hash_ignores_the_label_and_covers_every_other_field():
         config.override(a, {"seed": 1}),
         config.override(a, {"sim.preset": "freq"}),
         config.override(a, {"sim.real_ratio": 0.1}),
+        config.override(a, {"sim.real_draw": "gene"}),
+        config.override(a, {"arch.init": "run:R1c-39306a6b7c"}),
         config.override(a, {"encoding.edges": "both"}),
         config.override(a, {"arch.pooling": "attention_mean"}),
         config.override(a, {"train.num_workers": 4}),
@@ -55,6 +58,37 @@ def test_unknown_keys_and_values_are_errors():
         config.from_dict({"encoding": {"edges": "down"}})
     with pytest.raises(ValueError):
         config.from_dict({"sim": {"real_ratio": 1.0}})
+
+
+def test_existing_run_ids_keep_their_hash():
+    assert config.load(BATCH2 / "R1c.yaml").run_id == "R1c-39306a6b7c"
+    assert config.load(REPO_ROOT / "configs" / "p3" / "R5.yaml").run_id == "R5-521ab9969c"
+    assert "real_draw" not in RunConfig().hashed_body()["sim"]
+    assert config.override(RunConfig(), {"sim.real_draw": "gene"}).hashed_body()["sim"]["real_draw"] == "gene"
+
+
+def test_warm_start_from_a_run():
+    assert ArchConfig(init="run:R1c-39306a6b7c").init_run == ("R1c-39306a6b7c", "last")
+    assert ArchConfig(init="run:R1c-39306a6b7c@best").init_run == ("R1c-39306a6b7c", "best")
+    assert ArchConfig(init="run:a.b_c-1@last", hidden=8).init_run == ("a.b_c-1", "last")
+    assert ArchConfig().init_run is None and ArchConfig(init="e0").init_run is None
+    for bad in ("run:", "run:R1c@first", "run:-x", "R1c-39306a6b7c"):
+        with pytest.raises(ValueError, match="init"):
+            ArchConfig(init=bad)
+    with pytest.raises(ValueError, match="real_draw"):
+        config.from_dict({"sim": {"real_draw": "publication"}})
+
+
+def test_batch2_r5_configs():
+    r = {p.stem: config.load(p) for p in sorted(BATCH2.glob("R5*.yaml"))}
+    r1c = config.load(BATCH2 / "R1c.yaml")
+    assert sorted(r) == ["R5-r10", "R5-r30", "R5s-r30"]
+    assert all(c.label == k and c.sim.real_draw == "gene" for k, c in r.items())
+    assert [r[k].sim.real_ratio for k in ("R5-r10", "R5-r30", "R5s-r30")] == [0.1, 0.3, 0.3]
+    assert r["R5-r10"].arch.init_run == r["R5-r30"].arch.init_run == (r1c.run_id, "last")
+    assert r["R5s-r30"].arch.init == "scratch" and r["R5s-r30"].train == r1c.train
+    assert r["R5-r30"].train == config.override(r1c, {"train.lr": 1e-4, "train.max_minutes": 60}).train
+    assert r["R5-r10"].sim.preset == r1c.sim.preset and r["R5-r10"].encoding == r1c.encoding
 
 
 def test_a_warm_start_needs_e0s_shape():

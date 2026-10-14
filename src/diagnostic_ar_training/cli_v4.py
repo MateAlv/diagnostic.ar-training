@@ -31,7 +31,7 @@ def v4_train(
     allow_dirty: bool = typer.Option(False, help="Allow uncommitted code (scratch runs only)"),
     device: str = typer.Option("cuda"),
 ) -> None:
-    """Train one configuration (resuming from its last.pt), then evaluate its best checkpoint vs E0."""
+    """Train one configuration (resuming from its last.pt), then read its best and final checkpoints vs E0."""
     from diagnostic_ar_training.v4 import config as v4config
     from diagnostic_ar_training.v4 import runs
 
@@ -46,14 +46,27 @@ def v4_train(
 @v4_app.command("eval")
 def v4_eval(
     run: str = typer.Option(..., "--run", help="Run id under data/interim/v4/, or R0 for E0 as released"),
+    checkpoint: str = typer.Option("best", help="best (chosen on SELECT) or last (the final checkpoint)"),
+    swap: bool = typer.Option(
+        False, help="Phenotype-swap control: each patient scored with another's phenotype"
+    ),
     device: str = typer.Option("cuda"),
 ) -> None:
-    """Score a run's best checkpoint (or E0 for R0) on SELECT and FIT; ranks, summary, results row."""
+    """Score a run's checkpoint (or E0 for R0) on SELECT and FIT; ranks, summary, results row."""
     from diagnostic_ar_training.v4 import runs
 
+    if checkpoint not in runs.CHECKPOINTS:
+        raise typer.BadParameter(f"one of {runs.CHECKPOINTS}", param_hint="--checkpoint")
     ctx = _context(device)
-    row = runs.eval_e0(ctx, typer.echo) if run == runs.E0_RUN else runs.evaluate_run(run, ctx, typer.echo)
-    typer.echo(json.dumps(row["select"]["primary"], indent=1))
+    if run == runs.E0_RUN:
+        if checkpoint != "best":
+            raise typer.BadParameter("R0 is E0 as released: it has no checkpoints", param_hint="--checkpoint")
+        row = runs.eval_e0(ctx, typer.echo, swap)
+        key = "swap" if swap else None
+    else:
+        row = runs.evaluate_run(run, ctx, typer.echo, checkpoint, swap)
+        key = runs.section(checkpoint, swap)
+    typer.echo(json.dumps((row[key] if key else row)["select"]["primary"], indent=1))
 
 
 @v4_app.command("grid")
@@ -90,7 +103,7 @@ def v4_throughput(
     import torch
 
     from diagnostic_ar_training.v4 import config as v4config
-    from diagnostic_ar_training.v4 import data, model, samplers, throughput
+    from diagnostic_ar_training.v4 import data, model, runs, samplers, throughput
 
     cfg = v4config.load(config)
     ctx = _context(device)
@@ -106,7 +119,8 @@ def v4_throughput(
     for b in (int(x) for x in batch_sizes.split(",")):
         c = v4config.override(cfg, {"train.batch_size": b})
         e0 = ctx.e0_weights() if c.arch.init == "e0" else None
-        net = model.build(c.arch, c.encoding, e0, len(ctx.genes), ctx.inputs.dim).to(ctx.device)
+        weights, _ = runs.run_weights(c.arch)
+        net = model.build(c.arch, c.encoding, e0, len(ctx.genes), ctx.inputs.dim, weights).to(ctx.device)
         stream = data.TrainStream(
             sampler, ctx.builder, pool, b, c.seed, with_covariates=c.encoding.covariates
         )

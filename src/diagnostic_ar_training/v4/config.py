@@ -2,7 +2,8 @@
 
 The id is `<label>-<hash10>`: the hash covers every field except the label, plus the sha256 of the simulator
 parameters file when there is one, so two runs share an id only when they would train the same model from
-the same data stream. Unknown YAML keys are errors.
+the same data stream. Fields added after the first runs (`HASH_NEUTRAL`) are left out of the hash at their
+default, so existing run ids do not change. Unknown YAML keys are errors.
 """
 
 import hashlib
@@ -19,8 +20,10 @@ from diagnostic_ar_training import REPO_ROOT
 EDGES = ("up", "both")
 POOLINGS = ("attention", "attention_mean")
 INITS = ("e0", "scratch")
+RUN_INIT = re.compile(r"run:([A-Za-z0-9][A-Za-z0-9._-]*?)(?:@(best|last))?")
 SCHEDULES = ("cosine", "plateau", "constant")
 GENE_DRAWS = ("uniform",)
+REAL_DRAWS = ("patient", "gene")
 E0_SHAPE = {"hidden": 512, "layers": 3}
 DEFAULT_FACTORY = "diagnostic_ar_training.v4.samplers:sim4"
 
@@ -36,10 +39,16 @@ class SimConfig:
     gene_draw: str = "uniform"
     real_ratio: float = 0.0
     """Probability that a training item is a real FIT-fold patient instead of a simulated case."""
+    real_draw: str = "patient"
+    """'patient': the real item is a FIT patient drawn uniformly. 'gene': the gene is drawn as the simulator
+    draws it; when it has FIT patients, with probability `real_ratio` the item is one of them (publication
+    uniform among the gene's, then patient uniform within it), so the label marginal stays the simulator's."""
 
     def __post_init__(self) -> None:
         if self.gene_draw not in GENE_DRAWS:
             raise ValueError(f"gene_draw must be one of {GENE_DRAWS}")
+        if self.real_draw not in REAL_DRAWS:
+            raise ValueError(f"real_draw must be one of {REAL_DRAWS}")
         if not 0 <= self.real_ratio < 1:
             raise ValueError("real_ratio must be in [0, 1)")
 
@@ -64,16 +73,23 @@ class ArchConfig:
     dropout: float = 0.3
     pooling: str = "attention"
     init: str = "scratch"
+    """'e0', 'scratch', or 'run:<run_id>[@best|@last]' (default last): weights of one of our v4 runs."""
 
     def __post_init__(self) -> None:
         if self.pooling not in POOLINGS:
             raise ValueError(f"pooling must be one of {POOLINGS}")
-        if self.init not in INITS:
-            raise ValueError(f"init must be one of {INITS}")
+        if self.init not in INITS and not RUN_INIT.fullmatch(self.init):
+            raise ValueError(f"init must be one of {INITS} or 'run:<run_id>[@best|@last]'")
         if self.init == "e0" and (self.hidden, self.layers) != (E0_SHAPE["hidden"], E0_SHAPE["layers"]):
             raise ValueError(f"a warm start from E0 needs E0's shape {E0_SHAPE}")
         if self.layers < 1 or self.hidden < 2:
             raise ValueError("at least one layer and two hidden channels")
+
+    @property
+    def init_run(self) -> tuple[str, str] | None:
+        """(run id, 'best' or 'last') of a warm start from one of our runs, else None."""
+        match = RUN_INIT.fullmatch(self.init)
+        return (match.group(1), match.group(2) or "last") if match else None
 
 
 @dataclass(frozen=True)
@@ -126,6 +142,10 @@ class RunConfig:
 
     def hashed_body(self) -> dict:
         body = {k: v for k, v in self.as_dict().items() if k != "label"}
+        for section, defaults in HASH_NEUTRAL.items():
+            for name, default in defaults.items():
+                if body[section][name] == default:
+                    del body[section][name]
         body["sim_params_sha256"] = params_sha256(self.sim.params)
         return body
 
@@ -140,6 +160,7 @@ class RunConfig:
 
 
 SECTIONS = {"sim": SimConfig, "encoding": EncodingConfig, "arch": ArchConfig, "train": TrainConfig}
+HASH_NEUTRAL = {"sim": {"real_draw": "patient"}}
 
 
 def resolve(path: str | Path) -> Path:

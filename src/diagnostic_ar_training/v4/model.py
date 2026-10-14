@@ -158,10 +158,31 @@ class GinV4(nn.Module):
         return total / count.unsqueeze(1)
 
 
-def build(arch: ArchConfig, encoding: EncodingConfig, e0: GinV3 | None, n_genes: int, in_channels: int):
-    """The run's model: a warm start from `e0` (init 'e0') or default initialisation (init 'scratch')."""
+def load_run_weights(model: GinV4, state_dict: dict) -> GinV4:
+    """Warm start from one of our runs: every tensor copied; options the run did not have start at zero."""
+    result = model.load_state_dict(state_dict, strict=False)
+    if result.unexpected_keys or not all(is_new_parameter(k) for k in result.missing_keys):
+        raise RuntimeError(f"warm start mismatch: {result}")
+    return model
+
+
+def build(
+    arch: ArchConfig,
+    encoding: EncodingConfig,
+    e0: GinV3 | None,
+    n_genes: int,
+    in_channels: int,
+    run_weights: dict | None = None,
+):
+    """The run's model: a warm start from `e0` (init 'e0') or from `run_weights` (init 'run:…', the source
+    run's model state), or default initialisation (init 'scratch')."""
     if arch.init == "e0":
         if e0 is None:
             raise ValueError("init 'e0' needs E0's weights")
         return GinV4.from_e0(e0, encoding, arch)
-    return GinV4(in_channels, n_genes, arch, encoding)
+    model = GinV4(in_channels, n_genes, arch, encoding)
+    if arch.init_run is not None:
+        if run_weights is None:
+            raise ValueError(f"init {arch.init!r} needs that run's weights")
+        load_run_weights(model, run_weights)
+    return model

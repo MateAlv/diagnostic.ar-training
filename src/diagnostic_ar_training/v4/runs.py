@@ -1,9 +1,15 @@
 """v4 runs: `data/interim/v4/<run_id>/` and the results row `results/P3/runs/<run_id>.json`.
 
 Run directory: `config.yaml` / `config.json`, `history.jsonl` (one SELECT evaluation per line), `best.pt`,
-`last.pt`, `ranks/{select,fit}.ranks.jsonl` and `summary.json` (every stratum, Δ vs E0).
+`last.pt`, ranks and `summary.json` (every stratum, Δ vs E0).
 The results row is small: configuration, code state, training totals, step-0 and best SELECT metrics, and the
 SELECT / FIT summaries vs E0. R0 (E0 as released, production ONNX) has the run id `R0`.
+
+Readings (`section`), each in the summary and the results row, with its ranks:
+- best checkpoint (chosen on SELECT): top-level `select` / `fit`, `ranks/{select,fit}.ranks.jsonl`;
+- final checkpoint (`last.pt`): `final`, `ranks/last/`;
+- phenotype-swap control (`patients.phenotype_swap`) of either: `swap` / `final_swap`, `ranks/swap/` /
+  `ranks/last/swap/`. Δ is vs E0 on the same swapped inputs (cached under R0's `ranks/swap/`).
 """
 
 import json
@@ -22,6 +28,7 @@ V4_DIR = INTERIM_DIR / "v4"
 P3_RESULTS = RESULTS_DIR / "P3"
 E0_RUN = "R0"
 FOLD_SETS = ("select", "fit")
+CHECKPOINTS = ("best", "last")
 COMPLETE, RUNNING, FAILED = "complete", "running", "failed"
 ROW_STRATA = ("all", "uncited", "cited", "no_pmid", "in_vocab", "oov", "uncited_in_vocab", "cited_in_vocab")
 
@@ -65,6 +72,23 @@ def code_state(require_clean: bool) -> dict:
     return s.as_dict()
 
 
+def section(checkpoint: str = "best", swap: bool = False) -> str | None:
+    """Summary / results-row key of a reading; None for the best checkpoint's (top-level `select` / `fit`)."""
+    if checkpoint not in CHECKPOINTS:
+        raise ValueError(f"checkpoint must be one of {CHECKPOINTS}")
+    name = "final" if checkpoint == "last" else None
+    if swap:
+        return "swap" if name is None else f"{name}_swap"
+    return name
+
+
+def ranks_dir(run_id: str, checkpoint: str = "best", swap: bool = False) -> Path:
+    d = run_dir(run_id) / "ranks"
+    if checkpoint == "last":
+        d = d / "last"
+    return d / "swap" if swap else d
+
+
 def compact(summary: dict, strata=ROW_STRATA) -> dict:
     return {
         "primary": summary["primary"],
@@ -86,8 +110,8 @@ class Context:
         self.genes = self.inputs.genes
         self.builder = GraphBuilder(self.inputs.dag)
         self._tables: dict[bool, object] = {}
-        self._sets: dict[tuple[str, bool], object] = {}
-        self._e0: dict[str, list[dict]] = {}
+        self._sets: dict[tuple[str, bool, bool], object] = {}
+        self._e0: dict[tuple[str, bool], list[dict]] = {}
 
     def tables(self, ic: bool):
         from diagnostic_ar_training.v4 import data, graphs, knowledge
@@ -102,31 +126,36 @@ class Context:
 
         return load_v3(self.inputs.root, map_location="cpu")
 
-    def patient_set(self, fold_set: str, keep_covariates: bool = False):
+    def patient_set(self, fold_set: str, keep_covariates: bool = False, swap: bool = False):
         from diagnostic_ar_training.v4 import patients
         from diagnostic_ar_training.v4.evaluate import PatientSet
 
-        key = (fold_set, keep_covariates)
+        key = (fold_set, keep_covariates, swap)
         if key not in self._sets:
-            self._sets[key] = PatientSet.build(
-                patients.load(fold_set, keep_covariates), self.builder, self.genes
-            )
+            members, swap_from = patients.load(fold_set, keep_covariates), None
+            if swap:
+                members, swap_from = patients.phenotype_swap(members)
+            self._sets[key] = PatientSet.build(members, self.builder, self.genes, swap_from)
         return self._sets[key]
 
-    def e0_records(self, fold_set: str, log: Callable[[str], None] = print) -> list[dict]:
-        """E0 as released on a fold set; cached in `data/interim/v4/R0/ranks/`."""
+    def e0_records(self, fold_set: str, log: Callable[[str], None] = print, swap: bool = False) -> list[dict]:
+        """E0 as released on a fold set (phenotype-swapped with `swap`); cached under R0's ranks."""
         from diagnostic_ar_training.v4 import evaluate
 
-        if fold_set not in self._e0:
-            ids = [p.case_id for p in self.patient_set(fold_set).patients]
-            path = run_dir(E0_RUN) / "ranks" / f"{fold_set}.ranks.jsonl"
+        key = (fold_set, swap)
+        if key not in self._e0:
+            pset = self.patient_set(fold_set, swap=swap)
+            sources = pset.swap_from or [None] * len(pset.patients)
+            want = [(p.case_id, s) for p, s in zip(pset.patients, sources, strict=True)]
+            path = ranks_dir(E0_RUN, swap=swap) / f"{fold_set}.ranks.jsonl"
             cached = report.read_ranks(path) if path.is_file() else None
-            if cached is None or [r["case_id"] for r in cached] != ids:
-                log(f"scoring E0 (production ONNX) on {fold_set}: {len(ids)} patients")
-                cached = evaluate.e0_records(self.patient_set(fold_set).patients)
+            if cached is None or [(r["case_id"], r.get("swap_from")) for r in cached] != want:
+                label = f"{fold_set} (phenotype swapped)" if swap else fold_set
+                log(f"scoring E0 (production ONNX) on {label}: {len(want)} patients")
+                cached = evaluate.tag_swap(evaluate.e0_records(pset.patients), pset.swap_from)
                 report.write_ranks(path, cached)
-            self._e0[fold_set] = cached
-        return self._e0[fold_set]
+            self._e0[key] = cached
+        return self._e0[key]
 
 
 def write_config(cfg: RunConfig) -> Path:
@@ -150,47 +179,90 @@ def load_config(run_id: str) -> RunConfig:
     return cfg
 
 
-def eval_e0(ctx: Context, log: Callable[[str], None] = print) -> dict:
-    row = {
-        "run_id": E0_RUN,
-        "status": COMPLETE,
-        "system": "E0 as released (genphenia-v3.0 production ONNX)",
-        "inputs": "present terms only",
-        "code": code_state(False),
-    }
-    for fold_set in FOLD_SETS:
-        row[fold_set] = compact(report.summarize(ctx.e0_records(fold_set, log)))
+def eval_e0(ctx: Context, log: Callable[[str], None] = print, swap: bool = False) -> dict:
+    row = read_row(E0_RUN) or {}
+    row.update(
+        run_id=E0_RUN,
+        status=COMPLETE,
+        system="E0 as released (genphenia-v3.0 production ONNX)",
+        inputs="present terms only",
+        code=code_state(False),
+    )
+    readings = {fs: compact(report.summarize(ctx.e0_records(fs, log, swap))) for fs in FOLD_SETS}
+    if swap:
+        row["swap"] = readings
+    else:
+        row.update(readings)
     write_json(row_path(E0_RUN), row)
     return row
 
 
-def evaluate_run(run_id: str, ctx: Context, log: Callable[[str], None] = print) -> dict:
-    """Best checkpoint on SELECT and FIT (train check) vs E0: ranks files, summary, results row."""
+def run_weights(arch) -> tuple[dict, dict] | tuple[None, None]:
+    """A warm start from one of our runs (`arch.init` 'run:<id>[@best|@last]'): its model state, and where it
+    came from (run id, checkpoint, step)."""
+    import torch
+
+    if arch.init_run is None:
+        return None, None
+    source, checkpoint = arch.init_run
+    path = run_dir(source) / f"{checkpoint}.pt"
+    if not path.is_file():
+        raise FileNotFoundError(f"init {arch.init!r}: no {path}")
+    saved = torch.load(path, map_location="cpu", weights_only=False)
+    if saved.get("run_id") != source:
+        raise LineageError(f"{path} belongs to run {saved.get('run_id')}, not {source}")
+    return saved["model"], {"run_id": source, "checkpoint": checkpoint, "step": saved["state"]["step"]}
+
+
+def evaluate_run(
+    run_id: str,
+    ctx: Context,
+    log: Callable[[str], None] = print,
+    checkpoint: str = "best",
+    swap: bool = False,
+    fresh: bool = False,
+) -> dict:
+    """One reading (`section`) of a run on SELECT and FIT (train check) vs E0: ranks, summary, results row.
+
+    Other readings already in the summary and the row are kept, unless `fresh` (a new summary).
+    """
     from diagnostic_ar_training.v4 import evaluate, model, train
 
     cfg = load_config(run_id)
     d = run_dir(run_id)
+    key = section(checkpoint, swap)
     net = model.GinV4(ctx.inputs.dim, len(ctx.genes), cfg.arch, cfg.encoding).to(ctx.device)
-    best_state = train.load_weights(net, d / "best.pt", ctx.device)
+    state = train.load_weights(net, d / f"{checkpoint}.pt", ctx.device)
     tables = ctx.tables(cfg.encoding.ic_feature)
-    summary = {"run_id": run_id, "best_step": best_state["step"]}
+    reading = {}
     for fold_set in FOLD_SETS:
-        pset = ctx.patient_set(fold_set, cfg.encoding.covariates)
+        pset = ctx.patient_set(fold_set, cfg.encoding.covariates, swap)
         records = evaluate.model_records(net, pset, tables, cfg.encoding)
-        report.write_ranks(d / "ranks" / f"{fold_set}.ranks.jsonl", records)
-        summary[fold_set] = report.summarize(records, ctx.e0_records(fold_set, log))
-    write_json(d / "summary.json", summary)
+        report.write_ranks(ranks_dir(run_id, checkpoint, swap) / f"{fold_set}.ranks.jsonl", records)
+        reading[fold_set] = report.summarize(records, ctx.e0_records(fold_set, log, swap))
+    path = d / "summary.json"
+    summary = json.loads(path.read_text()) if path.is_file() and not fresh else {}
+    summary["run_id"] = run_id
+    if key is None:
+        summary.update(best_step=state["step"], **reading)
+    else:
+        summary[key] = {"checkpoint": checkpoint, "swap": swap, "step": state["step"], **reading}
+    write_json(path, summary)
     row = read_row(run_id) or {"run_id": run_id, "config": cfg.as_dict(), "config_hash": cfg.config_hash}
-    row.update(
-        status=COMPLETE,
-        best_step=best_state["step"],
-        step0_select=train.step0(d),
-        select=compact(summary["select"]),
-        fit=compact(summary["fit"], ("all", "uncited", "cited")),
-    )
+    readings = {
+        "select": compact(reading["select"]),
+        "fit": compact(reading["fit"], ("all", "uncited", "cited")),
+    }
+    if key is None:
+        row.update(status=COMPLETE, best_step=state["step"], step0_select=train.step0(d), **readings)
+    else:
+        row[key] = {"step": state["step"], **readings}
     write_json(row_path(run_id), row)
-    p = summary["select"]["primary"]
-    log(f"{run_id}: SELECT uncited Δ MRR vs E0 {p['delta']:+.4f} [{p['ci95'][0]:+.4f}, {p['ci95'][1]:+.4f}]")
+    p = reading["select"]["primary"]
+    log(
+        f"{run_id} {key or 'best'} (step {state['step']}): SELECT uncited Δ capped MRR vs E0 "
+        f"{p['delta']:+.4f} [{p['ci95'][0]:+.4f}, {p['ci95'][1]:+.4f}]"
+    )
     return row
 
 
@@ -201,7 +273,8 @@ def train_run(
     require_clean: bool = True,
     log: Callable[[str], None] = print,
 ) -> dict:
-    """Train (or resume) one configuration, then evaluate its best checkpoint. Complete runs are skipped."""
+    """Train (or resume) one configuration, then read its best and final checkpoints, and their phenotype-swap
+    controls when real patients are mixed in. Complete runs are skipped."""
     from diagnostic_ar_training.v4 import data, model, samplers, train
 
     if is_complete(cfg.run_id) and not force:
@@ -232,12 +305,23 @@ def train_run(
             real=real,
             real_ratio=cfg.sim.real_ratio,
             with_covariates=cfg.encoding.covariates,
+            real_draw=cfg.sim.real_draw,
         )
+        if cfg.sim.real_draw == "gene" and real:
+            row["real_by_gene"] = {
+                "genes": len(stream.real_by_gene),
+                "publications": sum(len(p) for p in stream.real_by_gene.values()),
+                "patients": sum(len(x) for p in stream.real_by_gene.values() for x in p),
+            }
         e0 = ctx.e0_weights() if cfg.arch.init == "e0" else None
+        weights, source = run_weights(cfg.arch)
+        if source is not None:
+            row["init"] = source
         import torch
 
         torch.manual_seed(cfg.seed)
-        net = model.build(cfg.arch, cfg.encoding, e0, len(ctx.genes), ctx.inputs.dim).to(ctx.device)
+        net = model.build(cfg.arch, cfg.encoding, e0, len(ctx.genes), ctx.inputs.dim, weights).to(ctx.device)
+        del weights
         select = ctx.patient_set("select", cfg.encoding.covariates)
         tables = ctx.tables(cfg.encoding.ic_feature)
         ctx.e0_records("select", log)
@@ -250,4 +334,9 @@ def train_run(
         )
         write_json(row_path(cfg.run_id), row)
         raise
-    return evaluate_run(cfg.run_id, ctx, log)
+    out = evaluate_run(cfg.run_id, ctx, log, fresh=True)
+    evaluate_run(cfg.run_id, ctx, log, "last")
+    if cfg.sim.real_ratio > 0:
+        for checkpoint in CHECKPOINTS:
+            evaluate_run(cfg.run_id, ctx, log, checkpoint, swap=True)
+    return read_row(cfg.run_id) or out
