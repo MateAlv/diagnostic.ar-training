@@ -83,3 +83,26 @@ score = max similarity among that gene's FIT patients; fused as log p_E0 + λ ·
   fixed-schedule R4.
 - The cohort gene prior is reported separately, and the phenotype part is shown on its own. Its admissibility for
   the claim is an open decision (PHASE3 §2e).
+
+## 6. K1: phenotype-only real-patient memory (after Mateo's no-prior decision)
+`k1.py`: the same IC-cosine neighbours, with the prior removed.
+- **Calibration:** each gene's best similarity is turned into a z-score against the best similarity that patients of
+  *other* genes reach on its memory, so a gene's number of memory patients alone earns nothing.
+- **Fusion:** log p_E0 + λ · max(0, z − t). The grid is 8 λ × 5 t, chosen on FIT (own group left out): λ 4, t 1.
+- **Popularity control:** each query's phenotype is swapped for another query's of the same fold, true gene kept.
+
+| Capped MRR, uncited (all, incl. OOV) | E0 | K1 | Δ [CI] | Phenotype swapped, Δ |
+|---|---|---|---|---|
+| FIT (λ, t tuned here) | 0.193 | 0.297 | +0.104 [+0.062, +0.152] | −0.052 |
+| SELECT | 0.282 | 0.341 | **+0.059 [+0.002, +0.122]** | −0.049 |
+| SELECT, in-vocabulary | 0.413 | 0.494 | +0.081 [+0.002, +0.169] | −0.071 |
+
+- **The swap control is negative,** so no popularity gain remains: the gain needs the patient's own phenotype.
+- **Harm on SELECT:**
+  - 386 patients harmed and 80 helped, but 285 of the harmed (and 98 of the 129 that lose top-1) are the ANKRD11 paper.
+  - ANKRD11 has no patient in FIT memory, so genes with memory overtake it.
+  - Outside that paper, 101 patients are harmed in 29 publications and 80 helped in 32.
+  - **In production the memory holds every curated patient,** so the "gene without memory" case is rarer than in
+    this FIT-only memory.
+- **Not yet done:** harm control (K2), learned similarity (K3), a parametric version (R5), and a second memory/query
+  rotation to tighten SELECT's CI.

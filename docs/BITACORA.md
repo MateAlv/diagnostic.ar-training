@@ -4746,3 +4746,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - `R1c` (`configs/p3/b2/R1c.yaml`): R1 with a cosine schedule, 90 min. Started before the capped metric, so it
     selects on plain MRR; it is re-read from its ranks.
 - Scripts: `scripts/analysis/p3_batch1/`.
+## 2026-10-14: no cohort gene prior (Mateo); K1 phenotype-only real-patient memory
+- **Decision (Mateo):** no phenopacket-store gene prior in the claimed v4. Real-patient components are checked with a
+  phenotype-swap control (ADR-0019 amendment, PHASE3 §2e).
+- **K1** (`scripts/analysis/p3_batch1/k1.py`, exploratory, FIT memory, FIT/SELECT only):
+  - z-calibrated IC-cosine neighbours fused with E0; λ 4, threshold 1, chosen on FIT from 40 configurations.
+  - SELECT capped Δ +0.059 [+0.002, +0.122], with the phenotype swap at −0.049.
+  - FIT +0.104 [+0.062, +0.152] (tuned there).
+  - SELECT harm is mostly the ANKRD11 paper, whose gene has no FIT memory (P3-BATCH1-DIAG §6).

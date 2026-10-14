@@ -181,8 +181,12 @@ Mateo's go for the one vault read.
   part of any gain is visible.
 - **Production memory** = every curated patient available at release (the claim uses `p3-v1` train only).
 
-**Open decision for Mateo:** may the claimed v4 contain a gene-frequency prior estimated from phenopacket-store? See
-P3-BATCH1-DIAG §4.
+**Decision (Mateo, 2026-10-14): no cohort gene prior in the claimed v4.**
+- The real-patient module may use only phenotype evidence. A gene must not gain from how many training patients or
+  publications it has.
+- Enforced by a **popularity control:** the module is re-run with each query's phenotype swapped for another query's
+  (true gene kept). Its gain there must be about 0. Any remaining gain is popularity, and the design is changed.
+- E0 + cohort prior is reported as a control, never as a candidate. An external clinical prior is out of scope.
 
 **Decisions for Mateo before batch 2 (superseded by §2e for B–E):**
 1. R1neg: allow a diagnostic run with E0's negation rows kept, only to measure the gap, never as a candidate?
