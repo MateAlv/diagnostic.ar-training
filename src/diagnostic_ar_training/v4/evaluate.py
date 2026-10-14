@@ -25,22 +25,31 @@ class PatientSet:
     graphs: list[CompactGraph | None]
     targets: list[int | None]
     covariates: list[np.ndarray]
+    swap_from: list[str] | None = None
+    """Case id whose phenotype each patient carries, in a phenotype-swapped set."""
 
     @classmethod
-    def build(cls, patients: list[Patient], builder: GraphBuilder, genes: tuple[str, ...]) -> "PatientSet":
+    def build(
+        cls,
+        patients: list[Patient],
+        builder: GraphBuilder,
+        genes: tuple[str, ...],
+        swap_from: list[str] | None = None,
+    ) -> "PatientSet":
         lookup = {g.upper(): i for i, g in enumerate(genes)}
         return cls(
             list(patients),
             [builder.build(p.case.present) for p in patients],
             [lookup.get(p.case.gene.upper()) for p in patients],
             [covariates(p.case) for p in patients],
+            swap_from,
         )
 
     def items(self) -> list[data.Item]:
         """Training items: scorable patients whose gene E0 can output."""
         return [
-            data.Item(g, t, c, True)
-            for g, t, c in zip(self.graphs, self.targets, self.covariates, strict=True)
+            data.Item(g, t, c, True, p.group)
+            for p, g, t, c in zip(self.patients, self.graphs, self.targets, self.covariates, strict=True)
             if g is not None and t is not None
         ]
 
@@ -69,12 +78,20 @@ def model_ranks(
     return ranks
 
 
+def tag_swap(records: list[dict], swap_from: list[str] | None) -> list[dict]:
+    if swap_from is not None:
+        for r, source in zip(records, swap_from, strict=True):
+            r["swap_from"] = source
+    return records
+
+
 def model_records(model, pset: PatientSet, tables, encoding) -> list[dict]:
     ranks = model_ranks(model, pset, tables, encoding)
-    return [
+    records = [
         report.record(p, t is not None, g is not None, float(r))
         for p, g, t, r in zip(pset.patients, pset.graphs, pset.targets, ranks, strict=True)
     ]
+    return tag_swap(records, pset.swap_from)
 
 
 def e0_records(patients: list[Patient], e0=None) -> list[dict]:

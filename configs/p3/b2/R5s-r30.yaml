@@ -1,0 +1,21 @@
+# R5s-r30: R5-r30 trained from scratch (R1c's recipe, 90 min) instead of fine-tuned from R1c: does mixing real
+# FIT-fold patients from the start differ from adding them at the end? Gene-balanced draw (`real_draw: gene`),
+# no cohort gene prior (PHASE3.md §2e, step R5). Read with the phenotype-swap control.
+label: R5s-r30
+seed: 0
+sim:
+  preset: e0
+  real_ratio: 0.3
+  real_draw: gene
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: cosine
+  min_lr_ratio: 0.05
+  warmup_steps: 500
+  max_minutes: 90
+  eval_every_steps: 5000
+  num_workers: 12
