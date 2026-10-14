@@ -1,0 +1,12 @@
+# Ladder batch 1: R1-R4 from scratch and R4 warm-started from E0, 90 min each (about 8 h with evaluations).
+# Each point changes only the simulator preset (or the initialisation), on R1's training knobs.
+grid_id: L1
+base: configs/p3/R1.yaml
+total_minutes: 480
+seeds: [0]
+points:
+  - {label: R1, train.max_minutes: 90}
+  - {label: R2, sim.preset: freq, train.max_minutes: 90}
+  - {label: R3, sim.preset: real, sim.params: results/analyses/SIM4-v1/fit-folds-0-1-2.json, train.max_minutes: 90}
+  - {label: R4, sim.preset: real_noise, sim.params: results/analyses/SIM4-v1/fit-folds-0-1-2.json, train.max_minutes: 90}
+  - {label: R4w, sim.preset: real_noise, sim.params: results/analyses/SIM4-v1/fit-folds-0-1-2.json, arch.init: e0, train.lr: 1.0e-4, train.max_minutes: 90}
