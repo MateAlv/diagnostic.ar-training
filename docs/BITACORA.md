@@ -4813,10 +4813,21 @@ this task, whatever the result**; the last read needs Mateo's OK.
 ## 2026-10-14: R5-r30 and R5-r90 (GNN fine-tuned with real FIT patients, gene-balanced)
 - Runs `R5-r30-fa772ffa7e`, `R5-r90-455369622d` (from R1c's final checkpoint, 60 min each). P3-BATCH1-DIAG §10.
 - SELECT capped Δ vs E0, final checkpoints:
-  - R5-r30: uncited +0.051 [+0.020, +0.090], cited +0.085, swap −0.000. Helped 172, harmed 178.
+  - R5-r30: uncited +0.051 [+0.020, +0.090], cited +0.085, swap −0.000. Helped 177, harmed 173 (first logged as
+    172 and 178, from `r5_fusion.py`'s rescoring; corrected in the entry below).
   - R5-r90: uncited +0.027 [−0.013, +0.072].
 - Parent terms: R5-r30 +0.022 [+0.003, +0.045]; R5-r90 −0.006.
 - Under phenotype swap, R5-r30 lifts genes with FIT patients by about 20% in raw rank (log2 −0.32 vs −0.08 for other
   genes); invisible in capped MRR.
 - R5-r30 + K1 memory: +0.048; the memory adds nothing on top of R5.
 - Scripts: `r5_checks.py`, `r5_fusion.py`; `k2.py --dump`.
+## 2026-10-14: R5-r30 seed 1 and R5-r10
+- Runs `R5-r30s1-fd7f6eb5d6`, `R5-r10-2b0980534f` (from R1c's final checkpoint, 60 min each). P3-BATCH1-DIAG §10.
+- SELECT capped Δ vs E0, final checkpoints:
+  - R5-r30 seed 1: uncited +0.047 [+0.015, +0.086], cited +0.088, swap −0.000. Helped 172, harmed 177.
+  - R5-r10: uncited +0.038 [+0.010, +0.073], cited +0.061, swap −0.000. Helped 179, harmed 174.
+- Seed noise on R5-r30 is 0.004. Real share ordering on SELECT uncited: r30 > r10 > r90.
+- Parent terms: seed 1 +0.020 [+0.000, +0.044]; R5-r10 +0.019 [+0.001, +0.039].
+- Swap raw-rank lift for genes with FIT patients (mean log2 ratio): seed 1 −0.31, R5-r10 −0.32, as for R5-r30; other
+  genes −0.05 and −0.07.
+- Correction: R5-r30's helped and harmed counts are 177 and 173 by the harness's ranks (first logged as 172 and 178).

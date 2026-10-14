@@ -179,32 +179,41 @@ reflect curation instead of the clinical picture. `--perturb parent` replaces ev
   reported next to any vault result.
 
 ## 10. R5: the GNN fine-tuned with real FIT patients
-`configs/p3/b2/R5-r30.yaml`, `R5-r90.yaml`: R1c's final checkpoint, 60 min, `real_draw: gene` (the gene is drawn as
-the simulator draws it, so the label marginal stays uniform). Real items are about 1.8% (r30) and 5.4% (r90) of the
-stream. R5 trains on FIT patients, so **SELECT is its only out-of-sample reading** (FIT uncited in-vocabulary
+`configs/p3/b2/R5-r10.yaml`, `R5-r30.yaml`, `R5-r30s1.yaml` (seed 1), `R5-r90.yaml`: R1c's final checkpoint,
+60 min, `real_draw: gene` (the gene is drawn as the simulator draws it, so the label marginal stays uniform). Real
+items are about 0.6% (r10), 1.8% (r30) and 5.4% (r90) of the stream. R5 trains on FIT patients, so **SELECT is its only out-of-sample reading** (FIT uncited in-vocabulary
 reaches 0.92–0.98: memorised).
 
 | SELECT, capped Δ vs E0 | uncited | uncited in-vocab | cited | phenotype swap, uncited |
 |---|---|---|---|---|
 | R5-r30, final | **+0.051 [+0.020, +0.090]** | +0.071 [+0.026, +0.123] | +0.085 [+0.040, +0.136] | −0.000 [−0.001, +0.001] |
 | R5-r30, best (step 365k, chosen on SELECT) | +0.061 [+0.029, +0.101] | +0.085 | +0.086 | +0.000 |
+| R5-r30 seed 1, final | +0.047 [+0.015, +0.086] | +0.066 | +0.088 | −0.000 |
+| R5-r10, final | +0.038 [+0.010, +0.073] | +0.053 | +0.061 | −0.000 |
 | R5-r90, final | +0.027 [−0.013, +0.072] | +0.037 | +0.052 | −0.000 |
 | *E0 + K1 memory, same SELECT patients (§8)* | +0.024 [−0.033, +0.086] | | | |
 
 Checks (`r5_checks.py`, `r5_fusion.py`, final checkpoints):
-- **Harm:** R5-r30 helps 172 and harms 178 SELECT uncited patients (E0 + K1: 73 and 404).
+- **Seed noise:** the two R5-r30 seeds differ by 0.004, far inside either interval.
+- **Harm** (harness counts, SELECT uncited): R5-r30 helps 177 and harms 173; seed 1 172 and 177; R5-r10 179 and
+  174; R5-r90 167 and 211 (E0 + K1: 73 and 404). An earlier version of this section gave 172 and 178 for R5-r30,
+  from `r5_fusion.py`'s rescoring; the harness's own ranks are used here.
 - **Parent terms** (every present term moved to a parent, E0 and R5 both scored on them): R5-r30 +0.022
-  [+0.003, +0.045], so it keeps 43% of its gain (the ancestor-closure memory keeps 70–80%, §9). R5-r90 −0.006: more
-  real exposure, more template matching.
+  [+0.003, +0.045], so it keeps 43% of its gain (the ancestor-closure memory keeps 70–80%, §9). Seed 1 +0.020
+  [+0.000, +0.044] (43%); R5-r10 +0.019 [+0.001, +0.039] (49%). R5-r90 −0.006: more real exposure, more template
+  matching.
 - **Popularity, on raw ranks.** Capped MRR under phenotype swap sits at its floor (0.013), so it cannot show a weak
   prior. On the swapped true gene's rank (SELECT uncited in-vocabulary):
 
   | Run | gene has FIT patients (153) | gene has none (442) |
   |---|---|---|
   | R5-r30 | median 1,398 → 1,152; mean log2 ratio −0.32; 67% improved | 524 → 453; −0.08; 49% |
+  | R5-r30 seed 1 | 1,398 → 1,185; −0.31; 70% | 524 → 458; −0.05; 49% |
+  | R5-r10 | 1,398 → 1,132; −0.32; 67% | 524 → 466; −0.07; 51% |
   | R5-r90 | 1,398 → 1,396; −0.04; 54% | 524 → 443; −0.09; 52% |
 
-  R5-r30 lifts genes with real patients by about 20% in rank without their phenotype. The label marginal is
+  R5-r30 lifts genes with real patients by about 20% in rank without their phenotype. The lift repeats across seeds
+  and is as large at r10 as at r30, so it does not grow with the real share; R5-r90 does not show it. The label marginal is
   uniform, so this is not a count prior; it is a response to real-patient-style inputs. It is far below the ranks
   that move MRR, but it is the effect the no-prior rule targets.
 - **R5 + K1** (memory evidence from §8, λ 4 and t 1 as chosen for fold 3): +0.048 [−0.018, +0.120]. K1 on top of
