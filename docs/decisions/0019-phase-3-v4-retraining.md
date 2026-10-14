@@ -80,3 +80,22 @@
 - **Not gating:** results on cited patients and overall are reported. A number from data E0 had in its knowledge
   cannot support a claim.
 - **The candidate is selected before the read** by grid search on FIT/SELECT and checked on CONFIRM. One read.
+
+## Amendment 2026-10-14 (Mateo): capped MRR
+- **Why:** the vault's largest uncited publication has 462 of 2,678 patients (17%), and SELECT's has 333 of 735
+  (45%; [P3-BATCH1-DIAG](../analyses/P3-BATCH1-DIAG.md) §1). A patient-weighted MRR mostly measures one gene. The
+  vault sizes were counted from case-ID prefixes in the committed split (metadata only); no vault result exists.
+- **Metric:** capped MRR. Each publication group counts at most 10 patients: a patient of a group with n patients
+  weighs min(n, 10) / n. The CI is the same publication-cluster bootstrap.
+- **Gate:** PASS when the lower bound of the 95% CI of Δ capped MRR (v4.0 − E0) on the vault's uncited patients is
+  > 0. Plain MRR, publication-mean MRR, helped and harmed counts are reported, not gating.
+- **Development:** selection and ladder readings use the same capped MRR (`v4.report.PRIMARY`).
+
+## Amendment 2026-10-14 (Mateo): no cohort gene prior
+- v4.0 may use real training patients only as phenotype evidence. A gene-frequency prior estimated from
+  phenopacket-store is excluded from the claimed system:
+  - its frequencies follow curation choices, not clinical incidence;
+  - the vault shares them, so the prior could pass the gate without helping production patients
+    ([P3-BATCH1-DIAG](../analyses/P3-BATCH1-DIAG.md) §4).
+- Every real-patient component is checked with a phenotype-swap control (PHASE3 §2e). E0 + cohort prior is reported
+  as a control only.

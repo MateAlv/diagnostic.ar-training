@@ -4728,3 +4728,46 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - `freq` changes the recipe and the frequency together.
 - **Plan:** PHASE3.md §2c–§2d (harness fix, R1 reproduction gate, R2 split into R2a/R2b, then R5 real patients).
   Two decisions pending for Mateo (§2d).
+## 2026-10-14: batch 1 diagnosis (P3-BATCH1-DIAG); capped-MRR gate; v4 re-centred on real patients
+- **Analysis:** [P3-BATCH1-DIAG](analyses/P3-BATCH1-DIAG.md), on FIT and SELECT only.
+  - One ANKRD11 paper is 333 of SELECT's 735 uncited patients, and it explains R2's whole loss.
+  - Weighted by publication, R1–R4 are within noise of E0: SELECT ±0.06, FIT ±0.04.
+  - Out-of-vocabulary genes (19–34% of uncited patients) cannot move under the knowledge cut.
+  - Real-patient kNN fused with E0: SELECT publication-weighted +0.113 [+0.040, +0.186]. Most of that is a
+    phenotype-blind cohort gene prior, and it shifts patients: 96 helped, 398 harmed.
+  - The vault's group sizes were counted from case-ID prefixes in the committed split (metadata only).
+- **Decisions (Mateo):**
+  - cap each publication at 10 patients in every MRR that is read (ADR-0019 amendment);
+  - re-centre v4 on real patients (PHASE3 §2e).
+  - Open: whether a phenopacket-store gene prior may be part of the claimed v4.
+- **Code:** `v4.report` adds `mrr_cap` (with its group-bootstrap CI) as `PRIMARY`; training selection follows it.
+  Test `test_capped_mrr_limits_each_group_to_cap_patients`.
+- **Runs:**
+  - `R1c` (`configs/p3/b2/R1c.yaml`): R1 with a cosine schedule, 90 min. Started before the capped metric, so it
+    selects on plain MRR; it is re-read from its ranks.
+- Scripts: `scripts/analysis/p3_batch1/`.
+## 2026-10-14: no cohort gene prior (Mateo); K1 phenotype-only real-patient memory
+- **Decision (Mateo):** no phenopacket-store gene prior in the claimed v4. Real-patient components are checked with a
+  phenotype-swap control (ADR-0019 amendment, PHASE3 §2e).
+- **K1** (`scripts/analysis/p3_batch1/k1.py`, exploratory, FIT memory, FIT/SELECT only):
+  - z-calibrated IC-cosine neighbours fused with E0; λ 4, threshold 1, chosen on FIT from 40 configurations.
+  - SELECT capped Δ +0.059 [+0.002, +0.122], with the phenotype swap at −0.049.
+  - FIT +0.104 [+0.062, +0.152] (tuned there).
+  - SELECT harm is mostly the ANKRD11 paper, whose gene has no FIT memory (P3-BATCH1-DIAG §6).
+## 2026-10-14: R1c passes Gate A; K2 and the out-of-fold K1 reading
+- **R1c** (`configs/p3/b2/R1c.yaml`, cosine schedule, 90 min, best step 450k). Capped Δ vs E0
+  (P3-BATCH1-DIAG §7):
+  - final checkpoint: SELECT uncited −0.008 [−0.031, +0.015], FIT uncited −0.005, SELECT cited −0.008. **Gate A
+    passes**: the schedule was R1's gap.
+  - best checkpoint: SELECT uncited −0.002, FIT uncited −0.003, cited −0.031 / −0.033.
+  - Plain MRR on SELECT uncited: best +0.031, final −0.030 (ANKRD11 paper).
+  - Final checkpoint scored with `scripts/analysis/p3_batch1/final_checkpoint.py`.
+- **K2** (`scripts/analysis/p3_batch1/k2.py`, folds 0–3, nested out-of-fold selection, P3-BATCH1-DIAG §8):
+  - K1 out of fold, pooled: uncited capped Δ +0.076 [+0.041, +0.111], swap −0.048. Positive in all four folds
+    (+0.123, +0.096, +0.050, SELECT +0.024). Cited −0.016 [−0.050, +0.020].
+  - Boost cap and E0-confidence gate: no gain (+0.074).
+  - Harm comes from genes without memory (ANKRD11, SATB2, TMEM216: each its gene's only publication). A boost for
+    memory-less genes would be a cohort prior, so it is not used.
+  - A first draft left the query's publication in the per-gene null (pooled +0.081); fixed before this reading.
+- **Next:** K3 (learned similarity), R5 (GNN with real patients, from R1c), `dxt v4 eval` final-checkpoint
+  option.

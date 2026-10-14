@@ -1,0 +1,18 @@
+# R1c: R1 with a cosine schedule over the run's budget, so the learning rate does not follow SELECT noise
+# (batch 1's plateau schedule collapsed by step about 150k; PHASE3.md §2c-§2d, step A2).
+label: R1c
+seed: 0
+sim:
+  preset: e0
+arch:
+  init: scratch
+train:
+  lr: 5.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: cosine
+  min_lr_ratio: 0.05
+  warmup_steps: 500
+  max_minutes: 90
+  eval_every_steps: 5000
+  num_workers: 12

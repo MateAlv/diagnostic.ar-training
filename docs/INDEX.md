@@ -98,6 +98,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [ONSET-INFORMATIVE-TERMS-v1](analyses/ONSET-INFORMATIVE-TERMS-v1.md) | Which symptoms get the onset selector; dev tertiles Δ low +0.0069, mid +0.0040, high +0.0017 |
 | [P2-PROBES-v1](analyses/P2-PROBES-v1.md) | Phase 2 sizing on R1 train + dev: sex + strict onset +0.00088 [+0.00039, +0.00151], 0 harmed; E0 MRR 0.612 on cited vs 0.066 on post-E0 publications |
 | [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md) | Phase 3 audit on R1 train + dev: how E0 was trained, E0 MRR 0.330 on uncited in-vocabulary patients vs 0.597 cited, Phase 1 losses re-read by citation, options for a v4.0 |
+| [P3-BATCH1-DIAG](analyses/P3-BATCH1-DIAG.md) | Why ladder batch 1 showed nothing: one ANKRD11 paper is 45% of SELECT uncited; publication-weighted rungs are noise; OOV and unexplained patients cannot move; real-patient neighbours add +0.11 on SELECT, much of it a cohort gene prior |
 | [SIM4-v1](analyses/SIM4-v1.md) | The Phase 3 simulator `sim4`: knowledge filters, the global fit on FIT folds, realism of presets e0/freq/real/real_noise on the SELECT fold (C2ST 0.918 → 0.714), what was ported from rare-disease-simulator |
 
 ## Evidence for the informe (`evidence/`)

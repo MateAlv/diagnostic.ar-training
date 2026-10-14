@@ -161,7 +161,34 @@ simulator. About 6 h.
 **F. Claim.** CONFIRM check of at most 3 finalists (main session), pre-registration, independent review, then
 Mateo's go for the one vault read.
 
-**Decisions for Mateo before batch 2:**
+## 2e. Re-centred plan (2026-10-14, after [P3-BATCH1-DIAG](analyses/P3-BATCH1-DIAG.md); replaces §2d B–E)
+- **Metric:** capped MRR, at most 10 patients per publication (ADR-0019 amendment), for selection, ladder readings
+  and the gate.
+- **Mateo:** re-centre v4 on real patients. The simulator rungs measured noise when publications were weighted equally,
+  and a simulator of the same annotations adds no knowledge.
+- **Steps:**
+
+  | Step | What | Reading |
+  |---|---|---|
+  | A | R1c (cosine schedule) **done: Gate A passes on capped MRR** (P3-BATCH1-DIAG §7); a fixed-schedule R4, 2 seeds | does our pipeline reach E0? keep R4 only if it beats R1c on capped FIT and SELECT |
+  | K1 | **Real-patient memory**: kNN over training patients from other publications, fused with E0. **Done:** out of fold over folds 0–3, +0.076 [+0.041, +0.111], swap −0.048 (§6, §8) | capped Δ on SELECT, λ tuned on FIT (leave own group out); helped and harmed counts |
+  | K2 | Harm control: boost cap and E0-confidence gate. **Done: no gain** (§8). Scaling by number of same-gene publications is dropped (a cohort prior) | harmed count at equal gain |
+  | K3 | Similarity learned on FIT pairs (same gene, other publication) vs IC cosine | capped Δ beyond K1 |
+  | R5 | GNN trained with real FIT patients mixed in (from E0 or R1c), ratio grid, per-publication cap | capped Δ beyond K1; does a parametric model beat the memory? |
+  | F | finalists on CONFIRM, pre-registration, independent review, Mateo's go | the single vault read |
+
+- **Always reported, separately:** E0 + cohort gene prior alone (phenotype-blind) as a control, so the phenotype
+  part of any gain is visible.
+- **Production memory** = every curated patient available at release (the claim uses `p3-v1` train only).
+
+**Decision (Mateo, 2026-10-14): no cohort gene prior in the claimed v4.**
+- The real-patient module may use only phenotype evidence. A gene must not gain from how many training patients or
+  publications it has.
+- Enforced by a **popularity control:** the module is re-run with each query's phenotype swapped for another query's
+  (true gene kept). Its gain there must be about 0. Any remaining gain is popularity, and the design is changed.
+- E0 + cohort prior is reported as a control, never as a candidate. An external clinical prior is out of scope.
+
+**Decisions for Mateo before batch 2 (superseded by §2e for B–E):**
 1. R1neg: allow a diagnostic run with E0's negation rows kept, only to measure the gap, never as a candidate?
 2. The ladder's control changes from E0 to R1 for rung-to-rung readings; the vault gate stays against E0.
 
