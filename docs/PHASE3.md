@@ -174,7 +174,7 @@ Mateo's go for the one vault read.
   | K1 | **Real-patient memory**: kNN over training patients from other publications, fused with E0. **Done:** out of fold over folds 0–3, +0.076 [+0.041, +0.111], swap −0.048 (§6, §8) | capped Δ on SELECT, λ tuned on FIT (leave own group out); helped and harmed counts |
   | K2 | Harm control: boost cap and E0-confidence gate. **Done: no gain** (§8). Scaling by number of same-gene publications is dropped (a cohort prior) | harmed count at equal gain |
   | K3 | Similarity learned on FIT pairs (same gene, other publication) vs IC cosine | capped Δ beyond K1 |
-  | R5 | GNN trained with real FIT patients mixed in (from E0 or R1c), ratio grid, per-publication cap | capped Δ beyond K1; does a parametric model beat the memory? |
+  | R5 | GNN trained with real FIT patients mixed in (from E0 or R1c), ratio grid, per-publication cap. **R5-r30 done:** SELECT final +0.051 [+0.020, +0.090], less harm than K1, K1 adds nothing on top; caveats in DIAG §10 | capped Δ beyond K1; does a parametric model beat the memory? |
   | F | finalists on CONFIRM, pre-registration, independent review, Mateo's go | the single vault read |
 
 - **Always reported, separately:** E0 + cohort gene prior alone (phenotype-blind) as a control, so the phenotype

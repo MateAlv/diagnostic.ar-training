@@ -39,6 +39,7 @@ cli = argparse.ArgumentParser()
 cli.add_argument("--sim", choices=("ic", "idf", "direct"), default="ic")
 cli.add_argument("--agg", choices=("max", "top2"), default="max")
 cli.add_argument("--perturb", choices=("none", "parent"), default="none")
+cli.add_argument("--dump", help="save SELECT queries' evidence (z, swapped z) to this .npz, for r5_checks.py")
 args = cli.parse_args()
 print(f"similarity {args.sim}, aggregation {args.agg}, query terms {args.perturb}")
 
@@ -247,4 +248,10 @@ def report(name, new, swap, chosen):
 
 print(f"queries {len(queries)} (uncited {uncited.sum()}), uncited OOV {len(oov)}, memory genes {mgenes.size}")
 report("K1 (no cap, no gate)", *nested(K1_GRID))
+if args.dump:
+    sel = qfold == 3
+    case_ids = np.array([allp[i].case.case_id for i in queries[sel]])
+    np.savez_compressed(
+        args.dump, case_id=case_ids, z=z[sel].astype(np.float32), z_swap=z_swap[sel].astype(np.float32)
+    )
 report("K2 (cap B, gate tau)", *nested(grid))
