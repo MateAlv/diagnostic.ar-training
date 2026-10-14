@@ -76,3 +76,25 @@ def test_strata():
     assert patients.strata(patients.UNCITED, True) == ["all", "uncited", "in_vocab", "uncited_in_vocab"]
     assert patients.strata(patients.CITED, False) == ["all", "cited", "oov", "cited_oov"]
     assert patients.strata(patients.NO_PMID, True)[1] == "no_pmid"
+
+
+def test_phenotype_swap_is_one_seeded_cycle(annotated):
+    source = patients.swap_sources(len(annotated))
+    assert sorted(source) == list(range(len(annotated))) and all(source != range(len(annotated)))
+    assert list(source) == list(patients.swap_sources(len(annotated)))
+    seen, i = set(), 0
+    while i not in seen:
+        seen.add(i)
+        i = source[i]
+    assert len(seen) == len(annotated)
+    swapped, ids = patients.phenotype_swap(annotated)
+    for p, q, j, cid in zip(annotated, swapped, source, ids, strict=True):
+        donor = annotated[j]
+        assert cid == donor.case_id and q.case.present == donor.case.present
+        assert (q.case_id, q.case.gene, q.group, q.status, q.fold) == (
+            p.case_id,
+            p.case.gene,
+            p.group,
+            p.status,
+            p.fold,
+        )

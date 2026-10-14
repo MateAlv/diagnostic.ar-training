@@ -1,0 +1,22 @@
+# R5-r30: R1c's final checkpoint fine-tuned with real FIT-fold patients (present terms only), 30% of items.
+# Gene-balanced draw (`real_draw: gene`): the gene is drawn as the simulator draws it, so a gene gains nothing
+# from its number of real patients or publications (no cohort gene prior, PHASE3.md §2e, step R5). Read with
+# the phenotype-swap control.
+label: R5-r30
+seed: 0
+sim:
+  preset: e0
+  real_ratio: 0.3
+  real_draw: gene
+arch:
+  init: run:R1c-39306a6b7c@last
+train:
+  lr: 1.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: cosine
+  min_lr_ratio: 0.05
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12

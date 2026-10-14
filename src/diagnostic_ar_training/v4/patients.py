@@ -6,10 +6,15 @@
 - Publication groups are the connected components of the train patients. A `p3-v1` group never straddles
   parts, so they equal the frozen union's groups; each must carry a frozen `group_status`.
 - Excluded terms never reach v4: patients are stripped to their present terms here.
+- Phenotype-swap control (no cohort gene prior, PHASE3 §2e): each patient of a fold set gets another
+  patient's phenotype, true gene kept. The pairing is one seeded cycle over the fold set (seed `SWAP_SEED`),
+  so it is the same for every run, E0 included, and nobody keeps their own phenotype.
 """
 
 from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass
+
+import numpy as np
 
 from diagnostic_ar_training.cohorts.schema import Case, Sex
 from diagnostic_ar_training.lineage.registry import LineageError, Purpose
@@ -20,6 +25,8 @@ CITED = "cited_e0_knowledge"
 NO_PMID = "no_pmid"
 STATUSES = (CITED, UNCITED, NO_PMID)
 FOLD_NAMES = ("fit", "select")
+SWAP_SEED = 0
+PHENOTYPE_FIELDS = ("present", "excluded", "sex", "age_years", "onset_years", "onset_term", "feature_onsets")
 
 
 @dataclass(frozen=True)
@@ -115,3 +122,22 @@ def strata(status: str, gene_in_vocab: bool) -> list[str]:
     s = {CITED: "cited", UNCITED: "uncited", NO_PMID: "no_pmid"}[status]
     vocab = "in_vocab" if gene_in_vocab else "oov"
     return ["all", s, vocab, f"{s}_{vocab}"]
+
+
+def swap_sources(n: int, seed: int = SWAP_SEED) -> np.ndarray:
+    """source[i]: the patient whose phenotype patient i carries."""
+    order = np.random.default_rng(seed).permutation(n)
+    source = np.empty(n, dtype=np.int64)
+    source[order] = np.roll(order, -1)
+    return source
+
+
+def phenotype_swap(patients: Sequence[Patient], seed: int = SWAP_SEED) -> tuple[list[Patient], list[str]]:
+    """Each patient with another's phenotype (gene, group, status and fold kept), and the source case ids."""
+    source = swap_sources(len(patients), seed)
+    out = []
+    for p, j in zip(patients, source, strict=True):
+        donor = patients[j].case
+        case = p.case.model_copy(update={f: getattr(donor, f) for f in PHENOTYPE_FIELDS})
+        out.append(Patient(case, p.group, p.status, p.fold))
+    return out, [patients[j].case_id for j in source]

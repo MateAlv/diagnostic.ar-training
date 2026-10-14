@@ -4771,6 +4771,32 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - A first draft left the query's publication in the per-gene null (pooled +0.081); fixed before this reading.
 - **Next:** K3 (learned similarity), R5 (GNN with real patients, from R1c), `dxt v4 eval` final-checkpoint
   option.
+## 2026-10-14: harness for R5 without a cohort gene prior (branch `p3/r5-harness`)
+- **Gene-balanced real mixing** (`sim.real_draw: gene`; default `patient` keeps the old draw and run ids):
+  - the gene is drawn as the simulator draws it (simulated case first, redraws included);
+  - when the gene has FIT-fold patients (folds 0–2, any citation status), with probability `real_ratio` the item
+    is one of them: publication uniform among the gene's, then patient uniform within it;
+  - the label marginal stays the simulator's, so a gene gains nothing from its number of patients or papers.
+  - Consequence: the real share is `real_ratio` × the share of pool genes with FIT patients (291 genes,
+    548 publications, 3,053 patients). `real_ratio` 0.3 gives about 1.8% real items.
+- **Warm start from our runs:** `arch.init: run:<run_id>[@best|@last]` (default last), from
+  `data/interim/v4/<run_id>/`. The source run, checkpoint and step go into the results row.
+- **Two readings per run:** `dxt v4 eval --checkpoint best|last` (default best, unchanged). `last` writes
+  `ranks/last/` and a `final` section in the summary and the results row.
+- **Phenotype-swap control:** `dxt v4 eval --swap` (also `--run R0`).
+  - Each SELECT / FIT patient gets another patient's phenotype from the same fold set, true gene kept. The
+    pairing is one seeded cycle (seed 0), identical for every run.
+  - Output: `ranks/swap/` or `ranks/last/swap/`, and `swap` / `final_swap` sections with capped Δ vs E0 on the
+    same swapped inputs. E0's swapped ranks are cached in `R0/ranks/swap/`.
+- **`train_run`** now reads best and final at the end, plus both swap readings when `real_ratio > 0`.
+- **Hashes:** fields added later are left out of the hash at their default (`config.HASH_NEUTRAL`). A test pins
+  `R1c-39306a6b7c` and `R5-521ab9969c`.
+- **Configs, not run** (`configs/p3/b2/`):
+  - `R5-r10`, `R5-r30`: R1c's recipe from R1c's final checkpoint, `real_draw: gene`, lr 1e-4, 60 min;
+  - `R5s-r30`: the same from scratch, lr 5e-4, 90 min.
+- **Smoke run** (GPU, scratch config, 40 steps from `R1c@last`, not a result):
+  - step 0 reproduces R1c final (SELECT uncited capped Δ −0.008);
+  - all four readings and E0's swapped ranks were written.
 ## 2026-10-14: K3 similarity variants; curated-terms stress test
 - `scripts/analysis/p3_batch1/k2.py --sim/--agg/--perturb` (P3-BATCH1-DIAG §9). Six variants, nested out of fold
   over folds 0–3; five also with each query term moved to a parent.

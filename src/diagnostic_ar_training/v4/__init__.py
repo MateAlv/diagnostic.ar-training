@@ -8,10 +8,12 @@
 - `samplers`: the simulator interface (`sim4.Sampler`) and how a configuration names one.
 - `model`: `GinV4`, GinV3 plus the encoding and architecture options; with the defaults and a warm start it
   is E0, and every option starts at an exact zero.
-- `data`: on-the-fly simulated cases (and FIT-fold real patients) as batches, one seeded RNG per worker.
+- `data`: on-the-fly simulated cases (and FIT-fold real patients, optionally gene-balanced) as batches, one
+  seeded RNG per worker.
 - `train`: AdamW, cosine/plateau schedule, bf16 autocast, time and sample budgets, SELECT-fold selection.
 - `report`: ranks records, strata, MRR / top-k per stratum, Δ vs E0 with the publication-cluster bootstrap.
-- `runs`: run directories (`data/interim/v4/<run_id>/`) and results rows (`results/P3/runs/<run_id>.json`).
+- `runs`: run directories (`data/interim/v4/<run_id>/`) and results rows (`results/P3/runs/<run_id>.json`);
+  readings of the best and final checkpoints, and their phenotype-swap controls.
 - `grid`: sequential grids under a time budget, resumable, every configuration and seed logged.
 
 Torch is needed only by `model`, `data`, `train`, `evaluate` and `throughput`; everything else is numpy.
