@@ -4728,3 +4728,21 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - `freq` changes the recipe and the frequency together.
 - **Plan:** PHASE3.md §2c–§2d (harness fix, R1 reproduction gate, R2 split into R2a/R2b, then R5 real patients).
   Two decisions pending for Mateo (§2d).
+## 2026-10-14: batch 1 diagnosis (P3-BATCH1-DIAG); capped-MRR gate; v4 re-centred on real patients
+- **Analysis:** [P3-BATCH1-DIAG](analyses/P3-BATCH1-DIAG.md), on FIT and SELECT only.
+  - One ANKRD11 paper is 333 of SELECT's 735 uncited patients, and it explains R2's whole loss.
+  - Weighted by publication, R1–R4 are within noise of E0: SELECT ±0.06, FIT ±0.04.
+  - Out-of-vocabulary genes (19–34% of uncited patients) cannot move under the knowledge cut.
+  - Real-patient kNN fused with E0: SELECT publication-weighted +0.113 [+0.040, +0.186]. Most of that is a
+    phenotype-blind cohort gene prior, and it shifts patients: 96 helped, 398 harmed.
+  - The vault's group sizes were counted from case-ID prefixes in the committed split (metadata only).
+- **Decisions (Mateo):**
+  - cap each publication at 10 patients in every MRR that is read (ADR-0019 amendment);
+  - re-centre v4 on real patients (PHASE3 §2e).
+  - Open: whether a phenopacket-store gene prior may be part of the claimed v4.
+- **Code:** `v4.report` adds `mrr_cap` (with its group-bootstrap CI) as `PRIMARY`; training selection follows it.
+  Test `test_capped_mrr_limits_each_group_to_cap_patients`.
+- **Runs:**
+  - `R1c` (`configs/p3/b2/R1c.yaml`): R1 with a cosine schedule, 90 min. Started before the capped metric, so it
+    selects on plain MRR; it is re-read from its ranks.
+- Scripts: `scripts/analysis/p3_batch1/`.

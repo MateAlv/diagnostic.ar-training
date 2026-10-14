@@ -24,7 +24,7 @@ from diagnostic_ar_training.v4 import data, evaluate, report
 from diagnostic_ar_training.v4.config import RunConfig
 from diagnostic_ar_training.v4.model import GinV4, is_new_parameter
 
-SELECTION = ("uncited", "mrr")
+SELECTION = report.PRIMARY
 
 
 def param_groups(model: GinV4, cfg: RunConfig) -> list[dict]:

@@ -2,6 +2,7 @@
 
 import math
 
+import numpy as np
 import pytest
 
 from diagnostic_ar_training.cohorts.schema import Case
@@ -43,8 +44,20 @@ def test_delta_vs_e0_helped_harmed_and_primary():
     assert (u["helped"], u["harmed"], u["unchanged"]) == (1, 1, 2)
     lo, hi = u["delta_mrr_ci95"]
     assert lo <= u["delta"]["mrr"] <= hi
-    assert out["primary"]["stratum"] == "uncited" and out["primary"]["delta"] == u["delta"]["mrr"]
+    assert out["primary"]["stratum"] == "uncited" and out["primary"]["delta"] == u["delta"]["mrr_cap"]
+    assert out["primary"]["ci95"] == u["delta_mrr_cap_ci95"]
     assert out["strata"]["cited"]["harmed"] == 1
+
+
+def test_capped_mrr_limits_each_group_to_cap_patients():
+    big = [{"rank": 1.0, "group": "big"} for _ in range(3 * report.CAP)]
+    small = [{"rank": 2.0, "group": "small"}]
+    w = report.cap_weights([r["group"] for r in big + small])
+    assert w[0] == pytest.approx(1 / 3) and w[-1] == 1
+    ranks = [r["rank"] for r in big + small]
+    stats = report._stats(np.array(ranks), w)
+    assert stats["mrr"] == pytest.approx((3 * report.CAP + 0.5) / (3 * report.CAP + 1))
+    assert stats["mrr_cap"] == pytest.approx((report.CAP + 0.5) / (report.CAP + 1))
 
 
 def test_e0_must_cover_the_same_cases():

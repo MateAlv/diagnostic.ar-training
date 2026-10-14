@@ -16,6 +16,8 @@
   E0's knowledge. Grid search before the single read.
 - Ladder batch 1 (2026-10-13): no rung improved; the learning-rate schedule collapsed and R1 did not reproduce E0.
   Next: batch 2 plan in [PHASE3.md](PHASE3.md) §2d (harness fix and R1 reproduction first; two decisions for Mateo).
+- 2026-10-14: [P3-BATCH1-DIAG](analyses/P3-BATCH1-DIAG.md). The gate uses capped MRR (10 patients per publication). v4 is
+  re-centred on real patients (PHASE3 §2e). Open: may a phenopacket-store gene prior be part of the claim?
 
 ## Production-ready model (2026-10-08; [ADR-0018](decisions/0018-ft-v11-production-ready.md))
 - `ft-v1.1-c1-lin-all-ens` (git tag `ft-v1.1-production-ready`):
