@@ -4797,3 +4797,16 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - **Smoke run** (GPU, scratch config, 40 steps from `R1c@last`, not a result):
   - step 0 reproduces R1c final (SELECT uncited capped Δ −0.008);
   - all four readings and E0's swapped ranks were written.
+## 2026-10-14: K3 similarity variants; curated-terms stress test
+- `scripts/analysis/p3_batch1/k2.py --sim/--agg/--perturb` (P3-BATCH1-DIAG §9). Six variants, nested out of fold
+  over folds 0–3; five also with each query term moved to a parent.
+- Uncited capped Δ, curated → parent terms:
+  - ic max (K1): +0.076 → +0.055;
+  - ic top2: +0.084 → +0.062;
+  - idf max: +0.070 → +0.056;
+  - direct max: +0.094 → +0.012;
+  - direct top2: +0.103 → +0.008;
+  - idf top2: +0.077 (parent run not done).
+- **Decision:** `direct` is rejected (it matches the curators' per-gene term templates). ic max and ic top2 are
+  carried forward.
+- Curator check not possible: every phenopacket's `createdBy` is the same (`curators.py`, fold 0–3 entries only).

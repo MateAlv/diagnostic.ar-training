@@ -7,9 +7,15 @@ B caps how far a gene can climb, so genes without memory cannot fall far; gate =
 folds' uncited queries, then the outer fold is scored once. K1 (B and tau off) is read the same way. The
 pooled out-of-fold readings cover four folds instead of SELECT alone. Popularity control: each query's
 phenotype is swapped for another query's of the same fold, both publications excluded, true gene kept.
+Variants (K3, PHASE3 §2e): `--sim` ic (term weight = disease IC, K1), idf (inverse frequency among the
+fold 0-3 patients) or direct (disease IC, present terms without their ancestors); `--agg` max (best patient,
+K1) or top2 (mean of the gene's two best publications, each publication scored by its best patient).
+`--perturb parent` replaces each query term by one of its parents (seeded) before the memory lookup; memory,
+null and E0 keep the curated terms. It tests how much of the gain needs the curators' exact terms.
 Reads `$P3_B1_DATA/e0probs.pkl` (written by knn.py).
 """
 
+import argparse
 import collections
 import itertools
 import math
@@ -29,6 +35,12 @@ THRESHOLDS = (0, 1, 2, 3)
 CAPS = (math.inf, 1, 2, 4)
 TAUS = (math.inf, 0.9, 0.7, 0.5)
 UNCITED = "uncited_e0_knowledge"
+cli = argparse.ArgumentParser()
+cli.add_argument("--sim", choices=("ic", "idf", "direct"), default="ic")
+cli.add_argument("--agg", choices=("max", "top2"), default="max")
+cli.add_argument("--perturb", choices=("none", "parent"), default="none")
+args = cli.parse_args()
+print(f"similarity {args.sim}, aggregation {args.agg}, query terms {args.perturb}")
 
 K = load_knowledge()
 onto = K.ontology
@@ -36,27 +48,45 @@ allp = P.load("fit") + P.load("select")
 N = len(allp)
 
 
-def closure(p):
+def closure(p, rng=None):
     out = set()
     for x in p.case.present:
         t = onto.resolve(x)
         if t and K.is_finding(t):
-            out |= {t} | {a for a in onto.ancestors(t) if K.is_finding(a)}
+            if rng is not None:
+                parents = sorted(a for a in onto.parents(t) if K.is_finding(a))
+                t = parents[rng.integers(len(parents))] if parents else t
+            out |= {t} if args.sim == "direct" else {t} | {a for a in onto.ancestors(t) if K.is_finding(a)}
     return out
 
 
+C = [closure(p) for p in allp]
+perturb_rng = np.random.default_rng(1)
+Cq = [closure(p, perturb_rng) for p in allp] if args.perturb == "parent" else C
+patient_df = collections.Counter(t for c in C for t in c)
+
+
 def ic(t):
+    if args.sim == "idf":
+        return -math.log(patient_df[t] / N)
     return -math.log(max(K.disease_counts.get(t, 0), 1) / K.n_diseases)
 
 
-C = [closure(p) for p in allp]
-vocab = {t: i for i, t in enumerate(sorted(set().union(*C)))}
-rows = [i for i, c in enumerate(C) for _ in c]
-cols = [vocab[t] for c in C for t in c]
-vals = [ic(t) for c in C for t in c]
-X = sp.csr_matrix((vals, (rows, cols)), shape=(N, len(vocab)))
-norm = np.sqrt(np.asarray(X.multiply(X).sum(1)).ravel()) + 1e-9
+vocab = {t: i for i, t in enumerate(sorted(set().union(*C, *Cq)))}
+
+
+def matrix(closures):
+    rows = [i for i, c in enumerate(closures) for _ in c]
+    cols = [vocab[t] for c in closures for t in c]
+    vals = [ic(t) for c in closures for t in c]
+    m = sp.csr_matrix((vals, (rows, cols)), shape=(N, len(vocab)))
+    return m, np.sqrt(np.asarray(m.multiply(m).sum(1)).ravel()) + 1e-9
+
+
+X, norm = matrix(C)
 sim = (X @ X.T).toarray() / norm[:, None] / norm[None, :]
+Xq, norm_q = matrix(Cq)
+sim_q = sim if Cq is C else (Xq @ X.T).toarray() / norm_q[:, None] / norm[None, :]
 
 e0p, genes = pickle.load(open(DATA + "e0probs.pkl", "rb"))
 gidx = {g.upper(): i for i, g in enumerate(genes)}
@@ -69,18 +99,31 @@ for j, g in enumerate(gene):
     if g >= 0:
         members[g].append(j)
 mgenes = np.array(sorted(members))
+publications = {
+    g: [[j for j in js if group[j] == x] for x in np.unique(group[js])] for g, js in members.items()
+}
 
 
-def best_sim(phen, excluded):
+def aggregate(s, g):
+    if args.agg == "max":
+        return s[:, members[g]].max(1)
+    per_pub = np.stack([s[:, js].max(1) for js in publications[g]], 1)
+    if per_pub.shape[1] == 1:
+        return per_pub[:, 0]
+    top = -np.sort(-per_pub, 1)[:, :2]
+    return np.where(top[:, 1] >= 0, top.mean(1), top[:, 0])
+
+
+def best_sim(rows, excluded):
     """Best similarity of each phenotype row to each memory gene, skipping those in `excluded` groups."""
-    s = sim[phen].copy()
+    s = rows.copy()
     for ex in excluded:
         s[group[None, :] == ex[:, None]] = -1.0
-    return np.stack([s[:, members[g]].max(1) for g in mgenes], 1)
+    return np.stack([aggregate(s, g) for g in mgenes], 1)
 
 
 # Per-gene null: best similarity of other genes' patients, per group, so a query's group can be dropped.
-own = best_sim(np.arange(N), [group])
+own = best_sim(sim, [group])
 valid = (gene[:, None] != mgenes[None, :]) & (own >= 0)
 sums = np.zeros((3, group.max() + 1, mgenes.size))
 for k, v in enumerate((valid, np.where(valid, own, 0.0), np.where(valid, own, 0.0) ** 2)):
@@ -106,14 +149,14 @@ queries = np.array([i for i, p in enumerate(allp) if gene[i] >= 0 and e0p[i] is 
 lp = np.log(np.stack([e0p[i] for i in queries]) + 1e-12)
 top = np.exp(lp.max(1))
 qg = gene[queries]
-z = zscores(own[queries], [group[queries]])
+z = zscores(best_sim(sim_q[queries], [group[queries]]), [group[queries]])
 rng = np.random.default_rng(0)
 perm = queries.copy()
 for f in np.unique(fold[queries]):
     m = fold[queries] == f
     perm[m] = rng.permutation(queries[m])
 excl = [group[queries], group[perm]]
-z_swap = zscores(best_sim(perm, excl), excl)
+z_swap = zscores(best_sim(sim_q[perm], excl), excl)
 
 uncited = np.array([allp[i].status == UNCITED for i in queries])
 oov = [i for i, p in enumerate(allp) if p.status == UNCITED and not (gene[i] >= 0 and e0p[i] is not None)]
