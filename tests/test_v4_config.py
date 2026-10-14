@@ -82,10 +82,11 @@ def test_warm_start_from_a_run():
 def test_batch2_r5_configs():
     r = {p.stem: config.load(p) for p in sorted(BATCH2.glob("R5*.yaml"))}
     r1c = config.load(BATCH2 / "R1c.yaml")
-    assert sorted(r) == ["R5-r10", "R5-r30", "R5s-r30"]
+    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r90", "R5s-r30"]
     assert all(c.label == k and c.sim.real_draw == "gene" for k, c in r.items())
-    assert [r[k].sim.real_ratio for k in ("R5-r10", "R5-r30", "R5s-r30")] == [0.1, 0.3, 0.3]
+    assert [r[k].sim.real_ratio for k in ("R5-r10", "R5-r30", "R5-r90", "R5s-r30")] == [0.1, 0.3, 0.9, 0.3]
     assert r["R5-r10"].arch.init_run == r["R5-r30"].arch.init_run == (r1c.run_id, "last")
+    assert r["R5-r90"].train == r["R5-r30"].train and r["R5-r90"].arch == r["R5-r30"].arch
     assert r["R5s-r30"].arch.init == "scratch" and r["R5s-r30"].train == r1c.train
     assert r["R5-r30"].train == config.override(r1c, {"train.lr": 1e-4, "train.max_minutes": 60}).train
     assert r["R5-r10"].sim.preset == r1c.sim.preset and r["R5-r10"].encoding == r1c.encoding
