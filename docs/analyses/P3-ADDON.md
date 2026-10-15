@@ -134,3 +134,29 @@ production).
 - **Input coverage** (5,053 patients): sex 4,631, age 3,956, onset 1,316, at least one excluded term 4,635.
 - **No phenotype-swap control for the add-on:** it has no per-gene parameter and no patient-count input; the
   network's control stands (DIAG §11).
+
+## Room for sex and age on top of the network (`ceiling.py`, 2026-10-15)
+Hard filters on the network's out-of-fold logits, folds 0–3: a gene limited to the other sex, or whose strict
+earliest onset (`p3-addon-kb-v1`) is later than the patient's latest possible onset, is moved below every other gene.
+"now" reads the onset in years else the current age (as the add-on); "full" also reads the HPO onset class (upper
+end of its range) and per-symptom onsets, which nothing used before: they lower the reference age of 2,393 of 5,053
+patients and give 88% of patients a reference age (82% before).
+
+| Uncited, capped Δ vs the network | Δ [95% CI] | helped / harmed | true gene filtered out |
+|---|---|---|---|
+| sex only | +0.0000 [+0.0000, +0.0000] | 148 / 0 | 0 |
+| onset, now | −0.0072 [−0.0171, −0.0009] | 305 / 40 | 34 |
+| onset, full | −0.0071 [−0.0170, −0.0008] | 363 / 47 | 39 |
+| sex + onset, full | −0.0071 [−0.0170, −0.0008] | 382 / 47 | 39 |
+
+- **Near the top of the list there is almost nothing to remove.** Uncited patients with the gene at rank 2–10: 421,
+  with 1,477 genes above their gene. Removable by sex or onset: 19 (1.3%); the first-ranked gene in 3 patients. Of
+  the rest, 43% have no onset knowledge and 55% have it and are compatible.
+- Over all ranks, of 401,989 genes above the gene (1,104 patients): 2.5% removable now, 0.9% more with the full
+  onset reading, 47.5% without onset knowledge, 49.2% known and compatible.
+- HPOA's earliest onsets contradict real patients: as a hard rule they filter out the true gene of 34–39 uncited
+  patients, which costs more than the rule gains.
+- Reading: the network's close competitors share the patient's sex and onset range, so sex and age rules cannot
+  separate them. Filling the missing onset knowledge would not change this much: among competitors with knowledge,
+  2% are removable.
+
