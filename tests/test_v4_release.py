@@ -261,3 +261,58 @@ def test_mapped_export_round_trips(tmp_path):
     got = session.run(None, {"x": x.numpy(), "edge_index": edges.numpy()})[0]
     with torch.inference_mode():
         assert np.abs(got - net(x, edges).numpy()).max() < 1e-5
+
+
+def _toy_bundle(tmp_path, model):
+    torch = pytest.importorskip("torch")
+    from diagnostic_ar_training.systems.genphenia_v3 import CHECKPOINT
+
+    ckpt = tmp_path / "checkpoints" / CHECKPOINT
+    ckpt.mkdir(parents=True)
+    spec = {
+        "checkpoint_path": "../best_model.pt",
+        "checkpoint_key": "model_state_dict",
+        "genes_path": "genes.json",
+        "model_version": "3.0",
+        "in_channels": model.in_channels,
+        "hidden_channels": model.hidden_channels,
+        "num_heads": 4,
+    }
+    (ckpt / "spec.json").write_text(json.dumps(spec))
+    (ckpt / "genes.json").write_text(json.dumps([f"G{i}" for i in range(model.out_channels)]))
+    e0 = {"epoch": 1, "model_version": "3.0", "model_state_dict": model.state_dict(), "val_mrr": 0.5}
+    torch.save(e0, tmp_path / "checkpoints" / "best_model.pt")
+    return tmp_path
+
+
+def test_checkpoint_takes_e0s_layout(tmp_path):
+    torch = pytest.importorskip("torch")
+    from diagnostic_ar_training.gnn.model import GinV3
+    from diagnostic_ar_training.lineage.registry import LineageError
+
+    torch.manual_seed(1)
+    bundle = _toy_bundle(tmp_path, GinV3(6, 8, 5))
+    v3 = release.to_ginv3(_toy_net())
+    path = release.write_checkpoint(v3, bundle)
+    saved = torch.load(path, map_location="cpu", weights_only=True)
+    assert saved["model_version"] == release.VERSION and saved["source_run"] == release.NETWORK
+    assert list(saved["model_state_dict"]) == list(v3.state_dict())
+    assert all(torch.equal(saved["model_state_dict"][k], v) for k, v in v3.state_dict().items())
+    with pytest.raises(LineageError, match="layout"):
+        release.write_checkpoint(GinV3(6, 8, 4), bundle)
+
+
+@pytest.mark.skipif(not (release.ENGINE / "adapter_models.py").exists(), reason="no vendored engine")
+def test_the_engines_model_loads_the_checkpoint_as_the_network(tmp_path):
+    torch = pytest.importorskip("torch")
+    from diagnostic_ar_training.gnn.model import GinV3
+
+    bundle = _toy_bundle(tmp_path, GinV3(6, 8, 5))
+    net = _toy_net()
+    release.write_checkpoint(release.to_ginv3(net), bundle)
+    adapter = release.engine_model(bundle)
+    x, edges = _graph(torch)
+    with torch.inference_mode():
+        assert torch.allclose(adapter(x, edges), net(x, edges), atol=1e-6)
+    assert release.engine_version_error("3.0") is None
+    assert "4.0" in release.engine_version_error("4.0")

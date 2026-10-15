@@ -147,25 +147,30 @@ def _release_state(scratch: str, artifact_id: str):
 
 @v4_app.command("release-network")
 def v4_release_network(
-    artifact_id: str = typer.Option("genphenia-v4.0", "--id", help="Lineage id of the bundle"),
+    artifact_id: str = typer.Option("genphenia-v4.0-b2", "--id", help="Lineage id of the bundle"),
     scratch: str = typer.Option("", help="Write everything under this directory instead, with no manifest"),
     packer: str = typer.Option("", help="Default: diagnostic.ar-model's scripts/package_bundle.sh"),
     engine_dir: str = typer.Option("", "--engine", help="Default: diagnostic.ar-model's vendored engine"),
     mapping_patients: int = typer.Option(200, help="Patients for the GinV4 vs GinV3 bit-for-bit check"),
     device: str = typer.Option("cuda"),
 ) -> None:
-    """F3's network as `genphenia-v4.0`: E0's bundle with only model.onnx replaced, checked and packed.
+    """F3's network as `genphenia-v4.0`: E0's bundle with model.onnx and best_model.pt replaced, then checked.
 
-    Exports `R5x-f4-ef2f309462`'s last.pt (frozen sha256) in E0's layout with `gnn.export.export_v3`, then on
-    every patient of p3-v1 train folds 0-3 (`patients.load_addon`) compares the torch network's logits with
-    the ONNX through `systems.genphenia_v3` and through diagnostic.ar-model's vendored engine run on the
-    packed tarball. Writes dist/genphenia-v4.0/ (the bundle directory and the tarball, ignored by git; the
-    .sha256 and MANIFEST.json), results/P4/release/genphenia-v4.0-parity.json and a manifest, whose outputs
-    leave the tarball out so `dxt lineage verify` passes without the release asset.
+    Exports `R5x-f4-ef2f309462`'s last.pt (frozen sha256) in E0's layout with `gnn.export.export_v3` and as
+    E0's checkpoint, then on every patient of p3-v1 train folds 0-3 (`patients.load_addon`) compares the torch
+    network's logits with the ONNX through `systems.genphenia_v3` and through diagnostic.ar-model's vendored
+    engine run on the packed tarball, and with the engine's own torch model loaded from best_model.pt. It also
+    lets the engine rebuild a deleted model.onnx from best_model.pt (scratch copy) and records the outcome,
+    and whether the engine accepts model_version "4.0". Writes dist/genphenia-v4.0/ (the bundle directory and
+    the tarball, ignored by git; the .sha256 and MANIFEST.json), results/P4/release/genphenia-v4.0-parity.json
+    and a manifest, whose outputs leave the tarball out so `dxt lineage verify` passes without the asset.
     """
     import tarfile
     import tempfile
     import time
+
+    import numpy as np
+    import torch
 
     from diagnostic_ar_training import RESULTS_DIR
     from diagnostic_ar_training.ft import runs as ft_runs
@@ -184,7 +189,7 @@ def v4_release_network(
     net, cfg = release.frozen_network(ctx)
     e0_tarball = open_source(SOURCE, Purpose.BASELINE)
     bundle_dir = release.build_bundle(e0_tarball, release.to_ginv3(net), out_dir)
-    onnx_file = release.onnx_path(bundle_dir)
+    onnx_file, checkpoint_file = release.onnx_path(bundle_dir), release.checkpoint_path(bundle_dir)
     packer_path = Path(packer) if packer else release.PACKER
     tarball, sha_file = release.pack(bundle_dir, out_dir, packer_path)
     e0_source = load_sources()[SOURCE]
@@ -209,8 +214,31 @@ def v4_release_network(
         if tuple(engine.genes) != onnx_system.genes:
             raise typer.BadParameter("the engine's gene order differs from E0's")
         parity = release.network_parity(members, torch_scores, onnx_system, engine, onnx_system.genes)
+        engine_path = Path(engine_dir) if engine_dir else release.ENGINE
+        adapter = release.engine_model(Path(tmp) / release.BUNDLE, engine_path)
+        with torch.inference_mode():
+            parity["engine_model_from_best_model_pt"] = release.logits_parity(
+                members,
+                torch_scores,
+                onnx_system,
+                lambda x, e: adapter(torch.from_numpy(x), torch.from_numpy(e)).numpy(),
+                onnx_system.genes,
+            )
     parity["ginv4_vs_ginv3"] = mapping
     parity["engine_health"] = {k: health[k] for k in ("model_version", "out_channels", "in_channels")}
+    with tempfile.TemporaryDirectory() as tmp:
+        rebuilt, error = release.engine_reexport(engine_cls, tarball, Path(tmp))
+        reexport = {"rebuilt": rebuilt is not None, "error": error}
+        if rebuilt is not None:
+            again = GenPheniaV3(rebuilt)
+
+            def run(x, e):
+                feeds = {"x": x, "edge_index": e, "batch": np.zeros(len(x), dtype=np.int64)}
+                return again.session.run(None, {k: v for k, v in feeds.items() if k in again.input_names})[0]
+
+            reexport |= release.logits_parity(members, torch_scores, onnx_system, run, onnx_system.genes)
+    parity["engine_reexport_from_best_model_pt"] = reexport
+    version_error = release.engine_version_error(release.VERSION)
 
     summary = {
         "bundle": release.BUNDLE,
@@ -221,9 +249,24 @@ def v4_release_network(
             "trained_on": f"{patients.SPLIT} train folds {list(release.TRAINED_ON)} + sim4 (ADR-0019)",
         },
         "base": {"source": SOURCE, "version": e0_source.version, "tarball_sha256": e0_source.sha256},
-        "changed_from_base": [str(onnx_file.relative_to(bundle_dir))],
+        "changed_from_base": [str(p.relative_to(bundle_dir)) for p in (onnx_file, checkpoint_file)],
+        "model_version": {
+            "spec_json": release.spec_of(bundle_dir)["model_version"],
+            "best_model_pt": release.VERSION,
+            "why_spec_json_stays": (
+                "the vendored engine reads spec.json's model_version as the architecture and rejects others: "
+                f"{version_error}"
+            )
+            if version_error
+            else None,
+        },
         "packer": {"script": "diagnostic.ar-model scripts/package_bundle.sh", "repacks_base_exactly": True},
         "model_onnx": {"sha256": sha256_file(onnx_file), "bytes": onnx_file.stat().st_size},
+        "best_model_pt": {
+            "sha256": sha256_file(checkpoint_file),
+            "bytes": checkpoint_file.stat().st_size,
+            "layout": "E0's: {model_version, model_state_dict (GinV3 / PyG keys), source_run, ...}",
+        },
         "tarball": {"file": tarball.name, "sha256": sha256_file(tarball), "bytes": tarball.stat().st_size},
         "export": {"code": "gnn.export.export_v3", "repo": state.repo, "sha": state.sha},
         "parity_patients": f"{patients.SPLIT} train folds {list(release.TRAINED_ON)}, every patient",
@@ -242,7 +285,8 @@ def v4_release_network(
         outputs = [sha_file, manifest_file, report]
         notes = (
             f"The tarball dist/{release.BUNDLE}/{tarball.name} (sha256 in {sha_file.name}) and its unpacked "
-            "directory are release assets (ADR-0005), ignored by git."
+            "directory are release assets (ADR-0005), ignored by git. Supersedes genphenia-v4.0 (build 1, "
+            "never published), whose best_model.pt was still E0's."
         )
         manifest.write_manifest(
             manifest.build_manifest(

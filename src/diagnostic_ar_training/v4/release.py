@@ -5,9 +5,11 @@
   (hidden 512, 3 layers, attention pooling, edges up, no node features, no covariates), so its GinV4 state
   dict is GinV3's, key for key and tensor for tensor (`v4.model`). It exports with `gnn.export.export_v3`,
   E0's ONNX signature (x [N, 768] float32, edge_index [2, E] int64 -> logits [1, 5229]). The bundle is E0's
-  `genphenia-v3.0` tarball with only `model.onnx` replaced: same spec.json, gene order, DAG, embeddings, so
-  production's graph construction is unchanged. It is packed with diagnostic.ar-model's
-  `scripts/package_bundle.sh` (reproducible tarball).
+  `genphenia-v3.0` tarball with `model.onnx` and `best_model.pt` replaced (`write_checkpoint`: E0's checkpoint
+  layout, which the vendored engine loads); same spec.json, gene order, DAG and embeddings, so production's
+  graph construction is unchanged. spec.json keeps `model_version: "3.0"`: the engine reads it as the
+  architecture (`adapter_models.build_adapter_model`) and accepts only 2.0, 2.5 and 3.0. It is packed with
+  diagnostic.ar-model's `scripts/package_bundle.sh` (reproducible tarball).
 - **Layer** (`export_layer`): one `v4-layer-bundle/1` JSON object, read by the standalone
   `dist/v4-layer/v4_layer.py` (numpy and the standard library only):
   - the add-on `p3-addon-v1-all` (`ft-v1-bundle/2`, linear members): each member's θ on the features whose θ
@@ -20,13 +22,14 @@
   genes of the network alone and of F3, through production's runtime.
 """
 
+import contextlib
 import importlib.util
 import json
 import os
 import subprocess
 import sys
 import tarfile
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from pathlib import Path
 from types import ModuleType
 
@@ -52,6 +55,7 @@ FROZEN_SHA256 = {
 }
 TRAINED_ON = (0, 1, 2, 3)
 BUNDLE = "genphenia-v4.0"
+VERSION = "4.0"
 NETWORK_DIST = REPO_ROOT / "dist" / BUNDLE
 LAYER_DIST = REPO_ROOT / "dist" / "v4-layer"
 STANDALONE = LAYER_DIST / "v4_layer.py"
@@ -123,10 +127,48 @@ def extract_e0(e0_tarball: Path, out_dir: Path, name: str) -> Path:
     return target
 
 
-def build_bundle(e0_tarball: Path, model, out_dir: Path, name: str = BUNDLE) -> Path:
-    """`out_dir/name`: E0's bundle with `model.onnx` replaced by `model`'s export (`gnn.export.export_v3`).
+def checkpoint_path(bundle_dir: Path) -> Path:
+    ckpt = Path(bundle_dir) / "checkpoints" / CHECKPOINT
+    return (ckpt / spec_of(bundle_dir)["checkpoint_path"]).resolve()
 
-    The new file takes the old one's permission bits, so the tarball differs from E0's only in model.onnx.
+
+def _layout(state: Mapping) -> list[tuple]:
+    return [(k, tuple(v.shape), v.dtype) for k, v in state.items()]
+
+
+def write_checkpoint(model, bundle_dir: Path) -> Path:
+    """The bundle's `best_model.pt` replaced by `model`'s weights in E0's layout: a dict whose spec.json
+    `checkpoint_key` holds the GinV3 (PyG-named) state dict, plus `model_version` and the source run.
+
+    Refused unless the keys, shapes and dtypes are E0's in E0's order; E0's optimizer and validation entries
+    are left out. Only tensors, strings and numbers: it loads with `torch.load(weights_only=True)`.
+    """
+    import torch
+
+    path = checkpoint_path(bundle_dir)
+    key = spec_of(bundle_dir)["checkpoint_key"]
+    e0 = torch.load(path, map_location="cpu", weights_only=True)[key]
+    state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+    if _layout(state) != _layout(e0):
+        raise LineageError("the network's state dict differs from E0's checkpoint layout")
+    mode = path.stat().st_mode & 0o777
+    payload = {
+        "model_version": VERSION,
+        key: state,
+        "source_run": NETWORK,
+        "source_checkpoint": "last.pt",
+        "source_sha256": FROZEN_SHA256[NETWORK],
+    }
+    torch.save(payload, path)
+    os.chmod(path, mode)
+    return path
+
+
+def build_bundle(e0_tarball: Path, model, out_dir: Path, name: str = BUNDLE) -> Path:
+    """`out_dir/name`: E0's bundle with `model.onnx` replaced by `model`'s export (`gnn.export.export_v3`) and
+    `best_model.pt` by its weights (`write_checkpoint`).
+
+    The new files take the old ones' permission bits, so the tarball differs from E0's in those two only.
     """
     from diagnostic_ar_training.gnn import export
 
@@ -141,6 +183,7 @@ def build_bundle(e0_tarball: Path, model, out_dir: Path, name: str = BUNDLE) -> 
     mode = path.stat().st_mode & 0o777
     export.export_v3(model.cpu().eval(), path)
     os.chmod(path, mode)
+    write_checkpoint(model, target)
     return target
 
 
@@ -151,11 +194,20 @@ def pack(bundle_dir: Path, out_dir: Path, packer: Path = PACKER) -> tuple[Path, 
     return Path(out_dir) / f"{name}.tar.gz", Path(out_dir) / f"{name}.tar.gz.sha256"
 
 
+@contextlib.contextmanager
+def _no_bytecode() -> Iterator[None]:
+    """Imports that write no .pyc: the engine's directory belongs to another repo."""
+    writes = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
+    try:
+        yield
+    finally:
+        sys.dont_write_bytecode = writes
+
+
 def vendored_engine(engine_dir: Path = ENGINE):
     """diagnostic.ar-model's `GenpheniaEngine`, imported under its own package name (`inference_engine`)."""
-    writes = sys.dont_write_bytecode
-    sys.dont_write_bytecode = True  # the engine's directory belongs to another repo
-    try:
+    with _no_bytecode():
         if "inference_engine" not in sys.modules:
             spec = importlib.util.spec_from_file_location(
                 "inference_engine",
@@ -166,9 +218,55 @@ def vendored_engine(engine_dir: Path = ENGINE):
             sys.modules["inference_engine"] = module
             spec.loader.exec_module(module)
         from inference_engine.engine import GenpheniaEngine
-    finally:
-        sys.dont_write_bytecode = writes
     return GenpheniaEngine
+
+
+def engine_model(bundle_dir: Path, engine_dir: Path = ENGINE):
+    """The vendored engine's own torch model for the bundle's `best_model.pt`, built and loaded as its ONNX
+    export does (`export_onnx.export_record_to_onnx`): `build_adapter_model(spec.model_version, ...)`,
+    `_load_raw_state_dict`, `convert_checkpoint_state_dict`; refused on any missing or unexpected key."""
+    vendored_engine(engine_dir)
+    with _no_bytecode():
+        from inference_engine.adapter_models import build_adapter_model, convert_checkpoint_state_dict
+        from inference_engine.export_onnx import _load_raw_state_dict
+
+    spec = spec_of(bundle_dir)
+    genes = json.loads((Path(bundle_dir) / "checkpoints" / CHECKPOINT / spec["genes_path"]).read_text())
+    model = build_adapter_model(
+        spec["model_version"], spec["in_channels"], spec["hidden_channels"], len(genes), spec["num_heads"]
+    )
+    raw = _load_raw_state_dict(checkpoint_path(bundle_dir), spec["checkpoint_key"])
+    result = model.load_state_dict(convert_checkpoint_state_dict(raw), strict=False)
+    if result.missing_keys or result.unexpected_keys:
+        raise LineageError(f"the engine's model does not load best_model.pt: {result}")
+    return model.eval()
+
+
+def engine_version_error(version: str, engine_dir: Path = ENGINE) -> str | None:
+    """None if the vendored engine accepts `version` as a spec.json model_version, else its error."""
+    vendored_engine(engine_dir)
+    from inference_engine.types import normalize_model_version
+
+    try:
+        normalize_model_version(version)
+    except ValueError as error:
+        return str(error)
+    return None
+
+
+def engine_reexport(engine_cls, tarball: Path, tmp: Path) -> tuple[Path | None, str | None]:
+    """(bundle directory, None) once the engine has rebuilt model.onnx from best_model.pt in a scratch copy of
+    the tarball whose model.onnx was deleted, or (None, the engine's error)."""
+    with tarfile.open(tarball) as archive:
+        archive.extractall(tmp, filter="data")
+    bundle_dir = Path(tmp) / Path(tarball).name.removesuffix(".tar.gz")
+    onnx_path(bundle_dir).unlink()
+    try:
+        with _no_bytecode():
+            engine_cls.load(bundle_dir, auto_refresh_seconds=1e9)
+    except Exception as error:
+        return None, f"{type(error).__name__}: {str(error).strip().splitlines()[0][:300]}"
+    return bundle_dir, None
 
 
 def zero_features(bundle: Mapping) -> list[str]:
@@ -383,6 +481,37 @@ def network_parity(members, torch_scores: Mapping, onnx_system, engine, genes: S
     out["rank_identical"] = {"onnx": same["onnx"], "engine": same["engine"]}
     out["engine_top10_same_order_as_torch"] = same["engine_top10"]
     out["rank_differs"] = differ
+    return out
+
+
+def logits_parity(members, torch_scores: Mapping, onnx_system, score: Callable, genes: Sequence[str]) -> dict:
+    """`score(x, edge_index)` -> logits on every scorable patient's production graph, vs the shipped ONNX
+    (`onnx_system`) and vs the torch network's ranks of the true gene."""
+    from diagnostic_ar_training.v4.addon import rank
+
+    lookup = {g.upper(): i for i, g in enumerate(genes)}
+    out = {"scored": 0, "in_vocab": 0, "max_abs_dlogit_vs_onnx": 0.0, "max_abs_dlogit_vs_torch": 0.0}
+    out |= {"rank_identical_to_torch": 0, "rank_differs": []}
+    for p in members:
+        known, _ = onnx_system.inputs.known_present(p.case)
+        z = torch_scores.get(p.case_id)
+        if z is None or not known:
+            continue
+        out["scored"] += 1
+        _, x, edge_index = onnx_system.graph(known)
+        got = np.asarray(score(x, edge_index), dtype=np.float32).reshape(-1)
+        onnx, _ = onnx_system.logits(known)
+        out["max_abs_dlogit_vs_onnx"] = max(out["max_abs_dlogit_vs_onnx"], float(np.abs(got - onnx).max()))
+        out["max_abs_dlogit_vs_torch"] = max(out["max_abs_dlogit_vs_torch"], float(np.abs(got - z).max()))
+        idx = lookup.get(p.case.gene.upper())
+        if idx is None:
+            continue
+        out["in_vocab"] += 1
+        r, r_got = rank(z, idx), rank(got, idx)
+        if r == r_got:
+            out["rank_identical_to_torch"] += 1
+        else:
+            out["rank_differs"].append({"case_id": p.case_id, "rank_torch": r, "rank": r_got})
     return out
 
 
