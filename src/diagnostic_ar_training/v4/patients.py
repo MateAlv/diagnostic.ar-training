@@ -6,7 +6,9 @@
   the main session reads it, through `sim4.folds` and its ledger.
 - Publication groups are the connected components of the train patients. A `p3-v1` group never straddles
   parts, so they equal the frozen union's groups; each must carry a frozen `group_status`.
-- Excluded terms never reach v4: patients are stripped to their present terms here.
+- Excluded terms never reach v4's network: patients are stripped to their present terms here. The only
+  exception is `load_addon`, the re-rank add-on's view (sex, age, onset and excluded terms; ADR-0019 amendment
+  2026-10-15), which the network never reads.
 - Phenotype-swap control (no cohort gene prior, PHASE3 §2e): each patient of a fold set gets another
   patient's phenotype, true gene kept. The pairing is one seeded cycle over the fold set (seed `SWAP_SEED`),
   so it is the same for every run, E0 included, and nobody keeps their own phenotype.
@@ -77,13 +79,20 @@ def annotate(
     status: dict[str, str],
     fold_of: Callable[[str], int],
     keep_covariates: bool = False,
+    keep_excluded: bool = False,
 ) -> list[Patient]:
+    """`keep_excluded` keeps every input (the add-on's view); `keep_covariates` keeps sex, age and onset."""
     out = []
     for case in cases:
         group = groups[case.case_id]
         if group not in status:
             raise LineageError(f"{case.case_id}: group {group} has no frozen {SPLIT} group_status")
-        kept = case.model_copy(update={"excluded": ()}) if keep_covariates else present_only(case)
+        if keep_excluded:
+            kept = case
+        elif keep_covariates:
+            kept = case.model_copy(update={"excluded": ()})
+        else:
+            kept = present_only(case)
         out.append(Patient(kept, group, status[group], int(fold_of(group))))
     return out
 
@@ -97,19 +106,20 @@ def in_folds(patients: Iterable[Patient], folds: Iterable[int], confirm_fold: in
     return [p for p in patients if p.fold in wanted]
 
 
-_CACHE: dict[bool, list[Patient]] = {}
+_CACHE: dict[tuple[bool, bool], list[Patient]] = {}
 
 
-def load_train(keep_covariates: bool = False) -> list[Patient]:
+def load_train(keep_covariates: bool = False, keep_excluded: bool = False) -> list[Patient]:
     """Every `p3-v1` train patient, annotated; cached per process."""
-    if keep_covariates not in _CACHE:
+    key = (keep_covariates or keep_excluded, keep_excluded)
+    if key not in _CACHE:
         from diagnostic_ar_training import splits
 
         cases = splits.load_part(SPLIT, splits.Part.TRAIN, Purpose.TRAIN)
         groups = splits._components(cases)
         status = splits.load_frozen(SPLIT)["group_status"]
-        _CACHE[keep_covariates] = annotate(cases, groups, status, _folds().fold_of, keep_covariates)
-    return _CACHE[keep_covariates]
+        _CACHE[key] = annotate(cases, groups, status, _folds().fold_of, *key)
+    return _CACHE[key]
 
 
 def load(fold_set: str, keep_covariates: bool = False) -> list[Patient]:
@@ -120,6 +130,12 @@ def load(fold_set: str, keep_covariates: bool = False) -> list[Patient]:
 def load_folds(folds: Iterable[int], keep_covariates: bool = False) -> list[Patient]:
     """The patients of explicit folds (e.g. `sim.real_folds`), in `load_train` order; CONFIRM is refused."""
     return in_folds(load_train(keep_covariates), folds, _folds().CONFIRM_FOLD)
+
+
+def load_addon(folds: Iterable[int]) -> list[Patient]:
+    """The patients of explicit folds with every input, excluded terms included, for the re-rank add-on only
+    (`v4.addon`); CONFIRM is refused as in `load_folds`."""
+    return in_folds(load_train(keep_excluded=True), folds, _folds().CONFIRM_FOLD)
 
 
 def strata(status: str, gene_in_vocab: bool) -> list[str]:
