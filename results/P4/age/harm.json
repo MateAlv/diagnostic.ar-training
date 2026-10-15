@@ -1,0 +1,7312 @@
+{
+ "cohort": {
+  "split": "p3-v1",
+  "folds": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "patients": 5053,
+  "scored": 5053
+ },
+ "kb": {
+  "id": "age-kb-v1",
+  "sha256": "e4d650a937a4be0d7a7b56d7ae02a09e52e574963f20384fa4e077fbbf0523a3",
+  "reference": "p3-addon-kb-v1",
+  "reference_sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a"
+ },
+ "patients_with_latest_onset": {
+  "classes": 4465,
+  "years": 4160
+ },
+ "variants": [
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 0,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 31,
+   "harmed_uncited": 21,
+   "helped": {
+    "uncited": 286,
+    "cited": 102,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 215.17715194185783,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_36351433_F1_IV_1",
+    "PMID_36351433_F1_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_36351433_F4_II_2",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 5,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 10,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 15,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 20,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 30,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 0,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 23,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 275,
+    "cited": 85,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 169.66136724960253,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 5,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 10,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 15,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 20,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 30,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 0,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 23,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 268,
+    "cited": 72,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 126.1685214626391,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 5,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 10,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 15,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 20,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 30,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 0,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 129,
+    "cited": 15,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 26.115148762207586,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 5,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 126,
+    "cited": 15,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 25.973702263892065,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 10,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 125,
+    "cited": 11,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 25.754109747626764,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 15,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 12,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 122,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 25.392613502705245,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 20,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 30,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 0,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 127,
+    "cited": 14,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 24.407222348398818,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 5,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 124,
+    "cited": 14,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 24.316716213126,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 10,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 123,
+    "cited": 11,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 24.193563324843712,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 15,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 12,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 121,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 23.96047988708539,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 20,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 112,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 23.927789934354486,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 30,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 0,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 66,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 5,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 63,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 10,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 62,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 15,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 61,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 20,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 30,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 0,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 26,
+   "harmed_uncited": 18,
+   "helped": {
+    "uncited": 249,
+    "cited": 82,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 169.2858892699657,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 5,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 10,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 15,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 20,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 30,
+   "blockable_genes": 360,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 0,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 21,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 238,
+    "cited": 74,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 146.54287114159726,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 5,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 10,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 15,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 20,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 30,
+   "blockable_genes": 233,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 0,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 21,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 231,
+    "cited": 65,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 116.07863792258696,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 5,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 10,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 15,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 20,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 30,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 0,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 102,
+    "cited": 13,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 25.88608525232729,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 5,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 98,
+    "cited": 13,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 25.656860321384425,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 10,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 97,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 25.344506048387096,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 15,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 94,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 24.82096857290057,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 20,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 30,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 0,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 100,
+    "cited": 12,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 24.274620284174425,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 5,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 96,
+    "cited": 12,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 24.12558714462299,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 10,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 95,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 23.94077620967742,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 15,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 93,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 23.625193199381762,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 20,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 88,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 23.426858513189448,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 30,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 0,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 59,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 5,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 56,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 10,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 55,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 15,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 20,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 50,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "rows",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 30,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 49,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 0,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 31,
+   "harmed_uncited": 21,
+   "helped": {
+    "uncited": 289,
+    "cited": 116,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 217.230070406541,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_36351433_F1_IV_1",
+    "PMID_36351433_F1_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_36351433_F4_II_2",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 5,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 10,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 15,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 20,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 1,
+   "margin": 30,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 187
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 0,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 23,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 275,
+    "cited": 86,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 171.35589370883488,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 5,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 10,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 15,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 20,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 5,
+   "margin": 30,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 67
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 0,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 23,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 268,
+    "cited": 72,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 126.1685214626391,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 5,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 19,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 254,
+    "cited": 68,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 118.07020352160988,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 10,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 240,
+    "cited": 54,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 106.30817318823802,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 15,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 13,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 160,
+    "cited": 46,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 73.2782874617737,
+   "harmed_cases": [
+    "PMID_33875846_individual_row_22",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 20,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 16,
+   "margin": 30,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 52
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 0,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 129,
+    "cited": 15,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 26.115148762207586,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 5,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 126,
+    "cited": 15,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 25.973702263892065,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 10,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 125,
+    "cited": 11,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 25.754109747626764,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 15,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 12,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 122,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 25.392613502705245,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 20,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 113,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 25.13712618526623,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 25,
+   "margin": 30,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 0,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 127,
+    "cited": 14,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 24.407222348398818,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 5,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 124,
+    "cited": 14,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 24.316716213126,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 10,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 123,
+    "cited": 11,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 24.193563324843712,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 15,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 12,
+   "harmed_uncited": 12,
+   "helped": {
+    "uncited": 121,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 23.96047988708539,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 20,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 8,
+   "harmed_uncited": 8,
+   "helped": {
+    "uncited": 112,
+    "cited": 10,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 23.927789934354486,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_37024973_Trio_2_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 40,
+   "margin": 30,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 104,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 22.967446592065105,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 0,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 66,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 5,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 63,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4373,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 10,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 62,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4319,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 15,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 61,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4251,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 20,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4113,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "classes",
+   "min_earliest": 60,
+   "margin": 30,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3932,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 0,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 26,
+   "harmed_uncited": 18,
+   "helped": {
+    "uncited": 251,
+    "cited": 89,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 170.65188633023027,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 5,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 10,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 15,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 20,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 1,
+   "margin": 30,
+   "blockable_genes": 364,
+   "patients_exposed": {
+    "true_gene_blockable": 187,
+    "with_latest_onset": 175
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 0,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 21,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 238,
+    "cited": 74,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 147.72978931896128,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 5,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 10,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 15,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 20,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 5,
+   "margin": 30,
+   "blockable_genes": 236,
+   "patients_exposed": {
+    "true_gene_blockable": 67,
+    "with_latest_onset": 56
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 0,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 21,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 231,
+    "cited": 65,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 116.07863792258696,
+   "harmed_cases": [
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 5,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 17,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 209,
+    "cited": 55,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 103.37577255871446,
+   "harmed_cases": [
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 10,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 15,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 183,
+    "cited": 35,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 82.49722782258064,
+   "harmed_cases": [
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 15,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 120,
+    "cited": 20,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 49.11231324059763,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 20,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 16,
+   "margin": 30,
+   "blockable_genes": 156,
+   "patients_exposed": {
+    "true_gene_blockable": 52,
+    "with_latest_onset": 41
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 0,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 102,
+    "cited": 13,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 25.88608525232729,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 5,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 98,
+    "cited": 13,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 25.656860321384425,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 10,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 97,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 25.344506048387096,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 15,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 94,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 24.82096857290057,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 20,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 89,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 24.287503330668798,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 25,
+   "margin": 30,
+   "blockable_genes": 27,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 0,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 100,
+    "cited": 12,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 24.274620284174425,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 5,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 96,
+    "cited": 12,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 24.12558714462299,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 10,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 13,
+   "harmed_uncited": 13,
+   "helped": {
+    "uncited": 95,
+    "cited": 9,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 23.94077620967742,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 15,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 11,
+   "harmed_uncited": 11,
+   "helped": {
+    "uncited": 93,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 23.625193199381762,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 20,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 7,
+   "harmed_uncited": 7,
+   "helped": {
+    "uncited": 88,
+    "cited": 8,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 23.426858513189448,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 40,
+   "margin": 30,
+   "blockable_genes": 25,
+   "patients_exposed": {
+    "true_gene_blockable": 17,
+    "with_latest_onset": 17
+   },
+   "harmed": 4,
+   "harmed_uncited": 4,
+   "helped": {
+    "uncited": 77,
+    "cited": 6,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 21.966580976863753,
+   "harmed_cases": [
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4"
+   ]
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 0,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 59,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 5,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 56,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4045,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 10,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 55,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3968,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 15,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 53,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3882,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 20,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 50,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3753,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "classes",
+   "patient": "years",
+   "min_earliest": 60,
+   "margin": 30,
+   "blockable_genes": 16,
+   "patients_exposed": {
+    "true_gene_blockable": 0,
+    "with_latest_onset": 0
+   },
+   "harmed": 0,
+   "harmed_uncited": 0,
+   "helped": {
+    "uncited": 49,
+    "cited": 4,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 3501,
+   "blocked_genes_per_blocked_patient": 16.0,
+   "harmed_cases": []
+  },
+  {
+   "bound": "p3-addon-kb-v1",
+   "patient": "classes",
+   "min_earliest": 0,
+   "margin": 0,
+   "blockable_genes": 2548,
+   "patients_exposed": {
+    "true_gene_blockable": 1808,
+    "with_latest_onset": 1761
+   },
+   "harmed": 58,
+   "harmed_uncited": 47,
+   "helped": {
+    "uncited": 363,
+    "cited": 200,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4403,
+   "blocked_genes_per_blocked_patient": 462.10447422212127,
+   "harmed_cases": [
+    "PMID_29889099_Family_A",
+    "PMID_29889099_Family_B",
+    "PMID_29889099_Family_C",
+    "PMID_29889099_Family_F",
+    "PMID_29889099_Family_G_individual_G_II_2",
+    "PMID_33122583_patient",
+    "PMID_29385733_Proband_32594",
+    "PMID_29385733_Proband_32595",
+    "PMID_29385733_Proband_32666",
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_33875846_individual_row_22",
+    "PMID_33875846_individual_row_24",
+    "PMID_36351433_F1_IV_1",
+    "PMID_36351433_F1_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_36351433_F4_II_2",
+    "PMID_26981933_Family_C_individual_C2",
+    "PMID_37771582_Case_description",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_27939403_B_1",
+    "PMID_27939403_F_2",
+    "PMID_31057532_Family_I_individual_I_II_1",
+    "PMID_31057532_Family_I_individual_I_II_2",
+    "PMID_40455867_P1A",
+    "PMID_40455867_P1B",
+    "PMID_40455867_P1C",
+    "PMID_40455867_P2",
+    "PMID_40455867_P3",
+    "PMID_40455867_P4",
+    "PMID_21217109_patient_32666",
+    "PMID_27460976_proband",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_16917947_2",
+    "PMID_16917947_29",
+    "PMID_16917947_3",
+    "PMID_16917947_35",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  },
+  {
+   "bound": "p3-addon-kb-v1",
+   "patient": "years",
+   "min_earliest": 0,
+   "margin": 0,
+   "blockable_genes": 2548,
+   "patients_exposed": {
+    "true_gene_blockable": 1808,
+    "with_latest_onset": 1584
+   },
+   "harmed": 50,
+   "harmed_uncited": 41,
+   "helped": {
+    "uncited": 311,
+    "cited": 157,
+    "no_pmid": 0
+   },
+   "patients_with_any_block": 4082,
+   "blocked_genes_per_blocked_patient": 356.32925036746695,
+   "harmed_cases": [
+    "PMID_29889099_Family_A",
+    "PMID_29889099_Family_B",
+    "PMID_29889099_Family_C",
+    "PMID_29889099_Family_F",
+    "PMID_29889099_Family_G_individual_G_II_2",
+    "PMID_33122583_patient",
+    "PMID_29385733_Proband_32594",
+    "PMID_29385733_Proband_32595",
+    "PMID_29385733_Proband_32666",
+    "PMID_35285020_IV_2_IV_1",
+    "PMID_35285020_sister_IV_2",
+    "PMID_36351433_F2_IV_2",
+    "PMID_36351433_F2_IV_3",
+    "PMID_36351433_F3_III_1",
+    "PMID_26981933_Family_C_individual_C2",
+    "PMID_37771582_Case_description",
+    "PMID_32853638_Patient_1",
+    "PMID_36890397_P2",
+    "PMID_27939403_B_1",
+    "PMID_27939403_F_2",
+    "PMID_31057532_Family_I_individual_I_II_1",
+    "PMID_31057532_Family_I_individual_I_II_2",
+    "PMID_40455867_P1C",
+    "PMID_40455867_P2",
+    "PMID_40455867_P3",
+    "PMID_40455867_P4",
+    "PMID_21217109_patient_32666",
+    "PMID_35904126_Proband_1",
+    "PMID_35904126_Proband_2",
+    "PMID_35904126_Proband_3",
+    "PMID_35904126_Proband_4",
+    "PMID_35904126_Proband_5",
+    "PMID_35904126_Proband_8",
+    "PMID_38413182_Patient_1",
+    "PMID_38413182_Patient_2",
+    "PMID_38884572_Family_10_Patient_11",
+    "PMID_38884572_Family_1_Patient_1",
+    "PMID_38884572_Family_2_Patient_2",
+    "PMID_38884572_Family_3_Patient_3",
+    "PMID_38884572_Family_4_Patient_4",
+    "PMID_38884572_Family_5_Patient_5",
+    "PMID_38884572_Family_6_Patient_6",
+    "PMID_38884572_Family_8_Patient_9",
+    "PMID_16917947_2",
+    "PMID_16917947_29",
+    "PMID_16917947_3",
+    "PMID_16917947_35",
+    "PMID_37024973_Trio_1_proband",
+    "PMID_37024973_Trio_2_proband",
+    "PMID_37024973_Trio_3_proband"
+   ]
+  }
+ ],
+ "harmed_patients": {
+  "PMID_35285020_IV_2_IV_1": {
+   "gene": "SPATA22",
+   "status": "cited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:35285020"
+   ],
+   "latest_onset": {
+    "classes": 14.0,
+    "years": 14.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": "HP:0011462",
+   "age_years": null,
+   "feature_onsets": [
+    [
+     "HP:0000858",
+     14.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:621001": {
+     "name": "Spermatogenic failure 96",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "OMIM:621002": {
+     "name": "Premature ovarian failure 25",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35285020_sister_IV_2": {
+   "gene": "SPATA22",
+   "status": "cited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:35285020"
+   ],
+   "latest_onset": {
+    "classes": 13.0,
+    "years": 13.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": "HP:0011462",
+   "age_years": null,
+   "feature_onsets": [
+    [
+     "HP:0000858",
+     13.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:621001": {
+     "name": "Spermatogenic failure 96",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "OMIM:621002": {
+     "name": "Premature ovarian failure 25",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_33875846_individual_row_22": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:33875846"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": null
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003623",
+   "age_years": null,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_33875846_individual_row_24": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:33875846"
+   ],
+   "latest_onset": {
+    "classes": 1.0,
+    "years": null
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": null,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F1_IV_1": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 7.0
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": null,
+   "onset_term": "HP:0030674",
+   "age_years": 7.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F1_IV_2": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 5.0
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003623",
+   "age_years": 5.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F2_IV_2": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 0.0
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.0,
+   "onset_term": null,
+   "age_years": 0.25,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F2_IV_3": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 0.0
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.0,
+   "onset_term": null,
+   "age_years": 0.038329911019849415,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F3_III_1": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 0.5
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003577",
+   "age_years": 0.5,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36351433_F4_II_2": {
+   "gene": "EMILIN1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36351433"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 1.5
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": null,
+   "onset_term": "HP:0030674",
+   "age_years": 1.5,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620080": {
+     "name": "Neuronopathy, distal hereditary motor, type X",
+     "classes": [
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_32853638_Patient_1": {
+   "gene": "SOCS1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:32853638"
+   ],
+   "latest_onset": {
+    "classes": 0.4166666666666667,
+    "years": 0.4166666666666667
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.4166666666666667,
+   "onset_term": null,
+   "age_years": null,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:619375": {
+     "name": "Autoinflammatory syndrome, familial, with or without immunodeficiency",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_36890397_P2": {
+   "gene": "SOCS1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:36890397"
+   ],
+   "latest_onset": {
+    "classes": 0.4166666666666667,
+    "years": 0.4166666666666667
+   },
+   "gene_bound": {
+    "rows": 1,
+    "classes": 1,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.4166666666666667,
+   "onset_term": null,
+   "age_years": 5.083333333333333,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:619375": {
+     "name": "Autoinflammatory syndrome, familial, with or without immunodeficiency",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_1": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 14.0,
+    "years": 14.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 14.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_2": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 9.75,
+    "years": 9.75
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 9.75,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_3": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 8.0,
+    "years": 8.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 8.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_4": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 3.0,
+    "years": 3.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 3.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_5": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 2.0,
+    "years": 2.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 2.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_35904126_Proband_8": {
+   "gene": "TAF4",
+   "status": "cited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:35904126"
+   ],
+   "latest_onset": {
+    "classes": 12.0,
+    "years": 12.0
+   },
+   "gene_bound": {
+    "rows": 16,
+    "classes": 16,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": null,
+   "age_years": 12.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:620450": {
+     "name": "Intellectual developmental disorder, autosomal dominant 73",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38413182_Patient_1": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38413182"
+   ],
+   "latest_onset": {
+    "classes": 1.0,
+    "years": 3.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 14.0,
+   "feature_onsets": [
+    [
+     "HP:0000218",
+     3.0,
+     null
+    ],
+    [
+     "HP:0001270",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0002515",
+     3.0,
+     null
+    ],
+    [
+     "HP:0003236",
+     14.0,
+     null
+    ],
+    [
+     "HP:0003458",
+     14.0,
+     null
+    ],
+    [
+     "HP:0008959",
+     3.0,
+     null
+    ],
+    [
+     "HP:0008994",
+     3.0,
+     null
+    ],
+    [
+     "HP:0008997",
+     3.0,
+     null
+    ],
+    [
+     "HP:0009053",
+     3.0,
+     null
+    ],
+    [
+     "HP:0012548",
+     14.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38413182_Patient_2": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38413182"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 3.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003623",
+   "age_years": 6.0,
+   "feature_onsets": [
+    [
+     "HP:0000218",
+     3.0,
+     null
+    ],
+    [
+     "HP:0000508",
+     3.0,
+     null
+    ],
+    [
+     "HP:0000597",
+     3.0,
+     null
+    ],
+    [
+     "HP:0001270",
+     null,
+     "HP:0003623"
+    ],
+    [
+     "HP:0003458",
+     6.0,
+     null
+    ],
+    [
+     "HP:0008959",
+     3.0,
+     null
+    ],
+    [
+     "HP:0008994",
+     3.0,
+     null
+    ],
+    [
+     "HP:0008997",
+     3.0,
+     null
+    ],
+    [
+     "HP:0009053",
+     3.0,
+     null
+    ],
+    [
+     "HP:0012548",
+     6.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_10_Patient_11": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 10.0,
+    "years": 10.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 10.0,
+   "onset_term": null,
+   "age_years": 20.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_1_Patient_1": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 24.0,
+    "years": 24.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 24.0,
+   "onset_term": null,
+   "age_years": 36.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_2_Patient_2": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 22.0,
+    "years": 22.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 22.0,
+   "onset_term": null,
+   "age_years": 47.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_3_Patient_3": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 2.0,
+    "years": 2.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 2.0,
+   "onset_term": null,
+   "age_years": 20.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_4_Patient_4": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 5.0,
+    "years": 5.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 5.0,
+   "onset_term": null,
+   "age_years": 32.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_5_Patient_5": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 10.0,
+    "years": 10.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 10.0,
+   "onset_term": null,
+   "age_years": 32.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_6_Patient_6": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 17.0,
+    "years": 17.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 17.0,
+   "onset_term": null,
+   "age_years": 36.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_38884572_Family_8_Patient_9": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:38884572"
+   ],
+   "latest_onset": {
+    "classes": 20.0,
+    "years": 20.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 20.0,
+   "onset_term": null,
+   "age_years": 42.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_37024973_Trio_1_proband": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:37024973"
+   ],
+   "latest_onset": {
+    "classes": 25.0,
+    "years": 25.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 25.0,
+   "onset_term": null,
+   "age_years": 32.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_37024973_Trio_2_proband": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:37024973"
+   ],
+   "latest_onset": {
+    "classes": 19.0,
+    "years": 29.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": null,
+   "onset_term": "HP:0025708",
+   "age_years": 29.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_37024973_Trio_3_proband": {
+   "gene": "TUBA4A",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:37024973"
+   ],
+   "latest_onset": {
+    "classes": 23.0,
+    "years": 23.0
+   },
+   "gene_bound": {
+    "rows": 40,
+    "classes": 40,
+    "p3-addon-kb-v1": 40
+   },
+   "onset_years": 23.0,
+   "onset_term": null,
+   "age_years": 38.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616208": {
+     "name": "Amyotrophic lateral sclerosis 22 with or without frontotemporal dementia",
+     "classes": [
+      "HP:0003584",
+      "HP:0003596"
+     ],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29889099_Family_A": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29889099"
+   ],
+   "latest_onset": {
+    "classes": 0.16666666666666666,
+    "years": 0.16666666666666666
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.16666666666666666,
+   "onset_term": null,
+   "age_years": 2.9166666666666665,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0020102",
+     1.4166666666666667,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29889099_Family_B": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29889099"
+   ],
+   "latest_onset": {
+    "classes": 0.16666666666666666,
+    "years": 0.16666666666666666
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.16666666666666666,
+   "onset_term": null,
+   "age_years": 17.0,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0020102",
+     2.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29889099_Family_C": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29889099"
+   ],
+   "latest_onset": {
+    "classes": 0.8333333333333334,
+    "years": 0.8333333333333334
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.8333333333333334,
+   "onset_term": null,
+   "age_years": 4.0,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.8333333333333334,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.8333333333333334,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.8333333333333334,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.8333333333333334,
+     null
+    ],
+    [
+     "HP:0020102",
+     0.8333333333333334,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29889099_Family_F": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29889099"
+   ],
+   "latest_onset": {
+    "classes": 0.75,
+    "years": 0.75
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.75,
+   "onset_term": null,
+   "age_years": 20.0,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.75,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.75,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.75,
+     null
+    ],
+    [
+     "HP:0006727",
+     13.0,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.75,
+     null
+    ],
+    [
+     "HP:0020102",
+     0.75,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29889099_Family_G_individual_G_II_2": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29889099"
+   ],
+   "latest_onset": {
+    "classes": 0.5,
+    "years": 0.5
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.5,
+   "onset_term": null,
+   "age_years": 12.0,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.5,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.5,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.5,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.5,
+     null
+    ],
+    [
+     "HP:0020102",
+     0.5,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_33122583_patient": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:33122583"
+   ],
+   "latest_onset": {
+    "classes": 0.20499657768651608,
+    "years": 0.20499657768651608
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.20499657768651608,
+   "onset_term": null,
+   "age_years": 15.0,
+   "feature_onsets": [
+    [
+     "HP:0001873",
+     0.25,
+     null
+    ],
+    [
+     "HP:0001875",
+     0.25,
+     null
+    ],
+    [
+     "HP:0001876",
+     0.25,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.25,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.25,
+     null
+    ],
+    [
+     "HP:0005528",
+     0.25,
+     null
+    ],
+    [
+     "HP:0020103",
+     0.25,
+     null
+    ],
+    [
+     "HP:6000980",
+     0.25,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29385733_Proband_32594": {
+   "gene": "NRL",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29385733"
+   ],
+   "latest_onset": {
+    "classes": 2.0,
+    "years": 2.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 2.0,
+   "onset_term": null,
+   "age_years": 11.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:613750": {
+     "name": "Retinitis pigmentosa 27",
+     "classes": [
+      "HP:0003596",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:791": {
+     "name": "Retinitis pigmentosa",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29385733_Proband_32595": {
+   "gene": "NRL",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29385733"
+   ],
+   "latest_onset": {
+    "classes": 2.0,
+    "years": 2.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 2.0,
+   "onset_term": null,
+   "age_years": 13.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:613750": {
+     "name": "Retinitis pigmentosa 27",
+     "classes": [
+      "HP:0003596",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:791": {
+     "name": "Retinitis pigmentosa",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_29385733_Proband_32666": {
+   "gene": "NRL",
+   "status": "uncited_e0_knowledge",
+   "fold": 0,
+   "pmids": [
+    "PMID:29385733"
+   ],
+   "latest_onset": {
+    "classes": 10.0,
+    "years": 10.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 10.0,
+   "onset_term": null,
+   "age_years": 29.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:613750": {
+     "name": "Retinitis pigmentosa 27",
+     "classes": [
+      "HP:0003596",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:791": {
+     "name": "Retinitis pigmentosa",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_26981933_Family_C_individual_C2": {
+   "gene": "IKZF1",
+   "status": "cited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:26981933"
+   ],
+   "latest_onset": {
+    "classes": 0.75,
+    "years": 0.75
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.75,
+   "onset_term": null,
+   "age_years": 16.0,
+   "feature_onsets": [
+    [
+     "HP:0002719",
+     13.0,
+     null
+    ],
+    [
+     "HP:0033222",
+     13.0,
+     null
+    ],
+    [
+     "HP:0410297",
+     13.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_37771582_Case_description": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 1,
+   "pmids": [
+    "PMID:37771582"
+   ],
+   "latest_onset": {
+    "classes": 0.5,
+    "years": 0.5
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.5,
+   "onset_term": null,
+   "age_years": 2.3333333333333335,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.5,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.5,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.5,
+     null
+    ],
+    [
+     "HP:0010976",
+     0.5,
+     null
+    ],
+    [
+     "HP:0020102",
+     0.5,
+     null
+    ],
+    [
+     "HP:0032129",
+     0.5,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_27939403_B_1": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:27939403"
+   ],
+   "latest_onset": {
+    "classes": 0.16666666666666666,
+    "years": 0.16666666666666666
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.16666666666666666,
+   "onset_term": null,
+   "age_years": 16.0,
+   "feature_onsets": [
+    [
+     "HP:0002720",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0002850",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0004315",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0020102",
+     2.0,
+     null
+    ],
+    [
+     "HP:0025044",
+     2.0,
+     null
+    ],
+    [
+     "HP:0032170",
+     10.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_27939403_F_2": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:27939403"
+   ],
+   "latest_onset": {
+    "classes": 0.0,
+    "years": 0.4166666666666667
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003577",
+   "age_years": 0.4166666666666667,
+   "feature_onsets": [
+    [
+     "HP:0001873",
+     null,
+     "HP:0003577"
+    ],
+    [
+     "HP:0001876",
+     null,
+     "HP:0003577"
+    ]
+   ],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_31057532_Family_I_individual_I_II_1": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:31057532"
+   ],
+   "latest_onset": {
+    "classes": 0.02190280629705681,
+    "years": 0.02190280629705681
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.02190280629705681,
+   "onset_term": null,
+   "age_years": 10.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_31057532_Family_I_individual_I_II_2": {
+   "gene": "IKZF1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:31057532"
+   ],
+   "latest_onset": {
+    "classes": 0.02190280629705681,
+    "years": 0.02190280629705681
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 1
+   },
+   "onset_years": 0.02190280629705681,
+   "onset_term": null,
+   "age_years": 1.25,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:616873": {
+     "name": "Immunodeficiency, common variable, 13",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462",
+      "HP:0011463"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:36426": {
+     "name": "Stevens-Johnson syndrome",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P1A": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 24.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 24.0,
+   "feature_onsets": [
+    [
+     "HP:0001252",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0025190",
+     null,
+     "HP:0003623"
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P1B": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 21.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 21.0,
+   "feature_onsets": [
+    [
+     "HP:0001252",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0025190",
+     null,
+     "HP:0003623"
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P1C": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 0.3333333333333333
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 11.0,
+   "feature_onsets": [
+    [
+     "HP:0001252",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0010841",
+     0.3333333333333333,
+     null
+    ],
+    [
+     "HP:0025190",
+     null,
+     "HP:0003623"
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P2": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.03285420944558522,
+    "years": 0.03285420944558522
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 0.75,
+   "feature_onsets": [
+    [
+     "HP:0001252",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0011185",
+     0.3333333333333333,
+     null
+    ],
+    [
+     "HP:0011198",
+     0.4166666666666667,
+     null
+    ],
+    [
+     "HP:0025190",
+     0.03285420944558522,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P3": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.07671232876712329,
+    "years": 0.16666666666666666
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 4.0,
+   "feature_onsets": [
+    [
+     "HP:0010841",
+     0.16666666666666666,
+     null
+    ],
+    [
+     "HP:0025190",
+     null,
+     "HP:0003623"
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_40455867_P4": {
+   "gene": "LGI1",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:40455867"
+   ],
+   "latest_onset": {
+    "classes": 0.3333333333333333,
+    "years": 0.3333333333333333
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 5
+   },
+   "onset_years": null,
+   "onset_term": "HP:0003593",
+   "age_years": 3.75,
+   "feature_onsets": [
+    [
+     "HP:0001252",
+     null,
+     "HP:0003593"
+    ],
+    [
+     "HP:0007359",
+     0.3333333333333333,
+     null
+    ],
+    [
+     "HP:0011185",
+     0.6666666666666666,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:600512": {
+     "name": "Epilepsy, familial temporal lobe, 1",
+     "classes": [
+      "HP:0003596",
+      "HP:0003621",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:101046": {
+     "name": "Autosomal dominant epilepsy with auditory features",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_21217109_patient_32666": {
+   "gene": "NRL",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:21217109"
+   ],
+   "latest_onset": {
+    "classes": 10.0,
+    "years": 10.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 10.0,
+   "onset_term": null,
+   "age_years": 30.0,
+   "feature_onsets": [
+    [
+     "HP:0007663",
+     10.0,
+     null
+    ],
+    [
+     "HP:0007843",
+     10.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:613750": {
+     "name": "Retinitis pigmentosa 27",
+     "classes": [
+      "HP:0003596",
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:791": {
+     "name": "Retinitis pigmentosa",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_27460976_proband": {
+   "gene": "PARK7",
+   "status": "uncited_e0_knowledge",
+   "fold": 2,
+   "pmids": [
+    "PMID:27460976"
+   ],
+   "latest_onset": {
+    "classes": 5.0,
+    "years": 38.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": null,
+   "onset_term": "HP:0011463",
+   "age_years": 43.0,
+   "feature_onsets": [
+    [
+     "HP:0000407",
+     38.0,
+     null
+    ],
+    [
+     "HP:0001288",
+     null,
+     "HP:0011462"
+    ],
+    [
+     "HP:0001300",
+     38.0,
+     null
+    ],
+    [
+     "HP:0001761",
+     null,
+     "HP:0011463"
+    ],
+    [
+     "HP:0001765",
+     null,
+     "HP:0011463"
+    ],
+    [
+     "HP:0002015",
+     null,
+     "HP:0011462"
+    ],
+    [
+     "HP:0002063",
+     47.0,
+     null
+    ],
+    [
+     "HP:0002067",
+     47.0,
+     null
+    ],
+    [
+     "HP:0002460",
+     38.0,
+     null
+    ],
+    [
+     "HP:0003693",
+     38.0,
+     null
+    ],
+    [
+     "HP:0004673",
+     38.0,
+     null
+    ],
+    [
+     "HP:0007351",
+     null,
+     "HP:0011462"
+    ],
+    [
+     "HP:0007819",
+     38.0,
+     null
+    ],
+    [
+     "HP:0100291",
+     38.0,
+     null
+    ]
+   ],
+   "diseases": {
+    "OMIM:606324": {
+     "name": "Parkinson disease 7, autosomal recessive early-onset",
+     "classes": [
+      "HP:0003581"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:2828": {
+     "name": "Young-onset Parkinson disease",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_16917947_2": {
+   "gene": "GAA",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:16917947"
+   ],
+   "latest_onset": {
+    "classes": 13.0,
+    "years": 13.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 13.0,
+   "onset_term": null,
+   "age_years": 35.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:232300": {
+     "name": "Glycogen storage disease II",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:308552": {
+     "name": "Glycogen storage disease due to acid maltase deficiency, infantile onset",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_16917947_29": {
+   "gene": "GAA",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:16917947"
+   ],
+   "latest_onset": {
+    "classes": 1.0,
+    "years": 1.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 1.0,
+   "onset_term": null,
+   "age_years": 12.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:232300": {
+     "name": "Glycogen storage disease II",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:308552": {
+     "name": "Glycogen storage disease due to acid maltase deficiency, infantile onset",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_16917947_3": {
+   "gene": "GAA",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:16917947"
+   ],
+   "latest_onset": {
+    "classes": 2.0,
+    "years": 2.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 2.0,
+   "onset_term": null,
+   "age_years": 6.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:232300": {
+     "name": "Glycogen storage disease II",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:308552": {
+     "name": "Glycogen storage disease due to acid maltase deficiency, infantile onset",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  },
+  "PMID_16917947_35": {
+   "gene": "GAA",
+   "status": "uncited_e0_knowledge",
+   "fold": 3,
+   "pmids": [
+    "PMID:16917947"
+   ],
+   "latest_onset": {
+    "classes": 1.0,
+    "years": 1.0
+   },
+   "gene_bound": {
+    "rows": null,
+    "classes": null,
+    "p3-addon-kb-v1": 16
+   },
+   "onset_years": 1.0,
+   "onset_term": null,
+   "age_years": 14.0,
+   "feature_onsets": [],
+   "diseases": {
+    "OMIM:232300": {
+     "name": "Glycogen storage disease II",
+     "classes": [
+      "HP:0011462"
+     ],
+     "row_onsets": []
+    },
+    "ORPHA:308552": {
+     "name": "Glycogen storage disease due to acid maltase deficiency, infantile onset",
+     "classes": [],
+     "row_onsets": []
+    }
+   }
+  }
+ },
+ "seconds": 11.856341966999025,
+ "code": {
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "ceb03fe6f1a92ebb1487d8753f1685705ddf0a79",
+  "dirty": false
+ }
+}
