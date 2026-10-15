@@ -29,6 +29,7 @@ FOLDS = (0, 1, 2, 3)
 ADDON_KB = "p3-addon-kb-v1"
 MIN_EARLIEST = (1, 5, 16, 25, 40, 60)
 MARGINS = (0, 5, 10, 15, 20, 30)
+STATUS = {patients.UNCITED: "uncited", patients.CITED: "cited", patients.NO_PMID: "no_pmid"}
 
 kb_id = sys.argv[1]
 start = time.perf_counter()
@@ -61,9 +62,7 @@ latest = {
     r: {p.case_id: agerule.case_latest_onset(p.case, r == "classes") for p in order}
     for r in ("classes", "years")
 }
-above_true = {
-    c: (s > s[target[c]]) for c, s in net.items() if target[c] is not None
-}  # genes ranked above the true gene
+above_true = {c: s > s[target[c]] for c, s in net.items() if target[c] is not None}
 print(f"{len(order)} patients, {len(net)} scored, loaded in {time.perf_counter() - start:.0f} s", flush=True)
 
 
@@ -95,12 +94,16 @@ def harmed_case(p, rule: agerule.AgeRule, reading: str) -> dict:
 
 def variant(bound: str, reading: str, min_earliest: float, margin: float) -> dict:
     rule = agerule.AgeRule(gene_bounds[bound], genes, margin, min_earliest)
-    harmed, helped, any_block, n_blocked = [], {"uncited": 0, "cited": 0}, 0, 0
+    harmed, helped, any_block, n_blocked = [], {"uncited": 0, "cited": 0, "no_pmid": 0}, 0, 0
+    exposed = {"true_gene_blockable": 0, "with_latest_onset": 0}
     for p in order:
+        t = target[p.case_id]
+        if t is not None and np.isfinite(rule.earliest[t]):
+            exposed["true_gene_blockable"] += 1
+            exposed["with_latest_onset"] += latest[reading][p.case_id] is not None
         mask = rule.blocked(latest[reading][p.case_id])
         if not mask.any():
             continue
-        t = target[p.case_id]
         if p.case_id in net:
             any_block += 1
             n_blocked += int(mask.sum())
@@ -109,13 +112,14 @@ def variant(bound: str, reading: str, min_earliest: float, margin: float) -> dic
         if mask[t]:
             harmed.append(harmed_case(p, rule, reading))
         elif p.case_id in above_true and (mask & above_true[p.case_id]).any():
-            helped["cited" if p.status == patients.CITED else "uncited"] += 1
+            helped[STATUS[p.status]] += 1
     return {
         "bound": bound,
         "patient": reading,
         "min_earliest": min_earliest,
         "margin": margin,
         "blockable_genes": int(np.isfinite(rule.earliest).sum()),
+        "patients_exposed": exposed,
         "harmed": len(harmed),
         "harmed_uncited": sum(h["status"] == patients.UNCITED for h in harmed),
         "helped": helped,
@@ -145,11 +149,14 @@ path = RESULTS_DIR / "P4" / "age" / "harm.json"
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(out, indent=1, default=str) + "\n")
 print(json.dumps(out["patients_with_latest_onset"]))
-print("| bound | patient | min earliest | margin | blockable genes | harmed (uncited) | helped unc / cited "
-      "| patients blocked | genes / patient |")  # fmt: skip
+print(
+    "| bound | patient | min earliest | margin | blockable genes | exposed (onset known) | harmed (uncited) "
+    "| helped unc / cited | patients blocked | genes / patient |"
+)
 for v in variants:
     print(
         f"| {v['bound']} | {v['patient']} | {v['min_earliest']} | {v['margin']} | {v['blockable_genes']} "
+        f"| {v['patients_exposed']['true_gene_blockable']} ({v['patients_exposed']['with_latest_onset']}) "
         f"| {v['harmed']} ({v['harmed_uncited']}) | {v['helped']['uncited']} / {v['helped']['cited']} "
         f"| {v['patients_with_any_block']} | {v['blocked_genes_per_blocked_patient']:.1f} |"
     )
