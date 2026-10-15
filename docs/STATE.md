@@ -5,6 +5,12 @@
 [EVAL_PROTOCOL.md](EVAL_PROTOCOL.md), [evidence/EVIDENCE_INDEX.md](evidence/EVIDENCE_INDEX.md).
 
 ## Phase 3 (opened 2026-10-13): toward a v4.0 ([ADR-0019](decisions/0019-phase-3-v4-retraining.md), [PHASE3.md](PHASE3.md))
+- **2026-10-15: the v4 candidate passed the vault read ([EXP-V-002](experiments/EXP-V-002.md)).**
+  - The candidate is the network `R5x-f4` (R1c fine-tuned with 4,369 real patients) plus the sex/age/onset add-on.
+  - On 2,678 vault patients from publications E0's knowledge never cited: capped MRR 0.196 → 0.261, +0.0649
+    [+0.0473, +0.0833]; the network alone +0.0639.
+  - Moving every term to its parent keeps 35% of the gain.
+  - Production needs Mateo's decision and an integration into `diagnostic.ar-model`.
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.

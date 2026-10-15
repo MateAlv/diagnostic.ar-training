@@ -203,7 +203,7 @@ amendment 2026-10-15). Both parts are reported separately at every reading. Orde
 | 3 | Sex and age work (Mateo): further re-rank features on sex and age, developed and read the same way on folds 0–3 | closed: no room on top of the network with E0's knowledge (P3-ADDON, "Room for sex and age") |
 | 4 | Freeze the claimed system: network, add-on, features, reading rules | done: network `R5x-f4` + add-on `p3-addon-v1-all` ([P3-CONFIRM](analyses/P3-CONFIRM.md) §1) |
 | 5 | CONFIRM check of at most 3 finalists (main session, ledgered), with its protocol written before the read | **passed:** F1 uncited +0.0717 [+0.0332, +0.1200]; parent terms +0.0008 ([P3-CONFIRM](analyses/P3-CONFIRM.md) §6) |
-| 6 | Vault pre-registration, independent review (opus/xhigh), Mateo's go, the single vault read | registered ([EXP-V-002](experiments/EXP-V-002.md)); review GO with fixes, folded in; Mateo's go pending |
+| 6 | Vault pre-registration, independent review (opus/xhigh), Mateo's go, the single vault read | **done, H1 and H2 passed:** F1 uncited +0.0649 [+0.0473, +0.0833]; F2 +0.0639 ([EXP-V-002](experiments/EXP-V-002.md)) |
 
 - **Why CONFIRM waits for step 4:** CONFIRM is read once, like the vault. The network does not change in steps 2–3,
   but the add-on does, so reading CONFIRM earlier would leave the final add-on without an untouched check.

@@ -8,7 +8,7 @@
 - **Independent review:** 2026-10-15, opus/xhigh, read-only. Verdict: GO with fixes. Its six must-fixes are folded
   in below: the contamination check, the earlier-reads disclosure, the selection section, the code and failure
   rule, the claim wording and sources, and the required reporting.
-- **Status:** planned; Mateo's go pending.
+- **Status:** done. Read once on 2026-10-15T18:50Z by Mateo, from `575b847` (ledger row `p3-v1/vault`, EXP-V-002). **H1 passed; H2 passed.**
 
 ## Hypotheses
 - **H1 (primary):** on vault patients whose publication is uncited by E0's knowledge, the v4 candidate F1 (network
@@ -180,9 +180,48 @@ Every configuration and seed is in `results/P3/` and BITACORA.
   by the script's author, once by the reviewer, and once after the review fixes. All three gave the same numbers.
 
 ## Results
-(filled after the read)
+Read once on 2026-10-15T18:50:10Z, from `575b847`, by Mateo after his go. Outputs: `results/P3/EXP-V-002/vault.json`,
+`results/P3/EXP-V-002/ranks/`, the `p3-v1/vault` row in `docs/TEST_LEDGER.md`. 4,659 patients in 788 publications:
+2,678 uncited (417 publications; 628 with a gene outside E0's vocabulary) and 1,981 cited (371). No patient was
+unscorable.
+
+| Capped MRR, Δ vs E0 [95% CI] | uncited (H1/H2) | uncited in-vocab | cited | all |
+|---|---|---|---|---|
+| **F1 network + add-on** | **0.1956 → 0.2605, +0.0649 [+0.0473, +0.0833]** | +0.0980 [+0.0728, +0.1269] | +0.0604 [+0.0402, +0.0834] | +0.0627 [+0.0491, +0.0777] |
+| **F2 network** | **+0.0639 [+0.0458, +0.0825]** | +0.0964 | +0.0602 | +0.0621 |
+| F1 − F2 (add-on) | +0.0011 [−0.0004, +0.0030] | +0.0016 | +0.0002 | +0.0007 |
+
+- **Uncited, F1:**
+  - top-1 11.7% → 16.0%;
+  - top-10 29.5% → 34.5%;
+  - plain MRR Δ +0.047;
+  - publication-mean MRR 0.253 → 0.347, Δ +0.094 [+0.070, +0.120];
+  - helped 1,110, harmed 541.
+- **Cited, F1:** top-1 55.7% → 62.5%; helped 511, harmed 293.
+- **Agreement:** `p3-addon-v1-sex-age-onset` differs from F1 in no rank.
+- **Without the contamination check's 91 patients** (7 uncited): F1 uncited +0.0620 [+0.0459, +0.0790], cited
+  +0.0556.
+- **Phenotype swap:** capped Δ +0.0005 [−0.0002, +0.0012]. True gene's raw rank:
+  - genes with real patients in folds 0–3 (874): median 1,349 → 1,180, mean log2 ratio −0.25, 63% improved;
+  - other genes (1,176): 1,059 → 997, −0.10, 55% improved.
+- **Parent terms** (network vs E0): uncited +0.0226 [+0.0110, +0.0337], 35% of the gain kept; cited +0.0295
+  [+0.0122, +0.0484].
+- **Declared post-read readings** (gene-cluster bootstrap, Δ by gene with or without training patients, Δ by vault
+  source, E0 parity with Phase 2's rank files, CONFIRM → vault drop): in an addendum.
 
 ## Verdict
-(filled after the read)
+- **H1 passed:** F1's 95% CI lower bound is +0.0473 > 0.
+  - On 2,678 patients from 417 publications that GenPhenAI v3.0's knowledge never cited, the v4 candidate ranks the
+    causal gene higher than v3.0: capped MRR 0.196 → 0.261, and the right gene is first for 16.0% of patients
+    instead of 11.7%.
+  - It uses the same HPO knowledge (HPOA 2025-03-03), plus 4,369 curated phenopacket-store training patients.
+- **H2 passed:** the network alone gives +0.0639 [+0.0458, +0.0825]. The add-on adds +0.0011, not significant, and
+  it is not an untouched test of the add-on.
+- **The gain matches development:** folds 0–3 +0.071, CONFIRM +0.072, vault +0.065.
+- **Scope:** the claim is for patients described with curator-coded HPO terms. With every term moved to a parent,
+  35% of the gain remains (+0.023, CI above 0); at CONFIRM, none remained.
+- **Controls:** the popularity control is about 0 in capped MRR. The raw-rank lean toward genes with training
+  patients remains (log2 −0.25 vs −0.10), deep in the list.
+- **Production** needs Mateo's decision and a separate integration into `diagnostic.ar-model` (ADR to follow).
 
 ## Addenda
