@@ -1,0 +1,90 @@
+{
+ "bundle": "genphenia-v4.0",
+ "network": {
+  "run": "R5x-f4-ef2f309462",
+  "checkpoint": "last.pt",
+  "sha256": "22edfd7ea56510d1210111797215a9a54c22d829979ef05b4e3cc85a758004da",
+  "trained_on": "p3-v1 train folds [0, 1, 2, 3] + sim4 (ADR-0019)"
+ },
+ "base": {
+  "source": "genphenia_v3",
+  "version": "model-v3.0.0",
+  "tarball_sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+ },
+ "changed_from_base": [
+  "artifacts/graphens_best_model/model.onnx",
+  "checkpoints/best_model.pt"
+ ],
+ "model_version": {
+  "spec_json": "3.0",
+  "best_model_pt": "4.0",
+  "why_spec_json_stays": "the vendored engine reads spec.json's model_version as the architecture and rejects others: Unsupported model_version: '4.0'. Expected one of: 2.0, 2.5, 3.0 (or prefixed forms v2.0/v2.5/v3.0)."
+ },
+ "packer": {
+  "script": "diagnostic.ar-model scripts/package_bundle.sh",
+  "repacks_base_exactly": true
+ },
+ "model_onnx": {
+  "sha256": "fafbecbed8585073b2afe9b6a481ee3182f21ff733f6e96745945d75bc7daf29",
+  "bytes": 18119152
+ },
+ "best_model_pt": {
+  "sha256": "bff1a05b982bf2be5711c76ec3850d66d3c629921b25aa43c956d45146d621e2",
+  "bytes": 18120309,
+  "layout": "E0's: {model_version, model_state_dict (GinV3 / PyG keys), source_run, ...}"
+ },
+ "tarball": {
+  "file": "genphenia-v4.0.tar.gz",
+  "sha256": "62b2c5e8eb4609d1003a81c3632ea82cf2b1173f4ffc646a02ecb66d38d95cc3",
+  "bytes": 90840335
+ },
+ "export": {
+  "code": "gnn.export.export_v3",
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "423ade0f38bcdb4d55f3a53128d194bd67676fc0"
+ },
+ "parity_patients": "p3-v1 train folds [0, 1, 2, 3], every patient",
+ "parity": {
+  "patients": 5053,
+  "scored": 5053,
+  "in_vocab": 4369,
+  "unscorable_agree": true,
+  "onnx_vs_torch_max_abs_dlogit": 0.0013427734375,
+  "engine_vs_torch_max_abs_dprob": 2.362465655447732e-05,
+  "onnx_vs_torch_max_rel_dlogit": 2.721046485021361e-06,
+  "engine_vs_onnx_max_abs_dprob": 0.0,
+  "rank_identical": {
+   "onnx": 4369,
+   "engine": 4369
+  },
+  "engine_top10_same_order_as_torch": 5053,
+  "engine_model_from_best_model_pt": {
+   "scored": 5053,
+   "in_vocab": 4369,
+   "max_abs_dlogit_vs_onnx": 0.0010986328125,
+   "max_abs_dlogit_vs_torch": 0.001220703125,
+   "rank_identical_to_torch": 4369,
+   "rank_differs": []
+  },
+  "ginv4_vs_ginv3": {
+   "patients": 200,
+   "bit_identical": 200,
+   "max_abs_dlogit": 0.0
+  },
+  "engine_health": {
+   "model_version": "3.0",
+   "out_channels": 5229,
+   "in_channels": 768
+  },
+  "engine_reexport_from_best_model_pt": {
+   "rebuilt": false,
+   "error": "ModuleNotFoundError: No module named 'onnxscript'"
+  }
+ },
+ "rank_differs": {
+  "onnx": [],
+  "engine": []
+ },
+ "decision": "docs/decisions/0020-v4-validated-and-next.md",
+ "run_seconds": 59.27918476799823
+}

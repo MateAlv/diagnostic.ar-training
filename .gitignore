@@ -19,3 +19,7 @@ results/**/*.onnx
 
 # Agent worktrees are created inside the checkout; never commit them.
 .claude/worktrees/
+
+# Release bundles are GitHub release assets (ADR-0005): only their MANIFEST.json and .sha256 are committed.
+dist/genphenia-v4.0/genphenia-v4.0/
+dist/genphenia-v4.0/*.tar.gz
