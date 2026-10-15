@@ -4976,4 +4976,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Without the rule, F1's top 50 shows a sex-impossible gene for 28 of 4,631 dev patients (top 10: 1); with it, none.
 - `scripts/analysis/p4_confirm/confirm2.py`: the second CONFIRM read of F3. It refuses unless P4-CONFIRM.md is
   committed and the ledger has exactly one row. Its fold-3 dry run matches the earlier ones (+0.3620). Not run.
+## 2026-10-15: P4-CONFIRM registered (second CONFIRM read of F3)
+- Protocol `docs/analyses/P4-CONFIRM.md`. F3 frozen: network `22edfd7e…`, add-on `31299383…`, add-on kb `089ccf87…`,
+  `sex-kb-v3` `7317a6bd…`.
+- Decision rule:
+  - primary: F3 vs E0 uncited, capped CI lower bound > 0;
+  - sex rule: 0 patients ranked below F1;
+  - add-on: helped ≥ harmed on all patients.
+- Fold 4 not read again yet; Mateo runs `confirm2.py`.
 
