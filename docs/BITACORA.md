@@ -4965,4 +4965,15 @@ this task, whatever the result**; the last read needs Mateo's OK.
   diabetes susceptibility, which also occurs in young people.
 - Recommendation: drop age as a hard rule; `age-v1` stays implemented, not part of the layer unless Mateo decides
   otherwise.
+## 2026-10-15: Final model decided (Mateo); `sex-kb-v3`; second CONFIRM script
+- Mateo: the final model is **F3 = network + add-on (weights unchanged, as vault-tested) + hard sex rule**. Age is
+  dropped as a hard rule. The soft add-on stays only if it does not hurt more than it helps.
+  - Its count on folds 0–3, on top of network + sex rule, out of fold: 344 helped, 44 harmed (uncited), Δ −0.0000.
+  - On the vault: 463 helped, 27 harmed, +0.0011.
+  - It stays, and the second CONFIRM read checks the criterion again.
+- `sex-kb-v3`: ADGRG2 added (absent vas deferens / CBAVD names now count as male-limited). Only ORPHA:48 changes;
+  CFTR stays unlisted. 101 male- and 36 female-limited genes, 0 harmed on folds 0–3. Output sha256 `7317a6bd…`.
+- Without the rule, F1's top 50 shows a sex-impossible gene for 28 of 4,631 dev patients (top 10: 1); with it, none.
+- `scripts/analysis/p4_confirm/confirm2.py`: the second CONFIRM read of F3. It refuses unless P4-CONFIRM.md is
+  committed and the ledger has exactly one row. Its fold-3 dry run matches the earlier ones (+0.3620). Not run.
 

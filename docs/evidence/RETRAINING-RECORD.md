@@ -221,7 +221,18 @@ by a second, disclosed CONFIRM read.
   top-10 rates unchanged.
 - **What the doctor sees:** without the rule, the network shows a gene impossible for the patient's sex in first
   place for 1 of 4,631 patients, in the top 10 for 10, and in the top 50 for 48. The rule removes all of them.
-- **Known miss:** ADGRG2 (absent vas deferens) is not listed; fixed in the next knowledge id.
+- **`sex-kb-v3`** fixes the one known miss: ADGRG2 (absent vas deferens) is now male-limited (101 male, 36 female
+  genes). 0 harmed on folds 0–3.
+- With the add-on (F1), the top 50 still shows a sex-impossible gene for 28 of 4,631 dev patients (top 10: 1). With
+  the hard rule, none.
+
+### 6.1b Final model (Mateo, 2026-10-15)
+- **F3 = network + add-on (vault-tested weights) + hard sex rule (`sex-kb-v3`). Age is dropped as a hard rule.**
+- The soft add-on stays because it helps more patients than it harms:
+  - folds 0–3 out of fold, on top of network + sex rule: 344 helped, 44 harmed, net Δ about 0;
+  - vault: 463 helped, 27 harmed, +0.0011.
+- **A second CONFIRM read** checks F3 under [P4-CONFIRM](../analyses/P4-CONFIRM.md): primary F3 vs E0, 0 harmed by
+  the sex rule, and add-on helped ≥ harmed.
 
 ### 6.2 Age rule ([P4-AGE](../analyses/P4-AGE.md), done; recommendation: drop)
 - **Knowledge `age-kb-v1`** (HPOA 2025-03-03 onsets, E0's genes): 1,203 genes get a certain earliest onset (every
