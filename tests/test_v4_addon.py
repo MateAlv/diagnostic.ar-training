@@ -3,6 +3,8 @@ only; θ = 0 is the base exactly; θ ≥ 0 only lowers. No data needed; the fitt
 
 import importlib.util
 import json
+from collections import Counter
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -11,9 +13,11 @@ from diagnostic_ar_training import REPO_ROOT, splits
 from diagnostic_ar_training.cohorts.schema import Case, Sex
 from diagnostic_ar_training.ft.bundle import FEATURES, Knowledge
 from diagnostic_ar_training.ft.system import case_inputs
-from diagnostic_ar_training.lineage.registry import LineageError
+from diagnostic_ar_training.lineage import ledger
+from diagnostic_ar_training.lineage.gitinfo import CodeState
+from diagnostic_ar_training.lineage.registry import LineageError, Purpose
 from diagnostic_ar_training.sim4 import folds
-from diagnostic_ar_training.v4 import addon, patients
+from diagnostic_ar_training.v4 import addon, patients, report
 
 GENES = ("-", "G1", "G2", "G3")
 HPOA = """#description: fake
@@ -245,3 +249,227 @@ def test_confirm_script_is_gated_and_writes_its_outputs(kb, confirm_fold, monkey
     assert set(summary["controls"]) == {"swap", "parent"} and not summary["dry_run_fold_3"]
     raw = summary["controls"]["swap"]["raw_rank"]
     assert raw["gene_with_training_patients"]["n"] + raw["gene_without"]["n"] > 0
+
+
+def load_script(name: str):
+    path = REPO_ROOT / "scripts" / "analysis" / "p3_addon" / f"{name}.py"
+    spec = importlib.util.spec_from_file_location(f"p3_addon_{name}", path)
+    script = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(script)
+    return script
+
+
+VAULT_STATUS = {f"PMID:{i}": patients.CITED if i % 3 == 0 else patients.UNCITED for i in range(60)}
+
+
+@pytest.fixture
+def vault(kb, docs, clean_tree, monkeypatch, tmp_path):
+    """The vault script on 60 fake vault patients, every gate open; `splits.load_part` is the real one."""
+    script = load_script("vault")
+    cases = [case(i, gene=GENES[1 + i % 3]) for i in range(60)]
+    frozen = {
+        "case_ids": {"train": [], "vault": [c.case_id for c in cases]},
+        "group_status": VAULT_STATUS,
+        "content_sha256": "split",
+    }
+    calls, loaded = [], []
+    real_load_part = splits.load_part
+
+    def load_part(split, part, purpose, exp_id=None, reason=""):
+        loaded.append((split, part, purpose, exp_id, reason))
+        return real_load_part(split, part, purpose, exp_id, reason)
+
+    monkeypatch.setattr(splits, "load_part", load_part)
+    monkeypatch.setattr(splits, "load_frozen", lambda split: frozen)
+    monkeypatch.setattr(splits, "_all_cases", lambda spec: (cases, Counter()))
+    (ledger.EXPERIMENTS_DIR / f"{script.EXP}.md").write_text("pre-registered")
+    monkeypatch.setenv(ledger.SEALED_READ_ENV, script.EXP)
+    real_scorer = script.network_scorer
+    monkeypatch.setattr(script, "code_state", lambda: clean_tree)
+    monkeypatch.setattr(script, "network_scorer", lambda run: fake_scores(calls))
+    monkeypatch.setattr(script, "checkpoint_sha", lambda run: script.FROZEN_SHA256[run])
+    monkeypatch.setattr(addon, "load_kb", lambda kb_id: (kb, script.FROZEN_SHA256[kb_id]))
+    monkeypatch.setattr(addon, "load_bundle", lambda b, kb_id: (addon_bundle(), script.FROZEN_SHA256[b]))
+    monkeypatch.setattr(script, "knowledge_of", lambda kb, kb_id: Knowledge(kb, GENES, None, kb_id))
+    monkeypatch.setattr(script, "e0_scorer", lambda: fake_scores(calls))
+    monkeypatch.setattr(script, "training_genes", lambda: {GENES[1]})
+    monkeypatch.setattr(script, "parent_mapper", lambda: lambda term: "HP:0000118")
+    return SimpleNamespace(
+        script=script,
+        calls=calls,
+        loaded=loaded,
+        cases=cases,
+        real_scorer=real_scorer,
+        out=tmp_path / "out" / "vault.json",
+        ranks=tmp_path / "ranks",
+    )
+
+
+def untrained_on_0_3(v, monkeypatch, folds_used=(0, 1, 2), last=True):
+    from diagnostic_ar_training.v4 import runs
+
+    run = v.out.parent.parent / "run"
+    run.mkdir()
+    if last:
+        (run / "last.pt").write_bytes(b"x")
+    cfg = SimpleNamespace(sim=SimpleNamespace(real_folds=list(folds_used)))
+    monkeypatch.setattr(runs, "load_config", lambda run_id: cfg)
+    monkeypatch.setattr(runs, "run_dir", lambda run_id: run)
+    monkeypatch.setattr(v.script, "network_scorer", v.real_scorer)
+
+
+def bad_bundle(v, monkeypatch):
+    monkeypatch.setattr(addon, "load_bundle", lambda b, kb_id: (addon_bundle(), "0" * 64))
+
+
+def unverified_kb(v, monkeypatch):
+    def load_kb(kb_id):
+        raise LineageError(f"{kb_id}: not a verified addon-kb")
+
+    monkeypatch.setattr(addon, "load_kb", load_kb)
+
+
+def registration(v):
+    return ledger.EXPERIMENTS_DIR / f"{v.script.EXP}.md"
+
+
+OPENED = "| t | p3-v1/vault | EXP-V-001 | s | r |\n"
+DIRTY = CodeState("t", "b" * 40, True)
+REFUSALS = {
+    "empty reason": (lambda v, mp: " ", "reason"),
+    "dirty tree": (lambda v, mp: mp.setattr(v.script, "code_state", lambda: DIRTY), "SHA"),
+    "no pre-registration": (lambda v, mp: registration(v).unlink(), "committed"),
+    "uncommitted pre-registration": (lambda v, mp: registration(v).write_text("draft"), "committed"),
+    "no DXT_SEALED_READ": (lambda v, mp: mp.delenv(ledger.SEALED_READ_ENV), "DXT_SEALED_READ"),
+    "wrong DXT_SEALED_READ": (lambda v, mp: mp.setenv(ledger.SEALED_READ_ENV, "EXP-V-1"), "DXT_SEALED_READ"),
+    "vault already opened": (lambda v, mp: ledger.LEDGER.write_text(OPENED), "already opened"),
+    "output exists": (lambda v, mp: (v.out.parent.mkdir(), v.out.write_text("{}")), "never overwritten"),
+    "network trained on folds 0-2": (lambda v, mp: untrained_on_0_3(v, mp), "folds 0-3"),
+    "network trained on folds 0-4": (lambda v, mp: untrained_on_0_3(v, mp, (0, 1, 2, 3, 4)), "folds 0-3"),
+    "network without last.pt": (lambda v, mp: untrained_on_0_3(v, mp, (0, 1, 2, 3), False), "folds 0-3"),
+    "checkpoint hash": (lambda v, mp: mp.setattr(v.script, "checkpoint_sha", lambda run: "0"), "frozen"),
+    "bundle hash": (bad_bundle, "frozen"),
+    "unverified knowledge": (unverified_kb, "verified"),
+}
+
+
+@pytest.mark.parametrize("refusal", REFUSALS)
+def test_vault_refusals_come_before_any_load(vault, monkeypatch, refusal):
+    breaks, message = REFUSALS[refusal]
+    reason = breaks(vault, monkeypatch)
+    before = ledger.LEDGER.read_text() if ledger.LEDGER.exists() else None
+    out_before = vault.out.read_text() if vault.out.exists() else None
+    with pytest.raises(LineageError, match=message):
+        vault.script.run(reason if isinstance(reason, str) else "go", vault.out, vault.ranks)
+    assert not vault.loaded and not vault.calls and not vault.ranks.exists()
+    assert (ledger.LEDGER.read_text() if ledger.LEDGER.exists() else None) == before
+    assert (vault.out.read_text() if vault.out.exists() else None) == out_before
+
+
+def test_vault_read_opens_once_and_writes_its_outputs(vault):
+    script = vault.script
+    summary = script.run("Mateo's go", vault.out, vault.ranks)
+    assert vault.loaded == [("p3-v1", splits.Part.VAULT, Purpose.EVAL, "EXP-V-002", "Mateo's go")]
+    rows = ledger.entries("p3-v1", "vault")
+    assert len(rows) == 1 and "EXP-V-002" in rows[0] and "Mateo's go" in rows[0]
+    assert json.loads(vault.out.read_text()) == json.loads(json.dumps(summary, default=str))
+    controls = ("E0_swap", "network_swap", "E0_parent", "network_parent")
+    assert {p.name for p in vault.ranks.iterdir()} == {
+        f"{n}.ranks.jsonl" for n in ("E0", "network", *script.BUNDLES, *controls)
+    }
+    e0 = report.read_ranks(vault.ranks / "E0.ranks.jsonl")
+    assert len(e0) == 60 and {r["fold"] for r in e0} == {script.VAULT_FOLD}
+    assert {r["group"] for r in e0} == set(VAULT_STATUS) and not summary["dry_run_fold_3"]
+    assert {r["status"] for r in e0 if r["group"] == "PMID:0"} == {patients.CITED}
+    assert set(summary["readings"]) == set(script.PAIRS)
+    assert set(summary["readings"]["F1_vs_E0"]) == set(script.STRATA)
+    f1, f2 = (summary["readings"][k]["uncited"] for k in ("F1_vs_E0", "F2_vs_E0"))
+    g = summary["gate"]
+    assert g["h1_pass"] == (f1["delta_mrr_cap_ci95"][0] > 0) and g["F1"]["delta"] == f1["delta"]["mrr_cap"]
+    assert g["F2"]["ci95"] == f2["delta_mrr_cap_ci95"] and g["h2_tested"] == g["h1_pass"]
+    assert summary["agreement"]["ranks_differing_from_F1"] == 0
+    assert summary["size"]["n"] == 60 and summary["size"]["by_stratum"]["uncited"]["n"] == 40
+    assert summary["size"]["largest_uncited_group"]["share"] == pytest.approx(1 / 40)
+    assert set(summary["publication_mean"]["F1_vs_E0"]) == set(script.STRATA)
+    assert summary["frozen_system"]["bundles"] == {b: script.FROZEN_SHA256[b] for b in script.BUNDLES}
+    vault.out.unlink()
+    with pytest.raises(LineageError, match="already opened"):
+        script.run("again", vault.out, vault.ranks)
+    assert len(vault.loaded) == 1 and len(ledger.entries("p3-v1", "vault")) == 1
+
+
+def test_vault_dry_run_reads_fold_3_without_the_gate(vault, monkeypatch):
+    monkeypatch.delenv(ledger.SEALED_READ_ENV)
+    monkeypatch.setattr(vault.script, "code_state", lambda: DIRTY)
+    registration(vault).unlink()
+    groups = {c.case_id: f"PMID:{c.case_id[1:]}" for c in vault.cases}
+    fold3 = patients.annotate(vault.cases[:30], groups, VAULT_STATUS, lambda g: 3, keep_excluded=True)
+    monkeypatch.setattr(patients, "load_addon", lambda folds_: fold3 if folds_ == (3,) else [])
+    summary = vault.script.run("dry run", vault.out, vault.ranks, dry_run=True)
+    assert summary["dry_run_fold_3"] and summary["size"]["n"] == 30
+    assert not vault.loaded and not ledger.LEDGER.exists() and vault.out.exists()
+    with pytest.raises(LineageError, match="reason"):
+        vault.script.run("", vault.out, vault.ranks, dry_run=True)
+    wrong = {**VAULT_STATUS, "PMID:1": patients.CITED}
+    mislabelled = patients.annotate(vault.cases[:30], groups, wrong, lambda g: 3, keep_excluded=True)
+    monkeypatch.setattr(patients, "load_addon", lambda folds_: mislabelled)
+    with pytest.raises(LineageError, match="disagrees"):
+        vault.script.run("dry run", vault.out, vault.ranks, dry_run=True)
+
+
+def reading(lower: float) -> dict:
+    return {
+        "uncited": {
+            "n": 5,
+            "n_groups": 2,
+            "mrr_cap": 0.3,
+            "e0": {"mrr_cap": 0.2},
+            "delta": {"mrr_cap": 0.1},
+            "delta_mrr_cap_ci95": [lower, 0.2],
+        }
+    }
+
+
+def test_vault_gate_is_hierarchical():
+    gate = load_script("vault").gate
+    assert gate(reading(0.01), reading(-0.01)) | {"F1": None, "F2": None} == {
+        "stratum": "uncited",
+        "metric": "mrr_cap",
+        "F1": None,
+        "F2": None,
+        "h1_pass": True,
+        "h2_tested": True,
+        "h2_pass": False,
+    }
+    assert gate(reading(0.01), reading(0.02))["h2_pass"] is True
+    failed = gate(reading(0.0), reading(0.05))
+    assert failed["h1_pass"] is False and failed["h2_tested"] is False and failed["h2_pass"] is None
+    assert gate(reading(0.01), reading(0.0))["F1"] == {
+        "n": 5,
+        "n_groups": 2,
+        "e0": 0.2,
+        "value": 0.3,
+        "delta": pytest.approx(0.1),
+        "ci95": [0.01, 0.2],
+    }
+
+
+def test_publication_mean_weighs_each_publication_once():
+    publication_mean = load_script("vault").publication_mean
+
+    def recs(ranks, groups):
+        return [
+            {"case_id": f"c{i}", "group": g, "rank": r, "strata": ["all", "uncited"]}
+            for i, (r, g) in enumerate(zip(ranks, groups, strict=True))
+        ]
+
+    groups = ["a", "a", "a", "b"]
+    out = publication_mean(recs([1, 1, 1, 4], groups), recs([2, 2, 2, float("inf")], groups), ("uncited",))
+    x = out["uncited"]
+    assert x["mrr_pub"] == pytest.approx((1 + 0.25) / 2) and x["e0_mrr_pub"] == pytest.approx(0.25)
+    assert x["delta"] == pytest.approx(0.375) and x["n_groups"] == 2 and x["n"] == 4
+    rng = np.random.default_rng(0)
+    groups = [f"g{i // 3}" for i in range(60)]
+    new, base = rng.integers(1, 20, 60).astype(float), rng.integers(1, 20, 60).astype(float)
+    even = publication_mean(recs(new, groups), recs(base, groups), ("all",))["all"]
+    assert even["ci95"] == pytest.approx(report.capped_bootstrap(base, new, groups))
