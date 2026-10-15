@@ -4995,4 +4995,25 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Mateo accepted ADR-0020. Its outcomes section records sex-kb-v3, age dropped, final model F3 and the second CONFIRM
   pass. ADR-0018's `ft-v1.1` integration is superseded by F3. Next: production of F3 through `diagnostic.ar-model`,
   staging first.
+## 2026-10-15: Release artifacts of F3 built (not published)
+- `dxt v4 release-network` / `release-layer` (`v4/release.py`), `docs/HANDOFF-v4-prod.md` (supersedes
+  HANDOFF-ft-v1.1-prod).
+- **Bundle `genphenia-v4.0` (lineage id `genphenia-v4.0-b2`):** E0's bundle with the v4 network's `model.onnx`
+  (`fafbecbe…`) and `best_model.pt` (`bff1a05b…`, E0's checkpoint layout). Tarball `62b2c5e8…`, reproducible
+  byte for byte; kept in `data/interim/release/genphenia-v4.0/`. Build 1 (`2ce8e9d0…`, E0's checkpoint left inside,
+  never published) is withdrawn.
+- **Layer `v4-layer`:** a numpy module with the add-on (5 features with θ > 0) and the hard sex rule (`sex-kb-v3`),
+  plus a 32-case staging fixture.
+- **Parity on 5,053 dev patients:**
+  - ONNX vs torch: ranks identical 4,369/4,369;
+  - the vendored production engine on the tarball: ranks identical, top-10 order identical 5,053/5,053;
+  - the layer package vs research F3: bit-identical;
+  - no inputs ⇒ softmax(logits) exactly.
+- **Findings for the deploy:**
+  - the engine accepts only `model_version` 2.0/2.5/3.0 (it selects the architecture), so `spec.json` stays "3.0"
+    (v4 has the v3.0 architecture), and the release is identified by its tag and sha256;
+  - the engine's ONNX re-export path is broken (no onnxscript; the old exporter drops `batch` and mis-sums), for E0
+    as well, so the shipped `model.onnx` must be kept and checked by sha256;
+  - excluded terms have no effect in F3 (both negation weights are 0).
+- Nothing in `diagnostic.ar-model` was changed except git-ignored `__pycache__` files written by the engine import.
 

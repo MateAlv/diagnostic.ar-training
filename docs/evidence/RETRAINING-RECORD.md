@@ -278,6 +278,7 @@ by a second, disclosed CONFIRM read.
 | CONFIRM protocol and result | `docs/analyses/P3-CONFIRM.md`, `results/P3/addon/confirm.json`, `results/P3/CONFIRM_LEDGER.md` |
 | Vault pre-registration, result, addendum | `docs/experiments/EXP-V-002.md`, `results/P3/EXP-V-002/` (vault.json, ranks, overlap.json, post_read.json), `docs/TEST_LEDGER.md` |
 | Sex rule | `docs/analyses/P4-SEX.md`, `src/diagnostic_ar_training/v4/sexrule.py`, `results/P4/sex/` |
+| Release artifacts and handoff | `docs/HANDOFF-v4-prod.md`, `dist/v4-layer/`, `dist/genphenia-v4.0/MANIFEST.json`, `results/P4/release/` |
 | Second CONFIRM read (F3) | `docs/analyses/P4-CONFIRM.md`, `results/P4/confirm2/`, `results/P3/CONFIRM_LEDGER.md` row 2 |
 | Age rule | `docs/analyses/P4-AGE.md`, `src/diagnostic_ar_training/v4/agerule.py`, `results/P4/age/` |
 | Run rows | `results/P3/runs/*.json` |
