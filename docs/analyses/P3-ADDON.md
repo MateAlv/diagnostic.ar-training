@@ -160,3 +160,86 @@ patients and give 88% of patients a reference age (82% before).
   separate them. Filling the missing onset knowledge would not change this much: among competitors with knowledge,
   2% are removable.
 
+
+## Earlier re-rankers on top of the network (`rerankers.py`, 2026-10-15)
+Each earlier re-ranker plugged, unchanged, on the network's out-of-fold scores of folds 0–3 (the same cache
+and records as §1: network and E0 ranks equal the harness's on every fold, pooled uncited Δ +0.07136), and on
+E0 as a reference. The re-rankers read every patient input (`patients.load_addon`); the bases see present
+terms only. Code `scripts/analysis/p3_addon/rerankers.py` (run from c95e8c0); numbers
+`results/P3/rerankers/oof.json`. Each fold is scored by its own held-out network, not by `R5x-f4`.
+
+| Re-ranker | Code and artifacts | On the network's scores |
+|---|---|---|
+| `rerank-v1.0.0` | `rerank.model.ReRanker`, rr-v1[neg=0.5] (`release_check.REFERENCE`, config `fe58053033fa`): log p + 0.5 · Σ log(1 − 0.5 · P(t \| gene)) over excluded terms, top 200 genes; sex / age / onset weight 0; kb-v3 | on softmax64(logits): it only needs a distribution over E0's genes, nothing internal to E0 |
+| `ft-v1.1` | `ft-v1.1-c1-lin-all-ens` on `ft-kb-all-v2` (the evaluated knowledge, every R1 PMID masked), through `Addon` / `FtResidual`; θ sex 2.1, onset late 2.5 / gap 2.2, xlr_female 2.8, neg_obligate 3.0 | added to the logits, as the add-on. `ft-v1.1-prod` has the same θ on `ft-kb-prod-v1` (unmasked, 2026 sources); not read here |
+| `safe-v1[sex+onset]` | `safe.system.SafeV1`, sex hard block and onset ×0.01 of the `safe-kb-v1` bundle | on softmax64(logits) (no underflow: softmax ranks equal logit ranks for every patient) |
+| `p3-addon-v1-all` | the add-on's final bundle (§2), added to the logits | in-sample here (fitted on folds 0–3); its out-of-fold reading is §1's variant c, re-read from its ranks |
+
+The network and E0 have the same logit scale (median per-patient logit std 28–31 vs 24–26, top-1 − top-10 gap
+5.8–6.9 vs 5.6–6.9), so the additive weights tuned on E0 act with about the same strength on the network.
+
+**Pooled, folds 0–3** (capped MRR Δ [95% CI], helped / harmed):
+
+| Re-ranker | Stratum | network + R vs network | Δ top-1 / top-10 vs network | network + R vs E0 | E0 + R vs E0 |
+|---|---|---|---|---|---|
+| (network alone) | uncited | | | +0.0714 [+0.0488, +0.0962] | |
+| `rerank-v1.0.0` | uncited | **−0.0030 [−0.0065, −0.0001]**, 87 / 366 | −0.0095 / −0.0121 | +0.0683 [+0.0453, +0.0935] | −0.0041 [−0.0075, −0.0013], 79 / 362 |
+| | uncited in-vocab | −0.0060 [−0.0138, −0.0001] | −0.0135 / −0.0171 | +0.1028 [+0.0677, +0.1417] | −0.0078 [−0.0158, −0.0021] |
+| | cited | −0.0071 [−0.0127, −0.0022], 135 / 339 | −0.0058 / −0.0051 | +0.0526 [+0.0300, +0.0754] | −0.0031 [−0.0071, +0.0007], 184 / 434 |
+| `ft-v1.1` | uncited | **−0.0003 [−0.0033, +0.0023]**, 483 / 12 | +0.0000 / +0.0009 | +0.0710 [+0.0478, +0.0960] | +0.0009 [−0.0003, +0.0022], 573 / 8 |
+| | uncited in-vocab | −0.0009 [−0.0057, +0.0035] | +0.0000 / +0.0012 | +0.1079 [+0.0737, +0.1455] | +0.0010 [−0.0017, +0.0033] |
+| | cited | +0.0000 [−0.0024, +0.0016], 242 / 5 | −0.0004 / +0.0015 | +0.0597 [+0.0367, +0.0829] | −0.0001 [−0.0032, +0.0022], 268 / 7 |
+| `safe-v1[sex+onset]` | uncited | **+0.0004 [+0.0000, +0.0012]**, 217 / 0 | +0.0004 / +0.0004 | +0.0718 [+0.0492, +0.0967] | +0.0006 [+0.0001, +0.0015], 252 / 0 |
+| | uncited in-vocab | +0.0007 [+0.0001, +0.0019] | +0.0006 / +0.0006 | +0.1095 [+0.0762, +0.1453] | +0.0009 [+0.0002, +0.0023] |
+| | cited | +0.0004 [+0.0001, +0.0007], 72 / 0 | +0.0000 / +0.0011 | +0.0600 [+0.0372, +0.0833] | +0.0003 [+0.0001, +0.0006], 70 / 0 |
+| `p3-addon-v1-all` (in-sample) | uncited | +0.0001 [−0.0014, +0.0015], 334 / 25 | +0.0009 / +0.0000 | +0.0715 [+0.0488, +0.0963] | +0.0004 [−0.0004, +0.0014], 393 / 38 |
+| | uncited in-vocab | +0.0002 [−0.0020, +0.0024] | +0.0012 / +0.0000 | +0.1090 [+0.0762, +0.1450] | +0.0007 [−0.0005, +0.0021] |
+| | cited | +0.0004 [−0.0001, +0.0011], 147 / 6 | +0.0004 / +0.0004 | +0.0601 [+0.0373, +0.0831] | +0.0010 [+0.0004, +0.0019], 161 / 3 |
+| add-on, out of fold (§1 c) | uncited | −0.0000 [−0.0016, +0.0013], 353 / 44 | +0.0009 / −0.0013 | +0.0713 [+0.0484, +0.0963] | |
+| | uncited in-vocab | −0.0001 [−0.0024, +0.0021] | +0.0012 / −0.0018 | +0.1087 [+0.0758, +0.1449] | |
+| | cited | +0.0002 [−0.0003, +0.0010], 151 / 26 | +0.0004 / −0.0011 | +0.0599 [+0.0371, +0.0829] | |
+
+**Per fold, uncited, network + R vs network** (helped / harmed):
+
+| Fold (n, pubs) | `rerank-v1.0.0` | `ft-v1.1` | `safe-v1[sex+onset]` | `p3-addon-v1-all` | add-on out of fold (c) |
+|---|---|---|---|---|---|
+| 0 (498, 112) | −0.0016 [−0.0047, +0.0011] (30 / 33) | −0.0015 [−0.0061, +0.0006] (135 / 1) | +0.0001 [+0.0000, +0.0003] (91 / 0) | −0.0019 [−0.0069, +0.0002] (103 / 3) | −0.0021 (116 / 21) |
+| 1 (630, 113) | −0.0044 [−0.0104, +0.0001] (19 / 124) | −0.0010 [−0.0110, +0.0071] (150 / 5) | +0.0001 [+0.0000, +0.0004] (70 / 0) | +0.0023 [−0.0006, +0.0060] (103 / 4) | +0.0018 (115 / 7) |
+| 2 (453, 84) | +0.0009 [−0.0052, +0.0074] (20 / 32) | +0.0008 [+0.0001, +0.0017] (57 / 0) | +0.0000 [+0.0000, +0.0000] (35 / 0) | −0.0001 [−0.0007, +0.0003] (37 / 13) | −0.0001 (33 / 16) |
+| 3 (735, 93) | −0.0072 [−0.0191, +0.0024] (18 / 177) | +0.0007 [−0.0036, +0.0056] (141 / 6) | +0.0017 [+0.0000, +0.0057] (21 / 0) | +0.0002 [+0.0000, +0.0005] (91 / 5) | +0.0002 (89 / 0) |
+
+**Pooled by `r1-v1` part** (p3-v1 train folds 0–3 = 3,405 R1-train and 1,648 R1-dev patients), network + R vs
+network:
+
+| Re-ranker | uncited, R1-train (1,813) | uncited, R1-dev (503) | cited, R1-train (1,592) | cited, R1-dev (1,145) |
+|---|---|---|---|---|
+| `rerank-v1.0.0` | −0.0034 [−0.0077, +0.0004] | −0.0023 [−0.0072, +0.0024] | −0.0107 [−0.0184, −0.0046] | −0.0012 [−0.0108, +0.0069] |
+| `ft-v1.1` | +0.0011 [−0.0013, +0.0040] | −0.0040 [−0.0126, +0.0007] | −0.0004 [−0.0046, +0.0021] | +0.0008 [+0.0002, +0.0015] |
+| `safe-v1[sex+onset]` | +0.0006 [+0.0000, +0.0017] | +0.0001 [+0.0000, +0.0002] | +0.0003 [+0.0001, +0.0006] | +0.0005 [+0.0001, +0.0011] |
+| `p3-addon-v1-all` | −0.0003 [−0.0022, +0.0014] | +0.0013 [+0.0000, +0.0041] | +0.0006 [+0.0001, +0.0017] | −0.0001 [−0.0005, +0.0002] |
+
+**What each re-ranker has seen of these patients** (p3-v1 train folds 0–3 are exactly R1 train + dev):
+
+| Re-ranker | Fitted / tuned on | Knowledge masking | Reading |
+|---|---|---|---|
+| `rerank-v1.0.0` | weights chosen on simulated S3-dev (EXP-S3-001); R1-dev was read in the EXP-B-001 search (neg=0.5 gave −0.0067 there, not the best) and in EXP-B-003's dry run. No parameter fitted on R1 patients | kb-v3 masks R1 dev / test / vault PMIDs, not R1-train's: the 3,405 R1-train patients' own papers are in its profiles | close to clean; the in-sample papers can only help the negation term, and it still harms |
+| `ft-v1.1` | θ fitted on the 4,103 R1-train patients (3,405 here); the configuration and the ensemble selected on R1-dev (1,648 here) | `ft-kb-all-v2` masks every R1 PMID | **optimistic**: R1-train rows are in-sample for θ, R1-dev rows chose the recipe. Only the R1-dev uncited row is free of fitting, and there it is the worst (−0.0040) |
+| `safe-v1[sex+onset]` | no fitted parameter; the rules, onset ×0.01 and the knowledge version were selected on R1 train and dev (33 probe configurations, EXP-P-001, P2-PROBES-v1); the 49 sex-rule removals came from the agents' biomedical knowledge, not from patients | `safe-kb-v1` masks R1 dev / test / vault PMIDs (R1-train's unmasked) | mildly optimistic: its form was chosen to avoid the harms it showed on these patients, so 0 harmed is partly by construction |
+| `p3-addon-v1-all` | θ fitted on folds 0–3 (all of them, out-of-fold network logits) | `p3-addon-kb-v1`, unmasked | in-sample; the out-of-fold reading (c) is the honest one and matches §1 exactly |
+
+**Reading:**
+- **No earlier re-ranker adds measurably to the network.** Only `safe-v1[sex+onset]` is positive with a CI
+  touching 0: +0.0004 uncited, 0 harmed; about the size it has on E0 (+0.0006 here, +0.0003 on its sealed
+  read, EXP-P-006).
+- **`rerank-v1.0.0` lowers the network**: −0.0030 [−0.0065, −0.0001] uncited (366 harmed against 87 helped)
+  and −0.0071 cited, the same direction as on E0 here (−0.0041) and on the R1 vault (−0.0022, EXP-V-001).
+  Excluded terms written in publications are not the interview "no" answers it was built for (ADR-0016);
+  the mechanism of the harms is not analysed here.
+- **`ft-v1.1` does nothing on the network** (−0.0003 [−0.0033, +0.0023] uncited) although it is in-sample for
+  most patients; on E0 it gives +0.0009 [−0.0003, +0.0022], its usual size. Its harms are few (12) but larger
+  than its many small helps, as for the add-on (§1).
+- **The add-on reproduces:** out of fold, −0.0000 [−0.0016, +0.0013] uncited (§1's c); the final bundle
+  in-sample +0.0001 [−0.0014, +0.0015].
+- **For the production decision (Mateo's):** on these patients, stacking `rerank-v1.0.0` on the network lowers it.
+  `ft-v1.1` makes no measurable change, and its only rows untouched by its fitting (R1-dev) are its worst.
+  `safe-v1[sex+onset]` adds at most +0.0004 with no harm.

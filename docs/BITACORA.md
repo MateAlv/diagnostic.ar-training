@@ -4916,4 +4916,14 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - By source: `p2-v1` test +0.123, `p2-v1` vault +0.030, `p2-fresh-v1` −0.001 (16% of its genes have training
   patients).
 - E0 ranks equal Phase 2's for all 4,659 patients. CONFIRM → vault drop 0.007.
+## 2026-10-15: Earlier re-rankers on top of the v4 network (P3-ADDON, "Earlier re-rankers on top of the network")
+- Mateo asked whether plugging an earlier re-ranker on top of the network helps. The vault is spent, so the check
+  uses folds 0–3 with the network's out-of-fold logits (`rerankers.py`, `results/P3/rerankers/oof.json`).
+- Uncited, capped Δ vs the network:
+  - `rerank-v1.0.0`: −0.0030 [−0.0065, −0.0001] (87 helped / 366 harmed). It lowers the network, and it also lowers
+    E0 here (−0.0041).
+  - `ft-v1.1`: −0.0003 [−0.0033, +0.0023]. Its R1-dev rows, untouched by its fitting, give −0.0040.
+  - `safe-v1[sex+onset]`: +0.0004 [+0.0000, +0.0012], 0 harmed.
+- Contamination: `ft-v1.1`'s weights were fitted on R1-train (in-sample here). `safe-v1`'s rules were chosen on R1
+  train/dev. `rerank-v1.0.0` was tuned on simulated S3.
 
