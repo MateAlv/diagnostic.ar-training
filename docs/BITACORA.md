@@ -4831,3 +4831,16 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Swap raw-rank lift for genes with FIT patients (mean log2 ratio): seed 1 −0.31, R5-r10 −0.32, as for R5-r30; other
   genes −0.05 and −0.07.
 - Correction: R5-r30's helped and harmed counts are 177 and 173 by the harness's ranks (first logged as 172 and 178).
+## 2026-10-14: Decision: R5's popularity lift is reported, not blocking
+- Mateo accepted the recommendation: R5's raw-rank lift under phenotype swap for genes with real patients (~20%,
+  far below the ranks that move capped MRR) is reported next to every R5 result as a control, not a gate.
+## 2026-10-14: R5 cross-fitted over folds 0–3
+- Harness `sim.real_folds` (#157). Runs `R5x-f0-34cd370c47`, `R5x-f1-fc60f6a846`, `R5x-f2-bcb6ff0d93` (R5-r30 with
+  fold 0, 1 or 2 held out); fold 3 is R5-r30. P3-BATCH1-DIAG §11, `crossfit.py`.
+- Uncited capped Δ vs E0, final checkpoints:
+  - folds 0, 1, 2 and 3: +0.059, +0.089, +0.083, +0.051 (every interval excludes 0);
+  - pooled 0–3: +0.071 [+0.049, +0.096]; pooled 0–2 (not used to choose real_ratio): +0.077 [+0.051, +0.108];
+  - cited pooled 0–3: +0.060 [+0.037, +0.083]. Helped 631, harmed 551.
+- Parent terms pooled: +0.029 [+0.017, +0.042] (40% kept).
+- Swap raw-rank lift for genes with training patients: log2 −0.25 vs −0.04 for other genes.
+

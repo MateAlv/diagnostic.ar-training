@@ -219,3 +219,29 @@ Checks (`r5_checks.py`, `r5_fusion.py`, final checkpoints):
 - **R5 + K1** (memory evidence from §8, λ 4 and t 1 as chosen for fold 3): +0.048 [−0.018, +0.120]. K1 on top of
   R5-r30 is −0.003 [−0.053, +0.050] and adds harm (356 harmed). The memory adds nothing once R5 has seen the same
   patients.
+
+## 11. R5 cross-fitted over folds 0–3
+Each fold k of 0–3 is read by a run fine-tuned exactly as R5-r30 but with the real patients of the other three
+folds (`sim.real_folds`, configs `configs/p3/b2/R5x-f0/f1/f2.yaml`; fold 3 is R5-r30 itself). Final checkpoints,
+ranks read by case id (`crossfit.py`). SELECT does not steer training (cosine schedule, no patience), so a run
+with fold 3 among its real folds is not tuned on it. real_ratio 0.3 was chosen on fold 3 (§10), so folds 0–2
+are also pooled without it.
+
+| Capped Δ vs E0 | uncited | uncited in-vocab | cited | helped / harmed (uncited) |
+|---|---|---|---|---|
+| fold 0 (`R5x-f0-34cd370c47`) | +0.059 [+0.020, +0.108] | +0.084 | +0.036 [−0.004, +0.081] | 137 / 145 |
+| fold 1 (`R5x-f1-fc60f6a846`) | +0.089 [+0.040, +0.147] | +0.137 | +0.073 | 180 / 190 |
+| fold 2 (`R5x-f2-bcb6ff0d93`) | +0.083 [+0.039, +0.135] | +0.149 | +0.045 | 137 / 43 |
+| fold 3 (`R5-r30-fa772ffa7e`) | +0.051 [+0.020, +0.090] | +0.071 | +0.085 | 177 / 173 |
+| **folds 0–2** | **+0.077 [+0.051, +0.108]** | +0.121 | +0.052 [+0.026, +0.079] | 454 / 378 |
+| **folds 0–3** (2,316 patients, 402 publications) | **+0.071 [+0.049, +0.096]** | +0.109 | +0.060 [+0.037, +0.083] | 631 / 551 |
+
+- Every fold's interval excludes 0 on uncited patients. E0 + K1 out of fold over the same folds: +0.076 [+0.041,
+  +0.111] (§8), with far more harm.
+- **Parent terms** (each fold rescored with every present term moved to a seeded parent): pooled +0.029 [+0.017,
+  +0.042], 40% of the gain (folds 0–3: +0.022, +0.035, +0.038, +0.019). The memory kept 70–80% (§9).
+- **Popularity, raw ranks under phenotype swap**, pooled over folds 0–3 (uncited in-vocabulary; "training
+  patients" = the gene has patients in the run's real folds): with training patients (653) median 1,333 → 1,093,
+  mean log2 ratio −0.25, 63% improved; without (980) 850 → 754, −0.04, 50%. The ~20% lift of §10 holds out of fold.
+- The swap pairing of folds 0–2 is drawn within FIT, so a swap donor can come from a training fold.
+
