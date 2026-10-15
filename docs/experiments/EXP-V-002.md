@@ -206,8 +206,7 @@ unscorable.
   - other genes (1,176): 1,059 → 997, −0.10, 55% improved.
 - **Parent terms** (network vs E0): uncited +0.0226 [+0.0110, +0.0337], 35% of the gain kept; cited +0.0295
   [+0.0122, +0.0484].
-- **Declared post-read readings** (gene-cluster bootstrap, Δ by gene with or without training patients, Δ by vault
-  source, E0 parity with Phase 2's rank files, CONFIRM → vault drop): in an addendum.
+- **Declared post-read readings:** see Addendum 1.
 
 ## Verdict
 - **H1 passed:** F1's 95% CI lower bound is +0.0473 > 0.
@@ -225,3 +224,33 @@ unscorable.
 - **Production** needs Mateo's decision and a separate integration into `diagnostic.ar-model` (ADR to follow).
 
 ## Addenda
+### Addendum 1 (2026-10-15): the declared post-read readings
+Computed from the committed ranks only, with the vault not reopened: `scripts/analysis/p3_addon/post_read.py`,
+`results/P3/EXP-V-002/post_read.json`.
+- **Gene-cluster bootstrap** (resampling 259 genes with all their publications): F1 uncited +0.0649 [+0.0367, +0.0976];
+  cited +0.0604 [+0.0326, +0.0889]. Still above 0, wider than the publication CI.
+- **The gain is on genes that have real training patients:**
+
+  | Uncited, F1 vs E0 | Patients | Capped Δ [95% CI] |
+  |---|---|---|
+  | gene with real patients in folds 0–3 | 983 | **+0.137 [+0.104, +0.174]** |
+  | gene without | 1,695 | +0.001 [−0.012, +0.015] |
+
+  Cited patients show the same split: +0.093 vs +0.003.
+  - The network does not help, and does not harm, genes it never saw a real patient of. For the about 360 genes it
+    did see, it recognises how their real patients present.
+  - The swap control (capped Δ +0.0005) shows this needs the patient's phenotype: it is not a popularity prior.
+- **By vault source** (uncited, F1):
+
+  | Source | Patients | Gene has training patients | Gene in E0 vocabulary | Capped Δ [95% CI] |
+  |---|---|---|---|---|
+  | `p2-v1` test | 1,620 | 44% | 91% | +0.123 [+0.089, +0.161] |
+  | `p2-v1` vault | 718 | 31% | 49% | +0.030 [+0.013, +0.050] |
+  | `p2-fresh-v1` (newest publications) | 340 | 16% | 67% | −0.001 [−0.027, +0.025] |
+
+  The newest publications show no measurable gain: few of their genes have training patients. The gain will grow
+  or shrink in production with the share of patients whose gene phenopacket-store already covers.
+- **E0 parity:** our E0 ranks equal Phase 2's E0 rank files for all 4,659 patients (4,024 finite, 635 misses), so
+  the E0 baseline is the same E0 as in EXP-P-005 and P-006.
+- **CONFIRM → vault:** F1 uncited +0.0717 → +0.0649, a drop of 0.007.
+
