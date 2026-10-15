@@ -224,6 +224,8 @@ def test_confirm_script_is_gated_and_writes_its_outputs(kb, confirm_fold, monkey
     monkeypatch.setattr(addon, "load_kb", lambda kb_id: (kb, "sha"))
     monkeypatch.setattr(addon, "load_bundle", lambda bundle_id, kb_id: (addon_bundle(), "sha"))
     monkeypatch.setattr(addon, "e0_logits", fake_scores(calls))
+    monkeypatch.setattr(script, "training_genes", lambda: {GENES[1]})
+    monkeypatch.setattr(script, "parent_mapper", lambda: lambda term: "HP:0000118")
     out, ranks = tmp_path / "confirm.json", tmp_path / "ranks"
     with pytest.raises(LineageError):
         script.run("why", out=out, ranks=ranks)
@@ -236,6 +238,10 @@ def test_confirm_script_is_gated_and_writes_its_outputs(kb, confirm_fold, monkey
     monkeypatch.setattr(script, "code_dirty", lambda: False)
     summary = script.run("why", out=out, ranks=ranks)
     assert json.loads(out.read_text())["network_run"] == script.NETWORK == summary["network_run"]
+    controls = ("E0_swap", "network_swap", "E0_parent", "network_parent")
     assert {p.name for p in ranks.iterdir()} == {
-        f"{n}.ranks.jsonl" for n in ("E0", "network", *script.BUNDLES)
+        f"{n}.ranks.jsonl" for n in ("E0", "network", *script.BUNDLES, *controls)
     }
+    assert set(summary["controls"]) == {"swap", "parent"} and not summary["dry_run_fold_3"]
+    raw = summary["controls"]["swap"]["raw_rank"]
+    assert raw["gene_with_training_patients"]["n"] + raw["gene_without"]["n"] > 0

@@ -4876,4 +4876,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Conclusion: sex and age rules have no room on top of the network with E0's knowledge.
 - Incident: a first version of the script re-read a whole npz array per patient and froze Mateo's PC for about
   15 minutes (out of memory, no swap). Fixed; analysis jobs now run under `systemd-run ... MemoryMax=4G`.
+## 2026-10-15: v4 candidate frozen; CONFIRM protocol written (PHASE3 §2f steps 3–5)
+- Mateo agreed to stop the sex and age work (no room, P3-ADDON) and freeze.
+- Frozen: network `R5x-f4-ef2f309462` (`last.pt` sha256 `22edfd7e…`) + add-on `p3-addon-v1-all` (`31299383…`),
+  knowledge `p3-addon-kb-v1` (`089ccf87…`). Finalists: F1 network + add-on (primary), F2 network alone.
+- Protocol and decision rule: [P3-CONFIRM](analyses/P3-CONFIRM.md). `confirm.py` gained the swap and parent-term
+  controls and a `--dry-run` on fold 3. The dry run found a bug in the parent-term control (fixed) and matched the
+  harness's fold-3 readings. Fold 4 not read.
 
