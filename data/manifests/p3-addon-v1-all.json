@@ -1,0 +1,66 @@
+{
+  "artifact_id": "p3-addon-v1-all",
+  "kind": "addon-bundle",
+  "created_at": "2026-10-15T14:36:03+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "368fcedc8ab3af827461a1692c105d47d6d253bc",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "artifact:p3-addon-kb-v1",
+      "sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a"
+    },
+    {
+      "id": "split:p3-v1",
+      "sha256": "102bbe343a085ee2d00ddfa4adb95a873b3f4921a7bb88eb7a0a23c1928e79dd"
+    },
+    {
+      "id": "logits:fold0:R5x-f0-34cd370c47",
+      "sha256": "460dc233a47eb0687b5a18775441d7b245544419df5f630966db67f5ce25f145"
+    },
+    {
+      "id": "logits:fold1:R5x-f1-fc60f6a846",
+      "sha256": "568ff6539c66fcdc1c771aece06154ad526d2dacaa594a6a5b86e91d34394ee3"
+    },
+    {
+      "id": "logits:fold2:R5x-f2-bcb6ff0d93",
+      "sha256": "258b8ddff4f740bbb0c2ecc438a6c223d04e4df5a292962001d15c6441017ad3"
+    },
+    {
+      "id": "logits:fold3:R5-r30-fa772ffa7e",
+      "sha256": "c4bbf2d1f581af041481b15bc60a3fce76b49ba0066929798a3d6700905f133d"
+    }
+  ],
+  "params": {
+    "recipe": "c1-lin-all",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "features": [
+      "sex_mismatch",
+      "onset_strict_late",
+      "onset_strict_gap",
+      "onset_lenient_gap",
+      "xlr_female",
+      "neg_obligate",
+      "neg_embed"
+    ],
+    "combine": "mean residual",
+    "early_stopping": "ft.configs.inner_split held-out publication groups",
+    "network_at_use": "R5x-f4-ef2f309462 (trained with folds 0-3)"
+  },
+  "params_hash": "5c583f5d655d1b4d27f542477350681e1e654e57aa91c691546b3009a86a048d",
+  "outputs": [
+    {
+      "path": "data/interim/p3-addon/p3-addon-v1-all/ft-v1-bundle.json",
+      "sha256": "31299383a7dce279acdfae37248db8e7e04c62225fd892080c39758276a093b6",
+      "bytes": 2313
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
