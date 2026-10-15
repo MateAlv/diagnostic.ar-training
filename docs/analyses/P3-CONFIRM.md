@@ -55,5 +55,22 @@
   harness's own readings of `R5x-f4` on fold 3 (+0.3620), E0's swap floor (0.0131) and E0's parent-term
   reading (0.1918).
 
-## 6. Result
-Not read yet.
+## 6. Result (read once, 2026-10-15T16:45Z, main `d663d26`, run by Mateo; ledger row 1)
+Fold 4: 933 patients; 406 uncited in 99 publications, 527 cited in 117. `results/P3/addon/confirm.json`.
+
+| Capped MRR, Δ vs E0 [95% CI] | uncited | uncited in-vocab | cited |
+|---|---|---|---|
+| **F1 network + add-on** | **0.1512 → 0.2230, +0.0717 [+0.0332, +0.1200]** (161 helped / 109 harmed) | +0.0937 [+0.0421, +0.1564] | +0.0650 [+0.0345, +0.1017] |
+| F2 network | +0.0713 [+0.0331, +0.1195] (159 / 110) | +0.0931 | +0.0645 |
+| F1 − F2 | +0.0004 [+0.0000, +0.0010] (76 / 5) | +0.0006 | +0.0005 |
+
+- Uncited top-1: 8.6% → 13.5%; top-10: 28.1% → 35.2% (F1 and F2 equal).
+- `p3-addon-v1-sex-age-onset` gives the same numbers as `p3-addon-v1-all`, as expected.
+- **Decision rule: pass.** F1's lower bound is above 0 and F1 − F2 is not below 0, so the vault pre-registration
+  takes F1 as the primary and F2 as the secondary.
+- **Phenotype-swap control:** capped Δ +0.0011 [−0.0003, +0.0032]. True gene's raw rank: genes with real patients in
+  folds 0–3 (158) median 1,112 → 953, mean log2 ratio −0.12, 63% improved; other genes (148) 2,246 → 2,171, −0.06,
+  51%. The lean seen before is smaller here.
+- **Parent terms: the gain is gone.** Network vs E0, uncited: 0.1395 → 0.1403, +0.0008 [−0.0207, +0.0228]; cited
+  +0.0221 [−0.0002, +0.0473]. Out of fold on folds 0–3 the network kept 40% (+0.029). On CONFIRM its advantage
+  depends on the curators' exact terms: a patient described with the parent terms gets no benefit from it.
