@@ -25,3 +25,4 @@ with a new one and link both ways.
 | [0017](0017-phase-2-real-patient-restart.md) | Phase 2: a restart on real patients with a post-E0 final check | Accepted 2026-10-07 | Done: EXP-P-005 and EXP-P-006 passed; see 0018 |
 | [0018](0018-ft-v11-production-ready.md) | `ft-v1.1-c1-lin-all-ens` is the production-ready model; integration later | Accepted 2026-10-08 | In force |
 | [0019](0019-phase-3-v4-retraining.md) | Phase 3: a v4.0 retrained on a pristine simulator and real patients, with one sealed read (`p3-v1` vault) | Accepted 2026-10-13 | In force; gate: Δ MRR CI > 0 on vault patients uncited by E0's knowledge |
+| [0020](0020-v4-validated-and-next.md) | The v4 candidate passed its vault read; production comes with a deterministic sex and age layer | Proposed 2026-10-15 | v4 = `R5x-f4` + `p3-addon-v1-all` (EXP-V-002 +0.065 [+0.047, +0.083]); Phase 4 sex/age rules next; then one deployment |

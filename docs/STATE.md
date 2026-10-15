@@ -11,6 +11,11 @@
     [+0.0473, +0.0833]; the network alone +0.0639.
   - Moving every term to its parent keeps 35% of the gain.
   - Production needs Mateo's decision and an integration into `diagnostic.ar-model`.
+  - The gain comes from genes with real training patients (+0.137 vs +0.001; EXP-V-002 Addendum 1). The earlier
+    re-rankers add nothing on top, and `rerank-v1.0.0` lowers it (P3-ADDON).
+- **Next ([ADR-0020](decisions/0020-v4-validated-and-next.md), proposed):** Phase 4, a deterministic sex and age
+  layer on top of v4 (sex list first), checked on folds 0–3 and a second CONFIRM read; then one deployment through
+  `diagnostic.ar-model`, staging first.
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.

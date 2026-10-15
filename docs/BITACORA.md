@@ -4926,4 +4926,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - `safe-v1[sex+onset]`: +0.0004 [+0.0000, +0.0012], 0 harmed.
 - Contamination: `ft-v1.1`'s weights were fitted on R1-train (in-sample here). `safe-v1`'s rules were chosen on R1
   train/dev. `rerank-v1.0.0` was tuned on simulated S3.
+## 2026-10-15: v4 wrap-up (ADR-0020, proposed); Phase 4 opened: sex and age layer
+- Mateo: "tiny gain is gold". Sex must make it into the model, deterministically (rank down the genes a patient of
+  that sex cannot have), and age as far as it can be made certain. Wrap up v4, build the features, then deploy once.
+- ADR-0020 (proposed) records what Phase 3 established, its limits, and the plan: a sex/age layer on top of v4,
+  checked on folds 0–3 (zero harmed as the bar) and a second, disclosed CONFIRM read; then `diagnostic.ar-model`,
+  staging first.
+- Started: `sex-kb-v2`, a broader list of genes impossible for one sex (every disease of the gene limited to that
+  sex), and a hard sex block on the network's out-of-fold scores (branch `p4/sex-kb`).
 
