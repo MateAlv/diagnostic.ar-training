@@ -4850,4 +4850,9 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Timing (PHASE3 §2f): the add-on refit, then Mateo's further sex and age work, then the system is frozen, then
   CONFIRM, pre-registration, review and the vault read. CONFIRM waits until the add-on is final.
 - Started `R5x-f4` (#159): the network trained with the real patients of folds 0–3.
+## 2026-10-15: R5x-f4 trained (the network of the v4 candidate)
+- Run `R5x-f4-ef2f309462`: R5-r30's recipe with the real patients of folds 0–3 (4,369 patients, 728 publications,
+  361 genes); final checkpoint at step 831,106. CONFIRM (fold 4) was not read.
+- Its SELECT and FIT readings are in-sample (+0.362 on SELECT uncited) and mean nothing; folds 0–3 are read
+  cross-fitted (P3-BATCH1-DIAG §11).
 
