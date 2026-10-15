@@ -198,10 +198,10 @@ def test_committed_package_matches_its_sums_and_fixture():
 
 
 def _toy_net(**options):
+    torch = pytest.importorskip("torch")
     from diagnostic_ar_training.v4.config import ArchConfig, EncodingConfig
     from diagnostic_ar_training.v4.model import GinV4
 
-    torch = pytest.importorskip("torch")
     torch.manual_seed(0)
     arch = ArchConfig(hidden=8, **options.pop("arch", {}))
     net = GinV4(6, 5, arch, EncodingConfig(**options))
