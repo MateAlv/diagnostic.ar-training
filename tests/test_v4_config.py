@@ -112,7 +112,7 @@ def test_warm_start_from_a_run():
 def test_batch2_r5_configs():
     r = {p.stem: config.load(p) for p in sorted(BATCH2.glob("R5*.yaml"))}
     r1c = config.load(BATCH2 / "R1c.yaml")
-    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r30s1", "R5-r90", "R5s-r30", "R5x-f0", "R5x-f1", "R5x-f2"]
+    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r30s1", "R5-r90", "R5s-r30", "R5x-f0", "R5x-f1", "R5x-f2", "R5x-f4"]
     seed0 = config.override(r["R5-r30s1"], {"seed": 0})
     assert r["R5-r30s1"].seed == 1 and seed0.config_hash == r["R5-r30"].config_hash
     assert all(c.label == k and c.sim.real_draw == "gene" for k, c in r.items())
@@ -127,12 +127,12 @@ def test_batch2_r5_configs():
 def test_batch2_r5_cross_fitted_configs_differ_from_r5_r30_only_in_real_folds():
     r5 = config.load(BATCH2 / "R5-r30.yaml")
     held_out = {}
-    for k in (0, 1, 2):
+    for k in (0, 1, 2, 4):
         cfg = config.load(BATCH2 / f"R5x-f{k}.yaml")
         assert cfg.label == f"R5x-f{k}" and k not in cfg.sim.real_folds
         held_out[k] = set(cfg.sim.real_folds)
         assert config.override(cfg, {"label": r5.label, "sim.real_folds": [0, 1, 2]}) == r5
-    assert held_out == {k: {0, 1, 2, 3} - {k} for k in (0, 1, 2)}
+    assert held_out == {k: {0, 1, 2, 3} - {k} for k in (0, 1, 2, 4)}
 
 
 def test_a_warm_start_needs_e0s_shape():
