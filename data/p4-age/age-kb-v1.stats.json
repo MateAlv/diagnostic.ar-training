@@ -1,0 +1,35 @@
+{
+ "genes": 5229,
+ "genes_bound_-1y": 90,
+ "genes_bound_0y": 753,
+ "genes_bound_16y": 129,
+ "genes_bound_1y": 127,
+ "genes_bound_25y": 2,
+ "genes_bound_40y": 9,
+ "genes_bound_5y": 77,
+ "genes_bound_60y": 16,
+ "genes_bound_lowered_by_rows": 19,
+ "genes_no_onset_class": 3926,
+ "genes_with_bound": 1203,
+ "genes_without_diseases": 100,
+ "bound_distribution": {
+  "-1": 90,
+  "0": 753,
+  "1": 127,
+  "5": 77,
+  "16": 129,
+  "25": 2,
+  "40": 9,
+  "60": 16
+ },
+ "vs_v1": {
+  "v1_genes_with_bound": 2743,
+  "v2_genes_with_bound": 1203,
+  "both": 1203,
+  "v1_only": 1540,
+  "v2_only": 0,
+  "both_v2_lower": 19,
+  "both_v2_higher": 0,
+  "lowered_by_row_onsets": 19
+ }
+}
