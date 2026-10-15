@@ -4868,4 +4868,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
   the final fit, so the two final bundles (`p3-addon-v1-sex-age-onset`, `p3-addon-v1-all`) are the same model.
 - Caveats: fold k's labels reach the add-on's 7 weights through the other folds' networks; the final bundles are
   fitted on out-of-fold logits but will run on `R5x-f4`.
+## 2026-10-15: Room for sex and age on top of the network (PHASE3 §2f step 3 scoping)
+- `scripts/analysis/p3_addon/ceiling.py`, P3-ADDON "Room for sex and age". Hard sex and onset filters on the
+  network's out-of-fold logits, folds 0–3, including the onset classes and per-symptom onsets never used before.
+- Sex: +0.0000 (only moves genes deep in the list). Onset: −0.007 (HPOA onsets filter out the true gene of 34–39
+  uncited patients). Near the top (gene at rank 2–10), 1.3% of the genes above it are removable.
+- Conclusion: sex and age rules have no room on top of the network with E0's knowledge.
+- Incident: a first version of the script re-read a whole npz array per patient and froze Mateo's PC for about
+  15 minutes (out of memory, no swap). Fixed; analysis jobs now run under `systemd-run ... MemoryMax=4G`.
 
