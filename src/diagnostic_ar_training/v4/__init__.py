@@ -15,6 +15,8 @@
 - `runs`: run directories (`data/interim/v4/<run_id>/`) and results rows (`results/P3/runs/<run_id>.json`);
   readings of the best and final checkpoints, and their phenotype-swap controls.
 - `grid`: sequential grids under a time budget, resumable, every configuration and seed logged.
+- `addon`: the re-rank add-on (ft-v1.1's residual on the network's logits; sex, age, onset, excluded terms),
+  its E0-knowledge build, out-of-fold fitting and the CONFIRM read (PHASE3 §2f).
 
 Torch is needed only by `model`, `data`, `train`, `evaluate` and `throughput`; everything else is numpy.
 See docs/PHASE3.md.

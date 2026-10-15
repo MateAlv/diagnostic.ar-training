@@ -4855,4 +4855,17 @@ this task, whatever the result**; the last read needs Mateo's OK.
   361 genes); final checkpoint at step 831,106. CONFIRM (fold 4) was not read.
 - Its SELECT and FIT readings are in-sample (+0.362 on SELECT uncited) and mean nothing; folds 0–3 are read
   cross-fitted (P3-BATCH1-DIAG §11).
+## 2026-10-15: Add-on refit on the network, read out of fold over folds 0–3 (PHASE3 §2f step 2)
+- `v4/addon.py`, `scripts/analysis/p3_addon/`, knowledge `p3-addon-kb-v1` (HPOA 2025-03-03 and E0's gene list;
+  no Orphanet, HGNC or curation overrides; declared in P3-ADDON). `ft-v1.1`'s residual (only lowers scores) refit on
+  the networks' out-of-fold logits; for each fold, fitted on the other three. P3-ADDON.
+- Uncited capped Δ vs E0, pooled over folds 0–3 (2,316 patients):
+  - network: +0.0714 [+0.0488, +0.0962];
+  - network + sex/age/onset: +0.0714 (vs network +0.0001 [−0.0014, +0.0014]);
+  - network + all features: +0.0713 (vs network −0.0000);
+  - E0 + add-on: +0.0003 [−0.0006, +0.0014].
+- Learned weights: sex features carry the add-on; onset features stay near 0; negated-symptom features end at 0 in
+  the final fit, so the two final bundles (`p3-addon-v1-sex-age-onset`, `p3-addon-v1-all`) are the same model.
+- Caveats: fold k's labels reach the add-on's 7 weights through the other folds' networks; the final bundles are
+  fitted on out-of-fold logits but will run on `R5x-f4`.
 

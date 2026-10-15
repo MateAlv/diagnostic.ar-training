@@ -1,0 +1,55 @@
+{
+  "artifact_id": "p3-addon-kb-v1",
+  "kind": "addon-kb",
+  "created_at": "2026-10-15T14:31:14+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "816ab2fc738004ba40f94eb97b14de4bdc9a8b06",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    }
+  ],
+  "params": {
+    "schema": "ft-kb/2",
+    "builder": "v4.addon.build_kb (ft.knowledge.build)",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "gene_to_disease": "e0_genes_to_phenotype rows with a disease id",
+    "annotations": "hpo_annotations_2025_03_03, unmasked; NOT rows never read, zero-frequency rows dropped",
+    "ancestors": "hpo_ontology_2025_03_03",
+    "orphanet": null,
+    "hgnc": null,
+    "overrides": null,
+    "embeddings_at_use": "E0's frozen term embeddings (genphenia_v3), for neg_embed"
+  },
+  "params_hash": "e605810a342974829a8134f66142cd44d6fc6d9a59dd25160b00128209e3eb11",
+  "outputs": [
+    {
+      "path": "data/interim/p3-addon/p3-addon-kb-v1/ft-kb.json.gz",
+      "sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a",
+      "bytes": 841377
+    },
+    {
+      "path": "data/p3-addon/p3-addon-kb-v1.stats.json",
+      "sha256": "4281b9d6f5d80facbdf9577f7a6348b0b8576049529c21523e7b03769b6112fa",
+      "bytes": 1268
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
