@@ -11,7 +11,7 @@ the patient's latest possible onset (`v4.agerule.case_latest_onset`) plus `margi
 Per variant: harmed (patients whose true gene is blocked: the bar is 0), helped (scored patients whose true
 gene is not blocked with at least one blocked gene above it on the network's out-of-fold logits), patients
 with any gene blocked and blocked genes per such patient. Harmed patients are listed with their onset inputs
-and their gene's diseases. Writes results/P4/age/harm.json. CPU only; no fitting.
+and their gene's diseases, once each. Writes results/P4/age/harm.json. CPU only; no fitting.
 Usage: harm.py <age kb id>   (age-kb-v1)
 """
 
@@ -66,17 +66,19 @@ above_true = {c: s > s[target[c]] for c, s in net.items() if target[c] is not No
 print(f"{len(order)} patients, {len(net)} scored, loaded in {time.perf_counter() - start:.0f} s", flush=True)
 
 
-def harmed_case(p, rule: agerule.AgeRule, reading: str) -> dict:
-    c, g = p.case, p.case.gene.upper()
-    rec = kb["genes"].get(genes[target[p.case_id]], {})
+harmed_patients: dict[str, dict] = {}
+
+
+def harmed_case(p) -> dict:
+    c, g = p.case, genes[target[p.case_id]]
+    rec = kb["genes"].get(g, {})
     return {
-        "case_id": p.case_id,
         "gene": c.gene,
         "status": p.status,
         "fold": p.fold,
         "pmids": list(c.pmids),
-        "latest_onset": latest[reading][p.case_id],
-        "gene_bound": float(rule.earliest[lookup[g]]),
+        "latest_onset": {r: x[p.case_id] for r, x in latest.items()},
+        "gene_bound": {b: x.get(g) for b, x in gene_bounds.items()},
         "onset_years": c.onset_years,
         "onset_term": c.onset_term,
         "age_years": c.age_years,
@@ -110,7 +112,8 @@ def variant(bound: str, reading: str, min_earliest: float, margin: float) -> dic
         if t is None:
             continue
         if mask[t]:
-            harmed.append(harmed_case(p, rule, reading))
+            harmed.append(p.case_id)
+            harmed_patients.setdefault(p.case_id, harmed_case(p))
         elif p.case_id in above_true and (mask & above_true[p.case_id]).any():
             helped[STATUS[p.status]] += 1
     return {
@@ -121,7 +124,7 @@ def variant(bound: str, reading: str, min_earliest: float, margin: float) -> dic
         "blockable_genes": int(np.isfinite(rule.earliest).sum()),
         "patients_exposed": exposed,
         "harmed": len(harmed),
-        "harmed_uncited": sum(h["status"] == patients.UNCITED for h in harmed),
+        "harmed_uncited": sum(harmed_patients[c]["status"] == patients.UNCITED for c in harmed),
         "helped": helped,
         "patients_with_any_block": any_block,
         "blocked_genes_per_blocked_patient": n_blocked / any_block if any_block else 0.0,
@@ -142,6 +145,7 @@ out = {
     "kb": {"id": kb_id, "sha256": kb_sha, "reference": ADDON_KB, "reference_sha256": addon_sha},
     "patients_with_latest_onset": {r: sum(v is not None for v in x.values()) for r, x in latest.items()},
     "variants": variants,
+    "harmed_patients": harmed_patients,
     "seconds": time.perf_counter() - start,
     "code": state.as_dict(),
 }
