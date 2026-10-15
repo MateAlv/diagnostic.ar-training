@@ -16,6 +16,8 @@ onset change nothing.
 - **Rule** (`AgeRule`): pure numpy, usable in production on any score vector (logits or add-on scores).
   A gene is blocked when its bound is at least `min_earliest_years` and later than the patient's latest
   onset plus `margin_years`. Blocked genes keep their order among themselves (`sexrule.block`).
+- **Chosen variant** (`age-v1`, P4-AGE): only late-onset genes (`MIN_EARLIEST_YEARS`), a margin of
+  `MARGIN_YEARS`, the patient's ages in years only (`ONSET_CLASSES`).
 """
 
 import csv
@@ -40,6 +42,9 @@ KB_SOURCES = {
     "ontology": "hpo_ontology_2025_03_03",
     "genes": "e0_genes_to_phenotype",
 }
+MIN_EARLIEST_YEARS = 60.0
+MARGIN_YEARS = 30.0
+ONSET_CLASSES = False
 ONSET_ROOT = "HP:0003674"
 ONSET_LOWER = safe_knowledge.HPO_ONSET_LOWER
 ONSET_UPPER: dict[str, float] = {
@@ -213,8 +218,8 @@ class AgeRule:
         self,
         gene_bounds: Mapping[str, float],
         genes: Sequence[str],
-        margin_years: float,
-        min_earliest_years: float = 0.0,
+        margin_years: float = MARGIN_YEARS,
+        min_earliest_years: float = MIN_EARLIEST_YEARS,
     ) -> None:
         self.genes = tuple(genes)
         self.margin_years, self.min_earliest_years = float(margin_years), float(min_earliest_years)

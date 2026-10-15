@@ -124,7 +124,7 @@ def test_bounds_need_every_disease_and_rows_only_lower(built):
 def test_a_gene_with_an_unannotated_disease_is_never_blocked(built):
     kb, _, _ = built
     genes = list(GENES)
-    rule = agerule.AgeRule(agerule.bounds(kb), genes, margin_years=0)
+    rule = agerule.AgeRule(agerule.bounds(kb), genes, margin_years=0, min_earliest_years=0)
     blocked = rule.blocked(0.0)
     assert dict(zip(genes, blocked.tolist(), strict=True)) == {
         "LATE1": True,
@@ -168,7 +168,7 @@ def scores_and_rule(**kw):
 
 
 def test_rule_only_lowers_genes_that_cannot_have_started():
-    scores, rule = scores_and_rule(margin_years=10)
+    scores, rule = scores_and_rule(margin_years=10, min_earliest_years=0)
     blocked = rule.blocked(25.0)
     assert blocked.tolist() == [False, True, False, True, False, False]
     out = rule.apply(scores, 25.0)
@@ -191,7 +191,7 @@ def test_min_earliest_limits_the_blockable_genes():
 
 @pytest.mark.parametrize("latest", [None, float("nan"), float("inf")])
 def test_unknown_age_is_a_no_op(latest):
-    scores, rule = scores_and_rule(margin_years=0)
+    scores, rule = scores_and_rule()
     assert not rule.blocked(latest).any()
     np.testing.assert_array_equal(rule.apply(scores, latest), scores)
 
@@ -212,3 +212,10 @@ def test_case_latest_onset_reads_every_case_field():
     assert agerule.case_latest_onset(case, classes=False) == 20.0
     unknown = case.model_copy(update={"age_years": None, "feature_onsets": ()})
     assert agerule.case_latest_onset(unknown) is None
+
+
+def test_the_chosen_variant_blocks_late_onset_genes_before_thirty_only():
+    _, rule = scores_and_rule()
+    assert (rule.margin_years, rule.min_earliest_years) == (30.0, 60.0)
+    assert rule.blocked(29.9).tolist() == [False, True, False, False, False, False]
+    assert not rule.blocked(30.0).any()
