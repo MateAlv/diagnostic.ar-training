@@ -231,8 +231,12 @@ by a second, disclosed CONFIRM read.
 - The soft add-on stays because it helps more patients than it harms:
   - folds 0–3 out of fold, on top of network + sex rule: 344 helped, 44 harmed, net Δ about 0;
   - vault: 463 helped, 27 harmed, +0.0011.
-- **A second CONFIRM read** checks F3 under [P4-CONFIRM](../analyses/P4-CONFIRM.md): primary F3 vs E0, 0 harmed by
-  the sex rule, and add-on helped ≥ harmed.
+- **Second CONFIRM read** ([P4-CONFIRM](../analyses/P4-CONFIRM.md), once, protocol written first; fold 4, 406
+  uncited): all three checks pass.
+  - F3 vs E0, uncited: +0.0717 [+0.0332, +0.1200].
+  - Sex rule: 31 helped, 0 harmed.
+  - Add-on: 101 helped, 5 harmed, +0.0005 [+0.0001, +0.0010].
+  - Top 50 showing a sex-impossible gene: network 20 patients, F3 0.
 
 ### 6.2 Age rule ([P4-AGE](../analyses/P4-AGE.md), done; recommendation: drop)
 - **Knowledge `age-kb-v1`** (HPOA 2025-03-03 onsets, E0's genes): 1,203 genes get a certain earliest onset (every
@@ -273,7 +277,8 @@ by a second, disclosed CONFIRM read.
 | Add-on, room for sex/age, earlier re-rankers | `docs/analyses/P3-ADDON.md` |
 | CONFIRM protocol and result | `docs/analyses/P3-CONFIRM.md`, `results/P3/addon/confirm.json`, `results/P3/CONFIRM_LEDGER.md` |
 | Vault pre-registration, result, addendum | `docs/experiments/EXP-V-002.md`, `results/P3/EXP-V-002/` (vault.json, ranks, overlap.json, post_read.json), `docs/TEST_LEDGER.md` |
-| Sex rule | `docs/analyses/P4-SEX.md`, `src/diagnostic_ar_training/v4/sexrule.py`, `results/P4/sex/oof.json` |
+| Sex rule | `docs/analyses/P4-SEX.md`, `src/diagnostic_ar_training/v4/sexrule.py`, `results/P4/sex/` |
+| Second CONFIRM read (F3) | `docs/analyses/P4-CONFIRM.md`, `results/P4/confirm2/`, `results/P3/CONFIRM_LEDGER.md` row 2 |
 | Age rule | `docs/analyses/P4-AGE.md`, `src/diagnostic_ar_training/v4/agerule.py`, `results/P4/age/` |
 | Run rows | `results/P3/runs/*.json` |
 | Code | `src/diagnostic_ar_training/sim4/`, `v4/` (harness, `addon.py`, `sexrule.py`); `scripts/analysis/p3_batch1/`, `p3_addon/`, `p4_sex/` |

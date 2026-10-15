@@ -59,5 +59,22 @@ vault-tested weights.
   -p MemorySwapMax=0 nice -n 10 env DXT_P3_CONFIRM=1 PYTHONPATH=src .venv/bin/python
   scripts/analysis/p4_confirm/confirm2.py --reason "P4-CONFIRM second CONFIRM read of F3 (protocol <sha>)"`
 
-## 6. Result
-Not read yet.
+## 6. Result (read once, 2026-10-15T21:11Z, main `ac136c2`, run by Mateo; ledger row 2)
+Fold 4: 933 patients (216 publications); 406 uncited (99), 527 cited (117). `results/P4/confirm2/confirm2.json`, ranks
+under `results/P4/confirm2/ranks/`.
+
+| Check | Result | Rule | Outcome |
+|---|---|---|---|
+| **F3 vs E0, uncited capped Δ** | **0.151 → 0.223, +0.0717 [+0.0332, +0.1200]**; top-1 8.6% → 13.5%, top-10 28.1% → 35.2% | CI lower bound > 0 | **pass** |
+| **Sex rule, F3 vs F1** | **31 helped, 0 harmed** (all uncited); Δ +0.000002 | 0 harmed | **pass** |
+| **Add-on, F1 vs F2, all patients** | **101 helped, 5 harmed**; Δ +0.00047 [+0.0001, +0.0010] | helped ≥ harmed | **pass** |
+
+- F3 vs E0, cited: +0.0650 [+0.0345, +0.1017]. All patients: +0.0678 [+0.0421, +0.0967].
+- F2 (network) vs E0, uncited: +0.0713 [+0.0331, +0.1195], the same as the first read.
+- **Doctor view** (858 scored patients with a known sex): patients whose top 50 shows a gene impossible for their
+  sex:
+  - network: 20 (top 10: 3);
+  - network + add-on: 11 (top 10: 0);
+  - F3: 0.
+- No patient's true gene is on the sex list.
+- **Decision rule: all three checks pass.** F3 is the final model for production (ADR-0020), after Mateo's go.
