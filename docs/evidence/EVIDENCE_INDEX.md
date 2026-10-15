@@ -13,6 +13,24 @@ Updated 2026-10-05 (branch `docs/close-out`): EXP-B-006 and EXP-V-001 results, h
 - Status column of sections 7 and 8: **gated, pre-registered** = a pass/fail rule written before the sealed read; **descriptive** = sealed numbers with no gate, nothing selected from them; **dev** = search on a dev split, free reads.
 - On S3 v2 and S3 v3b, "Delta vs E0+answers" is the re-ranker's effect given the interview answers; "primary Delta vs E0-initial" (EXP-Q-001) is interview plus re-ranker against no questions. CIs resample genes (2,000 resamples, seed 0).
 
+## Phase 3 headline: v4 passed its vault read (ADR-0019, ADR-0020)
+
+The full record of the retraining work, with everything tried, every number and its source, is
+[RETRAINING-RECORD.md](RETRAINING-RECORD.md). v4 is R1c (E0's architecture retrained) fine-tuned with 4,369 real
+phenopacket-store patients, plus a sex/age/onset add-on, with E0's knowledge (HPOA 2025-03-03). Metric: capped MRR
+(at most 10 patients per publication), Δ vs E0 with the publication-cluster bootstrap 95% CI.
+
+| Result | Capped Δ MRR vs E0 [95% CI] | Data, n | Outcome |
+|---|---|---|---|
+| v4 network, out of fold (P3-BATCH1-DIAG §11) | +0.071 [+0.049, +0.096] | `p3-v1` train folds 0–3, uncited, 2,316 | dev |
+| v4 (F1), CONFIRM (P3-CONFIRM) | +0.0717 [+0.0332, +0.1200] | fold 4, uncited, 406 | gated, pre-registered: passed |
+| **v4 (F1), vault (EXP-V-002 H1)** | **+0.0649 [+0.0473, +0.0833]** (0.196 → 0.261; top-1 11.7% → 16.0%) | `p3-v1` vault, uncited, 2,678 | **gated, pre-registered: passed** |
+| v4 network alone (EXP-V-002 H2) | +0.0639 [+0.0458, +0.0825] | same | passed |
+| v4, cited patients (EXP-V-002) | +0.0604 [+0.0402, +0.0834] | `p3-v1` vault, cited, 1,981 | descriptive |
+| Genes with / without real training patients (EXP-V-002 Addendum 1) | +0.137 [+0.104, +0.174] / +0.001 [−0.012, +0.015] | vault, uncited, 983 / 1,695 | declared before the read |
+| Parent terms (wording stress test) | +0.0226 [+0.0110, +0.0337] | vault, uncited, 2,678 | descriptive |
+| Hard sex rule on top (P4-SEX) | ≈ +0.000002; 130 helped, 0 harmed | folds 0–3, out of fold | dev |
+
 ## Phase 2 headline: confirmed on sealed real patients (ADR-0017, ADR-0018)
 
 `ft-v1.1-c1-lin-all-ens` is the production-ready model (ADR-0018). It is GenPhenAI v3.0 (E0), frozen, plus a trained
