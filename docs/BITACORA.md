@@ -5016,4 +5016,20 @@ this task, whatever the result**; the last read needs Mateo's OK.
     as well, so the shipped `model.onnx` must be kept and checked by sha256;
   - excluded terms have no effect in F3 (both negation weights are 0).
 - Nothing in `diagnostic.ar-model` was changed except git-ignored `__pycache__` files written by the engine import.
+## 2026-10-15: `model-v4.0.0` published as a pre-release (Mateo's go), MateAlv/diagnostic.ar-model (private)
+- Release https://github.com/MateAlv/diagnostic.ar-model/releases/tag/model-v4.0.0, tag on `78b37f2` (PR #12).
+  - Assets: `genphenia-v4.0.tar.gz` (`62b2c5e8…`, reproduced with that repo's `package_bundle.sh`) and
+    `v4-layer.tar.gz` (`80d1b159…`, `package_v4_layer.sh`), with their `.sha256` files.
+  - Downloaded back and checked.
+  - It is a pre-release: `rerank-v1.0.0` stays "Latest", and production is unchanged.
+- In diagnostic.ar-model:
+  - `models/v4/v4-layer/` (unchanged from `dist/v4-layer/` at 801fa85) with `v4.json` pins;
+  - `scripts/package_v4_layer.sh`;
+  - CHANGELOG and `docs/model-v4.0.md` (Spanish, as the repo).
+- That repo's Tests workflow had failed since its #11 (2026-10-09): `test_ft.py`'s engine-vs-fixture check saw max
+  |dp| 8.05e-6 against a 1e-6 tolerance on GitHub's runners, with every rank matching.
+  - Pinning onnxruntime 1.30.0 changed nothing, so it is CPU float32 drift.
+  - #13 sets the tolerance to 2e-5 and keeps the exact rank checks. CI is green on main.
+- Next: hand `docs/HANDOFF-v4-prod.md` (steps 2–6: API pin, vendor the layer, inputs, tests) to the deploy session;
+  staging; then Mateo's go for production.
 

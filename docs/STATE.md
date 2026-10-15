@@ -19,10 +19,12 @@
   - **Second CONFIRM read** (P4-CONFIRM): F3 vs E0 +0.0717 [+0.0332, +0.1200]; sex rule 31 helped, 0 harmed; add-on
     101 helped, 5 harmed.
   - **Full record for the informe:** [evidence/RETRAINING-RECORD.md](evidence/RETRAINING-RECORD.md).
-- **Next:** production of F3 through `diagnostic.ar-model`, staging first, then Mateo's go:
-  - ONNX export of the network with E0's input contract, checked for score parity;
-  - the add-on and sex rule as numpy code;
-  - the API's sex, age and onset fields.
+- **Released (pre-release) 2026-10-15:** `model-v4.0.0` in MateAlv/diagnostic.ar-model (private).
+  - Assets: `genphenia-v4.0.tar.gz` (`62b2c5e8…`) and `v4-layer.tar.gz` (`80d1b159…`).
+  - Parity on 5,053 dev patients through the production engine.
+  - Production is unchanged.
+- **Next:** the deploy session runs [HANDOFF-v4-prod.md](HANDOFF-v4-prod.md) steps 2–6: API pin, vendor the
+  layer, the sex/age/onset inputs, the fixture tests. Then staging, then Mateo's go for production.
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.
