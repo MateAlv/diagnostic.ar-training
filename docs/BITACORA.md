@@ -4883,4 +4883,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Protocol and decision rule: [P3-CONFIRM](analyses/P3-CONFIRM.md). `confirm.py` gained the swap and parent-term
   controls and a `--dry-run` on fold 3. The dry run found a bug in the parent-term control (fixed) and matched the
   harness's fold-3 readings. Fold 4 not read.
+## 2026-10-15: CONFIRM read: the v4 candidate passes (PHASE3 §2f step 5)
+- Read once by Mateo from main `d663d26` (ledger row 1), protocol P3-CONFIRM. Fold 4: 933 patients, 406 uncited.
+- F1 network + add-on, uncited capped Δ vs E0: +0.0717 [+0.0332, +0.1200] (0.151 → 0.223; top-1 8.6% → 13.5%).
+  F2 network +0.0713; F1 − F2 +0.0004 [+0.0000, +0.0010]. Cited +0.065. **Pass:** vault pre-registration with F1
+  primary, F2 secondary.
+- Controls: swap +0.0011 [−0.0003, +0.0032]; raw-rank lift for genes with training patients log2 −0.12 (vs −0.06).
+  **Parent terms: +0.0008 [−0.021, +0.023]**, so the gain on CONFIRM depends on the curators' exact terms (40% kept
+  out of fold on folds 0–3).
 
