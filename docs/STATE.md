@@ -19,7 +19,7 @@
   - **Second CONFIRM read** (P4-CONFIRM): F3 vs E0 +0.0717 [+0.0332, +0.1200]; sex rule 31 helped, 0 harmed; add-on
     101 helped, 5 harmed.
   - **Full record for the informe:** [evidence/RETRAINING-RECORD.md](evidence/RETRAINING-RECORD.md).
-- **Released (pre-release) 2026-10-15:** `model-v4.0.0` in MateAlv/diagnostic.ar-model (private).
+- **Released 2026-10-15:** `model-v4.0.0` in MateAlv/diagnostic.ar-model (private), marked *Latest* after Mateo's production go.
   - Assets: `genphenia-v4.0.tar.gz` (`62b2c5e8…`) and `v4-layer.tar.gz` (`80d1b159…`).
   - Parity on 5,053 dev patients through the production engine.
   - Production is unchanged.

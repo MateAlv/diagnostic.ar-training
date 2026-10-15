@@ -5032,4 +5032,16 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - #13 sets the tolerance to 2e-5 and keeps the exact rank checks. CI is green on main.
 - Next: hand `docs/HANDOFF-v4-prod.md` (steps 2–6: API pin, vendor the layer, inputs, tests) to the deploy session;
   staging; then Mateo's go for production.
+## 2026-10-15: Mateo's production go; `model-v4.0.0` marked Latest; informe evidence
+- Mateo gave his production go and asked to mark `model-v4.0.0` as the latest release. It is now *Latest* in
+  MateAlv/diagnostic.ar-model; `rerank-v1.0.0` no longer is.
+- The production deploy itself goes through the deploy session (HANDOFF-v4-prod steps 2–6). That session proposed
+  enabling staging's automatic deploy (v0.10.0) first and shipping v4 as the next release through that pipeline.
+- Informe evidence (MateAlv/diagnosticar-informe #10): `secciones/_evidencia_reentrenamiento_v4.md`, in Spanish and
+  mapped to the rubric.
+  - It covers the glossary, timeline, everything tried, the vault result, sex/age, the release, risks, and
+    anteproyecto vs realizado.
+  - The skeleton, 13b (AI-use facts for Phases 3–4), 00_LEEME and HANDOFF were updated.
+  - The `evidencia/` snapshot was refreshed (tags `ft-v1.1.0`, `model-v4.0.0`).
+  - It is evidence, not informe prose.
 
