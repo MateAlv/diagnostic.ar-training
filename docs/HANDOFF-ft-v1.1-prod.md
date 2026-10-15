@@ -1,5 +1,8 @@
 # HANDOFF: integrate `ft-v1.1` into diagnostic.ar-model
 
+> **Superseded** by [HANDOFF-v4-prod.md](HANDOFF-v4-prod.md) ([ADR-0020](decisions/0020-v4-validated-and-next.md)): F3 replaces
+> the integration of `ft-v1.1`. Kept for the record.
+
 For whoever integrates Phase 2's production-ready model ([ADR-0018](decisions/0018-ft-v11-production-ready.md)) into
 `diagnostic.ar-model` and the API. It follows the structure of that repo's `docs/HANDOFF-deploy-rerank-v1.md`. Date:
 2026-10-09. Nothing in `diagnostic.ar-model` has been changed.
