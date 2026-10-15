@@ -4934,4 +4934,18 @@ this task, whatever the result**; the last read needs Mateo's OK.
   staging first.
 - Started: `sex-kb-v2`, a broader list of genes impossible for one sex (every disease of the gene limited to that
   sex), and a hard sex block on the network's out-of-fold scores (branch `p4/sex-kb`).
+## 2026-10-15: Phase 4: hard sex rule (`sex-kb-v2`), P4-SEX (#173)
+- `sex-kb-v2`: genes a patient of one sex cannot have (every disease of the gene limited to that sex, or Y outside
+  the pseudoautosomal regions). E0's knowledge plus HGNC location (declared). 100 male- and 36 female-limited genes.
+  - Compared with the previous list: 4 genes added (DAZ4, TSPY1, MXI1, RNASEL).
+  - 11 removed that the old list blocked although both sexes have the disease (EIF2B2–5, GGPS1, CDC14A, CFAP45/52,
+    MNS1, CLDN2, MCM8).
+  - Fixed a bug where "male infertility" matched inside "female infertility".
+- Harm check on folds 0–3: 0 patients harmed (14 have a sex-limited true gene; their sex always matches).
+- On the network's out-of-fold scores: helped 130, harmed 0, capped Δ +2.4e-6; top-1 and top-10 rates unchanged.
+- Without the rule, the network shows a gene impossible for the patient's sex in the top 10 for 10 of 4,631 patients
+  (first place for 1) and in the top 50 for 48. The rule removes them all (`topk.py`).
+- Known miss: ADGRG2 (CBAVD) is not on the list; to fix in the next knowledge id.
+- #173's last commit is titled "BITACORA, INDEX" but carries only the P4-SEX section (a lint failure broke the chain).
+  This entry, the INDEX row and `topk.py` follow here.
 
