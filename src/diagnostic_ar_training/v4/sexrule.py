@@ -10,7 +10,8 @@ every other gene. Unknown sex changes nothing.
   - `names`: its name is a sex-limited condition (`MALE_NAMES`, `FEMALE_NAMES`, safe-v1's lists extended).
     The name must start with it, and every part joined by "with", "with or without", "and" or "/" must be
     sex-limited too: "Heterotaxy ... with male infertility" or "... with or without ovarian failure"
-    (safe-v1 matched them anywhere) do not limit;
+    (safe-v1 matched them anywhere) do not limit. Since `sex-kb-v3`, absence, aplasia or agenesis of the vas
+    deferens and CBAVD also start a male name ("Congenital bilateral absence of vas deferens");
   - `phenotypes`: each annotated phenotype is a genital or reproductive term (HP:0000078) and at least one
     is in one sex's subtrees (`MALE_TERMS`, `FEMALE_TERMS`).
 
@@ -70,7 +71,8 @@ DSD_TERMS = (
 MALE_NAMES = re.compile(
     r"sperm|zoospermia|acrosom|flagell|sertoli|anorchia|cryptorchidism|hypospadias|\bmale infertility|"
     r"persistent m[uü]llerian duct|testicular regression|micropenis|vas deferens|prostate cancer|"
-    r"chromosome y microdeletion",
+    r"chromosome y microdeletion|(?:(?:bilateral|unilateral)\s+)?(?:absence|aplasia|agenesis)\s+of\s+"
+    r"(?:the\s+)?vas deferens|\bcbavd\b",
     re.I,
 )
 FEMALE_NAMES = re.compile(
