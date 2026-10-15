@@ -153,15 +153,21 @@ def pack(bundle_dir: Path, out_dir: Path, packer: Path = PACKER) -> tuple[Path, 
 
 def vendored_engine(engine_dir: Path = ENGINE):
     """diagnostic.ar-model's `GenpheniaEngine`, imported under its own package name (`inference_engine`)."""
-    if "inference_engine" not in sys.modules:
-        spec = importlib.util.spec_from_file_location(
-            "inference_engine", Path(engine_dir) / "__init__.py", submodule_search_locations=[str(engine_dir)]
-        )
-        module = importlib.util.module_from_spec(spec)
-        sys.modules["inference_engine"] = module
-        spec.loader.exec_module(module)
-    from inference_engine.engine import GenpheniaEngine
-
+    writes = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True  # the engine's directory belongs to another repo
+    try:
+        if "inference_engine" not in sys.modules:
+            spec = importlib.util.spec_from_file_location(
+                "inference_engine",
+                Path(engine_dir) / "__init__.py",
+                submodule_search_locations=[str(engine_dir)],
+            )
+            module = importlib.util.module_from_spec(spec)
+            sys.modules["inference_engine"] = module
+            spec.loader.exec_module(module)
+        from inference_engine.engine import GenpheniaEngine
+    finally:
+        sys.dont_write_bytecode = writes
     return GenpheniaEngine
 
 
