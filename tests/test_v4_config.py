@@ -112,7 +112,17 @@ def test_warm_start_from_a_run():
 def test_batch2_r5_configs():
     r = {p.stem: config.load(p) for p in sorted(BATCH2.glob("R5*.yaml"))}
     r1c = config.load(BATCH2 / "R1c.yaml")
-    assert sorted(r) == ["R5-r10", "R5-r30", "R5-r30s1", "R5-r90", "R5s-r30", "R5x-f0", "R5x-f1", "R5x-f2", "R5x-f4"]
+    assert sorted(r) == [
+        "R5-r10",
+        "R5-r30",
+        "R5-r30s1",
+        "R5-r90",
+        "R5s-r30",
+        "R5x-f0",
+        "R5x-f1",
+        "R5x-f2",
+        "R5x-f4",
+    ]
     seed0 = config.override(r["R5-r30s1"], {"seed": 0})
     assert r["R5-r30s1"].seed == 1 and seed0.config_hash == r["R5-r30"].config_hash
     assert all(c.label == k and c.sim.real_draw == "gene" for k, c in r.items())
