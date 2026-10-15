@@ -4900,4 +4900,13 @@ this task, whatever the result**; the last read needs Mateo's OK.
   patients), the selection section, the code and failure rule, claim wording and sources, and the required reporting.
 - #166 was merged with 3 failing CI tests (torch absent in CI); #167 fixed them. Merges now wait for a passing check.
 - Pre-registration: [EXP-V-002](experiments/EXP-V-002.md). The vault was not opened; Mateo runs the read after his go.
+## 2026-10-15: EXP-V-002 vault read: the v4 candidate passes (H1 and H2)
+- Read once by Mateo after his go (18:50Z, `575b847`, ledger row `p3-v1/vault`). 4,659 patients; 2,678 uncited in 417
+  publications.
+- F1 network + add-on, uncited capped Δ vs E0: **+0.0649 [+0.0473, +0.0833]** (0.196 → 0.261; top-1 11.7% → 16.0%;
+  helped 1,110, harmed 541). F2 network +0.0639 [+0.0458, +0.0825]. Add-on +0.0011 [−0.0004, +0.0030]. Cited +0.060.
+- Without the 91 overlapping patients +0.062. Swap +0.0005; raw-rank lean log2 −0.25 vs −0.10. Parent terms +0.0226
+  [+0.0110, +0.0337] (35% kept).
+- Outputs, ranks and the ledger row committed right after the run. Declared post-read readings follow in an
+  addendum. Production needs Mateo's decision.
 
