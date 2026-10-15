@@ -60,8 +60,9 @@ Two artifacts replace production's E0 (`model-v3.0.0`):
 
 | File | Bytes | sha256 |
 |---|---|---|
-| `genphenia-v4.0.tar.gz` (release asset, not in git) | 121,087,714 | `2ce8e9d0084a48605c46ebd6d9470fa569af62a73d61a6cd6fcc8284f4ff0ce6` |
+| `genphenia-v4.0.tar.gz` (release asset, not in git) | 90,840,335 | `62b2c5e8eb4609d1003a81c3632ea82cf2b1173f4ffc646a02ecb66d38d95cc3` |
 | its `artifacts/graphens_best_model/model.onnx` | 18,119,152 | `fafbecbed8585073b2afe9b6a481ee3182f21ff733f6e96745945d75bc7daf29` |
+| its `checkpoints/best_model.pt` | 18,120,309 | `bff1a05b982bf2be5711c76ec3850d66d3c629921b25aa43c956d45146d621e2` |
 | `dist/v4-layer/v4_layer.py` (numpy and the standard library only) | 8,603 | `2ca18111c9586c182156d98242299faa054da67f239affe922645e16562090b3` |
 | `dist/v4-layer/v4-layer-bundle.json.gz` (`v4-layer-bundle/1`) | 22,571 | `3bdeeaedff851dc81983425f489d66bcff2b124a20df2283332d6c16bd69e21e` |
 | `dist/v4-layer/staging-fixture.json` (tests only) | 51,205 | `99d83c92838f8059a3335eb08701f7762f6838ee6143c573a45b60c012b5734c` |
@@ -69,18 +70,44 @@ Two artifacts replace production's E0 (`model-v3.0.0`):
 - **Where the tarball is:** `dist/genphenia-v4.0/` of the worktree that built it (ignored by git), and a copy with
   its `.sha256` in `data/interim/release/genphenia-v4.0/`. `dist/genphenia-v4.0/MANIFEST.json` and the `.sha256`
   are committed.
-- **The bundle is E0's `genphenia-v3.0` with only `model.onnx` replaced.** Every other file is E0's, byte for byte:
-  - `spec.json` still says `model_version: "3.0"`, so the engine's `/healthz` and `predict` report "3.0".
-    Identify the model by the tarball's or `model.onnx`'s sha256.
-  - `checkpoints/best_model.pt` is E0's checkpoint. The engine uses the prebuilt `model.onnx`. Never delete it, and
-    never run the engine's ONNX export on this bundle: that would rebuild E0 silently.
+- **The bundle is E0's `genphenia-v3.0` with two files replaced,** `model.onnx` and `checkpoints/best_model.pt`.
+  Every other file is E0's, byte for byte (spec.json, genes.json, DAG, embeddings, hp.json).
+  - **`best_model.pt` is the v4 network in E0's checkpoint layout:** `model_state_dict` holds the GinV3 (PyG-named)
+    state dict with E0's keys, shapes and dtypes in E0's order, plus `model_version: "4.0"` and the source run
+    (`R5x-f4-ef2f309462`, `last.pt` sha256). It loads with `torch.load(weights_only=True)`. E0's optimizer,
+    scheduler and validation entries are left out, which is why the tarball is smaller than E0's.
+  - **The engine's own model, loaded from this `best_model.pt`, is the v4 network.** It is built and loaded as the
+    engine's export does (`build_adapter_model`, `_load_raw_state_dict`, `convert_checkpoint_state_dict`; no
+    missing or unexpected key), and it gives the shipped ONNX's ranks (Parity, below).
+  - **The engine reports version "3.0", and that cannot change without an engine change.** The vendored engine
+    reads spec.json's `model_version` as the architecture selector (`build_adapter_model`), and
+    `normalize_model_version` rejects "4.0" ("Expected one of: 2.0, 2.5, 3.0"), so a bundle saying "4.0" would not
+    load. spec.json keeps "3.0" (GenPhenAI v3.0's architecture), and the engine's `/healthz` and `predict` report
+    it. Identify the model by the tarball's sha256, or by `best_model.pt`'s `model_version` ("4.0") and sha256.
+    To report "4.0", the engine (diagnostic.ar-model and its copy in the API) must map "4.0" to the v3.0
+    adapter: a code change, not made here.
+  - **Keep the shipped `model.onnx`.** The engine uses it as is (a fresh registry always takes the prebuilt file).
+    The engine can no longer rebuild a missing `model.onnx`, for E0 or for v4 (checked on scratch copies, torch
+    2.14):
+    - torch's default exporter needs `onnxscript`; with it, `torch.export` fails on the adapter's
+      data-dependent `_is_single_graph`;
+    - the legacy exporter drops the unused `batch` input, so the engine's own parity check fails. The file it
+      wrote before failing is wrong: `index_add_` exports as a scatter without summation. Against the shipped
+      ONNX it differs by up to 1,539 logits for v4 (true-gene rank identical for 3,646 / 4,369) and 280 for E0
+      (2,549 / 4,369).
+
+    So a missing `model.onnx` fails or gives a wrong model, never E0. Ship and verify the file by its sha256.
 - **Reproducible packing:** diagnostic.ar-model's `scripts/package_bundle.sh` repacks E0's own files into E0's
-  tarball (`2201b7f2…`) and these files into `2ce8e9d0…`. Unpacked into `models/base/genphenia-v4.0`, it gives the
-  same sha256 there.
+  tarball (`2201b7f2…`) and these files into `62b2c5e8…` (two independent builds gave the same sha256). Unpacked
+  into `models/base/genphenia-v4.0`, it gives the same sha256 there.
+- **Build 1 is withdrawn.** A first tarball (`2ce8e9d0…`, lineage id `genphenia-v4.0`) kept E0's `best_model.pt`.
+  It was never published. Its copy is in `data/interim/release/genphenia-v4.0/superseded-b1/`. Its `model.onnx`
+  is byte-identical to this one, so the layer package built against it stands unchanged.
 - **The layer bundle** holds E0's gene list in output order, each member's θ on the 5 kept features, the per-gene
   arrays they read, the two sex lists, and provenance: `p3-addon-v1-all` (`31299383…`), `p3-addon-kb-v1`
   (`089ccf87…`), `sex-kb-v3` (`7317a6bd…`), the network's `last.pt` and `model.onnx` hashes.
-- **Lineage:** `data/manifests/genphenia-v4.0.json` and `v4-layer-package.json`, both built from `3becf05`.
+- **Lineage:** `data/manifests/genphenia-v4.0-b2.json` (built from `423ade0`) and `v4-layer-package.json` (built
+  from `3becf05` on the same `model.onnx`).
   Parity reports: `results/P4/release/genphenia-v4.0-parity.json` and `v4-layer-parity.json`. Commands:
   `dxt v4 release-network` and `dxt v4 release-layer` (`v4/release.py`).
 
@@ -91,8 +118,10 @@ vocabulary. No sealed data was read.
 | Check | Result |
 |---|---|
 | GinV4 → GinV3 weights (same keys and tensors), CPU, 200 patients | logits bit-identical (Δ = 0) |
-| ONNX (`systems.genphenia_v3` on the bundle) vs torch `last.pt` (GPU, the research path) | max \|Δ logit\| 7.0e-4 (relative 2.7e-6); true gene's rank identical for 4,369 / 4,369 |
-| diagnostic.ar-model's vendored engine on the packed tarball vs torch | max \|Δp\| 2.3e-5; rank identical 4,369 / 4,369; top-10 order identical 5,053 / 5,053; engine = `systems.genphenia_v3` exactly |
+| ONNX (`systems.genphenia_v3` on the bundle) vs torch `last.pt` (GPU, the research path) | max \|Δ logit\| 1.3e-3 (relative 2.7e-6); true gene's rank identical for 4,369 / 4,369 |
+| diagnostic.ar-model's vendored engine on the packed tarball vs torch | max \|Δp\| 2.4e-5; rank identical 4,369 / 4,369; top-10 order identical 5,053 / 5,053; engine = `systems.genphenia_v3` exactly |
+| The engine's own torch model loaded from the tarball's `best_model.pt` (CPU) | max \|Δ logit\| 1.1e-3 vs the shipped ONNX, 1.2e-3 vs torch `last.pt`; rank identical to torch 4,369 / 4,369 |
+| The engine rebuilding a deleted `model.onnx` from `best_model.pt` | fails (see above), for E0 as well |
 | Packaged layer vs research F3 (`v4.addon.Addon`, then `v4.sexrule.SexRule`), same logits | scores bit-identical for 5,053 / 5,053; ranks identical 4,369 / 4,369, on scores and on probabilities |
 | θ = 0 features dropped vs the full add-on with embeddings | bit-identical for 5,053 / 5,053 |
 | No input ⇒ softmax(logits) | bit-identical for 5,053 / 5,053 |
@@ -104,7 +133,7 @@ No rank changed, so there were no tie flips to report. The layer changes the out
 ## Steps, in order
 1. **Release the network in diagnostic.ar-model**, as `model-v3.0.0` was, after Mateo's go:
    - unpack the tarball into `models/base/genphenia-v4.0` (DVC);
-   - `scripts/package_bundle.sh models/base/genphenia-v4.0 dist/` must print `2ce8e9d0…`;
+   - `scripts/package_bundle.sh models/base/genphenia-v4.0 dist/` must print `62b2c5e8…`;
    - a `model-v4.0.0` entry in `CHANGELOG.md` with the evidence above, and the release asset.
 2. **Pin it in the API** (`diagnostic.ar-api`): the `model-v4.0.0` tag and the tarball's sha256 instead of
    `model-v3.0.0`. The vendored engine is unchanged; the network needs no code change.
@@ -155,7 +184,7 @@ No rank changed, so there were no tie flips to report. The layer changes the out
 
 ## Staging checklist
 - [ ] `/healthz` reports the `model-v4.0.0` tarball's sha256 and the layer bundle's sha256. A wrong sha256 stops
-      startup. The engine's own `model_version` still says "3.0" (above).
+      startup. The engine's own `model_version` still says "3.0", the architecture (above).
 - [ ] **No inputs ⇒ softmax of the new network.** A request with no sex, age or onset (with or without excluded
       terms) returns exactly the plain `genphenia-v4.0` engine output: scores and order, end to end. The old
       "E0 unchanged" checks no longer apply: the network itself changed.
