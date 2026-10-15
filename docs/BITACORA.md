@@ -4954,4 +4954,15 @@ this task, whatever the result**; the last read needs Mateo's OK.
   ladder, pipeline fix, memory, R5, cross-fit, add-on, CONFIRM, vault, post-read readings, earlier re-rankers),
   contributions, limits, Phase 4 (sex done, age in progress), process notes and where everything is.
 - EVIDENCE_INDEX gains a Phase 3 headline table.
+## 2026-10-15: Phase 4: age rule (`age-kb-v1`), P4-AGE; recommendation: drop age
+- `age-kb-v1` (HPOA 2025-03-03 onsets, E0's genes): 1,203 genes with a certain earliest onset (every disease
+  annotated). 144 variants plus a reference were tried on folds 0–3 (lowest blocking onset 1–60 years, margin 0–30,
+  two patient sides, two gene sides), all disclosed in P4-AGE.
+- Every variant whose genes include a true gene of a dev patient harms at least 4 patients, from wrong or incomplete
+  HPOA onsets (TUBA4A 13 uncited, TAF4, EMILIN1, SOCS1, SPATA22). No harmed case is a data error.
+- Only late-onset-only genes (≥ 60 years) harm no one. The strictest, `age-v1` (16 genes, 30-year margin), helps 49
+  uncited and harms 0, but no dev patient has any of its genes, so the check cannot fail. Its genes are mostly type 2
+  diabetes susceptibility, which also occurs in young people.
+- Recommendation: drop age as a hard rule; `age-v1` stays implemented, not part of the layer unless Mateo decides
+  otherwise.
 

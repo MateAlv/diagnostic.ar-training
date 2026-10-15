@@ -1,0 +1,81 @@
+{
+  "artifact_id": "age-kb-v1",
+  "kind": "age-kb",
+  "created_at": "2026-10-15T19:58:55+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "2b56874fbd46faa1bd49534eff2a80f10b4b9e1e",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:p3-addon-kb-v1",
+      "sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a"
+    }
+  ],
+  "params": {
+    "schema": "age-kb/1",
+    "builder": "v4.agerule.build",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "gene_to_disease": "e0_genes_to_phenotype rows with a disease id",
+    "annotations": "hpo_annotations_2025_03_03, unmasked: aspect C onset classes and the onset column of phenotype rows (NOT and zero-frequency rows skipped)",
+    "ontology": "hpo_ontology_2025_03_03 (onset subtree, HP:0003674)",
+    "rules": {
+      "onset_root": "HP:0003674",
+      "onset_lower_years": {
+        "HP:0030674": -1,
+        "HP:0011460": -1,
+        "HP:0011461": -1,
+        "HP:0034199": -1,
+        "HP:0034198": -1,
+        "HP:0034197": -1,
+        "HP:0003577": 0,
+        "HP:0003623": 0,
+        "HP:0410280": 0,
+        "HP:0003593": 0,
+        "HP:0011463": 1,
+        "HP:0003621": 5,
+        "HP:0011462": 16,
+        "HP:0025708": 16,
+        "HP:0025709": 19,
+        "HP:0025710": 25,
+        "HP:0003581": 16,
+        "HP:0003596": 40,
+        "HP:0003584": 60
+      }
+    },
+    "certainty": "a gene has a bound only when every one of its diseases has an onset class",
+    "audit_only": "p3-addon-kb-v1 (the add-on's strict onsets), compared in the stats; not read by the rules"
+  },
+  "params_hash": "8f13645875ac0e4f48d7c578bd2a49f2144082673a5f44a97e99b8ef23ae309e",
+  "outputs": [
+    {
+      "path": "data/interim/p4-age/age-kb-v1/age-kb.json.gz",
+      "sha256": "e4d650a937a4be0d7a7b56d7ae02a09e52e574963f20384fa4e077fbbf0523a3",
+      "bytes": 214514
+    },
+    {
+      "path": "data/p4-age/age-kb-v1.stats.json",
+      "sha256": "72b4923c8a016c3c7cb958dd7aab81505dd9caba8f908f9bd9eb02bebbe6a291",
+      "bytes": 662
+    }
+  ],
+  "notes": "",
+  "release": ""
+}

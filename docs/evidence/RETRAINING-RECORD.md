@@ -202,7 +202,7 @@ Folds 0–3, network out of fold, uncited capped Δ vs the network:
 - **Earlier reads of the vault patients:** Phases 1 and 2 scored them with other systems one to five times. The
   add-on's recipe (`ft-v1.1`) was confirmed on them in Phase 2. The network itself was never scored on them before.
 
-## 6. Phase 4: the sex and age layer (in progress; ADR-0020)
+## 6. Phase 4: the sex and age layer (ADR-0020)
 Mateo (2026-10-15): "tiny gain is gold". Sex must be in the model deterministically, and age as far as it can be
 made certain. The vault is spent and never reopened. The layer is checked on folds 0–3 (zero harmed as the bar) and
 by a second, disclosed CONFIRM read.
@@ -223,15 +223,24 @@ by a second, disclosed CONFIRM read.
   place for 1 of 4,631 patients, in the top 10 for 10, and in the top 50 for 48. The rule removes all of them.
 - **Known miss:** ADGRG2 (absent vas deferens) is not listed; fixed in the next knowledge id.
 
-### 6.2 Age rule (in progress)
-- **Approach:** block a gene only when it is certain its diseases cannot have started as early as the patient's
-  symptoms did:
-  - every disease of the gene has onset annotations;
-  - the patient's latest possible onset comes from onset age, onset class, per-symptom onsets and current age;
-  - a safety margin applies.
-- **Bar:** 0 harmed on folds 0–3. Every variant tried is reported. If none blocks anything without harm, age is
-  dropped.
-- Results will be in `docs/analyses/P4-AGE.md`.
+### 6.2 Age rule ([P4-AGE](../analyses/P4-AGE.md), done; recommendation: drop)
+- **Knowledge `age-kb-v1`** (HPOA 2025-03-03 onsets, E0's genes): 1,203 genes get a certain earliest onset (every
+  disease of the gene annotated with onset).
+- **Rule:** block a gene whose earliest onset is later than the patient's latest possible onset plus a margin. The
+  patient's latest possible onset comes from onset age, onset class, per-symptom onsets and current age.
+- **144 variants were tried on folds 0–3** (lowest blocking onset 1–60 years, margin 0–30 years, two patient sides,
+  two gene sides), all reported.
+  - Every variant that blocks the true gene of any dev patient harms at least 4 patients.
+  - The causes are wrong or incomplete HPOA onsets: TUBA4A (13 uncited patients, onset in infancy to 25 years, E0
+    knows only adult ALS), TAF4, EMILIN1, SOCS1 and SPATA22. None is a data error.
+  - With margin 0, the minimum earliest onset of 1 year harms 31 and helps 286; 16 years harms 23; 40 years harms 13;
+    60 years harms 0.
+- **Only late-onset-only genes (≥ 60 years) harm no one.** The strictest such variant, `age-v1` (16 genes, 30-year
+  margin), helps 49 uncited patients with MRR change about +0.00000001. No dev patient has any of its 16 genes, so
+  its zero harm is not a test. Its genes are mostly type 2 diabetes susceptibility, which also occurs in young
+  people.
+- **Recommendation:** drop age as a hard rule. E0's onset knowledge is not reliable enough to block on with
+  certainty. `age-v1` stays implemented and documented; it enters the layer only if Mateo decides so.
 
 ## 7. Process notes (all disclosed in BITACORA)
 - **K2 draft leak:** a first draft left the query's own publication in the per-gene null (+0.081). It was fixed
@@ -254,6 +263,7 @@ by a second, disclosed CONFIRM read.
 | CONFIRM protocol and result | `docs/analyses/P3-CONFIRM.md`, `results/P3/addon/confirm.json`, `results/P3/CONFIRM_LEDGER.md` |
 | Vault pre-registration, result, addendum | `docs/experiments/EXP-V-002.md`, `results/P3/EXP-V-002/` (vault.json, ranks, overlap.json, post_read.json), `docs/TEST_LEDGER.md` |
 | Sex rule | `docs/analyses/P4-SEX.md`, `src/diagnostic_ar_training/v4/sexrule.py`, `results/P4/sex/oof.json` |
+| Age rule | `docs/analyses/P4-AGE.md`, `src/diagnostic_ar_training/v4/agerule.py`, `results/P4/age/` |
 | Run rows | `results/P3/runs/*.json` |
 | Code | `src/diagnostic_ar_training/sim4/`, `v4/` (harness, `addon.py`, `sexrule.py`); `scripts/analysis/p3_batch1/`, `p3_addon/`, `p4_sex/` |
 | PRs | MateAlv/diagnostic.ar-training #149–#174 |
