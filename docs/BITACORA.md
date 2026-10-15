@@ -4891,4 +4891,13 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Controls: swap +0.0011 [−0.0003, +0.0032]; raw-rank lift for genes with training patients log2 −0.12 (vs −0.06).
   **Parent terms: +0.0008 [−0.021, +0.023]**, so the gain on CONFIRM depends on the curators' exact terms (40% kept
   out of fold on folds 0–3).
+## 2026-10-15: EXP-V-002 registered: the vault read of the v4 candidate (PHASE3 §2f step 6)
+- Mateo chose to go to the vault as is, with the parent-term finding disclosed.
+- `vault.py` (#166, #167) and the keys-only contamination check `overlap.py`: 91 of 4,659 vault patients share gene and
+  present set with a training patient (7 uncited; 4 with excluded terms too).
+- Independent review (opus/xhigh, read-only): GO with fixes. Fixes folded in: the contamination check, a corrected
+  earlier-reads disclosure (one to five reads; per-patient rank files exist; the add-on recipe was confirmed on these
+  patients), the selection section, the code and failure rule, claim wording and sources, and the required reporting.
+- #166 was merged with 3 failing CI tests (torch absent in CI); #167 fixed them. Merges now wait for a passing check.
+- Pre-registration: [EXP-V-002](experiments/EXP-V-002.md). The vault was not opened; Mateo runs the read after his go.
 
