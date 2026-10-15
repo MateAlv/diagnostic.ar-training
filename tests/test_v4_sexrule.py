@@ -285,3 +285,11 @@ def test_block_keeps_scores_when_nothing_or_everything_is_blocked():
 def test_limits_reads_the_addon_knowledge_sex_list():
     kb = {"schema": "ft-kb/2", "safe": {"genes": {"A": {"sex": {"limit": "male"}}, "B": {"onset": {}}}}}
     assert sexrule.limits(kb) == {"A": "male"}
+
+
+def test_shown_counts_masked_genes_in_each_top_k():
+    scores, rule = scores_and_rule()
+    mask = rule.blocked("female")
+    assert sexrule.shown(scores, mask, (1, 2, 3, 6, 10)) == {1: 1, 2: 1, 3: 1, 6: 2, 10: 2}
+    assert sexrule.shown(rule.apply(scores, "female"), mask, (4, 5)) == {4: 0, 5: 1}
+    assert sexrule.shown(np.zeros(3), np.array([False, True, False]), (1, 2)) == {1: 0, 2: 1}

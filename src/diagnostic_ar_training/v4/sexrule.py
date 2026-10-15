@@ -47,6 +47,7 @@ KB_SOURCES = {
 }
 SEXES = ("male", "female")
 REASONS = ("y_chromosome", "y_linked_inheritance", "names", "phenotypes")
+TOP_K = (1, 5, 10, 50)
 
 GENITAL = "HP:0000078"  # Abnormality of the genital system
 MALE_TERMS = (
@@ -274,6 +275,13 @@ def load_kb(kb_id: str) -> tuple[dict, str]:
 def sex_of(value) -> str | None:
     text = str(getattr(value, "value", value)).lower() if value is not None else ""
     return text if text in SEXES else None
+
+
+def shown(scores: np.ndarray, mask: np.ndarray, ks: Sequence[int] = TOP_K) -> dict[int, int]:
+    """k -> how many masked genes the top k of `scores` show (highest first, ties in gene order)."""
+    order = np.argsort(-np.asarray(scores, dtype=np.float64).reshape(-1), kind="stable")
+    hits = np.cumsum(np.asarray(mask, dtype=bool)[order[: max(ks)]])
+    return {k: int(hits[min(k, hits.size) - 1]) for k in ks}
 
 
 def block(scores: np.ndarray, mask: np.ndarray) -> np.ndarray:
