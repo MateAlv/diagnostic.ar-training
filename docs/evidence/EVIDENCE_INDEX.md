@@ -30,6 +30,7 @@ phenopacket-store patients, plus a sex/age/onset add-on, with E0's knowledge (HP
 | Genes with / without real training patients (EXP-V-002 Addendum 1) | +0.137 [+0.104, +0.174] / +0.001 [−0.012, +0.015] | vault, uncited, 983 / 1,695 | declared before the read |
 | Parent terms (wording stress test) | +0.0226 [+0.0110, +0.0337] | vault, uncited, 2,678 | descriptive |
 | Hard sex rule on top (P4-SEX) | ≈ +0.000002; 130 helped, 0 harmed | folds 0–3, out of fold | dev |
+| **Final model F3 (network + add-on + hard sex rule), second CONFIRM read (P4-CONFIRM)** | +0.0717 [+0.0332, +0.1200]; sex rule 31 helped / 0 harmed; add-on 101 / 5 | fold 4, uncited, 406 | gated, pre-registered: passed |
 
 ## Phase 2 headline: confirmed on sealed real patients (ADR-0017, ADR-0018)
 

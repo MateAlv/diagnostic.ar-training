@@ -4984,4 +4984,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - sex rule: 0 patients ranked below F1;
   - add-on: helped ≥ harmed on all patients.
 - Fold 4 not read again yet; Mateo runs `confirm2.py`.
+## 2026-10-15: Second CONFIRM read: F3 passes all three checks (P4-CONFIRM)
+- Read once by Mateo (21:11Z, `ac136c2`, CONFIRM ledger row 2). Fold 4: 933 patients, 406 uncited.
+- F3 vs E0 uncited +0.0717 [+0.0332, +0.1200] (pass).
+- Sex rule: 31 helped, 0 harmed (pass).
+- Add-on: 101 helped, 5 harmed, +0.00047 [+0.0001, +0.0010] (pass).
+- Doctor view, top 50 showing a sex-impossible gene: network 20 patients, network + add-on 11, F3 0.
+- F3 (network + add-on + hard sex rule `sex-kb-v3`) is the final model for production, pending Mateo's go.
 
