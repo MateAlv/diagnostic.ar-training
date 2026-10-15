@@ -103,6 +103,7 @@ Status and outcomes: [decisions/README.md](decisions/README.md).
 | [P3-CONFIRM](analyses/P3-CONFIRM.md) | PHASE3 §2f steps 4–5: the frozen v4 candidate (network `R5x-f4` + add-on `p3-addon-v1-all`), finalists and the decision rule for the CONFIRM check, written before the read |
 | [P4-SEX](analyses/P4-SEX.md) | Phase 4: the hard sex rule (`sex-kb-v2`) on top of v4: 0 harmed, helped 130, MRR Δ ≈ 0; removes impossible-sex genes shown in the top 10 for 0.22% of patients |
 | [P4-AGE](analyses/P4-AGE.md) | Phase 4: a certain age/onset rule; 144 variants on folds 0–3; only late-onset-only genes harm no one, and that check is vacuous; recommendation: drop age |
+| [P4-CONFIRM](analyses/P4-CONFIRM.md) | The final model F3 (network + add-on + hard sex rule `sex-kb-v3`): protocol and decision rule of the second CONFIRM read, written before it |
 | [RETRAINING-RECORD](evidence/RETRAINING-RECORD.md) | The full record of Phases 3–4 (v4 retraining, vault pass, sex/age layer) for the informe: everything tried, every number with its source, limits |
 | [SIM4-v1](analyses/SIM4-v1.md) | The Phase 3 simulator `sim4`: knowledge filters, the global fit on FIT folds, realism of presets e0/freq/real/real_noise on the SELECT fold (C2ST 0.918 → 0.714), what was ported from rare-disease-simulator |
 
