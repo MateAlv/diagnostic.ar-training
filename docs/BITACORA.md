@@ -4948,4 +4948,10 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Known miss: ADGRG2 (CBAVD) is not on the list; to fix in the next knowledge id.
 - #173's last commit is titled "BITACORA, INDEX" but carries only the P4-SEX section (a lint failure broke the chain).
   This entry, the INDEX row and `topk.py` follow here.
+## 2026-10-15: Retraining record for the informe
+- Mateo asked for the full documentation of the retraining work for the informe.
+  `docs/evidence/RETRAINING-RECORD.md` covers the question, data and protocol, everything tried in order (simulator
+  ladder, pipeline fix, memory, R5, cross-fit, add-on, CONFIRM, vault, post-read readings, earlier re-rankers),
+  contributions, limits, Phase 4 (sex done, age in progress), process notes and where everything is.
+- EVIDENCE_INDEX gains a Phase 3 headline table.
 
