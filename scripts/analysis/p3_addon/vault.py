@@ -7,10 +7,11 @@ Mateo runs it once, in his own terminal, after the pre-registration, the indepen
       --reason "..."
 
 Every refusal comes before any patient is loaded or the ledger touched: a reason, DXT_SEALED_READ=EXP-V-002,
-docs/experiments/EXP-V-002.md committed unchanged, a clean tree, a vault never opened, no earlier output, and
-the frozen system of P3-CONFIRM §1 (network `R5x-f4-ef2f309462` trained on exactly folds 0-3, the verified
-add-on knowledge and bundles, every sha256 as frozen). The network and E0 are loaded before the vault opens.
-Then `splits.load_part` opens `p3-v1` vault once and writes the row in docs/TEST_LEDGER.md.
+docs/experiments/EXP-V-002.md and the contamination check committed unchanged, a clean tree, a vault never
+opened, no earlier output, and the frozen system of P3-CONFIRM §1 (network `R5x-f4-ef2f309462` trained on
+exactly folds 0-3, the verified add-on knowledge and bundles, every sha256 as frozen). The network and E0 are
+loaded before the vault opens. Then `splits.load_part` opens `p3-v1` vault once and writes the row in
+docs/TEST_LEDGER.md.
 
 Vault patients are annotated as `patients.annotate`: their own publication components, the frozen
 `group_status`, every input kept (the network and E0 get `addon.network_view`), and fold `VAULT_FOLD` (they
@@ -21,8 +22,11 @@ have no cross-validation fold). On the same patients:
 - the gate: H1 passes when the 95% CI lower bound of F1's Δ capped MRR on uncited patients is > 0; H2 (F2, the
   same rule) is tested only if H1 passes;
 - publication-mean MRR Δ (each publication weighs 1), same publication-cluster bootstrap;
-- controls as `confirm.py`: phenotype swap within the vault and parent terms, network vs E0.
-Writes results/P3/EXP-V-002/vault.json and the ranks under data/interim/p3-addon/vault/.
+- controls as `confirm.py`: phenotype swap within the vault and parent terms, network vs E0;
+- F1 and F2 vs E0 without the vault patients whose (gene, present set) a training patient has
+  (results/P3/EXP-V-002/overlap.json from `overlap.py`, committed before the read; non-gating).
+Writes results/P3/EXP-V-002/vault.json and the ranks under results/P3/EXP-V-002/ranks/; the ranks of E0, the
+network and the bundles are written before the controls run.
 
 `--dry-run SCRATCH_DIR` runs the same code on fold 3 (in-sample for this network, so its numbers mean nothing)
 without the sealed gate, the clean-tree check or the ledger, and writes under SCRATCH_DIR.
@@ -65,7 +69,8 @@ FROZEN_SHA256 = {
     KB: "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a",
 }
 OUT = RESULTS_DIR / "P3" / EXP / "vault.json"
-RANKS = addon.ADDON_DIR / "vault"
+RANKS = RESULTS_DIR / "P3" / EXP / "ranks"
+OVERLAP = RESULTS_DIR / "P3" / EXP / "overlap.json"
 VAULT_FOLD = -1
 DRY_RUN_FOLD = 3
 STRATA = ("uncited", "uncited_in_vocab", "cited", "all")
@@ -99,7 +104,7 @@ def e0_scorer() -> Callable:
     return lambda members: addon.e0_logits(members, e0)
 
 
-def preflight(reason: str, out: Path, dry_run: bool):
+def preflight(reason: str, out: Path, dry_run: bool, overlap: Path):
     """Every refusal that needs no artifact; returns the code state. The dry run skips the sealed gate."""
     if not reason.strip():
         raise LineageError("a reason is required")
@@ -110,6 +115,10 @@ def preflight(reason: str, out: Path, dry_run: bool):
     registration = ledger.EXPERIMENTS_DIR / f"{EXP}.md"
     if not (registration.exists() and ledger.is_preregistered(registration)):
         raise LineageError(f"docs/experiments/{EXP}.md must be committed, unmodified, before the vault read")
+    if not (Path(overlap).exists() and ledger.is_preregistered(Path(overlap))):
+        raise LineageError(
+            f"{overlap}: the contamination check must be committed, unmodified, before the read"
+        )
     if state.dirty:
         raise LineageError("uncommitted changes: the vault read must be reproducible from a SHA")
     if ledger.entries(SPLIT, "vault"):
@@ -241,7 +250,12 @@ def size_facts(recs: Sequence[dict]) -> dict:
         "n": len(recs),
         "n_groups": len({r["group"] for r in recs}),
         "by_stratum": {
-            s: {"n": len(v), "n_groups": len({r["group"] for r in v})}
+            s: {
+                "n": len(v),
+                "n_groups": len({r["group"] for r in v}),
+                "out_of_vocab": sum(not r["gene_in_vocab"] for r in v),
+                "unscorable": sum(not r["scorable"] for r in v),
+            }
             for s, v in report.by_stratum(recs).items()
             if s in STRATA
         },
@@ -253,10 +267,27 @@ def size_facts(recs: Sequence[dict]) -> dict:
     }
 
 
-def run(reason: str, out: Path = OUT, ranks: Path = RANKS, dry_run: bool = False) -> dict:
+def without(recs: Mapping[str, list[dict]], excluded: set[str]) -> dict:
+    """F1 and F2 vs E0 without the `excluded` patients (the contamination check's)."""
+    kept = {name: [r for r in v if r["case_id"] not in excluded] for name, v in recs.items()}
+    out = {"n_excluded": sum(r["case_id"] in excluded for r in recs["E0"])}
+    for name in ("F1_vs_E0", "F2_vs_E0"):
+        a, b = PAIRS[name]
+        out[name] = addon.compare(kept[a], kept[b], STRATA)
+    return out
+
+
+def run(
+    reason: str,
+    out: Path = OUT,
+    ranks: Path = RANKS,
+    dry_run: bool = False,
+    overlap: Path | None = None,
+) -> dict:
     from diagnostic_ar_training import splits
 
-    state = preflight(reason, out, dry_run)
+    overlap = Path(overlap or OVERLAP)
+    state = preflight(reason, out, dry_run, overlap)
     scorer, kb, bundles, shas = frozen_system()
     frozen = splits.load_frozen(SPLIT)
     knowledge = knowledge_of(kb, KB)
@@ -267,6 +298,9 @@ def run(reason: str, out: Path = OUT, ranks: Path = RANKS, dry_run: bool = False
     status = frozen["group_status"]
     members = dry_run_patients(status) if dry_run else open_vault(reason, status)
     recs = score(members, bundles, knowledge, scorer, e0)
+    for name, r in recs.items():
+        report.write_ranks(Path(ranks) / f"{name}.ranks.jsonl", r)
+    excluded = set() if dry_run else set(json.loads(overlap.read_text())["present_key"]["case_ids"])
     readings = {name: addon.compare(recs[a], recs[b], STRATA) for name, (a, b) in PAIRS.items()}
     control_summary, control_recs = controls(members, scorer, e0, knowledge.genes, with_patients, to_parent)
     f1_ranks = {r["case_id"]: r["rank"] for r in recs[F1_BUNDLE]}
@@ -297,9 +331,10 @@ def run(reason: str, out: Path = OUT, ranks: Path = RANKS, dry_run: bool = False
             ),
         },
         "controls": control_summary,
+        "without_overlap": without(recs, excluded),
         "bootstrap": {**report.BOOTSTRAP, "unit": "publication group", "cap": report.CAP},
     }
-    for name, r in (recs | control_recs).items():
+    for name, r in control_recs.items():
         report.write_ranks(Path(ranks) / f"{name}.ranks.jsonl", r)
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps(summary, indent=1, default=str) + "\n")

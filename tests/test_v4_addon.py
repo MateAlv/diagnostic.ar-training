@@ -294,6 +294,9 @@ def vault(kb, docs, clean_tree, monkeypatch, tmp_path):
     monkeypatch.setattr(script, "e0_scorer", lambda: fake_scores(calls))
     monkeypatch.setattr(script, "training_genes", lambda: {GENES[1]})
     monkeypatch.setattr(script, "parent_mapper", lambda: lambda term: "HP:0000118")
+    overlap = tmp_path / "overlap.json"
+    overlap.write_text(json.dumps({"present_key": {"case_ids": ["c1", "c2"]}}))
+    monkeypatch.setattr(script, "OVERLAP", overlap)
     return SimpleNamespace(
         script=script,
         calls=calls,
@@ -302,6 +305,7 @@ def vault(kb, docs, clean_tree, monkeypatch, tmp_path):
         real_scorer=real_scorer,
         out=tmp_path / "out" / "vault.json",
         ranks=tmp_path / "ranks",
+        overlap=overlap,
     )
 
 
@@ -340,6 +344,8 @@ REFUSALS = {
     "dirty tree": (lambda v, mp: mp.setattr(v.script, "code_state", lambda: DIRTY), "SHA"),
     "no pre-registration": (lambda v, mp: registration(v).unlink(), "committed"),
     "uncommitted pre-registration": (lambda v, mp: registration(v).write_text("draft"), "committed"),
+    "no contamination check": (lambda v, mp: v.overlap.unlink(), "contamination"),
+    "uncommitted contamination check": (lambda v, mp: v.overlap.write_text("draft"), "contamination"),
     "no DXT_SEALED_READ": (lambda v, mp: mp.delenv(ledger.SEALED_READ_ENV), "DXT_SEALED_READ"),
     "wrong DXT_SEALED_READ": (lambda v, mp: mp.setenv(ledger.SEALED_READ_ENV, "EXP-V-1"), "DXT_SEALED_READ"),
     "vault already opened": (lambda v, mp: ledger.LEDGER.write_text(OPENED), "already opened"),
@@ -388,6 +394,9 @@ def test_vault_read_opens_once_and_writes_its_outputs(vault):
     assert g["h1_pass"] == (f1["delta_mrr_cap_ci95"][0] > 0) and g["F1"]["delta"] == f1["delta"]["mrr_cap"]
     assert g["F2"]["ci95"] == f2["delta_mrr_cap_ci95"] and g["h2_tested"] == g["h1_pass"]
     assert summary["agreement"]["ranks_differing_from_F1"] == 0
+    assert summary["without_overlap"]["n_excluded"] == 2
+    assert summary["without_overlap"]["F1_vs_E0"]["all"]["n"] == 58
+    assert summary["size"]["by_stratum"]["all"]["out_of_vocab"] == 0
     assert summary["size"]["n"] == 60 and summary["size"]["by_stratum"]["uncited"]["n"] == 40
     assert summary["size"]["largest_uncited_group"]["share"] == pytest.approx(1 / 40)
     assert set(summary["publication_mean"]["F1_vs_E0"]) == set(script.STRATA)
