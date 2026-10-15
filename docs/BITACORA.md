@@ -4909,4 +4909,11 @@ this task, whatever the result**; the last read needs Mateo's OK.
   [+0.0110, +0.0337] (35% kept).
 - Outputs, ranks and the ledger row committed right after the run. Declared post-read readings follow in an
   addendum. Production needs Mateo's decision.
+## 2026-10-15: EXP-V-002 post-read readings (Addendum 1)
+- From the committed ranks only (`post_read.py`). Gene-cluster bootstrap: F1 uncited +0.0649 [+0.0367, +0.0976].
+- The gain is on genes with real training patients: +0.137 [+0.104, +0.174] (983 uncited) vs +0.001 [−0.012, +0.015]
+  (1,695).
+- By source: `p2-v1` test +0.123, `p2-v1` vault +0.030, `p2-fresh-v1` −0.001 (16% of its genes have training
+  patients).
+- E0 ranks equal Phase 2's for all 4,659 patients. CONFIRM → vault drop 0.007.
 

@@ -1,0 +1,293 @@
+{
+ "gene_cluster": {
+  "F1 uncited": {
+   "n_genes": 259,
+   "delta_mrr_cap": 0.064945581493266,
+   "ci95": [
+    0.036718487029009865,
+    0.0976359258587811
+   ]
+  },
+  "F1 cited": {
+   "n_genes": 215,
+   "delta_mrr_cap": 0.06043779800036934,
+   "ci95": [
+    0.03255369572412462,
+    0.08890254427086586
+   ]
+  },
+  "F2 uncited": {
+   "n_genes": 259,
+   "delta_mrr_cap": 0.06387441759783034,
+   "ci95": [
+    0.03601069278231381,
+    0.09605638728915594
+   ]
+  },
+  "F2 cited": {
+   "n_genes": 215,
+   "delta_mrr_cap": 0.06020241966434542,
+   "ci95": [
+    0.03259930868063194,
+    0.08844575099851408
+   ]
+  }
+ },
+ "by_training_gene": {
+  "F1 uncited gene with training patients": {
+   "n": 983,
+   "n_groups": 217,
+   "mrr_cap": 0.41060048336792193,
+   "helped": 522,
+   "harmed": 144,
+   "delta_mrr_cap_ci95": [
+    0.10437104490009501,
+    0.1739822765903784
+   ],
+   "e0_mrr_cap": 0.2735530526237772,
+   "delta_mrr_cap": 0.13704743074414472
+  },
+  "F1 uncited gene without": {
+   "n": 1695,
+   "n_groups": 203,
+   "mrr_cap": 0.13183231476694315,
+   "helped": 588,
+   "harmed": 397,
+   "delta_mrr_cap_ci95": [
+    -0.012325512857831476,
+    0.015387068408686363
+   ],
+   "e0_mrr_cap": 0.1306709377711791,
+   "delta_mrr_cap": 0.0011613769957640463
+  },
+  "F1 cited gene with training patients": {
+   "n": 1190,
+   "n_groups": 249,
+   "mrr_cap": 0.7318622191813863,
+   "helped": 404,
+   "harmed": 144,
+   "delta_mrr_cap_ci95": [
+    0.06569273133619455,
+    0.12531562809721852
+   ],
+   "e0_mrr_cap": 0.6384147565312849,
+   "delta_mrr_cap": 0.0934474626501014
+  },
+  "F1 cited gene without": {
+   "n": 791,
+   "n_groups": 122,
+   "mrr_cap": 0.7520225224402016,
+   "helped": 107,
+   "harmed": 149,
+   "delta_mrr_cap_ci95": [
+    -0.014045027743709665,
+    0.024238973890266687
+   ],
+   "e0_mrr_cap": 0.7492062916953331,
+   "delta_mrr_cap": 0.0028162307448684754
+  },
+  "F2 uncited gene with training patients": {
+   "n": 983,
+   "n_groups": 217,
+   "mrr_cap": 0.4093459669335191,
+   "helped": 520,
+   "harmed": 148,
+   "delta_mrr_cap_ci95": [
+    0.10298202773588616,
+    0.17400074356390893
+   ],
+   "e0_mrr_cap": 0.2735530526237772,
+   "delta_mrr_cap": 0.13579291430974189
+  },
+  "F2 uncited gene without": {
+   "n": 1695,
+   "n_groups": 203,
+   "mrr_cap": 0.13093631614781898,
+   "helped": 588,
+   "harmed": 401,
+   "delta_mrr_cap_ci95": [
+    -0.013145335099962402,
+    0.014235315530090102
+   ],
+   "e0_mrr_cap": 0.1306709377711791,
+   "delta_mrr_cap": 0.00026537837663986874
+  },
+  "F2 cited gene with training patients": {
+   "n": 1190,
+   "n_groups": 249,
+   "mrr_cap": 0.731122965834998,
+   "helped": 402,
+   "harmed": 147,
+   "delta_mrr_cap_ci95": [
+    0.06504076499087855,
+    0.12422851780956905
+   ],
+   "e0_mrr_cap": 0.6384147565312849,
+   "delta_mrr_cap": 0.09270820930371315
+  },
+  "F2 cited gene without": {
+   "n": 791,
+   "n_groups": 122,
+   "mrr_cap": 0.7526667067445788,
+   "helped": 106,
+   "harmed": 151,
+   "delta_mrr_cap_ci95": [
+    -0.013735152636882972,
+    0.025078800020067432
+   ],
+   "e0_mrr_cap": 0.7492062916953331,
+   "delta_mrr_cap": 0.0034604150492456576
+  }
+ },
+ "by_source": {
+  "F1 uncited p2-fresh-v1": {
+   "n": 340,
+   "n_groups": 86,
+   "mrr_cap": 0.2170841961995525,
+   "helped": 88,
+   "harmed": 64,
+   "delta_mrr_cap_ci95": [
+    -0.02673409139218698,
+    0.025166317252084743
+   ],
+   "e0_mrr_cap": 0.21825486926616156,
+   "delta_mrr_cap": -0.0011706730666090626
+  },
+  "F1 uncited p2-v1 test": {
+   "n": 1620,
+   "n_groups": 197,
+   "mrr_cap": 0.3998317006542492,
+   "helped": 806,
+   "harmed": 388,
+   "delta_mrr_cap_ci95": [
+    0.08905675953757289,
+    0.1612749704235106
+   ],
+   "e0_mrr_cap": 0.27733033134736923,
+   "delta_mrr_cap": 0.12250136930687999
+  },
+  "F1 uncited p2-v1 vault": {
+   "n": 718,
+   "n_groups": 134,
+   "mrr_cap": 0.12095892698994896,
+   "helped": 216,
+   "harmed": 89,
+   "delta_mrr_cap_ci95": [
+    0.012793149226911273,
+    0.050274544409619974
+   ],
+   "e0_mrr_cap": 0.090639234108993,
+   "delta_mrr_cap": 0.03031969288095597
+  },
+  "F1 cited p2-v1 test": {
+   "n": 1967,
+   "n_groups": 370,
+   "mrr_cap": 0.7420759162483005,
+   "helped": 511,
+   "harmed": 288,
+   "delta_mrr_cap_ci95": [
+    0.041541882673874216,
+    0.08290856739741617
+   ],
+   "e0_mrr_cap": 0.6807342130901669,
+   "delta_mrr_cap": 0.06134170315813359
+  },
+  "F1 cited p2-v1 vault": {
+   "n": 14,
+   "n_groups": 1,
+   "mrr_cap": 0.3392857142857143,
+   "helped": 0,
+   "harmed": 5,
+   "delta_mrr_cap_ci95": [
+    -0.0654761904761905,
+    -0.0654761904761905
+   ],
+   "e0_mrr_cap": 0.4047619047619048,
+   "delta_mrr_cap": -0.06547619047619052
+  },
+  "F2 uncited p2-fresh-v1": {
+   "n": 340,
+   "n_groups": 86,
+   "mrr_cap": 0.21442954296767172,
+   "helped": 88,
+   "harmed": 64,
+   "delta_mrr_cap_ci95": [
+    -0.028576983765643466,
+    0.021020722400304555
+   ],
+   "e0_mrr_cap": 0.21825486926616156,
+   "delta_mrr_cap": -0.003825326298489834
+  },
+  "F2 uncited p2-v1 test": {
+   "n": 1620,
+   "n_groups": 197,
+   "mrr_cap": 0.400257973508525,
+   "helped": 806,
+   "harmed": 395,
+   "delta_mrr_cap_ci95": [
+    0.08961992468547371,
+    0.1615565949701881
+   ],
+   "e0_mrr_cap": 0.27733033134736923,
+   "delta_mrr_cap": 0.12292764216115576
+  },
+  "F2 uncited p2-v1 vault": {
+   "n": 718,
+   "n_groups": 134,
+   "mrr_cap": 0.11892154533618196,
+   "helped": 214,
+   "harmed": 90,
+   "delta_mrr_cap_ci95": [
+    0.01174116135833362,
+    0.047397259464563565
+   ],
+   "e0_mrr_cap": 0.090639234108993,
+   "delta_mrr_cap": 0.028282311227188967
+  },
+  "F2 cited p2-v1 test": {
+   "n": 1967,
+   "n_groups": 370,
+   "mrr_cap": 0.7418388481898356,
+   "helped": 508,
+   "harmed": 293,
+   "delta_mrr_cap_ci95": [
+    0.04130755559397768,
+    0.08263675069698438
+   ],
+   "e0_mrr_cap": 0.6807342130901669,
+   "delta_mrr_cap": 0.06110463509966868
+  },
+  "F2 cited p2-v1 vault": {
+   "n": 14,
+   "n_groups": 1,
+   "mrr_cap": 0.3392857142857143,
+   "helped": 0,
+   "harmed": 5,
+   "delta_mrr_cap_ci95": [
+    -0.0654761904761905,
+    -0.0654761904761905
+   ],
+   "e0_mrr_cap": 0.4047619047619048,
+   "delta_mrr_cap": -0.06547619047619052
+  }
+ },
+ "sources": {
+  "p2-v1 vault": 732,
+  "p2-v1 test": 3587,
+  "p2-fresh-v1": 340
+ },
+ "e0_parity_with_phase2": {
+  "n_ours": 4659,
+  "n_matched": 4659,
+  "equal": 4659,
+  "both_finite": 4024,
+  "finite_equal": 4024,
+  "inf_mismatch": 0.0,
+  "max_abs_diff_finite": 0.0
+ },
+ "confirm_to_vault": {
+  "confirm_F1_uncited": 0.07170861519647825,
+  "vault_F1_uncited": 0.06494558149326596,
+  "drop": 0.006763033703212296
+ }
+}
