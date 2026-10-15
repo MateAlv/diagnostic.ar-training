@@ -1,0 +1,105 @@
+{
+ "artifact_id": "v4-layer-package",
+ "files": {
+  "v4_layer.py": {
+   "sha256": "2ca18111c9586c182156d98242299faa054da67f239affe922645e16562090b3",
+   "bytes": 8603
+  },
+  "v4-layer-bundle.json.gz": {
+   "sha256": "3bdeeaedff851dc81983425f489d66bcff2b124a20df2283332d6c16bd69e21e",
+   "bytes": 22571
+  },
+  "staging-fixture.json": {
+   "sha256": "99d83c92838f8059a3335eb08701f7762f6838ee6143c573a45b60c012b5734c",
+   "bytes": 51205
+  }
+ },
+ "features": [
+  "sex_mismatch",
+  "onset_strict_late",
+  "onset_strict_gap",
+  "onset_lenient_gap",
+  "xlr_female"
+ ],
+ "theta": [
+  [
+   4.211501598358154,
+   0.15188473463058472,
+   0.05903168022632599,
+   0.18942876160144806,
+   4.604092597961426
+  ],
+  [
+   3.0604963302612305,
+   0.0,
+   0.0,
+   0.0,
+   4.113645553588867
+  ],
+  [
+   1.2792887687683105,
+   0.0,
+   0.0,
+   0.0,
+   2.5445733070373535
+  ]
+ ],
+ "dropped_features": [
+  "neg_obligate",
+  "neg_embed"
+ ],
+ "sex_rule": {
+  "male_only": 101,
+  "female_only": 36
+ },
+ "checks": {
+  "patients": 5053,
+  "in_vocab": 4369,
+  "dropped_equals_full": 5053,
+  "scores_bit_identical": 5053,
+  "max_abs_dscore": 0.0,
+  "rank_identical_scores": 4369,
+  "rank_identical_probs": 4369,
+  "end_to_end_rank_identical": 4369,
+  "no_inputs_is_softmax": 5053,
+  "changed_by_layer": 4822,
+  "sex_blocked_any": 4631,
+  "rank_differs": [],
+  "valid": true
+ },
+ "fixture_kinds": {
+  "no-inputs": 3,
+  "other": 10,
+  "addon": 10,
+  "sex-rule": 9
+ },
+ "provenance": {
+  "network": {
+   "run": "R5x-f4-ef2f309462",
+   "last_pt_sha256": "22edfd7ea56510d1210111797215a9a54c22d829979ef05b4e3cc85a758004da"
+  },
+  "network_bundle": {
+   "id": "genphenia-v4.0",
+   "model_onnx_sha256": "fafbecbed8585073b2afe9b6a481ee3182f21ff733f6e96745945d75bc7daf29"
+  },
+  "addon": {
+   "bundle": "p3-addon-v1-all",
+   "sha256": "31299383a7dce279acdfae37248db8e7e04c62225fd892080c39758276a093b6"
+  },
+  "addon_knowledge": {
+   "id": "p3-addon-kb-v1",
+   "sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a"
+  },
+  "sex_rule_knowledge": {
+   "id": "sex-kb-v3",
+   "sha256": "7317a6bd5fa6b9b3fd67ae631bde203bb65fc1e5f9ebfb3f768c217ea665c971"
+  },
+  "gene_order": "E0's genes.json (genphenia-v3.0 and genphenia-v4.0)",
+  "code": {
+   "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+   "sha": "3becf052bb1d246985f1730cc6222837a8ee996b"
+  },
+  "decision": "docs/decisions/0020-v4-validated-and-next.md"
+ },
+ "run_seconds": 69.28719603799982
+}

@@ -1,0 +1,66 @@
+{
+ "bundle": "genphenia-v4.0",
+ "network": {
+  "run": "R5x-f4-ef2f309462",
+  "checkpoint": "last.pt",
+  "sha256": "22edfd7ea56510d1210111797215a9a54c22d829979ef05b4e3cc85a758004da",
+  "trained_on": "p3-v1 train folds [0, 1, 2, 3] + sim4 (ADR-0019)"
+ },
+ "base": {
+  "source": "genphenia_v3",
+  "version": "model-v3.0.0",
+  "tarball_sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+ },
+ "changed_from_base": [
+  "artifacts/graphens_best_model/model.onnx"
+ ],
+ "packer": {
+  "script": "diagnostic.ar-model scripts/package_bundle.sh",
+  "repacks_base_exactly": true
+ },
+ "model_onnx": {
+  "sha256": "fafbecbed8585073b2afe9b6a481ee3182f21ff733f6e96745945d75bc7daf29",
+  "bytes": 18119152
+ },
+ "tarball": {
+  "file": "genphenia-v4.0.tar.gz",
+  "sha256": "2ce8e9d0084a48605c46ebd6d9470fa569af62a73d61a6cd6fcc8284f4ff0ce6",
+  "bytes": 121087714
+ },
+ "export": {
+  "code": "gnn.export.export_v3",
+  "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+  "sha": "3becf052bb1d246985f1730cc6222837a8ee996b"
+ },
+ "parity_patients": "p3-v1 train folds [0, 1, 2, 3], every patient",
+ "parity": {
+  "patients": 5053,
+  "scored": 5053,
+  "in_vocab": 4369,
+  "unscorable_agree": true,
+  "onnx_vs_torch_max_abs_dlogit": 0.000701904296875,
+  "engine_vs_torch_max_abs_dprob": 2.3325649488314948e-05,
+  "onnx_vs_torch_max_rel_dlogit": 2.721046485021361e-06,
+  "engine_vs_onnx_max_abs_dprob": 0.0,
+  "rank_identical": {
+   "onnx": 4369,
+   "engine": 4369
+  },
+  "engine_top10_same_order_as_torch": 5053,
+  "ginv4_vs_ginv3": {
+   "patients": 200,
+   "bit_identical": 200,
+   "max_abs_dlogit": 0.0
+  },
+  "engine_health": {
+   "model_version": "3.0",
+   "out_channels": 5229,
+   "in_channels": 768
+  }
+ },
+ "rank_differs": {
+  "onnx": [],
+  "engine": []
+ },
+ "decision": "docs/decisions/0020-v4-validated-and-next.md"
+}

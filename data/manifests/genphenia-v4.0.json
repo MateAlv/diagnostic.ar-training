@@ -1,0 +1,50 @@
+{
+  "artifact_id": "genphenia-v4.0",
+  "kind": "release-bundle",
+  "created_at": "2026-10-15T21:53:01+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "3becf052bb1d246985f1730cc6222837a8ee996b",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:R5x-f4-ef2f309462/last.pt",
+      "sha256": "22edfd7ea56510d1210111797215a9a54c22d829979ef05b4e3cc85a758004da"
+    }
+  ],
+  "params": {
+    "network": "R5x-f4-ef2f309462",
+    "checkpoint": "last",
+    "folds": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "params_hash": "47e68c79eb630911500a598b57262e8b20a8f738baf10000efb748a559d38e61",
+  "outputs": [
+    {
+      "path": "dist/genphenia-v4.0/genphenia-v4.0.tar.gz.sha256",
+      "sha256": "00d1162ebaf004a5ccb781c0f82d9d4253c907f55c149f8f7222c7f2bddbb228",
+      "bytes": 88
+    },
+    {
+      "path": "dist/genphenia-v4.0/MANIFEST.json",
+      "sha256": "17f0aac838a95b459132209bf2d65661902f80111057e9482279899c7c0f0c86",
+      "bytes": 1835
+    },
+    {
+      "path": "results/P4/release/genphenia-v4.0-parity.json",
+      "sha256": "7c2681839cccd7933df1bba8af49eae07364e2c625dc23ef461f984bb59de68d",
+      "bytes": 1870
+    }
+  ],
+  "notes": "The tarball dist/genphenia-v4.0/genphenia-v4.0.tar.gz (sha256 in genphenia-v4.0.tar.gz.sha256) and its unpacked directory are release assets (ADR-0005), ignored by git.",
+  "release": ""
+}
