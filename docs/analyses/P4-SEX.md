@@ -180,3 +180,18 @@ impossible. Removing a gene can only lower the rule's effect; the check gave 0 b
   the phrase) is not limited. Being conservative, nothing was relaxed after the build.
 - The gain is about 2e-6 capped MRR: the rule is a correctness guard (never show a man an ovarian-failure gene
   above a plausible one), not a ranking improvement.
+
+## What a doctor would see without the rule (`topk.py`)
+The network's out-of-fold lists on folds 0–3, for the 4,631 scored patients with a known sex. The table counts
+lists that show at least one gene the patient's sex cannot have (`sex-kb-v2`):
+
+| Shown in | Patients | Impossible genes shown |
+|---|---|---|
+| first place | 1 (0.02%) | 1 |
+| top 5 | 2 (0.04%) | 3 |
+| top 10 | 10 (0.22%) | 15 |
+| top 50 | 48 (1.04%) | 80 |
+
+The hard rule removes every one of them, and it harms no patient. Its value is mostly correctness of what the doctor
+sees, not MRR.
+
