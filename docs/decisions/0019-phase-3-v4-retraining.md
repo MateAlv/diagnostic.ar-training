@@ -99,3 +99,23 @@
     ([P3-BATCH1-DIAG](../analyses/P3-BATCH1-DIAG.md) §4).
 - Every real-patient component is checked with a phenotype-swap control (PHASE3 §2e). E0 + cohort prior is reported
   as a control only.
+
+## Amendment 2026-10-15 (Mateo): patient inputs in the claimed v4
+- **The claimed v4 is the network plus an add-on that uses sex, age, onset and negated symptoms.** This replaces
+  decision 4's "absent symptoms remain outside v4.0" for the add-on only; the network still sees present terms only.
+- **The add-on is a re-rank layer on the network's gene scores**, built like Phase 2's `ft-v1.1` (ADR-0018):
+  - it can only lower a gene's score;
+  - it has no per-gene weights.
+
+  Because case reports tend to mention an absent finding that is expected in the true disease, a negation feature
+  that only lowers scores can cost, but never fake, a gain.
+- **Knowledge:** E0's (HPOA 2025-03-03, E0's gene list). Any other source the add-on reads is declared in the
+  pre-registration.
+- **Reporting:** the network alone and the network plus add-on are reported separately at every reading, including
+  the vault.
+- **Timing:** every feature that will be claimed (the add-on, and the further sex and age work Mateo plans) is fixed
+  before the CONFIRM check and the vault read. The vault is read once, so a feature added after it has no untouched
+  patients left to prove it.
+- R5's raw-rank lift under phenotype swap for genes with real patients is reported next to every result as a
+  control, not a gate (Mateo, 2026-10-14; P3-BATCH1-DIAG §10–§11).
+

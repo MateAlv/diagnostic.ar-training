@@ -4843,4 +4843,16 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - cited pooled 0–3: +0.060 [+0.037, +0.083]. Helped 631, harmed 551.
 - Parent terms pooled: +0.029 [+0.017, +0.042] (40% kept).
 - Swap raw-rank lift for genes with training patients: log2 −0.25 vs −0.04 for other genes.
+## 2026-10-15: Decision: the claimed v4 adds sex, age, onset and negated symptoms; order to the vault
+- Mateo: the final model must use age, onset and negated symptoms (and sex). ADR-0019 amendment 2026-10-15.
+- Design: the network (R5 recipe) plus a re-rank add-on built like `ft-v1.1`: it can only lower a gene's score, has
+  no per-gene weights, and uses E0's knowledge. Network and network + add-on are reported separately.
+- Timing (PHASE3 §2f): the add-on refit, then Mateo's further sex and age work, then the system is frozen, then
+  CONFIRM, pre-registration, review and the vault read. CONFIRM waits until the add-on is final.
+- Started `R5x-f4` (#159): the network trained with the real patients of folds 0–3.
+## 2026-10-15: R5x-f4 trained (the network of the v4 candidate)
+- Run `R5x-f4-ef2f309462`: R5-r30's recipe with the real patients of folds 0–3 (4,369 patients, 728 publications,
+  361 genes); final checkpoint at step 831,106. CONFIRM (fold 4) was not read.
+- Its SELECT and FIT readings are in-sample (+0.362 on SELECT uncited) and mean nothing; folds 0–3 are read
+  cross-fitted (P3-BATCH1-DIAG §11).
 

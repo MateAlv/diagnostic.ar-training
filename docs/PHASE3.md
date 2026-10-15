@@ -175,7 +175,7 @@ Mateo's go for the one vault read.
   | K2 | Harm control: boost cap and E0-confidence gate. **Done: no gain** (§8). Scaling by number of same-gene publications is dropped (a cohort prior) | harmed count at equal gain |
   | K3 | Similarity learned on FIT pairs (same gene, other publication) vs IC cosine | capped Δ beyond K1 |
   | R5 | GNN trained with real FIT patients mixed in (from E0 or R1c), ratio grid, per-publication cap. **R5-r30 done:** SELECT final +0.051 [+0.020, +0.090] (seed 1 +0.047; r10 +0.038; r90 +0.027), less harm than K1, K1 adds nothing on top; caveats in DIAG §10. **Cross-fitted over folds 0–3:** +0.071 [+0.049, +0.096], every fold positive; parent terms +0.029; DIAG §11 | capped Δ beyond K1; does a parametric model beat the memory? |
-  | F | finalists on CONFIRM, pre-registration, independent review, Mateo's go | the single vault read |
+  | F | finalists on CONFIRM, pre-registration, independent review, Mateo's go: see §2f | the single vault read |
 
 - **Always reported, separately:** E0 + cohort gene prior alone (phenotype-blind) as a control, so the phenotype
   part of any gain is visible.
@@ -191,6 +191,24 @@ Mateo's go for the one vault read.
 **Decisions for Mateo before batch 2 (superseded by §2e for B–E):**
 1. R1neg: allow a diagnostic run with E0's negation rows kept, only to measure the gap, never as a candidate?
 2. The ladder's control changes from E0 to R1 for rung-to-rung readings; the vault gate stays against E0.
+
+## 2f. Road to the vault (2026-10-15, Mateo)
+The claimed v4 = the network (R5 recipe) + a re-rank add-on for sex, age, onset and negated symptoms (ADR-0019
+amendment 2026-10-15). Both parts are reported separately at every reading. Order:
+
+| # | Step | Status |
+|---|---|---|
+| 1 | Network `R5x-f4`: the R5-r30 recipe with the real patients of folds 0–3; folds 0–3 read cross-fitted (P3-BATCH1-DIAG §11) | training |
+| 2 | Add-on: Phase 2's `ft-v1.1` residual refit on the network's out-of-fold scores (folds 0–3), E0's knowledge only; read out of fold (fit on three folds, read the fourth): network, + sex/age/onset, + negated symptoms | next |
+| 3 | Sex and age work (Mateo): further re-rank features on sex and age, developed and read the same way on folds 0–3 | after 2 |
+| 4 | Freeze the claimed system: network, add-on, features, reading rules | after 3 |
+| 5 | CONFIRM check of at most 3 finalists (main session, ledgered), with its protocol written before the read | after 4 |
+| 6 | Vault pre-registration, independent review (opus/xhigh), Mateo's go, the single vault read | after 5 |
+
+- **Why CONFIRM waits for step 4:** CONFIRM is read once, like the vault. The network does not change in steps 2–3,
+  but the add-on does, so reading CONFIRM earlier would leave the final add-on without an untouched check.
+- Folds 0–3 are no longer untouched: every step from 2 on is read out of fold there, and only CONFIRM and the vault
+  count as confirmation.
 
 ## 3. Rules specific to Phase 3
 - **Knowledge:** HPOA 2025-03-03 and E0's gene list only, for the evaluated model.

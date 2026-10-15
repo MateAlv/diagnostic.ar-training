@@ -1,0 +1,24 @@
+# R5x-f4: R5-r30 with the real patients of every development fold (0-3); only CONFIRM (4) is held out. The GNN of
+# the v4 candidate for the CONFIRM check and the vault (PHASE3.md §2f); folds 0-3 are read by R5x-f0/f1/f2 and
+# R5-r30 (cross-fitted). SELECT is a training fold here, so the best checkpoint means nothing: read `last` only.
+# Otherwise R5-r30: R1c's final checkpoint fine-tuned with real patients (present terms only), 30% of the
+# items of the genes with real patients, gene-balanced draw (`real_draw: gene`, no cohort gene prior).
+label: R5x-f4
+seed: 0
+sim:
+  preset: e0
+  real_ratio: 0.3
+  real_draw: gene
+  real_folds: [0, 1, 2, 3]
+arch:
+  init: run:R1c-39306a6b7c@last
+train:
+  lr: 1.0e-4
+  weight_decay: 5.0e-4
+  batch_size: 128
+  schedule: cosine
+  min_lr_ratio: 0.05
+  warmup_steps: 500
+  max_minutes: 60
+  eval_every_steps: 5000
+  num_workers: 12
