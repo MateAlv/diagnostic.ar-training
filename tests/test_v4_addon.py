@@ -310,6 +310,7 @@ def vault(kb, docs, clean_tree, monkeypatch, tmp_path):
 
 
 def untrained_on_0_3(v, monkeypatch, folds_used=(0, 1, 2), last=True):
+    pytest.importorskip("torch")
     from diagnostic_ar_training.v4 import runs
 
     run = v.out.parent.parent / "run"
