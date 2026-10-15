@@ -131,7 +131,9 @@ No rank changed, so there were no tie flips to report. The layer changes the out
 (most have a recorded sex or age).
 
 ## Steps, in order
-1. **Release the network in diagnostic.ar-model**, as `model-v3.0.0` was, after Mateo's go:
+1. **Done 2026-10-15:** `model-v4.0.0` is published as a pre-release in MateAlv/diagnostic.ar-model (PR #12, tag on
+   `78b37f2`), with assets `genphenia-v4.0.tar.gz` and `v4-layer.tar.gz` and the layer in `models/v4/v4-layer/`.
+   **Release the network in diagnostic.ar-model**, as `model-v3.0.0` was, after Mateo's go:
    - unpack the tarball into `models/base/genphenia-v4.0` (DVC);
    - `scripts/package_bundle.sh models/base/genphenia-v4.0 dist/` must print `62b2c5e8…`;
    - a `model-v4.0.0` entry in `CHANGELOG.md` with the evidence above, and the release asset.
