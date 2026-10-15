@@ -67,6 +67,23 @@ target = np.array([lookup.get(p.case.gene.upper(), -1) for p in order])
 case_in = [case_inputs(p.case) for p in order]
 feats, z = addon.features(order, knowledge)
 print(f"{len(order)} patients, features in {time.perf_counter() - start:.0f} s")
+known = target >= 0
+on_true = feats[np.flatnonzero(known), :, target[known]] > 0
+out_inputs = {
+    "patients": len(order),
+    "sex_known": sum(c["sex"] in ("male", "female") for c in case_in),
+    "age_known": sum(c["age_years"] is not None for c in case_in),
+    "onset_known": sum(c["onset_years"] is not None for c in case_in),
+    "excluded_nonempty": sum(bool(c["excluded"]) for c in case_in),
+}
+feature_stats = {
+    f: {
+        "patients_any_gene": int((feats[:, j] > 0).any(axis=1).sum()),
+        "mean_genes_flagged": float((feats[:, j] > 0).sum(axis=1).mean()),
+        "patients_true_gene_flagged": int(on_true[:, j].sum()),
+    }
+    for j, f in enumerate(addon.FEATURE_SETS["all"])
+}
 
 
 def recs(base: str, rows, model=None) -> list[dict]:
@@ -98,7 +115,14 @@ def fitted(base: str, feature_set: str, rows: np.ndarray, label: str) -> tuple[d
 
 
 rows_of = {k: np.flatnonzero(fold == k) for k in FOLDS}
-out = {"kb": {"id": kb_id, "sha256": kb_sha}, "runs": runs, "folds": {}, "checks": {}}
+out = {
+    "kb": {"id": kb_id, "sha256": kb_sha},
+    "runs": runs,
+    "inputs": out_inputs,
+    "features": feature_stats,
+    "folds": {},
+    "checks": {},
+}
 all_recs = {v: [] for v in ("E0", "a", "b", "c", "d")}
 untrained = addon.Addon(addon.untrained(kb_id), knowledge)
 for k in FOLDS:
@@ -217,5 +241,5 @@ for label, block in [*((f"fold {k}", out["folds"][k]) for k in FOLDS), ("folds 0
                 f"| {NAMES[v]} | {s} | {x['n']} ({x['n_groups']}) | {x['mrr_cap']:.4f} "
                 f"({x['e0']['mrr_cap']:.4f}) | {cell(x)} | {x['helped']} / {x['harmed']} | {va} |"
             )
-print(json.dumps(out["checks"], indent=1))
+print(json.dumps({"checks": out["checks"], "inputs": out_inputs, "features": feature_stats}, indent=1))
 print(json.dumps({k: v["theta"] for k, v in final.items()}, indent=1))
