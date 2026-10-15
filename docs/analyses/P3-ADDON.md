@@ -120,10 +120,10 @@ production).
   reading.
 - **Early stopping is weak:** held-out MRR moves by about 0.001; best epochs range from 0 to 34 and seeds
   differ (final `sex_mismatch` 4.2, 3.1 and 1.3).
-- **Harms come from the knowledge rules:** ZIC3 in a female (`xlr_female`, rank 1 → 3, the largest), SMARCB1,
-  IKZF1, SOCS1 and TAF4 through HPO-only onsets, FBXO11 and ATP6V0C through `neg_obligate`. Phase 2 corrected
-  some rules of this kind with its overrides (sex) and Orphanet (earlier onsets); the knowledge rule here drops
-  both.
+- **Harms come from the knowledge rules:** ZIC3 in a female (`xlr_female`, rank 1 → 3, the largest);
+  SMARCB1, IKZF1, SOCS1 and TAF4 through HPO-only onsets; FBXO11 and ATP6V0C through `neg_obligate`. Phase 2
+  corrected some rules of this kind with its overrides (sex) and Orphanet (earlier onsets); the knowledge rule
+  here drops both.
 - **ADR-0019 decision 4** says no obligate rule is derived from n/n rows; the amendment lets the add-on use
   absent symptoms "built like ft-v1.1", whose `neg_obligate` is that rule. It was fitted as specified; it ends
   with θ = 0 in the final bundle. Mateo to confirm the reading of the amendment.
