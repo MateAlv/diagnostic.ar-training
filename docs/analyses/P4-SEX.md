@@ -195,3 +195,72 @@ lists that show at least one gene the patient's sex cannot have (`sex-kb-v2`):
 The hard rule removes every one of them, and it harms no patient. Its value is mostly correctness of what the doctor
 sees, not MRR.
 
+
+## sex-kb-v3: the ADGRG2 fix (2026-10-15)
+Mateo's decision (2026-10-15): the final model is F3 = network `R5x-f4-ef2f309462` + `p3-addon-v1-all` (weights
+unchanged) + the hard sex rule; the list gets its known fix.
+
+- **Change** (`sexrule.MALE_NAMES`, from edc37b3): a name may also start with "(bilateral | unilateral)
+  absence / aplasia / agenesis of (the) vas deferens" or "CBAVD" (after the usual leading words, e.g.
+  "Congenital"). Every other rule is unchanged; a part joined by "with" / "and" / "/" still has to be sex-limited
+  too, so "Deafness and absence of vas deferens" would still not limit. A test pins that, on a list of names, only
+  the absent-vas-deferens names change.
+- **Knowledge `sex-kb-v3`** (built from edc37b3; `data/p4-sex/sex-kb-v3.{stats,audit}.json`, manifest
+  `data/manifests/sex-kb-v3.json`; `sex-kb.json.gz` sha256
+  `7317a6bd5fa6b9b3fd67ae631bde203bb65fc1e5f9ebfb3f768c217ea665c971`).
+  Of every disease name in HPOA 2025-03-03, only one changes: ORPHA:48 "Congenital bilateral absence of vas
+  deferens" (genes CFTR, ADGRG2) is now male by name.
+  - **Added: ADGRG2** (Xp22.13), male, names + phenotypes: OMIM:300985 "Vas deferens, congenital bilateral aplasia
+    of, X-linked" and ORPHA:48. Both are absence of the vas deferens, which only males have.
+  - CFTR stays unlisted (`partial`: cystic fibrosis, pancreatitis, bronchiectasis).
+  - Nothing removed: 101 male-limited, 36 female-limited (v2: 100 / 36); 136 kept.
+- **Harm check** (folds 0–3, sex known): **0 harmed**. 14 patients have a sex-limited true gene, as with v2 (no
+  dev patient has ADGRG2).
+
+**Readings, pooled over folds 0–3** (`read.py sex-kb-v3 sex-kb-v2` from 9635597, `results/P4/sex/oof-sex-kb-v3.json`):
+
+| Comparison | Stratum | Δ capped [95% CI] | Δ MRR | helped / harmed | removed above |
+|---|---|---|---|---|---|
+| network + sex v3 vs network | uncited | +2.4e-6 [+8.9e-8, +7.0e-6] | +1.6e-6 | 130 / 0 | 130 |
+| | uncited in-vocab | +3.6e-6 [+1.4e-7, +1.1e-5] | +2.3e-6 | 130 / 0 | 130 |
+| | cited | +9.1e-7 [0, +2.8e-6] | +5.6e-7 | 4 / 0 | 4 |
+| F1 + sex v3 vs F1 | uncited | +9.5e-7 [+5.9e-8, +2.7e-6] | +6.5e-7 | 110 / 0 | 110 |
+| | uncited in-vocab | +1.5e-6 [+9.3e-8, +4.2e-6] | +9.3e-7 | 110 / 0 | 110 |
+| | cited | +9.1e-7 [0, +2.8e-6] | +5.6e-7 | 3 / 0 | 3 |
+| network + sex v3 vs network + sex v2 | uncited | +3.3e-11 | +2.0e-11 | 1 / 0 | |
+| F1 + sex v3 (F3) vs E0 | uncited | +0.0715 [+0.0488, +0.0963] | +0.0406 | 639 / 544 | |
+| | uncited in-vocab | +0.1090 [+0.0762, +0.1450] | +0.0576 | 639 / 544 | |
+| | cited | +0.0601 [+0.0373, +0.0831] | +0.0686 | 837 / 437 | |
+
+v3 differs from v2 on one patient (fold 3, uncited), moved up by a few ranks far down the list. Top-1 and top-10
+never change. Every rule-on-base comparison harms 0 patients in every fold.
+
+**The add-on on top of the network + hard sex rule** (Mateo's soft-layer question; F3 vs network + sex v3):
+
+| Add-on | Stratum | Δ capped [95% CI] | Δ MRR [95% CI] | helped / harmed |
+|---|---|---|---|---|
+| `p3-addon-v1-all` (fitted on these folds: in-sample) | uncited | +0.0001 [−0.0014, +0.0015] | +0.0007 [−0.0006, +0.0018] | 321 / 26 |
+| | cited | +0.0004 [−0.0001, +0.0011] | +0.0003 [+0.0000, +0.0008] | 147 / 6 |
+| cross-fitted (fold k's add-on never saw fold k: out of fold) | uncited | −0.0000 [−0.0016, +0.0013] | +0.0005 [−0.0010, +0.0016] | 344 / 44 |
+| | cited | +0.0002 [−0.0003, +0.0010] | +0.0002 [−0.0002, +0.0007] | 151 / 27 |
+
+- The cross-fitted add-on is P3-ADDON's variant c: each fold's three seeds, re-read from `results/P3/addon/oof.json`.
+  Its ranks equal P3-ADDON's `oof-c` on every patient. No weight was refitted or changed.
+- Without the rule the same add-ons give 334 / 25 (in-sample) and 353 / 44 (out of fold) uncited: with the rule
+  the add-on helps 13 and 9 fewer patients, whose gain the rule already gives (it lowers the same sex-impossible
+  genes, all the way down).
+- Per fold, uncited, cross-fitted: 113 / 21, 110 / 7, 33 / 16, 88 / 0 helped / harmed.
+- **Reading:** on top of the hard rule, the add-on still helps many more patients than it harms, but by small
+  moves, while the harms are larger. Out of fold its net effect is 0 to four decimals, as without the rule.
+
+**What a doctor would see without the rule** (`sex-kb-v3`, 4,631 scored patients with a known sex):
+
+| Shown in | network: patients (genes) | F1: patients (genes) |
+|---|---|---|
+| first place | 1 (1) | 1 (1) |
+| top 5 | 2 (3) | 1 (1) |
+| top 10 | 10 (15) | 1 (1) |
+| top 50 | 48 (80) | 28 (41) |
+
+The network's counts equal v2's (ADGRG2 is never in these top 50). The add-on's `sex_mismatch` already pushes
+most impossible genes out of the top 10, but not all of them; the hard rule leaves none in the top 50.
