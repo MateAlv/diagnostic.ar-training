@@ -1,0 +1,90 @@
+{
+  "artifact_id": "sex-kb-v2",
+  "kind": "sex-kb",
+  "created_at": "2026-10-15T19:43:01+00:00",
+  "code": {
+    "repo": "https://github.com/MateAlv/diagnostic.ar-training.git",
+    "sha": "f8a677a26fa0c99b046b4a22dffe574facec8c82",
+    "dirty": false
+  },
+  "inputs": [
+    {
+      "id": "source:hpo_annotations_2025_03_03@2025-03-03",
+      "sha256": "e12a07b40cf1b1837e2ae9a5293a1fcf262a5412aff5604a4090a6c68cdcf9b1"
+    },
+    {
+      "id": "source:hpo_ontology_2025_03_03@2025-03-03",
+      "sha256": "bcf3c7cae330441d32837d2672d8a956a4637792d457cbc69711cd1518547191"
+    },
+    {
+      "id": "source:e0_genes_to_phenotype@GraPhens@7aef83d",
+      "sha256": "54272c87684ac341c1103c5621aebec00a441effb678db42d506be3e3bbdc53a"
+    },
+    {
+      "id": "source:hgnc@2026-09-25",
+      "sha256": "3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec"
+    },
+    {
+      "id": "source:genphenia_v3@model-v3.0.0",
+      "sha256": "2201b7f2868afaf00439f76a6197bcf1d94eccc5ea171173719ca48c517a61c8"
+    },
+    {
+      "id": "artifact:p3-addon-kb-v1",
+      "sha256": "089ccf87af2347f19ae37464a4e55629bf43ca6a08cc1a8f70dca828d632535a"
+    }
+  ],
+  "params": {
+    "schema": "sex-kb/2",
+    "builder": "v4.sexrule.build",
+    "vocabulary": "E0 (genphenia_v3) genes",
+    "gene_to_disease": "e0_genes_to_phenotype rows with a disease id",
+    "annotations": "hpo_annotations_2025_03_03, unmasked; NOT rows never read, zero-frequency rows dropped",
+    "ontology": "hpo_ontology_2025_03_03 (sex, genital and DSD subtrees)",
+    "hgnc": "hgnc chromosome locations (declared extra source): Y outside the pseudoautosomal regions",
+    "rules": {
+      "male_terms": [
+        "HP:0010461",
+        "HP:0012874",
+        "HP:0012863"
+      ],
+      "female_terms": [
+        "HP:0010460",
+        "HP:0030012",
+        "HP:0033338",
+        "HP:0020155"
+      ],
+      "dsd_terms": [
+        "HP:0000062",
+        "HP:0000037",
+        "HP:0010458",
+        "HP:0000133",
+        "HP:0012244",
+        "HP:0031170"
+      ],
+      "male_names": "sperm|zoospermia|acrosom|flagell|sertoli|anorchia|cryptorchidism|hypospadias|\\bmale infertility|persistent m[uü]llerian duct|testicular regression|micropenis|vas deferens|prostate cancer|chromosome y microdeletion",
+      "female_names": "ovarian (failure|insufficiency|dysgenesis|hyperstimulation)|premature ovarian|oocyte|female infertility|hydatidiform mole|preimplantation embryonic lethality|embryonic arrest|zygot|empty follicle|mullerian aplasia|mayer-rokitansky|polycystic ovary|recurrent pregnancy loss|pre-?eclampsia|m[uü]llerian aplasia|\\bmrkh\\b|eclampsia|embryo(nic)? (maturation )?arrest",
+      "dsd_names": "sex reversal|gonadal dysgenesis|disorder of sex development|swyer|androgen insensitivity|46,? ?x[xy]|sex development|hermaphroditism|ambiguous genitalia|ovotesticular|pseudovaginal"
+    },
+    "audit_only": "p3-addon-kb-v1 (the add-on's sex list), compared in the audit; not read by the rules"
+  },
+  "params_hash": "b252e77bc21b8c5375ef471c6667c383c539b8ff5c9d1e46f3fbb020a0ebd9d8",
+  "outputs": [
+    {
+      "path": "data/interim/p4-sex/sex-kb-v2/sex-kb.json.gz",
+      "sha256": "fe3299fb0c1140a6d43a91918f901fc5038d3fbf003f6d79d10e9cf1860d5a41",
+      "bytes": 9954
+    },
+    {
+      "path": "data/p4-sex/sex-kb-v2.stats.json",
+      "sha256": "1e42ed47b749a05d996ee5f196878778653255af1eaea91af1e488210a392d68",
+      "bytes": 851
+    },
+    {
+      "path": "data/p4-sex/sex-kb-v2.audit.json",
+      "sha256": "0587528ab857c25908d292378ccdf0b60e135bdf5c0c0590746e8211fa0ceaf5",
+      "bytes": 54278
+    }
+  ],
+  "notes": "",
+  "release": ""
+}
