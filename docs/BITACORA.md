@@ -4991,4 +4991,8 @@ this task, whatever the result**; the last read needs Mateo's OK.
 - Add-on: 101 helped, 5 harmed, +0.00047 [+0.0001, +0.0010] (pass).
 - Doctor view, top 50 showing a sex-impossible gene: network 20 patients, network + add-on 11, F3 0.
 - F3 (network + add-on + hard sex rule `sex-kb-v3`) is the final model for production, pending Mateo's go.
+## 2026-10-15: ADR-0020 accepted (Mateo)
+- Mateo accepted ADR-0020. Its outcomes section records sex-kb-v3, age dropped, final model F3 and the second CONFIRM
+  pass. ADR-0018's `ft-v1.1` integration is superseded by F3. Next: production of F3 through `diagnostic.ar-model`,
+  staging first.
 

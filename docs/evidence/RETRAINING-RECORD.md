@@ -5,7 +5,7 @@ was tried, what worked, what did not, and the limits. Each number is copied from
 file named next to it. This is evidence, not informe prose: the students write the informe.
 
 - **Decision records:** [ADR-0019](../decisions/0019-phase-3-v4-retraining.md) (Phase 3 and its amendments),
-  [ADR-0020](../decisions/0020-v4-validated-and-next.md) (v4 validated; Phase 4).
+  [ADR-0020](../decisions/0020-v4-validated-and-next.md) (v4 validated; Phase 4; accepted 2026-10-15).
 - **Plans and logs:** [PHASE3.md](../PHASE3.md), [BITACORA.md](../BITACORA.md) (every run and decision, dated).
 - **Metric used throughout:** capped MRR (§2). "Δ" is always against E0 (GenPhenAI v3.0 as released) on the same
   patients, with a 95% CI from the paired bootstrap over publication groups (2,000 resamples, seed 0), unless said
@@ -202,7 +202,7 @@ Folds 0–3, network out of fold, uncited capped Δ vs the network:
 - **Earlier reads of the vault patients:** Phases 1 and 2 scored them with other systems one to five times. The
   add-on's recipe (`ft-v1.1`) was confirmed on them in Phase 2. The network itself was never scored on them before.
 
-## 6. Phase 4: the sex and age layer (ADR-0020)
+## 6. Phase 4: the sex and age layer (ADR-0020, accepted 2026-10-15)
 Mateo (2026-10-15): "tiny gain is gold". Sex must be in the model deterministically, and age as far as it can be
 made certain. The vault is spent and never reopened. The layer is checked on folds 0–3 (zero harmed as the bar) and
 by a second, disclosed CONFIRM read.

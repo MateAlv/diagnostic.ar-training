@@ -1,7 +1,7 @@
 # ADR-0020: the v4 candidate passed its vault read; production comes with a deterministic sex and age layer
 
-- **Status:** Proposed, 2026-10-15 (main session for Mateo). Mateo's direction, 2026-10-15: wrap up v4, build sex and
-  age features on top of it ("tiny gain is gold"), then deploy once.
+- **Status:** Accepted, 2026-10-15 (Mateo). Proposed the same day by the main session; Mateo's direction: wrap up v4,
+  build sex and age features on top of it ("tiny gain is gold"), then deploy once. Outcomes are recorded at the end.
 - **Context:** Phase 3 ([ADR-0019](0019-phase-3-v4-retraining.md), [PHASE3.md](../PHASE3.md) §2f).
 
 ## What Phase 3 established
@@ -54,3 +54,20 @@
 - The informe can report v4's gain, its source (real patients) and its limits from EXP-V-002, P3-CONFIRM and this
   ADR. The prose is the students'.
 - Retraining as phenopacket-store grows is the main lever: the gain follows the genes that have real patients.
+
+## Outcomes (2026-10-15, before acceptance)
+- **Sex** ([P4-SEX](../analyses/P4-SEX.md)): hard rule on `sex-kb-v3` (101 genes a woman cannot have, 36 a man cannot
+  have; E0's knowledge plus HGNC location). Folds 0–3: 130 helped, 0 harmed.
+- **Age** ([P4-AGE](../analyses/P4-AGE.md)): dropped as a hard rule (Mateo).
+  - 144 variants were tried; every one that could block a dev patient's true gene harmed at least 4 patients,
+    because of wrong HPOA onsets.
+  - Age and onset stay only in the soft add-on.
+- **Final model F3** = network `R5x-f4-ef2f309462` + add-on `p3-addon-v1-all` (vault-tested weights) + hard sex rule
+  (`sex-kb-v3`).
+- **Second CONFIRM read** ([P4-CONFIRM](../analyses/P4-CONFIRM.md)): all three checks pass.
+  - F3 vs E0, uncited: +0.0717 [+0.0332, +0.1200].
+  - Sex rule: 31 helped, 0 harmed.
+  - Add-on: 101 helped, 5 harmed.
+- **Next:** production of F3 through `diagnostic.ar-model`, staging first (decision 4). F3 supersedes the
+  integration of `ft-v1.1` planned in ADR-0018.
+
