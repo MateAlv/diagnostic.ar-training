@@ -240,6 +240,6 @@ network:
   than its many small helps, as for the add-on (§1).
 - **The add-on reproduces:** out of fold, −0.0000 [−0.0016, +0.0013] uncited (§1's c); the final bundle
   in-sample +0.0001 [−0.0014, +0.0015].
-- **Production reading:** the network alone or with `safe-v1[sex+onset]` (≤ +0.0004 here, no harm) are the
-  only options these numbers support; `rerank-v1.0.0` should not be stacked on the network for
-  publication-style negatives.
+- **For the production decision (Mateo's):** on these patients, stacking `rerank-v1.0.0` on the network lowers it.
+  `ft-v1.1` makes no measurable change, and its only rows untouched by its fitting (R1-dev) are its worst.
+  `safe-v1[sex+onset]` adds at most +0.0004 with no harm.
