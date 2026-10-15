@@ -1,0 +1,36 @@
+{
+ "excluded_ambiguous": 11,
+ "excluded_compound_name": 17,
+ "excluded_contradicted": 2,
+ "excluded_dsd": 18,
+ "excluded_partial": 28,
+ "female_limited": 36,
+ "female_reason_names": 36,
+ "female_reason_phenotypes": 9,
+ "female_reasons_names": 27,
+ "female_reasons_names+phenotypes": 9,
+ "genes": 5229,
+ "male_limited": 101,
+ "male_reason_names": 100,
+ "male_reason_phenotypes": 91,
+ "male_reason_y_chromosome": 19,
+ "male_reason_y_linked_inheritance": 17,
+ "male_reasons_names": 9,
+ "male_reasons_names+phenotypes": 73,
+ "male_reasons_y_chromosome+names+phenotypes": 2,
+ "male_reasons_y_chromosome+y_linked_inheritance": 1,
+ "male_reasons_y_chromosome+y_linked_inheritance+names+phenotypes": 16,
+ "vs_sex-kb-v2": {
+  "before": {
+   "male": 100,
+   "female": 36
+  },
+  "after": {
+   "male": 101,
+   "female": 36
+  },
+  "kept": 136,
+  "added": 1,
+  "removed": 0
+ }
+}

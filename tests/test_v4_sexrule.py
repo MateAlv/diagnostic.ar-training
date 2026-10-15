@@ -3,6 +3,7 @@ drops ambiguous, DSD and compound-name genes, never blocks X-linked recessive, a
 sources. No data needed."""
 
 import json
+import re
 
 import numpy as np
 import pytest
@@ -28,6 +29,9 @@ DISEASES = {
     "OMIM:7": ("Some syndrome 7", [("P", "HP:0000027"), ("P", "HP:0000078")]),
     "OMIM:8": ("Deafness, Y-linked 8", [("I", "HP:0001450"), ("P", "HP:0001250")]),
     "OMIM:9": ("Some syndrome 9", [("P", "HP:0000062"), ("P", "HP:0001250")]),
+    "OMIM:10": ("Vas deferens, congenital bilateral aplasia of, X-linked", [("P", "HP:0000027")]),
+    "ORPHA:48": ("Congenital bilateral absence of vas deferens", [("P", "HP:0000027"), ("P", "HP:0001250")]),
+    "OMIM:11": ("Cystic fibrosis", [("P", "HP:0001250"), ("P", "HP:0000027")]),
 }
 GENES = {
     "MALE1": ["OMIM:1"],
@@ -43,8 +47,21 @@ GENES = {
     "PART": ["OMIM:1", "OMIM:4"],
     "YGENE": [],
     "PAR": ["OMIM:4"],
+    "ADGRG2": ["OMIM:10", "ORPHA:48"],
+    "CFTR": ["OMIM:10", "ORPHA:48", "OMIM:11"],
 }
-LOCATIONS = {"YGENE": "Yq11.223", "PAR": "Xp22.33 and Yp11.32", "YINH": "Yp11.2", "XLR": "Xp21.2"}
+LOCATIONS = {
+    "YGENE": "Yq11.223",
+    "PAR": "Xp22.33 and Yp11.32",
+    "YINH": "Yp11.2",
+    "XLR": "Xp21.2",
+    "ADGRG2": "Xp22.13",
+}
+SEX_KB_V2_MALE_NAMES = (
+    r"sperm|zoospermia|acrosom|flagell|sertoli|anorchia|cryptorchidism|hypospadias|\bmale infertility|"
+    r"persistent m[uü]llerian duct|testicular regression|micropenis|vas deferens|prostate cancer|"
+    r"chromosome y microdeletion"
+)
 EDGES = (
     ("HP_0000078", "HP_0000001"),
     ("HP_0010461", "HP_0000078"),
@@ -136,10 +153,19 @@ def test_limits_reasons_and_exclusions(built):
     assert excluded["PART"]["why"] == "partial"
     assert excluded["VWM"]["why"] == "compound_name"
     assert {"XLR", "PAR", "NOTHING"}.isdisjoint(genes) and {"XLR", "PAR", "NOTHING"}.isdisjoint(excluded)
-    assert stats["male_limited"] == 4 and stats["female_limited"] == 1 and stats["genes"] == len(GENES) + 1
+    assert stats["male_limited"] == 5 and stats["female_limited"] == 1 and stats["genes"] == len(GENES) + 1
     assert sexrule.limits(kb) == {"MALE1": "male", "FEMALE1": "female", "PHEN": "male", "YINH": "male"} | {
-        "YGENE": "male"
+        "YGENE": "male",
+        "ADGRG2": "male",
     }
+
+
+def test_absent_vas_deferens_is_male_limited_since_v3(built):
+    kb, _, _ = built
+    gene = kb["genes"]["ADGRG2"]
+    assert gene["limit"] == "male" and gene["reasons"] == ["names", "phenotypes"]
+    assert gene["diseases"]["ORPHA:48"] == ["male:names", "male_terms"]
+    assert kb["excluded"]["CFTR"]["why"] == "partial"
 
 
 @pytest.mark.parametrize(
@@ -158,11 +184,52 @@ def test_limits_reasons_and_exclusions(built):
         ("Muscular dystrophy, congenital hearing loss, and ovarian insufficiency syndrome", None),
         ("X-linked microcephaly-growth retardation-prognathism-cryptorchidism syndrome", None),
         ("Prostate cancer/brain cancer susceptibility", None),
+        ("Congenital bilateral absence of vas deferens", "male"),
+        ("Congenital unilateral absence of the vas deferens", "male"),
+        ("Vas deferens, congenital bilateral aplasia of, X-linked", "male"),
+        ("CBAVD", "male"),
+        ("Deafness and absence of vas deferens", None),
+        ("Absence of vas deferens with renal agenesis", None),
+        ("Congenital bilateral absence of the uterus", None),
     ],
 )
 def test_names_limit_only_when_the_whole_name_is_sex_limited(name, sex):
     found = [s for s, pattern in sexrule.NAMES.items() if sexrule.limited_name(name, pattern)]
     assert found == ([sex] if sex else [])
+
+
+NAMES_SEEN = [
+    "Spermatogenic failure 7",
+    "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+    "Deafness, sensorineural, and male infertility",
+    "Female infertility due to oocyte meiotic arrest",
+    "Hypospadias 1, X-linked",
+    "Non-syndromic posterior hypospadias",
+    "X-linked microcephaly-growth retardation-prognathism-cryptorchidism syndrome",
+    "Prostate cancer, hereditary, 1",
+    "Prostate cancer/brain cancer susceptibility",
+    "Chromosome Y microdeletion syndrome",
+    "Azoospermia, obstructive, with nephrolithiasis",
+    "Persistent Müllerian duct syndrome",
+    "Cystic fibrosis",
+    "Congenital absence of the uterus and vagina",
+    "Bilateral renal agenesis",
+    "Aplasia of the thumb",
+    "Absence of septum pellucidum with porencephaly",
+    "Congenital bilateral absence of vas deferens",
+    "Vas deferens, congenital bilateral aplasia of, X-linked",
+    "Deafness and absence of vas deferens",
+    "CBAVD",
+]
+
+
+def test_v3_names_add_only_the_absent_vas_deferens():
+    v2 = re.compile(SEX_KB_V2_MALE_NAMES, re.I)
+    v3 = sexrule.MALE_NAMES
+    changed = {n for n in NAMES_SEEN if sexrule.limited_name(n, v2) != sexrule.limited_name(n, v3)}
+    assert changed == {"Congenital bilateral absence of vas deferens", "CBAVD"}
+    assert all(sexrule.limited_name(n, v3) for n in changed)
+    assert all(bool(v2.search(n)) == bool(v3.search(n)) for n in NAMES_SEEN if n != "CBAVD")
 
 
 def test_x_linked_recessive_is_not_evidence():
@@ -218,3 +285,11 @@ def test_block_keeps_scores_when_nothing_or_everything_is_blocked():
 def test_limits_reads_the_addon_knowledge_sex_list():
     kb = {"schema": "ft-kb/2", "safe": {"genes": {"A": {"sex": {"limit": "male"}}, "B": {"onset": {}}}}}
     assert sexrule.limits(kb) == {"A": "male"}
+
+
+def test_shown_counts_masked_genes_in_each_top_k():
+    scores, rule = scores_and_rule()
+    mask = rule.blocked("female")
+    assert sexrule.shown(scores, mask, (1, 2, 3, 6, 10)) == {1: 1, 2: 1, 3: 1, 6: 2, 10: 2}
+    assert sexrule.shown(rule.apply(scores, "female"), mask, (4, 5)) == {4: 0, 5: 1}
+    assert sexrule.shown(np.zeros(3), np.array([False, True, False]), (1, 2)) == {1: 0, 2: 1}

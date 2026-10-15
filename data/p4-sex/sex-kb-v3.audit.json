@@ -1,0 +1,2918 @@
+{
+ "kb": "sex-kb-v3",
+ "compared_with": "sex-kb-v2",
+ "counts": {
+  "before": {
+   "male": 100,
+   "female": 36
+  },
+  "after": {
+   "male": 101,
+   "female": 36
+  },
+  "kept": 136,
+  "added": 1,
+  "removed": 0
+ },
+ "added": [
+  {
+   "gene": "ADGRG2",
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xp22.13",
+   "before": null,
+   "diseases": [
+    {
+     "id": "OMIM:300985",
+     "name": "Vas deferens, congenital bilateral aplasia of, X-linked",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:48",
+     "name": "Congenital bilateral absence of vas deferens",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  }
+ ],
+ "removed": [],
+ "limited": {
+  "ACR": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "22q13.33",
+   "diseases": [
+    {
+     "id": "OMIM:620500",
+     "name": "Spermatogenic failure 87",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ACTL7A": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "9q31.3",
+   "diseases": [
+    {
+     "id": "OMIM:620499",
+     "name": "Spermatogenic failure 86",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ACTL9": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "19p13.2",
+   "diseases": [
+    {
+     "id": "OMIM:619258",
+     "name": "Spermatogenic failure 53",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ADGRG2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xp22.13",
+   "diseases": [
+    {
+     "id": "OMIM:300985",
+     "name": "Vas deferens, congenital bilateral aplasia of, X-linked",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:48",
+     "name": "Congenital bilateral absence of vas deferens",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "AK7": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "14q32.2",
+   "diseases": [
+    {
+     "id": "OMIM:617965",
+     "name": "Spermatogenic failure 27",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "AKAP3": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12p13.32",
+   "diseases": [
+    {
+     "id": "OMIM:620353",
+     "name": "Spermatogenic failure 82",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ARMC12": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "6p21.31",
+   "diseases": [
+    {
+     "id": "OMIM:620744",
+     "name": "Spermatogenic failure 90",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ARMC2": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "6q21",
+   "diseases": [
+    {
+     "id": "OMIM:618433",
+     "name": "Spermatogenic failure 38",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ASTL": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "2q11.2",
+   "diseases": [
+    {
+     "id": "OMIM:619643",
+     "name": "Oocyte maturation defect 11",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "AURKC": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "19q13.43",
+   "diseases": [
+    {
+     "id": "OMIM:243060",
+     "name": "Male infertility with large-headed, multiflagellar, polyploid spermatozoa",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "BPY2": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "BRDT": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "1p22.1",
+   "diseases": [
+    {
+     "id": "OMIM:617644",
+     "name": "Spermatogenic failure 21",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "BTG4": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "11q23.1",
+   "diseases": [
+    {
+     "id": "OMIM:619009",
+     "name": "Oocyte maturation defect 8",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "C2CD6": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2q33.1",
+   "diseases": [
+    {
+     "id": "OMIM:619805",
+     "name": "Spermatogenic failure 68",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CATIP": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2q35",
+   "diseases": [
+    {
+     "id": "OMIM:619379",
+     "name": "Spermatogenic failure 54",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CATSPER1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11q13.1",
+   "diseases": [
+    {
+     "id": "OMIM:612997",
+     "name": "Spermatogenic failure 7",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CCDC146": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "7q11.23",
+   "diseases": [
+    {
+     "id": "OMIM:620850",
+     "name": "Spermatogenic failure 94",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CCDC34": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11p14.1",
+   "diseases": [
+    {
+     "id": "OMIM:620084",
+     "name": "Spermatogenic failure 76",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CCDC62": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12q24.31",
+   "diseases": [
+    {
+     "id": "OMIM:619803",
+     "name": "Spermatogenic failure 67",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CCIN": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "9p13.3",
+   "diseases": [
+    {
+     "id": "OMIM:620838",
+     "name": "Spermatogenic failure 91",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CDC20": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "1p34.2",
+   "diseases": [
+    {
+     "id": "OMIM:620276",
+     "name": "Oocyte/zygote/embryo maturation arrest 14",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "CDY1": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.23",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CDY2A": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.222",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CEP112": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17q24.1",
+   "diseases": [
+    {
+     "id": "OMIM:619044",
+     "name": "Spermatogenic failure 44",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP251": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12q24.31",
+   "diseases": [
+    {
+     "id": "OMIM:618152",
+     "name": "Spermatogenic failure 33",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP44": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "3q13.2",
+   "diseases": [
+    {
+     "id": "OMIM:617593",
+     "name": "Spermatogenic failure 20",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP47": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xp21.1",
+   "diseases": [
+    {
+     "id": "OMIM:301059",
+     "name": "Spermatogenic failure, X-linked, 3",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP58": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "10q25.1",
+   "diseases": [
+    {
+     "id": "OMIM:619144",
+     "name": "Spermatogenic failure 49",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP61": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "20p11.23",
+   "diseases": [
+    {
+     "id": "OMIM:620409",
+     "name": "Spermatogenic failure 84",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP65": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2q35",
+   "diseases": [
+    {
+     "id": "OMIM:618664",
+     "name": "Spermatogenic failure 40",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP69": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "7q21.13",
+   "diseases": [
+    {
+     "id": "OMIM:617959",
+     "name": "Spermatogenic failure 24",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP70": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "10q22.2",
+   "diseases": [
+    {
+     "id": "OMIM:618670",
+     "name": "Spermatogenic failure 41",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CFAP91": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "3q13.33",
+   "diseases": [
+    {
+     "id": "OMIM:619177",
+     "name": "Spermatogenic failure 51",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CHEK1": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "11q24.2",
+   "diseases": [
+    {
+     "id": "OMIM:620610",
+     "name": "Oocyte/zygote/embryo maturation arrest 21",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "CT55": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xq26.3",
+   "diseases": [
+    {
+     "id": "OMIM:301106",
+     "name": "Spermatogenic failure, X-linked, 7",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "CYLC1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xq21.1",
+   "diseases": [
+    {
+     "id": "OMIM:301119",
+     "name": "Spermatogenic failure, X-linked, 8, susceptibility to",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DAZ1": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DAZ2": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DAZ3": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.23",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DAZ4": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.23",
+   "diseases": [
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DDX3Y": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.221",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DIAPH2": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "Xq21.33",
+   "diseases": [
+    {
+     "id": "OMIM:300511",
+     "name": "Premature ovarian failure 2A",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "DNAH10": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12q24.31",
+   "diseases": [
+    {
+     "id": "OMIM:619515",
+     "name": "Spermatogenic failure 56",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DNAH17": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17q25.3",
+   "diseases": [
+    {
+     "id": "OMIM:618643",
+     "name": "Spermatogenic failure 39",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DNAH2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17p13.1",
+   "diseases": [
+    {
+     "id": "OMIM:619094",
+     "name": "Spermatogenic failure 45",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DNAH8": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "6p21.2",
+   "diseases": [
+    {
+     "id": "OMIM:619095",
+     "name": "Spermatogenic failure 46",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DNALI1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "1p34.3",
+   "diseases": [
+    {
+     "id": "OMIM:620354",
+     "name": "Spermatogenic failure 83",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DNHD1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11p15.4",
+   "diseases": [
+    {
+     "id": "OMIM:619712",
+     "name": "Spermatogenic failure 65",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "DPY19L2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12q14.2",
+   "diseases": [
+    {
+     "id": "OMIM:613958",
+     "name": "Spermatogenic failure 9",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ESR2": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "14q23.2-q23.3",
+   "diseases": [
+    {
+     "id": "OMIM:618187",
+     "name": "Ovarian dysgenesis 8",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "FIGLA": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "2p13.3",
+   "diseases": [
+    {
+     "id": "OMIM:612310",
+     "name": "Premature ovarian failure 6",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "FLT1": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "13q12.3",
+   "diseases": [
+    {
+     "id": "ORPHA:275555",
+     "name": "Preeclampsia",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "FSIP2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2q32.1",
+   "diseases": [
+    {
+     "id": "OMIM:618153",
+     "name": "Spermatogenic failure 34",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "GCNA": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "Xq13.1",
+   "diseases": [
+    {
+     "id": "OMIM:301077",
+     "name": "Spermatogenic failure, X-linked, 4",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "GDF9": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "5q31.1",
+   "diseases": [
+    {
+     "id": "OMIM:618014",
+     "name": "Premature ovarian failure 14",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "GGN": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "19q13.2",
+   "diseases": [
+    {
+     "id": "OMIM:619826",
+     "name": "Spermatogenic failure 69",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "HFM1": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "1p22.2",
+   "diseases": [
+    {
+     "id": "OMIM:615724",
+     "name": "Premature ovarian failure 9",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "HROB": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "17q21.31",
+   "diseases": [
+    {
+     "id": "OMIM:620897",
+     "name": "Ovarian dysgenesis 11",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "HSF2BP": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "21q22.3",
+   "diseases": [
+    {
+     "id": "OMIM:619245",
+     "name": "Premature ovarian failure 19",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "HSFY1": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.222",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "INSL3": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "19p13.11",
+   "diseases": [
+    {
+     "id": "OMIM:219050",
+     "name": "Cryptorchidism, unilateral or bilateral",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "IQCN": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "19p13.11",
+   "diseases": [
+    {
+     "id": "OMIM:620170",
+     "name": "Spermatogenic failure 78",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "KCNU1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "8p11.23",
+   "diseases": [
+    {
+     "id": "OMIM:620196",
+     "name": "Spermatogenic failure 79",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "KDM5D": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "KHDC3L": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "6q13",
+   "diseases": [
+    {
+     "id": "OMIM:614293",
+     "name": "Hydatidiform mole, recurrent, 2",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "KLHL10": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17q21.2",
+   "diseases": [
+    {
+     "id": "OMIM:615081",
+     "name": "Spermatogenic failure 11",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "KPNA7": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "7q22.1",
+   "diseases": [
+    {
+     "id": "OMIM:620319",
+     "name": "Oocyte/zygote/embryo maturation arrest 17",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "LRRC23": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12p13.31",
+   "diseases": [
+    {
+     "id": "OMIM:620848",
+     "name": "Spermatogenic failure 92",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "M1AP": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2p13.1",
+   "diseases": [
+    {
+     "id": "OMIM:619108",
+     "name": "Spermatogenic failure 48",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "MCM9": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "6q22.31",
+   "diseases": [
+    {
+     "id": "OMIM:616185",
+     "name": "Ovarian dysgenesis 4",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "MEI1": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "22q13.2",
+   "diseases": [
+    {
+     "id": "OMIM:618431",
+     "name": "Hydatidiform mole, recurrent, 3",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "MOS": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "8q12.1",
+   "diseases": [
+    {
+     "id": "OMIM:620383",
+     "name": "Oocyte/zygote/embryo maturation arrest 20",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "MOV10L1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "22q13.33",
+   "diseases": [
+    {
+     "id": "OMIM:619878",
+     "name": "Spermatogenic failure 73",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "MXI1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "10q25.2",
+   "diseases": [
+    {
+     "id": "OMIM:176807",
+     "name": "Prostate cancer",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "NANOS1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "10q26.11",
+   "diseases": [
+    {
+     "id": "OMIM:615413",
+     "name": "Spermatogenic failure 12",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "NLRP2": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "19q13.42",
+   "diseases": [
+    {
+     "id": "OMIM:620332",
+     "name": "Oocyte/zygote/embryo maturation arrest 18",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "NLRP5": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "19q13.43",
+   "diseases": [
+    {
+     "id": "OMIM:620333",
+     "name": "Oocyte/zygote/embryo maturation arrest 19",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "NLRP7": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "19q13.42",
+   "diseases": [
+    {
+     "id": "OMIM:231090",
+     "name": "Hydatidiform mole, recurrent, 1",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "NOBOX": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "7q35",
+   "diseases": [
+    {
+     "id": "OMIM:611548",
+     "name": "Premature ovarian failure 5",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "PADI6": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "1p36.13",
+   "diseases": [
+    {
+     "id": "OMIM:617234",
+     "name": "Preimplantation embryonic lethality 2",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "PANX1": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11q21",
+   "diseases": [
+    {
+     "id": "OMIM:618550",
+     "name": "Oocyte maturation defect 7",
+     "evidence": [
+      "female:names"
+     ]
+    },
+    {
+     "id": "ORPHA:488191",
+     "name": "Female infertility due to oocyte meiotic arrest",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "PATL2": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "15q21.1",
+   "diseases": [
+    {
+     "id": "OMIM:617743",
+     "name": "Oocyte maturation defect 4",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:488191",
+     "name": "Female infertility due to oocyte meiotic arrest",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "PDHA2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "4q22.3",
+   "diseases": [
+    {
+     "id": "OMIM:619828",
+     "name": "Spermatogenic failure 70",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "PLCZ1": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "12p12.3",
+   "diseases": [
+    {
+     "id": "OMIM:617214",
+     "name": "Spermatogenic failure 17",
+     "evidence": [
+      "male:names"
+     ]
+    }
+   ]
+  },
+  "PMFBP1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "16q22.2",
+   "diseases": [
+    {
+     "id": "OMIM:618112",
+     "name": "Spermatogenic failure 31",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:529970",
+     "name": "Male infertility due to acephalic spermatozoa",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "PNLDC1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "6q25.3",
+   "diseases": [
+    {
+     "id": "OMIM:619528",
+     "name": "Spermatogenic failure 57",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "POF1B": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "Xq21.1",
+   "diseases": [
+    {
+     "id": "OMIM:300604",
+     "name": "Premature ovarian failure 2B",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "PRY": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "PRY2": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "QRICH2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17q25.1",
+   "diseases": [
+    {
+     "id": "OMIM:618341",
+     "name": "Spermatogenic failure 35",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "RBMY1A1": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "REC114": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "15q24.1",
+   "diseases": [
+    {
+     "id": "OMIM:619176",
+     "name": "Oocyte maturation defect 10",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "RNASEL": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "1q25.3",
+   "diseases": [
+    {
+     "id": "OMIM:601518",
+     "name": "Prostate cancer, hereditary, 1",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "RNF212": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "4p16.3",
+   "diseases": [
+    {
+     "id": "OMIM:619673",
+     "name": "Spermatogenic failure 62",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "RPL10L": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "14q21.2",
+   "diseases": [
+    {
+     "id": "OMIM:619689",
+     "name": "Spermatogenic failure 63",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "RPS4Y2": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.223",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SEPTIN12": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "16p13.3",
+   "diseases": [
+    {
+     "id": "OMIM:614822",
+     "name": "Spermatogenic failure 10",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SHOC1": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "9q31.3",
+   "diseases": [
+    {
+     "id": "OMIM:619949",
+     "name": "Spermatogenic failure 75",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SLC26A8": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "6p21.31",
+   "diseases": [
+    {
+     "id": "OMIM:606766",
+     "name": "Spermatogenic failure 3",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SPACA1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "6q15",
+   "diseases": [
+    {
+     "id": "OMIM:620490",
+     "name": "Spermatogenic failure 85",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SPAG17": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "1p12",
+   "diseases": [
+    {
+     "id": "OMIM:619380",
+     "name": "Spermatogenic failure 55",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SPATA16": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "3q26.31",
+   "diseases": [
+    {
+     "id": "OMIM:102530",
+     "name": "Spermatogenic failure 6",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SPINK2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "4q12",
+   "diseases": [
+    {
+     "id": "OMIM:618091",
+     "name": "Spermatogenic failure 29",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SSX1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xp11.23",
+   "diseases": [
+    {
+     "id": "OMIM:301099",
+     "name": "Spermatogenic failure, X-linked, 5",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "STK33": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11p15.4",
+   "diseases": [
+    {
+     "id": "OMIM:620849",
+     "name": "Spermatogenic failure 93",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "STOX1": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "10q22.1",
+   "diseases": [
+    {
+     "id": "OMIM:609404",
+     "name": "Preeclampsia/eclampsia 4",
+     "evidence": [
+      "female:names"
+     ]
+    },
+    {
+     "id": "ORPHA:275555",
+     "name": "Preeclampsia",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "SUN5": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "20q11.21",
+   "diseases": [
+    {
+     "id": "OMIM:617187",
+     "name": "Spermatogenic failure 16",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:529970",
+     "name": "Male infertility due to acephalic spermatozoa",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SYCP2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "20q13.33",
+   "diseases": [
+    {
+     "id": "OMIM:258150",
+     "name": "Spermatogenic failure 1",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "SYCP2L": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "6p24.2",
+   "diseases": [
+    {
+     "id": "OMIM:620840",
+     "name": "Premature ovarian failure 24",
+     "evidence": [
+      "female:names",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "SYCP3": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "12q23.2",
+   "diseases": [
+    {
+     "id": "OMIM:270960",
+     "name": "Spermatogenic failure 4",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TAF4B": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "18q11.2",
+   "diseases": [
+    {
+     "id": "OMIM:615841",
+     "name": "Spermatogenic failure 13",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TBL1Y": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance"
+   ],
+   "location": "Yp11.2",
+   "diseases": [
+    {
+     "id": "OMIM:400047",
+     "name": "DEAFNESS, Y-LINKED 2",
+     "evidence": [
+      "male:y_linked_inheritance"
+     ]
+    }
+   ]
+  },
+  "TDRD9": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "14q32.33",
+   "diseases": [
+    {
+     "id": "OMIM:618110",
+     "name": "Spermatogenic failure 30",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TEKT3": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "17p12",
+   "diseases": [
+    {
+     "id": "OMIM:620277",
+     "name": "Spermatogenic failure 81",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TERB1": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "16q22.1",
+   "diseases": [
+    {
+     "id": "OMIM:619646",
+     "name": "Spermatogenic failure 60",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TERB2": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "15q21.1",
+   "diseases": [
+    {
+     "id": "OMIM:619645",
+     "name": "Spermatogenic failure 59",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TEX11": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xq13.1",
+   "diseases": [
+    {
+     "id": "OMIM:309120",
+     "name": "Spermatogenic failure, X-linked 2",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TEX14": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "17q22",
+   "diseases": [
+    {
+     "id": "OMIM:617707",
+     "name": "Spermatogenic failure 23",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TEX15": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "8p12",
+   "diseases": [
+    {
+     "id": "OMIM:617960",
+     "name": "Spermatogenic failure 25",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TLE6": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "19p13.3",
+   "diseases": [
+    {
+     "id": "OMIM:616814",
+     "name": "Preimplantation embryonic lethality 1",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "TOP6BL": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "11q13.2",
+   "diseases": [
+    {
+     "id": "OMIM:618432",
+     "name": "Hydatidiform mole, recurrent, 4",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "TSGA10": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "2q11.2",
+   "diseases": [
+    {
+     "id": "OMIM:617961",
+     "name": "Spermatogenic failure 26",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TSPY1": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yp11.2",
+   "diseases": [
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TTC21A": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "3p22.2",
+   "diseases": [
+    {
+     "id": "OMIM:618429",
+     "name": "Spermatogenic failure 37",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TTC29": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "4q31.22",
+   "diseases": [
+    {
+     "id": "OMIM:618745",
+     "name": "Spermatogenic failure 42",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "TUBB8": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "10p15.3",
+   "diseases": [
+    {
+     "id": "OMIM:616780",
+     "name": "Oocyte maturation defect 2",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:488191",
+     "name": "Female infertility due to oocyte meiotic arrest",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "USP26": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "Xq26.2",
+   "diseases": [
+    {
+     "id": "OMIM:301101",
+     "name": "Spermatogenic failure, X-linked, 6",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "USP9Y": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.221",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:1646",
+     "name": "Chromosome Y microdeletion syndrome",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "VCY": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.221",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "WEE2": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "7q34",
+   "diseases": [
+    {
+     "id": "OMIM:617996",
+     "name": "Oocyte maturation defect 5",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:488191",
+     "name": "Female infertility due to oocyte meiotic arrest",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "XKRY": {
+   "limit": "male",
+   "reasons": [
+    "y_chromosome",
+    "y_linked_inheritance",
+    "names",
+    "phenotypes"
+   ],
+   "location": "Yq11.222",
+   "diseases": [
+    {
+     "id": "OMIM:415000",
+     "name": "Spermatogenic failure, Y-linked, 2",
+     "evidence": [
+      "male:y_linked_inheritance",
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ZFP36L2": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "2p21",
+   "diseases": [
+    {
+     "id": "OMIM:620154",
+     "name": "Oocyte maturation defect 13",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "ZMYND15": {
+   "limit": "male",
+   "reasons": [
+    "names"
+   ],
+   "location": "17p13.2",
+   "diseases": [
+    {
+     "id": "OMIM:615842",
+     "name": "Spermatogenic failure 14",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    },
+    {
+     "id": "ORPHA:399805",
+     "name": "Male infertility with azoospermia or oligozoospermia due to single gene mutation",
+     "evidence": [
+      "male:names",
+      "male_terms"
+     ]
+    }
+   ]
+  },
+  "ZP1": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "11q12.2",
+   "diseases": [
+    {
+     "id": "OMIM:615774",
+     "name": "Oocyte maturation defect",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "ZP2": {
+   "limit": "female",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "16p12.3-p12.2",
+   "diseases": [
+    {
+     "id": "OMIM:618353",
+     "name": "Oocyte maturation defect 6",
+     "evidence": [
+      "female:names",
+      "female:phenotypes",
+      "female_terms"
+     ]
+    }
+   ]
+  },
+  "ZP3": {
+   "limit": "female",
+   "reasons": [
+    "names"
+   ],
+   "location": "7q11.23",
+   "diseases": [
+    {
+     "id": "OMIM:617712",
+     "name": "Oocyte maturation defect 3",
+     "evidence": [
+      "female:names"
+     ]
+    }
+   ]
+  },
+  "ZPBP": {
+   "limit": "male",
+   "reasons": [
+    "names",
+    "phenotypes"
+   ],
+   "location": "7p12.2",
+   "diseases": [
+    {
+     "id": "OMIM:619799",
+     "name": "Spermatogenic failure 66",
+     "evidence": [
+      "male:names",
+      "male:phenotypes",
+      "male_terms"
+     ]
+    }
+   ]
+  }
+ }
+}
