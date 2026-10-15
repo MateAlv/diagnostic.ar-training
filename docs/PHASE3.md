@@ -200,9 +200,9 @@ amendment 2026-10-15). Both parts are reported separately at every reading. Orde
 |---|---|---|
 | 1 | Network `R5x-f4`: the R5-r30 recipe with the real patients of folds 0–3; folds 0–3 read cross-fitted (P3-BATCH1-DIAG §11) | done (#161) |
 | 2 | Add-on: Phase 2's `ft-v1.1` residual refit on the network's out-of-fold scores (folds 0–3), E0's knowledge only; read out of fold (fit on three folds, read the fourth): network, + sex/age/onset, + negated symptoms | done: adds +0.0001 [−0.0014, +0.0014] on top of the network; negation weights end at 0 ([P3-ADDON](analyses/P3-ADDON.md)) |
-| 3 | Sex and age work (Mateo): further re-rank features on sex and age, developed and read the same way on folds 0–3 | after 2 |
-| 4 | Freeze the claimed system: network, add-on, features, reading rules | after 3 |
-| 5 | CONFIRM check of at most 3 finalists (main session, ledgered), with its protocol written before the read | after 4 |
+| 3 | Sex and age work (Mateo): further re-rank features on sex and age, developed and read the same way on folds 0–3 | closed: no room on top of the network with E0's knowledge (P3-ADDON, "Room for sex and age") |
+| 4 | Freeze the claimed system: network, add-on, features, reading rules | done: network `R5x-f4` + add-on `p3-addon-v1-all` ([P3-CONFIRM](analyses/P3-CONFIRM.md) §1) |
+| 5 | CONFIRM check of at most 3 finalists (main session, ledgered), with its protocol written before the read | protocol written ([P3-CONFIRM](analyses/P3-CONFIRM.md)); read next |
 | 6 | Vault pre-registration, independent review (opus/xhigh), Mateo's go, the single vault read | after 5 |
 
 - **Why CONFIRM waits for step 4:** CONFIRM is read once, like the vault. The network does not change in steps 2–3,
