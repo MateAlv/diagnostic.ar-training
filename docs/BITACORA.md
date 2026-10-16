@@ -5045,3 +5045,28 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - The `evidencia/` snapshot was refreshed (tags `ft-v1.1.0`, `model-v4.0.0`).
   - It is evidence, not informe prose.
 
+## 2026-10-16: v4 integrated in diagnostic.ar-api; reference case; probabilities
+- **Integration**, reported by the deploy session: HANDOFF-v4-prod steps 2–6 are merged in diagnostic.ar-api #19
+  (main `9074e06`).
+  - `model.lock` pins `genphenia-v4.0.tar.gz` (`62b2c5e8…`) and `v4-layer.tar.gz` (`80d1b159…`). Startup refuses on
+    any mismatch with `v4.json` or on a `model.onnx` other than `fafbecbe…`.
+  - The layer sits between the logits and the softmax. `V4_LAYER_ENABLED` is on by default; off serves the network
+    alone.
+  - With no sex, age or onset, the output is the engine's, bit for bit. `excluded` is accepted and has no effect.
+  - `rerank-v1` and `ft-v1.1` are out of the service. `/healthz` reports both sha256.
+  - Tests in the image: 99 pass, including the 32-case fixture (tolerance 2e-5, as diagnostic.ar-model #13).
+  - `services/genphenai/check_deployed.py URL` runs the staging checklist: on a local container all checks pass,
+    p95 21 ms.
+  - Not on staging yet: it ships with v0.10.0 after Mateo's go for nodo0 and the tag. Production waits for his go
+    in that session.
+- **Reference case** of the cloud copy (HP:0000957, HP:0001067, HP:0009737, HP:0000316), reproduced here with the
+  vendored engine on both tarballs:
+  - v3: NF1 0.661, SPRED1 0.333, NF2 0.005;
+  - v4: NF1 0.999, NF2 0.0006, MSH6 0.0002.
+  - It is one case, not evidence.
+- **Probabilities** (`scripts/analysis/p3_addon/calibration.py`, `results/P3/addon/calibration.json`): the 0.999 led to
+  a check of the top-1 probability, folds 0–3 out of fold (cross-fitted networks; E0 on the same 4,369 patients).
+  - Both systems are overconfident, and the network less so: ECE 0.184 vs E0's 0.226 (uncited: 0.277 vs 0.309).
+  - At ≥ 0.99 the network's top gene is right 93.8% of the time (uncited 83.3%); at 0.80–0.95, 53.6% (38.0%).
+  - Not a regression, but a limit: the validation is about the order, not the numbers. Added to HANDOFF-v4-prod
+    "Limits" and RETRAINING-RECORD §5.

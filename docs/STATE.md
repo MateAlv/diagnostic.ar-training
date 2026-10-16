@@ -23,8 +23,11 @@
   - Assets: `genphenia-v4.0.tar.gz` (`62b2c5e8…`) and `v4-layer.tar.gz` (`80d1b159…`).
   - Parity on 5,053 dev patients through the production engine.
   - Production is unchanged.
-- **Next:** the deploy session runs [HANDOFF-v4-prod.md](HANDOFF-v4-prod.md) steps 2–6: API pin, vendor the
-  layer, the sex/age/onset inputs, the fixture tests. Then staging, then Mateo's go for production.
+- **Integrated 2026-10-15:** [HANDOFF-v4-prod.md](HANDOFF-v4-prod.md) steps 2–6 are merged in diagnostic.ar-api
+  (#19, main `9074e06`). This covers the pins, the layer, the sex/age/onset inputs, the 32-case fixture and
+  `check_deployed.py`. It is not on staging yet.
+- **Next:** staging takes it with the v0.10.0 release, after Mateo's go for nodo0 and the tag. The deploy session
+  then runs `check_deployed.py` against staging. Production needs Mateo's go in that session.
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.

@@ -218,6 +218,17 @@ No rank changed, so there were no tie flips to report. The layer changes the out
   entry would block the true gene of a sex-limited condition.
 - **Excluded terms change nothing in F3**, although the API may accept them.
 - **Present terms the DAG does not know are left out** by the API, as for E0. A case with none is unscorable (422).
+- **The probabilities are not chances of being right.** Like E0's, the network's top-1 probability overstates how
+  often that gene is right, more so for genes from publications E0 never cited. The validation measured the order of
+  the list, not these numbers. Folds 0–3, out of fold (`results/P3/addon/calibration.json`, cross-fitted networks):
+  - top gene at 80–95%: right 54% of the time (uncited 38%);
+  - top gene at ≥ 99%: right 94% of the time (uncited 83%);
+  - E0 overstates more: ECE 0.226 against the network's 0.184 (uncited 0.309 against 0.277). ECE is the mean gap
+    between the shown probability and how often it is right.
+  - The web app already presents it as a score, not a probability (deploy session, 2026-10-16). It shows "bajo"
+    below 0.01 and otherwise three decimals, under "Puntaje del modelo: ordena la lista, no es una probabilidad"
+    (`frontend/src/lib/genes-api.ts`); the report says the same (`results-report.ts`). With v4 the reference case
+    shows 0.999; any change to that presentation is Mateo's call.
 
 ## Restrictions
 - Do not rebuild or edit the bundles or the knowledge. Use the published files with their sha256.
