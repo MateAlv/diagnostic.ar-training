@@ -5070,3 +5070,12 @@ this task, whatever the result**; the last read needs Mateo's OK.
   - At ≥ 0.99 the network's top gene is right 93.8% of the time (uncited 83.3%); at 0.80–0.95, 53.6% (38.0%).
   - Not a regression, but a limit: the validation is about the order, not the numbers. Added to HANDOFF-v4-prod
     "Limits" and RETRAINING-RECORD §5.
+## 2026-10-16: `model-v4.0.0` on staging
+- The deploy session reports that `model-v4.0.0` runs on staging since 2026-10-16 15:29, with `v0.10.0`. It was the first
+  release deployed by nodo0's automatic CD.
+  - The tag `v0.10.0` of MateAlv/diagnostic.ar is on `fe07f25`, "Run model-v4.0.0 on staging (#119)" (checked here).
+- `services/genphenai/check_deployed.py` against staging: all checks passed.
+  - The 32 fixture cases match, for the network and for the layer.
+  - Latency: p50 150 ms, p95 192 ms; a local container gave p95 21 ms.
+- `/healthz`: `model-v4.0.0`, sha256 `62b2c5e8…`; `v4-layer` loaded and on. The model's logs show no errors.
+- Production still runs v3.0 and was not touched. Its go is Mateo's, in the deploy session.
