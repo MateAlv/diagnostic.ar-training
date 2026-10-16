@@ -25,9 +25,13 @@
   - Production is unchanged.
 - **Integrated 2026-10-15:** [HANDOFF-v4-prod.md](HANDOFF-v4-prod.md) steps 2–6 are merged in diagnostic.ar-api
   (#19, main `9074e06`). This covers the pins, the layer, the sex/age/onset inputs, the 32-case fixture and
-  `check_deployed.py`. It is not on staging yet.
-- **Next:** staging takes it with the v0.10.0 release, after Mateo's go for nodo0 and the tag. The deploy session
-  then runs `check_deployed.py` against staging. Production needs Mateo's go in that session.
+  `check_deployed.py`.
+- **On staging since 2026-10-16 15:29** with `v0.10.0` of MateAlv/diagnostic.ar (tag on `fe07f25`, "Run
+  model-v4.0.0 on staging (#119)"). This was the first release deployed by nodo0's automatic CD.
+  - `check_deployed.py` against staging: all checks pass. The 32 fixture cases match for the network and the layer;
+    p50 150 ms, p95 192 ms.
+  - `/healthz` reports `model-v4.0.0` (`62b2c5e8…`) with the layer loaded and on.
+- **Next:** production (still v3.0, untouched) needs Mateo's go in the deploy session.
 - Audit: [P3-AUDIT-v1](analyses/P3-AUDIT-v1.md), on R1 train + dev only. E0 was trained only on simulated patients
   (HPO 2025-03-03, no off-profile noise) and selected on simulated data; on new patients with a known gene its MRR is
   about 0.13 to 0.42, not 0.6.
