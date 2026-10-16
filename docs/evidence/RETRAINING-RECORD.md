@@ -201,6 +201,9 @@ Folds 0–3, network out of fold, uncited capped Δ vs the network:
 - **Same curation:** the vault is curated like the training patients (phenopacket-store), which favours the network.
 - **Earlier reads of the vault patients:** Phases 1 and 2 scored them with other systems one to five times. The
   add-on's recipe (`ft-v1.1`) was confirmed on them in Phase 2. The network itself was never scored on them before.
+- **Probabilities:** the claims are about the order of the list. Like E0, the network's top-1 probability is
+  overconfident. When it is 80–95%, the top gene is right 54% of the time; at ≥ 99%, 94% of the time. E0's gap is
+  larger: ECE 0.226 against 0.184 (folds 0–3, out of fold; `results/P3/addon/calibration.json`, 2026-10-16).
 
 ## 6. Phase 4: the sex and age layer (ADR-0020, accepted 2026-10-15)
 Mateo (2026-10-15): "tiny gain is gold". Sex must be in the model deterministically, and age as far as it can be
