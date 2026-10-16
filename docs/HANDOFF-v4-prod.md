@@ -225,6 +225,10 @@ No rank changed, so there were no tie flips to report. The layer changes the out
   - top gene at ≥ 99%: right 94% of the time (uncited 83%);
   - E0 overstates more: ECE 0.226 against the network's 0.184 (uncited 0.309 against 0.277). ECE is the mean gap
     between the shown probability and how often it is right.
+  - The web app already presents it as a score, not a probability (deploy session, 2026-10-16). It shows "bajo"
+    below 0.01 and otherwise three decimals, under "Puntaje del modelo: ordena la lista, no es una probabilidad"
+    (`frontend/src/lib/genes-api.ts`); the report says the same (`results-report.ts`). With v4 the reference case
+    shows 0.999; any change to that presentation is Mateo's call.
 
 ## Restrictions
 - Do not rebuild or edit the bundles or the knowledge. Use the published files with their sha256.
