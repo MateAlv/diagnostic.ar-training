@@ -1,122 +1,28 @@
 # diagnostic.ar-training
 
-Training, re-ranking and evaluation for [diagnostic.ar](https://diagnosticar.infra.cluster.qb.fcen.uba.ar/).
-It extends the GenPhenia v3.0 gene-prioritisation GNN with three patient
-inputs it ignores today: **sex**, **age** and **negated symptoms** (for
-example "no tengo fiebre recurrente"). This is part of the Trabajo Profesional
-*Diagnóstico de Enfermedades Genéticas Poco Frecuentes mediante Deep Learning*
-(FIUBA).
+Acá reentrenamos y evaluamos el modelo de [diagnostic.ar](https://github.com/MateAlv/diagnosticar-plataforma), que ordena los genes según los síntomas del paciente. El objetivo fue que el modelo use tres datos que antes ignoraba: el sexo, la edad y los síntomas que el paciente no tiene.
 
-## Phase 2 result: a production-ready model that uses the new inputs (ADR-0018)
-- **`ft-v1.1-c1-lin-all-ens`:** GenPhenAI v3.0, frozen, plus a trained branch. It has 7 non-negative weights over sex,
-  onset, X-linked and absent-symptom knowledge features, fitted on 4,103 real patients
-  (`docs/evidence/figures/fig_f_ft_v11_architecture.png`).
-- **Confirmed on sealed real patients,** pre-registered and independently reviewed:
-  - EXP-P-005: Δ MRR **+0.00138 [+0.00070, +0.00232]** on 3,587 patients, 0.17% harmed.
-  - EXP-P-006: **+0.00054 [+0.00005, +0.00129]** on 1,072 patients from publications GenPhenAI never saw, 0.28%
-    harmed.
-- **The knowledge-only sex + onset rules** also passed the final check: +0.00029 [+0.00001, +0.00075].
-- **Integration into production is the next step,** through `diagnostic.ar-model`. Details: [docs/PHASE2.md](docs/PHASE2.md),
-  [ADR-0018](docs/decisions/0018-ft-v11-production-ready.md).
+Tiene los experimentos de las cuatro fases, el protocolo de evaluación con particiones selladas y la bitácora del trabajo. Las versiones que salieron de acá se publican en [diagnostic.ar-model](https://github.com/MateAlv/diagnostic.ar-model). Los resultados en detalle están en [docs/OVERVIEW.md](docs/OVERVIEW.md) y el mapa de la documentación en [docs/INDEX.md](docs/INDEX.md).
 
-## What was built (Phase 1)
-- **Question agent with Q2b selection** (`diagnosticar-question-agent`, `feat/agente-v2`): enriches each case with
-  follow-up questions and adds the confirmed and ruled-out findings of each round, which gives the model and the doctor's
-  summary a more precise phenotype. On the sealed simulated test (S3-v2-test, n = 9,565) Q2b added 1.04 confirmed
-  ("yes") and 7.87 ruled-out ("no") findings per case, 8.90 questions per case
-  (`results/EXP-B-004/sealed/s3-v2-test__Q2b-lam0.6__cfg-8ecd5b320f33__noise0.report.json`). Goes into production.
-- **"No"-answer re-ranker `rerank-v1.0.0`** (release channel: `diagnostic.ar-model`): uses the ruled-out findings to
-  reorder the GNN's genes. Stays in staging only (see Data limitations).
-- **Onset age** in the final output the doctor sees: a more precise clinical summary (age selector in Precisar,
-  MateAlv/diagnostic.ar PR #87; a web PR for the final output is in progress).
-- **A literature-enriched patient simulator** (`rare-disease-simulator` 0.5.4): 97 literature shards (build v2),
-  onset and presentation ages from the literature, PMID masking, pinned sources and manifests. The AI extraction
-  was checked: Codex cross-check 96.1% agreement (715 of 744 rows); audit row error 2.0% [1.25, 3.17] and recall 93.3%.
-- **An evaluation infrastructure**, an open problem the anteproyecto itself names: frozen publication-level splits
-  (`r1-v1`: train/dev/test/vault) with held-out PMID masking; pre-registration; a code-enforced sealed-read guard
-  and ledger; simulated-interview benchmarks (S3 v1, v2, v3b) with a knowledge split and source separation for age
-  and sex; every claim as a paired-bootstrap Δ vs E0 with a CI and the harmed share.
-- **A PyTorch reimplementation of the GNN** with parity tests against production.
+Es parte del Trabajo Profesional de Ingeniería en Informática (FIUBA) de Mateo Alvarez, Mariano Brizuela López, Gonzalo Bustamante y Lucía Lourengo Caridade.
 
-## What was measured
-| Result | Δ MRR [95% CI] | Split, n |
-|---|---|---|
-| Q2b over the baseline questioner Q0 (EXP-Q-001) | +0.0049 [+0.0027, +0.0069] | S3-v2-test (sealed, simulated), 9,565 |
-| "No"-answer re-ranker vs E0+answers (EXP-B-003) | +0.0044 [+0.0032, +0.0057] | S3-test (sealed, simulated), 9,990 |
-| Same re-ranker vs E0, pre-registered no-regression gate (EXP-B-003) | −0.0025 [−0.0070, +0.0013]; gate passed | R1-test (sealed, real), 2,548 |
-| Onset in the re-ranker, F + onset 0.25 vs F (EXP-B-005) | +0.0023 [+0.0013, +0.0034] | S3-v3b-test (sealed, simulated), 6,745 |
-| Onset candidate vs rr-v1, pre-registered no-regression gate (EXP-B-006) | −0.0003 [−0.0019, +0.0008]; gate passed | R1-test (sealed, real), 2,548 |
-| R1 vault, MRR (EXP-V-001, descriptive) | E0 0.4136; `rerank-v1.0.0` 0.4114 (−0.0022 [−0.0046, +0.0002]); `rerank-v1.1.0` 0.4106 (−0.0031 [−0.0055, −0.0005]) | R1 vault (real), 1,771 |
-| Sex and age in the re-ranker vs F (EXP-B-004, descriptive) | sex 0.5 +0.0003 [+0.0000, +0.0007]; age_mean 0.5 +0.0007 [−0.0001, +0.0014] | S3-v2-test (sealed, simulated), 9,565 |
-
-`rerank-v1.1.0` (onset) is built in `diagnostic.ar-model` and not tagged (ADR-0016).
-
-The simulator's realism was measured against a gate fixed in advance (ADR-0012): G2b on R1-dev 0.159 (UP 0.231,
-V03-full 0.095), with 3 of 3 R1-dev reads used; GNN retraining stopped at that gate. The retraining attempts
-(EXP-A-001, A-002f, A-003f) are documented, each with its R1-dev Δ vs E0 and CI in
-`docs/evidence/EVIDENCE_INDEX.md` section 3.
-
-## Context for the real-patient numbers
-- E0 (GenPhenAI v3.0) was trained upstream on annotations that derive in part from the same published case reports
-  R1 is built from, and could not be retrained or masked: E0 is favoured on R1.
-- R1's excluded terms are publication negatives, not interview "no" answers, so R1 does not measure the production
-  input; the interview path is measured on simulated interviews (S3), and there is no real-user measurement.
-
-## Data limitations
-We lack the data to test or simulate, correctly, whether these changes improve or reduce performance on real patients. This is why the re-ranking on missing symptoms (`rerank-v1.0.0`) stays in staging only (Q2b goes into production), and why the GNN retraining and `rerank-v1.1.0` were not deployed.
-- **Interview negations:** no real-patient dataset with interview yes/no answers exists. R1 has only negatives written in publications, a different input from the agent's "no" answers. The effect on real patients is estimated in simulation only (S3; EXP-B-003 +0.0044 [+0.0032, +0.0057], n = 9,990). `rerank-v1.0.0` stays in staging until real sessions (interview answers plus confirmed diagnoses) can be collected and evaluated.
-- **Training data:** no synthetic data was realistic enough to retrain the GNN on. The simulator's realism gate (ADR-0012) was measured: G2b 0.159 on R1-dev vs UP 0.231 and V03-full 0.095. Real patients are few and reserved for evaluation (R1 splits). Retraining with age, sex and negations could not be validated.
-- **Literature data:** literature onset ages cover part of the entities (S3 v2: 1,027 cases, 5.25%, with literature onset; S3 v3: 120 eligible genes), so the onset effect is simulated on that subset. Real-patient reads: EXP-B-006 vs rr-v1 -0.0003 [-0.0019, +0.0008] (n = 2,548); EXP-V-001 MRR v1.1 0.4106, v1.0 0.4114, E0 0.4136 (n = 1,771). `rerank-v1.1.0` was not released.
-- **E0 on R1:** E0's training annotations derive in part from the same publications as R1, so E0 is favoured there and real-patient comparisons against it are conservative.
-- **Future work:** collect consented real sessions on the platform to evaluate the points above.
-
-Final decisions: [ADR-0016](docs/decisions/0016-final-deployment-and-close-out.md).
-
-**Phase 2 (from 2026-10-07):** a restart on real patients toward a pre-registered gain from sex, age, onset and
-absent symptoms, with a final check on publications GenPhenAI never saw: [docs/PHASE2.md](docs/PHASE2.md),
-[ADR-0017](docs/decisions/0017-phase-2-real-patient-restart.md).
-
-**Start here:** [`docs/INDEX.md`](docs/INDEX.md).
-
-## Quickstart
+## Probarlo
 
 ```bash
-make setup          # Python 3.12 venv + package
-make sources        # fetch + sha256-verify every pinned input (data/sources.yaml)
-make check          # lint, tests, lineage verification
-.venv/bin/dxt --help
+make setup
+make lint test
 ```
 
-Simulator v0.4 inputs and its realism gate (see `docs/DATA_LINEAGE.md` §7):
+`make sources` baja cada fuente fijada en `data/sources.yaml` y verifica su sha256, salvo las que no se redistribuyen (ver abajo).
 
-```bash
-dxt knowledge recount --id hpoa-recount-v1          # also: cardinal, report-model, shrinkage-prior, panel
-dxt genes build --id genes-v2 --scheme v2 --hpoa-artifact hpoa-recount-v1
-dxt sim realism --dataset <export.jsonl.gz | artifact:<id> | source:<name>> --label <name> [--baseline | --sim-version <v>]
-dxt sim gate --candidate <label>                    # ADR-0012 G2 table vs UP and V03
-```
+## Datos
 
-## Layout
+Los pacientes reales son casos publicados de phenopacket-store (CC BY 4.0). También usa HPO, Orphanet, Mondo y Gene2Phenotype (CC BY 4.0), HGNC y ClinGen (CC0), ClinVar y MedlinePlus (dominio público), y los casos MCRD y DDD tal como los distribuye [GraPhens](https://github.com/gianluccacolangelo/GraPhens). La licencia de cada fuente está en `data/sources.yaml`.
 
-| Path | What |
-|---|---|
-| `data/sources.yaml` | Every external input: immutable URL, sha256, role |
-| `data/splits/` | Frozen, publication-grouped cohort splits (`r1-v1`) and held-out PMID lists |
-| `data/manifests/` | Lineage manifest per derived artifact |
-| `src/diagnostic_ar_training/lineage/` | Source registry and roles, manifests, sealed-split ledger |
-| `src/diagnostic_ar_training/cohorts/` | `Case` schema, phenopacket parser, benchmark loaders |
-| `src/diagnostic_ar_training/splits.py` | Split computation, freezing, sealed access |
-| `src/diagnostic_ar_training/eval/` | Metrics, paired bootstrap, contamination checks, simulated-data realism (`realism.py`, ADR-0012 G2) |
-| `src/diagnostic_ar_training/knowledge/` | Gene profiles, HPOA recount, cardinal features, reporting model (simulator v0.4 inputs, ADR-0011) |
-| `data/realism/`, `results/realism/` | Literature panel; realism reports, the G2 gate table and the R1-dev ledger |
-| `src/diagnostic_ar_training/rerank/` | Front B |
-| `src/diagnostic_ar_training/gnn/` | Front A: v3.0 in PyTorch (`GinV3`), graph batching, zero-initialised extension (ADR-0009), ONNX export |
-| `docs/` | Plan, log, protocol, lineage, decisions, experiments |
+Algunos datos son solo para uso no comercial: las tablas sacadas de GeneReviews y de papers con licencia no comercial, que citan su fuente en cada fila. Las copias completas de PanelApp y de GeneReviews y los abstracts de Europe PMC no se redistribuyen. Para reproducir esos pasos hay que bajarlos de su fuente original, y `data/sources.yaml` guarda el sha256 de cada copia.
 
-## Related repos
+Los pesos de GenPhenia v3.0 son de Gianlucca Colangelo y no se publican. Los tests que los necesitan se saltean.
 
-| Repo | Role |
-|---|---|
-| `rare-disease-simulator` | Synthetic patients for Front A |
-| `diagnostic.ar-model` | Release channel for bundles consumed by production |
-| `GenPhenAI/` (upstream) | **Read-only.** Never modified from here |
+## Licencia
+
+GPL-3.0 para el código. Las partes adaptadas de GraPhens (`src/diagnostic_ar_training/gnn/model.py` y `src/diagnostic_ar_training/systems/genphenia_v3.py`) siguen siendo de sus autores. Los datos siguen las licencias de sus fuentes.

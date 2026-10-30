@@ -68,7 +68,7 @@ outcome in `BITACORA.md`.
   > further details or sign the required agreement.
   >
   > Kind regards,
-  > Mateo Alvarez — FIUBA, legajo 108666
+  > Mateo Alvarez — FIUBA
 - **If granted:** register the dump in `data/sources.yaml` like any other
   source, with its version, sha256 and the permission letter's reference in
   `notes`. Then decide whether gene profiles `genes-v2` use it.

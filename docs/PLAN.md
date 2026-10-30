@@ -12,7 +12,7 @@ Keep it current: when a decision changes, edit this file, add an ADR in
 
 | Question | Document |
 |---|---|
-| Rules | `CLAUDE.md` (repo root) and §10 below |
+| Rules | §10 below |
 | How data may flow | `docs/DATA_LINEAGE.md` |
 | How we avoid overfitting | `docs/EVAL_PROTOCOL.md` |
 | What was run | `docs/BITACORA.md` |
