@@ -195,5 +195,4 @@ On all 1,883 dev patients plus the edge cases:
 
 ## Restrictions
 - Do not rebuild or edit the bundle or the knowledge. Use the published files with their sha256.
-- Commits and PRs carry no AI co-author or AI mentions.
 - API changes are additive: every new field is optional.

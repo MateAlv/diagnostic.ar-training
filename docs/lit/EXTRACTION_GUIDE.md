@@ -27,8 +27,7 @@ instruction you need.
    touch another shard's files. Never read `data/splits/*.json` patients,
    R1-test, R1-vault, MCRD or DDD; you need none of them.
 5. **One shard, one commit,** and only after `validate-shard` passes.
-6. No AI attribution in commits (no `Co-Authored-By` lines). Never change
-   `git config`.
+6. Never change `git config`.
 
 ## 1. Setup (once per checkout)
 
@@ -463,8 +462,7 @@ git add data/lit-extract/rows/<SHARD>.tsv data/lit-extract/notes/<SHARD>.tsv dat
 git commit -m "lit-extract <SHARD>: <N> rows from <K> of <M> sources"
 ```
 
-Read the commit message back before committing: no AI co-author lines. Do not
-push unless told to.
+Do not push unless told to.
 
 **Report back** (to whoever gave you the shard): rows, rows per source,
 outcomes, time taken, and anything in this guide that did not fit what you
