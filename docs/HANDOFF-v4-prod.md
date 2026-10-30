@@ -232,5 +232,4 @@ No rank changed, so there were no tie flips to report. The layer changes the out
 
 ## Restrictions
 - Do not rebuild or edit the bundles or the knowledge. Use the published files with their sha256.
-- Commits and PRs carry no AI co-author or AI mentions.
 - API changes are additive: every new field is optional.

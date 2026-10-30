@@ -174,7 +174,7 @@ We lack the data to test or simulate, correctly, whether these changes improve o
 - Informe: written by the students; this repo only supplies evidence.
 
 ## Invariants
-- Never touch `GenPhenAI/`. No AI attribution in commits or PRs.
+- Never touch `GenPhenAI/`.
 - Sealed data is read only under a committed pre-registration, from a clean
   tree, with a ledger row (`DXT_SEALED_READ`).
 - Commit before any run that writes a manifest; do not edit tracked files

@@ -584,7 +584,6 @@ for Front A. This is tested.
 
 **G11: git.**
 - One branch per task, and PRs.
-- No AI co-author trailers.
 - Never rewrite others' history.
 
 **G12: log everything.** A result that is not in `BITACORA.md` did not happen.
